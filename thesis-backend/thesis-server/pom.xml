@@ -9,12 +9,25 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>thesis-api</artifactId>
+  <artifactId>thesis-server</artifactId>
+
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <java.version>17</java.version>
+  </properties>
 
   <dependencies>
+    <!--thesis-backend dependecies -->
     <dependency>
       <groupId>pl.thesis</groupId>
-      <artifactId>thesis-security</artifactId>
+      <artifactId>thesis-api</artifactId>
+      <version>${thesis.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>pl.thesis</groupId>
+      <artifactId>thesis-data</artifactId>
       <version>${thesis.version}</version>
     </dependency>
     <dependency>
@@ -22,22 +35,21 @@
       <artifactId>thesis-domain</artifactId>
       <version>${thesis.version}</version>
     </dependency>
+    <dependency>
+      <groupId>pl.thesis</groupId>
+      <artifactId>thesis-security</artifactId>
+      <version>${thesis.version}</version>
+    </dependency>
 
-    <!-- Boot starters -->
+    <!-- for dev phase -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-web</artifactId>
+      <artifactId>spring-boot-devtools</artifactId>
+      <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-data-rest</artifactId>
-    </dependency>
-
-    <!-- Lombok -->
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <scope>provided</scope>
+      <artifactId>spring-boot-starter-actuator</artifactId>
     </dependency>
 
     <!-- Test dependencies -->
@@ -47,5 +59,14 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
 
 </project>
