@@ -1,0 +1,18 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /thesis
+
+spring:
+  application:
+    name: thesis
+  jpa:
+    database: POSTGRESQL
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/thesis
+    username: root
+    password: secret
