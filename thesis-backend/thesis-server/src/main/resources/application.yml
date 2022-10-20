@@ -10,9 +10,19 @@ spring:
     database: POSTGRESQL
     show-sql: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto:
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/thesis
     username: root
     password: secret
+
+springdoc:
+  api-docs:
+    path: /thesis-docs

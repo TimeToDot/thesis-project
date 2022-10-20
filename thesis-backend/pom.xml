@@ -16,12 +16,12 @@
   </parent>
 
   <version>1.0-SNAPSHOT</version>
-  <prsql.dc.version>42.5.0</prsql.dc.version>
 
   <properties>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
     <thesis.version>${project.version}</thesis.version>
+    <doc.version>1.6.11</doc.version>
   </properties>
 
   <modules>
@@ -40,6 +40,12 @@
         <groupId>org.postgresql</groupId>
         <artifactId>postgresql</artifactId>
         <version>${postgresql.version}</version>
+      </dependency>
+      <!-- swagger-->
+      <dependency>
+        <groupId>org.springdoc</groupId>
+        <artifactId>springdoc-openapi-ui</artifactId>
+        <version>1.6.11</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
