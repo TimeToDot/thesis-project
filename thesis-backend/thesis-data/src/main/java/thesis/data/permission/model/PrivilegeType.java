@@ -1,4 +1,4 @@
-package thesis.data.permission;
+package thesis.data.permission.model;
 
 public enum PrivilegeType {
   //modification

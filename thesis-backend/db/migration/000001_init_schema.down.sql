@@ -1,6 +1,7 @@
 DROP TABLE IF EXISTS task_details;
 DROP TABLE IF EXISTS task;
 DROP TABLE IF EXISTS task_type;
+DROP TABLE IF EXISTS project_details;
 DROP TABLE IF EXISTS project;
 DROP TABLE IF EXISTS account_roles;
 DROP TABLE IF EXISTS roles_privileges;

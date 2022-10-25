@@ -1,8 +1,8 @@
-package thesis.data.account.model;
+package thesis.data.role.model;
 
 import lombok.*;
 import org.hibernate.Hibernate;
-import thesis.data.role.model.Role;
+import thesis.data.permission.model.Privilege;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -12,21 +12,30 @@ import java.util.UUID;
 @ToString
 @RequiredArgsConstructor
 @Entity
-@Table(name = "account_role")
-public class AccountRole {
+@Table(name = "role_privilege")
+public class RolePrivilege {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private UUID id;
 
-  @ManyToOne
-  @JoinColumn(name = "account_id")
-  private Account account;
-
-
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "role_id")
+  @ToString.Exclude
   private Role role;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "privilege_id")
+  @ToString.Exclude
+  private Privilege privilege;
+
+  public void setPrivilege(Privilege privilege) {
+    this.privilege = privilege;
+  }
+
+  public void setRole(Role role) {
+    this.role = role;
+  }
 
   @Override
   public boolean equals(Object o) {
@@ -34,7 +43,7 @@ public class AccountRole {
       return true;
     if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o))
       return false;
-    AccountRole that = (AccountRole) o;
+    RolePrivilege that = (RolePrivilege) o;
     return id != null && Objects.equals(id, that.id);
   }
 

@@ -1,8 +1,10 @@
-package thesis.data.account.model;
+package thesis.data.project.model;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 import org.hibernate.Hibernate;
-import thesis.data.role.model.Role;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -12,21 +14,14 @@ import java.util.UUID;
 @ToString
 @RequiredArgsConstructor
 @Entity
-@Table(name = "account_role")
-public class AccountRole {
+@Table(name = "project_details")
+public class ProjectDetails {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private UUID id;
-
-  @ManyToOne
-  @JoinColumn(name = "account_id")
-  private Account account;
-
-
-  @ManyToOne
-  @JoinColumn(name = "role_id")
-  private Role role;
+  private String options;
+  private Long createdAt;
 
   @Override
   public boolean equals(Object o) {
@@ -34,7 +29,7 @@ public class AccountRole {
       return true;
     if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o))
       return false;
-    AccountRole that = (AccountRole) o;
+    ProjectDetails that = (ProjectDetails) o;
     return id != null && Objects.equals(id, that.id);
   }
 

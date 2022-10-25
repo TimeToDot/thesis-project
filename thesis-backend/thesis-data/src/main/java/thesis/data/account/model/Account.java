@@ -1,22 +1,29 @@
 package thesis.data.account.model;
 
-import lombok.Data;
-import thesis.data.role.Role;
+import lombok.*;
+import org.hibernate.Hibernate;
+import thesis.data.task.model.Task;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
+import java.util.Objects;
+import java.util.UUID;
 
-@Data
+@Getter
+@ToString
+@RequiredArgsConstructor
 @Entity
-@Table(name = "account", uniqueConstraints = {
-        @UniqueConstraint(columnNames = "login")
-        })
+@Table(
+  name = "account",
+  uniqueConstraints = {
+    @UniqueConstraint(columnNames = "login")
+    }
+  )
 public class Account {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  private UUID id;
 
   private String login;
 
@@ -26,6 +33,31 @@ public class Account {
   @Column(length = 20)
   private StatusType status;
 
-  @OneToMany(mappedBy = "account")
+  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @PrimaryKeyJoinColumn
+  @ToString.Exclude
+  private AccountDetails details;
+
+  @OneToMany(mappedBy = "account", fetch = FetchType.LAZY)
+  @ToString.Exclude
   private List<AccountRole> accountRoleList;
+
+  @OneToMany(fetch = FetchType.LAZY)
+  @ToString.Exclude
+  private List<Task> taskList;
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o)
+      return true;
+    if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o))
+      return false;
+    Account account = (Account) o;
+    return id != null && Objects.equals(id, account.id);
+  }
+
+  @Override
+  public int hashCode() {
+    return getClass().hashCode();
+  }
 }

@@ -1,4 +1,4 @@
-package thesis.data.role;
+package thesis.data.role.model;
 
 public enum RoleType {
   ROLE_USER,

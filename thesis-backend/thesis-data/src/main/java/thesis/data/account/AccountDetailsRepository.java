@@ -5,10 +5,9 @@ import org.springframework.stereotype.Repository;
 import thesis.data.account.model.AccountDetails;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
-public interface AccountDetailsRepository extends JpaRepository<AccountDetails, Long> {
-  Optional<AccountDetails> findByAccountId(Long id);
-
+public interface AccountDetailsRepository extends JpaRepository<AccountDetails, UUID> {
   Optional<AccountDetails> findByEmail(String email);
 }

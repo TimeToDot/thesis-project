@@ -22,6 +22,7 @@
     <maven.compiler.target>17</maven.compiler.target>
     <thesis.version>${project.version}</thesis.version>
     <doc.version>1.6.11</doc.version>
+    <mapstruct.version>1.5.3.Final</mapstruct.version>
   </properties>
 
   <modules>
@@ -31,8 +32,6 @@
     <module>thesis-security</module>
     <module>thesis-server</module>
   </modules>
-
-
 
   <dependencyManagement>
     <dependencies>
@@ -45,7 +44,13 @@
       <dependency>
         <groupId>org.springdoc</groupId>
         <artifactId>springdoc-openapi-ui</artifactId>
-        <version>1.6.11</version>
+        <version>${doc.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.mapstruct</groupId>
+        <artifactId>mapstruct</artifactId>
+        <version>${mapstruct.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
