@@ -6,10 +6,12 @@ import { TrackerComponent } from './tracker/tracker.component';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { NotFoundComponent } from './utils/not-found/not-found.component';
 import { LoginComponent } from './login/login.component';
+import { LayoutComponent } from './layout/layout.component';
 
 const appRoutes: Routes = [
   {
     path: '',
+    component: LayoutComponent,
     canActivate: [AuthGuard],
     children: [
       { path: 'dashboard', component: DashboardComponent },
