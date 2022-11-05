@@ -6,6 +6,7 @@
       <a mat-list-item [routerLink]="['/profile']"> Profile </a>
       <a mat-list-item [routerLink]="['/projects']"> Projects </a>
     </mat-nav-list>
+    <button (click)="logout()">Logout</button>
   </mat-drawer>
   <router-outlet></router-outlet>
 </mat-drawer-container>

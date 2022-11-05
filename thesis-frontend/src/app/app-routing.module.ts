@@ -7,6 +7,7 @@ import { AuthGuard } from './shared/guards/auth.guard';
 import { NotFoundComponent } from './utils/not-found/not-found.component';
 import { LoginComponent } from './login/login.component';
 import { LayoutComponent } from './layout/layout.component';
+import { LoginGuard } from './shared/guards/login.guard';
 
 const appRoutes: Routes = [
   {
@@ -20,7 +21,7 @@ const appRoutes: Routes = [
       { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
     ],
   },
-  { path: 'login', component: LoginComponent },
+  { path: 'login', component: LoginComponent, canActivate: [LoginGuard] },
   { path: '**', component: NotFoundComponent },
 ];
 
