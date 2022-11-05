@@ -3,14 +3,10 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'bvr-projects',
   templateUrl: './projects.component.html',
-  styles: [
-  ]
+  styles: [],
 })
 export class ProjectsComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }
