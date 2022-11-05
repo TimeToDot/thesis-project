@@ -11,7 +11,7 @@ import { PermissionsService } from '../../shared/services/permissions.service';
 @Injectable({
   providedIn: 'root',
 })
-export class CanAdminProjectsGuard implements CanActivate {
+export class CanAdminProjectGuard implements CanActivate {
   constructor(
     private permissionsService: PermissionsService,
     private router: Router

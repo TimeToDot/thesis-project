@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from '../layout/layout.component';
 import { AuthGuard } from '../shared/guards/auth.guard';
-import { CanAdminProjectsGuard } from './guards/can-admin-projects.guard';
+import { CanAdminProjectGuard } from './guards/can-admin-project.guard';
 import { CanManageApprovalsGuard } from './guards/can-manage-approvals.guard';
 import { CanManageProjectUsersGuard } from './guards/can-manage-project-users.guard';
 import { CanManageTasksGuard } from './guards/can-manage-tasks.guard';
@@ -52,7 +52,7 @@ const projectsRoutes: Routes = [
           {
             path: 'settings',
             component: ProjectSettingsComponent,
-            canActivate: [CanAdminProjectsGuard],
+            canActivate: [CanAdminProjectGuard],
           },
           {
             path: '',
