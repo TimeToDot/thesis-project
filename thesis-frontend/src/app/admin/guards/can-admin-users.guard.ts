@@ -6,7 +6,7 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { PermissionsService } from '../services/permissions.service';
+import { PermissionsService } from '../../shared/services/permissions.service';
 
 @Injectable({
   providedIn: 'root',

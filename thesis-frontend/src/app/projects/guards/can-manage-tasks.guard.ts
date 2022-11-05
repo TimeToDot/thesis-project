@@ -6,12 +6,12 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { PermissionsService } from '../services/permissions.service';
+import { PermissionsService } from '../../shared/services/permissions.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class CanReadProjectGuard implements CanActivate {
+export class CanManageTasksGuard implements CanActivate {
   constructor(
     private permissionsService: PermissionsService,
     private router: Router
@@ -27,7 +27,7 @@ export class CanReadProjectGuard implements CanActivate {
   }
 
   checkUserPermissions(url: string): true | UrlTree {
-    if (this.permissionsService.getUserPermissions().canReadProject) {
+    if (this.permissionsService.getUserPermissions().canManageTasks) {
       return true;
     }
 
