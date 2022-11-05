@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProjectsModule } from './projects/projects.module';
 import { LayoutModule } from './layout/layout.module';
+import { AdminModule } from './admin/admin.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -14,6 +15,7 @@ import { LayoutModule } from './layout/layout.module';
     BrowserAnimationsModule,
     LayoutModule,
 
+    AdminModule,
     ProjectsModule,
     AppRoutingModule,
   ],

@@ -3,7 +3,7 @@ export interface Permissions {
   canManageTasks: boolean;
   canManageProjectUsers: boolean;
   canManageApprovals: boolean;
-  canReadAdmin: boolean;
   canAdminProjects: boolean;
   canAdminUsers: boolean;
+  canAdminSettings: boolean;
 }

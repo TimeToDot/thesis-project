@@ -2,12 +2,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from '../layout/layout.component';
 import { AuthGuard } from '../shared/guards/auth.guard';
+import { CanAdminProjectsGuard } from './guards/can-admin-projects.guard';
 import { CanManageApprovalsGuard } from './guards/can-manage-approvals.guard';
 import { CanManageProjectUsersGuard } from './guards/can-manage-project-users.guard';
 import { CanManageTasksGuard } from './guards/can-manage-tasks.guard';
 import { CanReadProjectGuard } from './guards/can-read-project.guard';
 import { ProjectApprovalsComponent } from './project-approvals/project-approvals.component';
 import { ProjectDashboardComponent } from './project-dashboard/project-dashboard.component';
+import { ProjectSettingsComponent } from './project-settings/project-settings.component';
 import { ProjectTasksComponent } from './project-tasks/project-tasks.component';
 import { ProjectUsersComponent } from './project-users/project-users.component';
 import { ProjectComponent } from './project/project.component';
@@ -46,6 +48,11 @@ const projectsRoutes: Routes = [
             path: 'approvals',
             component: ProjectApprovalsComponent,
             canActivate: [CanManageApprovalsGuard],
+          },
+          {
+            path: 'settings',
+            component: ProjectSettingsComponent,
+            canActivate: [CanAdminProjectsGuard],
           },
           {
             path: '',

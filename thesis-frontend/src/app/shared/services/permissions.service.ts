@@ -6,13 +6,13 @@ import { Permissions } from '../model/permissions.model';
 })
 export class PermissionsService {
   private _permissions: Permissions = {
-    canReadProject: false,
+    canReadProject: true,
     canManageTasks: true,
     canManageProjectUsers: true,
     canManageApprovals: true,
-    canReadAdmin: true,
     canAdminProjects: true,
     canAdminUsers: true,
+    canAdminSettings: true,
   };
 
   constructor() {}

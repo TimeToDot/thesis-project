@@ -6,12 +6,13 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
+import { Observable } from 'rxjs';
 import { PermissionsService } from '../../shared/services/permissions.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class CanReadAdminGuard implements CanActivate {
+export class CanAdminSettingsGuard implements CanActivate {
   constructor(
     private permissionsService: PermissionsService,
     private router: Router
@@ -27,7 +28,7 @@ export class CanReadAdminGuard implements CanActivate {
   }
 
   checkUserPermissions(url: string): true | UrlTree {
-    if (this.permissionsService.getUserPermissions().canReadAdmin) {
+    if (this.permissionsService.getUserPermissions().canAdminSettings) {
       return true;
     }
 

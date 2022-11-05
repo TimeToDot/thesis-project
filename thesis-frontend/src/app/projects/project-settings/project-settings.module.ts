@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AdminProjectsComponent } from './admin-projects.component';
+import { ProjectSettingsComponent } from './project-settings.component';
 
 
 
 @NgModule({
   declarations: [
-    AdminProjectsComponent
+    ProjectSettingsComponent
   ],
   imports: [
     CommonModule
   ]
 })
-export class AdminProjectsModule { }
+export class ProjectSettingsModule { }
