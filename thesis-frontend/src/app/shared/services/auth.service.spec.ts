@@ -27,9 +27,15 @@ describe('AuthService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should set isLoggedIn', () => {
+  it('should not set isLoggedIn', () => {
     service.readFromLocalStorage();
-    expect(service.isLoggedIn).toBeDefined();
+    expect(service.isLoggedIn).toBeFalse();
+  });
+
+  it('should set isLoggedIn', () => {
+    localStorage.setItem('user', 'true');
+    service.readFromLocalStorage();
+    expect(service.isLoggedIn).toBeTrue();
   });
 
   it('should log in', () => {
