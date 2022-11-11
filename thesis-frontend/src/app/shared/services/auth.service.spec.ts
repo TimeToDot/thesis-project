@@ -8,9 +8,40 @@ describe('AuthService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({});
     service = TestBed.inject(AuthService);
+
+    let store: { [key: string]: any } = {};
+    const mockLocalStorage = {
+      getItem: (key: string): string => {
+        return key in store ? store[key] : null;
+      },
+      setItem: (key: string, value: string) => {
+        store[key] = `${value}`;
+      },
+    };
+
+    spyOn(localStorage, 'getItem').and.callFake(mockLocalStorage.getItem);
+    spyOn(localStorage, 'setItem').and.callFake(mockLocalStorage.setItem);
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
+  });
+
+  it('should set isLoggedIn', () => {
+    service.readFromLocalStorage();
+    expect(service.isLoggedIn).toBeDefined();
+  });
+
+  it('should log in', () => {
+    service.login().subscribe(() => {
+      expect(service.isLoggedIn).toBeTrue();
+      expect(localStorage.getItem('user')).toBe('true');
+    });
+  });
+
+  it('should log out', () => {
+    service.logout();
+    expect(service.isLoggedIn).toBeFalse();
+    expect(localStorage.getItem('user')).toBe('false');
   });
 });
