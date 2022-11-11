@@ -6,10 +6,12 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { LayoutComponent } from './layout.component';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [LayoutComponent, SidenavComponent],
   imports: [
+    BrowserAnimationsModule,
     CommonModule,
     MatButtonModule,
     MatListModule,
