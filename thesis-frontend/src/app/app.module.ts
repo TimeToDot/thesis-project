@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProjectsModule } from './projects/projects.module';
 import { LayoutModule } from './layout/layout.module';
 import { AdminModule } from './admin/admin.module';
+import { LoginModule } from './login/login.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -14,6 +15,7 @@ import { AdminModule } from './admin/admin.module';
     BrowserModule,
     BrowserAnimationsModule,
     LayoutModule,
+    LoginModule,
 
     AdminModule,
     ProjectsModule,

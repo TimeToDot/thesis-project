@@ -1,9 +1,7 @@
+import { ProjectPermissions } from './project-permissions.model';
+
 export interface Permissions {
-  canReadProject: boolean;
-  canManageTasks: boolean;
-  canManageProjectUsers: boolean;
-  canManageApprovals: boolean;
-  canAdminProjects: boolean;
+  projects: ProjectPermissions[];
   canAdminUsers: boolean;
   canAdminSettings: boolean;
 }

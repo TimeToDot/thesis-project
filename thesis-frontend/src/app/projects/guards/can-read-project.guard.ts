@@ -12,6 +12,8 @@ import { PermissionsService } from '../../shared/services/permissions.service';
   providedIn: 'root',
 })
 export class CanReadProjectGuard implements CanActivate {
+  private projectIdPosition: number = 2;
+
   constructor(
     private permissionsService: PermissionsService,
     private router: Router
@@ -27,7 +29,10 @@ export class CanReadProjectGuard implements CanActivate {
   }
 
   checkUserPermissions(url: string): true | UrlTree {
-    if (this.permissionsService.getUserPermissions().canReadProject) {
+    const projectId = url.split('/')[this.projectIdPosition];
+    const permissions =
+      this.permissionsService.getProjectPermissions(projectId);
+    if (permissions && permissions.canReadProject) {
       return true;
     }
 
