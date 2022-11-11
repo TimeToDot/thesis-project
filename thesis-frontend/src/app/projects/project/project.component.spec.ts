@@ -40,7 +40,7 @@ describe('ProjectComponent', () => {
 
   it('should get navbar options', () => {
     const mockPermissionsService = {
-      getProjectPermissions: (index: string | null) => {
+      getProjectPermissions: (index: string | null): ProjectPermissions => {
         return {
           id: '1',
           canReadProject: true,

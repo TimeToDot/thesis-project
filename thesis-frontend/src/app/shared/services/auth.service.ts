@@ -5,11 +5,16 @@ import { Observable, of, tap } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-  isLoggedIn: boolean = false;
+  private isLoggedIn: boolean = false;
+
   redirectUrl: string | null = null;
 
   constructor() {
     this.readFromLocalStorage();
+  }
+
+  getLoggedInStatus(): boolean {
+    return this.isLoggedIn;
   }
 
   readFromLocalStorage(): void {
