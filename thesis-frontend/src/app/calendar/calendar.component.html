@@ -1,4 +1,9 @@
 <div class="calendar">
+    <div class="calendar-header">
+        <button mat-button (click)="previousMonth()">Previous</button>
+        <div>{{currentMonth}}</div>
+        <button mat-button (click)="nextMonth()">Next</button>
+    </div>
     <div *ngFor="let week of monthGrid" class="week">
         <div *ngFor="let day of week" class="day">
             {{day}}

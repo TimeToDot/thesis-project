@@ -6,36 +6,59 @@ import * as dayjs from 'dayjs';
   templateUrl: './calendar.component.html',
 })
 export class CalendarComponent implements OnInit {
+  currentMonth!: number;
   monthEndDay!: number;
-  monthEndWeekday!: number;
-  monthStartDay!: number;
-  monthStartWeekday!: number;
-
   monthGrid: string[][] = [];
+  monthStartDay!: number;
 
   constructor() {}
 
   ngOnInit(): void {
-    this.monthEndDay = dayjs().endOf('M').date();
-    this.monthEndWeekday = dayjs().endOf('M').day();
-    this.monthStartDay = dayjs().startOf('M').date();
-    this.monthStartWeekday = dayjs().startOf('M').day();
-    while (this.monthStartWeekday !== 0) {
-      --this.monthStartDay;
-      --this.monthStartWeekday;
-    }
-    while (this.monthEndWeekday !== 6) {
-      ++this.monthEndDay;
-      ++this.monthEndWeekday;
-    }
+    this.currentMonth = dayjs().month();
+    this.generateGrid();
+  }
 
+  generateGrid(): void {
+    this.getGridStartDay();
+    this.getGridEndDay();
+    this.getMonthGrid();
+  }
+
+  getGridStartDay(): void {
+    const monthStartWeekday = dayjs()
+      .month(this.currentMonth)
+      .startOf('M')
+      .day();
+    this.monthStartDay =
+      dayjs().month(this.currentMonth).startOf('M').date() - monthStartWeekday;
+  }
+
+  getGridEndDay(): void {
+    const monthEndWeekday = dayjs().month(this.currentMonth).endOf('M').day();
+    this.monthEndDay =
+      dayjs().month(this.currentMonth).endOf('M').date() + 6 - monthEndWeekday;
+  }
+
+  getMonthGrid(): void {
+    this.monthGrid = [];
     for (let i = this.monthStartDay; i < this.monthEndDay; ) {
       let week = [] as string[];
       for (let j = 0; j < 7; ++i, ++j) {
-        week.push(dayjs().date(i).format('DD/MM/YYYY'));
+        week.push(
+          dayjs().month(this.currentMonth).date(i).format('DD/MM/YYYY')
+        );
       }
       this.monthGrid.push(week);
     }
-    console.log(this.monthGrid);
+  }
+
+  previousMonth(): void {
+    --this.currentMonth;
+    this.generateGrid();
+  }
+
+  nextMonth(): void {
+    ++this.currentMonth;
+    this.generateGrid();
   }
 }
