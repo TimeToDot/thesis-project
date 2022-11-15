@@ -8,6 +8,13 @@
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  height: 10rem;
+}
+
+.week-days {
+  display: flex;
+  align-items: center;
+  height: 3rem;
 }
 
 .week {

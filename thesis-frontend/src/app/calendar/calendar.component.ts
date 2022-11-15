@@ -7,6 +7,8 @@ import * as dayjs from 'dayjs';
 })
 export class CalendarComponent implements OnInit {
   currentMonth!: number;
+  currentYear!: number;
+  days: string[] = [];
   monthEndDay!: number;
   monthGrid: string[][] = [];
   monthStartDay!: number;
@@ -15,7 +17,21 @@ export class CalendarComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentMonth = dayjs().month();
+    this.currentYear = dayjs().month(this.currentMonth).year();
+    this.initDaysOfWeek();
     this.generateGrid();
+  }
+
+  initDaysOfWeek(): void {
+    this.days = [
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+      'Sunday',
+      'Monday',
+    ];
   }
 
   generateGrid(): void {
@@ -54,11 +70,13 @@ export class CalendarComponent implements OnInit {
 
   previousMonth(): void {
     --this.currentMonth;
+    this.currentYear = dayjs().month(this.currentMonth).year();
     this.generateGrid();
   }
 
   nextMonth(): void {
     ++this.currentMonth;
+    this.currentYear = dayjs().month(this.currentMonth).year();
     this.generateGrid();
   }
 }
