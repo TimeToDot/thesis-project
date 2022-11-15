@@ -7,6 +7,6 @@ import { MonthPipe } from './pipes/month.pipe';
 @NgModule({
   declarations: [CalendarComponent, MonthPipe],
   imports: [MatButtonModule, CommonModule],
-  exports: [CalendarComponent],
+  exports: [CalendarComponent, MonthPipe],
 })
 export class CalendarModule {}
