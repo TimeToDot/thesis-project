@@ -8,14 +8,18 @@ import { ProjectsModule } from './projects/projects.module';
 import { LayoutModule } from './layout/layout.module';
 import { AdminModule } from './admin/admin.module';
 import { LoginModule } from './login/login.module';
+import { CalendarModule } from './calendar/calendar.module';
+import { TrackerModule } from './tracker/tracker.module';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    CalendarModule,
     LayoutModule,
     LoginModule,
+    TrackerModule,
 
     AdminModule,
     ProjectsModule,
