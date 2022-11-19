@@ -1,12 +1,11 @@
-<div>
-  <div class="sidenav">
-    <nav>
-      <a *ngFor="let option of navMenuOptions" mat-list-item [routerLink]="[option.path]"> {{option.name}} </a>
-    </nav>
-    <div>
-      <a mat-button color="primary" [routerLink]="['/profile']"> Profile </a>
-      <button mat-button (click)="logout()">Logout</button>
-    </div>
+<div class="sidenav">
+  <nav class="sidenav-menu">
+    <a *ngFor="let option of navMenuOptions" class="option" [routerLink]="[option.path]">
+      <span>{{option.name}}</span>
+    </a>
+  </nav>
+  <div>
+    <a color="primary" [routerLink]="['/profile']"> Profile </a>
+    <button (click)="logout()">Logout</button>
   </div>
-  <router-outlet></router-outlet>
 </div>
