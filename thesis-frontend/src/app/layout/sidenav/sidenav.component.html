@@ -1,12 +1,12 @@
-<mat-drawer-container autosize class="layout">
-  <mat-drawer class="sidenav" mode="side" [opened]="true">
-    <mat-nav-list>
+<div>
+  <div class="sidenav">
+    <nav>
       <a *ngFor="let option of navMenuOptions" mat-list-item [routerLink]="[option.path]"> {{option.name}} </a>
-    </mat-nav-list>
+    </nav>
     <div>
       <a mat-button color="primary" [routerLink]="['/profile']"> Profile </a>
       <button mat-button (click)="logout()">Logout</button>
     </div>
-  </mat-drawer>
+  </div>
   <router-outlet></router-outlet>
-</mat-drawer-container>
+</div>

@@ -1,8 +1,8 @@
 <div class="calendar">
     <div class="calendar-header">
-        <button mat-button (click)="previousMonth()">Previous</button>
+        <button (click)="previousMonth()">Previous</button>
         <div>{{currentMonth | month}} {{currentYear}}</div>
-        <button mat-button (click)="nextMonth()">Next</button>
+        <button (click)="nextMonth()">Next</button>
     </div>
     <div class="week-days">
         <div *ngFor="let dayOfWeek of days" class="day">

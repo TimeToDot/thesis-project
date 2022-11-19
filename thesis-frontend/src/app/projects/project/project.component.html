@@ -1,7 +1,5 @@
-<nav mat-tab-nav-bar [tabPanel]="tabPanel">
-    <a mat-tab-link *ngFor="let option of navbarOptions" [routerLink]="[option.path]"> {{option.name}} </a>
-</nav>
-<mat-tab-nav-panel #tabPanel>
+<nav></nav>
+<div>
     <router-outlet></router-outlet>
-</mat-tab-nav-panel>
+</div>
 <p>project works!</p>
