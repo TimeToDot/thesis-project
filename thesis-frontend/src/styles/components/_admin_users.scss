@@ -1,3 +1,27 @@
+.admin-users {
+  padding: 4rem;
+}
+
+.users-search-bar {
+  align-items: center;
+  display: flex;
+  position: relative;
+  width: 100%;
+
+  .mat-icon {
+    position: absolute;
+    top: 0.57142em;
+  }
+
+  .mat-form-field {
+    width: 100%;
+  }
+
+  .mat-form-field-flex {
+    padding-left: 2rem;
+  }
+}
+
 .users-table {
   width: 100%;
 }

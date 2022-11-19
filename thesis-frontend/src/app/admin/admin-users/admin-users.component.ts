@@ -27,6 +27,7 @@ export class AdminUsersComponent implements OnInit {
     'employment_date',
     'actions',
   ];
+  query: string = '';
 
   constructor() {}
 
