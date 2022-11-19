@@ -1,0 +1,15 @@
+.button {
+  border: none;
+  border-radius: 2 * $grid-base;
+  cursor: pointer;
+  padding: 2 * $grid-base 4 * $grid-base;
+  transition: 0.5s;
+
+  &:hover {
+    filter: brightness(0.85);
+  }
+}
+
+.button-primary {
+  background-color: $color-primary;
+}

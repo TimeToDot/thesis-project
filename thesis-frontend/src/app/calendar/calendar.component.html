@@ -1,8 +1,8 @@
 <div class="calendar">
     <div class="calendar-header">
-        <button (click)="previousMonth()">Previous</button>
+        <bvr-button label="Previous" (onClick)="previousMonth()"></bvr-button>
         <div>{{currentMonth | month}} {{currentYear}}</div>
-        <button (click)="nextMonth()">Next</button>
+        <bvr-button label="Next" (onClick)="nextMonth()"></bvr-button>
     </div>
     <div class="week-days">
         <div *ngFor="let dayOfWeek of days" class="day">
