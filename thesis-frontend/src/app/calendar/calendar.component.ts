@@ -24,13 +24,13 @@ export class CalendarComponent implements OnInit {
 
   initDaysOfWeek(): void {
     this.days = [
+      'Sunday',
+      'Monday',
       'Tuesday',
       'Wednesday',
       'Thursday',
       'Friday',
       'Saturday',
-      'Sunday',
-      'Monday',
     ];
   }
 
