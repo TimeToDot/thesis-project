@@ -8,6 +8,10 @@
   &:hover {
     filter: brightness(0.85);
   }
+
+  > span {
+    font-size: $font-large;
+  }
 }
 
 .button-primary {

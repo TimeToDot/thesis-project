@@ -4,8 +4,8 @@
       <span>{{option.name}}</span>
     </a>
   </nav>
-  <div>
-    <a color="primary" [routerLink]="['/profile']"> Profile </a>
+  <div class="sidenav-footer">
+    <bvr-button label="Profile" [routerLink]="['/profile']"></bvr-button>
     <bvr-button label="Logout" (onClick)="logout()"></bvr-button>
   </div>
 </div>
