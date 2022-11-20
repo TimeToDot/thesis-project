@@ -1,9 +1,14 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import * as dayjs from 'dayjs';
+import { ButtonComponent } from '../shared/components/button/button.component';
+import { MonthPipe } from './pipes/month.pipe';
 
 @Component({
   selector: 'bvr-calendar',
   templateUrl: './calendar.component.html',
+  standalone: true,
+  imports: [ButtonComponent, CommonModule, MonthPipe],
 })
 export class CalendarComponent implements OnInit {
   currentMonth!: number;

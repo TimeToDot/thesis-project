@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
+import { TabsComponent } from '../../shared/components/tabs/tabs.component';
 import { LinkOption } from '../../shared/model/link-option.model';
 import { ProjectPermissions } from '../../shared/model/project-permissions.model';
 import { PermissionsService } from '../../shared/services/permissions.service';
@@ -7,7 +8,8 @@ import { PermissionsService } from '../../shared/services/permissions.service';
 @Component({
   selector: 'bvr-project',
   templateUrl: './project.component.html',
-  styles: [],
+  standalone: true,
+  imports: [RouterModule, TabsComponent],
 })
 export class ProjectComponent implements OnInit {
   private projectId: string | null = null;

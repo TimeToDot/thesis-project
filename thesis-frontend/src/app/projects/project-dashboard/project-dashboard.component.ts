@@ -3,14 +3,10 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'bvr-project-dashboard',
   templateUrl: './project-dashboard.component.html',
-  styles: [
-  ]
+  standalone: true,
 })
 export class ProjectDashboardComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

@@ -2,6 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
   name: 'month',
+  standalone: true,
 })
 export class MonthPipe implements PipeTransform {
   private months: string[] = [

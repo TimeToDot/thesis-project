@@ -1,10 +1,15 @@
+import { CdkTableModule } from '@angular/cdk/table';
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { User } from './model/user';
+import { FormsModule } from '@angular/forms';
+import { ButtonComponent } from '../../shared/components/button/button.component';
+import { User } from '../model/user';
 
 @Component({
   selector: 'bvr-admin-users',
   templateUrl: './admin-users.component.html',
-  styles: [],
+  standalone: true,
+  imports: [ButtonComponent, CdkTableModule, CommonModule, FormsModule],
 })
 export class AdminUsersComponent implements OnInit {
   dataSource: User[] = [

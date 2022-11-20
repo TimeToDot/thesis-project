@@ -4,7 +4,6 @@ import { ProjectPermissions } from '../../shared/model/project-permissions.model
 import { PermissionsService } from '../../shared/services/permissions.service';
 
 import { ProjectComponent } from './project.component';
-import { ProjectModule } from './project.module';
 
 describe('ProjectComponent', () => {
   let component: ProjectComponent;
@@ -13,8 +12,7 @@ describe('ProjectComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ProjectComponent],
-      imports: [ProjectModule, RouterTestingModule],
+      imports: [ProjectComponent, RouterTestingModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ProjectComponent);
