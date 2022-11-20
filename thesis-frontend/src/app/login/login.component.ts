@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ButtonComponent } from '../shared/components/button/button.component';
 import { AuthService } from '../shared/services/auth.service';
@@ -8,10 +9,19 @@ import { AuthService } from '../shared/services/auth.service';
   selector: 'bvr-login',
   templateUrl: './login.component.html',
   standalone: true,
-  imports: [ButtonComponent, CommonModule],
+  imports: [ButtonComponent, CommonModule, ReactiveFormsModule],
 })
 export class LoginComponent implements OnInit {
-  constructor(private authService: AuthService, private router: Router) {}
+  loginForm = this.fb.group({
+    email: [''],
+    password: [''],
+  });
+
+  constructor(
+    private authService: AuthService,
+    private fb: FormBuilder,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {}
 

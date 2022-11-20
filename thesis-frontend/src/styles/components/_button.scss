@@ -5,16 +5,27 @@
   cursor: pointer;
   display: inline-flex;
   justify-content: space-between;
-  padding: 2 * $grid-base 4 * $grid-base;
+  padding: 2 * $grid-base;
   transition: 0.5s;
 
   &:hover {
     filter: brightness(0.85);
   }
 
+  .material-icons {
+    font-size: $font-large;
+  }
+
+  .button-icon-left {
+    padding-right: $grid-base;
+  }
+
+  .button-icon-right {
+    padding-left: $grid-base;
+  }
+
   .button-label {
     font-size: $font-large;
-    padding-left: 2 * $grid-base;
   }
 }
 

@@ -9,6 +9,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class ButtonComponent {
   @Input() icon: string = '';
+  @Input() iconPos: string = 'left';
   @Input() label: string = '';
   @Input() styleClass: string = '';
 
