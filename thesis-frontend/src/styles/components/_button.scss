@@ -1,0 +1,28 @@
+.button {
+  align-items: center;
+  border: none;
+  border-radius: 2 * $grid-base;
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: space-between;
+  padding: 2 * $grid-base 4 * $grid-base;
+  transition: 0.5s;
+
+  &:hover {
+    filter: brightness(0.85);
+  }
+
+  .button-label {
+    font-size: $font-large;
+    padding-left: 2 * $grid-base;
+  }
+}
+
+.button-rounded {
+  border-radius: 8 * $grid-base;
+  padding: 2 * $grid-base;
+}
+
+.button-primary {
+  background-color: $color-primary;
+}

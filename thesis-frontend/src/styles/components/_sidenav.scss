@@ -1,11 +1,28 @@
-.layout {
+.sidenav {
+  border-right: 0.25 * $grid-base $color-secondary solid;
+  display: flex;
+  flex-direction: column;
   height: 100%;
+  justify-content: space-between;
+  width: 50 * $grid-base;
 }
 
-.sidenav {
-  .mat-drawer-inner-container {
+.sidenav-menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .option {
+    align-items: center;
+    color: $color-secondary;
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    height: 12 * $grid-base;
+    padding-left: 4 * $grid-base;
+    text-decoration: none;
   }
+}
+
+.sidenav-footer {
+  display: flex;
+  justify-content: space-between;
 }
