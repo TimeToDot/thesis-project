@@ -3,14 +3,10 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'bvr-profile',
   templateUrl: './profile.component.html',
-  styles: [
-  ]
+  standalone: true,
 })
 export class ProfileComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }
