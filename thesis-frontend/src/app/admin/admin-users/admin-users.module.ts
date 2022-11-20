@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminUsersComponent } from './admin-users.component';
 import { FormsModule } from '@angular/forms';
-import { SharedModule } from '../../shared/shared.module';
 import { CdkTableModule } from '@angular/cdk/table';
+import { ButtonComponent } from '../../shared/components/button/button.component';
 
 @NgModule({
   declarations: [AdminUsersComponent],
-  imports: [CdkTableModule, CommonModule, FormsModule, SharedModule],
+  imports: [ButtonComponent, CdkTableModule, CommonModule, FormsModule],
 })
 export class AdminUsersModule {}

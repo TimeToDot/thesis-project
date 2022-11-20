@@ -1,4 +1,7 @@
+import { CdkTableModule } from '@angular/cdk/table';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { ButtonComponent } from '../../shared/components/button/button.component';
 
 import { AdminUsersComponent } from './admin-users.component';
 
@@ -8,9 +11,9 @@ describe('AdminUsersComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AdminUsersComponent ]
-    })
-    .compileComponents();
+      declarations: [AdminUsersComponent],
+      imports: [ButtonComponent, CdkTableModule, FormsModule],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(AdminUsersComponent);
     component = fixture.componentInstance;

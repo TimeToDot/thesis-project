@@ -4,11 +4,16 @@ import { RouterModule } from '@angular/router';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { LayoutComponent } from './layout.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SharedModule } from '../shared/shared.module';
+import { ButtonComponent } from '../shared/components/button/button.component';
 
 @NgModule({
   declarations: [LayoutComponent, SidenavComponent],
-  imports: [BrowserAnimationsModule, CommonModule, RouterModule, SharedModule],
+  imports: [
+    BrowserAnimationsModule,
+    ButtonComponent,
+    CommonModule,
+    RouterModule,
+  ],
   exports: [LayoutComponent, SidenavComponent],
 })
 export class LayoutModule {}
