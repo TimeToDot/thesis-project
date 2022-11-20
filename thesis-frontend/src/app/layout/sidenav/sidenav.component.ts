@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { PermissionsService } from '../../shared/services/permissions.service';
 import { LinkOption } from '../../shared/model/link-option.model';
 import { AuthService } from '../../shared/services/auth.service';
+import { ButtonComponent } from '../../shared/components/button/button.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'bvr-sidenav',
   templateUrl: './sidenav.component.html',
-  styles: [],
+  standalone: true,
+  imports: [ButtonComponent, CommonModule, RouterModule],
 })
 export class SidenavComponent implements OnInit {
   navMenuOptions: LinkOption[] = [];

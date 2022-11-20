@@ -3,14 +3,10 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'bvr-project-approvals',
   templateUrl: './project-approvals.component.html',
-  styles: [
-  ]
+  standalone: true,
 })
 export class ProjectApprovalsComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

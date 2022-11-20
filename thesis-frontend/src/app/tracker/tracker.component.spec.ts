@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { CalendarModule } from '../calendar/calendar.module';
+import { CalendarComponent } from '../calendar/calendar.component';
 
 import { TrackerComponent } from './tracker.component';
 
@@ -9,8 +9,7 @@ describe('TrackerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [TrackerComponent],
-      imports: [CalendarModule],
+      imports: [CalendarComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(TrackerComponent);
