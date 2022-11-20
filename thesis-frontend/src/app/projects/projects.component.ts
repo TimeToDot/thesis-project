@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ButtonComponent } from '../shared/components/button/button.component';
@@ -6,7 +7,7 @@ import { ButtonComponent } from '../shared/components/button/button.component';
   selector: 'bvr-projects',
   templateUrl: './projects.component.html',
   standalone: true,
-  imports: [ButtonComponent, RouterModule],
+  imports: [ButtonComponent, CommonModule, RouterModule],
 })
 export class ProjectsComponent implements OnInit {
   constructor() {}

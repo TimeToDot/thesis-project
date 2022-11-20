@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ButtonComponent } from '../shared/components/button/button.component';
@@ -7,7 +8,7 @@ import { AuthService } from '../shared/services/auth.service';
   selector: 'bvr-login',
   templateUrl: './login.component.html',
   standalone: true,
-  imports: [ButtonComponent],
+  imports: [ButtonComponent, CommonModule],
 })
 export class LoginComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) {}

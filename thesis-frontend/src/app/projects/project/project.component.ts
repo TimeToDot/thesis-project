@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TabsComponent } from '../../shared/components/tabs/tabs.component';
@@ -9,7 +10,7 @@ import { PermissionsService } from '../../shared/services/permissions.service';
   selector: 'bvr-project',
   templateUrl: './project.component.html',
   standalone: true,
-  imports: [RouterModule, TabsComponent],
+  imports: [CommonModule, RouterModule, TabsComponent],
 })
 export class ProjectComponent implements OnInit {
   private projectId: string | null = null;

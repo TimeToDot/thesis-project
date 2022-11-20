@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { CalendarComponent } from '../calendar/calendar.component';
 
@@ -5,7 +6,7 @@ import { CalendarComponent } from '../calendar/calendar.component';
   selector: 'bvr-tracker',
   templateUrl: './tracker.component.html',
   standalone: true,
-  imports: [CalendarComponent],
+  imports: [CalendarComponent, CommonModule],
 })
 export class TrackerComponent implements OnInit {
   constructor() {}
