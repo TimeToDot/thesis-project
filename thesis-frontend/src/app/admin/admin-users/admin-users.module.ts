@@ -3,9 +3,10 @@ import { CommonModule } from '@angular/common';
 import { AdminUsersComponent } from './admin-users.component';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
+import { CdkTableModule } from '@angular/cdk/table';
 
 @NgModule({
   declarations: [AdminUsersComponent],
-  imports: [CommonModule, FormsModule, SharedModule],
+  imports: [CdkTableModule, CommonModule, FormsModule, SharedModule],
 })
 export class AdminUsersModule {}

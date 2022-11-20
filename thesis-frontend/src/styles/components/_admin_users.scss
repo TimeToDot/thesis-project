@@ -1,20 +1,31 @@
 .admin-users {
-  padding: 4rem;
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+  padding: 16 * $grid-base;
+}
+
+.add-new-user {
+  float: right;
 }
 
 .users-search-bar {
   align-items: center;
   display: flex;
+  margin: 4 * $grid-base 0;
   position: relative;
   width: 100%;
 
-  .mat-icon {
-    position: absolute;
-    top: 0.57142em;
+  .search-input {
+    border: 0.25 * $grid-base $color-secondary solid;
+    border-radius: 2 * $grid-base;
+    padding: 2 * $grid-base 0 2 * $grid-base 10 * $grid-base;
+    width: 100%;
   }
 
-  .mat-form-field {
-    width: 100%;
+  .search-icon {
+    padding-left: 3 * $grid-base;
+    position: absolute;
   }
 
   .mat-form-field-flex {
@@ -24,4 +35,8 @@
 
 .users-table {
   width: 100%;
+
+  .cdk-header-cell {
+    text-align: left;
+  }
 }

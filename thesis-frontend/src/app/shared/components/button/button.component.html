@@ -1,3 +1,4 @@
 <button class="button" [class]="styleClass" (click)="onClick.emit($event)">
-    <span *ngIf="label">{{label}}</span>
+    <span *ngIf="icon" class="material-icons">{{icon}}</span>
+    <span *ngIf="label" class="button-label">{{label}}</span>
 </button>
