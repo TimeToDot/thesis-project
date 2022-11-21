@@ -9,17 +9,17 @@ import { CanAdminUsersGuard } from './guards/can-admin-users.guard';
 
 const adminRoutes: Routes = [
   {
-    path: '',
+    path: 'admin',
     component: LayoutComponent,
     canActivate: [AuthGuard],
     children: [
       {
-        path: 'admin/users',
+        path: 'users',
         component: AdminUsersComponent,
         canActivate: [CanAdminUsersGuard],
       },
       {
-        path: 'admin/settings',
+        path: 'settings',
         component: AdminSettingsComponent,
         canActivate: [CanAdminSettingsGuard],
       },

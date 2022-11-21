@@ -17,16 +17,16 @@ import { ProjectsComponent } from './projects.component';
 
 const projectsRoutes: Routes = [
   {
-    path: '',
+    path: 'projects',
     component: LayoutComponent,
     canActivate: [AuthGuard],
     children: [
       {
-        path: 'projects',
+        path: '',
         component: ProjectsComponent,
       },
       {
-        path: 'projects/:id',
+        path: ':id',
         component: ProjectComponent,
         children: [
           {
