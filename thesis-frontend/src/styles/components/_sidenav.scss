@@ -17,8 +17,11 @@
     color: $color-secondary;
     display: flex;
     height: 12 * $grid-base;
-    padding-left: 4 * $grid-base;
     text-decoration: none;
+  }
+
+  .option-icon {
+    padding: 0 2 * $grid-base;
   }
 }
 

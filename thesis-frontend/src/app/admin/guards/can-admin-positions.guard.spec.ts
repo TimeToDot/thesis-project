@@ -3,10 +3,10 @@ import { Router } from '@angular/router';
 import { Permissions } from '../../shared/model/permissions.model';
 import { PermissionsService } from '../../shared/services/permissions.service';
 
-import { CanAdminSettingsGuard } from './can-admin-settings.guard';
+import { CanAdminPositionsGuard } from './can-admin-positions.guard';
 
-describe('CanAdminSettingsGuard', () => {
-  let guard: CanAdminSettingsGuard;
+describe('CanAdminPositionsGuard', () => {
+  let guard: CanAdminPositionsGuard;
   let permissionsService: PermissionsService;
   let routeMock: any = { snapshot: {} };
   let routeStateMock: any = { snapshot: {}, url: '/' };
@@ -14,7 +14,7 @@ describe('CanAdminSettingsGuard', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    guard = TestBed.inject(CanAdminSettingsGuard);
+    guard = TestBed.inject(CanAdminPositionsGuard);
     permissionsService = TestBed.inject(PermissionsService);
     router = TestBed.inject(Router);
   });
@@ -23,7 +23,7 @@ describe('CanAdminSettingsGuard', () => {
     expect(guard).toBeTruthy();
   });
 
-  it('should allow the authorized user to access admin settings page', () => {
+  it('should allow the authorized user to access admin positions page', () => {
     guard.canActivate(routeMock, routeStateMock);
     expect(guard.canActivate(routeMock, routeStateMock)).toEqual(true);
   });

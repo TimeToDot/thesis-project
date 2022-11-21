@@ -2,8 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from '../layout/layout.component';
 import { AuthGuard } from '../shared/guards/auth.guard';
+import { AdminPositionsComponent } from './admin-positions/admin-positions.component';
 import { AdminSettingsComponent } from './admin-settings/admin-settings.component';
 import { AdminUsersComponent } from './admin-users/admin-users.component';
+import { CanAdminPositionsGuard } from './guards/can-admin-positions.guard';
 import { CanAdminSettingsGuard } from './guards/can-admin-settings.guard';
 import { CanAdminUsersGuard } from './guards/can-admin-users.guard';
 
@@ -17,6 +19,11 @@ const adminRoutes: Routes = [
         path: 'users',
         component: AdminUsersComponent,
         canActivate: [CanAdminUsersGuard],
+      },
+      {
+        path: 'positions',
+        component: AdminPositionsComponent,
+        canActivate: [CanAdminPositionsGuard],
       },
       {
         path: 'settings',

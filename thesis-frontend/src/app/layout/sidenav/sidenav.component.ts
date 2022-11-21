@@ -27,20 +27,45 @@ export class SidenavComponent implements OnInit {
   }
 
   getNavMenuOptions(): void {
-    this.navMenuOptions.push({ name: 'Dashboard', path: '/dashboard' });
-    this.navMenuOptions.push({ name: 'Tracker', path: '/tracker' });
-    this.navMenuOptions.push({ name: 'Projects', path: '/projects' });
+    this.navMenuOptions.push({
+      icon: 'home',
+      name: 'Dashboard',
+      path: '/dashboard',
+    });
+    this.navMenuOptions.push({
+      icon: 'schedule',
+      name: 'Tracker',
+      path: '/tracker',
+    });
+    this.navMenuOptions.push({
+      icon: 'desktop_windows',
+      name: 'Projects',
+      path: '/projects',
+    });
   }
 
   getAdditionalNavMenuOptions(): void {
     const permissions = this.permissionsService.getUserPermissions();
 
     if (permissions.canAdminUsers) {
-      this.navMenuOptions.push({ name: 'Users', path: '/admin/users' });
+      this.navMenuOptions.push({
+        icon: 'group',
+        name: 'Users',
+        path: '/admin/users',
+      });
+    }
+
+    if (permissions.canAdminPositions) {
+      this.navMenuOptions.push({
+        icon: 'cases',
+        name: 'Positions',
+        path: '/admin/positions',
+      });
     }
 
     if (permissions.canAdminSettings) {
       this.navMenuOptions.push({
+        icon: 'settings',
         name: 'Global settings',
         path: '/admin/settings',
       });

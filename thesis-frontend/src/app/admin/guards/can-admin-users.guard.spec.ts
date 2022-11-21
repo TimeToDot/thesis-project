@@ -35,6 +35,7 @@ describe('CanAdminUsersGuard', () => {
           projects: [],
           canAdminUsers: false,
           canAdminSettings: false,
+          canAdminPositions: false,
         };
       },
     };

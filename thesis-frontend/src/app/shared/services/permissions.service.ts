@@ -27,6 +27,7 @@ export class PermissionsService {
     ],
     canAdminUsers: true,
     canAdminSettings: true,
+    canAdminPositions: true,
   };
 
   constructor() {}

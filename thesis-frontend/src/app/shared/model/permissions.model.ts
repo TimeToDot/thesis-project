@@ -4,4 +4,5 @@ export interface Permissions {
   projects: ProjectPermissions[];
   canAdminUsers: boolean;
   canAdminSettings: boolean;
+  canAdminPositions: boolean;
 }
