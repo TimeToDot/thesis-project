@@ -1,12 +1,12 @@
 <div class="admin-users">
     <bvr-button class="add-new-user" icon="add_box" label="Add new"></bvr-button>
 
-    <div class="users-search-bar">
+    <div class="search-bar">
         <span class="material-icons search-icon">search</span>
         <input class="search-input" [(ngModel)]="query" placeholder="Search" type="search">
     </div>
 
-    <table cdk-table [dataSource]="dataSource" class="users-table">
+    <table cdk-table [dataSource]="dataSource" class="table">
         <ng-container cdkColumnDef="person">
             <th cdk-header-cell *cdkHeaderCellDef> Person </th>
             <td cdk-cell *cdkCellDef="let element"> {{element.surname}} {{element.name}} </td>

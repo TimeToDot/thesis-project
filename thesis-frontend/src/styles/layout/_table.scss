@@ -1,15 +1,4 @@
-.admin-users {
-  align-items: flex-end;
-  display: flex;
-  flex-direction: column;
-  padding: 16 * $grid-base;
-}
-
-.add-new-user {
-  float: right;
-}
-
-.users-search-bar {
+.search-bar {
   align-items: center;
   display: flex;
   margin: 4 * $grid-base 0;
@@ -33,7 +22,7 @@
   }
 }
 
-.users-table {
+.table {
   width: 100%;
 
   .cdk-header-cell {
