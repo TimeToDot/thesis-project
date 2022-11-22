@@ -2,6 +2,7 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { User } from '../../shared/model/user.model';
 
@@ -9,7 +10,13 @@ import { User } from '../../shared/model/user.model';
   selector: 'bvr-admin-users',
   templateUrl: './admin-users.component.html',
   standalone: true,
-  imports: [ButtonComponent, CdkTableModule, CommonModule, FormsModule],
+  imports: [
+    ButtonComponent,
+    CdkTableModule,
+    CommonModule,
+    FormsModule,
+    RouterModule,
+  ],
 })
 export class AdminUsersComponent implements OnInit {
   dataSource: User[] = [

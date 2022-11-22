@@ -33,6 +33,7 @@ describe('CanAdminUsersGuard', () => {
       getUserPermissions: (): Permissions => {
         return {
           projects: [],
+          canAddUser: false,
           canAdminUsers: false,
           canAdminSettings: false,
           canAdminPositions: false,

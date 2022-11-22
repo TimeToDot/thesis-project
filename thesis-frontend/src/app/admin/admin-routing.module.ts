@@ -4,6 +4,7 @@ import { LayoutComponent } from '../layout/layout.component';
 import { AuthGuard } from '../shared/guards/auth.guard';
 import { AdminPositionsComponent } from './admin-positions/admin-positions.component';
 import { AdminSettingsComponent } from './admin-settings/admin-settings.component';
+import { AddUserComponent } from './admin-users/add-user/add-user.component';
 import { AdminUsersComponent } from './admin-users/admin-users.component';
 import { CanAdminPositionsGuard } from './guards/can-admin-positions.guard';
 import { CanAdminSettingsGuard } from './guards/can-admin-settings.guard';
@@ -18,6 +19,11 @@ const adminRoutes: Routes = [
       {
         path: 'users',
         component: AdminUsersComponent,
+        canActivate: [CanAdminUsersGuard],
+      },
+      {
+        path: 'users/add',
+        component: AddUserComponent,
         canActivate: [CanAdminUsersGuard],
       },
       {

@@ -25,6 +25,7 @@ export class PermissionsService {
         canAdminProjects: true,
       },
     ],
+    canAddUser: true,
     canAdminUsers: true,
     canAdminSettings: true,
     canAdminPositions: true,
