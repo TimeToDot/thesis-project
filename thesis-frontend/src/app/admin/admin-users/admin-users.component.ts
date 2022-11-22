@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonComponent } from '../../shared/components/button/button.component';
-import { User } from '../model/user';
+import { User } from '../../shared/model/user.model';
 
 @Component({
   selector: 'bvr-admin-users',

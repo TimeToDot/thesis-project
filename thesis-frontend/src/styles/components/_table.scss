@@ -1,3 +1,14 @@
+.table-wrapper {
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+  padding: 16 * $grid-base;
+
+  .add-new-button {
+    float: right;
+  }
+}
+
 .search-bar {
   align-items: center;
   display: flex;
