@@ -1,0 +1,32 @@
+.add-user {
+  width: 100%;
+}
+
+.add-user-stepper {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin: 4 * $grid-base;
+
+  .divider {
+    border-top: 0.25 * $grid-base $color-secondary solid;
+    height: 0.25 * $grid-base;
+    width: 25%;
+  }
+
+  .step {
+    align-items: center;
+    border: 0.25 * $grid-base $color-secondary solid;
+    border-radius: 8 * $grid-base;
+    display: flex;
+    height: 8 * $grid-base;
+    justify-content: center;
+    margin: 0 4 * $grid-base;
+    width: 8 * $grid-base;
+  }
+
+  .active-step {
+    background-color: $color-primary;
+    border-color: $color-primary;
+  }
+}

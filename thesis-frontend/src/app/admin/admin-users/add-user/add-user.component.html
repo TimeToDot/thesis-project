@@ -1,1 +1,20 @@
-<p>add-user works!</p>
+<div class="add-user">
+    <div class="add-user-stepper">
+        <div class="step">1</div>
+        <div class="divider"></div>
+        <div class="step">2</div>
+        <div class="divider"></div>
+        <div class="step">3</div>
+    </div>
+    <div class="add-user-steps">
+        <div *ngIf="step === 1">
+            <bvr-find-user (nextStepChange)="nextStep()"></bvr-find-user>
+        </div>
+        <div *ngIf="step === 2">
+            <bvr-confirm-user (nextStepChange)="nextStep()" (previousStepChange)="previousStep()"></bvr-confirm-user>
+        </div>
+        <div *ngIf="step === 3">
+            <bvr-select-wage (previousStepChange)="previousStep()"></bvr-select-wage>
+        </div>
+    </div>
+</div>
