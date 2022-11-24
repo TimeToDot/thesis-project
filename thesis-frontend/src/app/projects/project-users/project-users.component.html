@@ -27,6 +27,6 @@
             </td>
         </ng-container>
         <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
-        <tr cdk-row *cdkRowDef="let row; columns: displayedColumns;"></tr>
+        <tr cdk-row *cdkRowDef="let row; columns: displayedColumns;" (click)="showUserDetails(row)"></tr>
     </table>
 </div>

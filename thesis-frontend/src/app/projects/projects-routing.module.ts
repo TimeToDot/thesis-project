@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CanAddUserGuard } from '../admin/guards/can-add-user.guard';
 import { LayoutComponent } from '../layout/layout.component';
 import { AuthGuard } from '../shared/guards/auth.guard';
+import { UserComponent } from '../user/user.component';
 import { CanAddProjectUserGuard } from './guards/can-add-project-user.guard';
 import { CanAdminProjectGuard } from './guards/can-admin-project.guard';
 import { CanManageApprovalsGuard } from './guards/can-manage-approvals.guard';
@@ -51,6 +52,11 @@ const projectsRoutes: Routes = [
             path: 'users/add',
             component: AddProjectUserComponent,
             canActivate: [CanAddProjectUserGuard],
+          },
+          {
+            path: 'users/:id',
+            component: UserComponent,
+            canActivate: [CanManageProjectUsersGuard],
           },
           {
             path: 'approvals',
