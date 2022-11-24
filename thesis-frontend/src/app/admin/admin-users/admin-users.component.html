@@ -1,5 +1,5 @@
 <div class="table-wrapper">
-    <bvr-button class="add-new-button" icon=" add_box" label="Add new" [routerLink]="['add']"></bvr-button>
+    <bvr-button class="add-new-button" icon=" add_box" label="Add new"></bvr-button>
 
     <div class="search-bar">
         <span class="material-icons search-icon">search</span>
@@ -27,6 +27,6 @@
             </td>
         </ng-container>
         <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
-        <tr cdk-row *cdkRowDef="let row; columns: displayedColumns;"></tr>
+        <tr cdk-row *cdkRowDef="let row; columns: displayedColumns; let i = index" (click)="showUserDetails(row)"></tr>
     </table>
 </div>

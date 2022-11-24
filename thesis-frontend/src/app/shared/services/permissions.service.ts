@@ -15,6 +15,7 @@ export class PermissionsService {
         canManageProjectUsers: true,
         canManageApprovals: true,
         canAdminProjects: true,
+        canAddProjectUser: true,
       },
       {
         id: '2',
@@ -23,6 +24,7 @@ export class PermissionsService {
         canManageProjectUsers: true,
         canManageApprovals: false,
         canAdminProjects: true,
+        canAddProjectUser: true,
       },
     ],
     canAddUser: true,

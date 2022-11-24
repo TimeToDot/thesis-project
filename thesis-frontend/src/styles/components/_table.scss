@@ -34,9 +34,23 @@
 }
 
 .table {
+  border-spacing: 0;
   width: 100%;
 
   .cdk-header-cell {
     text-align: left;
+  }
+
+  .cdk-row {
+    cursor: pointer;
+    transition: 0.5s;
+
+    &:hover {
+      background-color: $color-primary;
+    }
+  }
+
+  .cdk-cell {
+    padding: 2 * $grid-base 4 * $grid-base;
   }
 }

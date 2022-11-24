@@ -21,12 +21,14 @@ import { User } from '../../shared/model/user.model';
 export class AdminUsersComponent implements OnInit {
   dataSource: User[] = [
     {
+      id: '0',
       name: 'Robert',
       surname: 'Skrzypczak',
       position: 'Frontend Developer',
       employment_date: new Date(2021, 8, 15),
     },
     {
+      id: '1',
       name: 'Beata',
       surname: 'Iwan',
       position: 'Product Designer',
@@ -44,4 +46,8 @@ export class AdminUsersComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  showUserDetails(row: User): void {
+    console.log(row.id);
+  }
 }

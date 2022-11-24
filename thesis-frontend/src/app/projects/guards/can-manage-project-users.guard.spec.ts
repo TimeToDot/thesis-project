@@ -33,6 +33,7 @@ describe('CanManageProjectUsersGuard', () => {
           canManageProjectUsers: true,
           canManageApprovals: true,
           canAdminProjects: true,
+          canAddProjectUser: true,
         };
       },
     };

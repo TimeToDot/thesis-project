@@ -3,18 +3,18 @@ import { Router } from '@angular/router';
 import { ProjectPermissions } from '../../shared/model/project-permissions.model';
 import { PermissionsService } from '../../shared/services/permissions.service';
 
-import { CanManageTasksGuard } from './can-manage-tasks.guard';
+import { CanAddProjectUserGuard } from './can-add-project-user.guard';
 
-describe('CanManageTasksGuard', () => {
-  let guard: CanManageTasksGuard;
+describe('CanAddProjectUserGuard', () => {
+  let guard: CanAddProjectUserGuard;
   let permissionsService: PermissionsService;
   let routeMock: any = { snapshot: {} };
-  let routeStateMock: any = { snapshot: {}, url: '/a/b/c' };
+  let routeStateMock: any = { snapshot: {}, url: '/' };
   let router: Router;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    guard = TestBed.inject(CanManageTasksGuard);
+    guard = TestBed.inject(CanAddProjectUserGuard);
     permissionsService = TestBed.inject(PermissionsService);
     router = TestBed.inject(Router);
   });
@@ -23,7 +23,7 @@ describe('CanManageTasksGuard', () => {
     expect(guard).toBeTruthy();
   });
 
-  it('should allow the authorized user to access project tasks page', () => {
+  it('should allow the authorized user to access add project user form page', () => {
     const mockPermissionsService = {
       getProjectPermissions: (index: string | null): ProjectPermissions => {
         return {
@@ -45,10 +45,10 @@ describe('CanManageTasksGuard', () => {
 
     guard.canActivate(routeMock, routeStateMock);
 
-    expect(permissionsServiceSpy).toHaveBeenCalledOnceWith('b');
+    expect(permissionsServiceSpy).toHaveBeenCalled();
   });
 
-  it('should redirect the unauthorized user to not found page', () => {
+  it('should redirect an unauthorized user to the project dashboard route', () => {
     const routerParseUrlSpy = spyOn(router, 'parseUrl');
 
     guard.canActivate(routeMock, routeStateMock);
