@@ -14,6 +14,7 @@ import { ProjectDashboardComponent } from './project-dashboard/project-dashboard
 import { ProjectSettingsComponent } from './project-settings/project-settings.component';
 import { ProjectTasksComponent } from './project-tasks/project-tasks.component';
 import { AddProjectUserComponent } from './project-users/add-project-user/add-project-user.component';
+import { EditProjectUserComponent } from './project-users/edit-project-user/edit-project-user.component';
 import { ProjectUsersComponent } from './project-users/project-users.component';
 import { ProjectComponent } from './project/project.component';
 import { ProjectsComponent } from './projects.component';
@@ -55,6 +56,11 @@ const projectsRoutes: Routes = [
           {
             path: 'users/:id',
             component: UserComponent,
+            canActivate: [CanManageProjectUsersGuard],
+          },
+          {
+            path: 'users/:id/edit',
+            component: EditProjectUserComponent,
             canActivate: [CanManageProjectUsersGuard],
           },
           {

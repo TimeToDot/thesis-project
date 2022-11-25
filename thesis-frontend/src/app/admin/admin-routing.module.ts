@@ -2,11 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from '../layout/layout.component';
 import { AuthGuard } from '../shared/guards/auth.guard';
+import { UserComponent } from '../user/user.component';
 import { AdminPositionsComponent } from './admin-positions/admin-positions.component';
 import { AdminSettingsComponent } from './admin-settings/admin-settings.component';
 // import { AddUserComponent } from '../projects/project-users/add-project-user/add-user.component';
 import { AdminUsersComponent } from './admin-users/admin-users.component';
 import { CreateUserComponent } from './admin-users/create-user/create-user.component';
+import { EditUserComponent } from './admin-users/edit-user/edit-user.component';
 import { CanAdminPositionsGuard } from './guards/can-admin-positions.guard';
 import { CanAdminSettingsGuard } from './guards/can-admin-settings.guard';
 import { CanAdminUsersGuard } from './guards/can-admin-users.guard';
@@ -25,6 +27,16 @@ const adminRoutes: Routes = [
       {
         path: 'users/create',
         component: CreateUserComponent,
+        canActivate: [CanAdminUsersGuard],
+      },
+      {
+        path: 'users/:id',
+        component: UserComponent,
+        canActivate: [CanAdminUsersGuard],
+      },
+      {
+        path: 'users/:id/edit',
+        component: EditUserComponent,
         canActivate: [CanAdminUsersGuard],
       },
       {

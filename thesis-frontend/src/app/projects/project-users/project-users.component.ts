@@ -47,6 +47,11 @@ export class ProjectUsersComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  editUser(event: Event, row: User): void {
+    event.stopPropagation();
+    this.router.navigate([row.id, 'edit'], { relativeTo: this.route });
+  }
+
   showUserDetails(row: User): void {
     console.log(row.id);
     this.router.navigate([row.id], { relativeTo: this.route });

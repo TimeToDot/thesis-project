@@ -2,7 +2,7 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { User } from '../../shared/model/user.model';
 
@@ -43,11 +43,17 @@ export class AdminUsersComponent implements OnInit {
   ];
   query: string = '';
 
-  constructor() {}
+  constructor(private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {}
 
+  editUser(event: Event, row: User): void {
+    event.stopPropagation();
+    this.router.navigate([row.id, 'edit'], { relativeTo: this.route });
+  }
+
   showUserDetails(row: User): void {
     console.log(row.id);
+    this.router.navigate([row.id], { relativeTo: this.route });
   }
 }
