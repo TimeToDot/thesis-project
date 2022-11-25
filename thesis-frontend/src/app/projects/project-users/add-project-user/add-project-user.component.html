@@ -1,20 +1,38 @@
 <div class="add-project-user">
-    <div class="add-project-user-stepper">
-        <div class="step">1</div>
-        <div class="divider"></div>
-        <div class="step">2</div>
-        <div class="divider"></div>
-        <div class="step">3</div>
+  <div class="add-project-user-stepper">
+    <div
+      class="step"
+      [ngClass]="{ 'active-step': step === 1, 'previous-step': step > 1 }">
+      1
     </div>
-    <div class="add-project-user-steps">
-        <div *ngIf="step === 1">
-            <bvr-find-user (nextStepChange)="nextStep()"></bvr-find-user>
-        </div>
-        <div *ngIf="step === 2">
-            <bvr-confirm-user (nextStepChange)="nextStep()" (previousStepChange)="previousStep()"></bvr-confirm-user>
-        </div>
-        <div *ngIf="step === 3">
-            <bvr-select-wage (previousStepChange)="previousStep()"></bvr-select-wage>
-        </div>
+    <div class="divider"></div>
+    <div
+      class="step"
+      [ngClass]="{
+        'next-step': step === 1,
+        'active-step': step === 2,
+        'previous-step': step === 3
+      }">
+      2
     </div>
+    <div class="divider"></div>
+    <div
+      class="step"
+      [ngClass]="{ 'active-step': step === 3, 'next-step': step < 3 }">
+      3
+    </div>
+  </div>
+  <div class="add-project-user-steps">
+    <div *ngIf="step === 1">
+      <bvr-find-user (nextStepChange)="nextStep()"></bvr-find-user>
+    </div>
+    <div *ngIf="step === 2">
+      <bvr-confirm-user
+        (nextStepChange)="nextStep()"
+        (previousStepChange)="previousStep()"></bvr-confirm-user>
+    </div>
+    <div *ngIf="step === 3">
+      <bvr-select-wage (previousStepChange)="previousStep()"></bvr-select-wage>
+    </div>
+  </div>
 </div>
