@@ -6,6 +6,7 @@ import { AdminPositionsComponent } from './admin-positions/admin-positions.compo
 import { AdminSettingsComponent } from './admin-settings/admin-settings.component';
 // import { AddUserComponent } from '../projects/project-users/add-project-user/add-user.component';
 import { AdminUsersComponent } from './admin-users/admin-users.component';
+import { CreateUserComponent } from './admin-users/create-user/create-user.component';
 import { CanAdminPositionsGuard } from './guards/can-admin-positions.guard';
 import { CanAdminSettingsGuard } from './guards/can-admin-settings.guard';
 import { CanAdminUsersGuard } from './guards/can-admin-users.guard';
@@ -21,11 +22,11 @@ const adminRoutes: Routes = [
         component: AdminUsersComponent,
         canActivate: [CanAdminUsersGuard],
       },
-      // {
-      //   path: 'users/add',
-      //   component: AddUserComponent,
-      //   canActivate: [CanAdminUsersGuard],
-      // },
+      {
+        path: 'users/create',
+        component: CreateUserComponent,
+        canActivate: [CanAdminUsersGuard],
+      },
       {
         path: 'positions',
         component: AdminPositionsComponent,

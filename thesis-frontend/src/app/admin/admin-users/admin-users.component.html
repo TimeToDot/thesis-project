@@ -1,32 +1,47 @@
 <div class="table-wrapper">
-    <bvr-button class="add-new-button" icon=" add_box" label="Add new"></bvr-button>
+  <bvr-button
+    class="add-new-button"
+    icon=" add_box"
+    label="Add new"
+    [routerLink]="['create']"></bvr-button>
 
-    <div class="search-bar">
-        <span class="material-icons search-icon">search</span>
-        <input class="search-input" [(ngModel)]="query" placeholder="Search" type="search">
-    </div>
+  <div class="search-bar">
+    <span class="material-icons search-icon">search</span>
+    <input
+      class="search-input"
+      [(ngModel)]="query"
+      placeholder="Search"
+      type="search" />
+  </div>
 
-    <table cdk-table [dataSource]="dataSource" class="table">
-        <ng-container cdkColumnDef="person">
-            <th cdk-header-cell *cdkHeaderCellDef> Person </th>
-            <td cdk-cell *cdkCellDef="let element"> {{element.surname}} {{element.name}} </td>
-        </ng-container>
-        <ng-container cdkColumnDef="position">
-            <th cdk-header-cell *cdkHeaderCellDef> Position </th>
-            <td cdk-cell *cdkCellDef="let element"> {{element.position}} </td>
-        </ng-container>
-        <ng-container cdkColumnDef="employment_date">
-            <th cdk-header-cell *cdkHeaderCellDef> Employment date </th>
-            <td cdk-cell *cdkCellDef="let element"> {{element.employment_date | date: 'mediumDate'}} </td>
-        </ng-container>
-        <ng-container cdkColumnDef="actions">
-            <th cdk-header-cell *cdkHeaderCellDef> Actions </th>
-            <td cdk-cell *cdkCellDef="let element">
-                <bvr-button icon="edit" styleClass="button-rounded"></bvr-button>
-                <bvr-button icon="delete" styleClass="button-rounded"></bvr-button>
-            </td>
-        </ng-container>
-        <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
-        <tr cdk-row *cdkRowDef="let row; columns: displayedColumns; let i = index" (click)="showUserDetails(row)"></tr>
-    </table>
+  <table cdk-table [dataSource]="dataSource" class="table">
+    <ng-container cdkColumnDef="person">
+      <th cdk-header-cell *cdkHeaderCellDef>Person</th>
+      <td cdk-cell *cdkCellDef="let element">
+        {{ element.surname }} {{ element.name }}
+      </td>
+    </ng-container>
+    <ng-container cdkColumnDef="position">
+      <th cdk-header-cell *cdkHeaderCellDef>Position</th>
+      <td cdk-cell *cdkCellDef="let element">{{ element.position }}</td>
+    </ng-container>
+    <ng-container cdkColumnDef="employment_date">
+      <th cdk-header-cell *cdkHeaderCellDef>Employment date</th>
+      <td cdk-cell *cdkCellDef="let element">
+        {{ element.employment_date | date: 'mediumDate' }}
+      </td>
+    </ng-container>
+    <ng-container cdkColumnDef="actions">
+      <th cdk-header-cell *cdkHeaderCellDef>Actions</th>
+      <td cdk-cell *cdkCellDef="let element">
+        <bvr-button icon="edit" styleClass="button-rounded"></bvr-button>
+        <bvr-button icon="delete" styleClass="button-rounded"></bvr-button>
+      </td>
+    </ng-container>
+    <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
+    <tr
+      cdk-row
+      *cdkRowDef="let row; columns: displayedColumns; let i = index"
+      (click)="showUserDetails(row)"></tr>
+  </table>
 </div>

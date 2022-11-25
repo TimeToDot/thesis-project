@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { UserComponent } from './user.component';
+import { GeneralInfoComponent } from './general-info.component';
 
-describe('UserComponent', () => {
-  let component: UserComponent;
-  let fixture: ComponentFixture<UserComponent>;
+describe('GeneralInfoComponent', () => {
+  let component: GeneralInfoComponent;
+  let fixture: ComponentFixture<GeneralInfoComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [UserComponent, RouterTestingModule],
+      imports: [GeneralInfoComponent, RouterTestingModule],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(UserComponent);
+    fixture = TestBed.createComponent(GeneralInfoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
