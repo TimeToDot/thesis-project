@@ -12,6 +12,8 @@ import { CanReadProjectGuard } from './guards/can-read-project.guard';
 import { ProjectApprovalsComponent } from './project-approvals/project-approvals.component';
 import { ProjectDashboardComponent } from './project-dashboard/project-dashboard.component';
 import { ProjectSettingsComponent } from './project-settings/project-settings.component';
+import { CreateTaskComponent } from './project-tasks/create-task/create-task.component';
+import { EditTaskComponent } from './project-tasks/edit-task/edit-task.component';
 import { ProjectTasksComponent } from './project-tasks/project-tasks.component';
 import { AddProjectUserComponent } from './project-users/add-project-user/add-project-user.component';
 import { EditProjectUserComponent } from './project-users/edit-project-user/edit-project-user.component';
@@ -41,6 +43,16 @@ const projectsRoutes: Routes = [
           {
             path: 'tasks',
             component: ProjectTasksComponent,
+            canActivate: [CanManageTasksGuard],
+          },
+          {
+            path: 'tasks/create',
+            component: CreateTaskComponent,
+            canActivate: [CanManageTasksGuard],
+          },
+          {
+            path: 'tasks/edit',
+            component: EditTaskComponent,
             canActivate: [CanManageTasksGuard],
           },
           {

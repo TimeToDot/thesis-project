@@ -28,7 +28,7 @@ export class SidenavComponent implements OnInit {
 
   getNavMenuOptions(): void {
     this.navMenuOptions.push({
-      icon: 'home',
+      icon: 'dashboard',
       name: 'Dashboard',
       path: '/dashboard',
     });
