@@ -5,6 +5,7 @@ import { LinkOption } from '../../shared/model/link-option.model';
 import { AuthService } from '../../shared/services/auth.service';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { CommonModule } from '@angular/common';
+import { LinkGroup } from '../../shared/model/link-group.model';
 
 @Component({
   selector: 'bvr-sidenav',
@@ -13,7 +14,7 @@ import { CommonModule } from '@angular/common';
   imports: [ButtonComponent, CommonModule, RouterModule],
 })
 export class SidenavComponent implements OnInit {
-  navMenuOptions: LinkOption[] = [];
+  navMenuGroups: LinkGroup[] = [];
 
   constructor(
     private authService: AuthService,
@@ -24,31 +25,35 @@ export class SidenavComponent implements OnInit {
   ngOnInit(): void {
     this.getNavMenuOptions();
     this.getAdditionalNavMenuOptions();
+    console.log(this.navMenuGroups);
   }
 
   getNavMenuOptions(): void {
-    this.navMenuOptions.push({
+    const generalOptions: LinkGroup = { name: 'General', options: [] };
+    generalOptions.options.push({
       icon: 'dashboard',
       name: 'Dashboard',
       path: '/dashboard',
     });
-    this.navMenuOptions.push({
+    generalOptions.options.push({
       icon: 'schedule',
       name: 'Tracker',
       path: '/tracker',
     });
-    this.navMenuOptions.push({
+    generalOptions.options.push({
       icon: 'desktop_windows',
       name: 'Projects',
       path: '/projects',
     });
+    this.navMenuGroups.push(generalOptions);
   }
 
   getAdditionalNavMenuOptions(): void {
     const permissions = this.permissionsService.getUserPermissions();
+    const managementOptions: LinkGroup = { name: 'Management', options: [] };
 
     if (permissions.canAdminUsers) {
-      this.navMenuOptions.push({
+      managementOptions.options.push({
         icon: 'group',
         name: 'Users',
         path: '/admin/users',
@@ -56,7 +61,7 @@ export class SidenavComponent implements OnInit {
     }
 
     if (permissions.canAdminPositions) {
-      this.navMenuOptions.push({
+      managementOptions.options.push({
         icon: 'cases',
         name: 'Positions',
         path: '/admin/positions',
@@ -64,12 +69,13 @@ export class SidenavComponent implements OnInit {
     }
 
     if (permissions.canAdminSettings) {
-      this.navMenuOptions.push({
+      managementOptions.options.push({
         icon: 'settings',
         name: 'Global settings',
         path: '/admin/settings',
       });
     }
+    this.navMenuGroups.push(managementOptions);
   }
 
   logout(): void {

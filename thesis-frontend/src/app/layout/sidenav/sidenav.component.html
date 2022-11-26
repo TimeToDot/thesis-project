@@ -1,9 +1,12 @@
 <div class="sidenav">
   <nav class="sidenav-menu">
-    <a *ngFor="let option of navMenuOptions" class="option" [routerLink]="[option.path]">
-      <span class="material-icons-outlined option-icon">{{option.icon}}</span>
-      <span>{{option.name}}</span>
-    </a>
+    <div *ngFor="let group of navMenuGroups">
+      <div class="group-header">{{group.name | uppercase}}</div>
+      <a *ngFor="let option of group.options" class="option" [routerLink]="[option.path]" routerLinkActive="active">
+        <span class="material-icons-outlined option-icon">{{option.icon}}</span>
+        <span>{{option.name}}</span>
+      </a>
+    </div>
   </nav>
   <div class="sidenav-footer">
     <bvr-button label="Profile" [routerLink]="['/profile']"></bvr-button>
