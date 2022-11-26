@@ -5,7 +5,6 @@ import { AuthGuard } from '../shared/guards/auth.guard';
 import { UserComponent } from '../user/user.component';
 import { AdminPositionsComponent } from './admin-positions/admin-positions.component';
 import { AdminSettingsComponent } from './admin-settings/admin-settings.component';
-// import { AddUserComponent } from '../projects/project-users/add-project-user/add-user.component';
 import { AdminUsersComponent } from './admin-users/admin-users.component';
 import { CreateUserComponent } from './admin-users/create-user/create-user.component';
 import { EditUserComponent } from './admin-users/edit-user/edit-user.component';
