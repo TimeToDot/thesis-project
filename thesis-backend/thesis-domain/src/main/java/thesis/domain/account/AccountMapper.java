@@ -1,15 +1,15 @@
 package thesis.domain.account;
 
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
+import org.mapstruct.factory.Mappers;
 import thesis.data.account.model.Account;
-import thesis.data.account.model.AccountDetails;
-import thesis.domain.account.model.AccountData;
+import thesis.domain.account.model.AccountDto;
 import thesis.domain.mapper.MapStructConfig;
 
 @Mapper(config = MapStructConfig.class)
 public interface AccountMapper {
 
-  @Mapping(target = "email", source = "details.email")
-  AccountData map(Account account, AccountDetails details);
+  AccountMapper INSTANCE = Mappers.getMapper(AccountMapper.class);
+  AccountDto map(Account account);
+
 }

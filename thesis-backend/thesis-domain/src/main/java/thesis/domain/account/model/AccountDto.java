@@ -6,11 +6,12 @@ import thesis.data.account.model.StatusType;
 import java.util.UUID;
 
 @Schema(description = "Information about account.")
-public record AccountData(
+public record AccountDto(
 
   UUID id,
   String login,
   String pass,
-  StatusType status) {
+  StatusType status,
+  String email) {
 
 }

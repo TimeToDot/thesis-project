@@ -19,7 +19,7 @@ import java.util.UUID;
     @UniqueConstraint(columnNames = "login")
     }
   )
-public class Account {
+public class  Account {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
