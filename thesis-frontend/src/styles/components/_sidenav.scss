@@ -15,8 +15,10 @@
   .group-header {
     align-items: flex-end;
     border-bottom: 0.25 * $grid-base $color-secondary-light solid;
+    color: $text-dark;
     display: flex;
     font-size: $font-regular;
+    font-weight: 600;
     height: 12 * $grid-base;
     margin: 2 * $grid-base 0;
     padding: 0 0 2 * $grid-base 4 * $grid-base;

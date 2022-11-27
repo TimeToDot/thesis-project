@@ -18,13 +18,13 @@
       <td cdk-cell *cdkCellDef="let element">{{ element.position }}</td>
     </ng-container>
     <ng-container cdkColumnDef="employment_date">
-      <th cdk-header-cell *cdkHeaderCellDef>Employment date</th>
+      <th cdk-header-cell *cdkHeaderCellDef>Hire date</th>
       <td cdk-cell *cdkCellDef="let element">
         {{ element.employment_date | date: 'mediumDate' }}
       </td>
     </ng-container>
     <ng-container cdkColumnDef="actions">
-      <th cdk-header-cell *cdkHeaderCellDef>Actions</th>
+      <th cdk-header-cell *cdkHeaderCellDef>Options</th>
       <td cdk-cell *cdkCellDef="let element">
         <bvr-button (click)="editUser($event, element)" icon="edit" styleClass="button-rounded"></bvr-button>
         <bvr-button icon="delete" styleClass="button-rounded"></bvr-button>

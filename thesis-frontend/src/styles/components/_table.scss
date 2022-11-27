@@ -34,15 +34,22 @@
 }
 
 .table {
-  border-spacing: 0;
+  border-collapse: collapse;
   width: 100%;
 
   .cdk-header-cell {
     text-align: left;
   }
 
+  .cdk-header-row {
+    border-bottom: 0.25 * $grid-base #c3bebe solid;
+    height: 16 * $grid-base;
+  }
+
   .cdk-row {
+    border-bottom: 0.25 * $grid-base #ededed solid;
     cursor: pointer;
+    height: 14 * $grid-base;
     transition: 0.5s;
 
     &:hover {
@@ -50,7 +57,15 @@
     }
   }
 
-  .cdk-cell {
-    padding: 2 * $grid-base 4 * $grid-base;
+  tr {
+    td:first-child,
+    th:first-child {
+      padding-left: 8 * $grid-base;
+    }
+
+    td:last-child,
+    th:last-child {
+      padding-right: 8 * $grid-base;
+    }
   }
 }
