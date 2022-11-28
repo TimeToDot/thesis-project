@@ -34,8 +34,15 @@
 }
 
 .table {
-  border-collapse: collapse;
+  background-color: $color-white;
+  padding-bottom: 6 * $grid-base;
   width: 100%;
+
+  table {
+    border-collapse: collapse;
+    border-radius: 2 * $grid-base 2 * $grid-base 0 0;
+    width: 100%;
+  }
 
   .table-cell {
     display: flex;
@@ -58,7 +65,8 @@
     transition: 0.5s;
 
     &:hover {
-      background-color: $color-primary;
+      // background-color: $color-primary;
+      background-color: #e9f7ea;
     }
   }
 
