@@ -47,6 +47,35 @@
 }
 
 .sidenav-footer {
+  align-items: center;
+  border-top: 0.25 * $grid-base $color-secondary-light solid;
   display: flex;
+  height: 26 * $grid-base;
   justify-content: space-between;
+  padding: 0 3 * $grid-base;
+
+  .profile {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .profile-image {
+    border-radius: 10 * $grid-base;
+    height: 10 * $grid-base;
+    padding-right: 3 * $grid-base;
+    width: 10 * $grid-base;
+  }
+
+  .profile-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+    .email {
+      font-size: $font-regular;
+      font-weight: 300;
+    }
+  }
 }
