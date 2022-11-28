@@ -1,9 +1,17 @@
 <div class="table-wrapper">
-  <bvr-button class="add-new-button" icon="add_box" label="Add new" [routerLink]="['add']"></bvr-button>
+  <bvr-button
+    class="add-new-button"
+    icon="add_box"
+    label="Add new"
+    [routerLink]="['add']"></bvr-button>
 
   <div class="search-bar">
     <span class="material-icons-outlined search-icon">search</span>
-    <input class="search-input" [(ngModel)]="query" placeholder="Search" type="search" />
+    <input
+      class="search-input"
+      [(ngModel)]="query"
+      placeholder="Search"
+      type="search" />
   </div>
 
   <table cdk-table [dataSource]="dataSource" class="table">
@@ -26,11 +34,17 @@
     <ng-container cdkColumnDef="actions">
       <th cdk-header-cell *cdkHeaderCellDef>Actions</th>
       <td cdk-cell *cdkCellDef="let element">
-        <bvr-button (click)="editUser($event, element)" icon="edit" styleClass="button-rounded"></bvr-button>
-        <bvr-button icon="delete" styleClass="button-rounded"></bvr-button>
+        <bvr-button
+          (click)="editUser($event, element)"
+          icon="edit"
+          styleClass="button-icon"></bvr-button>
+        <bvr-button icon="delete" styleClass="button-icon"></bvr-button>
       </td>
     </ng-container>
     <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
-    <tr cdk-row *cdkRowDef="let row; columns: displayedColumns" (click)="showUserDetails(row)"></tr>
+    <tr
+      cdk-row
+      *cdkRowDef="let row; columns: displayedColumns"
+      (click)="showUserDetails(row)"></tr>
   </table>
 </div>

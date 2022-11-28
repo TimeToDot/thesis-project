@@ -29,9 +29,20 @@
   }
 }
 
-.button-rounded {
+.button-icon {
+  background-color: transparent;
   border-radius: 8 * $grid-base;
-  padding: 2 * $grid-base;
+
+  &:hover {
+    background-color: $color-secondary-light;
+  }
+
+  .button-icon-left,
+  .button-icon-right {
+    height: 6 * $grid-base;
+    padding-right: 0;
+    width: 6 * $grid-base;
+  }
 }
 
 .button-primary {

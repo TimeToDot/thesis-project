@@ -37,6 +37,11 @@
   border-collapse: collapse;
   width: 100%;
 
+  .table-cell {
+    display: flex;
+    align-items: center;
+  }
+
   .cdk-header-cell {
     text-align: left;
   }
@@ -68,4 +73,11 @@
       padding-right: 8 * $grid-base;
     }
   }
+}
+
+.picture {
+  border-radius: 8 * $grid-base;
+  height: 8 * $grid-base;
+  margin-right: 3 * $grid-base;
+  width: 8 * $grid-base;
 }
