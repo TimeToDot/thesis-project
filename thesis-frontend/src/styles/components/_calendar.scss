@@ -33,12 +33,32 @@
 
 .day {
   align-items: center;
+  border-radius: 12.5 * $grid-base;
   cursor: pointer;
   display: flex;
+  flex-direction: column;
   height: 12.5 * $grid-base;
-  justify-content: center;
+  justify-content: space-evenly;
   margin: 3 * $grid-base;
+  transition: 0.5s;
   width: 12.5 * $grid-base;
+
+  &.disabled {
+    cursor: auto;
+
+    h4 {
+      color: $color-disabled;
+    }
+  }
+
+  &.selected {
+    background-color: $color-primary;
+
+    h4 {
+      color: $color-white;
+      font-weight: 600;
+    }
+  }
 }
 
 .saturday {
@@ -49,7 +69,28 @@
   color: $color-rejected;
 }
 
-.disabled {
-  color: $color-disabled;
-  cursor: auto;
+.status {
+  border-radius: 2 * $grid-base;
+  height: 2 * $grid-base;
+  width: 2 * $grid-base;
+
+  &.pending {
+    background-color: $color-pending;
+  }
+
+  &.rejected {
+    background-color: $color-rejected;
+  }
+
+  &.approved {
+    background-color: $color-approved;
+  }
+
+  &.logged {
+    background-color: $color-logged;
+  }
+
+  &.none {
+    background-color: $color-white;
+  }
 }

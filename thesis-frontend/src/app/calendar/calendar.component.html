@@ -1,14 +1,8 @@
 <div class="calendar">
   <div class="calendar-header">
-    <bvr-button
-      icon="chevron_left"
-      (click)="previousMonth()"
-      styleClass="button-icon"></bvr-button>
+    <bvr-button icon="chevron_left" (click)="previousMonth()" styleClass="button-icon"></bvr-button>
     <h4>{{ currentMonth | month }} {{ currentYear }}</h4>
-    <bvr-button
-      icon="chevron_right"
-      (click)="nextMonth()"
-      styleClass="button-icon"></bvr-button>
+    <bvr-button icon="chevron_right" (click)="nextMonth()" styleClass="button-icon"></bvr-button>
   </div>
   <div class="calendar-body">
     <div class="week-days">
@@ -17,14 +11,13 @@
       </div>
     </div>
     <div *ngFor="let week of monthGrid; let j = index" class="week">
-      <h4
-        *ngFor="let day of week; let i = index"
-        class="day"
-        [class.saturday]="i === 5"
-        [class.sunday]="i === 6"
-        [class.disabled]="day.disabled">
-        {{ day.date | date: 'd' }}
-      </h4>
+      <div *ngFor="let day of week; let i = index" class="day" [class.disabled]="day.disabled"
+        [class.selected]="isCurrentDay(day)" (click)="selectDay(day)">
+        <h4 [class.saturday]="i === 5" [class.sunday]="i === 6">
+          {{ day.date | date: 'd' }}
+        </h4>
+        <div class="status" [class]="day.status"></div>
+      </div>
     </div>
   </div>
 </div>

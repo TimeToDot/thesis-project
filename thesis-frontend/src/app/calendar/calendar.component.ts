@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import * as dayjs from 'dayjs';
 import { ButtonComponent } from '../shared/components/button/button.component';
+import { Status } from '../shared/enum/status.enum';
 import { Day } from './model/day.model';
 import { MonthPipe } from './pipes/month.pipe';
 
@@ -14,6 +15,7 @@ import { MonthPipe } from './pipes/month.pipe';
 export class CalendarComponent implements OnInit {
   currentMonth!: number;
   currentYear!: number;
+  currentDay!: string;
   days: string[] = [];
   gridMonthEndDay!: number;
   gridMonthStartDay!: number;
@@ -26,6 +28,7 @@ export class CalendarComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
+    this.currentDay = dayjs().date(dayjs().date()).format('MM/DD/YYYY');
     this.currentMonth = dayjs().month();
     this.currentYear = dayjs().month(this.currentMonth).year();
     this.initDaysOfWeek();
@@ -78,6 +81,7 @@ export class CalendarComponent implements OnInit {
         week.push({
           date: dayjs().month(this.currentMonth).date(i).format('MM/DD/YYYY'),
           disabled: i < this.monthStartDay || i > this.monthEndDay,
+          status: Status.None,
         });
       }
       this.monthGrid.push(week);
@@ -94,5 +98,15 @@ export class CalendarComponent implements OnInit {
     ++this.currentMonth;
     this.currentYear = dayjs().month(this.currentMonth).year();
     this.generateGrid();
+  }
+
+  selectDay(day: Day): void {
+    if (!day.disabled) {
+      this.currentDay = day.date;
+    }
+  }
+
+  isCurrentDay(day: Day): boolean {
+    return day.date === this.currentDay;
   }
 }
