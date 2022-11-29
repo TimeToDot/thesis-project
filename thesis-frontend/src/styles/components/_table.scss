@@ -1,8 +1,12 @@
 .table-wrapper {
   align-items: flex-end;
+  background-color: $color-white;
+  border-radius: 4 * $grid-base;
+  box-shadow: 0 $grid-base 12 * $grid-base $color-shadow;
   display: flex;
   flex-direction: column;
-  padding: 16 * $grid-base;
+  margin: 7 * $grid-base 6 * $grid-base;
+  padding: 12 * $grid-base 9 * $grid-base 8 * $grid-base;
 
   .add-new-button {
     float: right;
@@ -11,13 +15,14 @@
 
 .search-bar {
   align-items: center;
+  box-shadow: 0 $grid-base 12 * $grid-base $color-shadow;
   display: flex;
   margin: 4 * $grid-base 0;
   position: relative;
   width: 100%;
 
   .search-input {
-    border: 0.25 * $grid-base $color-secondary solid;
+    border: 0.25 * $grid-base $color-divider solid;
     border-radius: 2 * $grid-base;
     padding: 2 * $grid-base 0 2 * $grid-base 10 * $grid-base;
     width: 100%;
@@ -35,12 +40,12 @@
 
 .table {
   background-color: $color-white;
-  padding-bottom: 6 * $grid-base;
+  border-radius: 2 * $grid-base 2 * $grid-base 0 0;
+  box-shadow: 0 $grid-base 12 * $grid-base $color-shadow;
   width: 100%;
 
   table {
     border-collapse: collapse;
-    border-radius: 2 * $grid-base 2 * $grid-base 0 0;
     width: 100%;
   }
 
@@ -54,19 +59,19 @@
   }
 
   .cdk-header-row {
-    border-bottom: 0.25 * $grid-base #c3bebe solid;
+    border-bottom: 0.25 * $grid-base $color-divider solid;
+    box-shadow: 0 $grid-base 12 * $grid-base $color-shadow;
     height: 16 * $grid-base;
   }
 
   .cdk-row {
-    border-bottom: 0.25 * $grid-base #ededed solid;
+    border-bottom: 0.25 * $grid-base $color-divider solid;
     cursor: pointer;
     height: 14 * $grid-base;
     transition: 0.5s;
 
     &:hover {
-      // background-color: $color-primary;
-      background-color: #e9f7ea;
+      background-color: $color-secondary;
     }
   }
 

@@ -12,10 +12,6 @@
     filter: brightness(0.85);
   }
 
-  .material-icons {
-    font-size: $font-large;
-  }
-
   .button-icon-left {
     padding-right: $grid-base;
   }
@@ -23,18 +19,15 @@
   .button-icon-right {
     padding-left: $grid-base;
   }
-
-  .button-label {
-    font-size: $font-large;
-  }
 }
 
 .button-icon {
   background-color: transparent;
   border-radius: 8 * $grid-base;
+  color: $color-text-secondary;
 
   &:hover {
-    background-color: $color-secondary-light;
+    color: $color-text-primary;
   }
 
   .button-icon-left,

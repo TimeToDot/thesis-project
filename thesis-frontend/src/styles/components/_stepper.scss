@@ -26,8 +26,8 @@
   }
 
   .previous-step {
-    background-color: $color-primary-light;
-    border-color: $color-primary-light;
+    background-color: $color-secondary;
+    border-color: $color-secondary;
   }
 
   .active-step {
@@ -36,7 +36,7 @@
   }
 
   .next-step {
-    background-color: $color-secondary-light;
-    border-color: $color-secondary-light;
+    background-color: $color-divider;
+    border-color: $color-divider;
   }
 }

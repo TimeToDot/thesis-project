@@ -1,5 +1,4 @@
 .sidenav {
-  border-right: 0.25 * $grid-base $color-secondary-light solid;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -11,13 +10,14 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  margin: 0 3 * $grid-base;
 
   .group-header {
     align-items: flex-end;
-    border-bottom: 0.25 * $grid-base $color-secondary-light solid;
-    color: $text-dark;
+    border-bottom: 0.25 * $grid-base $color-divider solid;
+    color: $color-text-secondary;
     display: flex;
-    font-size: $font-regular;
+    font-size: $font-small;
     font-weight: 600;
     height: 12 * $grid-base;
     margin: 2 * $grid-base 0;
@@ -26,16 +26,16 @@
 
   .option {
     align-items: center;
-    color: $color-secondary;
+    border-radius: 2 * $grid-base;
+    color: $color-text-primary;
+    cursor: pointer;
     display: flex;
     height: 16 * $grid-base;
     margin: 0 3 * $grid-base;
-    text-decoration: none;
     transition: 0.5s;
 
     &.active {
       background-color: $color-primary;
-      border-radius: 2 * $grid-base;
       color: $color-white;
       font-weight: 600;
     }
@@ -48,7 +48,7 @@
 
 .sidenav-footer {
   align-items: center;
-  border-top: 0.25 * $grid-base $color-secondary-light solid;
+  border-top: 0.25 * $grid-base $color-divider solid;
   display: flex;
   height: 26 * $grid-base;
   justify-content: space-between;
@@ -74,7 +74,7 @@
     justify-content: space-evenly;
 
     .email {
-      font-size: $font-regular;
+      font-size: $font-small;
       font-weight: 300;
     }
   }

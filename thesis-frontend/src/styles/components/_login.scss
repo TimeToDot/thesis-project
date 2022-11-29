@@ -16,14 +16,13 @@
     margin: 2 * $grid-base 0;
 
     .label {
-      font-size: $font-regular;
+      font-size: $font-small;
       margin-bottom: $grid-base;
     }
 
     .input {
-      border: 0.25 * $grid-base $color-secondary solid;
+      border: 0.25 * $grid-base $color-text-primary solid;
       border-radius: $grid-base;
-      font-size: $font-large;
       padding: 2 * $grid-base;
       width: 75 * $grid-base;
     }

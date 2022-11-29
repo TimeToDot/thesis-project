@@ -2,7 +2,7 @@
   <nav class="sidenav-menu">
     <div *ngFor="let group of navMenuGroups">
       <div class="group-header">{{ group.name | uppercase }}</div>
-      <a
+      <div
         *ngFor="let option of group.options"
         class="option"
         [routerLink]="[option.path]"
@@ -11,7 +11,7 @@
           option.icon
         }}</span>
         <span>{{ option.name }}</span>
-      </a>
+      </div>
     </div>
   </nav>
   <div class="sidenav-footer">
