@@ -1,20 +1,15 @@
-.tabs {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
-
 .tab {
-  border-bottom: 0.25 * $grid-base $color-secondary solid;
-  color: $color-secondary;
-  flex: 1;
-  padding: 4 * $grid-base;
+  border-radius: 2 * $grid-base;
+  color: $color-text-secondary;
+  cursor: pointer;
+  margin-right: 3 * $grid-base;
+  padding: 3 * $grid-base 4 * $grid-base;
   text-align: center;
-  text-decoration: none;
   transition: 0.5s;
 }
 
 .active-tab {
+  background-color: $color-primary;
   border-color: $color-primary;
-  color: $color-primary;
+  color: $color-white;
 }

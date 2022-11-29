@@ -1,7 +1,14 @@
-<div>
-    <bvr-tabs [navbarOptions]="navbarOptions"></bvr-tabs>
-    <div>
-        <router-outlet></router-outlet>
+<div class="wrapper">
+  <div class="header">
+    <div class="title">
+      <span class="material-icons-outlined">work_outline</span>
+      <h3 class="name">Positions</h3>
+      <!-- <h5 class="count">({{ dataSource.length }})</h5> -->
     </div>
-    <p>project works!</p>
+    <bvr-tabs [navbarOptions]="navbarOptions"></bvr-tabs>
+    <!-- <bvr-button class="add-new-button" label="Add new"></bvr-button> -->
+  </div>
+  <div class="wrapper-content">
+    <router-outlet></router-outlet>
+  </div>
 </div>
