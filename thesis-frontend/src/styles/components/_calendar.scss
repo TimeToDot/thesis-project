@@ -1,14 +1,15 @@
 .calendar {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+  background-color: $color-white;
+  border-radius: 2 * $grid-base;
+  box-shadow: 0 $grid-base 12 * $grid-base $color-shadow;
+  width: 100%;
 }
 
 .calendar-header {
   align-items: center;
   display: flex;
-  height: 10rem;
   justify-content: space-evenly;
+  padding: 6 * $grid-base;
 }
 
 .week-days {
@@ -29,5 +30,4 @@
   flex: 1;
   height: 100%;
   justify-content: center;
-  outline: 1px black solid;
 }

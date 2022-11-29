@@ -1,17 +1,23 @@
 <div class="calendar">
-    <div class="calendar-header">
-        <bvr-button label="Previous" (onClick)="previousMonth()"></bvr-button>
-        <div>{{currentMonth | month}} {{currentYear}}</div>
-        <bvr-button label="Next" (onClick)="nextMonth()"></bvr-button>
+  <div class="calendar-header">
+    <bvr-button
+      icon="chevron_left"
+      (click)="previousMonth()"
+      styleClass="button-icon"></bvr-button>
+    <h4>{{ currentMonth | month }} {{ currentYear }}</h4>
+    <bvr-button
+      icon="chevron_right"
+      (click)="nextMonth()"
+      styleClass="button-icon"></bvr-button>
+  </div>
+  <div class="week-days">
+    <div *ngFor="let dayOfWeek of days" class="day">
+      {{ dayOfWeek | slice: 0:3 }}
     </div>
-    <div class="week-days">
-        <div *ngFor="let dayOfWeek of days" class="day">
-            {{dayOfWeek}}
-        </div>
+  </div>
+  <div *ngFor="let week of monthGrid" class="week">
+    <div *ngFor="let day of week" class="day">
+      {{ day }}
     </div>
-    <div *ngFor="let week of monthGrid" class="week">
-        <div *ngFor="let day of week" class="day">
-            {{day}}
-        </div>
-    </div>
+  </div>
 </div>

@@ -30,6 +30,10 @@
     color: $color-text-primary;
   }
 
+  &:focus {
+    background-color: transparent;
+  }
+
   .button-icon-left,
   .button-icon-right {
     height: 6 * $grid-base;

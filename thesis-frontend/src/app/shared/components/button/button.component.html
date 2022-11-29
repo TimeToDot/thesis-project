@@ -1,14 +1,6 @@
-<button
-  *ngIf="!icon"
-  class="button"
-  [class]="styleClass"
-  (click)="onClick.emit($event)">
+<button *ngIf="!icon" class="button" [class]="styleClass">
   <span *ngIf="label">{{ label | uppercase }}</span>
 </button>
-<button
-  *ngIf="icon"
-  class="button"
-  [class]="styleClass"
-  (click)="onClick.emit($event)">
+<button *ngIf="icon" class="button" [class]="styleClass">
   <span *ngIf="icon" class="material-icons-outlined">{{ icon }}</span>
 </button>
