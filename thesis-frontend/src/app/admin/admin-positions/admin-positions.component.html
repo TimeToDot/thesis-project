@@ -1,10 +1,20 @@
-<p>admin-positions works!</p>
 <div class="table-wrapper">
-  <bvr-button class="add-new-button" icon="add_box" label="Add new"></bvr-button>
+  <div class="header">
+    <div class="title">
+      <span class="material-icons-outlined">work_outline</span>
+      <h3 class="name">Positions</h3>
+      <h5 class="count">({{ dataSource.length }})</h5>
+    </div>
+    <bvr-button class="add-new-button" label="Add new"></bvr-button>
+  </div>
 
   <div class="search-bar">
     <span class="material-icons-outlined search-icon">search</span>
-    <input class="search-input" [(ngModel)]="query" placeholder="Search" type="search" />
+    <input
+      class="search-input"
+      [(ngModel)]="query"
+      placeholder="Search"
+      type="search" />
   </div>
 
   <div class="table">

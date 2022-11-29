@@ -11,6 +11,29 @@
   .add-new-button {
     float: right;
   }
+
+  .header {
+    align-items: center;
+    border-bottom: 0.25 * $grid-base $color-divider solid;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12 * $grid-base;
+    width: 100%;
+  }
+
+  .title {
+    align-items: center;
+    display: flex;
+
+    h3,
+    h5 {
+      padding-left: 2 * $grid-base;
+    }
+
+    h5 {
+      color: $color-text-secondary;
+    }
+  }
 }
 
 .search-bar {

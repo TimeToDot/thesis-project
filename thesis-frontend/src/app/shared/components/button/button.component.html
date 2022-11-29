@@ -1,5 +1,14 @@
-<button class="button" [class]="styleClass" (click)="onClick.emit($event)">
-    <span *ngIf="icon && iconPos === 'left'" class="button-icon-left material-icons-outlined">{{icon}}</span>
-    <span *ngIf="label">{{label}}</span>
-    <span *ngIf="icon && iconPos === 'right'" class="button-icon-right material-icons-outlined">{{icon}}</span>
+<button
+  *ngIf="!icon"
+  class="button"
+  [class]="styleClass"
+  (click)="onClick.emit($event)">
+  <span *ngIf="label">{{ label | uppercase }}</span>
+</button>
+<button
+  *ngIf="icon"
+  class="button"
+  [class]="styleClass"
+  (click)="onClick.emit($event)">
+  <span *ngIf="icon" class="material-icons-outlined">{{ icon }}</span>
 </button>

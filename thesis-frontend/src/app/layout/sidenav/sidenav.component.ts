@@ -59,15 +59,15 @@ export class SidenavComponent implements OnInit {
 
     if (permissions.canAdminUsers) {
       managementOptions.options.push({
-        icon: 'group',
-        name: 'Users',
+        icon: 'groups',
+        name: 'Employees',
         path: '/admin/users',
       });
     }
 
     if (permissions.canAdminPositions) {
       managementOptions.options.push({
-        icon: 'cases',
+        icon: 'work_outline',
         name: 'Positions',
         path: '/admin/positions',
       });

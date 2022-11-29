@@ -58,13 +58,13 @@
     align-items: center;
     cursor: pointer;
     display: flex;
-    justify-content: space-between;
+    gap: 3 * $grid-base;
+    width: 100%;
   }
 
   .profile-image {
     border-radius: 10 * $grid-base;
     height: 10 * $grid-base;
-    padding-right: 3 * $grid-base;
     width: 10 * $grid-base;
   }
 

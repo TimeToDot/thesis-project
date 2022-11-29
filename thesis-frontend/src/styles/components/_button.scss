@@ -1,23 +1,21 @@
 .button {
   align-items: center;
+  background-color: $color-primary;
   border: none;
   border-radius: 2 * $grid-base;
+  color: $color-white;
   cursor: pointer;
   display: inline-flex;
   justify-content: space-between;
-  padding: 2 * $grid-base;
+  padding: 3 * $grid-base 6 * $grid-base;
   transition: 0.5s;
 
   &:hover {
-    filter: brightness(0.85);
+    background-color: $color-primary-hover;
   }
 
-  .button-icon-left {
-    padding-right: $grid-base;
-  }
-
-  .button-icon-right {
-    padding-left: $grid-base;
+  &:focus {
+    background-color: $color-primary-focus;
   }
 }
 
@@ -25,8 +23,10 @@
   background-color: transparent;
   border-radius: 8 * $grid-base;
   color: $color-text-secondary;
+  padding: 2 * $grid-base;
 
   &:hover {
+    background-color: transparent;
     color: $color-text-primary;
   }
 
