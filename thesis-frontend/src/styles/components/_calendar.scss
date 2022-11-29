@@ -2,32 +2,54 @@
   background-color: $color-white;
   border-radius: 2 * $grid-base;
   box-shadow: 0 $grid-base 12 * $grid-base $color-shadow;
-  width: 100%;
 }
 
 .calendar-header {
   align-items: center;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   padding: 6 * $grid-base;
 }
 
+.calendar-body {
+  margin: 0 6 * $grid-base;
+}
+
 .week-days {
-  align-items: center;
+  color: $color-text-secondary;
   display: flex;
-  height: 3rem;
+  font-size: $font-small;
+  font-weight: 600;
+
+  .day {
+    cursor: auto;
+  }
 }
 
 .week {
   align-items: center;
   display: flex;
-  flex: 1;
 }
 
 .day {
   align-items: center;
+  cursor: pointer;
   display: flex;
-  flex: 1;
-  height: 100%;
+  height: 12.5 * $grid-base;
   justify-content: center;
+  margin: 3 * $grid-base;
+  width: 12.5 * $grid-base;
+}
+
+.saturday {
+  color: $color-text-secondary;
+}
+
+.sunday {
+  color: $color-rejected;
+}
+
+.disabled {
+  color: $color-disabled;
+  cursor: auto;
 }
