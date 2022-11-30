@@ -3,6 +3,6 @@ export interface UserTask {
   endDate: string;
   startTime: string;
   endTime: string;
-  project: string;
-  task: string;
+  projectId: string;
+  taskId: string;
 }

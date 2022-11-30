@@ -18,17 +18,17 @@
     </div>
   </div>
   <bvr-form-field label="Project" [required]="isRequired('project')">
-    <select formControlName="project" placeholder>
+    <select (change)="selectProject()" formControlName="project" placeholder>
       <option disabled hidden selected value="">Select Project</option>
-      <option *ngFor="let project of projects" [ngValue]="project">
-        {{ project }}
+      <option *ngFor="let project of projects" [ngValue]="project.id">
+        {{ project.name }}
       </option>
     </select>
   </bvr-form-field>
   <bvr-form-field label="Task" [required]="isRequired('task')">
     <select formControlName="task">
       <option disabled hidden selected value="">Select Task</option>
-      <option *ngFor="let task of tasks" [ngValue]="task">{{ task }}</option>
+      <option *ngFor="let task of tasks" [ngValue]="task.id">{{ task.name }}</option>
     </select>
   </bvr-form-field>
 </form>

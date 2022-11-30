@@ -9,6 +9,10 @@ import {
 import { UserTask } from '../../shared/model/user-task.model';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { FormFieldComponent } from '../../shared/components/form-field/form-field.component';
+import { UserProjectsService } from '../../shared/services/user-projects.service';
+import { Project } from '../../shared/model/project.model';
+import { ProjectTasksService } from '../../shared/services/project-tasks.service';
+import { ProjectTask } from '../../shared/model/project-task.model';
 
 @Component({
   selector: 'bvr-add-task',
@@ -23,37 +27,45 @@ import { FormFieldComponent } from '../../shared/components/form-field/form-fiel
 })
 export class AddTaskComponent implements OnInit {
   addTaskForm!: FormGroup;
-  projects: string[] = ['Project A', 'Project B', 'Project C'];
-  userTask: UserTask = {
-    startDate: '2012-12-21',
-    endDate: '2012-12-21',
-    startTime: '12:00',
-    endTime: '15:00',
-    project: 'Project B',
-    task: 'Task C',
+  newTask: UserTask = {
+    startDate: formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en'),
+    endDate: formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en'),
+    startTime: formatDate(new Date(Date.now()), 'H:mm', 'en'),
+    endTime: formatDate(new Date(Date.now()), 'H:mm', 'en'),
+    projectId: '',
+    taskId: '',
   };
-  tasks: string[] = ['Task A', 'Task B', 'Task C'];
+  projects: Project[] = [];
+  tasks: ProjectTask[] = [];
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private projectTasksService: ProjectTasksService,
+    private userProjectService: UserProjectsService
+  ) {}
 
   ngOnInit(): void {
+    this.projects = this.userProjectService.getUserProjects();
     this.createForm();
   }
 
   createForm(): void {
     this.addTaskForm = this.fb.group({
       startDate: [
-        formatDate(this.userTask.startDate, 'yyyy-MM-dd', 'en'),
+        formatDate(this.newTask.startDate, 'yyyy-MM-dd', 'en'),
         [Validators.required],
       ],
       endDate: [
-        formatDate(this.userTask.endDate, 'yyyy-MM-dd', 'en'),
+        formatDate(this.newTask.endDate, 'yyyy-MM-dd', 'en'),
         [Validators.required],
       ],
-      startTime: [this.userTask.startTime, [Validators.required]],
-      endTime: [this.userTask.endTime, [Validators.required]],
-      project: [this.userTask.project, [Validators.required]],
-      task: [this.userTask.task, [Validators.required]],
+      startTime: [this.newTask.startTime, [Validators.required]],
+      endTime: [this.newTask.endTime, [Validators.required]],
+      project: [this.newTask.projectId, [Validators.required]],
+      task: [
+        { value: this.newTask.taskId, disabled: true },
+        [Validators.required],
+      ],
     });
   }
 
@@ -61,5 +73,11 @@ export class AddTaskComponent implements OnInit {
     return this.addTaskForm.get(name)?.hasValidator(Validators.required)
       ? true
       : false;
+  }
+
+  selectProject(): void {
+    const projectId = this.addTaskForm.get('project')?.value;
+    this.tasks = this.projectTasksService.getProjectTasks(projectId);
+    this.addTaskForm.get('task')?.enable();
   }
 }
