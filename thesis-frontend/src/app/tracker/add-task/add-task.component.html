@@ -1,42 +1,36 @@
 <form class="add-task-form" [formGroup]="addTaskForm">
   <div class="dates">
     <div class="date">
-      <div class="form-field">
-        <label>Start date <span *ngIf="isRequired('startDate')">*</span></label>
+      <bvr-form-field label="Start date" [required]="isRequired('startDate')">
         <input type="date" formControlName="startDate" />
-      </div>
-      <div class="form-field">
-        <label>Start time <span *ngIf="isRequired('startTime')">*</span></label>
+      </bvr-form-field>
+      <bvr-form-field label="Start time" [required]="isRequired('startTime')">
         <input type="time" formControlName="startTime" />
-      </div>
+      </bvr-form-field>
     </div>
     <div class="date">
-      <div class="form-field">
-        <label>End date <span *ngIf="isRequired('endDate')">*</span></label>
+      <bvr-form-field label="End date" [required]="isRequired('endDate')">
         <input type="date" formControlName="endDate" />
-      </div>
-      <div class="form-field">
-        <label>End time <span *ngIf="isRequired('endTime')">*</span></label>
+      </bvr-form-field>
+      <bvr-form-field label="End time" [required]="isRequired('endTime')">
         <input type="time" formControlName="endTime" />
-      </div>
+      </bvr-form-field>
     </div>
   </div>
-  <div class="form-field">
-    <label>Project <span *ngIf="isRequired('project')">*</span></label>
+  <bvr-form-field label="Project" [required]="isRequired('project')">
     <select formControlName="project" placeholder>
       <option disabled hidden selected value="">Select Project</option>
       <option *ngFor="let project of projects" [ngValue]="project">
         {{ project }}
       </option>
     </select>
-  </div>
-  <div class="form-field">
-    <label>Task <span *ngIf="isRequired('task')">*</span></label>
+  </bvr-form-field>
+  <bvr-form-field label="Task" [required]="isRequired('task')">
     <select formControlName="task">
       <option disabled hidden selected value="">Select Task</option>
       <option *ngFor="let task of tasks" [ngValue]="task">{{ task }}</option>
     </select>
-  </div>
+  </bvr-form-field>
 </form>
 <div class="form-buttons">
   <bvr-button class="form-button" label="Add"></bvr-button>
