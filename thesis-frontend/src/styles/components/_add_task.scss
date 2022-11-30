@@ -1,0 +1,8 @@
+.add-task-form {
+  border: 0.25 * $grid-base $color-divider solid;
+  border-radius: 2 * $grid-base;
+  display: flex;
+  flex-direction: column;
+  padding: 3 * $grid-base;
+  width: 100%;
+}

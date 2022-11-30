@@ -44,3 +44,9 @@
     margin-bottom: 6 * $grid-base;
   }
 }
+
+.wrapper-body {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
