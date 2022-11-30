@@ -1,33 +1,35 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, formatDate } from '@angular/common';
 import {
+  AbstractControl,
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
 import { UserTask } from '../../shared/model/user-task.model';
+import { ButtonComponent } from '../../shared/components/button/button.component';
 
 @Component({
   selector: 'bvr-add-task',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [ButtonComponent, CommonModule, ReactiveFormsModule],
   templateUrl: './add-task.component.html',
 })
 export class AddTaskComponent implements OnInit {
   addTaskForm!: FormGroup;
-  task: UserTask = {
+  projects: string[] = ['Project A', 'Project B', 'Project C'];
+  userTask: UserTask = {
     startDate: '2012-12-21',
     endDate: '2012-12-21',
     startTime: '12:00',
     endTime: '15:00',
-    project: '',
-    task: '',
+    project: 'Project B',
+    task: 'Task C',
   };
+  tasks: string[] = ['Task A', 'Task B', 'Task C'];
 
-  constructor(private fb: FormBuilder) {
-    console.log(formatDate(this.task.startDate, 'yyyy-MM-dd', 'en'));
-  }
+  constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.createForm();
@@ -36,17 +38,23 @@ export class AddTaskComponent implements OnInit {
   createForm(): void {
     this.addTaskForm = this.fb.group({
       startDate: [
-        formatDate(this.task.startDate, 'yyyy-MM-dd', 'en'),
+        formatDate(this.userTask.startDate, 'yyyy-MM-dd', 'en'),
         [Validators.required],
       ],
       endDate: [
-        formatDate(this.task.endDate, 'yyyy-MM-dd', 'en'),
+        formatDate(this.userTask.endDate, 'yyyy-MM-dd', 'en'),
         [Validators.required],
       ],
-      startTime: [this.task.startTime, [Validators.required]],
-      endTime: [this.task.endTime, [Validators.required]],
-      project: ['', [Validators.required]],
-      task: ['', [Validators.required]],
+      startTime: [this.userTask.startTime, [Validators.required]],
+      endTime: [this.userTask.endTime, [Validators.required]],
+      project: [this.userTask.project, [Validators.required]],
+      task: [this.userTask.task, [Validators.required]],
     });
+  }
+
+  isRequired(name: string): boolean {
+    return this.addTaskForm.get(name)?.hasValidator(Validators.required)
+      ? true
+      : false;
   }
 }

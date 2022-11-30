@@ -1,14 +1,44 @@
 <form class="add-task-form" [formGroup]="addTaskForm">
-  <label>Start date:</label>
-  <input type="date" formControlName="startDate" />
-  <label>End date:</label>
-  <input type="date" formControlName="endDate" />
-  <label>Start time:</label>
-  <input type="time" formControlName="startTime" />
-  <label>End time:</label>
-  <input type="time" formControlName="endTime" />
-  <label>Project:</label>
-  <input type="text" formControlName="project" />
-  <label>Task:</label>
-  <input type="text" formControlName="task" />
+  <div class="dates">
+    <div class="date">
+      <div class="form-field">
+        <label>Start date <span *ngIf="isRequired('startDate')">*</span></label>
+        <input type="date" formControlName="startDate" />
+      </div>
+      <div class="form-field">
+        <label>Start time <span *ngIf="isRequired('startTime')">*</span></label>
+        <input type="time" formControlName="startTime" />
+      </div>
+    </div>
+    <div class="date">
+      <div class="form-field">
+        <label>End date <span *ngIf="isRequired('endDate')">*</span></label>
+        <input type="date" formControlName="endDate" />
+      </div>
+      <div class="form-field">
+        <label>End time <span *ngIf="isRequired('endTime')">*</span></label>
+        <input type="time" formControlName="endTime" />
+      </div>
+    </div>
+  </div>
+  <div class="form-field">
+    <label>Project <span *ngIf="isRequired('project')">*</span></label>
+    <select formControlName="project" placeholder>
+      <option disabled hidden selected value="">Select Project</option>
+      <option *ngFor="let project of projects" [ngValue]="project">
+        {{ project }}
+      </option>
+    </select>
+  </div>
+  <div class="form-field">
+    <label>Task <span *ngIf="isRequired('task')">*</span></label>
+    <select formControlName="task">
+      <option disabled hidden selected value="">Select Task</option>
+      <option *ngFor="let task of tasks" [ngValue]="task">{{ task }}</option>
+    </select>
+  </div>
 </form>
+<div class="form-buttons">
+  <bvr-button class="form-button" label="Add"></bvr-button>
+  <bvr-button class="form-button" label="Cancel"></bvr-button>
+</div>

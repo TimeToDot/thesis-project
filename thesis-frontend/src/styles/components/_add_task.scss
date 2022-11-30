@@ -5,4 +5,57 @@
   flex-direction: column;
   padding: 3 * $grid-base;
   width: 100%;
+
+  input,
+  select {
+    background-color: $color-white;
+    border: none;
+    border-bottom: 0.25 * $grid-base $color-divider solid;
+    height: 11 * $grid-base;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  label {
+    color: $color-text-secondary;
+    font-size: $font-small;
+
+    span {
+      color: $color-rejected;
+      font-size: $font-small;
+    }
+  }
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  margin: 3 * $grid-base;
+}
+
+.dates {
+  display: flex;
+}
+
+.date {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.date {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: center;
+
+  .form-button {
+    margin: 12 * $grid-base 2 * $grid-base;
+  }
 }
