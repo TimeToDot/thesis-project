@@ -30,8 +30,8 @@ export class AddTaskComponent implements OnInit {
   newTask: UserTask = {
     startDate: formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en'),
     endDate: formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en'),
-    startTime: formatDate(new Date(Date.now()), 'H:mm', 'en'),
-    endTime: formatDate(new Date(Date.now()), 'H:mm', 'en'),
+    startTime: this.roundToMinutes(15),
+    endTime: this.roundToMinutes(15),
     projectId: '',
     taskId: '',
   };
@@ -47,6 +47,15 @@ export class AddTaskComponent implements OnInit {
   ngOnInit(): void {
     this.projects = this.userProjectService.getUserProjects();
     this.createForm();
+  }
+
+  roundToMinutes(minutes: number): string {
+    const ms = 1000 * 60 * minutes;
+    return formatDate(
+      new Date(Math.round(new Date().getTime() / ms) * ms),
+      'HH:mm',
+      'en'
+    );
   }
 
   createForm(): void {
