@@ -11,7 +11,7 @@ import thesis.domain.account.model.AccountDto;
 
 @Getter
 @Service
-public class AccountService implements UserDetailsService {
+public class AccountService implements UserDetailsService { // TODO: creating non-default
 
   private final AccountRepository accountRepository;
   private final AccountMapper mapper;
