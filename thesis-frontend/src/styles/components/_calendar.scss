@@ -8,7 +8,7 @@
   align-items: center;
   display: flex;
   justify-content: space-between;
-  padding: 6 * $grid-base;
+  padding: 6 * $grid-base 6 * $grid-base 4 * $grid-base;
 }
 
 .calendar-body {

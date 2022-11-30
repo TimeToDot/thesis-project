@@ -33,15 +33,9 @@
   &:focus {
     background-color: transparent;
   }
-
-  .button-icon-left,
-  .button-icon-right {
-    height: 6 * $grid-base;
-    padding-right: 0;
-    width: 6 * $grid-base;
-  }
 }
 
-.button-primary {
-  background-color: $color-primary;
+.icon-large .material-icons-outlined {
+  font-size: 3 * $font-regular;
+  padding: 0;
 }
