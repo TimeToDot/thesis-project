@@ -1,3 +1,18 @@
-<p>projects works!</p>
-<bvr-button label="Project 1" [routerLink]="['/projects', '1']"></bvr-button>
-<bvr-button label="Project 2" [routerLink]="['/projects', '2']"></bvr-button>
+<div class="wrapper">
+  <div class="header">
+    <div class="title">
+      <span class="material-icons-outlined">desktop_windows</span>
+      <h3 class="name">Projects</h3>
+    </div>
+  </div>
+  <div class="wrapper-body">
+    <div>
+      <bvr-button
+        label="Project 1"
+        [routerLink]="['/projects', '1']"></bvr-button>
+      <bvr-button
+        label="Project 2"
+        [routerLink]="['/projects', '2']"></bvr-button>
+    </div>
+  </div>
+</div>

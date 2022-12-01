@@ -1,5 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { Account } from '../shared/model/account.model';
+import { AccountService } from '../shared/services/account.service';
 
 @Component({
   selector: 'bvr-profile',
@@ -8,7 +10,11 @@ import { Component, OnInit } from '@angular/core';
   imports: [CommonModule],
 })
 export class ProfileComponent implements OnInit {
-  constructor() {}
+  currentUser: Account = { email: '', firstName: '', image: '', lastName: '' };
 
-  ngOnInit(): void {}
+  constructor(private accountService: AccountService) {}
+
+  ngOnInit(): void {
+    this.currentUser = this.accountService.getUserAccount();
+  }
 }
