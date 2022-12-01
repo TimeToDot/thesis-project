@@ -4,6 +4,8 @@ import { LayoutComponent } from '../layout/layout.component';
 import { AuthGuard } from '../shared/guards/auth.guard';
 import { UserComponent } from '../user/user.component';
 import { AdminPositionsComponent } from './admin-positions/admin-positions.component';
+import { CreatePositionComponent } from './admin-positions/create-position/create-position.component';
+import { EditPositionComponent } from './admin-positions/edit-position/edit-position.component';
 import { AdminSettingsComponent } from './admin-settings/admin-settings.component';
 import { AdminUsersComponent } from './admin-users/admin-users.component';
 import { CreateUserComponent } from './admin-users/create-user/create-user.component';
@@ -41,6 +43,16 @@ const adminRoutes: Routes = [
       {
         path: 'positions',
         component: AdminPositionsComponent,
+        canActivate: [CanAdminPositionsGuard],
+      },
+      {
+        path: 'positions/create',
+        component: CreatePositionComponent,
+        canActivate: [CanAdminPositionsGuard],
+      },
+      {
+        path: 'positions/:id/edit',
+        component: EditPositionComponent,
         canActivate: [CanAdminPositionsGuard],
       },
       {

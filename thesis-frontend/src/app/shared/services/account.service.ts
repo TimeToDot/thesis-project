@@ -8,7 +8,7 @@ export class AccountService {
   private _account: Account = {
     email: 'jan.kowalski@gmail.com',
     firstName: 'Jan',
-    image: 'jan',
+    image: '',
     lastName: 'Kowalski',
   };
 

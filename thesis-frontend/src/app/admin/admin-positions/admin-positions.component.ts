@@ -5,11 +5,18 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { FormsModule } from '@angular/forms';
 import { Position } from '../model/position.model';
 import { PositionsService } from '../services/positions.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'bvr-admin-positions',
   standalone: true,
-  imports: [ButtonComponent, CdkTableModule, CommonModule, FormsModule],
+  imports: [
+    ButtonComponent,
+    CdkTableModule,
+    CommonModule,
+    FormsModule,
+    RouterModule,
+  ],
   templateUrl: './admin-positions.component.html',
 })
 export class AdminPositionsComponent implements OnInit {

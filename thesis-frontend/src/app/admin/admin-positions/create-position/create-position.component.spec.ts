@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { AdminPositionsComponent } from './admin-positions.component';
+import { CreatePositionComponent } from './create-position.component';
 
-describe('AdminPositionsComponent', () => {
-  let component: AdminPositionsComponent;
-  let fixture: ComponentFixture<AdminPositionsComponent>;
+describe('CreatePositionComponent', () => {
+  let component: CreatePositionComponent;
+  let fixture: ComponentFixture<CreatePositionComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AdminPositionsComponent, RouterTestingModule],
+      imports: [CreatePositionComponent, RouterTestingModule],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(AdminPositionsComponent);
+    fixture = TestBed.createComponent(CreatePositionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
