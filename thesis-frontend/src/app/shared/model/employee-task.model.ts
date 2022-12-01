@@ -1,4 +1,5 @@
 export interface EmployeeTask {
+  id: string;
   startDate: string;
   endDate: string;
   startTime: string;

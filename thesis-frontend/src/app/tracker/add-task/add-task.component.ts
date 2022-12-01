@@ -28,6 +28,7 @@ import { ProjectTask } from '../../projects/model/project-task.model';
 export class AddTaskComponent implements OnInit {
   addTaskForm!: FormGroup;
   newTask: EmployeeTask = {
+    id: '',
     startDate: formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en'),
     endDate: formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en'),
     startTime: this.roundToMinutes(15),

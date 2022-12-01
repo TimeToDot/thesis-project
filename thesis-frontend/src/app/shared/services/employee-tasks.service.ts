@@ -7,6 +7,7 @@ import { EmployeeTask } from '../model/employee-task.model';
 export class EmployeeTasksService {
   private _employeeTasks: EmployeeTask[] = [
     {
+      id: '1',
       startDate: '2022-11-21',
       endDate: '2012-11-21',
       startTime: '12:00',
@@ -15,6 +16,7 @@ export class EmployeeTasksService {
       taskId: '3',
     },
     {
+      id: '2',
       startDate: '2022-12-21',
       endDate: '2022-12-21',
       startTime: '12:00',
