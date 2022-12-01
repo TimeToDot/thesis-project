@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { ProjectPermissions } from '../model/project-permissions.model';
 import { PermissionsService } from '../../shared/services/permissions.service';
-import { CanManageProjectEmployeesGuard } from './can-manage-project-users.guard';
+import { CanManageProjectEmployeesGuard } from './can-manage-project-employees.guard';
 
 describe('CanManageProjectEmployeesGuard', () => {
   let guard: CanManageProjectEmployeesGuard;

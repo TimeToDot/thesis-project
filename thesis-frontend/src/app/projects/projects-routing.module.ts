@@ -18,7 +18,7 @@ import { EditProjectEmployeeComponent } from './project-employees/edit-project-e
 import { ProjectEmployeesComponent } from './project-employees/project-employees.component';
 import { ProjectComponent } from './project/project.component';
 import { ProjectsComponent } from './projects.component';
-import { CanManageProjectEmployeesGuard } from './guards/can-manage-project-users.guard';
+import { CanManageProjectEmployeesGuard } from './guards/can-manage-project-employees.guard';
 import { EmployeeComponent } from '../employee/employee.component';
 
 const projectsRoutes: Routes = [
