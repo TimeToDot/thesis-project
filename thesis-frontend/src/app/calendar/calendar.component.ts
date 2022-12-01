@@ -81,7 +81,7 @@ export class CalendarComponent implements OnInit {
         week.push({
           date: dayjs().month(this.currentMonth).date(i).format('MM/DD/YYYY'),
           disabled: i < this.monthStartDay || i > this.monthEndDay,
-          status: Status.None,
+          status: Status.Logged,
         });
       }
       this.monthGrid.push(week);

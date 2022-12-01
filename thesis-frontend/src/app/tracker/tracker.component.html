@@ -8,6 +8,31 @@
   </div>
   <div class="wrapper-body">
     <bvr-calendar></bvr-calendar>
-    <bvr-add-task class="tracker-tasks-form"></bvr-add-task>
+    <div class="tracker-right-side">
+      <div class="tracker-toggle">
+        <div
+          class="toggle"
+          [class.selected]="taskListVisible"
+          (click)="showTaskList(true)">
+          <h5>Logged Tasks</h5>
+          <span class="material-icons-outlined">
+            {{ taskListVisible ? 'expand_more' : 'expand_less' }}
+          </span>
+        </div>
+        <div
+          class="toggle"
+          [class.selected]="!taskListVisible"
+          (click)="showTaskList(false)">
+          <h5>Add New Task</h5>
+          <span class="material-icons-outlined">
+            {{ taskListVisible ? 'expand_less' : 'expand_more' }}
+          </span>
+        </div>
+      </div>
+      <div>
+        <bvr-tasks-list *ngIf="taskListVisible"></bvr-tasks-list>
+        <bvr-add-task *ngIf="!taskListVisible"></bvr-add-task>
+      </div>
+    </div>
   </div>
 </div>
