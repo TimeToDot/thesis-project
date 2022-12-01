@@ -25,10 +25,10 @@ export class CanAdminProjectGuard implements CanActivate {
   ): true | UrlTree {
     const url: string = state.url;
 
-    return this.checkUserPermissions(url);
+    return this.checkEmployeePermissions(url);
   }
 
-  checkUserPermissions(url: string): true | UrlTree {
+  checkEmployeePermissions(url: string): true | UrlTree {
     const projectId = url.split('/')[this.projectIdPosition];
     const permissions =
       this.permissionsService.getProjectPermissions(projectId);

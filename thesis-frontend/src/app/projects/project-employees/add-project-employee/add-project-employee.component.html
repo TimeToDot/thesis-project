@@ -1,0 +1,30 @@
+<div class="stepper">
+  <div class="stepper-header">
+    <div class="step" [ngClass]="{ 'active-step': step === 1, 'previous-step': step > 1 }">
+      1
+    </div>
+    <div class="divider"></div>
+    <div class="step" [ngClass]="{
+        'next-step': step === 1,
+        'active-step': step === 2,
+        'previous-step': step === 3
+      }">
+      2
+    </div>
+    <div class="divider"></div>
+    <div class="step" [ngClass]="{ 'active-step': step === 3, 'next-step': step < 3 }">
+      3
+    </div>
+  </div>
+  <div class="steps">
+    <div *ngIf="step === 1">
+      <bvr-find-employee (nextStepChange)="nextStep()"></bvr-find-employee>
+    </div>
+    <div *ngIf="step === 2">
+      <bvr-confirm-employee (nextStepChange)="nextStep()" (previousStepChange)="previousStep()"></bvr-confirm-employee>
+    </div>
+    <div *ngIf="step === 3">
+      <bvr-select-wage (previousStepChange)="previousStep()"></bvr-select-wage>
+    </div>
+  </div>
+</div>

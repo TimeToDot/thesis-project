@@ -6,10 +6,10 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { UserTask } from '../../shared/model/user-task.model';
+import { EmployeeTask } from '../../shared/model/employee-task.model';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { FormFieldComponent } from '../../shared/components/form-field/form-field.component';
-import { UserProjectsService } from '../../shared/services/user-projects.service';
+import { EmployeeProjectsService } from '../../shared/services/employee-projects.service';
 import { ProjectTasksService } from '../../projects/services/project-tasks.service';
 import { Project } from '../../projects/model/project.model';
 import { ProjectTask } from '../../projects/model/project-task.model';
@@ -27,7 +27,7 @@ import { ProjectTask } from '../../projects/model/project-task.model';
 })
 export class AddTaskComponent implements OnInit {
   addTaskForm!: FormGroup;
-  newTask: UserTask = {
+  newTask: EmployeeTask = {
     startDate: formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en'),
     endDate: formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en'),
     startTime: this.roundToMinutes(15),
@@ -41,11 +41,11 @@ export class AddTaskComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private projectTasksService: ProjectTasksService,
-    private userProjectService: UserProjectsService
+    private employeeProjectService: EmployeeProjectsService
   ) {}
 
   ngOnInit(): void {
-    this.projects = this.userProjectService.getUserProjects();
+    this.projects = this.employeeProjectService.getEmployeeProjects();
     this.createForm();
   }
 

@@ -23,11 +23,11 @@ export class CanAdminPositionsGuard implements CanActivate {
   ): true | UrlTree {
     const url: string = state.url;
 
-    return this.checkUserPermissions(url);
+    return this.checkEmployeePermissions(url);
   }
 
-  checkUserPermissions(url: string): true | UrlTree {
-    if (this.permissionsService.getUserPermissions().canAdminPositions) {
+  checkEmployeePermissions(url: string): true | UrlTree {
+    if (this.permissionsService.getEmployeePermissions().canAdminPositions) {
       return true;
     }
 

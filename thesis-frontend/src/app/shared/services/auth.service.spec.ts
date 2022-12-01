@@ -33,7 +33,7 @@ describe('AuthService', () => {
   });
 
   it('should set isLoggedIn', () => {
-    localStorage.setItem('user', 'true');
+    localStorage.setItem('employee', 'true');
     service.readFromLocalStorage();
     expect(service.getLoggedInStatus()).toBeTrue();
   });
@@ -41,13 +41,13 @@ describe('AuthService', () => {
   it('should log in', () => {
     service.login().subscribe(() => {
       expect(service.getLoggedInStatus()).toBeTrue();
-      expect(localStorage.getItem('user')).toBe('true');
+      expect(localStorage.getItem('employee')).toBe('true');
     });
   });
 
   it('should log out', () => {
     service.logout();
     expect(service.getLoggedInStatus()).toBeFalse();
-    expect(localStorage.getItem('user')).toBe('false');
+    expect(localStorage.getItem('employee')).toBe('false');
   });
 });

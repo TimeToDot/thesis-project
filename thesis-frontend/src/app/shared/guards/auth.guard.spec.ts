@@ -22,7 +22,7 @@ describe('AuthGuard', () => {
     expect(guard).toBeTruthy();
   });
 
-  it('should redirect an unauthenticated user to the login route', () => {
+  it('should redirect an unauthenticated employee to the login route', () => {
     const mockAuthService = {
       getLoggedInStatus: (): boolean => {
         return false;
@@ -40,7 +40,7 @@ describe('AuthGuard', () => {
     expect(routerParseUrlSpy).toHaveBeenCalledWith('/login');
   });
 
-  it('should allow the authenticated user to access app', () => {
+  it('should allow the authenticated employee to access app', () => {
     spyOn(authService, 'getLoggedInStatus').and.returnValue(true);
     expect(guard.canActivate(routeMock, routeStateMock)).toEqual(true);
   });

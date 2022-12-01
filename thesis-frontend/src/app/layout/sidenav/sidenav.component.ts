@@ -16,7 +16,12 @@ import { Account } from '../../shared/model/account.model';
   imports: [ButtonComponent, CommonModule, RouterModule],
 })
 export class SidenavComponent implements OnInit {
-  currentUser: Account = { email: '', firstName: '', image: '', lastName: '' };
+  currentEmployee: Account = {
+    email: '',
+    firstName: '',
+    image: '',
+    lastName: '',
+  };
   navMenuGroups: LinkGroup[] = [];
 
   constructor(
@@ -27,7 +32,7 @@ export class SidenavComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.currentUser = this.accountService.getUserAccount();
+    this.currentEmployee = this.accountService.getEmployeeAccount();
     this.getNavMenuOptions();
     this.getAdditionalNavMenuOptions();
     console.log(this.navMenuGroups);
@@ -54,14 +59,14 @@ export class SidenavComponent implements OnInit {
   }
 
   getAdditionalNavMenuOptions(): void {
-    const permissions = this.permissionsService.getUserPermissions();
+    const permissions = this.permissionsService.getEmployeePermissions();
     const managementOptions: LinkGroup = { name: 'Management', options: [] };
 
-    if (permissions.canAdminUsers) {
+    if (permissions.canAdminEmployees) {
       managementOptions.options.push({
         icon: 'groups',
         name: 'Employees',
-        path: '/admin/users',
+        path: '/admin/employees',
       });
     }
 

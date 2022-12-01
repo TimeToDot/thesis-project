@@ -11,7 +11,7 @@ import { PermissionsService } from '../../shared/services/permissions.service';
 @Injectable({
   providedIn: 'root',
 })
-export class CanManageProjectUsersGuard implements CanActivate {
+export class CanManageProjectEmployeesGuard implements CanActivate {
   private projectIdPosition: number = 2;
 
   constructor(
@@ -25,14 +25,14 @@ export class CanManageProjectUsersGuard implements CanActivate {
   ): true | UrlTree {
     const url: string = state.url;
 
-    return this.checkUserPermissions(url);
+    return this.checkEmployeePermissions(url);
   }
 
-  checkUserPermissions(url: string): true | UrlTree {
+  checkEmployeePermissions(url: string): true | UrlTree {
     const projectId = url.split('/')[this.projectIdPosition];
     const permissions =
       this.permissionsService.getProjectPermissions(projectId);
-    if (permissions && permissions.canManageProjectUsers) {
+    if (permissions && permissions.canManageProjectEmployees) {
       return true;
     }
 

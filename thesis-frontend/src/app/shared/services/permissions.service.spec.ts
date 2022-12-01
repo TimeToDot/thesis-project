@@ -14,8 +14,8 @@ describe('PermissionsService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should return user permissions', () => {
-    expect(service.getUserPermissions()).toBeInstanceOf(Object);
+  it('should return employee permissions', () => {
+    expect(service.getEmployeePermissions()).toBeInstanceOf(Object);
   });
 
   it('should return project permissions', () => {
@@ -23,7 +23,7 @@ describe('PermissionsService', () => {
     expect(permissions).toBeInstanceOf(Object);
     expect(permissions?.canAdminProjects).toBeTrue();
     expect(permissions?.canManageApprovals).toBeTrue();
-    expect(permissions?.canManageProjectUsers).toBeTrue();
+    expect(permissions?.canManageProjectEmployees).toBeTrue();
     expect(permissions?.canManageTasks).toBeTrue();
     expect(permissions?.canReadProject).toBeTrue();
   });

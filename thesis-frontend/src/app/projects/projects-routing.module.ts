@@ -2,11 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from '../layout/layout.component';
 import { AuthGuard } from '../shared/guards/auth.guard';
-import { UserComponent } from '../user/user.component';
-import { CanAddProjectUserGuard } from './guards/can-add-project-user.guard';
+import { CanAddProjectEmployeeGuard } from './guards/can-add-project-employee.guard';
 import { CanAdminProjectGuard } from './guards/can-admin-project.guard';
 import { CanManageApprovalsGuard } from './guards/can-manage-approvals.guard';
-import { CanManageProjectUsersGuard } from './guards/can-manage-project-users.guard';
 import { CanManageTasksGuard } from './guards/can-manage-tasks.guard';
 import { CanReadProjectGuard } from './guards/can-read-project.guard';
 import { ProjectApprovalsComponent } from './project-approvals/project-approvals.component';
@@ -15,11 +13,13 @@ import { ProjectSettingsComponent } from './project-settings/project-settings.co
 import { CreateTaskComponent } from './project-tasks/create-task/create-task.component';
 import { EditTaskComponent } from './project-tasks/edit-task/edit-task.component';
 import { ProjectTasksComponent } from './project-tasks/project-tasks.component';
-import { AddProjectUserComponent } from './project-users/add-project-user/add-project-user.component';
-import { EditProjectUserComponent } from './project-users/edit-project-user/edit-project-user.component';
-import { ProjectUsersComponent } from './project-users/project-users.component';
+import { AddProjectEmployeeComponent } from './project-employees/add-project-employee/add-project-employee.component';
+import { EditProjectEmployeeComponent } from './project-employees/edit-project-employee/edit-project-employee.component';
+import { ProjectEmployeesComponent } from './project-employees/project-employees.component';
 import { ProjectComponent } from './project/project.component';
 import { ProjectsComponent } from './projects.component';
+import { CanManageProjectEmployeesGuard } from './guards/can-manage-project-users.guard';
+import { EmployeeComponent } from '../employee/employee.component';
 
 const projectsRoutes: Routes = [
   {
@@ -56,24 +56,24 @@ const projectsRoutes: Routes = [
             canActivate: [CanManageTasksGuard],
           },
           {
-            path: 'users',
-            component: ProjectUsersComponent,
-            canActivate: [CanManageProjectUsersGuard],
+            path: 'employees',
+            component: ProjectEmployeesComponent,
+            canActivate: [CanManageProjectEmployeesGuard],
           },
           {
-            path: 'users/add',
-            component: AddProjectUserComponent,
-            canActivate: [CanAddProjectUserGuard],
+            path: 'employees/add',
+            component: AddProjectEmployeeComponent,
+            canActivate: [CanAddProjectEmployeeGuard],
           },
           {
-            path: 'users/:id',
-            component: UserComponent,
-            canActivate: [CanManageProjectUsersGuard],
+            path: 'employees/:id',
+            component: EmployeeComponent,
+            canActivate: [CanManageProjectEmployeesGuard],
           },
           {
-            path: 'users/:id/edit',
-            component: EditProjectUserComponent,
-            canActivate: [CanManageProjectUsersGuard],
+            path: 'employees/:id/edit',
+            component: EditProjectEmployeeComponent,
+            canActivate: [CanManageProjectEmployeesGuard],
           },
           {
             path: 'approvals',

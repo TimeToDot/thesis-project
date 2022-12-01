@@ -22,7 +22,7 @@ describe('LoginGuard', () => {
     expect(guard).toBeTruthy();
   });
 
-  it('should allow the unauthenticated user to access login page', () => {
+  it('should allow the unauthenticated employee to access login page', () => {
     const mockAuthService = {
       getLoggedInStatus: (): boolean => {
         return false;
@@ -39,7 +39,7 @@ describe('LoginGuard', () => {
     expect(guard.canActivate(routeMock, routeStateMock)).toEqual(true);
   });
 
-  it('should redirect an authenticated user to the dashboard route', () => {
+  it('should redirect an authenticated employee to the dashboard route', () => {
     const mockAuthService = {
       getLoggedInStatus: (): boolean => {
         return true;

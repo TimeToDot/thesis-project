@@ -12,30 +12,30 @@ export class PermissionsService {
         id: '1',
         canReadProject: true,
         canManageTasks: true,
-        canManageProjectUsers: true,
+        canManageProjectEmployees: true,
         canManageApprovals: true,
         canAdminProjects: true,
-        canAddProjectUser: true,
+        canAddProjectEmployee: true,
       },
       {
         id: '2',
         canReadProject: true,
         canManageTasks: false,
-        canManageProjectUsers: true,
+        canManageProjectEmployees: true,
         canManageApprovals: false,
         canAdminProjects: true,
-        canAddProjectUser: true,
+        canAddProjectEmployee: true,
       },
     ],
-    canAddUser: true,
-    canAdminUsers: true,
+    canAddEmployee: true,
+    canAdminEmployees: true,
     canAdminSettings: true,
     canAdminPositions: true,
   };
 
   constructor() {}
 
-  getUserPermissions(): Permissions {
+  getEmployeePermissions(): Permissions {
     return this._permissions;
   }
 

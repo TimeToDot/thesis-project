@@ -43,10 +43,10 @@ describe('ProjectComponent', () => {
           id: '1',
           canReadProject: true,
           canManageTasks: true,
-          canManageProjectUsers: true,
+          canManageProjectEmployees: true,
           canManageApprovals: true,
           canAdminProjects: true,
-          canAddProjectUser: true,
+          canAddProjectEmployee: true,
         };
       },
     };

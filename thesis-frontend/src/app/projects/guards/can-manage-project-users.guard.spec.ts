@@ -2,11 +2,10 @@ import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { ProjectPermissions } from '../model/project-permissions.model';
 import { PermissionsService } from '../../shared/services/permissions.service';
+import { CanManageProjectEmployeesGuard } from './can-manage-project-users.guard';
 
-import { CanManageProjectUsersGuard } from './can-manage-project-users.guard';
-
-describe('CanManageProjectUsersGuard', () => {
-  let guard: CanManageProjectUsersGuard;
+describe('CanManageProjectEmployeesGuard', () => {
+  let guard: CanManageProjectEmployeesGuard;
   let permissionsService: PermissionsService;
   let routeMock: any = { snapshot: {} };
   let routeStateMock: any = { snapshot: {}, url: '/a/b/c' };
@@ -14,7 +13,7 @@ describe('CanManageProjectUsersGuard', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    guard = TestBed.inject(CanManageProjectUsersGuard);
+    guard = TestBed.inject(CanManageProjectEmployeesGuard);
     permissionsService = TestBed.inject(PermissionsService);
     router = TestBed.inject(Router);
   });
@@ -23,17 +22,17 @@ describe('CanManageProjectUsersGuard', () => {
     expect(guard).toBeTruthy();
   });
 
-  it('should allow the authorized user to access project users page', () => {
+  it('should allow the authorized employee to access project employees page', () => {
     const mockPermissionsService = {
       getProjectPermissions: (index: string | null): ProjectPermissions => {
         return {
           id: '1',
           canReadProject: true,
           canManageTasks: true,
-          canManageProjectUsers: true,
+          canManageProjectEmployees: true,
           canManageApprovals: true,
           canAdminProjects: true,
-          canAddProjectUser: true,
+          canAddProjectEmployee: true,
         };
       },
     };
@@ -48,7 +47,7 @@ describe('CanManageProjectUsersGuard', () => {
     expect(permissionsServiceSpy).toHaveBeenCalledOnceWith('b');
   });
 
-  it('should redirect the unauthorized user to not found page', () => {
+  it('should redirect the unauthorized employee to not found page', () => {
     const routerParseUrlSpy = spyOn(router, 'parseUrl');
 
     guard.canActivate(routeMock, routeStateMock);

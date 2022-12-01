@@ -2,8 +2,8 @@ export interface ProjectPermissions {
   id: string;
   canReadProject: boolean;
   canManageTasks: boolean;
-  canManageProjectUsers: boolean;
+  canManageProjectEmployees: boolean;
   canManageApprovals: boolean;
   canAdminProjects: boolean;
-  canAddProjectUser: boolean;
+  canAddProjectEmployee: boolean;
 }

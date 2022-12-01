@@ -22,17 +22,17 @@ describe('CanAdminProjectGuard', () => {
     expect(guard).toBeTruthy();
   });
 
-  it('should allow the authorized user to access admin project page', () => {
+  it('should allow the authorized employee to access admin project page', () => {
     const mockPermissionsService = {
       getProjectPermissions: (index: string | null): ProjectPermissions => {
         return {
           id: '1',
           canReadProject: true,
           canManageTasks: true,
-          canManageProjectUsers: true,
+          canManageProjectEmployees: true,
           canManageApprovals: true,
           canAdminProjects: true,
-          canAddProjectUser: true,
+          canAddProjectEmployee: true,
         };
       },
     };
@@ -47,7 +47,7 @@ describe('CanAdminProjectGuard', () => {
     expect(permissionsServiceSpy).toHaveBeenCalledOnceWith('b');
   });
 
-  it('should redirect the unauthorized user to not found page', () => {
+  it('should redirect the unauthorized employee to not found page', () => {
     const routerParseUrlSpy = spyOn(router, 'parseUrl');
 
     guard.canActivate(routeMock, routeStateMock);

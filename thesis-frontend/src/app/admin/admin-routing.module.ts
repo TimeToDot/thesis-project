@@ -2,17 +2,17 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from '../layout/layout.component';
 import { AuthGuard } from '../shared/guards/auth.guard';
-import { UserComponent } from '../user/user.component';
 import { AdminPositionsComponent } from './admin-positions/admin-positions.component';
 import { CreatePositionComponent } from './admin-positions/create-position/create-position.component';
 import { EditPositionComponent } from './admin-positions/edit-position/edit-position.component';
 import { AdminSettingsComponent } from './admin-settings/admin-settings.component';
-import { AdminUsersComponent } from './admin-users/admin-users.component';
-import { CreateUserComponent } from './admin-users/create-user/create-user.component';
-import { EditUserComponent } from './admin-users/edit-user/edit-user.component';
+import { AdminEmployeesComponent } from './admin-employees/admin-employees.component';
+import { CreateEmployeeComponent } from './admin-employees/create-employee/create-employee.component';
+import { EditEmployeeComponent } from './admin-employees/edit-employee/edit-employee.component';
 import { CanAdminPositionsGuard } from './guards/can-admin-positions.guard';
 import { CanAdminSettingsGuard } from './guards/can-admin-settings.guard';
-import { CanAdminUsersGuard } from './guards/can-admin-users.guard';
+import { CanAdminEmployeesGuard } from './guards/can-admin-employees.guard';
+import { EmployeeComponent } from '../employee/employee.component';
 
 const adminRoutes: Routes = [
   {
@@ -21,24 +21,24 @@ const adminRoutes: Routes = [
     canActivate: [AuthGuard],
     children: [
       {
-        path: 'users',
-        component: AdminUsersComponent,
-        canActivate: [CanAdminUsersGuard],
+        path: 'employees',
+        component: AdminEmployeesComponent,
+        canActivate: [CanAdminEmployeesGuard],
       },
       {
-        path: 'users/create',
-        component: CreateUserComponent,
-        canActivate: [CanAdminUsersGuard],
+        path: 'employees/create',
+        component: CreateEmployeeComponent,
+        canActivate: [CanAdminEmployeesGuard],
       },
       {
-        path: 'users/:id',
-        component: UserComponent,
-        canActivate: [CanAdminUsersGuard],
+        path: 'employees/:id',
+        component: EmployeeComponent,
+        canActivate: [CanAdminEmployeesGuard],
       },
       {
-        path: 'users/:id/edit',
-        component: EditUserComponent,
-        canActivate: [CanAdminUsersGuard],
+        path: 'employees/:id/edit',
+        component: EditEmployeeComponent,
+        canActivate: [CanAdminEmployeesGuard],
       },
       {
         path: 'positions',

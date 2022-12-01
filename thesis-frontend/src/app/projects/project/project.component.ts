@@ -39,7 +39,7 @@ export class ProjectComponent implements OnInit {
     if (permissions) {
       this.getDashboardOption(permissions);
       this.getTasksOption(permissions);
-      this.getUsersOption(permissions);
+      this.getEmployeesOption(permissions);
       this.getApprovalsOption(permissions);
       this.getSettingsOption(permissions);
     }
@@ -57,9 +57,9 @@ export class ProjectComponent implements OnInit {
     }
   }
 
-  getUsersOption(permissions: ProjectPermissions): void {
-    if (permissions.canManageProjectUsers) {
-      this.navbarOptions.push({ name: 'Users', path: 'users' });
+  getEmployeesOption(permissions: ProjectPermissions): void {
+    if (permissions.canManageProjectEmployees) {
+      this.navbarOptions.push({ name: 'Employees', path: 'employees' });
     }
   }
 

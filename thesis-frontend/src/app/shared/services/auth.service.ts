@@ -18,7 +18,7 @@ export class AuthService {
   }
 
   readFromLocalStorage(): void {
-    const isLogged = localStorage.getItem('user');
+    const isLogged = localStorage.getItem('employee');
     if (isLogged) {
       this.isLoggedIn = JSON.parse(isLogged);
     }
@@ -28,13 +28,13 @@ export class AuthService {
     return of(true).pipe(
       tap(() => {
         this.isLoggedIn = true;
-        localStorage.setItem('user', JSON.stringify(this.isLoggedIn));
+        localStorage.setItem('employee', JSON.stringify(this.isLoggedIn));
       })
     );
   }
 
   logout(): void {
     this.isLoggedIn = false;
-    localStorage.setItem('user', JSON.stringify(this.isLoggedIn));
+    localStorage.setItem('employee', JSON.stringify(this.isLoggedIn));
   }
 }

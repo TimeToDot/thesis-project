@@ -23,18 +23,18 @@ describe('CanAdminPositionsGuard', () => {
     expect(guard).toBeTruthy();
   });
 
-  it('should allow the authorized user to access admin positions page', () => {
+  it('should allow the authorized employee to access admin positions page', () => {
     guard.canActivate(routeMock, routeStateMock);
     expect(guard.canActivate(routeMock, routeStateMock)).toEqual(true);
   });
 
-  it('should redirect an unauthorized user to the dashboard route', () => {
+  it('should redirect an unauthorized employee to the dashboard route', () => {
     const mockPermissionsService = {
-      getUserPermissions: (): Permissions => {
+      getEmployeePermissions: (): Permissions => {
         return {
           projects: [],
-          canAddUser: false,
-          canAdminUsers: false,
+          canAddEmployee: false,
+          canAdminEmployees: false,
           canAdminSettings: false,
           canAdminPositions: false,
         };
@@ -43,8 +43,8 @@ describe('CanAdminPositionsGuard', () => {
 
     const permissionsServiceSpy = spyOn(
       permissionsService,
-      'getUserPermissions'
-    ).and.callFake(mockPermissionsService.getUserPermissions);
+      'getEmployeePermissions'
+    ).and.callFake(mockPermissionsService.getEmployeePermissions);
     const routerParseUrlSpy = spyOn(router, 'parseUrl');
 
     guard.canActivate(routeMock, routeStateMock);

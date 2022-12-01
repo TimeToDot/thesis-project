@@ -12,7 +12,7 @@ export class AccountService {
     lastName: 'Kowalski',
   };
 
-  getUserAccount(): Account {
+  getEmployeeAccount(): Account {
     return this._account;
   }
 }

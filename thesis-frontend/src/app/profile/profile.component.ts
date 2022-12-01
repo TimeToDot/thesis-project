@@ -10,11 +10,16 @@ import { AccountService } from '../shared/services/account.service';
   imports: [CommonModule],
 })
 export class ProfileComponent implements OnInit {
-  currentUser: Account = { email: '', firstName: '', image: '', lastName: '' };
+  currentEmployee: Account = {
+    email: '',
+    firstName: '',
+    image: '',
+    lastName: '',
+  };
 
   constructor(private accountService: AccountService) {}
 
   ngOnInit(): void {
-    this.currentUser = this.accountService.getUserAccount();
+    this.currentEmployee = this.accountService.getEmployeeAccount();
   }
 }
