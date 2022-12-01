@@ -20,9 +20,17 @@
 
 <div class="table">
   <table cdk-table [dataSource]="dataSource">
-    <ng-container cdkColumnDef="task_name">
+    <ng-container cdkColumnDef="name">
       <th cdk-header-cell *cdkHeaderCellDef>Name</th>
       <td cdk-cell *cdkCellDef="let element">{{ element.name }}</td>
+    </ng-container>
+    <ng-container cdkColumnDef="description">
+      <th cdk-header-cell *cdkHeaderCellDef>Description</th>
+      <td cdk-cell *cdkCellDef="let element">{{ element.description }}</td>
+    </ng-container>
+    <ng-container cdkColumnDef="creationDate">
+      <th cdk-header-cell *cdkHeaderCellDef>Creation Date</th>
+      <td cdk-cell *cdkCellDef="let element">{{ element.creationDate }}</td>
     </ng-container>
     <ng-container cdkColumnDef="actions">
       <th cdk-header-cell *cdkHeaderCellDef>Actions</th>

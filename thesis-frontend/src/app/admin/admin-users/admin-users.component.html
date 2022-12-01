@@ -35,10 +35,10 @@
         <th cdk-header-cell *cdkHeaderCellDef>Position</th>
         <td cdk-cell *cdkCellDef="let element">{{ element.position }}</td>
       </ng-container>
-      <ng-container cdkColumnDef="employment_date">
+      <ng-container cdkColumnDef="employmentDate">
         <th cdk-header-cell *cdkHeaderCellDef>Hire date</th>
         <td cdk-cell *cdkCellDef="let element">
-          {{ element.employment_date | date: 'mediumDate' }}
+          {{ element.employmentDate | date: 'mediumDate' }}
         </td>
       </ng-container>
       <ng-container cdkColumnDef="actions">

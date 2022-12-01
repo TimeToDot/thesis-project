@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { CdkTableModule } from '@angular/cdk/table';
 import { FormsModule } from '@angular/forms';
 import { Position } from '../model/position.model';
+import { PositionsService } from '../services/positions.service';
 
 @Component({
   selector: 'bvr-admin-positions',
@@ -11,17 +12,19 @@ import { Position } from '../model/position.model';
   imports: [ButtonComponent, CdkTableModule, CommonModule, FormsModule],
   templateUrl: './admin-positions.component.html',
 })
-export class AdminPositionsComponent {
-  dataSource: Position[] = [
-    {
-      name: 'Frontend Developer',
-      description: 'Frontend Developer',
-    },
-    {
-      name: 'Product Designer',
-      description: 'Product Designer',
-    },
+export class AdminPositionsComponent implements OnInit {
+  dataSource: Position[] = [];
+  displayedColumns: string[] = [
+    'name',
+    'description',
+    'employeesCount',
+    'actions',
   ];
-  displayedColumns: string[] = ['name', 'description', 'actions'];
   query: string = '';
+
+  constructor(private positionsService: PositionsService) {}
+
+  ngOnInit(): void {
+    this.dataSource = this.positionsService.getPositions();
+  }
 }

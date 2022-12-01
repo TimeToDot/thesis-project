@@ -23,17 +23,20 @@
     <ng-container cdkColumnDef="person">
       <th cdk-header-cell *cdkHeaderCellDef>Person</th>
       <td cdk-cell *cdkCellDef="let element">
-        {{ element.surname }} {{ element.name }}
+        <div class="table-cell">
+          <img [src]="element.image" class="picture" />
+          <span>{{ element.surname }} {{ element.name }}</span>
+        </div>
       </td>
     </ng-container>
     <ng-container cdkColumnDef="position">
       <th cdk-header-cell *cdkHeaderCellDef>Position</th>
       <td cdk-cell *cdkCellDef="let element">{{ element.position }}</td>
     </ng-container>
-    <ng-container cdkColumnDef="employment_date">
+    <ng-container cdkColumnDef="employmentDate">
       <th cdk-header-cell *cdkHeaderCellDef>Employment date</th>
       <td cdk-cell *cdkCellDef="let element">
-        {{ element.employment_date | date: 'mediumDate' }}
+        {{ element.employmentDate | date: 'mediumDate' }}
       </td>
     </ng-container>
     <ng-container cdkColumnDef="actions">

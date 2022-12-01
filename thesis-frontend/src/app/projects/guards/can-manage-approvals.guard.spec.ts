@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import { ProjectPermissions } from '../../shared/model/project-permissions.model';
+import { ProjectPermissions } from '../model/project-permissions.model';
 import { PermissionsService } from '../../shared/services/permissions.service';
 
 import { CanManageApprovalsGuard } from './can-manage-approvals.guard';

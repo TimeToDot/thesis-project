@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { User } from '../../shared/model/user.model';
+import { ProjectUsersService } from '../services/project-users.service';
 
 @Component({
   selector: 'bvr-project-users',
@@ -19,33 +20,24 @@ import { User } from '../../shared/model/user.model';
   ],
 })
 export class ProjectUsersComponent implements OnInit {
-  dataSource: User[] = [
-    {
-      id: '0',
-      name: 'Robert',
-      surname: 'Skrzypczak',
-      position: 'Frontend Developer',
-      employment_date: new Date(2021, 8, 15),
-    },
-    {
-      id: '1',
-      name: 'Beata',
-      surname: 'Iwan',
-      position: 'Product Designer',
-      employment_date: new Date(2022, 7, 1),
-    },
-  ];
+  dataSource: User[] = [];
   displayedColumns: string[] = [
     'person',
     'position',
-    'employment_date',
+    'employmentDate',
     'actions',
   ];
   query: string = '';
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor(
+    private route: ActivatedRoute,
+    private projectUsersService: ProjectUsersService,
+    private router: Router
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.dataSource = this.projectUsersService.getProjectUsers();
+  }
 
   editUser(event: Event, row: User): void {
     event.stopPropagation();

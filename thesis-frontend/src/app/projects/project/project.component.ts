@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TabsComponent } from '../../shared/components/tabs/tabs.component';
 import { LinkOption } from '../../shared/model/link-option.model';
-import { ProjectPermissions } from '../../shared/model/project-permissions.model';
+import { ProjectPermissions } from '../model/project-permissions.model';
 import { PermissionsService } from '../../shared/services/permissions.service';
 
 @Component({

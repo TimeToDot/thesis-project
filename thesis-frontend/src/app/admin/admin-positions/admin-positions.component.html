@@ -27,6 +27,10 @@
         <th cdk-header-cell *cdkHeaderCellDef>Description</th>
         <td cdk-cell *cdkCellDef="let element">{{ element.description }}</td>
       </ng-container>
+      <ng-container cdkColumnDef="employeesCount">
+        <th cdk-header-cell *cdkHeaderCellDef>Employees Count</th>
+        <td cdk-cell *cdkCellDef="let element">{{ element.employeesCount }}</td>
+      </ng-container>
       <ng-container cdkColumnDef="actions">
         <th cdk-header-cell *cdkHeaderCellDef>Actions</th>
         <td cdk-cell *cdkCellDef="let element">

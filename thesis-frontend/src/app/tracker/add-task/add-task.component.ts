@@ -10,9 +10,9 @@ import { UserTask } from '../../shared/model/user-task.model';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { FormFieldComponent } from '../../shared/components/form-field/form-field.component';
 import { UserProjectsService } from '../../shared/services/user-projects.service';
-import { Project } from '../../shared/model/project.model';
-import { ProjectTasksService } from '../../shared/services/project-tasks.service';
-import { ProjectTask } from '../../shared/model/project-task.model';
+import { ProjectTasksService } from '../../projects/services/project-tasks.service';
+import { Project } from '../../projects/model/project.model';
+import { ProjectTask } from '../../projects/model/project-task.model';
 
 @Component({
   selector: 'bvr-add-task',
