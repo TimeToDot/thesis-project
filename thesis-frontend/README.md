@@ -1,26 +1,17 @@
 # ThesisFrontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.6.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.6. It is currently using [Angular](https://angular.io/docs)
+version 15.0.0.
 
-## Development server
+## Installation steps
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+To be able to run the project locally, you will need to have node.js installed with the version, that is supporting currently used Angular (check [compatibility](https://stackoverflow.com/questions/60248452/is-there-a-compatibility-list-for-angular-angular-cli-and-node-js)). The CI/CD flow is currently defined with the version 16 and that's the recommended one.
 
-## Code scaffolding
+Next steps are as follows:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+- run `npm install` inside of the `thesis-frontend` folder
+- run `npm run start` to start the local dev server, by default it will run on `http://localhost:4200/` and it will reload after every change you make
+- run `npm run test` to execute unit tests via [Karma](https://karma-runner.github.io)
 
 ## Further help
 
