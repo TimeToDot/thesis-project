@@ -8,16 +8,16 @@ export class ProjectEmployeesService {
   private _projectEmployees: Employee[] = [
     {
       id: '0',
-      name: 'Robert',
-      surname: 'Skrzypczak',
+      firstName: 'Robert',
+      lastName: 'Skrzypczak',
       position: 'Frontend Developer',
       employmentDate: new Date(2021, 8, 15),
       active: true,
     },
     {
       id: '1',
-      name: 'Beata',
-      surname: 'Iwan',
+      firstName: 'Beata',
+      lastName: 'Iwan',
       position: 'Product Designer',
       employmentDate: new Date(2022, 7, 1),
       active: true,
