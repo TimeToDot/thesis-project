@@ -59,6 +59,7 @@
         </div>
         <div *ngIf="step === 4">
           <bvr-billing-info
+            [createEmployeeForm]="createEmployeeForm"
             (previousStepChange)="previousStep()"></bvr-billing-info>
         </div>
       </form>
