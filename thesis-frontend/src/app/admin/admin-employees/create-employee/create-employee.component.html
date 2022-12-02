@@ -53,6 +53,7 @@
         </div>
         <div *ngIf="step === 3">
           <bvr-contact-info
+            [createEmployeeForm]="createEmployeeForm"
             (nextStepChange)="nextStep()"
             (previousStepChange)="previousStep()"></bvr-contact-info>
         </div>
