@@ -35,7 +35,6 @@ export class SidenavComponent implements OnInit {
     this.currentEmployee = this.accountService.getEmployeeAccount();
     this.getNavMenuOptions();
     this.getAdditionalNavMenuOptions();
-    console.log(this.navMenuGroups);
   }
 
   getNavMenuOptions(): void {

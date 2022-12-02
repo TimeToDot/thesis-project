@@ -6,6 +6,16 @@
   </div>
   <div class="wrapper-body">
     <div>
+      <div class="form" [formGroup]="createPositionForm">
+        <bvr-form-field label="Name" [required]="isRequired('name')">
+          <input formControlName="name" type="text" />
+        </bvr-form-field>
+        <bvr-form-field
+          label="Description"
+          [required]="isRequired('description')">
+          <input formControlName="description" type="text" />
+        </bvr-form-field>
+      </div>
       <bvr-button label="Cancel" [routerLink]="['..']"></bvr-button>
       <bvr-button (click)="save()" label="Save"></bvr-button>
     </div>
