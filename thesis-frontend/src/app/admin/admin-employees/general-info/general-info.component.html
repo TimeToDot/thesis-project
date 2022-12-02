@@ -1,3 +1,31 @@
-<p>general-info works!</p>
+<div class="form" [formGroup]="createEmployeeForm">
+  <div formGroupName="generalInfo">
+    <bvr-form-field label="First name" [required]="isRequired('firstName')">
+      <input formControlName="firstName" type="text" />
+    </bvr-form-field>
+    <bvr-form-field label="Last name" [required]="isRequired('lastName')">
+      <input formControlName="lastName" type="text" />
+    </bvr-form-field>
+    <bvr-form-field label="Email" [required]="isRequired('email')">
+      <input formControlName="email" type="email" />
+    </bvr-form-field>
+    <bvr-form-field label="Password" [required]="isRequired('password')">
+      <input formControlName="password" type="password" />
+    </bvr-form-field>
+    <bvr-form-field label="Position" [required]="isRequired('positionId')">
+      <select formControlName="positionId" placeholder>
+        <option disabled hidden selected value="">Select Position</option>
+        <option *ngFor="let position of positions" [ngValue]="position.id">
+          {{ position.name }}
+        </option>
+      </select>
+    </bvr-form-field>
+    <bvr-form-field
+      label="Employment date"
+      [required]="isRequired('employmentDate')">
+      <input formControlName="employmentDate" type="date" />
+    </bvr-form-field>
+  </div>
+</div>
 <bvr-button label="Cancel" [routerLink]="['..']"></bvr-button>
 <bvr-button (click)="nextStep()" label="Next"></bvr-button>

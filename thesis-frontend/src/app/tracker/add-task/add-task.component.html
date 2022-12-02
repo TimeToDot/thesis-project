@@ -1,4 +1,4 @@
-<form class="add-task-form" [formGroup]="addTaskForm">
+<form class="form add-task-form" [formGroup]="addTaskForm">
   <div class="dates">
     <div class="date">
       <bvr-form-field label="Start date" [required]="isRequired('startDate')">
@@ -28,11 +28,13 @@
   <bvr-form-field label="Task" [required]="isRequired('task')">
     <select formControlName="task">
       <option disabled hidden selected value="">Select Task</option>
-      <option *ngFor="let task of tasks" [ngValue]="task.id">{{ task.name }}</option>
+      <option *ngFor="let task of tasks" [ngValue]="task.id">
+        {{ task.name }}
+      </option>
     </select>
   </bvr-form-field>
 </form>
-<div class="form-buttons">
+<div class="add-task-form-buttons">
   <bvr-button class="form-button" label="Add"></bvr-button>
   <bvr-button class="form-button" label="Cancel"></bvr-button>
 </div>

@@ -39,9 +39,11 @@
           4
         </div>
       </div>
-      <div class="steps">
+      <form class="steps">
         <div *ngIf="step === 1">
-          <bvr-general-info (nextStepChange)="nextStep()"></bvr-general-info>
+          <bvr-general-info
+            [createEmployeeForm]="createEmployeeForm"
+            (nextStepChange)="nextStep()"></bvr-general-info>
         </div>
         <div *ngIf="step === 2">
           <bvr-personal-info
@@ -57,7 +59,7 @@
           <bvr-billing-info
             (previousStepChange)="previousStep()"></bvr-billing-info>
         </div>
-      </div>
+      </form>
     </div>
   </div>
 </div>
