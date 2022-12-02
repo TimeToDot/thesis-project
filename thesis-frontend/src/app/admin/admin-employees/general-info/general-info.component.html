@@ -1,4 +1,4 @@
-<div class="form" [formGroup]="createEmployeeForm">
+<div *ngIf="createEmployeeForm" class="form" [formGroup]="createEmployeeForm">
   <div formGroupName="generalInfo">
     <bvr-form-field label="First name" [required]="isRequired('firstName')">
       <input formControlName="firstName" type="text" />

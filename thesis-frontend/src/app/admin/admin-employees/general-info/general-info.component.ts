@@ -37,7 +37,9 @@ export class GeneralInfoComponent implements OnInit {
   }
 
   isRequired(name: string): boolean {
-    return this.createEmployeeForm.get(name)?.hasValidator(Validators.required)
+    return this.createEmployeeForm
+      .get(['generalInfo', name])
+      ?.hasValidator(Validators.required)
       ? true
       : false;
   }

@@ -1,4 +1,10 @@
-<p>personal-info works!</p>
+<div *ngIf="createEmployeeForm" class="form" [formGroup]="createEmployeeForm">
+  <div formGroupName="personalInfo">
+    <bvr-form-field label="Birth date" [required]="isRequired('birthDate')">
+      <input formControlName="birthDate" type="date" />
+    </bvr-form-field>
+  </div>
+</div>
 <bvr-button label="Cancel" [routerLink]="['..']"></bvr-button>
 <bvr-button (click)="previousStep()" label="Previous"></bvr-button>
 <bvr-button (click)="nextStep()" label="Next"></bvr-button>
