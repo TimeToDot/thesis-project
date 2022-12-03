@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from '../layout/layout.component';
 import { AuthGuard } from '../shared/guards/auth.guard';
-import { CanAddProjectEmployeeGuard } from './guards/can-add-project-employee.guard';
+import { CanCreateProjectEmployeeGuard } from './guards/can-create-project-employee.guard';
 import { CanAdminProjectGuard } from './guards/can-admin-project.guard';
 import { CanManageApprovalsGuard } from './guards/can-manage-approvals.guard';
 import { CanManageTasksGuard } from './guards/can-manage-tasks.guard';
@@ -13,7 +13,7 @@ import { ProjectSettingsComponent } from './project-settings/project-settings.co
 import { CreateTaskComponent } from './project-tasks/create-task/create-task.component';
 import { EditTaskComponent } from './project-tasks/edit-task/edit-task.component';
 import { ProjectTasksComponent } from './project-tasks/project-tasks.component';
-import { AddProjectEmployeeComponent } from './project-employees/add-project-employee/add-project-employee.component';
+import { CreateProjectEmployeeComponent } from './project-employees/create-project-employee/create-project-employee.component';
 import { EditProjectEmployeeComponent } from './project-employees/edit-project-employee/edit-project-employee.component';
 import { ProjectEmployeesComponent } from './project-employees/project-employees.component';
 import { ProjectComponent } from './project/project.component';
@@ -61,9 +61,9 @@ const projectsRoutes: Routes = [
             canActivate: [CanManageProjectEmployeesGuard],
           },
           {
-            path: 'employees/add',
-            component: AddProjectEmployeeComponent,
-            canActivate: [CanAddProjectEmployeeGuard],
+            path: 'employees/create',
+            component: CreateProjectEmployeeComponent,
+            canActivate: [CanCreateProjectEmployeeGuard],
           },
           {
             path: 'employees/:id',

@@ -46,7 +46,7 @@ describe('ProjectComponent', () => {
           canManageProjectEmployees: true,
           canManageApprovals: true,
           canAdminProjects: true,
-          canAddProjectEmployee: true,
+          canCreateProjectEmployee: true,
         };
       },
     };

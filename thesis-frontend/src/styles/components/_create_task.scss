@@ -1,4 +1,4 @@
-.add-task-form {
+.create-task-form {
   border: 0.25 * $grid-base $color-divider solid;
   border-radius: 2 * $grid-base;
 }
@@ -19,7 +19,7 @@
   flex: 1;
 }
 
-.add-task-form-buttons {
+.create-task-form-buttons {
   display: flex;
   justify-content: center;
 

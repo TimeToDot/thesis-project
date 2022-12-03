@@ -11,7 +11,7 @@ import { PermissionsService } from '../../shared/services/permissions.service';
 @Injectable({
   providedIn: 'root',
 })
-export class CanAddEmployeeGuard implements CanActivate {
+export class CanCreateEmployeeGuard implements CanActivate {
   constructor(
     private permissionsService: PermissionsService,
     private router: Router
@@ -27,7 +27,7 @@ export class CanAddEmployeeGuard implements CanActivate {
   }
 
   checkEmployeePermissions(url: string): true | UrlTree {
-    if (this.permissionsService.getEmployeePermissions().canAddEmployee) {
+    if (this.permissionsService.getEmployeePermissions().canCreateEmployee) {
       return true;
     }
 

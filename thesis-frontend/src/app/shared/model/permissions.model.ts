@@ -2,7 +2,7 @@ import { ProjectPermissions } from '../../projects/model/project-permissions.mod
 
 export interface Permissions {
   projects: ProjectPermissions[];
-  canAddEmployee: boolean;
+  canCreateEmployee: boolean;
   canAdminEmployees: boolean;
   canAdminSettings: boolean;
   canAdminPositions: boolean;

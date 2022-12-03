@@ -3,10 +3,10 @@ import { Router } from '@angular/router';
 import { ProjectPermissions } from '../model/project-permissions.model';
 import { PermissionsService } from '../../shared/services/permissions.service';
 
-import { CanAddProjectEmployeeGuard } from './can-add-project-employee.guard';
+import { CanCreateProjectEmployeeGuard } from './can-create-project-employee.guard';
 
-describe('CanAddProjectEmployeeGuard', () => {
-  let guard: CanAddProjectEmployeeGuard;
+describe('CanCreateProjectEmployeeGuard', () => {
+  let guard: CanCreateProjectEmployeeGuard;
   let permissionsService: PermissionsService;
   let routeMock: any = { snapshot: {} };
   let routeStateMock: any = { snapshot: {}, url: '/' };
@@ -14,7 +14,7 @@ describe('CanAddProjectEmployeeGuard', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    guard = TestBed.inject(CanAddProjectEmployeeGuard);
+    guard = TestBed.inject(CanCreateProjectEmployeeGuard);
     permissionsService = TestBed.inject(PermissionsService);
     router = TestBed.inject(Router);
   });
@@ -23,7 +23,7 @@ describe('CanAddProjectEmployeeGuard', () => {
     expect(guard).toBeTruthy();
   });
 
-  it('should allow the authorized employee to access add project employee form page', () => {
+  it('should allow the authorized employee to access create project employee form page', () => {
     const mockPermissionsService = {
       getProjectPermissions: (index: string | null): ProjectPermissions => {
         return {
@@ -33,7 +33,7 @@ describe('CanAddProjectEmployeeGuard', () => {
           canManageProjectEmployees: true,
           canManageApprovals: true,
           canAdminProjects: true,
-          canAddProjectEmployee: true,
+          canCreateProjectEmployee: true,
         };
       },
     };

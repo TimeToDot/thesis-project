@@ -33,7 +33,7 @@ describe('CanAdminPositionsGuard', () => {
       getEmployeePermissions: (): Permissions => {
         return {
           projects: [],
-          canAddEmployee: false,
+          canCreateEmployee: false,
           canAdminEmployees: false,
           canAdminSettings: false,
           canAdminPositions: false,

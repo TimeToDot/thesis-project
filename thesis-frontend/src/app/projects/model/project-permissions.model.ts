@@ -5,5 +5,5 @@ export interface ProjectPermissions {
   canManageProjectEmployees: boolean;
   canManageApprovals: boolean;
   canAdminProjects: boolean;
-  canAddProjectEmployee: boolean;
+  canCreateProjectEmployee: boolean;
 }

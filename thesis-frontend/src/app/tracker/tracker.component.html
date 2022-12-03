@@ -4,26 +4,20 @@
       <span class="material-icons-outlined">schedule</span>
       <h3 class="name">Tracker</h3>
     </div>
-    <bvr-button class="add-new-button" label="Request approval"></bvr-button>
+    <bvr-button class="create-new-button" label="Request approval"></bvr-button>
   </div>
   <div class="wrapper-body">
     <bvr-calendar></bvr-calendar>
     <div class="tracker-right-side">
       <div class="tracker-toggle">
-        <div
-          class="toggle"
-          [class.selected]="taskListVisible"
-          (click)="showTaskList(true)">
+        <div class="toggle" [class.selected]="taskListVisible" (click)="showTaskList(true)">
           <h5>Logged Tasks</h5>
           <span class="material-icons-outlined">
             {{ taskListVisible ? 'expand_more' : 'expand_less' }}
           </span>
         </div>
-        <div
-          class="toggle"
-          [class.selected]="!taskListVisible"
-          (click)="showTaskList(false)">
-          <h5>Add New Task</h5>
+        <div class="toggle" [class.selected]="!taskListVisible" (click)="showTaskList(false)">
+          <h5>Create New Task</h5>
           <span class="material-icons-outlined">
             {{ taskListVisible ? 'expand_less' : 'expand_more' }}
           </span>
@@ -31,7 +25,7 @@
       </div>
       <div>
         <bvr-tasks-list *ngIf="taskListVisible"></bvr-tasks-list>
-        <bvr-add-task *ngIf="!taskListVisible"></bvr-add-task>
+        <bvr-create-task *ngIf="!taskListVisible"></bvr-create-task>
       </div>
     </div>
   </div>

@@ -15,7 +15,7 @@ import { Project } from '../../projects/model/project.model';
 import { ProjectTask } from '../../projects/model/project-task.model';
 
 @Component({
-  selector: 'bvr-add-task',
+  selector: 'bvr-create-task',
   standalone: true,
   imports: [
     ButtonComponent,
@@ -23,10 +23,10 @@ import { ProjectTask } from '../../projects/model/project-task.model';
     FormFieldComponent,
     ReactiveFormsModule,
   ],
-  templateUrl: './add-task.component.html',
+  templateUrl: './create-task.component.html',
 })
-export class AddTaskComponent implements OnInit {
-  addTaskForm!: FormGroup;
+export class CreateTaskComponent implements OnInit {
+  createTaskForm!: FormGroup;
   newTask: EmployeeTask = {
     id: '',
     startDate: formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en'),
@@ -60,7 +60,7 @@ export class AddTaskComponent implements OnInit {
   }
 
   createForm(): void {
-    this.addTaskForm = this.fb.group({
+    this.createTaskForm = this.fb.group({
       startDate: [
         formatDate(this.newTask.startDate, 'yyyy-MM-dd', 'en'),
         [Validators.required],
@@ -80,14 +80,14 @@ export class AddTaskComponent implements OnInit {
   }
 
   isRequired(name: string): boolean {
-    return this.addTaskForm.get(name)?.hasValidator(Validators.required)
+    return this.createTaskForm.get(name)?.hasValidator(Validators.required)
       ? true
       : false;
   }
 
   selectProject(): void {
-    const projectId = this.addTaskForm.get('project')?.value;
+    const projectId = this.createTaskForm.get('project')?.value;
     this.tasks = this.projectTasksService.getProjectTasks(projectId);
-    this.addTaskForm.get('task')?.enable();
+    this.createTaskForm.get('task')?.enable();
   }
 }
