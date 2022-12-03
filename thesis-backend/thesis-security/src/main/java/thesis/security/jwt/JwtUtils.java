@@ -15,7 +15,7 @@ import java.util.Date;
 @Component
 public class JwtUtils {
 
-    @Value("${thesis.app.thesisSecretKey}")
+    @Value("${thesis.app.jwtSecret}")
     private String jwtSecret;
 
     @Value("${thesis.app.jwtExpirationMs}")

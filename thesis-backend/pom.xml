@@ -65,6 +65,13 @@
         <artifactId>jjwt</artifactId>
         <version>0.9.1</version>
       </dependency>
+
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-configuration-processor</artifactId>
+        <version>2.1.6.RELEASE</version>
+        <optional>true</optional>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -81,14 +88,21 @@
             <target>${java.version}</target>
             <annotationProcessorPaths>
               <path>
-                <groupId>org.mapstruct</groupId>
-                <artifactId>mapstruct-processor</artifactId>
-                <version>${mapstruct.version}</version>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-configuration-processor</artifactId>
+                <version>2.1.6.RELEASE</version>
               </path>
+              <!--lombok annotation processor-->
               <path>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
+              </path>
+              <!--mapstruct annotation processor-->
+              <path>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct-processor</artifactId>
+                <version>${mapstruct.version}</version>
               </path>
             </annotationProcessorPaths>
           </configuration>

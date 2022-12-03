@@ -27,7 +27,6 @@ public class AuthorizationController {
     private final RoleRepository roleRepository;
     private final AccountRoleRepository accountRoleRepository;
     private final PasswordEncoder passwordEncoder;
-    private final RoleTypeMapper roleTypeMapper;
     @PostMapping
     public ResponseEntity<?> registerUser(@Valid @RequestBody AuthorizationRequest authorizationRequest) {
 
@@ -55,7 +54,7 @@ public class AuthorizationController {
         if (strRoles == null) {
             throw new RuntimeException("Error: Roles are empty!");
         } else {
-            var eRoles = strRoles.stream().map(roleTypeMapper::map).map(RoleTypeDto::getRoleType);
+            var eRoles = strRoles.stream().map(RoleType::valueOf).toList();
 
             eRoles.forEach(role -> {
                 switch (role) {
@@ -80,10 +79,9 @@ public class AuthorizationController {
         accountRepository.save(account);
 
         roles.forEach(role -> {
-            var accountRole = AccountRole.builder()
-                    .account(account)
-                    .role(role)
-                    .build();
+            var accountRole = new AccountRole();
+            accountRole.setAccount(account);
+            accountRole.setRole(role);
 
             accountRoleRepository.save(accountRole);
         });

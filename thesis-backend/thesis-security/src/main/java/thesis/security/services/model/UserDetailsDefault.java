@@ -18,7 +18,7 @@ public class UserDetailsDefault implements UserDetails {
     private String username;
     private String email;
     private String password;
-    private Collection<? extends GrantedAuthority> authorities;
+    private Collection<GrantedAuthority> authorities;
     private UserStatusType status;
 
     @Override

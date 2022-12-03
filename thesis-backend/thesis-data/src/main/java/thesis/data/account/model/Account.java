@@ -1,6 +1,7 @@
 package thesis.data.account.model;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.Hibernate;
 import thesis.data.task.model.Task;
 
@@ -9,9 +10,11 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
-@Getter
+
 @ToString
 @RequiredArgsConstructor
+@SuperBuilder
+@Getter
 @Entity
 @Table(
         name = "account",

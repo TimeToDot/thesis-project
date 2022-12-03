@@ -1,5 +1,0 @@
-thesis:
-  app:
-    jwtCookieName: thesis
-    jwtSecret: thesisSecretKey
-    jwtExpirationMs: 80000000
