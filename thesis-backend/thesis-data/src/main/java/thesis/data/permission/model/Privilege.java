@@ -18,7 +18,8 @@ public class Privilege {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private UUID id;
 
-  private String name;
+  @Enumerated(EnumType.STRING)
+  private PrivilegeType name;
 
   @Override
   public boolean equals(Object o) {

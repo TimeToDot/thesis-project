@@ -1,4 +1,4 @@
-package thesis.domain.account.model;
+package thesis.domain.employee.model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import thesis.data.account.model.StatusType;
@@ -6,7 +6,7 @@ import thesis.data.account.model.StatusType;
 import java.util.UUID;
 
 @Schema(description = "Information about account.")
-public record AccountDto(
+public record Employee(
 
   UUID id,
   String login,

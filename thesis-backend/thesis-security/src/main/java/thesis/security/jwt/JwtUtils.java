@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.WebUtils;
-import thesis.domain.account.model.AccountDto;
+import thesis.security.services.model.UserDetailsDefault;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
@@ -15,13 +15,13 @@ import java.util.Date;
 @Component
 public class JwtUtils {
 
-    @Value("thesisSecretKey")
+    @Value("${thesis.app.thesisSecretKey}")
     private String jwtSecret;
 
-    @Value("80000000")
+    @Value("${thesis.app.jwtExpirationMs}")
     private int jwtExpirationMs;
 
-    @Value("thesis")
+    @Value("${thesis.app.jwtCookieName}")
     private String jwtCookie;
 
 
@@ -34,8 +34,8 @@ public class JwtUtils {
         return cookie.getValue();
     }
 
-    public ResponseCookie generateJwtCookie(AccountDto accountDto) {
-        String jwt = generateTokenFromLogin(accountDto.login());
+    public ResponseCookie generateJwtCookie(UserDetailsDefault userDetails) {
+        String jwt = generateTokenFromUserLogin(userDetails.getUsername());
 
         return ResponseCookie
                 .from(jwtCookie, jwt)
@@ -80,7 +80,7 @@ public class JwtUtils {
         return false;
     }
 
-    private String generateTokenFromLogin(String login) {
+    private String generateTokenFromUserLogin (String login) {
         return Jwts.builder()
                 .setSubject(login)
                 .setIssuedAt(new Date())

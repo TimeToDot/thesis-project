@@ -5,9 +5,10 @@ import org.springframework.stereotype.Repository;
 import thesis.data.role.model.Role;
 import thesis.data.role.model.RoleType;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
 public interface RoleRepository extends JpaRepository<Role, UUID> {
-  Role findByName(RoleType name);
+  Optional<Role> findByName(RoleType name);
 }

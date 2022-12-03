@@ -14,50 +14,50 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Entity
 @Table(
-  name = "account",
-  uniqueConstraints = {
-    @UniqueConstraint(columnNames = "login")
+        name = "account",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = "login")
+        }
+)
+public class Account {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private UUID id;
+
+    private String login;
+
+    private String pass;
+
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20)
+    private StatusType status;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    @ToString.Exclude
+    private AccountDetails details;
+
+    @OneToMany(mappedBy = "account", fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private List<AccountRole> accountRoleList;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @ToString.Exclude
+    private List<Task> taskList;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o))
+            return false;
+        Account account = (Account) o;
+        return id != null && Objects.equals(id, account.id);
     }
-  )
-public class  Account {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private UUID id;
-
-  private String login;
-
-  private String pass;
-
-  @Enumerated(EnumType.STRING)
-  @Column(length = 20)
-  private StatusType status;
-
-  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  @PrimaryKeyJoinColumn
-  @ToString.Exclude
-  private AccountDetails details;
-
-  @OneToMany(mappedBy = "account", fetch = FetchType.LAZY)
-  @ToString.Exclude
-  private List<AccountRole> accountRoleList;
-
-  @OneToMany(fetch = FetchType.LAZY)
-  @ToString.Exclude
-  private List<Task> taskList;
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o)
-      return true;
-    if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o))
-      return false;
-    Account account = (Account) o;
-    return id != null && Objects.equals(id, account.id);
-  }
-
-  @Override
-  public int hashCode() {
-    return getClass().hashCode();
-  }
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }
