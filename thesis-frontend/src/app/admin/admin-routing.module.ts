@@ -12,7 +12,7 @@ import { EditEmployeeComponent } from './admin-employees/edit-employee/edit-empl
 import { CanAdminPositionsGuard } from './guards/can-admin-positions.guard';
 import { CanAdminSettingsGuard } from './guards/can-admin-settings.guard';
 import { CanAdminEmployeesGuard } from './guards/can-admin-employees.guard';
-import { EmployeeComponent } from '../employee/employee.component';
+import { ProfileComponent } from '../profile/profile.component';
 
 const adminRoutes: Routes = [
   {
@@ -32,7 +32,7 @@ const adminRoutes: Routes = [
       },
       {
         path: 'employees/:id',
-        component: EmployeeComponent,
+        component: ProfileComponent,
         canActivate: [CanAdminEmployeesGuard],
       },
       {

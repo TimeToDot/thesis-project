@@ -19,7 +19,7 @@ import { ProjectEmployeesComponent } from './project-employees/project-employees
 import { ProjectComponent } from './project/project.component';
 import { ProjectsComponent } from './projects.component';
 import { CanManageProjectEmployeesGuard } from './guards/can-manage-project-employees.guard';
-import { EmployeeComponent } from '../employee/employee.component';
+import { ViewProjectEmployeeComponent } from './project-employees/view-project-employee/view-project-employee.component';
 
 const projectsRoutes: Routes = [
   {
@@ -67,7 +67,7 @@ const projectsRoutes: Routes = [
           },
           {
             path: 'employees/:id',
-            component: EmployeeComponent,
+            component: ViewProjectEmployeeComponent,
             canActivate: [CanManageProjectEmployeesGuard],
           },
           {

@@ -10,13 +10,13 @@ export class PositionsService {
       id: '1',
       name: 'Frontend Developer',
       description: 'Frontend Developer',
-      employeesCount: 1,
+      count: 1,
     },
     {
       id: '2',
       name: 'Product Designer',
       description: 'Product Designer',
-      employeesCount: 1,
+      count: 1,
     },
   ];
 

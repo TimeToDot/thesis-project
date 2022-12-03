@@ -21,12 +21,7 @@ import { RouterModule } from '@angular/router';
 })
 export class AdminPositionsComponent implements OnInit {
   dataSource: Position[] = [];
-  displayedColumns: string[] = [
-    'name',
-    'description',
-    'employeesCount',
-    'actions',
-  ];
+  displayedColumns: string[] = ['name', 'description', 'count', 'actions'];
   query: string = '';
 
   constructor(private positionsService: PositionsService) {}
