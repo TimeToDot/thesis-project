@@ -1,0 +1,17 @@
+body::-webkit-scrollbar {
+  background-color: $color-background;
+  width: 2 * $grid-base;
+}
+
+body::-webkit-scrollbar-track {
+  background-color: $color-background;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: $color-text-secondary;
+  border-radius: 4 * $grid-base;
+}
+
+body::-webkit-scrollbar-button {
+  display: none;
+}
