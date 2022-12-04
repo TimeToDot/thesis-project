@@ -1,18 +1,17 @@
 .calendar {
   background-color: $color-white;
   border-radius: 2 * $grid-base;
-  box-shadow: 0 $grid-base 12 * $grid-base $color-shadow;
 }
 
 .calendar-header {
   align-items: center;
   display: flex;
   justify-content: space-between;
-  padding: 6 * $grid-base 6 * $grid-base 4 * $grid-base;
-}
+  margin-bottom: 8 * $grid-base;
 
-.calendar-body {
-  margin: 0 6 * $grid-base;
+  .chevron {
+    height: 12 * $grid-base;
+  }
 }
 
 .week-days {

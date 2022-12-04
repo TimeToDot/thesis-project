@@ -15,7 +15,7 @@ import { Project } from '../../projects/model/project.model';
 import { ProjectTask } from '../../projects/model/project-task.model';
 
 @Component({
-  selector: 'bvr-create-task',
+  selector: 'bvr-add-new-task',
   standalone: true,
   imports: [
     ButtonComponent,
@@ -23,9 +23,9 @@ import { ProjectTask } from '../../projects/model/project-task.model';
     FormFieldComponent,
     ReactiveFormsModule,
   ],
-  templateUrl: './create-task.component.html',
+  templateUrl: './add-new-task.component.html',
 })
-export class CreateTaskComponent implements OnInit {
+export class AddNewTaskComponent implements OnInit {
   createTaskForm!: FormGroup;
   newTask: EmployeeTask = {
     id: '',

@@ -1,3 +1,7 @@
+.tabs {
+  display: flex;
+}
+
 .tab {
   border-radius: 2 * $grid-base;
   color: $color-text-secondary;

@@ -1,18 +1,19 @@
 .radio {
-  display: flex;
   align-items: center;
+  display: flex;
 
   input[type='radio'] {
     appearance: none;
-    margin: 0;
-    margin-right: $grid-base;
-    color: $color-text-secondary;
-    width: 5 * $grid-base;
-    height: 5 * $grid-base;
     border: 0.5 * $grid-base $color-text-secondary solid;
     border-radius: 5 * $grid-base;
+    color: $color-text-secondary;
+    cursor: pointer;
     display: grid;
+    height: 5 * $grid-base;
+    margin: 0;
+    margin-right: $grid-base;
     place-content: center;
+    width: 5 * $grid-base;
   }
 
   input[type='radio'] + label {
@@ -30,13 +31,13 @@
   }
 
   input[type='radio']::before {
-    content: '';
-    width: 2.5 * $grid-base;
-    height: 2.5 * $grid-base;
     border-radius: 3 * $grid-base;
+    box-shadow: inset 3 * $grid-base 3 * $grid-base $color-primary;
+    content: '';
+    height: 2.5 * $grid-base;
     transform: scale(0);
     transition: 120ms transform ease-in-out;
-    box-shadow: inset 3 * $grid-base 3 * $grid-base $color-primary;
+    width: 2.5 * $grid-base;
   }
 
   input[type='radio']:checked::before {

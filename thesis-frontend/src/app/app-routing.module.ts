@@ -8,6 +8,8 @@ import { NotFoundComponent } from './utils/not-found/not-found.component';
 import { LoginComponent } from './login/login.component';
 import { LayoutComponent } from './layout/layout.component';
 import { LoginGuard } from './shared/guards/login.guard';
+import { TasksListComponent } from './tracker/tasks-list/tasks-list.component';
+import { AddNewTaskComponent } from './tracker/add-new-task/add-new-task.component';
 
 const appRoutes: Routes = [
   {
@@ -16,7 +18,15 @@ const appRoutes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: 'dashboard', component: DashboardComponent },
-      { path: 'tracker', component: TrackerComponent },
+      {
+        path: 'tracker',
+        component: TrackerComponent,
+        children: [
+          { path: '', redirectTo: 'add-new-task', pathMatch: 'full' },
+          { path: 'tasks-list', component: TasksListComponent },
+          { path: 'add-new-task', component: AddNewTaskComponent },
+        ],
+      },
       { path: 'profile', component: ProfileComponent },
       { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
     ],

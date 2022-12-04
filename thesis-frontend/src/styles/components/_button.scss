@@ -35,7 +35,25 @@
   }
 }
 
-.icon-large .material-icons-outlined {
-  font-size: 3 * $font-regular;
+.button-text {
+  background-color: transparent;
+  color: $color-primary;
+
+  &:hover {
+    background-color: $color-secondary;
+    color: $color-primary-hover;
+  }
+
+  &:focus {
+    background-color: transparent;
+    color: $color-primary-focus;
+  }
+}
+
+.icon-large {
   padding: 0;
+
+  .material-icons-outlined {
+    font-size: 3 * $font-regular;
+  }
 }

@@ -1,0 +1,41 @@
+<form class="form" [formGroup]="createTaskForm">
+  <bvr-form-field label="Project" [required]="isRequired('project')">
+    <select (change)="selectProject()" formControlName="project" placeholder>
+      <option disabled hidden selected value="">Select Project</option>
+      <option *ngFor="let project of projects" [ngValue]="project.id">
+        {{ project.name }}
+      </option>
+    </select>
+  </bvr-form-field>
+  <bvr-form-field label="Task" [required]="isRequired('task')">
+    <select formControlName="task">
+      <option disabled hidden selected value="">Select Task</option>
+      <option *ngFor="let task of tasks" [ngValue]="task.id">
+        {{ task.name }}
+      </option>
+    </select>
+  </bvr-form-field>
+
+  <div class="dates">
+    <div class="date">
+      <bvr-form-field label="Start date" [required]="isRequired('startDate')">
+        <input formControlName="startDate" type="date" />
+      </bvr-form-field>
+      <bvr-form-field label="Start time" [required]="isRequired('startTime')">
+        <input formControlName="startTime" type="time" />
+      </bvr-form-field>
+    </div>
+    <div class="date">
+      <bvr-form-field label="End date" [required]="isRequired('endDate')">
+        <input formControlName="endDate" type="date" />
+      </bvr-form-field>
+      <bvr-form-field label="End time" [required]="isRequired('endTime')">
+        <input formControlName="endTime" type="time" />
+      </bvr-form-field>
+    </div>
+  </div>
+</form>
+<div class="add-task-form-buttons">
+  <bvr-button class="form-button" label="Cancel" styleClass="button-text"></bvr-button>
+  <bvr-button class="form-button" label="Add"></bvr-button>
+</div>
