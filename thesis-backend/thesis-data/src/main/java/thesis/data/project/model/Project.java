@@ -31,7 +31,7 @@ public class Project {
   private Account account;
 
   @OneToOne
-  @JoinColumn(name = "details_ID")
+  @JoinColumn(name = "details_id")
   private ProjectDetails details;
 
   @Override

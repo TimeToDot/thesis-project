@@ -24,6 +24,7 @@
     <thesis.version>${project.version}</thesis.version>
     <doc.version>1.6.11</doc.version>
     <mapstruct.version>1.5.3.Final</mapstruct.version>
+    <spring.profiles.default></spring.profiles.default>
   </properties>
 
   <modules>
@@ -72,6 +73,14 @@
         <version>2.1.6.RELEASE</version>
         <optional>true</optional>
       </dependency>
+
+      <!--Test dependencies-->
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-test</artifactId>
+        <version>2.7.3</version>
+        <scope>test</scope>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -110,5 +119,30 @@
       </plugins>
     </pluginManagement>
   </build>
+
+
+  <profiles>
+    <profile>
+      <id>dev</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <properties>
+        <spring.profiles.active>dev</spring.profiles.active>
+      </properties>
+    </profile>
+    <profile>
+      <id>prod</id>
+      <properties>
+        <spring.profiles.active>prod</spring.profiles.active>
+      </properties>
+    </profile>
+    <profile>
+      <id>initData</id>
+      <properties>
+        <spring.profiles.active>initData</spring.profiles.active>
+      </properties>
+    </profile>
+  </profiles>
 
 </project>

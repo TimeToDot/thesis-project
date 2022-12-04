@@ -3,9 +3,12 @@ package thesis.data.account.model;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.Hibernate;
+import thesis.data.position.model.Position;
+import thesis.data.role.model.Role;
 import thesis.data.task.model.Task;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -30,6 +33,8 @@ public class Account {
 
     private String login;
 
+    private String email;
+
     private String pass;
 
     @Enumerated(EnumType.STRING)
@@ -41,13 +46,22 @@ public class Account {
     @ToString.Exclude
     private AccountDetails details;
 
-    @OneToMany(mappedBy = "account", fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
     @ToString.Exclude
-    private List<AccountRole> accountRoleList;
+    private Position position;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @ToString.Exclude
+    @JoinTable(
+            name = "account_role",
+            joinColumns = @JoinColumn(name = "account_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private List<Role> roles;
 
     @OneToMany(fetch = FetchType.LAZY)
     @ToString.Exclude
-    private List<Task> taskList;
+    private List<Task> tasks;
 
     @Override
     public boolean equals(Object o) {

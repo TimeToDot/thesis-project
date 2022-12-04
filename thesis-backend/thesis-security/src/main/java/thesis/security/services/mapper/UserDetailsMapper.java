@@ -19,7 +19,7 @@ public interface UserDetailsMapper {
     @Mapping(target = "id", source = "id")
     @Mapping(target = "username", source = "login")
     @Mapping(target = "password", source = "pass")
-    @Mapping(target = "email", source = "details.email")
+    @Mapping(target = "email", source = "email")
     @Mapping(target = "authorities", expression = "java(getAuthorities(account))")
     @Mapping(target = "status", source = "status")
     UserDetailsDefault map(Account account);
@@ -29,11 +29,10 @@ public interface UserDetailsMapper {
 
         Collection<GrantedAuthority> authorities = new ArrayList<>();
 
-        account.getAccountRoleList().forEach(role -> {
-            role.getRole()
-                    .getRolePrivilegeList()
-                    .forEach(rolePrivilege -> {
-                        authorities.add(new SimpleGrantedAuthority(rolePrivilege.getPrivilege().getName().name()));
+        account.getRoles().forEach(role -> {
+            role.getPrivileges()
+                    .forEach(privilege -> {
+                        authorities.add(new SimpleGrantedAuthority(privilege.getName().name()));
                     });
                 });
         return authorities;

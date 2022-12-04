@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
@@ -12,6 +13,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Getter
+@SuperBuilder
 @ToString
 @RequiredArgsConstructor
 @Entity
@@ -32,9 +34,6 @@ public class AccountDetails {
 
   @NotBlank(message="pesel is required")
   private String pesel;
-
-  @NotBlank(message="email is required")
-  private String email;
 
   @NotBlank(message="phonenumber is required")
   private String phoneNumber;

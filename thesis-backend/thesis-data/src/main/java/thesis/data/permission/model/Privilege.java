@@ -1,13 +1,18 @@
 package thesis.data.permission.model;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.Hibernate;
+import thesis.data.role.model.Role;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
 @Getter
+@Setter
+@SuperBuilder
 @ToString
 @RequiredArgsConstructor
 @Entity
@@ -20,6 +25,9 @@ public class Privilege {
 
   @Enumerated(EnumType.STRING)
   private PrivilegeType name;
+
+  @ManyToMany(mappedBy = "privileges")
+  private List<Role> roles;
 
   @Override
   public boolean equals(Object o) {

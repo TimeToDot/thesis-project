@@ -5,10 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import thesis.data.account.AccountRepository;
-import thesis.data.account.AccountRoleRepository;
 import thesis.data.account.model.Account;
 import thesis.data.account.model.AccountDetails;
-import thesis.data.account.model.AccountRole;
 import thesis.data.role.RoleRepository;
 import thesis.data.role.model.Role;
 import thesis.data.role.model.RoleType;
@@ -25,7 +23,6 @@ import java.util.List;
 public class AuthorizationController {
     private final AccountRepository accountRepository;
     private final RoleRepository roleRepository;
-    private final AccountRoleRepository accountRoleRepository;
     private final PasswordEncoder passwordEncoder;
     @PostMapping
     public ResponseEntity<?> registerUser(@Valid @RequestBody AuthorizationRequest authorizationRequest) {
@@ -36,17 +33,13 @@ public class AuthorizationController {
             return ResponseEntity.badRequest().body("Error: Login is already taken!");
         }
 
-        if (accountRepository.existsByDetails_Email(authorizationRequest.getEmail())) {
+        if (accountRepository.existsByEmail(authorizationRequest.getEmail())) {
             return ResponseEntity.badRequest().body("Error: Email is already in use!");
         }
 
         // Create new user's account
 
-        var account = Account.builder()
-                .login(authorizationRequest.getLogin())
-                .details(new AccountDetails())
-                .pass(passwordEncoder.encode(authorizationRequest.getPassword()))
-                .build();
+
 
         List<String> strRoles = authorizationRequest.getRoles();
         List<Role> roles = new ArrayList<>();
@@ -76,15 +69,15 @@ public class AuthorizationController {
                 }
             });
         }
+        var account = Account.builder()
+                .login(authorizationRequest.getLogin())
+                .details(new AccountDetails())
+                .pass(passwordEncoder.encode(authorizationRequest.getPassword()))
+                .roles(roles)
+                .build();
+
         accountRepository.save(account);
 
-        roles.forEach(role -> {
-            var accountRole = new AccountRole();
-            accountRole.setAccount(account);
-            accountRole.setRole(role);
-
-            accountRoleRepository.save(accountRole);
-        });
 
 
         return ResponseEntity.ok("User registered successfully!");

@@ -2,7 +2,8 @@ CREATE TABLE "account" (
                            "id" uuid PRIMARY KEY,
                            "login" varchar NOT NULL,
                            "pass" varchar NOT NULL,
-                           "status" varchar NOT NULL
+                           "status" varchar NOT NULL,
+                           "email" varchar NOT NULL
 );
 
 CREATE TABLE "account_details" (
@@ -11,8 +12,14 @@ CREATE TABLE "account_details" (
                                    "name" varchar NOT NULL,
                                    "surname" varchar NOT NULL,
                                    "pesel" varchar NOT NULL,
-                                   "email" varchar NOT NULL,
                                    "created_at" timestamp NOT NULL DEFAULT 'now()'
+);
+
+CREATE TABLE "position" (
+                        "id" uuid PRIMARY KEY,
+                        "account_id" uuid,
+                        "name" varchar,
+                        "description" varchar
 );
 
 CREATE TABLE "account_role" (
@@ -86,9 +93,9 @@ CREATE TABLE "account_message" (
 
 CREATE INDEX ON "account" ("login");
 
-CREATE INDEX ON "account_details" ("name");
+CREATE INDEX ON "account" ("email");
 
-CREATE INDEX ON "account_details" ("email");
+CREATE INDEX ON "account_details" ("name");
 
 CREATE INDEX ON "role" ("name");
 
@@ -121,6 +128,8 @@ ALTER TABLE "task_form_details" ADD FOREIGN KEY ("task_form_id") REFERENCES "tas
 ALTER TABLE "task" ADD FOREIGN KEY ("account_id") REFERENCES "account" ("id");
 
 ALTER TABLE "task" ADD FOREIGN KEY ("form_id") REFERENCES "task_form" ("id");
+
+ALTER TABLE "position" ADD FOREIGN KEY ("account_id") REFERENCES "account" ("id");
 
 ALTER TABLE "account_message" ADD FOREIGN KEY ("account_from") REFERENCES "account" ("id");
 

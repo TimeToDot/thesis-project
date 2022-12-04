@@ -1,11 +1,13 @@
 package thesis.data.role.model;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.Hibernate;
-import thesis.data.account.model.AccountRole;
+import thesis.data.account.model.Account;
+import thesis.data.permission.model.Privilege;
 
 import javax.persistence.*;
 import java.util.List;
@@ -13,6 +15,8 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Getter
+@Setter
+@SuperBuilder
 @ToString
 @RequiredArgsConstructor
 @Entity
@@ -27,17 +31,18 @@ public class Role {
   @Column(length = 20)
   private RoleType name;
 
-  @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
+  @ManyToMany(fetch = FetchType.LAZY)
+  @JoinTable(
+          name = "role_privilege",
+          joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),
+          inverseJoinColumns = @JoinColumn(name = "privilege_id", referencedColumnName = "id")
+  )
   @ToString.Exclude
-  private List<RolePrivilege> rolePrivilegeList;
+  private List<Privilege> privileges;
 
-  @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
+  @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
   @ToString.Exclude
-  private List<AccountRole> accountList;
-
-  public void setAccountList(List<AccountRole> accountList) {
-    this.accountList = accountList;
-  }
+  private List<Account> accounts;
 
   @Override
   public boolean equals(Object o) {

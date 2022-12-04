@@ -17,7 +17,6 @@ public class UserDetailsServiceDefault implements UserDetailsService {
     private final AccountRepository accountRepository;
     private final UserDetailsMapper userDetailsMapper;
 
-    @Transactional
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Account account = accountRepository
