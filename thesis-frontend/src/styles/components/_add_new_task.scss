@@ -22,3 +22,9 @@
     margin: 12 * $grid-base 2 * $grid-base 0;
   }
 }
+
+@media screen and (max-width: 1400px) {
+  .add-task-form-buttons .form-button {
+    margin: 6 * $grid-base 2 * $grid-base 0;
+  }
+}
