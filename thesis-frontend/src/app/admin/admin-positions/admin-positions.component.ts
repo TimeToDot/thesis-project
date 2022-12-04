@@ -23,6 +23,7 @@ export class AdminPositionsComponent implements OnInit {
   dataSource: Position[] = [];
   displayedColumns: string[] = ['name', 'description', 'count', 'actions'];
   query: string = '';
+  showActive: boolean = true;
 
   constructor(private positionsService: PositionsService) {}
 

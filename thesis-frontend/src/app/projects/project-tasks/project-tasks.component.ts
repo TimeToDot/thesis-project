@@ -28,6 +28,7 @@ export class ProjectTasksComponent implements OnInit {
     'actions',
   ];
   query: string = '';
+  showActive: boolean = true;
 
   constructor(private projectTasksService: ProjectTasksService) {}
 

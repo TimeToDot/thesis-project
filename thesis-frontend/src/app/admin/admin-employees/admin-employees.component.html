@@ -10,8 +10,16 @@
   <div class="wrapper-content">
     <div class="header">
       <div class="title">
-        <h4 class="name">Accounts</h4>
-        <h5 class="count">({{ dataSource.length }})</h5>
+        <h4>Accounts</h4>
+        <h5>({{ dataSource.length }})</h5>
+        <div class="radio">
+          <input name="showActive" [(ngModel)]="showActive" type="radio" [value]="true">
+          <label>Active</label>
+        </div>
+        <div class="radio">
+          <input name="showActive" [(ngModel)]="showActive" type="radio" [value]="false">
+          <label>Archive</label>
+        </div>
       </div>
       <bvr-button class="create-new-button" label="Create new" [routerLink]="['create']"></bvr-button>
     </div>

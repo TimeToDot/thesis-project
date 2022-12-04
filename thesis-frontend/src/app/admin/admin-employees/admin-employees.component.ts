@@ -28,6 +28,7 @@ export class AdminEmployeesComponent implements OnInit {
     'actions',
   ];
   query: string = '';
+  showActive: boolean = true;
 
   constructor(
     private route: ActivatedRoute,
