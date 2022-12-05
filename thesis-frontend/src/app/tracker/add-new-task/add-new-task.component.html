@@ -1,21 +1,9 @@
 <form class="form" [formGroup]="createTaskForm">
   <bvr-form-field label="Project" [required]="isRequired('project')">
-    <!-- <select (change)="selectProject()" formControlName="project" placeholder>
-      <option disabled hidden selected value="">Select Project</option>
-      <option *ngFor="let project of projects" [ngValue]="project.id">
-        {{ project.name }}
-      </option>
-    </select> -->
-    <bvr-dropdown-list [options]="projects"></bvr-dropdown-list>
+    <bvr-dropdown-list formControlName="project" [options]="projects"></bvr-dropdown-list>
   </bvr-form-field>
   <bvr-form-field label="Task" [required]="isRequired('task')">
-    <!-- <select formControlName="task">
-      <option disabled hidden selected value="">Select Task</option>
-      <option *ngFor="let task of tasks" [ngValue]="task.id">
-        {{ task.name }}
-      </option>
-    </select> -->
-    <bvr-dropdown-list [options]="tasks"></bvr-dropdown-list>
+    <bvr-dropdown-list formControlName="task" [options]="tasks"></bvr-dropdown-list>
   </bvr-form-field>
 
   <div class="dates">
@@ -24,7 +12,6 @@
         <bvr-date-picker formControlName="startDate"></bvr-date-picker>
       </bvr-form-field>
       <bvr-form-field label="Start time" [required]="isRequired('startTime')">
-        <!-- <input formControlName="startTime" type="time" /> -->
         <bvr-time-picker formControlName="startTime"></bvr-time-picker>
       </bvr-form-field>
     </div>
@@ -33,16 +20,12 @@
         <bvr-date-picker formControlName="endDate"></bvr-date-picker>
       </bvr-form-field>
       <bvr-form-field label="End time" [required]="isRequired('endTime')">
-        <!-- <input formControlName="endTime" type="time" /> -->
         <bvr-time-picker formControlName="endTime"></bvr-time-picker>
       </bvr-form-field>
     </div>
   </div>
 </form>
 <div class="add-task-form-buttons">
-  <bvr-button
-    class="form-button"
-    label="Cancel"
-    styleClass="button-text"></bvr-button>
+  <bvr-button class="form-button" label="Cancel" styleClass="button-text"></bvr-button>
   <bvr-button class="form-button" label="Add"></bvr-button>
 </div>

@@ -30,6 +30,13 @@ export class DropdownListComponent implements ControlValueAccessor {
     this.selectEnabled = !this.selectEnabled;
   }
 
+  selectOption(option: DropdownOption): void {
+    this.markAsTouched();
+    this.selectedOption = option;
+    this.onChange(this.selectedOption.id);
+    this.selectEnabled = false;
+  }
+
   markAsTouched() {
     if (!this.touched) {
       this.onTouched();
@@ -38,10 +45,12 @@ export class DropdownListComponent implements ControlValueAccessor {
   }
 
   writeValue(selectedOption: DropdownOption): void {
-    this.selectedOption = selectedOption;
+    this.selectedOption = selectedOption
+      ? selectedOption
+      : { name: 'Select option', id: '' };
   }
 
-  onChange = (currentDay: string) => {};
+  onChange = (selectedOptionId: string) => {};
 
   registerOnChange(onChange: any): void {
     this.onChange = onChange;

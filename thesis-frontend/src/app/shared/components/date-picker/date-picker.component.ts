@@ -122,6 +122,7 @@ export class DatePickerComponent implements OnInit, ControlValueAccessor {
       this.markAsTouched();
       this.currentDay = formatDate(day.date, 'yyyy-MM-dd', 'en');
       this.onChange(this.currentDay);
+      this.calendarEnabled = false;
     }
   }
 

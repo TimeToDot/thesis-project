@@ -55,6 +55,7 @@ export class AddNewTaskComponent implements OnInit {
   ngOnInit(): void {
     this.projects = this.employeeProjectService.getEmployeeProjects();
     this.createForm();
+    this.observeProjectChange();
     this.createTaskForm.valueChanges.subscribe(value => console.log(value));
   }
 
@@ -93,9 +94,11 @@ export class AddNewTaskComponent implements OnInit {
       : false;
   }
 
-  selectProject(): void {
-    const projectId = this.createTaskForm.get('project')?.value;
-    this.tasks = this.projectTasksService.getProjectTasks(projectId);
-    this.createTaskForm.get('task')?.enable();
+  observeProjectChange(): void {
+    this.createTaskForm.get('project')?.valueChanges.subscribe(projectId => {
+      this.tasks = this.projectTasksService.getProjectTasks(projectId);
+      this.createTaskForm.get('task')?.enable();
+      this.createTaskForm.get('task')?.setValue('');
+    });
   }
 }
