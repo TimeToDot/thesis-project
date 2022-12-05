@@ -1,0 +1,38 @@
+<div class="datepicker">
+  <div (click)="toggleCalendar()">
+    <input readonly type="text" [value]="currentDay" />
+    <span class="material-icons-outlined datepicker-icon">calendar_month</span>
+  </div>
+  <div *ngIf="calendarEnabled" class="datepicker-modal">
+    <div class="datepicker-header">
+      <bvr-button
+        icon="chevron_left"
+        (click)="previousMonth()"
+        styleClass="button-icon">
+      </bvr-button>
+      <span>{{ currentMonth | month }} {{ currentYear }}</span>
+      <bvr-button
+        icon="chevron_right"
+        (click)="nextMonth()"
+        styleClass="button-icon">
+      </bvr-button>
+    </div>
+    <div class="week-days">
+      <div *ngFor="let dayOfWeek of days" class="day">
+        {{ dayOfWeek | slice: 0:1 }}
+      </div>
+    </div>
+    <div *ngFor="let week of monthGrid; let j = index" class="week">
+      <div
+        *ngFor="let day of week; let i = index"
+        class="day"
+        [class.disabled]="day.disabled"
+        [class.selected]="isCurrentDay(day)"
+        (click)="selectDay(day)">
+        <span [class.saturday]="i === 5" [class.sunday]="i === 6">
+          {{ day.date | date: 'd' }}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

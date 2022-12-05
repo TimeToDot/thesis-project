@@ -1,23 +1,22 @@
 .calendar {
   background-color: $color-white;
   border-radius: 2 * $grid-base;
-}
 
-.calendar-header {
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 8 * $grid-base;
+  .calendar-header {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8 * $grid-base;
 
-  .chevron {
-    height: 12 * $grid-base;
+    .chevron {
+      height: 12 * $grid-base;
+    }
   }
 }
 
 .week-days {
   color: $color-text-secondary;
   display: flex;
-  font-size: $font-small;
   font-weight: 600;
 
   .day {
@@ -32,7 +31,7 @@
 
 .day {
   align-items: center;
-  border-radius: 12.5 * $grid-base;
+  border-radius: 100%;
   cursor: pointer;
   display: flex;
   flex-direction: column;

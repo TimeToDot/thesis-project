@@ -19,7 +19,7 @@
   <div class="dates">
     <div class="date">
       <bvr-form-field label="Start date" [required]="isRequired('startDate')">
-        <input formControlName="startDate" type="date" />
+        <bvr-datepicker formControlName="startDate"></bvr-datepicker>
       </bvr-form-field>
       <bvr-form-field label="Start time" [required]="isRequired('startTime')">
         <input formControlName="startTime" type="time" />
@@ -27,7 +27,7 @@
     </div>
     <div class="date">
       <bvr-form-field label="End date" [required]="isRequired('endDate')">
-        <input formControlName="endDate" type="date" />
+        <bvr-datepicker formControlName="endDate"></bvr-datepicker>
       </bvr-form-field>
       <bvr-form-field label="End time" [required]="isRequired('endTime')">
         <input formControlName="endTime" type="time" />
@@ -36,6 +36,9 @@
   </div>
 </form>
 <div class="add-task-form-buttons">
-  <bvr-button class="form-button" label="Cancel" styleClass="button-text"></bvr-button>
+  <bvr-button
+    class="form-button"
+    label="Cancel"
+    styleClass="button-text"></bvr-button>
   <bvr-button class="form-button" label="Add"></bvr-button>
 </div>

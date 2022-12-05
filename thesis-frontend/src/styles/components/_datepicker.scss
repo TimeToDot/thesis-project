@@ -1,0 +1,71 @@
+.datepicker {
+  position: relative;
+
+  input {
+    cursor: pointer;
+    width: 100%;
+  }
+}
+
+.datepicker-icon {
+  cursor: pointer;
+  position: absolute;
+  right: 2 * $grid-base;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.datepicker-modal {
+  background-color: $color-white;
+  border-radius: 2 * $grid-base;
+  box-shadow: 0 $grid-base 12 * $grid-base $color-shadow;
+  padding: 3 * $grid-base;
+  position: absolute;
+  width: 100%;
+
+  .datepicker-header {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+
+    span {
+      font-size: $font-small;
+    }
+
+    .material-icons-outlined {
+      font-size: $font-regular;
+    }
+  }
+
+  .week-days {
+    justify-content: space-between;
+    margin-bottom: $grid-base;
+
+    .day {
+      font-size: $font-small;
+    }
+  }
+
+  .week {
+    justify-content: space-between;
+  }
+
+  .day {
+    height: 6 * $grid-base;
+    margin: 0;
+    width: 6 * $grid-base;
+
+    span {
+      font-size: $font-small;
+    }
+
+    &.disabled span {
+      color: $color-disabled;
+    }
+
+    &.selected span {
+      color: $color-white;
+      font-weight: 600;
+    }
+  }
+}
