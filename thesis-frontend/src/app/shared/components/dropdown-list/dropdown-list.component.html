@@ -1,0 +1,7 @@
+<div class="date-picker">
+  <div (click)="toggleSelect()">
+    <input readonly type="text" [value]="selectedOption.name" />
+    <span class="material-icons-outlined date-picker-icon">expand_more</span>
+  </div>
+  <div *ngIf="selectEnabled" class="date-picker-modal"></div>
+</div>

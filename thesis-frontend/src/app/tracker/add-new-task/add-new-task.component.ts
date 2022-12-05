@@ -15,6 +15,8 @@ import { Project } from '../../projects/model/project.model';
 import { ProjectTask } from '../../projects/model/project-task.model';
 import { DatePickerComponent } from '../../shared/components/date-picker/date-picker.component';
 import { TimePickerComponent } from '../../shared/components/time-picker/time-picker.component';
+import { DropdownListComponent } from '../../shared/components/dropdown-list/dropdown-list.component';
+import { DropdownOption } from '../../shared/model/dropdown-option.model';
 
 @Component({
   selector: 'bvr-add-new-task',
@@ -23,6 +25,7 @@ import { TimePickerComponent } from '../../shared/components/time-picker/time-pi
     ButtonComponent,
     CommonModule,
     DatePickerComponent,
+    DropdownListComponent,
     FormFieldComponent,
     ReactiveFormsModule,
     TimePickerComponent,
@@ -40,8 +43,8 @@ export class AddNewTaskComponent implements OnInit {
     projectId: '',
     taskId: '',
   };
-  projects: Project[] = [];
-  tasks: ProjectTask[] = [];
+  projects: DropdownOption[] = [];
+  tasks: DropdownOption[] = [];
 
   constructor(
     private fb: FormBuilder,
