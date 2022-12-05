@@ -52,6 +52,7 @@ export class AddNewTaskComponent implements OnInit {
   ngOnInit(): void {
     this.projects = this.employeeProjectService.getEmployeeProjects();
     this.createForm();
+    this.createTaskForm.valueChanges.subscribe(value => console.log(value));
   }
 
   roundToMinutes(minutes: number): string {

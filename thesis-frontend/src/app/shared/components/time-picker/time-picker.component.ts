@@ -22,6 +22,7 @@ export class TimePickerComponent implements OnInit, ControlValueAccessor {
   minutes: number = 0;
   selectedTime: string = '00:00';
   timePickerEnabled: boolean = false;
+  touched: boolean = false;
 
   private wasInside: boolean = false;
 
@@ -67,18 +68,29 @@ export class TimePickerComponent implements OnInit, ControlValueAccessor {
   }
 
   updateSelectedTime(): void {
-    this.selectedTime = `${this.hour}:${this.minutes}`;
+    this.markAsTouched();
+    this.selectedTime = `${this.hour}:${
+      this.minutes === 0 ? '00' : this.minutes
+    }`;
+    this.onChange(this.selectedTime);
   }
 
   toggleTimePicker(): void {
     this.timePickerEnabled = !this.timePickerEnabled;
   }
 
-  writeValue(currentDay: string): void {
-    this.selectedTime = currentDay;
+  markAsTouched() {
+    if (!this.touched) {
+      this.onTouched();
+      this.touched = true;
+    }
   }
 
-  onChange = (currentDay: string) => {};
+  writeValue(currentTime: string): void {
+    this.selectedTime = currentTime;
+  }
+
+  onChange = (currentTime: string) => {};
 
   registerOnChange(onChange: any): void {
     this.onChange = onChange;
