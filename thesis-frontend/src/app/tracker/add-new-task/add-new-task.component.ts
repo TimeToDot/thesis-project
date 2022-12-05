@@ -13,7 +13,8 @@ import { EmployeeProjectsService } from '../../shared/services/employee-projects
 import { ProjectTasksService } from '../../projects/services/project-tasks.service';
 import { Project } from '../../projects/model/project.model';
 import { ProjectTask } from '../../projects/model/project-task.model';
-import { DatepickerComponent } from '../../shared/components/datepicker/datepicker.component';
+import { DatePickerComponent } from '../../shared/components/date-picker/date-picker.component';
+import { TimePickerComponent } from '../../shared/components/time-picker/time-picker.component';
 
 @Component({
   selector: 'bvr-add-new-task',
@@ -21,9 +22,10 @@ import { DatepickerComponent } from '../../shared/components/datepicker/datepick
   imports: [
     ButtonComponent,
     CommonModule,
-    DatepickerComponent,
+    DatePickerComponent,
     FormFieldComponent,
     ReactiveFormsModule,
+    TimePickerComponent,
   ],
   templateUrl: './add-new-task.component.html',
 })

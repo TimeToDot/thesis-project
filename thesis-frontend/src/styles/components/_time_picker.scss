@@ -1,0 +1,42 @@
+.time-picker {
+  position: relative;
+
+  input {
+    cursor: pointer;
+    width: 100%;
+  }
+}
+
+.time-picker-icon {
+  cursor: pointer;
+  position: absolute;
+  right: 2 * $grid-base;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.time-picker-modal {
+  background-color: $color-white;
+  border-radius: 2 * $grid-base;
+  box-shadow: 0 $grid-base 12 * $grid-base $color-shadow;
+  display: flex;
+  flex-direction: column;
+  padding: 3 * $grid-base;
+  position: absolute;
+  width: 100%;
+}
+
+.time-picker-row {
+  display: flex;
+  justify-content: center;
+}
+
+.time-picker-cell {
+  height: 6 * $grid-base;
+  text-align: center;
+  width: 6 * $grid-base;
+
+  .button-icon {
+    padding: 0;
+  }
+}

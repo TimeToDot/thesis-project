@@ -1,4 +1,4 @@
-.datepicker {
+.date-picker {
   position: relative;
 
   input {
@@ -7,7 +7,7 @@
   }
 }
 
-.datepicker-icon {
+.date-picker-icon {
   cursor: pointer;
   position: absolute;
   right: 2 * $grid-base;
@@ -15,15 +15,16 @@
   transform: translateY(-50%);
 }
 
-.datepicker-modal {
+.date-picker-modal {
   background-color: $color-white;
   border-radius: 2 * $grid-base;
   box-shadow: 0 $grid-base 12 * $grid-base $color-shadow;
   padding: 3 * $grid-base;
   position: absolute;
   width: 100%;
+  z-index: 2;
 
-  .datepicker-header {
+  .date-picker-header {
     align-items: center;
     display: flex;
     justify-content: space-between;

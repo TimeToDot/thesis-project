@@ -1,4 +1,4 @@
-import { Component, HostListener, Input } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { CommonModule, formatDate } from '@angular/common';
 import { ButtonComponent } from '../button/button.component';
 import * as dayjs from 'dayjs';
@@ -8,19 +8,19 @@ import { MonthPipe } from '../../../calendar/pipes/month.pipe';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
-  selector: 'bvr-datepicker',
+  selector: 'bvr-date-picker',
   standalone: true,
   imports: [ButtonComponent, CommonModule, MonthPipe],
-  templateUrl: './datepicker.component.html',
+  templateUrl: './date-picker.component.html',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
       multi: true,
-      useExisting: DatepickerComponent,
+      useExisting: DatePickerComponent,
     },
   ],
 })
-export class DatepickerComponent implements ControlValueAccessor {
+export class DatePickerComponent implements OnInit, ControlValueAccessor {
   @Input() name: string = '';
 
   currentMonth!: number;

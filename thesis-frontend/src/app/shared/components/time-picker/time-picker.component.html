@@ -1,0 +1,43 @@
+<div class="time-picker">
+  <div (click)="toggleTimePicker()">
+    <input readonly type="text" [value]="selectedTime" />
+    <span class="material-icons-outlined time-picker-icon">schedule</span>
+  </div>
+  <div *ngIf="timePickerEnabled" class="time-picker-modal">
+    <div class="time-picker-row">
+      <bvr-button
+        class="time-picker-cell"
+        (click)="previousHour()"
+        icon="expand_less"
+        styleClass="button-icon">
+      </bvr-button>
+      <div class="time-picker-cell"></div>
+      <bvr-button
+        class="time-picker-cell"
+        (click)="previousMinutes()"
+        icon="expand_less"
+        styleClass="button-icon">
+      </bvr-button>
+    </div>
+    <div class="time-picker-row">
+      <div class="time-picker-cell">{{ hour }}</div>
+      <div class="time-picker-cell">:</div>
+      <div class="time-picker-cell">{{ minutes === 0 ? '00' : minutes }}</div>
+    </div>
+    <div class="time-picker-row">
+      <bvr-button
+        class="time-picker-cell"
+        (click)="nextHour()"
+        icon="expand_more"
+        styleClass="button-icon">
+      </bvr-button>
+      <div class="time-picker-cell"></div>
+      <bvr-button
+        class="time-picker-cell"
+        (click)="nextMinutes()"
+        icon="expand_more"
+        styleClass="button-icon">
+      </bvr-button>
+    </div>
+  </div>
+</div>
