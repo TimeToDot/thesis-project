@@ -11,8 +11,6 @@ import { ButtonComponent } from '../../shared/components/button/button.component
 import { FormFieldComponent } from '../../shared/components/form-field/form-field.component';
 import { EmployeeProjectsService } from '../../shared/services/employee-projects.service';
 import { ProjectTasksService } from '../../projects/services/project-tasks.service';
-import { Project } from '../../projects/model/project.model';
-import { ProjectTask } from '../../projects/model/project-task.model';
 import { DatePickerComponent } from '../../shared/components/date-picker/date-picker.component';
 import { TimePickerComponent } from '../../shared/components/time-picker/time-picker.component';
 import { DropdownListComponent } from '../../shared/components/dropdown-list/dropdown-list.component';
@@ -56,7 +54,6 @@ export class AddNewTaskComponent implements OnInit {
     this.projects = this.employeeProjectService.getEmployeeProjects();
     this.createForm();
     this.observeProjectChange();
-    this.createTaskForm.valueChanges.subscribe(value => console.log(value));
   }
 
   roundToMinutes(minutes: number): string {

@@ -17,6 +17,7 @@ import { DropdownOption } from '../../model/dropdown-option.model';
   ],
 })
 export class DropdownListComponent implements ControlValueAccessor {
+  @Input() name: string = '';
   @Input() options: DropdownOption[] = [];
 
   disabled: boolean = false;
@@ -47,7 +48,7 @@ export class DropdownListComponent implements ControlValueAccessor {
   writeValue(selectedOption: DropdownOption): void {
     this.selectedOption = selectedOption
       ? selectedOption
-      : { name: 'Select option', id: '' };
+      : { name: 'Select ' + this.name, id: '' };
   }
 
   onChange = (selectedOptionId: string) => {};

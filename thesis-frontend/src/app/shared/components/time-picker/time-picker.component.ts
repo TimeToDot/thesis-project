@@ -58,7 +58,7 @@ export class TimePickerComponent implements OnInit, ControlValueAccessor {
   }
 
   nextHour(): void {
-    this.hour === 24 ? (this.hour = 0) : ++this.hour;
+    this.hour === 23 ? (this.hour = 0) : ++this.hour;
     this.updateSelectedTime();
   }
 
@@ -69,7 +69,7 @@ export class TimePickerComponent implements OnInit, ControlValueAccessor {
 
   updateSelectedTime(): void {
     this.markAsTouched();
-    this.selectedTime = `${this.hour}:${
+    this.selectedTime = `${this.hour < 10 ? '0' + this.hour : this.hour}:${
       this.minutes === 0 ? '00' : this.minutes
     }`;
     this.onChange(this.selectedTime);

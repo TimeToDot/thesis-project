@@ -20,7 +20,7 @@
       </bvr-button>
     </div>
     <div class="time-picker-row">
-      <div class="time-picker-cell">{{ hour }}</div>
+      <div class="time-picker-cell">{{ hour < 10 ? '0' + hour : hour }}</div>
       <div class="time-picker-cell">:</div>
       <div class="time-picker-cell">{{ minutes === 0 ? '00' : minutes }}</div>
     </div>
