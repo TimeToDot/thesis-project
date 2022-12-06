@@ -11,7 +11,7 @@ export class EmployeesService {
       firstName: 'Robert',
       lastName: 'Skrzypczak',
       position: 'Frontend Developer',
-      employmentDate: new Date(2021, 8, 15),
+      employmentDate: '2021-08-15',
       active: true,
     },
     {
@@ -19,7 +19,7 @@ export class EmployeesService {
       firstName: 'Beata',
       lastName: 'Iwan',
       position: 'Product Designer',
-      employmentDate: new Date(2022, 7, 1),
+      employmentDate: '2022-07-01',
       active: true,
     },
   ];

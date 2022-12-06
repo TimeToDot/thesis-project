@@ -1,0 +1,14 @@
+.project-approvals {
+  .header {
+    height: 12.25 * $grid-base;
+  }
+
+  .status-cell {
+    align-items: center;
+    display: flex;
+
+    .status {
+      margin-right: 2 * $grid-base;
+    }
+  }
+}

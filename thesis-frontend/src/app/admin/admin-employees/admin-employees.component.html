@@ -13,20 +13,35 @@
         <h4>Accounts</h4>
         <h5>({{ dataSource.length }})</h5>
         <div class="radio">
-          <input name="showActive" [(ngModel)]="showActive" type="radio" [value]="true">
+          <input
+            name="showActive"
+            [(ngModel)]="showActive"
+            type="radio"
+            [value]="true" />
           <label>Active</label>
         </div>
         <div class="radio">
-          <input name="showActive" [(ngModel)]="showActive" type="radio" [value]="false">
+          <input
+            name="showActive"
+            [(ngModel)]="showActive"
+            type="radio"
+            [value]="false" />
           <label>Archive</label>
         </div>
       </div>
-      <bvr-button class="create-new-button" label="Create new" [routerLink]="['create']"></bvr-button>
+      <bvr-button
+        class="create-new-button"
+        label="Create new"
+        [routerLink]="['create']"></bvr-button>
     </div>
 
     <div class="search-bar">
       <span class="material-icons-outlined search-icon">search</span>
-      <input class="search-input" [(ngModel)]="query" placeholder="Search" type="search" />
+      <input
+        class="search-input"
+        [(ngModel)]="query"
+        placeholder="Search"
+        type="search" />
     </div>
 
     <div class="table">
@@ -47,19 +62,24 @@
         <ng-container cdkColumnDef="employmentDate">
           <th cdk-header-cell *cdkHeaderCellDef>Hire date</th>
           <td cdk-cell *cdkCellDef="let element">
-            {{ element.employmentDate | date: 'mediumDate' }}
+            {{ element.employmentDate | date: 'dd/MM/yyyy' }}
           </td>
         </ng-container>
         <ng-container cdkColumnDef="actions">
           <th cdk-header-cell *cdkHeaderCellDef>Options</th>
           <td cdk-cell *cdkCellDef="let element">
-            <bvr-button (click)="editEmployee($event, element)" icon="edit" styleClass="button-icon"></bvr-button>
+            <bvr-button
+              (click)="editEmployee($event, element)"
+              icon="edit"
+              styleClass="button-icon"></bvr-button>
             <bvr-button icon="delete" styleClass="button-icon"></bvr-button>
           </td>
         </ng-container>
         <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
-        <tr cdk-row *cdkRowDef="let row; columns: displayedColumns; let i = index" (click)="showEmployeeDetails(row)">
-        </tr>
+        <tr
+          cdk-row
+          *cdkRowDef="let row; columns: displayedColumns; let i = index"
+          (click)="showEmployeeDetails(row)"></tr>
       </table>
     </div>
   </div>

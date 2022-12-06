@@ -1,1 +1,64 @@
-<p>project-approvals works!</p>
+<div class="project-approvals">
+  <div class="header">
+    <div class="title">
+      <h4>Approvals</h4>
+      <h5>({{ dataSource.length }})</h5>
+      <div class="radio">
+        <input
+          name="showActive"
+          [(ngModel)]="showActive"
+          type="radio"
+          [value]="true" />
+        <label>Active</label>
+      </div>
+      <div class="radio">
+        <input
+          name="showActive"
+          [(ngModel)]="showActive"
+          type="radio"
+          [value]="false" />
+        <label>Archive</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="search-bar">
+    <span class="material-icons-outlined search-icon">search</span>
+    <input
+      class="search-input"
+      [(ngModel)]="query"
+      placeholder="Search"
+      type="search" />
+  </div>
+
+  <div class="table">
+    <table cdk-table [dataSource]="dataSource">
+      <ng-container cdkColumnDef="person">
+        <th cdk-header-cell *cdkHeaderCellDef>Person</th>
+        <td cdk-cell *cdkCellDef="let element">
+          <div class="table-cell">
+            <img [src]="element.image" class="picture" />
+            <span>{{ element.firstName }} {{ element.lastName }}</span>
+          </div>
+        </td>
+      </ng-container>
+      <ng-container cdkColumnDef="status">
+        <th cdk-header-cell *cdkHeaderCellDef>Status</th>
+        <td cdk-cell *cdkCellDef="let element">
+          <div class="status-cell">
+            <div class="status" [class]="element.status"></div>
+            {{ element.status | titlecase }}
+          </div>
+        </td>
+      </ng-container>
+      <ng-container cdkColumnDef="last_request">
+        <th cdk-header-cell *cdkHeaderCellDef>Last request</th>
+        <td cdk-cell *cdkCellDef="let element">
+          {{ element.lastRequest | date: 'dd/MM/yyyy' }}
+        </td>
+      </ng-container>
+      <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
+      <tr cdk-row *cdkRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+</div>

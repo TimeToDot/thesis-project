@@ -1,6 +1,6 @@
 <div class="date-picker">
   <div (click)="toggleCalendar()">
-    <input readonly type="text" [value]="currentDay" />
+    <input readonly type="text" [value]="currentDay | date: 'dd/MM/yyyy'" />
     <span class="material-icons-outlined date-picker-icon">calendar_month</span>
   </div>
   <div *ngIf="calendarEnabled" class="date-picker-modal">
