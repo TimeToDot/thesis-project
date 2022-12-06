@@ -20,6 +20,7 @@ import { ProjectComponent } from './project/project.component';
 import { ProjectsComponent } from './projects.component';
 import { CanManageProjectEmployeesGuard } from './guards/can-manage-project-employees.guard';
 import { ViewProjectEmployeeComponent } from './project-employees/view-project-employee/view-project-employee.component';
+import { ApprovalTrackerComponent } from './project-approvals/approval-tracker/approval-tracker.component';
 
 const projectsRoutes: Routes = [
   {
@@ -78,6 +79,11 @@ const projectsRoutes: Routes = [
           {
             path: 'approvals',
             component: ProjectApprovalsComponent,
+            canActivate: [CanManageApprovalsGuard],
+          },
+          {
+            path: 'approvals/:id',
+            component: ApprovalTrackerComponent,
             canActivate: [CanManageApprovalsGuard],
           },
           {
