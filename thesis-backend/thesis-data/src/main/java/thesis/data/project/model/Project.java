@@ -1,38 +1,45 @@
 package thesis.data.project.model;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.Hibernate;
 import thesis.data.account.model.Account;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
 @Getter
 @ToString
 @RequiredArgsConstructor
+@SuperBuilder
 @Entity
 @Table(name = "project")
 public class Project {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private UUID id;
 
   private String name;
 
-  private String descroption;
+  private String description;
 
   @OneToOne
-  @JoinColumn(name = "account_id")
-  private Account account;
+  @JoinColumn(name = "owner_id")
+  private Account owner;
 
-  @OneToOne
-  @JoinColumn(name = "details_id")
+  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @PrimaryKeyJoinColumn
+  @ToString.Exclude
   private ProjectDetails details;
+
+  @OneToMany(mappedBy = "project", fetch = FetchType.LAZY)
+  @ToString.Exclude
+  private List<ProjectAccountRole> projectAccountRoles;
 
   @Override
   public boolean equals(Object o) {

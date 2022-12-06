@@ -1,27 +1,39 @@
 package thesis.data.project.model;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
 
 @Getter
 @ToString
 @RequiredArgsConstructor
+@SuperBuilder
 @Entity
 @Table(name = "project_details")
 public class ProjectDetails {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private UUID id;
+  @OneToOne
+  @JoinColumn(name = "project_id")
+  private Project project;
+
   private String options;
-  private Long createdAt;
+
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date createdAt;
+
+  public void setProject(Project project) {
+    this.project = project;
+  }
 
   @Override
   public boolean equals(Object o) {

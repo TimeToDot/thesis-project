@@ -1,22 +1,25 @@
 package thesis.data.task.model;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 import thesis.data.account.model.Account;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.UUID;
 
 @Getter
 @ToString
 @RequiredArgsConstructor
+@SuperBuilder
 @Entity
 @Table(name = "task")
 public class Task {
 
   @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private UUID id;
 
   @ManyToOne
@@ -27,11 +30,14 @@ public class Task {
   @JoinColumn(name = "form_id")
   private TaskForm form;
 
-  private Long createdAt;
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date createdAt;
 
-  private Long dateFrom;
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date dateFrom;
 
-  private Long dateTo;
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date dateTo;
 
   private String name;
 }

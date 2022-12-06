@@ -1,14 +1,16 @@
 package thesis.data.account.model;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.Hibernate;
 import thesis.data.position.model.Position;
+import thesis.data.project.model.ProjectAccountRole;
 import thesis.data.role.model.Role;
 import thesis.data.task.model.Task;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -28,7 +30,7 @@ import java.util.UUID;
 public class Account {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     private String login;
@@ -62,6 +64,10 @@ public class Account {
     @OneToMany(fetch = FetchType.LAZY)
     @ToString.Exclude
     private List<Task> tasks;
+
+    @OneToMany(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ToString.Exclude
+    private List<ProjectAccountRole> projectAccountRoles;
 
     @Override
     public boolean equals(Object o) {

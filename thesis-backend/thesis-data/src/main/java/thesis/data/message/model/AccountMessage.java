@@ -1,21 +1,25 @@
 package thesis.data.message.model;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.Hibernate;
 import thesis.data.account.model.Account;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
 
 @Getter
 @ToString
 @RequiredArgsConstructor
+@SuperBuilder
 @Entity
 @Table(name = "account_message")
 public class AccountMessage {
 
   @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private UUID id;
 
   private String data;
@@ -30,15 +34,9 @@ public class AccountMessage {
   @ToString.Exclude
   private Account accountTo;
 
-  private Long timestamp;
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date timestamp;
 
-  public void setAccountTo(Account accountTo) {
-    this.accountTo = accountTo;
-  }
-
-  public void setAccountFrom(Account accountFrom) {
-    this.accountFrom = accountFrom;
-  }
 
   @Override
   public boolean equals(Object o) {

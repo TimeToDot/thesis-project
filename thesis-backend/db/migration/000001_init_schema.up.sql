@@ -1,5 +1,5 @@
 CREATE TABLE "account" (
-                           "id" uuid PRIMARY KEY,
+                           "id" uuid DEFAULT gen_random_uuid() PRIMARY KEY,
                            "login" varchar NOT NULL,
                            "pass" varchar NOT NULL,
                            "status" varchar NOT NULL,
@@ -7,76 +7,86 @@ CREATE TABLE "account" (
 );
 
 CREATE TABLE "account_details" (
-                                   "id" uuid PRIMARY KEY,
+                                   "id" uuid DEFAULT gen_random_uuid() PRIMARY KEY,
                                    "account_id" uuid NOT NULL,
                                    "name" varchar NOT NULL,
                                    "surname" varchar NOT NULL,
                                    "pesel" varchar NOT NULL,
-                                   "created_at" timestamp NOT NULL DEFAULT 'now()'
+                                   "phone_number" varchar NOT NULL,
+                                   "city" varchar NOT NULL,
+                                   "street" varchar NOT NULL,
+                                   "created_at" timestamp DEFAULT 'now()'
 );
 
 CREATE TABLE "position" (
-                        "id" uuid PRIMARY KEY,
-                        "account_id" uuid,
+                        "id" uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+                        "account_id" uuid NOT NULL,
                         "name" varchar,
                         "description" varchar
 );
 
 CREATE TABLE "account_role" (
-                                "id" uuid PRIMARY KEY,
+                                "id" uuid DEFAULT gen_random_uuid() PRIMARY KEY,
                                 "account_id" uuid NOT NULL,
                                 "role_id" uuid NOT NULL
 );
 
 CREATE TABLE "role" (
-                        "id" uuid PRIMARY KEY,
+                        "id" uuid DEFAULT gen_random_uuid() PRIMARY KEY,
                         "name" varchar NOT NULL
 );
 
+CREATE TABLE "privilege" (
+                             "id" uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+                             "name" varchar NOT NULL
+);
+
 CREATE TABLE "role_privilege" (
-                                  "id" uuid PRIMARY KEY,
+                                  "id" uuid DEFAULT gen_random_uuid() PRIMARY KEY,
                                   "role_id" uuid NOT NULL,
                                   "privilege_id" uuid NOT NULL
 );
 
-CREATE TABLE "privilege" (
-                             "id" uuid PRIMARY KEY,
-                             "name" varchar NOT NULL
-);
-
 CREATE TABLE "project" (
-                           "id" uuid PRIMARY KEY,
+                           "id" uuid DEFAULT gen_random_uuid() PRIMARY KEY,
                            "name" varchar NOT NULL,
                            "description" varchar,
-                           "account_id" uuid NOT NULL
+                           "owner_id" uuid NOT NULL
 );
 
 CREATE TABLE "project_details" (
-                                   "id" uuid PRIMARY KEY,
+                                   "id" uuid DEFAULT gen_random_uuid() PRIMARY KEY,
                                    "project_id" uuid NOT NULL,
                                    "options" varchar NOT NULL,
-                                   "created_at" timestamp NOT NULL DEFAULT 'now()'
+                                   "created_at" timestamp DEFAULT 'now()'
+);
+
+CREATE TABLE "project_account_role" (
+                                "id" uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+                                "project_id" uuid NOT NULL,
+                                "account_id" uuid NOT NULL,
+                                "role_id" uuid NOT NULL
 );
 
 CREATE TABLE "task_form" (
-                             "id" uuid PRIMARY KEY,
+                             "id" uuid DEFAULT gen_random_uuid() PRIMARY KEY,
                              "name" varchar NOT NULL,
                              "description" varchar,
-                             "id_project" uuid
+                             "id_project" uuid NOT NULL
 );
 
 CREATE TABLE "task_form_details" (
-                                     "id" uuid PRIMARY KEY,
-                                     "task_form_id" uuid,
+                                     "id" uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+                                     "task_form_id" uuid NOT NULL ,
                                      "description" varchar,
                                      "status" varchar NOT NULL
 );
 
 CREATE TABLE "task" (
-                        "id" uuid PRIMARY KEY,
-                        "account_id" uuid,
-                        "form_id" uuid,
-                        "created_at" timestamp NOT NULL DEFAULT 'now()',
+                        "id" uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+                        "account_id" uuid NOT NULL ,
+                        "form_id" uuid NOT NULL ,
+                        "created_at" timestamp DEFAULT 'now()',
                         "date_from" timestamp NOT NULL,
                         "date_to" timestamp NOT NULL,
                         "name" varchar,
@@ -84,11 +94,11 @@ CREATE TABLE "task" (
 );
 
 CREATE TABLE "account_message" (
-                                   "id" uuid PRIMARY KEY,
+                                   "id" uuid DEFAULT gen_random_uuid() PRIMARY KEY,
                                    "data" varchar,
                                    "account_from" uuid,
                                    "account_to" uuid,
-                                   "created_at" timestamp NOT NULL DEFAULT 'now()'
+                                   "created_at" timestamp DEFAULT 'now()'
 );
 
 CREATE INDEX ON "account" ("login");
@@ -117,9 +127,15 @@ ALTER TABLE "role_privilege" ADD FOREIGN KEY ("role_id") REFERENCES "role" ("id"
 
 ALTER TABLE "role_privilege" ADD FOREIGN KEY ("privilege_id") REFERENCES "privilege" ("id");
 
-ALTER TABLE "project" ADD FOREIGN KEY ("account_id") REFERENCES "account" ("id");
+ALTER TABLE "project" ADD FOREIGN KEY ("owner_id") REFERENCES "account" ("id");
 
 ALTER TABLE "project_details" ADD FOREIGN KEY ("project_id") REFERENCES "project" ("id");
+
+ALTER TABLE "project_account_role" ADD FOREIGN KEY ("project_id") REFERENCES "project"("id");
+
+ALTER TABLE "project_account_role" ADD FOREIGN KEY ("account_id") REFERENCES "account"("id");
+
+ALTER TABLE "project_account_role" ADD FOREIGN KEY ("role_id") REFERENCES "role"("id");
 
 ALTER TABLE "task_form" ADD FOREIGN KEY ("id_project") REFERENCES "project" ("id");
 

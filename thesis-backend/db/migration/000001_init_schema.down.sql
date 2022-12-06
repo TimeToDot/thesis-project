@@ -11,3 +11,8 @@ DROP TABLE IF EXISTS position;
 DROP TABLE IF EXISTS privilege;
 DROP TABLE IF EXISTS role;
 DROP TABLE IF EXISTS account;
+
+
+
+
+select * from account

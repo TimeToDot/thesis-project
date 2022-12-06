@@ -1,6 +1,5 @@
 package thesis.data.account.model;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
@@ -9,6 +8,7 @@ import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -21,10 +21,12 @@ import java.util.UUID;
 public class AccountDetails {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private UUID id;
 
-  private UUID accountId;
+  @OneToOne
+  @JoinColumn(name = "account_id")
+  private Account account;
 
   @NotBlank(message="name is required")
   private String name;
@@ -44,8 +46,12 @@ public class AccountDetails {
   @NotBlank(message="city is required")
   private String city;
 
-  @NotBlank(message="create timestamp  is required")
-  private Long createdAt;
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date createdAt;
+
+  public void setAccount(Account account) {
+    this.account = account;
+  }
 
   @Override
   public boolean equals(Object o) {

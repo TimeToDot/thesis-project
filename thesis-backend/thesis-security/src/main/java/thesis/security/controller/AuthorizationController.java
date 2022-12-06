@@ -6,7 +6,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import thesis.data.account.AccountRepository;
 import thesis.data.account.model.Account;
-import thesis.data.account.model.AccountDetails;
 import thesis.data.role.RoleRepository;
 import thesis.data.role.model.Role;
 import thesis.data.role.model.RoleType;
@@ -51,27 +50,21 @@ public class AuthorizationController {
 
             eRoles.forEach(role -> {
                 switch (role) {
-                    case ROLE_ADMIN -> {
-                        Role adminRole = roleRepository.findByName(RoleType.ROLE_ADMIN)
+                    case ROLE_GLOBAL_ADMIN -> {
+                        Role adminRole = roleRepository.findByName(RoleType.ROLE_GLOBAL_ADMIN)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(adminRole);
                     }
-                    case ROLE_MODERATOR -> {
-                        Role modRole = roleRepository.findByName(RoleType.ROLE_MODERATOR)
+                    case ROLE_GLOBAL_USER -> {
+                        Role modRole = roleRepository.findByName(RoleType.ROLE_GLOBAL_USER)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(modRole);
-                    }
-                    case ROLE_USER -> {
-                        Role userRole = roleRepository.findByName(RoleType.ROLE_USER)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(userRole);
                     }
                 }
             });
         }
         var account = Account.builder()
                 .login(authorizationRequest.getLogin())
-                .details(new AccountDetails())
                 .pass(passwordEncoder.encode(authorizationRequest.getPassword()))
                 .roles(roles)
                 .build();
