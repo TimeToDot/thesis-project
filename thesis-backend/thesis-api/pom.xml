@@ -40,6 +40,11 @@
       <scope>provided</scope>
     </dependency>
 
+    <!-- swagger-->
+    <dependency>
+      <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-ui</artifactId>
+    </dependency>
     <!-- Test dependencies -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
