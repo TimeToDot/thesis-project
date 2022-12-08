@@ -6,6 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import thesis.data.account.AccountRepository;
 import thesis.data.account.model.Account;
+import thesis.data.account.model.StatusType;
 import thesis.data.role.RoleRepository;
 import thesis.data.role.model.Role;
 import thesis.data.role.model.RoleType;
@@ -28,11 +29,11 @@ public class AuthorizationController {
 
         // TODO: 03/12/2022 spaghetti code
 
-        if (accountRepository.existsByLogin(authorizationRequest.getLogin())) {
+        if (Boolean.TRUE.equals(accountRepository.existsByLogin(authorizationRequest.getLogin()))) {
             return ResponseEntity.badRequest().body("Error: Login is already taken!");
         }
 
-        if (accountRepository.existsByEmail(authorizationRequest.getEmail())) {
+        if (Boolean.TRUE.equals(accountRepository.existsByEmail(authorizationRequest.getEmail()))) {
             return ResponseEntity.badRequest().body("Error: Email is already in use!");
         }
 
@@ -66,7 +67,9 @@ public class AuthorizationController {
         var account = Account.builder()
                 .login(authorizationRequest.getLogin())
                 .pass(passwordEncoder.encode(authorizationRequest.getPassword()))
+                .email(authorizationRequest.getEmail())
                 .roles(roles)
+                .status(StatusType.ENABLE)
                 .build();
 
         accountRepository.save(account);

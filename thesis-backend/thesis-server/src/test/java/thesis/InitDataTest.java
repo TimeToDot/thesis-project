@@ -27,7 +27,7 @@ import java.util.List;
 
 
 @RunWith(SpringRunner.class)
-@ActiveProfiles(profiles = "initData")
+@ActiveProfiles(profiles = "init-data")
 @SpringBootTest(classes = ThesisApplication.class)
 public class InitDataTest {
 
