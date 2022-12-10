@@ -25,6 +25,10 @@
     align-items: center;
     display: flex;
 
+    .material-icons-outlined {
+      font-size: 1.75 * $font-normal;
+    }
+
     h2,
     h4 {
       padding-left: 2 * $grid-base;

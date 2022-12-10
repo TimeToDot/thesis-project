@@ -9,7 +9,7 @@
   margin: 4 * $grid-base;
 
   .divider {
-    border-top: 0.25 * $grid-base $color-secondary solid;
+    border-top: 0.25 * $grid-base $color-divider solid;
     height: 0.25 * $grid-base;
     width: 25%;
   }
@@ -26,8 +26,8 @@
   }
 
   .previous-step {
-    background-color: $color-secondary;
-    border-color: $color-secondary;
+    background-color: $color-row-hover;
+    border-color: $color-row-hover;
   }
 
   .active-step {

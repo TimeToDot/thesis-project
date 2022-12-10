@@ -4,19 +4,19 @@
   width: 2 * $grid-base;
 
   &.pending {
-    background-color: $color-pending;
+    background-color: $color-warning;
   }
 
   &.rejected {
-    background-color: $color-rejected;
+    background-color: $color-error;
   }
 
   &.approved {
-    background-color: $color-approved;
+    background-color: $color-success;
   }
 
   &.logged {
-    background-color: $color-logged;
+    background-color: $color-info;
   }
 
   &.none {
