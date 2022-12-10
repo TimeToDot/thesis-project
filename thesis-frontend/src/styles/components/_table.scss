@@ -1,28 +1,3 @@
-.search-bar {
-  align-items: center;
-  box-shadow: $shadow-default;
-  display: flex;
-  margin: 4 * $grid-base 0;
-  position: relative;
-  width: 100%;
-
-  .search-input {
-    border: 0.25 * $grid-base $color-divider solid;
-    border-radius: 2 * $grid-base;
-    padding: 2 * $grid-base 0 2 * $grid-base 10 * $grid-base;
-    width: 100%;
-  }
-
-  .search-icon {
-    padding-left: 3 * $grid-base;
-    position: absolute;
-  }
-
-  .mat-form-field-flex {
-    padding-left: 2rem;
-  }
-}
-
 .table {
   background-color: $color-white;
   border-radius: 2 * $grid-base 2 * $grid-base 0 0;
