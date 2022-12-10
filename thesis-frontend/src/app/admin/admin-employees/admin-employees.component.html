@@ -2,46 +2,31 @@
   <div class="header">
     <div class="title">
       <span class="material-icons-outlined">groups</span>
-      <h3 class="name">Employees</h3>
-      <h5 class="count">({{ dataSource.length }})</h5>
+      <h2 class="name">Employees</h2>
+      <h4 class="count">({{ dataSource.length }})</h4>
     </div>
   </div>
 
   <div class="wrapper-content">
     <div class="header">
       <div class="title">
-        <h4>Accounts</h4>
-        <h5>({{ dataSource.length }})</h5>
+        <h3>Accounts</h3>
+        <h4>({{ dataSource.length }})</h4>
         <div class="radio">
-          <input
-            name="showActive"
-            [(ngModel)]="showActive"
-            type="radio"
-            [value]="true" />
+          <input name="showActive" [(ngModel)]="showActive" type="radio" [value]="true" />
           <label>Active</label>
         </div>
         <div class="radio">
-          <input
-            name="showActive"
-            [(ngModel)]="showActive"
-            type="radio"
-            [value]="false" />
+          <input name="showActive" [(ngModel)]="showActive" type="radio" [value]="false" />
           <label>Archive</label>
         </div>
       </div>
-      <bvr-button
-        class="create-new-button"
-        label="Create new"
-        [routerLink]="['create']"></bvr-button>
+      <bvr-button class="create-new-button" label="Create new" [routerLink]="['create']"></bvr-button>
     </div>
 
     <div class="search-bar">
       <span class="material-icons-outlined search-icon">search</span>
-      <input
-        class="search-input"
-        [(ngModel)]="query"
-        placeholder="Search"
-        type="search" />
+      <input class="search-input" [(ngModel)]="query" placeholder="Search" type="search" />
     </div>
 
     <div class="table">
@@ -68,18 +53,13 @@
         <ng-container cdkColumnDef="actions">
           <th cdk-header-cell *cdkHeaderCellDef>Options</th>
           <td cdk-cell *cdkCellDef="let element">
-            <bvr-button
-              (click)="editEmployee($event, element)"
-              icon="edit"
-              styleClass="button-icon"></bvr-button>
+            <bvr-button (click)="editEmployee($event, element)" icon="edit" styleClass="button-icon"></bvr-button>
             <bvr-button icon="delete" styleClass="button-icon"></bvr-button>
           </td>
         </ng-container>
         <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
-        <tr
-          cdk-row
-          *cdkRowDef="let row; columns: displayedColumns; let i = index"
-          (click)="showEmployeeDetails(row)"></tr>
+        <tr cdk-row *cdkRowDef="let row; columns: displayedColumns; let i = index" (click)="showEmployeeDetails(row)">
+        </tr>
       </table>
     </div>
   </div>

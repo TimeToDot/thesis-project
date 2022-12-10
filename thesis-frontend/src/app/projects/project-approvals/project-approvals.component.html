@@ -1,22 +1,14 @@
 <div class="project-approvals">
   <div class="header">
     <div class="title">
-      <h4>Approvals</h4>
-      <h5>({{ dataSource.length }})</h5>
+      <h3>Approvals</h3>
+      <h4>({{ dataSource.length }})</h4>
       <div class="radio">
-        <input
-          name="showActive"
-          [(ngModel)]="showActive"
-          type="radio"
-          [value]="true" />
+        <input name="showActive" [(ngModel)]="showActive" type="radio" [value]="true" />
         <label>Active</label>
       </div>
       <div class="radio">
-        <input
-          name="showActive"
-          [(ngModel)]="showActive"
-          type="radio"
-          [value]="false" />
+        <input name="showActive" [(ngModel)]="showActive" type="radio" [value]="false" />
         <label>Archive</label>
       </div>
     </div>
@@ -24,11 +16,7 @@
 
   <div class="search-bar">
     <span class="material-icons-outlined search-icon">search</span>
-    <input
-      class="search-input"
-      [(ngModel)]="query"
-      placeholder="Search"
-      type="search" />
+    <input class="search-input" [(ngModel)]="query" placeholder="Search" type="search" />
   </div>
 
   <div class="table">
@@ -58,10 +46,7 @@
         </td>
       </ng-container>
       <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
-      <tr
-        cdk-row
-        *cdkRowDef="let row; columns: displayedColumns"
-        [routerLink]="[row.id]"></tr>
+      <tr cdk-row *cdkRowDef="let row; columns: displayedColumns" [routerLink]="[row.id]"></tr>
     </table>
   </div>
 </div>

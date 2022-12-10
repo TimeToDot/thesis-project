@@ -25,12 +25,12 @@
     align-items: center;
     display: flex;
 
-    h3,
-    h5 {
+    h2,
+    h4 {
       padding-left: 2 * $grid-base;
     }
 
-    h5 {
+    h4 {
       color: $color-text-secondary;
       margin-right: 4 * $grid-base;
     }
