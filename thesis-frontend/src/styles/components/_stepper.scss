@@ -26,9 +26,9 @@
   }
 
   .previous-step {
-    background-color: $color-primary-hover;
-    border-color: $color-primary-hover;
-    color: $color-white;
+    background-color: $color-divider;
+    border-color: $color-divider;
+    color: $color-secondary;
   }
 
   .active-step {
@@ -42,8 +42,8 @@
   }
 
   .next-step {
-    background-color: $color-divider;
-    border-color: $color-divider;
+    background-color: $color-disabled;
+    border-color: $color-disabled;
     color: $color-text-secondary;
   }
 }
