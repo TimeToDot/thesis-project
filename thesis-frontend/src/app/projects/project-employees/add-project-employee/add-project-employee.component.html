@@ -16,9 +16,9 @@
       3
     </div>
   </div>
-  <div class="steps">
+  <form class="steps">
     <div *ngIf="step === 1">
-      <bvr-find-employee (nextStepChange)="nextStep()"></bvr-find-employee>
+      <bvr-find-employee [addProjectEmployeeForm]="addProjectEmployeeForm" (nextStepChange)="nextStep()"></bvr-find-employee>
     </div>
     <div *ngIf="step === 2">
       <bvr-confirm-employee (nextStepChange)="nextStep()" (previousStepChange)="previousStep()"></bvr-confirm-employee>
@@ -26,5 +26,5 @@
     <div *ngIf="step === 3">
       <bvr-select-wage (previousStepChange)="previousStep()"></bvr-select-wage>
     </div>
-  </div>
+  </form>
 </div>

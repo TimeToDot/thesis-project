@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { PermissionsService } from '../../shared/services/permissions.service';
-import { LinkOption } from '../../shared/model/link-option.model';
 import { AuthService } from '../../shared/services/auth.service';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { CommonModule } from '@angular/common';
@@ -17,6 +16,7 @@ import { Account } from '../../shared/model/account.model';
 })
 export class SidenavComponent implements OnInit {
   currentEmployee: Account = {
+    id: '',
     email: '',
     firstName: '',
     image: '',

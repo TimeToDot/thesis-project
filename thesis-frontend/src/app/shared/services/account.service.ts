@@ -6,6 +6,7 @@ import { Account } from '../model/account.model';
 })
 export class AccountService {
   private _account: Account = {
+    id: '1',
     email: 'jan.kowalski@gmail.com',
     firstName: 'Jan',
     image: 'assets/icons/icon13.png',

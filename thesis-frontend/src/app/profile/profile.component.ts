@@ -13,6 +13,7 @@ import { AccountService } from '../shared/services/account.service';
 })
 export class ProfileComponent implements OnInit {
   currentEmployee: Account = {
+    id: '',
     email: '',
     firstName: '',
     image: '',

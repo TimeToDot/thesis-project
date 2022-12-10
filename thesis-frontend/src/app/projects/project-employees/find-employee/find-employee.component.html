@@ -1,3 +1,15 @@
-<p>find-employee works!</p>
+<div
+  *ngIf="addProjectEmployeeForm"
+  class="form"
+  [formGroup]="addProjectEmployeeForm">
+  <div formGroupName="userInfo">
+    <bvr-form-field label="Employee" [required]="isRequired('id')">
+      <bvr-dropdown-search-account
+        formControlName="id"
+        name="id"
+        [options]="employees"></bvr-dropdown-search-account>
+    </bvr-form-field>
+  </div>
+</div>
 <bvr-button label="Cancel" [routerLink]="['..']"></bvr-button>
 <bvr-button (click)="nextStep()" label="Next"></bvr-button>
