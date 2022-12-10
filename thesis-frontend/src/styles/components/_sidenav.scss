@@ -41,6 +41,10 @@
         color: $color-white;
       }
     }
+
+    &:hover:not(.active) {
+      background-color: $color-row-hover;
+    }
   }
 
   .option-icon {
