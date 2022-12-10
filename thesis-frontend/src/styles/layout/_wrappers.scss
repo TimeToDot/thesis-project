@@ -2,7 +2,7 @@
   align-items: flex-start;
   background-color: $color-white;
   border-radius: 4 * $grid-base;
-  box-shadow: 0 $grid-base 12 * $grid-base $color-shadow;
+  box-shadow: $shadow-accent;
   display: flex;
   flex-direction: column;
   margin: 7 * $grid-base 6 * $grid-base;

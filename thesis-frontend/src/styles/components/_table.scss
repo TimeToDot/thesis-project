@@ -1,6 +1,6 @@
 .search-bar {
   align-items: center;
-  box-shadow: 0 $grid-base 12 * $grid-base $color-shadow;
+  box-shadow: $shadow-default;
   display: flex;
   margin: 4 * $grid-base 0;
   position: relative;
@@ -26,7 +26,7 @@
 .table {
   background-color: $color-white;
   border-radius: 2 * $grid-base 2 * $grid-base 0 0;
-  box-shadow: 0 $grid-base 12 * $grid-base $color-shadow;
+  box-shadow: $shadow-default;
   width: 100%;
 
   table {
@@ -45,7 +45,7 @@
 
   .cdk-header-row {
     border-bottom: 0.25 * $grid-base $color-divider solid;
-    box-shadow: 0 $grid-base 12 * $grid-base $color-shadow;
+    box-shadow: $shadow-default;
     height: 16 * $grid-base;
   }
 

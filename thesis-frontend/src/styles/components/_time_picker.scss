@@ -18,7 +18,7 @@
 .time-picker-modal {
   background-color: $color-white;
   border-radius: 2 * $grid-base;
-  box-shadow: 0 $grid-base 12 * $grid-base $color-shadow;
+  box-shadow: $shadow-default;
   display: flex;
   flex-direction: column;
   padding: 3 * $grid-base;
