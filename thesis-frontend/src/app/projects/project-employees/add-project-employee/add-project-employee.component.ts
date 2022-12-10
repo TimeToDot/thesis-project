@@ -5,7 +5,7 @@ import { FindEmployeeComponent } from '../find-employee/find-employee.component'
 import { SelectWageComponent } from '../select-wage/select-wage.component';
 
 @Component({
-  selector: 'bvr-create-project-employee',
+  selector: 'bvr-add-project-employee',
   standalone: true,
   imports: [
     CommonModule,
@@ -13,9 +13,9 @@ import { SelectWageComponent } from '../select-wage/select-wage.component';
     FindEmployeeComponent,
     SelectWageComponent,
   ],
-  templateUrl: './create-project-employee.component.html',
+  templateUrl: './add-project-employee.component.html',
 })
-export class CreateProjectEmployeeComponent {
+export class AddProjectEmployeeComponent {
   step: number = 1;
 
   nextStep(): void {

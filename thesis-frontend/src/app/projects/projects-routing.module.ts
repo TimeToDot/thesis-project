@@ -13,7 +13,7 @@ import { ProjectSettingsComponent } from './project-settings/project-settings.co
 import { CreateTaskComponent } from './project-tasks/create-task/create-task.component';
 import { EditTaskComponent } from './project-tasks/edit-task/edit-task.component';
 import { ProjectTasksComponent } from './project-tasks/project-tasks.component';
-import { CreateProjectEmployeeComponent } from './project-employees/create-project-employee/create-project-employee.component';
+import { AddProjectEmployeeComponent } from './project-employees/add-project-employee/add-project-employee.component';
 import { EditProjectEmployeeComponent } from './project-employees/edit-project-employee/edit-project-employee.component';
 import { ProjectEmployeesComponent } from './project-employees/project-employees.component';
 import { ProjectComponent } from './project/project.component';
@@ -62,8 +62,8 @@ const projectsRoutes: Routes = [
             canActivate: [CanManageProjectEmployeesGuard],
           },
           {
-            path: 'employees/create',
-            component: CreateProjectEmployeeComponent,
+            path: 'employees/add',
+            component: AddProjectEmployeeComponent,
             canActivate: [CanCreateProjectEmployeeGuard],
           },
           {
