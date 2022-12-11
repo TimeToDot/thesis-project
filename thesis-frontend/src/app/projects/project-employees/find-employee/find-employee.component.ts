@@ -80,7 +80,7 @@ export class FindEmployeeComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    this.observeIdSelection();
+    setTimeout(() => this.observeIdSelection(), 0);
   }
 
   observeIdSelection(): void {
