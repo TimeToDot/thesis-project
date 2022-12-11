@@ -1,7 +1,7 @@
 <div class="header">
   <div class="title">
-    <h3>Tasks</h3>
-    <h4>({{ dataSource.length }})</h4>
+    <h4>Tasks</h4>
+    <h4 class="count">({{ dataSource.length }})</h4>
     <div class="radio">
       <input name="showActive" [(ngModel)]="showActive" type="radio" [value]="true">
       <label>Active</label>
@@ -37,7 +37,7 @@
       <th cdk-header-cell *cdkHeaderCellDef>Actions</th>
       <td cdk-cell *cdkCellDef="let element">
         <bvr-button icon="edit" styleClass="button-icon" [routerLink]="['edit']"></bvr-button>
-        <bvr-button icon="delete" styleClass="button-icon"></bvr-button>
+        <bvr-button icon="archive" styleClass="button-icon"></bvr-button>
       </td>
     </ng-container>
     <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>

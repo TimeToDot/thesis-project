@@ -1,2 +1,45 @@
-<p>edit-project-employee works!</p>
-<bvr-button label="Cancel" (click)="cancel()" styleClass="button-text"></bvr-button>
+<div class="edit-project-employee">
+    <div class="header">
+        <div class="name">
+            <img [src]="employee.image" class="picture" />
+            <h4>{{ employee.firstName }} {{ employee.lastName }}</h4>
+        </div>
+        <bvr-button icon="archive" styleClass="button-icon"></bvr-button>
+    </div>
+    <div class="form">
+        <bvr-form-field class="disabled field" label="Email">
+            <input disabled [(ngModel)]="employee.email" type="text" />
+        </bvr-form-field>
+        <div class="employment-info">
+            <bvr-form-field class="disabled left-field" label="Position">
+                <input disabled [(ngModel)]="employee.position" type="text" />
+            </bvr-form-field>
+            <bvr-form-field class="disabled left-field" label="Hire Date">
+                <input disabled [(ngModel)]="employee.employmentDate" type="text" />
+            </bvr-form-field>
+            <bvr-form-field class="disabled field" label="Project Join Date">
+                <input disabled [(ngModel)]="employee.employmentDate" type="text" />
+            </bvr-form-field>
+        </div>
+        <div *ngIf="editProjectEmployeeForm" [formGroup]="editProjectEmployeeForm">
+            <bvr-form-field class="contract-info" label="Contract Type" [required]="isRequired('contractType')">
+                <bvr-dropdown-list formControlName="contractType" name="contract type" [options]="contractTypes">
+                </bvr-dropdown-list>
+            </bvr-form-field>
+            <div class="financial-info">
+                <bvr-form-field class="left-field" label="Working Time" [required]="isRequired('workingTime')">
+                    <input formControlName="workingTime" type="number" />
+                </bvr-form-field>
+                <bvr-form-field class="field" label="Wage" [required]="isRequired('wage')">
+                    <input formControlName="wage" type="number" />
+                </bvr-form-field>
+            </div>
+        </div>
+    </div>
+    <div class="form-buttons">
+        <bvr-button label="Cancel" (click)="cancel()" styleClass="button-text"></bvr-button>
+        <bvr-button (click)="openSaveModal()" label="Save"></bvr-button>
+    </div>
+</div>
+<bvr-modal (confirm)="confirm()" confirmLabel="Save" [description]="'Are you sure you want to save changes?'"
+    [title]="'Save changes'" [(visible)]="isSaveModalOpen"></bvr-modal>

@@ -21,5 +21,6 @@
     <bvr-button (click)="openModal()" label="Add"></bvr-button>
 </div>
 
-<bvr-modal (confirm)="confirm()" [description]="'Are you sure you want to add Jan Kowalski to the Project X?'"
-    [title]="'Add New User'" [(visible)]="isModalOpen"></bvr-modal>
+<bvr-modal (confirm)="confirm()" confirmLabel="Add"
+    [description]="'Are you sure you want to add Jan Kowalski to the Project X?'" [title]="'Add New User'"
+    [(visible)]="isModalOpen"></bvr-modal>

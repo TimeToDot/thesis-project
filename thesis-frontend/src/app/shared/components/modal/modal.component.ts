@@ -9,6 +9,7 @@ import { ButtonComponent } from '../button/button.component';
   templateUrl: './modal.component.html',
 })
 export class ModalComponent {
+  @Input() confirmLabel: string = '';
   @Input() description: string = '';
   @Input() title: string = '';
   @Input() visible: boolean = false;
