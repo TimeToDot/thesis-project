@@ -1,4 +1,4 @@
-.tracker.wrapper-body {
+.tracker.card-body {
   box-shadow: $shadow-default;
   padding: 6 * $grid-base;
 }
@@ -21,10 +21,14 @@
   .form {
     padding: 0 3 * $grid-base;
   }
+
+  .form-field {
+    margin: 3 * $grid-base;
+  }
 }
 
 @media screen and (max-width: 1400px) {
-  .tracker.wrapper-body {
+  .tracker.card-body {
     align-items: center;
     flex-direction: column-reverse;
   }

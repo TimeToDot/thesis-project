@@ -30,7 +30,8 @@
       </bvr-confirm-employee>
     </div>
     <div *ngIf="step === 3">
-      <bvr-select-wage class="form-page" (previousStepChange)="previousStep()"></bvr-select-wage>
+      <bvr-select-wage [addProjectEmployeeForm]="addProjectEmployeeForm" class="form-page"
+        (previousStepChange)="previousStep()"></bvr-select-wage>
     </div>
   </form>
 </div>

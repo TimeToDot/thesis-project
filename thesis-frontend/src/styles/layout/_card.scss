@@ -1,4 +1,4 @@
-.wrapper {
+.card {
   align-items: flex-start;
   background-color: $color-white;
   border-radius: 4 * $grid-base;
@@ -41,7 +41,7 @@
   }
 }
 
-.wrapper-content {
+.card-content {
   width: 100%;
 
   .header {
@@ -50,7 +50,7 @@
   }
 }
 
-.wrapper-body {
+.card-body {
   display: flex;
   justify-content: space-between;
   width: 100%;

@@ -30,12 +30,21 @@
   .disabled input {
     color: $color-text-secondary;
   }
+
+  .field {
+    width: 100%;
+  }
+
+  .left-field {
+    margin-right: 6 * $grid-base;
+    width: 100%;
+  }
 }
 
 .form-field {
   display: flex;
   flex-direction: column;
-  margin: 3 * $grid-base;
+  margin: 3 * $grid-base 0;
 }
 
 .form-page {
