@@ -1,12 +1,16 @@
 .stepper {
   width: 100%;
+
+  .title h4 {
+    color: $color-text-primary;
+  }
 }
 
 .stepper-header {
   align-items: center;
   display: flex;
   justify-content: center;
-  margin: 4 * $grid-base;
+  margin: 8 * $grid-base;
 
   .divider {
     border-top: 0.25 * $grid-base $color-divider solid;

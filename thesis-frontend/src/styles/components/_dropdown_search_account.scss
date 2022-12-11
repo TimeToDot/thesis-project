@@ -1,5 +1,5 @@
 .dropdown-search-account {
-  height: 100 * $grid-base;
+  height: 116 * $grid-base;
   position: relative;
 
   input {
@@ -35,8 +35,20 @@
     cursor: pointer;
     display: flex;
     height: 14 * $grid-base;
+    justify-content: space-between;
     padding-left: 3 * $grid-base;
     transition: 0.5s;
+
+    .name {
+      align-items: center;
+      display: flex;
+      padding-left: 6 * $grid-base;
+    }
+
+    .email {
+      color: $color-text-secondary;
+      padding-right: 6 * $grid-base;
+    }
 
     &:hover {
       background-color: $color-row-hover;
@@ -44,8 +56,12 @@
 
     &.selected {
       background-color: $color-primary;
-      color: $color-white;
       font-weight: 700;
+
+      .name span,
+      .email {
+        color: $color-white;
+      }
     }
   }
 }

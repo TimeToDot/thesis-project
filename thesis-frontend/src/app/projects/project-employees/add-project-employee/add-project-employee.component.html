@@ -1,4 +1,7 @@
 <div class="stepper">
+  <div class="title">
+    <h4>Add New Employee</h4>
+  </div>
   <div class="stepper-header">
     <div class="step" [ngClass]="{ 'active-step': step === 1, 'previous-step': step > 1 }">
       1
@@ -16,9 +19,10 @@
       3
     </div>
   </div>
-  <form class="steps">
+  <form>
     <div *ngIf="step === 1">
-      <bvr-find-employee [addProjectEmployeeForm]="addProjectEmployeeForm" (nextStepChange)="nextStep()"></bvr-find-employee>
+      <bvr-find-employee [addProjectEmployeeForm]="addProjectEmployeeForm" (nextStepChange)="nextStep()">
+      </bvr-find-employee>
     </div>
     <div *ngIf="step === 2">
       <bvr-confirm-employee (nextStepChange)="nextStep()" (previousStepChange)="previousStep()"></bvr-confirm-employee>

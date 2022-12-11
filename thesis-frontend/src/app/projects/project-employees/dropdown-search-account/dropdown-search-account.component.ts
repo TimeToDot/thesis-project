@@ -5,7 +5,7 @@ import {
   FormsModule,
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
-import { Account } from '../../model/account.model';
+import { Account } from '../../../shared/model/account.model';
 
 @Component({
   selector: 'bvr-dropdown-search-account',
@@ -27,13 +27,14 @@ export class DropdownSearchAccountComponent implements ControlValueAccessor {
   disabled: boolean = false;
   query: string = '';
   selectEnabled: boolean = false;
-  selectedOption!: Account;
+  selectedOption!: string;
   touched: boolean = false;
 
-  selectOption(option: Account): void {
+  selectOption(option: string): void {
+    console.log(option);
     this.markAsTouched();
     this.selectedOption = option;
-    this.onChange(this.selectedOption.id);
+    this.onChange(this.selectedOption);
     this.selectEnabled = false;
   }
 
@@ -44,7 +45,7 @@ export class DropdownSearchAccountComponent implements ControlValueAccessor {
     }
   }
 
-  writeValue(selectedOption: Account): void {
+  writeValue(selectedOption: string): void {
     this.selectedOption = selectedOption;
   }
 
@@ -69,6 +70,6 @@ export class DropdownSearchAccountComponent implements ControlValueAccessor {
   }
 
   onBlur(): void {
-    this.selectEnabled = false;
+    setTimeout(() => (this.selectEnabled = false), 100);
   }
 }

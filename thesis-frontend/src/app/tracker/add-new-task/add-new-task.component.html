@@ -1,15 +1,9 @@
 <form class="form" [formGroup]="createTaskForm">
   <bvr-form-field label="Project" [required]="isRequired('project')">
-    <bvr-dropdown-list
-      formControlName="project"
-      name="project"
-      [options]="projects"></bvr-dropdown-list>
+    <bvr-dropdown-list formControlName="project" name="project" [options]="projects"></bvr-dropdown-list>
   </bvr-form-field>
   <bvr-form-field label="Task" [required]="isRequired('task')">
-    <bvr-dropdown-list
-      formControlName="task"
-      name="task"
-      [options]="tasks"></bvr-dropdown-list>
+    <bvr-dropdown-list formControlName="task" name="task" [options]="tasks"></bvr-dropdown-list>
   </bvr-form-field>
 
   <div class="dates">
@@ -32,9 +26,6 @@
   </div>
 </form>
 <div class="add-task-form-buttons">
-  <bvr-button
-    class="form-button"
-    label="Cancel"
-    styleClass="button-text"></bvr-button>
+  <bvr-button class="form-button" label="Cancel" styleClass="button-text"></bvr-button>
   <bvr-button class="form-button" label="Add"></bvr-button>
 </div>
