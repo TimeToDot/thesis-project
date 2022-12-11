@@ -1,0 +1,39 @@
+.modal {
+  background-color: $color-overlay;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+.dialog {
+  background-color: $color-white;
+  border-radius: 2 * $grid-base;
+  box-shadow: $shadow-default;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 100 * $grid-base;
+
+  .dialog-header {
+    padding-bottom: 4 * $grid-base;
+  }
+
+  .dialog-text,
+  .dialog-buttons {
+    padding: 6 * $grid-base;
+  }
+
+  .dialog-buttons {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 0;
+
+    .button {
+      margin-left: 2 * $grid-base;
+    }
+  }
+}

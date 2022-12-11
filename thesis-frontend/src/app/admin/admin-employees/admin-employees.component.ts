@@ -46,7 +46,6 @@ export class AdminEmployeesComponent implements OnInit {
   }
 
   showEmployeeDetails(row: Employee): void {
-    console.log(row.id);
     this.router.navigate([row.id], { relativeTo: this.route });
   }
 }

@@ -19,13 +19,14 @@
   }
 
   .cdk-header-row {
-    border-bottom: 0.25 * $grid-base $color-divider solid;
+    border: 0.25 * $grid-base $color-divider solid;
     box-shadow: $shadow-default;
     height: 16 * $grid-base;
   }
 
   .cdk-row {
-    border-bottom: 0.25 * $grid-base $color-divider solid;
+    border: 0.25 * $grid-base $color-divider solid;
+    border-top: none;
     cursor: pointer;
     height: 14 * $grid-base;
     transition: 0.5s;

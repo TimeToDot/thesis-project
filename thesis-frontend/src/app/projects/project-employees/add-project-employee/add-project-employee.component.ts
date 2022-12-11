@@ -30,10 +30,8 @@ export class AddProjectEmployeeComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm();
-    this.addProjectEmployeeForm.valueChanges.subscribe(value => {
-      console.log(value);
-    });
   }
+
   createForm(): void {
     this.addProjectEmployeeForm = this.fb.group({
       userInfo: this.fb.group({

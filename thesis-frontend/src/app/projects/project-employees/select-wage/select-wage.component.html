@@ -5,10 +5,10 @@
             </bvr-dropdown-list>
         </bvr-form-field>
         <div class="financial-info">
-            <bvr-form-field class="left-field" label="Working Time">
+            <bvr-form-field class="left-field" label="Working Time" [required]="isRequired('workingTime')">
                 <input formControlName="workingTime" type="number" />
             </bvr-form-field>
-            <bvr-form-field class="field" label="Wage">
+            <bvr-form-field class="field" label="Wage" [required]="isRequired('wage')">
                 <input formControlName="wage" type="number" />
             </bvr-form-field>
         </div>
@@ -18,4 +18,8 @@
 <div class="form-buttons">
     <bvr-button label="Cancel" [routerLink]="['..']" styleClass="button-text"></bvr-button>
     <bvr-button (click)="previousStep()" label="Previous"></bvr-button>
+    <bvr-button (click)="openModal()" label="Add"></bvr-button>
 </div>
+
+<bvr-modal (confirm)="confirm()" [description]="'Are you sure you want to add Jan Kowalski to the Project X?'"
+    [title]="'Add New User'" [(visible)]="isModalOpen"></bvr-modal>
