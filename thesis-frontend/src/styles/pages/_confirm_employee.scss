@@ -1,0 +1,44 @@
+.confirm-employee {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  padding: 0 31 * $grid-base 33.5 * $grid-base;
+  width: 100%;
+
+  input {
+    width: 100%;
+  }
+
+  .form-field {
+    margin: 3 * $grid-base 0;
+  }
+
+  .personal-info {
+    align-items: flex-end;
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 8 * $grid-base;
+    width: 100%;
+  }
+
+  .left-field {
+    margin-right: 6 * $grid-base;
+    width: 100%;
+  }
+
+  .picture {
+    height: 37.5 * $grid-base;
+    margin-right: 16 * $grid-base;
+    width: 37.5 * $grid-base;
+  }
+
+  .employment-info {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+  }
+
+  .field {
+    width: 100%;
+  }
+}

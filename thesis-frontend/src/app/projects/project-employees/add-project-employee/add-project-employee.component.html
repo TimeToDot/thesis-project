@@ -21,14 +21,16 @@
   </div>
   <form>
     <div *ngIf="step === 1">
-      <bvr-find-employee [addProjectEmployeeForm]="addProjectEmployeeForm" (nextStepChange)="nextStep()">
+      <bvr-find-employee [addProjectEmployeeForm]="addProjectEmployeeForm" class="form-page"
+        (nextStepChange)="nextStep()">
       </bvr-find-employee>
     </div>
     <div *ngIf="step === 2">
-      <bvr-confirm-employee (nextStepChange)="nextStep()" (previousStepChange)="previousStep()"></bvr-confirm-employee>
+      <bvr-confirm-employee class="form-page" (nextStepChange)="nextStep()" (previousStepChange)="previousStep()">
+      </bvr-confirm-employee>
     </div>
     <div *ngIf="step === 3">
-      <bvr-select-wage (previousStepChange)="previousStep()"></bvr-select-wage>
+      <bvr-select-wage class="form-page" (previousStepChange)="previousStep()"></bvr-select-wage>
     </div>
   </form>
 </div>

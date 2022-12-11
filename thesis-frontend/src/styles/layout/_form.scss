@@ -25,10 +25,27 @@
       font-size: $font-small;
     }
   }
+
+  .disabled,
+  .disabled input {
+    color: $color-text-secondary;
+  }
 }
 
 .form-field {
   display: flex;
   flex-direction: column;
   margin: 3 * $grid-base;
+}
+
+.form-page {
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-buttons {
+  .button {
+    margin-left: 2 * $grid-base;
+  }
 }
