@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { RouterModule } from '@angular/router';
 
@@ -10,7 +10,13 @@ import { RouterModule } from '@angular/router';
   templateUrl: './edit-task.component.html',
 })
 export class EditTaskComponent {
+  constructor(private location: Location) {}
+
   save(): void {
     console.log('saveum');
+  }
+
+  cancel(): void {
+    this.location.back();
   }
 }

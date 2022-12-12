@@ -21,6 +21,7 @@ import { ProjectsComponent } from './projects.component';
 import { CanManageProjectEmployeesGuard } from './guards/can-manage-project-employees.guard';
 import { ViewProjectEmployeeComponent } from './project-employees/view-project-employee/view-project-employee.component';
 import { ApprovalTrackerComponent } from './project-approvals/approval-tracker/approval-tracker.component';
+import { ViewTaskComponent } from './project-tasks/view-task/view-task.component';
 
 const projectsRoutes: Routes = [
   {
@@ -44,6 +45,16 @@ const projectsRoutes: Routes = [
           {
             path: 'tasks',
             component: ProjectTasksComponent,
+            canActivate: [CanManageTasksGuard],
+          },
+          {
+            path: 'tasks/:id',
+            component: ViewTaskComponent,
+            canActivate: [CanManageTasksGuard],
+          },
+          {
+            path: 'tasks/:id/edit',
+            component: EditTaskComponent,
             canActivate: [CanManageTasksGuard],
           },
           {

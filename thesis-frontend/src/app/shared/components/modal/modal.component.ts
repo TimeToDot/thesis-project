@@ -23,7 +23,7 @@ export class ModalComponent {
   }
 
   confirmModal(): void {
-    this.visible = false;
+    this.closeModal();
     this.confirm.emit();
   }
 

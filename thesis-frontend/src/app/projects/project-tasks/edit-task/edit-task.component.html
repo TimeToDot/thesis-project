@@ -1,3 +1,6 @@
 <p>edit-task works!</p>
-<bvr-button label="Cancel" [routerLink]="['..']" styleClass="button-text"></bvr-button>
+<bvr-button
+  (click)="cancel()"
+  label="Cancel"
+  styleClass="button-text"></bvr-button>
 <bvr-button (click)="save()" label="Save"></bvr-button>

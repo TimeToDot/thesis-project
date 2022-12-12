@@ -12,6 +12,7 @@ export class ProjectTasksService {
       projectId: '1',
       description: 'test',
       creationDate: '2022-07-22',
+      active: true,
     },
     {
       id: '2',
@@ -19,6 +20,7 @@ export class ProjectTasksService {
       projectId: '2',
       description: 'test',
       creationDate: '2022-08-15',
+      active: true,
     },
     {
       id: '3',
@@ -26,6 +28,7 @@ export class ProjectTasksService {
       projectId: '1',
       description: 'test',
       creationDate: '2022-04-31',
+      active: false,
     },
     {
       id: '4',
@@ -33,6 +36,7 @@ export class ProjectTasksService {
       projectId: '2',
       description: 'test',
       creationDate: '2022-02-04',
+      active: true,
     },
     {
       id: '5',
@@ -40,12 +44,21 @@ export class ProjectTasksService {
       projectId: '3',
       description: 'test',
       creationDate: '2022-01-12',
+      active: true,
     },
   ];
 
   constructor() {}
 
   getProjectTasks(projectId: string): ProjectTask[] {
-    return this._tasks.filter(element => element.projectId === projectId);
+    return this._tasks
+      .filter(element => element.projectId === projectId)
+      .filter(element => element.active);
+  }
+
+  getArchivedProjectTasks(projectId: string): ProjectTask[] {
+    return this._tasks
+      .filter(element => element.projectId === projectId)
+      .filter(element => !element.active);
   }
 }

@@ -3,5 +3,7 @@ export interface ProjectTask {
   name: string;
   description: string;
   creationDate: string;
+  archiveDate?: string;
   projectId: string;
+  active: boolean;
 }
