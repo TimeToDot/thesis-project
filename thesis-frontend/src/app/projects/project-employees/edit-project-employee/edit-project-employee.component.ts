@@ -14,6 +14,8 @@ import { ModalComponent } from '../../../shared/components/modal/modal.component
 import { ProjectEmployee } from '../../model/project-employee.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectEmployeesService } from '../../services/project-employees.service';
+import { ToastService } from '../../../shared/services/toast.service';
+import { ToastState } from '../../../shared/enum/toast-state';
 
 @Component({
   selector: 'bvr-edit-employee',
@@ -61,7 +63,8 @@ export class EditProjectEmployeeComponent implements OnInit {
     private location: Location,
     private projectEmployeesService: ProjectEmployeesService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -116,6 +119,13 @@ export class EditProjectEmployeeComponent implements OnInit {
   }
 
   archive(): void {
-    this.router.navigate(['../..'], { relativeTo: this.route });
+    this.router.navigate(['../..'], { relativeTo: this.route }).then(() => {
+      setTimeout(
+        () =>
+          this.toastService.showToast(ToastState.Success, 'Employee archived'),
+        200
+      );
+      setTimeout(() => this.toastService.dismissToast(), 3200);
+    });
   }
 }

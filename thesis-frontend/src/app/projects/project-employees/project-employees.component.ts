@@ -5,7 +5,10 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { ModalComponent } from '../../shared/components/modal/modal.component';
+import { ToastComponent } from '../../shared/components/toast/toast.component';
+import { ToastState } from '../../shared/enum/toast-state';
 import { Employee } from '../../shared/model/employee.model';
+import { ToastService } from '../../shared/services/toast.service';
 import { ProjectEmployee } from '../model/project-employee.model';
 import { ProjectEmployeesService } from '../services/project-employees.service';
 
@@ -20,6 +23,7 @@ import { ProjectEmployeesService } from '../services/project-employees.service';
     FormsModule,
     ModalComponent,
     RouterModule,
+    ToastComponent,
   ],
 })
 export class ProjectEmployeesComponent implements OnInit {
@@ -45,7 +49,8 @@ export class ProjectEmployeesComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private projectEmployeesService: ProjectEmployeesService,
-    private router: Router
+    private router: Router,
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -76,5 +81,8 @@ export class ProjectEmployeesComponent implements OnInit {
     }
   }
 
-  archive(): void {}
+  archive(): void {
+    this.toastService.showToast(ToastState.Success, 'Employee archived');
+    setTimeout(() => this.toastService.dismissToast(), 3000);
+  }
 }

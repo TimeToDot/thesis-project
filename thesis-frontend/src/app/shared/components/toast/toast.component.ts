@@ -23,18 +23,12 @@ import { ToastService } from '../../services/toast.service';
     ]),
   ],
 })
-export class ToastComponent implements OnInit {
+export class ToastComponent {
   message: string = 'Employee added';
   showToast: boolean = false;
   styleClass: string = 'success';
 
   constructor(public toastService: ToastService) {}
-
-  ngOnInit(): void {
-    setTimeout(() => {
-      this.showToast = true;
-    }, 1000);
-  }
 
   dismiss(): void {
     this.toastService.dismissToast();
