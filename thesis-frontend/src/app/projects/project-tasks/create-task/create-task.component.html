@@ -1,12 +1,26 @@
-<div>
+<div class="project-task">
   <div class="form" [formGroup]="createProjectTaskForm">
-    <bvr-form-field label="Name" [required]="isRequired('name')">
+    <bvr-form-field label="Task Name" [required]="isRequired('name')">
       <input formControlName="name" type="text" />
     </bvr-form-field>
-    <bvr-form-field label="Description" [required]="isRequired('description')">
-      <input formControlName="description" type="text" />
+    <bvr-form-field
+      label="Task Description"
+      [required]="isRequired('description')">
+      <textarea formControlName="description"></textarea>
     </bvr-form-field>
   </div>
-  <bvr-button label="Cancel" [routerLink]="['..']" styleClass="button-text"></bvr-button>
-  <bvr-button (click)="save()" label="Save"></bvr-button>
+  <div class="form-buttons">
+    <bvr-button
+      label="Cancel"
+      [routerLink]="['..']"
+      styleClass="button-text"></bvr-button>
+    <bvr-button (click)="openModal()" label="Add"></bvr-button>
+  </div>
 </div>
+
+<bvr-modal
+  (confirm)="confirm()"
+  confirmLabel="Add"
+  [description]="modalDescription"
+  [title]="'Add New Task'"
+  [(visible)]="isModalOpen"></bvr-modal>

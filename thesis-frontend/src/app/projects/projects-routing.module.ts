@@ -48,6 +48,11 @@ const projectsRoutes: Routes = [
             canActivate: [CanManageTasksGuard],
           },
           {
+            path: 'tasks/create',
+            component: CreateTaskComponent,
+            canActivate: [CanManageTasksGuard],
+          },
+          {
             path: 'tasks/:id',
             component: ViewTaskComponent,
             canActivate: [CanManageTasksGuard],
@@ -55,11 +60,6 @@ const projectsRoutes: Routes = [
           {
             path: 'tasks/:id/edit',
             component: EditTaskComponent,
-            canActivate: [CanManageTasksGuard],
-          },
-          {
-            path: 'tasks/create',
-            component: CreateTaskComponent,
             canActivate: [CanManageTasksGuard],
           },
           {

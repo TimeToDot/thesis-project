@@ -10,6 +10,20 @@
     border: none;
     border-bottom: 0.25 * $grid-base $color-divider solid;
     height: 11 * $grid-base;
+    padding: 2 * $grid-base;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  textarea {
+    background-color: $color-white;
+    border: 0.25 * $grid-base $color-divider solid;
+    border-radius: 2 * $grid-base;
+    height: 30 * $grid-base;
+    padding: 2 * $grid-base;
+    resize: none;
 
     &:focus {
       outline: none;
