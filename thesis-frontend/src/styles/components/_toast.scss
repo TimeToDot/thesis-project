@@ -1,0 +1,28 @@
+.toast {
+  align-items: center;
+  border-radius: 20 * $grid-base;
+  bottom: 8 * $grid-base;
+  display: flex;
+  left: 50%;
+  padding: 3 * $grid-base 6 * $grid-base;
+  position: fixed;
+  transform: translateY(-50%);
+  z-index: 1;
+
+  &.error {
+    background-color: $color-error;
+  }
+
+  &.success {
+    background-color: $color-success;
+  }
+
+  .button-icon span,
+  .message {
+    color: $color-white;
+  }
+
+  .message {
+    padding-right: 2 * $grid-base;
+  }
+}

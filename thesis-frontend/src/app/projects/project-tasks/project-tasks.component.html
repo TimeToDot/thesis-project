@@ -3,36 +3,21 @@
     <h4>Tasks</h4>
     <h4 class="count">({{ dataSource.length }})</h4>
     <div class="radio">
-      <input
-        name="showActive"
-        [(ngModel)]="showActive"
-        (ngModelChange)="showActiveTable(true)"
-        type="radio"
+      <input name="showActive" [(ngModel)]="showActive" (ngModelChange)="showActiveTable(true)" type="radio"
         [value]="true" />
       <label>Active</label>
     </div>
     <div class="radio">
-      <input
-        name="showActive"
-        [(ngModel)]="showActive"
-        (ngModelChange)="showActiveTable(false)"
-        type="radio"
+      <input name="showActive" [(ngModel)]="showActive" (ngModelChange)="showActiveTable(false)" type="radio"
         [value]="false" />
       <label>Archive</label>
     </div>
   </div>
-  <bvr-button
-    class="create-new-button"
-    label="Create new"
-    [routerLink]="['create']"></bvr-button>
+  <bvr-button class="create-new-button" label="Create new" [routerLink]="['create']"></bvr-button>
 </div>
 
 <div class="search-bar">
-  <input
-    class="search-input"
-    [(ngModel)]="query"
-    placeholder="Search"
-    type="search" />
+  <input class="search-input" [(ngModel)]="query" placeholder="Search" type="search" />
   <span class="material-icons-outlined search-icon">search</span>
 </div>
 
@@ -53,21 +38,12 @@
     <ng-container cdkColumnDef="actions">
       <th cdk-header-cell *cdkHeaderCellDef>Actions</th>
       <td cdk-cell *cdkCellDef="let element">
-        <bvr-button
-          (click)="editTask($event, element)"
-          icon="edit"
-          styleClass="button-icon"></bvr-button>
-        <bvr-button
-          (click)="openArchiveModal($event, element)"
-          icon="archive"
-          styleClass="button-icon"></bvr-button>
+        <bvr-button (click)="editTask($event, element)" icon="edit" styleClass="button-icon"></bvr-button>
+        <bvr-button (click)="openArchiveModal($event, element)" icon="archive" styleClass="button-icon"></bvr-button>
       </td>
     </ng-container>
     <tr cdk-header-row *cdkHeaderRowDef="displayedActiveColumns"></tr>
-    <tr
-      cdk-row
-      *cdkRowDef="let row; columns: displayedActiveColumns"
-      (click)="showTaskDetails(row)"></tr>
+    <tr cdk-row *cdkRowDef="let row; columns: displayedActiveColumns" (click)="showTaskDetails(row)"></tr>
   </table>
 </div>
 
@@ -86,16 +62,11 @@
       <td cdk-cell *cdkCellDef="let element">{{ element.creationDate }}</td>
     </ng-container>
     <tr cdk-header-row *cdkHeaderRowDef="displayedArchivedColumns"></tr>
-    <tr
-      cdk-row
-      *cdkRowDef="let row; columns: displayedArchivedColumns"
-      (click)="showTaskDetails(row)"></tr>
+    <tr cdk-row *cdkRowDef="let row; columns: displayedArchivedColumns" (click)="showTaskDetails(row)"></tr>
   </table>
 </div>
 
-<bvr-modal
-  (confirm)="archive()"
-  confirmLabel="archive"
-  [description]="archiveDescription"
-  [title]="'Archive employee'"
+<bvr-modal (confirm)="archive()" confirmLabel="archive" [description]="archiveDescription" [title]="'Archive employee'"
   [(visible)]="isArchiveModalOpen"></bvr-modal>
+
+<bvr-toast></bvr-toast>

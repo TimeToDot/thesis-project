@@ -5,6 +5,9 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { ModalComponent } from '../../shared/components/modal/modal.component';
+import { ToastComponent } from '../../shared/components/toast/toast.component';
+import { ToastState } from '../../shared/enum/toast-state';
+import { ToastService } from '../../shared/services/toast.service';
 import { ProjectTask } from '../model/project-task.model';
 import { ProjectTasksService } from '../services/project-tasks.service';
 
@@ -19,6 +22,7 @@ import { ProjectTasksService } from '../services/project-tasks.service';
     FormsModule,
     ModalComponent,
     RouterModule,
+    ToastComponent,
   ],
 })
 export class ProjectTasksComponent implements OnInit {
@@ -38,11 +42,17 @@ export class ProjectTasksComponent implements OnInit {
   constructor(
     private projectTasksService: ProjectTasksService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
     this.dataSource = this.projectTasksService.getProjectTasks('1');
+    setTimeout(
+      () => this.toastService.showToast(ToastState.Success, 'Task added'),
+      1000
+    );
+    setTimeout(() => this.toastService.dismissToast(), 6000);
   }
 
   showActiveTable(value: boolean): void {
