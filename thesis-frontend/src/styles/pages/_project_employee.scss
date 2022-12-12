@@ -1,4 +1,4 @@
-.edit-project-employee {
+.project-employee {
   align-items: flex-end;
   display: flex;
   flex-direction: column;
@@ -38,6 +38,16 @@
   }
 
   .financial-info {
-    margin: 8 * $grid-base 0;
+    margin-bottom: 8 * $grid-base;
+  }
+
+  .contract-info.archived {
+    > .left-field {
+      flex: 1;
+    }
+
+    .financial-info {
+      flex: 1;
+    }
   }
 }

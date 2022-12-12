@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ButtonComponent } from '../../shared/components/button/button.component';
+import { ModalComponent } from '../../shared/components/modal/modal.component';
 import { Employee } from '../../shared/model/employee.model';
 import { ProjectEmployee } from '../model/project-employee.model';
 import { ProjectEmployeesService } from '../services/project-employees.service';
@@ -17,10 +18,12 @@ import { ProjectEmployeesService } from '../services/project-employees.service';
     CdkTableModule,
     CommonModule,
     FormsModule,
+    ModalComponent,
     RouterModule,
   ],
 })
 export class ProjectEmployeesComponent implements OnInit {
+  archiveDescription: string = '';
   dataSource: ProjectEmployee[] = [];
   displayedActiveColumns: string[] = [
     'person',
@@ -35,6 +38,7 @@ export class ProjectEmployeesComponent implements OnInit {
     'joinDate',
     'exitDate',
   ];
+  isArchiveModalOpen: boolean = false;
   query: string = '';
   showActive: boolean = true;
 
@@ -48,9 +52,20 @@ export class ProjectEmployeesComponent implements OnInit {
     this.dataSource = this.projectEmployeesService.getProjectEmployees();
   }
 
-  editEmployee(event: Event, row: Employee): void {
+  editEmployee(event: Event, row: ProjectEmployee): void {
     event.stopPropagation();
     this.router.navigate([row.id, 'edit'], { relativeTo: this.route });
+  }
+
+  openArchiveModal(event: Event, row: ProjectEmployee): void {
+    event.stopPropagation();
+    this.isArchiveModalOpen = true;
+    this.archiveDescription =
+      'Are you sure you want to archive ' +
+      row.firstName +
+      ' ' +
+      row.lastName +
+      '? This action cannot be undone.';
   }
 
   showEmployeeDetails(row: Employee): void {
@@ -65,4 +80,6 @@ export class ProjectEmployeesComponent implements OnInit {
         this.projectEmployeesService.getArchivedProjectEmployees();
     }
   }
+
+  archive(): void {}
 }

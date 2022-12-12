@@ -1,2 +1,69 @@
-<bvr-button label="Back" [routerLink]="['..']"></bvr-button>
-<bvr-button label="Edit" [routerLink]="['edit']"></bvr-button>
+<div class="project-employee">
+  <div class="header">
+    <div class="name">
+      <img [src]="employee.image" class="picture" />
+      <h4>{{ employee.firstName }} {{ employee.lastName }}</h4>
+    </div>
+    <bvr-button
+      icon="edit"
+      [routerLink]="['edit']"
+      styleClass="button-icon"></bvr-button>
+  </div>
+  <div class="form">
+    <bvr-form-field class="disabled field" label="Email">
+      <span>{{ employee.email }}</span>
+    </bvr-form-field>
+    <div class="employment-info">
+      <bvr-form-field class="disabled left-field" label="Position">
+        <span>{{ employee.position }}</span>
+      </bvr-form-field>
+      <bvr-form-field class="disabled left-field" label="Hire Date">
+        <span>{{ employee.employmentDate }}</span>
+      </bvr-form-field>
+      <bvr-form-field
+        class="disabled"
+        [ngClass]="employee.active ? 'field' : 'left-field'"
+        label="Join Date">
+        <span>{{ employee.joinDate }}</span>
+      </bvr-form-field>
+      <bvr-form-field
+        *ngIf="!employee.active"
+        class="disabled field"
+        label="Exit Date">
+        <span>{{ employee.exitDate }}</span>
+      </bvr-form-field>
+    </div>
+
+    <div *ngIf="employee.active" class="contract-info">
+      <bvr-form-field class="left-field" label="Contract Type">
+        <span>{{ employee.contractType }}</span>
+      </bvr-form-field>
+      <bvr-form-field class="left-field" label="Working Time">
+        <span>{{ employee.workingTime }}</span>
+      </bvr-form-field>
+      <bvr-form-field class="field" label="Wage">
+        <span>{{ employee.wage }}</span>
+      </bvr-form-field>
+    </div>
+
+    <div *ngIf="!employee.active" class="contract-info archived">
+      <bvr-form-field class="left-field" label="Contract Type">
+        <span>{{ employee.contractType }}</span>
+      </bvr-form-field>
+      <div class="financial-info">
+        <bvr-form-field class="left-field" label="Working Time">
+          <span>{{ employee.workingTime }}</span>
+        </bvr-form-field>
+        <bvr-form-field class="field" label="Wage">
+          <span>{{ employee.wage }}</span>
+        </bvr-form-field>
+      </div>
+    </div>
+  </div>
+  <div class="form-buttons">
+    <bvr-button
+      label="Cancel"
+      [routerLink]="['..']"
+      styleClass="button-text"></bvr-button>
+  </div>
+</div>

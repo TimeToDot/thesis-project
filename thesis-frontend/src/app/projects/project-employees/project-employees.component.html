@@ -68,7 +68,10 @@
           (click)="editEmployee($event, element)"
           icon="edit"
           styleClass="button-icon"></bvr-button>
-        <bvr-button icon="archive" styleClass="button-icon"></bvr-button>
+        <bvr-button
+          (click)="openArchiveModal($event, element)"
+          icon="archive"
+          styleClass="button-icon"></bvr-button>
       </td>
     </ng-container>
     <tr cdk-header-row *cdkHeaderRowDef="displayedActiveColumns"></tr>
@@ -113,3 +116,10 @@
       (click)="showEmployeeDetails(row)"></tr>
   </table>
 </div>
+
+<bvr-modal
+  (confirm)="archive()"
+  confirmLabel="archive"
+  [description]="archiveDescription"
+  [title]="'Archive employee'"
+  [(visible)]="isArchiveModalOpen"></bvr-modal>

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
-import { Employee } from '../../../shared/model/employee.model';
 import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
 import {
   FormBuilder,
@@ -12,6 +11,7 @@ import {
 } from '@angular/forms';
 import { DropdownListComponent } from '../../../shared/components/dropdown-list/dropdown-list.component';
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
+import { ProjectEmployee } from '../../model/project-employee.model';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -36,14 +36,18 @@ export class EditProjectEmployeeComponent implements OnInit {
     { id: '4', name: 'B2B' },
   ];
   editProjectEmployeeForm!: FormGroup;
-  employee: Employee = {
-    id: '6',
-    email: 'jan.kowalski@gmail.com',
-    firstName: 'Jan',
-    image: 'assets/icons/icon13.png',
-    lastName: 'Kowalski',
-    position: 'Driver',
-    employmentDate: '10/06/2022',
+  employee: ProjectEmployee = {
+    id: '1',
+    firstName: 'Beata',
+    lastName: 'Iwan',
+    email: 'beata.iwan@gmail.com',
+    image: 'assets/icons/icon4.png',
+    position: 'Product Designer',
+    employmentDate: '2022-07-01',
+    contractType: 'B2B',
+    workingTime: 40,
+    wage: 35,
+    joinDate: '2021-09-10',
     active: true,
   };
   isArchiveModalOpen: boolean = false;
@@ -95,5 +99,9 @@ export class EditProjectEmployeeComponent implements OnInit {
 
   confirm(): void {
     this.location.back();
+  }
+
+  archive(): void {
+    this.router.navigate(['../..'], { relativeTo: this.route });
   }
 }
