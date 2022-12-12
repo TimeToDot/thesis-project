@@ -13,6 +13,7 @@ import { DropdownListComponent } from '../../../shared/components/dropdown-list/
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
 import { ProjectEmployee } from '../../model/project-employee.model';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ProjectEmployeesService } from '../../services/project-employees.service';
 
 @Component({
   selector: 'bvr-edit-employee',
@@ -37,18 +38,18 @@ export class EditProjectEmployeeComponent implements OnInit {
   ];
   editProjectEmployeeForm!: FormGroup;
   employee: ProjectEmployee = {
-    id: '1',
-    firstName: 'Beata',
-    lastName: 'Iwan',
-    email: 'beata.iwan@gmail.com',
-    image: 'assets/icons/icon4.png',
-    position: 'Product Designer',
-    employmentDate: '2022-07-01',
-    contractType: 'B2B',
-    workingTime: 40,
-    wage: 35,
-    joinDate: '2021-09-10',
-    active: true,
+    id: '',
+    firstName: '',
+    lastName: '',
+    email: '',
+    image: '',
+    position: '',
+    employmentDate: '',
+    contractType: '',
+    workingTime: 0,
+    wage: 0,
+    joinDate: '',
+    active: false,
   };
   isArchiveModalOpen: boolean = false;
   isLeaveModalOpen: boolean = false;
@@ -57,13 +58,22 @@ export class EditProjectEmployeeComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private location: Location,
+    private projectEmployeesService: ProjectEmployeesService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-    console.log(this.route.snapshot.paramMap.get('id'));
+    this.getEmployee();
     this.createForm();
+  }
+
+  getEmployee(): void {
+    const employeeId = this.route.snapshot.paramMap.get('id');
+    if (employeeId) {
+      this.employee =
+        this.projectEmployeesService.getProjectEmployee(employeeId);
+    }
   }
 
   createForm(): void {

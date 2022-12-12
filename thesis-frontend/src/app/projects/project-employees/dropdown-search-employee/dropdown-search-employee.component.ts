@@ -5,24 +5,24 @@ import {
   FormsModule,
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
-import { Account } from '../../../shared/model/account.model';
+import { Employee } from '../../../shared/model/employee.model';
 
 @Component({
-  selector: 'bvr-dropdown-search-account',
+  selector: 'bvr-dropdown-search-employee',
   standalone: true,
   imports: [CommonModule, FormsModule],
-  templateUrl: './dropdown-search-account.component.html',
+  templateUrl: './dropdown-search-employee.component.html',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
       multi: true,
-      useExisting: DropdownSearchAccountComponent,
+      useExisting: DropdownSearchEmployeeComponent,
     },
   ],
 })
-export class DropdownSearchAccountComponent implements ControlValueAccessor {
+export class DropdownSearchEmployeeComponent implements ControlValueAccessor {
   @Input() name: string = '';
-  @Input() options: Account[] = [];
+  @Input() options: Employee[] = [];
 
   disabled: boolean = false;
   query: string = '';
@@ -31,7 +31,6 @@ export class DropdownSearchAccountComponent implements ControlValueAccessor {
   touched: boolean = false;
 
   selectOption(option: string): void {
-    console.log(option);
     this.markAsTouched();
     this.selectedOption = option;
     this.onChange(this.selectedOption);

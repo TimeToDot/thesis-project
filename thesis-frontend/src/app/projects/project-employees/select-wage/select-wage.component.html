@@ -1,26 +1,53 @@
-<div *ngIf="addProjectEmployeeForm" class="select-wage form" [formGroup]="addProjectEmployeeForm">
-    <div formGroupName="employmentInfo">
-        <bvr-form-field label="Contract Type" [required]="isRequired('contractType')">
-            <bvr-dropdown-list formControlName="contractType" name="contract type" [options]="contractTypes">
-            </bvr-dropdown-list>
-        </bvr-form-field>
-        <div class="financial-info">
-            <bvr-form-field class="left-field" label="Working Time" [required]="isRequired('workingTime')">
-                <input formControlName="workingTime" type="number" />
-            </bvr-form-field>
-            <bvr-form-field class="field" label="Wage" [required]="isRequired('wage')">
-                <input formControlName="wage" type="number" />
-            </bvr-form-field>
-        </div>
+<div
+  *ngIf="addProjectEmployeeForm"
+  class="select-wage form"
+  [formGroup]="addProjectEmployeeForm">
+  <div formGroupName="employmentInfo">
+    <bvr-form-field
+      label="Contract Type"
+      [required]="isRequired('contractType')">
+      <bvr-dropdown-list
+        formControlName="contractType"
+        name="contract type"
+        [options]="contractTypes">
+      </bvr-dropdown-list>
+    </bvr-form-field>
+    <div class="financial-info">
+      <bvr-form-field
+        class="left-field"
+        label="Working Time"
+        [required]="isRequired('workingTime')">
+        <input formControlName="workingTime" type="number" />
+      </bvr-form-field>
+      <bvr-form-field
+        class="field"
+        label="Wage"
+        [required]="isRequired('wage')">
+        <input formControlName="wage" type="number" />
+      </bvr-form-field>
     </div>
+  </div>
 </div>
 
 <div class="form-buttons">
-    <bvr-button label="Cancel" [routerLink]="['..']" styleClass="button-text"></bvr-button>
-    <bvr-button (click)="previousStep()" label="Previous"></bvr-button>
-    <bvr-button (click)="openModal()" label="Add"></bvr-button>
+  <bvr-button
+    class="form-button"
+    label="Cancel"
+    [routerLink]="['..']"
+    styleClass="button-text"></bvr-button>
+  <bvr-button
+    class="form-button"
+    (click)="previousStep()"
+    label="Previous"></bvr-button>
+  <bvr-button
+    class="form-button"
+    (click)="openModal()"
+    label="Add"></bvr-button>
 </div>
 
-<bvr-modal (confirm)="confirm()" confirmLabel="Add"
-    [description]="'Are you sure you want to add Jan Kowalski to the Project X?'" [title]="'Add New User'"
-    [(visible)]="isModalOpen"></bvr-modal>
+<bvr-modal
+  (confirm)="confirm()"
+  confirmLabel="Add"
+  [description]="modalDescription"
+  [title]="'Add New User'"
+  [(visible)]="isModalOpen"></bvr-modal>

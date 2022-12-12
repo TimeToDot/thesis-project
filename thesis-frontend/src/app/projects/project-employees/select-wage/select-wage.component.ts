@@ -6,6 +6,7 @@ import { FormFieldComponent } from '../../../shared/components/form-field/form-f
 import { FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DropdownListComponent } from '../../../shared/components/dropdown-list/dropdown-list.component';
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
+import { EmployeesService } from '../../../admin/services/employees.service';
 
 @Component({
   selector: 'bvr-select-wage',
@@ -33,8 +34,13 @@ export class SelectWageComponent {
     { id: '4', name: 'B2B' },
   ];
   isModalOpen: boolean = false;
+  modalDescription: string = '';
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor(
+    private employeesService: EmployeesService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   previousStep(): void {
     this.previousStepChange.emit();
@@ -50,6 +56,12 @@ export class SelectWageComponent {
 
   openModal(): void {
     this.isModalOpen = true;
+    const employeeId = this.addProjectEmployeeForm.get([
+      'userInfo',
+      'id',
+    ])?.value;
+    const employee = this.employeesService.getEmployee(employeeId);
+    this.modalDescription = `Are you sure you want to add ${employee.firstName} ${employee.lastName} to the Project X?`;
   }
 
   confirm(): void {

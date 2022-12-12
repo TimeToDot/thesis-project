@@ -1,0 +1,27 @@
+<div class="dropdown-search-employee">
+  <div [ngClass]="{ disabled: disabled }">
+    <div class="search-bar">
+      <input
+        (blur)="onBlur()"
+        class="search-input"
+        (focus)="onFocus()"
+        [(ngModel)]="query"
+        placeholder="Search by full name or email"
+        type="search" />
+      <span class="material-icons-outlined search-icon">search</span>
+    </div>
+  </div>
+  <div *ngIf="selectEnabled" class="dropdown-search-employee-modal">
+    <div
+      *ngFor="let option of options"
+      class="row"
+      [ngClass]="{ selected: option.id === selectedOption }"
+      (click)="selectOption(option.id)">
+      <div class="name">
+        <img [src]="option.image" class="picture" />
+        <span>{{ option.firstName }} {{ option.lastName }}</span>
+      </div>
+      <div class="email">{{ option.email }}</div>
+    </div>
+  </div>
+</div>

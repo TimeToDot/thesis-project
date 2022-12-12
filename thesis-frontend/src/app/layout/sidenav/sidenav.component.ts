@@ -5,8 +5,8 @@ import { AuthService } from '../../shared/services/auth.service';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { CommonModule } from '@angular/common';
 import { LinkGroup } from '../../shared/model/link-group.model';
-import { AccountService } from '../../shared/services/account.service';
-import { Account } from '../../shared/model/account.model';
+import { EmployeesService } from '../../admin/services/employees.service';
+import { Employee } from '../../shared/model/employee.model';
 
 @Component({
   selector: 'bvr-sidenav',
@@ -15,24 +15,27 @@ import { Account } from '../../shared/model/account.model';
   imports: [ButtonComponent, CommonModule, RouterModule],
 })
 export class SidenavComponent implements OnInit {
-  currentEmployee: Account = {
+  currentEmployee: Employee = {
     id: '',
-    email: '',
     firstName: '',
-    image: '',
     lastName: '',
+    email: '',
+    image: '',
+    position: '',
+    employmentDate: '',
+    active: false,
   };
   navMenuGroups: LinkGroup[] = [];
 
   constructor(
-    private accountService: AccountService,
+    private employeesService: EmployeesService,
     private authService: AuthService,
     private permissionsService: PermissionsService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.currentEmployee = this.accountService.getEmployeeAccount();
+    this.currentEmployee = this.employeesService.getEmployee('1');
     this.getNavMenuOptions();
     this.getAdditionalNavMenuOptions();
   }

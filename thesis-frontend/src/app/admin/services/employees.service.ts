@@ -26,9 +26,84 @@ export class EmployeesService {
       employmentDate: '2022-07-01',
       active: true,
     },
+    {
+      id: '2',
+      firstName: 'Joanna',
+      lastName: 'Malawska',
+      email: 'joanna.malawska@gmail.com',
+      image: 'assets/icons/icon8.png',
+      position: 'Product Designer',
+      employmentDate: '2022-07-01',
+      active: true,
+    },
+    {
+      id: '3',
+      firstName: 'Anna',
+      lastName: 'Nowak',
+      email: 'anna.nowak@gmail.com',
+      image: 'assets/icons/icon7.png',
+      position: 'Product Designer',
+      employmentDate: '2022-07-01',
+      active: true,
+    },
+    {
+      id: '4',
+      firstName: 'Paweł',
+      lastName: 'Szymański',
+      email: 'pawel.szymanski@gmail.com',
+      image: 'assets/icons/icon19.png',
+      position: 'Product Designer',
+      employmentDate: '2022-07-01',
+      active: true,
+    },
+    {
+      id: '5',
+      firstName: 'Maria',
+      lastName: 'Wiśniewska',
+      email: 'maria.wisniewska@gmail.com',
+      image: 'assets/icons/icon3.png',
+      position: 'Product Designer',
+      employmentDate: '2022-07-01',
+      active: true,
+    },
+    {
+      id: '6',
+      firstName: 'Jan',
+      email: 'jan.kowalski@gmail.com',
+      lastName: 'Kowalski',
+      image: 'assets/icons/icon13.png',
+      position: 'Product Designer',
+      employmentDate: '2022-07-01',
+      active: true,
+    },
+    {
+      id: '7',
+      firstName: 'Emil',
+      lastName: 'Zieliński',
+      email: 'emil.zielinski@gmail.com',
+      image: 'assets/icons/icon18.png',
+      position: 'Product Designer',
+      employmentDate: '2022-07-01',
+      active: true,
+    },
+    {
+      id: '8',
+      firstName: 'Krystian',
+      lastName: 'Kowalczyk',
+      email: 'krystian.kowalczyk@gmail.com',
+      image: 'assets/icons/icon16.png',
+      position: 'Product Designer',
+      employmentDate: '2022-07-01',
+      active: true,
+    },
   ];
 
   constructor() {}
+
+  getEmployee(id: string): Employee {
+    const employee = this._employees.find(employee => employee.id === id);
+    return employee as Employee;
+  }
 
   getEmployees(): Employee[] {
     return this._employees;

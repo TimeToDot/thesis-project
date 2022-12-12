@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { RouterModule } from '@angular/router';
 import { Employee } from '../../../shared/model/employee.model';
 import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
-import { FormsModule } from '@angular/forms';
+import { FormGroup, FormsModule } from '@angular/forms';
+import { EmployeesService } from '../../../admin/services/employees.service';
 
 @Component({
   selector: 'bvr-confirm-employee',
@@ -18,20 +19,36 @@ import { FormsModule } from '@angular/forms';
   ],
   templateUrl: './confirm-employee.component.html',
 })
-export class ConfirmEmployeeComponent {
+export class ConfirmEmployeeComponent implements OnInit {
+  @Input() addProjectEmployeeForm!: FormGroup;
+
   @Output() nextStepChange: EventEmitter<void> = new EventEmitter();
   @Output() previousStepChange: EventEmitter<void> = new EventEmitter();
 
   employee: Employee = {
-    id: '6',
-    email: 'jan.kowalski@gmail.com',
-    firstName: 'Jan',
-    image: 'assets/icons/icon13.png',
-    lastName: 'Kowalski',
-    position: 'Driver',
-    employmentDate: '10/06/2022',
-    active: true,
+    id: '',
+    email: '',
+    firstName: '',
+    image: '',
+    lastName: '',
+    position: '',
+    employmentDate: '',
+    active: false,
   };
+
+  constructor(private employeesService: EmployeesService) {}
+
+  ngOnInit(): void {
+    setTimeout(() => this.getEmployee(), 0);
+  }
+
+  getEmployee(): void {
+    const employeeId = this.addProjectEmployeeForm.get([
+      'userInfo',
+      'id',
+    ])?.value;
+    this.employee = this.employeesService.getEmployee(employeeId);
+  }
 
   nextStep(): void {
     this.nextStepChange.emit();
