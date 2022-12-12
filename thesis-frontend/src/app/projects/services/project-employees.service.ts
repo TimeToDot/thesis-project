@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Employee } from '../../shared/model/employee.model';
+import { ProjectEmployee } from '../model/project-employee.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProjectEmployeesService {
-  private _projectEmployees: Employee[] = [
+  private _projectEmployees: ProjectEmployee[] = [
     {
       id: '0',
       firstName: 'Robert',
@@ -14,6 +14,10 @@ export class ProjectEmployeesService {
       image: 'assets/icons/icon14.png',
       position: 'Frontend Developer',
       employmentDate: '2021-08-15',
+      contractType: 'B2B',
+      workingTime: 40,
+      wage: 35,
+      joinDate: '2021-09-10',
       active: true,
     },
     {
@@ -24,13 +28,54 @@ export class ProjectEmployeesService {
       image: 'assets/icons/icon4.png',
       position: 'Product Designer',
       employmentDate: '2022-07-01',
+      contractType: 'B2B',
+      workingTime: 40,
+      wage: 35,
+      joinDate: '2021-09-10',
       active: true,
+    },
+  ];
+
+  private _archivedProjectEmployees: ProjectEmployee[] = [
+    {
+      id: '3',
+      firstName: 'Franciszek',
+      lastName: 'Migas',
+      email: 'franciszek.migas@gmail.com',
+      image: 'assets/icons/icon17.png',
+      position: 'Forklift Operator',
+      employmentDate: '2020-11-27',
+      contractType: 'B2B',
+      workingTime: 40,
+      wage: 35,
+      joinDate: '2021-09-10',
+      exitDate: '2022-04-23',
+      active: false,
+    },
+    {
+      id: '4',
+      firstName: 'Edyta',
+      lastName: 'Poręba',
+      email: 'edyta.poreba@gmail.com',
+      image: 'assets/icons/icon1.png',
+      position: 'Warehouseman',
+      employmentDate: '2022-07-01',
+      contractType: 'B2B',
+      workingTime: 40,
+      wage: 35,
+      joinDate: '2021-09-10',
+      exitDate: '2022-04-23',
+      active: false,
     },
   ];
 
   constructor() {}
 
-  getProjectEmployees(): Employee[] {
+  getProjectEmployees(): ProjectEmployee[] {
     return this._projectEmployees;
+  }
+
+  getArchivedProjectEmployees(): ProjectEmployee[] {
+    return this._archivedProjectEmployees;
   }
 }

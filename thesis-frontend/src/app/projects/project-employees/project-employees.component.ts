@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { Employee } from '../../shared/model/employee.model';
+import { ProjectEmployee } from '../model/project-employee.model';
 import { ProjectEmployeesService } from '../services/project-employees.service';
 
 @Component({
@@ -20,12 +21,19 @@ import { ProjectEmployeesService } from '../services/project-employees.service';
   ],
 })
 export class ProjectEmployeesComponent implements OnInit {
-  dataSource: Employee[] = [];
-  displayedColumns: string[] = [
+  dataSource: ProjectEmployee[] = [];
+  displayedActiveColumns: string[] = [
     'person',
     'position',
-    'employmentDate',
+    'employmentStatus',
+    'joinDate',
     'actions',
+  ];
+  displayedArchivedColumns: string[] = [
+    'person',
+    'position',
+    'joinDate',
+    'exitDate',
   ];
   query: string = '';
   showActive: boolean = true;
@@ -47,5 +55,14 @@ export class ProjectEmployeesComponent implements OnInit {
 
   showEmployeeDetails(row: Employee): void {
     this.router.navigate([row.id], { relativeTo: this.route });
+  }
+
+  showActiveTable(value: boolean): void {
+    if (value) {
+      this.dataSource = this.projectEmployeesService.getProjectEmployees();
+    } else {
+      this.dataSource =
+        this.projectEmployeesService.getArchivedProjectEmployees();
+    }
   }
 }

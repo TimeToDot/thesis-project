@@ -3,23 +3,40 @@
     <h4>Employees</h4>
     <h4 class="count">({{ dataSource.length }})</h4>
     <div class="radio">
-      <input name="showActive" [(ngModel)]="showActive" type="radio" [value]="true" />
+      <input
+        name="showActive"
+        [(ngModel)]="showActive"
+        (ngModelChange)="showActiveTable(true)"
+        type="radio"
+        [value]="true" />
       <label>Active</label>
     </div>
     <div class="radio">
-      <input name="showActive" [(ngModel)]="showActive" type="radio" [value]="false" />
+      <input
+        name="showActive"
+        [(ngModel)]="showActive"
+        (ngModelChange)="showActiveTable(false)"
+        type="radio"
+        [value]="false" />
       <label>Archive</label>
     </div>
   </div>
-  <bvr-button class="create-new-button" label="Add new" [routerLink]="['add']"></bvr-button>
+  <bvr-button
+    class="create-new-button"
+    label="Add new"
+    [routerLink]="['add']"></bvr-button>
 </div>
 
 <div class="search-bar">
-  <input class="search-input" [(ngModel)]="query" placeholder="Search" type="search" />
+  <input
+    class="search-input"
+    [(ngModel)]="query"
+    placeholder="Search"
+    type="search" />
   <span class="material-icons-outlined search-icon">search</span>
 </div>
 
-<div class="table">
+<div *ngIf="showActive" class="table">
   <table cdk-table [dataSource]="dataSource">
     <ng-container cdkColumnDef="person">
       <th cdk-header-cell *cdkHeaderCellDef>Person</th>
@@ -34,20 +51,65 @@
       <th cdk-header-cell *cdkHeaderCellDef>Position</th>
       <td cdk-cell *cdkCellDef="let element">{{ element.position }}</td>
     </ng-container>
-    <ng-container cdkColumnDef="employmentDate">
-      <th cdk-header-cell *cdkHeaderCellDef>Employment date</th>
+    <ng-container cdkColumnDef="employmentStatus">
+      <th cdk-header-cell *cdkHeaderCellDef>Employment Status</th>
+      <td cdk-cell *cdkCellDef="let element">{{ element.workingTime }} h</td>
+    </ng-container>
+    <ng-container cdkColumnDef="joinDate">
+      <th cdk-header-cell *cdkHeaderCellDef>Join Date</th>
       <td cdk-cell *cdkCellDef="let element">
-        {{ element.employmentDate | date: 'dd/MM/yyyy' }}
+        {{ element.joinDate | date: 'dd/MM/yyyy' }}
       </td>
     </ng-container>
     <ng-container cdkColumnDef="actions">
       <th cdk-header-cell *cdkHeaderCellDef>Actions</th>
       <td cdk-cell *cdkCellDef="let element">
-        <bvr-button (click)="editEmployee($event, element)" icon="edit" styleClass="button-icon"></bvr-button>
+        <bvr-button
+          (click)="editEmployee($event, element)"
+          icon="edit"
+          styleClass="button-icon"></bvr-button>
         <bvr-button icon="archive" styleClass="button-icon"></bvr-button>
       </td>
     </ng-container>
-    <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
-    <tr cdk-row *cdkRowDef="let row; columns: displayedColumns" (click)="showEmployeeDetails(row)"></tr>
+    <tr cdk-header-row *cdkHeaderRowDef="displayedActiveColumns"></tr>
+    <tr
+      cdk-row
+      *cdkRowDef="let row; columns: displayedActiveColumns"
+      (click)="showEmployeeDetails(row)"></tr>
+  </table>
+</div>
+
+<div *ngIf="!showActive" class="table">
+  <table cdk-table [dataSource]="dataSource">
+    <ng-container cdkColumnDef="person">
+      <th cdk-header-cell *cdkHeaderCellDef>Person</th>
+      <td cdk-cell *cdkCellDef="let element">
+        <div class="table-cell">
+          <img [src]="element.image" class="picture archived" />
+          <span>{{ element.firstName }} {{ element.lastName }}</span>
+        </div>
+      </td>
+    </ng-container>
+    <ng-container cdkColumnDef="position">
+      <th cdk-header-cell *cdkHeaderCellDef>Position</th>
+      <td cdk-cell *cdkCellDef="let element">{{ element.position }}</td>
+    </ng-container>
+    <ng-container cdkColumnDef="joinDate">
+      <th cdk-header-cell *cdkHeaderCellDef>Join Date</th>
+      <td cdk-cell *cdkCellDef="let element">
+        {{ element.joinDate | date: 'dd/MM/yyyy' }}
+      </td>
+    </ng-container>
+    <ng-container cdkColumnDef="exitDate">
+      <th cdk-header-cell *cdkHeaderCellDef>Exit Date</th>
+      <td cdk-cell *cdkCellDef="let element">
+        {{ element.exitDate | date: 'dd/MM/yyyy' }}
+      </td>
+    </ng-container>
+    <tr cdk-header-row *cdkHeaderRowDef="displayedArchivedColumns"></tr>
+    <tr
+      cdk-row
+      *cdkRowDef="let row; columns: displayedArchivedColumns"
+      (click)="showEmployeeDetails(row)"></tr>
   </table>
 </div>

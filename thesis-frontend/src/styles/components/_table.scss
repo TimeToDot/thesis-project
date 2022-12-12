@@ -54,4 +54,8 @@
   height: 8 * $grid-base;
   margin-right: 3 * $grid-base;
   width: 8 * $grid-base;
+
+  &.archived {
+    filter: grayscale(100%);
+  }
 }
