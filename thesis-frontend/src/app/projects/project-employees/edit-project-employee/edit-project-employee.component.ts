@@ -54,6 +54,7 @@ export class EditProjectEmployeeComponent implements OnInit {
   isArchiveModalOpen: boolean = false;
   isLeaveModalOpen: boolean = false;
   isSaveModalOpen: boolean = false;
+  modalDescription: string = '';
 
   constructor(
     private fb: FormBuilder,
@@ -90,6 +91,7 @@ export class EditProjectEmployeeComponent implements OnInit {
 
   openArchiveModal(): void {
     this.isArchiveModalOpen = true;
+    this.modalDescription = `Are you sure you want to archive ${this.employee.firstName} ${this.employee.lastName}? This action cannot be undone.`;
   }
 
   openLeaveModal(): void {
@@ -98,6 +100,7 @@ export class EditProjectEmployeeComponent implements OnInit {
 
   openSaveModal(): void {
     this.isSaveModalOpen = true;
+    this.modalDescription = 'Are you sure you want to save changes?';
   }
 
   isRequired(name: string): boolean {

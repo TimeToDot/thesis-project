@@ -1,6 +1,24 @@
-<p>edit-task works!</p>
-<bvr-button
-  (click)="cancel()"
-  label="Cancel"
-  styleClass="button-text"></bvr-button>
-<bvr-button (click)="save()" label="Save"></bvr-button>
+<div class="project-task">
+  <div class="header">
+    <div class="name">
+      <h4>Edit Task</h4>
+    </div>
+    <bvr-button (click)="openArchiveModal()" icon="archive" styleClass="button-icon"></bvr-button>
+  </div>
+  <div class="form" [formGroup]="editProjectTaskForm">
+    <bvr-form-field label="Task Name" [required]="isRequired('name')">
+      <input formControlName="name" type="text" />
+    </bvr-form-field>
+    <bvr-form-field label="Task Description" [required]="isRequired('description')">
+      <textarea formControlName="description"></textarea>
+    </bvr-form-field>
+  </div>
+  <div class="form-buttons">
+    <bvr-button class="form-button" (click)="cancel()" label="Cancel" styleClass="button-text"></bvr-button>
+    <bvr-button class="form-button" (click)="openSaveModal()" label="Save"></bvr-button>
+  </div>
+</div>
+<bvr-modal (confirm)="save()" confirmLabel="Save" [description]="modalDescription" [title]="'Save changes'"
+  [(visible)]="isSaveModalOpen"></bvr-modal>
+<bvr-modal (confirm)="archive()" confirmLabel="archive" [description]="modalDescription
+  " [title]="'Archive employee'" [(visible)]="isArchiveModalOpen"></bvr-modal>

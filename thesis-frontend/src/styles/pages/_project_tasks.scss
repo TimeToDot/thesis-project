@@ -13,6 +13,11 @@
   .name {
     align-items: center;
     display: flex;
+
+    .archived {
+      color: $color-text-secondary;
+      margin-left: $grid-base;
+    }
   }
 
   .form {
