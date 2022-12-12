@@ -28,6 +28,7 @@ export class ProjectTasksService {
       projectId: '1',
       description: 'test',
       creationDate: '2022-04-31',
+      archiveDate: '2022-06-03',
       active: false,
     },
     {
@@ -49,6 +50,10 @@ export class ProjectTasksService {
   ];
 
   constructor() {}
+
+  getProjectTask(taskId: string): ProjectTask {
+    return this._tasks.find(element => element.id === taskId) as ProjectTask;
+  }
 
   getProjectTasks(projectId: string): ProjectTask[] {
     return this._tasks

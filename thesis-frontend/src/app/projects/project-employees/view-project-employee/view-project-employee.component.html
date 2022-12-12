@@ -9,6 +9,7 @@
       <h4 *ngIf="!employee.active" class="archived">(Archived)</h4>
     </div>
     <bvr-button
+      *ngIf="employee.active"
       icon="edit"
       [routerLink]="['edit']"
       styleClass="button-icon"></bvr-button>

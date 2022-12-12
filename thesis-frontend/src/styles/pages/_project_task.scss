@@ -1,0 +1,35 @@
+.project-task {
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8 * $grid-base;
+    width: 100%;
+  }
+
+  .name {
+    align-items: center;
+    display: flex;
+  }
+
+  .form {
+    padding: 0 31 * $grid-base;
+    width: 100%;
+  }
+
+  input,
+  .form-field {
+    width: 100%;
+  }
+
+  .dates {
+    display: flex;
+  }
+
+  .description {
+    margin-bottom: 8 * $grid-base;
+  }
+}
