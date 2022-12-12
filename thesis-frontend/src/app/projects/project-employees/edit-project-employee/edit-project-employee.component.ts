@@ -62,6 +62,7 @@ export class EditProjectEmployeeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    console.log(this.route.snapshot.paramMap.get('id'));
     this.createForm();
   }
 

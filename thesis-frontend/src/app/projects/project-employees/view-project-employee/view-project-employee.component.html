@@ -1,8 +1,12 @@
 <div class="project-employee">
   <div class="header">
     <div class="name">
-      <img [src]="employee.image" class="picture" />
+      <img
+        [src]="employee.image"
+        class="picture"
+        [ngClass]="{ archived: !employee.active }" />
       <h4>{{ employee.firstName }} {{ employee.lastName }}</h4>
+      <h4 *ngIf="!employee.active" class="archived">(Archived)</h4>
     </div>
     <bvr-button
       icon="edit"

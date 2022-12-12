@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
 import { ProjectEmployee } from '../../model/project-employee.model';
+import { ProjectEmployeesService } from '../../services/project-employees.service';
 
 @Component({
   selector: 'bvr-view-project-employee',
@@ -11,20 +12,37 @@ import { ProjectEmployee } from '../../model/project-employee.model';
   imports: [ButtonComponent, CommonModule, FormFieldComponent, RouterModule],
   templateUrl: './view-project-employee.component.html',
 })
-export class ViewProjectEmployeeComponent {
+export class ViewProjectEmployeeComponent implements OnInit {
   employee: ProjectEmployee = {
-    id: '1',
-    firstName: 'Beata',
-    lastName: 'Iwan',
-    email: 'beata.iwan@gmail.com',
-    image: 'assets/icons/icon4.png',
-    position: 'Product Designer',
-    employmentDate: '2022-07-01',
-    contractType: 'B2B',
-    workingTime: 40,
-    wage: 35,
-    joinDate: '2021-09-10',
-    exitDate: '2022-10-23',
+    id: '',
+    firstName: '',
+    lastName: '',
+    email: '',
+    image: '',
+    position: '',
+    employmentDate: '',
+    contractType: '',
+    workingTime: 0,
+    wage: 0,
+    joinDate: '',
+    exitDate: '',
     active: true,
   };
+
+  constructor(
+    private projectEmployeeService: ProjectEmployeesService,
+    private route: ActivatedRoute
+  ) {}
+
+  ngOnInit(): void {
+    this.getEmployee();
+  }
+
+  getEmployee(): void {
+    const employeeId = this.route.snapshot.paramMap.get('id');
+    if (employeeId) {
+      this.employee =
+        this.projectEmployeeService.getProjectEmployee(employeeId);
+    }
+  }
 }

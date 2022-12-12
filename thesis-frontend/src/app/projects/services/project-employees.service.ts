@@ -34,9 +34,6 @@ export class ProjectEmployeesService {
       joinDate: '2021-09-10',
       active: true,
     },
-  ];
-
-  private _archivedProjectEmployees: ProjectEmployee[] = [
     {
       id: '3',
       firstName: 'Franciszek',
@@ -71,11 +68,18 @@ export class ProjectEmployeesService {
 
   constructor() {}
 
+  getProjectEmployee(id: string): ProjectEmployee {
+    const employee = this._projectEmployees.find(
+      employee => employee.id === id
+    );
+    return employee as ProjectEmployee;
+  }
+
   getProjectEmployees(): ProjectEmployee[] {
-    return this._projectEmployees;
+    return this._projectEmployees.filter(employee => employee.active);
   }
 
   getArchivedProjectEmployees(): ProjectEmployee[] {
-    return this._archivedProjectEmployees;
+    return this._projectEmployees.filter(employee => !employee.active);
   }
 }
