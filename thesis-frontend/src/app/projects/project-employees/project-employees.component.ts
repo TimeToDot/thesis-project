@@ -27,7 +27,6 @@ import { ProjectEmployeesService } from '../services/project-employees.service';
   ],
 })
 export class ProjectEmployeesComponent implements OnInit {
-  archiveDescription: string = '';
   dataSource: ProjectEmployee[] = [];
   displayedActiveColumns: string[] = [
     'person',
@@ -43,6 +42,7 @@ export class ProjectEmployeesComponent implements OnInit {
     'exitDate',
   ];
   isArchiveModalOpen: boolean = false;
+  modalDescription: string = '';
   query: string = '';
   showActive: boolean = true;
 
@@ -65,7 +65,7 @@ export class ProjectEmployeesComponent implements OnInit {
   openArchiveModal(event: Event, row: ProjectEmployee): void {
     event.stopPropagation();
     this.isArchiveModalOpen = true;
-    this.archiveDescription = `Are you sure you want to archive ${row.firstName} ${row.lastName}? This action cannot be undone.`;
+    this.modalDescription = `Are you sure you want to archive ${row.firstName} ${row.lastName}? This action cannot be undone.`;
   }
 
   showEmployeeDetails(row: Employee): void {

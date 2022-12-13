@@ -81,16 +81,7 @@ export class CreateTaskComponent {
   }
 
   cancel(): void {
-    new Promise((resolve, _) => {
-      this.location.back();
-      resolve('done');
-    }).then(() => {
-      setTimeout(
-        () => this.toastService.showToast(ToastState.Error, 'Error message'),
-        200
-      );
-      setTimeout(() => this.toastService.dismissToast(), 3200);
-    });
+    this.location.back();
   }
 
   isRequired(name: string): boolean {

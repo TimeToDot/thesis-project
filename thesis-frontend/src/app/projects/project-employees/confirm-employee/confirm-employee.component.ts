@@ -7,8 +7,6 @@ import { FormFieldComponent } from '../../../shared/components/form-field/form-f
 import { FormGroup, FormsModule } from '@angular/forms';
 import { EmployeesService } from '../../../admin/services/employees.service';
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
-import { ToastService } from '../../../shared/services/toast.service';
-import { ToastState } from '../../../shared/enum/toast-state';
 
 @Component({
   selector: 'bvr-confirm-employee',
@@ -37,6 +35,7 @@ export class ConfirmEmployeeComponent implements OnInit {
     lastName: '',
     position: '',
     employmentDate: '',
+    workingTime: 0,
     active: false,
   };
   isCancelModalOpen: boolean = false;
@@ -44,8 +43,7 @@ export class ConfirmEmployeeComponent implements OnInit {
 
   constructor(
     private employeesService: EmployeesService,
-    private location: Location,
-    private toastService: ToastService
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -65,16 +63,7 @@ export class ConfirmEmployeeComponent implements OnInit {
   }
 
   cancel(): void {
-    new Promise((resolve, _) => {
-      this.location.back();
-      resolve('done');
-    }).then(() => {
-      setTimeout(
-        () => this.toastService.showToast(ToastState.Error, 'Error message'),
-        200
-      );
-      setTimeout(() => this.toastService.dismissToast(), 3200);
-    });
+    this.location.back();
   }
 
   nextStep(): void {

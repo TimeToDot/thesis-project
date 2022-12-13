@@ -23,6 +23,7 @@ export class SidenavComponent implements OnInit {
     image: '',
     position: '',
     employmentDate: '',
+    workingTime: 0,
     active: false,
   };
   navMenuGroups: LinkGroup[] = [];

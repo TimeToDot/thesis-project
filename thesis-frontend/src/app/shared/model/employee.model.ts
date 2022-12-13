@@ -6,5 +6,7 @@ export interface Employee {
   image: string;
   position: string;
   employmentDate: string;
+  exitDate?: string;
+  workingTime: number;
   active: boolean;
 }

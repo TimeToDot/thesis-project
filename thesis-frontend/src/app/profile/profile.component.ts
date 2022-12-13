@@ -20,6 +20,7 @@ export class ProfileComponent implements OnInit {
     image: '',
     position: '',
     employmentDate: '',
+    workingTime: 0,
     active: false,
   };
 

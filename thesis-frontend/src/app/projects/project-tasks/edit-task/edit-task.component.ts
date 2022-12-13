@@ -1,12 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
-import {
-  ActivatedRoute,
-  NavigationEnd,
-  Router,
-  RouterModule,
-} from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
 import {
   FormBuilder,
@@ -102,16 +97,7 @@ export class EditTaskComponent {
   }
 
   cancel(): void {
-    new Promise((resolve, _) => {
-      this.location.back();
-      resolve('done');
-    }).then(() => {
-      setTimeout(
-        () => this.toastService.showToast(ToastState.Error, 'Error message'),
-        200
-      );
-      setTimeout(() => this.toastService.dismissToast(), 3200);
-    });
+    this.location.back();
   }
 
   isRequired(name: string): boolean {

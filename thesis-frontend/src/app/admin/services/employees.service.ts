@@ -14,6 +14,7 @@ export class EmployeesService {
       image: 'assets/icons/icon14.png',
       position: 'Frontend Developer',
       employmentDate: '2021-08-15',
+      workingTime: 40,
       active: true,
     },
     {
@@ -24,6 +25,7 @@ export class EmployeesService {
       image: 'assets/icons/icon4.png',
       position: 'Product Designer',
       employmentDate: '2022-07-01',
+      workingTime: 40,
       active: true,
     },
     {
@@ -34,6 +36,7 @@ export class EmployeesService {
       image: 'assets/icons/icon8.png',
       position: 'Product Designer',
       employmentDate: '2022-07-01',
+      workingTime: 40,
       active: true,
     },
     {
@@ -44,7 +47,9 @@ export class EmployeesService {
       image: 'assets/icons/icon7.png',
       position: 'Product Designer',
       employmentDate: '2022-07-01',
-      active: true,
+      workingTime: 40,
+      exitDate: '2022-09-01',
+      active: false,
     },
     {
       id: '4',
@@ -54,6 +59,7 @@ export class EmployeesService {
       image: 'assets/icons/icon19.png',
       position: 'Product Designer',
       employmentDate: '2022-07-01',
+      workingTime: 40,
       active: true,
     },
     {
@@ -64,7 +70,9 @@ export class EmployeesService {
       image: 'assets/icons/icon3.png',
       position: 'Product Designer',
       employmentDate: '2022-07-01',
-      active: true,
+      workingTime: 40,
+      exitDate: '2022-09-01',
+      active: false,
     },
     {
       id: '6',
@@ -74,7 +82,9 @@ export class EmployeesService {
       image: 'assets/icons/icon13.png',
       position: 'Product Designer',
       employmentDate: '2022-07-01',
-      active: true,
+      workingTime: 40,
+      exitDate: '2022-09-01',
+      active: false,
     },
     {
       id: '7',
@@ -84,6 +94,7 @@ export class EmployeesService {
       image: 'assets/icons/icon18.png',
       position: 'Product Designer',
       employmentDate: '2022-07-01',
+      workingTime: 40,
       active: true,
     },
     {
@@ -94,6 +105,7 @@ export class EmployeesService {
       image: 'assets/icons/icon16.png',
       position: 'Product Designer',
       employmentDate: '2022-07-01',
+      workingTime: 40,
       active: true,
     },
   ];
@@ -106,6 +118,10 @@ export class EmployeesService {
   }
 
   getEmployees(): Employee[] {
-    return this._employees;
+    return this._employees.filter(employee => employee.active);
+  }
+
+  getArchivedEmployees(): Employee[] {
+    return this._employees.filter(employee => !employee.active);
   }
 }
