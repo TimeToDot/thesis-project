@@ -12,6 +12,14 @@
   </div>
 </div>
 <bvr-button
+  class="form-button"
+  (click)="openCancelModal()"
   label="Cancel"
-  [routerLink]="['..']"
   styleClass="button-text"></bvr-button>
+
+<bvr-modal
+  (confirm)="cancel()"
+  confirmLabel="Leave"
+  [description]="modalDescription"
+  [title]="'Leave'"
+  [(visible)]="isCancelModalOpen"></bvr-modal>

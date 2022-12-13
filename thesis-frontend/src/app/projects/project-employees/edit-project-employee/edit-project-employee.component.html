@@ -4,7 +4,10 @@
       <img [src]="employee.image" class="picture" />
       <h4>{{ employee.firstName }} {{ employee.lastName }}</h4>
     </div>
-    <bvr-button (click)="openArchiveModal()" icon="archive" styleClass="button-icon"></bvr-button>
+    <bvr-button
+      (click)="openArchiveModal()"
+      icon="archive"
+      styleClass="button-icon"></bvr-button>
   </div>
   <div class="form">
     <bvr-form-field class="disabled field" label="Email">
@@ -22,26 +25,56 @@
       </bvr-form-field>
     </div>
     <div *ngIf="editProjectEmployeeForm" [formGroup]="editProjectEmployeeForm">
-      <bvr-form-field class="contract-info" label="Contract Type" [required]="isRequired('contractType')">
-        <bvr-dropdown-list formControlName="contractType" name="contract type" [options]="contractTypes">
+      <bvr-form-field
+        class="contract-info"
+        label="Contract Type"
+        [required]="isRequired('contractType')">
+        <bvr-dropdown-list
+          formControlName="contractType"
+          name="contract type"
+          [options]="contractTypes">
         </bvr-dropdown-list>
       </bvr-form-field>
       <div class="financial-info">
-        <bvr-form-field class="left-field" label="Working Time" [required]="isRequired('workingTime')">
+        <bvr-form-field
+          class="left-field"
+          label="Working Time"
+          [required]="isRequired('workingTime')">
           <input formControlName="workingTime" type="number" />
         </bvr-form-field>
-        <bvr-form-field class="field" label="Wage" [required]="isRequired('wage')">
+        <bvr-form-field
+          class="field"
+          label="Wage"
+          [required]="isRequired('wage')">
           <input formControlName="wage" type="number" />
         </bvr-form-field>
       </div>
     </div>
   </div>
   <div class="form-buttons">
-    <bvr-button class="form-button" (click)="cancel()" label="Cancel" styleClass="button-text"></bvr-button>
+    <bvr-button
+      class="form-button"
+      (click)="openCancelModal()"
+      label="Cancel"
+      styleClass="button-text"></bvr-button>
     <bvr-button (click)="openSaveModal()" label="Save"></bvr-button>
   </div>
 </div>
-<bvr-modal (confirm)="confirm()" confirmLabel="Save" [description]="modalDescription" [title]="'Save changes'"
+<bvr-modal
+  (confirm)="archive()"
+  confirmLabel="archive"
+  [description]="modalDescription"
+  [title]="'Archive employee'"
+  [(visible)]="isArchiveModalOpen"></bvr-modal>
+<bvr-modal
+  (confirm)="cancel()"
+  confirmLabel="Leave"
+  [description]="modalDescription"
+  [title]="'Leave'"
+  [(visible)]="isCancelModalOpen"></bvr-modal>
+<bvr-modal
+  (confirm)="save()"
+  confirmLabel="Save"
+  [description]="modalDescription"
+  [title]="'Save changes'"
   [(visible)]="isSaveModalOpen"></bvr-modal>
-<bvr-modal (confirm)="archive()" confirmLabel="archive" [description]="modalDescription
-  " [title]="'Archive employee'" [(visible)]="isArchiveModalOpen"></bvr-modal>

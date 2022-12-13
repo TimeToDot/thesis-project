@@ -8,6 +8,7 @@ import { ProjectTasksService } from '../../services/project-tasks.service';
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
 import { ToastService } from '../../../shared/services/toast.service';
 import { ToastState } from '../../../shared/enum/toast-state';
+import { ToastComponent } from '../../../shared/components/toast/toast.component';
 
 @Component({
   selector: 'bvr-view-task',
@@ -18,6 +19,7 @@ import { ToastState } from '../../../shared/enum/toast-state';
     FormFieldComponent,
     ModalComponent,
     RouterModule,
+    ToastComponent,
   ],
   templateUrl: './view-task.component.html',
 })

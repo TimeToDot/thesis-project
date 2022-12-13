@@ -54,7 +54,7 @@ export class EditProjectEmployeeComponent implements OnInit {
     active: false,
   };
   isArchiveModalOpen: boolean = false;
-  isLeaveModalOpen: boolean = false;
+  isCancelModalOpen: boolean = false;
   isSaveModalOpen: boolean = false;
   modalDescription: string = '';
 
@@ -89,7 +89,16 @@ export class EditProjectEmployeeComponent implements OnInit {
   }
 
   cancel(): void {
-    this.location.back();
+    new Promise((resolve, _) => {
+      this.location.back();
+      resolve('done');
+    }).then(() => {
+      setTimeout(
+        () => this.toastService.showToast(ToastState.Error, 'Error message'),
+        200
+      );
+      setTimeout(() => this.toastService.dismissToast(), 3200);
+    });
   }
 
   openArchiveModal(): void {
@@ -97,8 +106,9 @@ export class EditProjectEmployeeComponent implements OnInit {
     this.modalDescription = `Are you sure you want to archive ${this.employee.firstName} ${this.employee.lastName}? This action cannot be undone.`;
   }
 
-  openLeaveModal(): void {
-    this.isLeaveModalOpen = true;
+  openCancelModal(): void {
+    this.isCancelModalOpen = true;
+    this.modalDescription = `Are you sure you want to leave? You will lose your unsaved changes if you continue.`;
   }
 
   openSaveModal(): void {
@@ -114,8 +124,18 @@ export class EditProjectEmployeeComponent implements OnInit {
       : false;
   }
 
-  confirm(): void {
-    this.location.back();
+  save(): void {
+    new Promise((resolve, _) => {
+      this.location.back();
+      resolve('done');
+    }).then(() => {
+      setTimeout(
+        () =>
+          this.toastService.showToast(ToastState.Success, 'Employee edited'),
+        200
+      );
+      setTimeout(() => this.toastService.dismissToast(), 3200);
+    });
   }
 
   archive(): void {

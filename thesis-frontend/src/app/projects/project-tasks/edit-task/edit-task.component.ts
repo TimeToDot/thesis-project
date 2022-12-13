@@ -37,6 +37,7 @@ export class EditTaskComponent {
   editProjectTaskForm!: FormGroup;
   isArchiveModalOpen: boolean = false;
   isSaveModalOpen: boolean = false;
+  isCancelModalOpen: boolean = false;
   modalDescription: string = '';
   task: ProjectTask = {
     id: '',
@@ -80,6 +81,11 @@ export class EditTaskComponent {
     this.isArchiveModalOpen = true;
     const taskName = this.editProjectTaskForm.get(['name'])?.value;
     this.modalDescription = `Are you sure you want to archive task ${taskName}? This action cannot be undone.`;
+  }
+
+  openCancelModal(): void {
+    this.isCancelModalOpen = true;
+    this.modalDescription = `Are you sure you want to leave? You will lose your unsaved changes if you continue.`;
   }
 
   openSaveModal(): void {
