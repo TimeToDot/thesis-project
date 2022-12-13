@@ -15,6 +15,11 @@ import { DatePickerComponent } from '../../shared/components/date-picker/date-pi
 import { TimePickerComponent } from '../../shared/components/time-picker/time-picker.component';
 import { DropdownListComponent } from '../../shared/components/dropdown-list/dropdown-list.component';
 import { DropdownOption } from '../../shared/model/dropdown-option.model';
+import { ToastComponent } from '../../shared/components/toast/toast.component';
+import { ToastService } from '../../shared/services/toast.service';
+import { ToastState } from '../../shared/enum/toast-state';
+import { ModalComponent } from '../../shared/components/modal/modal.component';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'bvr-add-new-task',
@@ -25,13 +30,17 @@ import { DropdownOption } from '../../shared/model/dropdown-option.model';
     DatePickerComponent,
     DropdownListComponent,
     FormFieldComponent,
+    ModalComponent,
     ReactiveFormsModule,
     TimePickerComponent,
+    ToastComponent,
   ],
   templateUrl: './add-new-task.component.html',
 })
 export class AddNewTaskComponent implements OnInit {
-  createTaskForm!: FormGroup;
+  addTaskForm!: FormGroup;
+  isAddModalOpen: boolean = false;
+  modalDescription: string = '';
   newTask: EmployeeTask = {
     id: '',
     startDate: formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en'),
@@ -47,7 +56,10 @@ export class AddNewTaskComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private projectTasksService: ProjectTasksService,
-    private employeeProjectService: EmployeeProjectsService
+    private employeeProjectService: EmployeeProjectsService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -66,7 +78,7 @@ export class AddNewTaskComponent implements OnInit {
   }
 
   createForm(): void {
-    this.createTaskForm = this.fb.group({
+    this.addTaskForm = this.fb.group({
       startDate: [
         formatDate(this.newTask.startDate, 'yyyy-MM-dd', 'en'),
         [Validators.required],
@@ -85,17 +97,42 @@ export class AddNewTaskComponent implements OnInit {
     });
   }
 
+  openAddModal(): void {
+    if (this.addTaskForm.valid) {
+      this.isAddModalOpen = true;
+      const taskName = this.addTaskForm.get(['task'])?.value;
+      this.modalDescription = `Do you want to add ${taskName} to your timesheet?`;
+    } else {
+      this.addTaskForm.markAllAsTouched();
+      this.toastService.showToast(ToastState.Error, 'Form invalid');
+      setTimeout(() => this.toastService.dismissToast(), 3000);
+    }
+  }
+
+  add(): void {
+    this.toastService.showToast(ToastState.Success, 'Task created');
+    setTimeout(() => this.toastService.dismissToast(), 3200);
+  }
+
   isRequired(name: string): boolean {
-    return this.createTaskForm.get(name)?.hasValidator(Validators.required)
+    return this.addTaskForm.get(name)?.hasValidator(Validators.required)
       ? true
       : false;
   }
 
   observeProjectChange(): void {
-    this.createTaskForm.get('project')?.valueChanges.subscribe(projectId => {
+    this.addTaskForm.get('project')?.valueChanges.subscribe(projectId => {
       this.tasks = this.projectTasksService.getProjectTasks(projectId);
-      this.createTaskForm.get('task')?.enable();
-      this.createTaskForm.get('task')?.setValue('');
+      this.addTaskForm.get('task')?.enable();
+      this.addTaskForm.get('task')?.setValue('');
     });
+  }
+
+  showErrors(name: string): boolean {
+    return !!(
+      this.addTaskForm.get(name)?.invalid &&
+      this.addTaskForm.get(name)?.errors &&
+      (this.addTaskForm.get(name)?.dirty || this.addTaskForm.get(name)?.touched)
+    );
   }
 }
