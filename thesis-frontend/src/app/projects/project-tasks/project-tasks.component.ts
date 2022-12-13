@@ -6,6 +6,8 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { ModalComponent } from '../../shared/components/modal/modal.component';
 import { ToastComponent } from '../../shared/components/toast/toast.component';
+import { ToastState } from '../../shared/enum/toast-state';
+import { ToastService } from '../../shared/services/toast.service';
 import { ProjectTask } from '../model/project-task.model';
 import { ProjectTasksService } from '../services/project-tasks.service';
 
@@ -40,7 +42,8 @@ export class ProjectTasksComponent implements OnInit {
   constructor(
     private projectTasksService: ProjectTasksService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -70,5 +73,8 @@ export class ProjectTasksComponent implements OnInit {
     this.archiveDescription = `Are you sure you want to archive task ${row.name}? This action cannot be undone.`;
   }
 
-  archive(): void {}
+  archive(): void {
+    this.toastService.showToast(ToastState.Success, 'Task archived');
+    setTimeout(() => this.toastService.dismissToast(), 3000);
+  }
 }

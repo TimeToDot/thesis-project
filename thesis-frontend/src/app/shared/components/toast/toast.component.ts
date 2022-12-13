@@ -24,9 +24,9 @@ import { ToastService } from '../../services/toast.service';
   ],
 })
 export class ToastComponent {
-  message: string = 'Employee added';
+  message: string = '';
   showToast: boolean = false;
-  styleClass: string = 'success';
+  styleClass: string = '';
 
   constructor(public toastService: ToastService) {}
 

@@ -1,7 +1,12 @@
 import { Component } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import {
+  ActivatedRoute,
+  NavigationEnd,
+  Router,
+  RouterModule,
+} from '@angular/router';
 import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
 import {
   FormBuilder,
@@ -12,6 +17,8 @@ import {
 import { ProjectTask } from '../../model/project-task.model';
 import { ProjectTasksService } from '../../services/project-tasks.service';
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
+import { ToastService } from '../../../shared/services/toast.service';
+import { ToastState } from '../../../shared/enum/toast-state';
 
 @Component({
   selector: 'bvr-edit-task',
@@ -46,7 +53,8 @@ export class EditTaskComponent {
     private location: Location,
     private projectTasksService: ProjectTasksService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -80,7 +88,16 @@ export class EditTaskComponent {
   }
 
   cancel(): void {
-    this.location.back();
+    new Promise((resolve, _) => {
+      this.location.back();
+      resolve('done');
+    }).then(() => {
+      setTimeout(
+        () => this.toastService.showToast(ToastState.Error, 'Error message'),
+        200
+      );
+      setTimeout(() => this.toastService.dismissToast(), 3200);
+    });
   }
 
   isRequired(name: string): boolean {
@@ -90,10 +107,25 @@ export class EditTaskComponent {
   }
 
   save(): void {
-    this.location.back();
+    new Promise((resolve, _) => {
+      this.location.back();
+      resolve('done');
+    }).then(() => {
+      setTimeout(
+        () => this.toastService.showToast(ToastState.Success, 'Task edited'),
+        200
+      );
+      setTimeout(() => this.toastService.dismissToast(), 3200);
+    });
   }
 
   archive(): void {
-    this.router.navigate(['../..'], { relativeTo: this.route });
+    this.router.navigate(['../..'], { relativeTo: this.route }).then(() => {
+      setTimeout(
+        () => this.toastService.showToast(ToastState.Success, 'Task archived'),
+        200
+      );
+      setTimeout(() => this.toastService.dismissToast(), 3200);
+    });
   }
 }

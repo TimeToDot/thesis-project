@@ -1,5 +1,10 @@
-<div [@toastTrigger]="(toastService.showToast$ | async) ? 'open' : 'close'" class="toast"
-    [class]="toastService.toastState$ | async">
-    <div class="message">{{message}}</div>
-    <bvr-button (click)="dismiss()" icon="close" styleClass="button-icon"></bvr-button>
+<div
+  [@toastTrigger]="(toastService.showToast$ | async) ? 'open' : 'close'"
+  class="toast"
+  [class]="toastService.toastState$ | async">
+  <div class="message">{{ toastService.toastMessage$ | async }}</div>
+  <bvr-button
+    (click)="dismiss()"
+    icon="close"
+    styleClass="button-icon"></bvr-button>
 </div>

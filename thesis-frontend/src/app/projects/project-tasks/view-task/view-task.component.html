@@ -4,14 +4,27 @@
       <h4>Task: {{ task.name }}</h4>
       <h4 *ngIf="!task.active" class="archived">(Archived)</h4>
     </div>
-    <bvr-button *ngIf="task.active" icon="edit" [routerLink]="['edit']" styleClass="button-icon"></bvr-button>
+    <div>
+      <bvr-button
+        *ngIf="task.active"
+        icon="edit"
+        [routerLink]="['edit']"
+        styleClass="button-icon"></bvr-button>
+      <bvr-button
+        (click)="openArchiveModal()"
+        icon="archive"
+        styleClass="button-icon"></bvr-button>
+    </div>
   </div>
   <div class="form">
     <div class="dates">
       <bvr-form-field class="disabled left-field" label="Creation Date">
         <span>{{ task.creationDate }}</span>
       </bvr-form-field>
-      <bvr-form-field *ngIf="!task.active" class="disabled field" label="Archive Date">
+      <bvr-form-field
+        *ngIf="!task.active"
+        class="disabled field"
+        label="Archive Date">
         <span>{{ task.archiveDate }}</span>
       </bvr-form-field>
     </div>
@@ -20,6 +33,16 @@
     </bvr-form-field>
   </div>
   <div class="form-buttons">
-    <bvr-button label="Cancel" [routerLink]="['..']" styleClass="button-text"></bvr-button>
+    <bvr-button
+      label="Cancel"
+      [routerLink]="['..']"
+      styleClass="button-text"></bvr-button>
   </div>
 </div>
+
+<bvr-modal
+  (confirm)="archive()"
+  confirmLabel="archive"
+  [description]="modalDescription"
+  [title]="'Archive employee'"
+  [(visible)]="isArchiveModalOpen"></bvr-modal>
