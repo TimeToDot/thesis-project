@@ -1,18 +1,14 @@
 <div class="project-employee">
   <div class="header">
     <div class="name">
-      <img
-        [src]="employee.image"
-        class="picture"
-        [ngClass]="{ archived: !employee.active }" />
+      <img [src]="employee.image" class="picture" [ngClass]="{ archived: !employee.active }" />
       <h4>{{ employee.firstName }} {{ employee.lastName }}</h4>
       <h4 *ngIf="!employee.active" class="archived">(Archived)</h4>
     </div>
-    <bvr-button
-      *ngIf="employee.active"
-      icon="edit"
-      [routerLink]="['edit']"
-      styleClass="button-icon"></bvr-button>
+    <div>
+      <bvr-button *ngIf="employee.active" icon="edit" [routerLink]="['edit']" styleClass="button-icon"></bvr-button>
+      <bvr-button (click)="openArchiveModal()" icon="archive" styleClass="button-icon"></bvr-button>
+    </div>
   </div>
   <div class="form">
     <bvr-form-field class="disabled field" label="Email">
@@ -25,16 +21,10 @@
       <bvr-form-field class="disabled left-field" label="Hire Date">
         <span>{{ employee.employmentDate }}</span>
       </bvr-form-field>
-      <bvr-form-field
-        class="disabled"
-        [ngClass]="employee.active ? 'field' : 'left-field'"
-        label="Join Date">
+      <bvr-form-field class="disabled" [ngClass]="employee.active ? 'field' : 'left-field'" label="Join Date">
         <span>{{ employee.joinDate }}</span>
       </bvr-form-field>
-      <bvr-form-field
-        *ngIf="!employee.active"
-        class="disabled field"
-        label="Exit Date">
+      <bvr-form-field *ngIf="!employee.active" class="disabled field" label="Exit Date">
         <span>{{ employee.exitDate }}</span>
       </bvr-form-field>
     </div>
@@ -66,12 +56,11 @@
     </div>
   </div>
   <div class="form-buttons">
-    <bvr-button
-      class="form-button"
-      label="Cancel"
-      [routerLink]="['..']"
-      styleClass="button-text"></bvr-button>
+    <bvr-button class="form-button" label="Cancel" [routerLink]="['..']" styleClass="button-text"></bvr-button>
   </div>
 </div>
+
+<bvr-modal (confirm)="archive()" confirmLabel="archive" [description]="modalDescription" [title]="'Archive employee'"
+  [(visible)]="isArchiveModalOpen"></bvr-modal>
 
 <bvr-toast></bvr-toast>
