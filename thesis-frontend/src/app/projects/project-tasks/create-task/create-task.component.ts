@@ -12,6 +12,7 @@ import { FormFieldComponent } from '../../../shared/components/form-field/form-f
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
 import { ToastService } from '../../../shared/services/toast.service';
 import { ToastState } from '../../../shared/enum/toast-state';
+import { ToastComponent } from '../../../shared/components/toast/toast.component';
 
 @Component({
   selector: 'bvr-create-task',
@@ -23,6 +24,7 @@ import { ToastState } from '../../../shared/enum/toast-state';
     ModalComponent,
     ReactiveFormsModule,
     RouterModule,
+    ToastComponent,
   ],
   templateUrl: './create-task.component.html',
 })
@@ -52,9 +54,15 @@ export class CreateTaskComponent {
   }
 
   openAddModal(): void {
-    this.isAddModalOpen = true;
-    const taskName = this.createProjectTaskForm.get(['name'])?.value;
-    this.modalDescription = `Do you want to add ${taskName} to the Project X?`;
+    if (this.createProjectTaskForm.valid) {
+      this.isAddModalOpen = true;
+      const taskName = this.createProjectTaskForm.get(['name'])?.value;
+      this.modalDescription = `Do you want to add ${taskName} to the Project X?`;
+    } else {
+      this.createProjectTaskForm.markAllAsTouched();
+      this.toastService.showToast(ToastState.Error, 'Form invalid');
+      setTimeout(() => this.toastService.dismissToast(), 3000);
+    }
   }
 
   openCancelModal(): void {
@@ -62,7 +70,7 @@ export class CreateTaskComponent {
     this.modalDescription = `Are you sure you want to leave? You will lose your unsaved changes if you continue.`;
   }
 
-  confirm(): void {
+  add(): void {
     this.router.navigate(['..'], { relativeTo: this.route }).then(() => {
       setTimeout(
         () => this.toastService.showToast(ToastState.Success, 'Task created'),
@@ -91,5 +99,14 @@ export class CreateTaskComponent {
       ?.hasValidator(Validators.required)
       ? true
       : false;
+  }
+
+  showErrors(name: string): boolean {
+    return !!(
+      this.createProjectTaskForm.get(name)?.invalid &&
+      this.createProjectTaskForm.get(name)?.errors &&
+      (this.createProjectTaskForm.get(name)?.dirty ||
+        this.createProjectTaskForm.get(name)?.touched)
+    );
   }
 }

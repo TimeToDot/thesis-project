@@ -7,11 +7,22 @@
   <div class="form" [formGroup]="createProjectTaskForm">
     <bvr-form-field label="Task Name" [required]="isRequired('name')">
       <input formControlName="name" type="text" />
+      <ng-container *ngIf="showErrors('name')">
+        <small *ngIf="createProjectTaskForm.get('name')?.hasError('required')"
+          >This field is required.</small
+        >
+      </ng-container>
     </bvr-form-field>
     <bvr-form-field
       label="Task Description"
       [required]="isRequired('description')">
       <textarea formControlName="description"></textarea>
+      <ng-container *ngIf="showErrors('description')">
+        <small
+          *ngIf="createProjectTaskForm.get('description')?.hasError('required')"
+          >This field is required.</small
+        >
+      </ng-container>
     </bvr-form-field>
   </div>
   <div class="form-buttons">
@@ -28,7 +39,7 @@
 </div>
 
 <bvr-modal
-  (confirm)="confirm()"
+  (confirm)="add()"
   confirmLabel="Add"
   [description]="modalDescription"
   [title]="'Add New Task'"
@@ -39,3 +50,5 @@
   [description]="modalDescription"
   [title]="'Leave'"
   [(visible)]="isCancelModalOpen"></bvr-modal>
+
+<bvr-toast></bvr-toast>

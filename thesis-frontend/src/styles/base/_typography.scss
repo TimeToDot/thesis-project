@@ -55,3 +55,10 @@ label {
   font-weight: $font-regular;
   line-height: 4.5 * $grid-base;
 }
+
+small {
+  color: $color-error;
+  font-size: 0.625 * $font-normal;
+  font-weight: $font-regular;
+  line-height: 3.75 * $grid-base;
+}
