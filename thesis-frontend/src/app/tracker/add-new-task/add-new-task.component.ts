@@ -101,7 +101,7 @@ export class AddNewTaskComponent implements OnInit {
           [Validators.required],
         ],
       },
-      { validators: [this.dateRangeValidator()] }
+      { validators: [this.dateRangeValidator(), this.timeRangeValidator()] }
     );
   }
 
@@ -111,7 +111,23 @@ export class AddNewTaskComponent implements OnInit {
       const endDate = control.get('endDate')?.value;
       if (startDate && endDate) {
         const isRangeValid = dayjs(startDate).isAfter(dayjs(endDate));
-        return isRangeValid ? null : { dateRange: true };
+        return !isRangeValid ? null : { dateRange: true };
+      }
+      return null;
+    };
+  }
+
+  timeRangeValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const startDate = control.get('startDate')?.value;
+      const startTime = control.get('startTime')?.value;
+      const endDate = control.get('endDate')?.value;
+      const endTime = control.get('endTime')?.value;
+      if (startDate && startTime && endDate && endTime) {
+        const isRangeValid = dayjs(`${startDate} ${startTime}`).isAfter(
+          dayjs(`${endDate} ${endTime}`)
+        );
+        return !isRangeValid ? null : { timeRange: true };
       }
       return null;
     };
