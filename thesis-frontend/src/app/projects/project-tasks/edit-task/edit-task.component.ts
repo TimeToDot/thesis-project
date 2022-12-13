@@ -19,6 +19,7 @@ import { ProjectTasksService } from '../../services/project-tasks.service';
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
 import { ToastService } from '../../../shared/services/toast.service';
 import { ToastState } from '../../../shared/enum/toast-state';
+import { ToastComponent } from '../../../shared/components/toast/toast.component';
 
 @Component({
   selector: 'bvr-edit-task',
@@ -30,6 +31,7 @@ import { ToastState } from '../../../shared/enum/toast-state';
     ModalComponent,
     ReactiveFormsModule,
     RouterModule,
+    ToastComponent,
   ],
   templateUrl: './edit-task.component.html',
 })
@@ -89,8 +91,14 @@ export class EditTaskComponent {
   }
 
   openSaveModal(): void {
-    this.isSaveModalOpen = true;
-    this.modalDescription = `Are you sure you want to save changes?`;
+    if (this.editProjectTaskForm.valid) {
+      this.isSaveModalOpen = true;
+      this.modalDescription = `Are you sure you want to save changes?`;
+    } else {
+      this.editProjectTaskForm.markAllAsTouched();
+      this.toastService.showToast(ToastState.Error, 'Form invalid');
+      setTimeout(() => this.toastService.dismissToast(), 3000);
+    }
   }
 
   cancel(): void {
@@ -133,5 +141,14 @@ export class EditTaskComponent {
       );
       setTimeout(() => this.toastService.dismissToast(), 3200);
     });
+  }
+
+  showErrors(name: string): boolean {
+    return !!(
+      this.editProjectTaskForm.get(name)?.invalid &&
+      this.editProjectTaskForm.get(name)?.errors &&
+      (this.editProjectTaskForm.get(name)?.dirty ||
+        this.editProjectTaskForm.get(name)?.touched)
+    );
   }
 }
