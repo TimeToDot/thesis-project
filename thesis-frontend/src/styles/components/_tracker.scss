@@ -1,5 +1,6 @@
 .tracker.card-body {
   box-shadow: $shadow-default;
+  margin-top: 4 * $grid-base;
   padding: 6 * $grid-base;
 }
 
@@ -19,11 +20,11 @@
   }
 
   .form {
-    padding: 0 3 * $grid-base;
+    padding: 2 * $grid-base 3 * $grid-base 0;
   }
 
   .form-field {
-    margin: 3 * $grid-base;
+    margin: 0 3 * $grid-base 6 * $grid-base;
   }
 }
 
