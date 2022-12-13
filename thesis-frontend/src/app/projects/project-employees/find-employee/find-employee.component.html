@@ -2,7 +2,7 @@
   *ngIf="addProjectEmployeeForm"
   class="form"
   [formGroup]="addProjectEmployeeForm">
-  <div formGroupName="userInfo">
+  <div class="employees-dropdown" formGroupName="userInfo">
     <bvr-form-field label="Employee" [required]="isRequired('id')">
       <bvr-dropdown-search-employee
         formControlName="id"

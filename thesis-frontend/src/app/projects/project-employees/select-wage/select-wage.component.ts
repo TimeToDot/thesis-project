@@ -9,6 +9,7 @@ import { ModalComponent } from '../../../shared/components/modal/modal.component
 import { EmployeesService } from '../../../admin/services/employees.service';
 import { ToastService } from '../../../shared/services/toast.service';
 import { ToastState } from '../../../shared/enum/toast-state';
+import { ToastComponent } from '../../../shared/components/toast/toast.component';
 
 @Component({
   selector: 'bvr-select-wage',
@@ -21,6 +22,7 @@ import { ToastState } from '../../../shared/enum/toast-state';
     ModalComponent,
     ReactiveFormsModule,
     RouterModule,
+    ToastComponent,
   ],
   templateUrl: './select-wage.component.html',
 })
@@ -64,13 +66,19 @@ export class SelectWageComponent {
   }
 
   openAddModal(): void {
-    this.isAddModalOpen = true;
-    const employeeId = this.addProjectEmployeeForm.get([
-      'userInfo',
-      'id',
-    ])?.value;
-    const employee = this.employeesService.getEmployee(employeeId);
-    this.modalDescription = `Are you sure you want to add ${employee.firstName} ${employee.lastName} to the Project X?`;
+    if (this.addProjectEmployeeForm.valid) {
+      this.isAddModalOpen = true;
+      const employeeId = this.addProjectEmployeeForm.get([
+        'userInfo',
+        'id',
+      ])?.value;
+      const employee = this.employeesService.getEmployee(employeeId);
+      this.modalDescription = `Are you sure you want to add ${employee.firstName} ${employee.lastName} to the Project X?`;
+    } else {
+      this.addProjectEmployeeForm.markAllAsTouched();
+      this.toastService.showToast(ToastState.Error, 'Form invalid');
+      setTimeout(() => this.toastService.dismissToast(), 3000);
+    }
   }
 
   cancel(): void {
@@ -86,7 +94,7 @@ export class SelectWageComponent {
     });
   }
 
-  confirm(): void {
+  add(): void {
     this.router.navigate(['..'], { relativeTo: this.route }).then(() => {
       setTimeout(
         () =>
@@ -95,5 +103,14 @@ export class SelectWageComponent {
       );
       setTimeout(() => this.toastService.dismissToast(), 3200);
     });
+  }
+
+  showErrors(name: string): boolean {
+    return !!(
+      this.addProjectEmployeeForm.get(['employmentInfo', name])?.invalid &&
+      this.addProjectEmployeeForm.get(['employmentInfo', name])?.errors &&
+      (this.addProjectEmployeeForm.get(['employmentInfo', name])?.dirty ||
+        this.addProjectEmployeeForm.get(['employmentInfo', name])?.touched)
+    );
   }
 }
