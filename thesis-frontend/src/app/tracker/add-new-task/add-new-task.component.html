@@ -60,6 +60,9 @@
       </bvr-form-field>
     </div>
   </div>
+  <ng-container *ngIf="showErrors()">
+    <small *ngIf="addTaskForm?.hasError('dateRange')">The date is wrong.</small>
+  </ng-container>
 </form>
 <div class="add-task-form-buttons">
   <bvr-button

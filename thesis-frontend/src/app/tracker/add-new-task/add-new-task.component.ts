@@ -83,23 +83,38 @@ export class AddNewTaskComponent implements OnInit {
   }
 
   createForm(): void {
-    this.addTaskForm = this.fb.group({
-      startDate: [
-        formatDate(this.newTask.startDate, 'yyyy-MM-dd', 'en'),
-        [Validators.required],
-      ],
-      endDate: [
-        formatDate(this.newTask.endDate, 'yyyy-MM-dd', 'en'),
-        [Validators.required],
-      ],
-      startTime: [this.newTask.startTime, [Validators.required]],
-      endTime: [this.newTask.endTime, [Validators.required]],
-      project: [this.newTask.projectId, [Validators.required]],
-      task: [
-        { value: this.newTask.taskId, disabled: true },
-        [Validators.required],
-      ],
-    });
+    this.addTaskForm = this.fb.group(
+      {
+        startDate: [
+          formatDate(this.newTask.startDate, 'yyyy-MM-dd', 'en'),
+          [Validators.required],
+        ],
+        endDate: [
+          formatDate(this.newTask.endDate, 'yyyy-MM-dd', 'en'),
+          [Validators.required],
+        ],
+        startTime: [this.newTask.startTime, [Validators.required]],
+        endTime: [this.newTask.endTime, [Validators.required]],
+        project: [this.newTask.projectId, [Validators.required]],
+        task: [
+          { value: this.newTask.taskId, disabled: true },
+          [Validators.required],
+        ],
+      },
+      { validators: [this.dateRangeValidator()] }
+    );
+  }
+
+  dateRangeValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const startDate = control.get('startDate')?.value;
+      const endDate = control.get('endDate')?.value;
+      if (startDate && endDate) {
+        const isRangeValid = dayjs(startDate).isAfter(dayjs(endDate));
+        return isRangeValid ? null : { dateRange: true };
+      }
+      return null;
+    };
   }
 
   observeProjectChange(): void {
@@ -150,11 +165,20 @@ export class AddNewTaskComponent implements OnInit {
       : false;
   }
 
-  showErrors(name: string): boolean {
-    return !!(
-      this.addTaskForm.get(name)?.invalid &&
-      this.addTaskForm.get(name)?.errors &&
-      (this.addTaskForm.get(name)?.dirty || this.addTaskForm.get(name)?.touched)
-    );
+  showErrors(name?: string): boolean {
+    if (name) {
+      return !!(
+        this.addTaskForm.get(name)?.invalid &&
+        this.addTaskForm.get(name)?.errors &&
+        (this.addTaskForm.get(name)?.dirty ||
+          this.addTaskForm.get(name)?.touched)
+      );
+    } else {
+      return !!(
+        this.addTaskForm.invalid &&
+        this.addTaskForm.errors &&
+        (this.addTaskForm.dirty || this.addTaskForm.touched)
+      );
+    }
   }
 }
