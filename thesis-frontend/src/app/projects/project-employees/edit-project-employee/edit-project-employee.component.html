@@ -34,6 +34,14 @@
           name="contract type"
           [options]="contractTypes">
         </bvr-dropdown-list>
+        <ng-container *ngIf="showErrors('contractType')">
+          <small
+            *ngIf="
+              editProjectEmployeeForm.get('contractType')?.hasError('required')
+            "
+            >This field is required.</small
+          >
+        </ng-container>
       </bvr-form-field>
       <div class="financial-info">
         <bvr-form-field
@@ -41,12 +49,26 @@
           label="Working Time"
           [required]="isRequired('workingTime')">
           <input formControlName="workingTime" type="number" />
+          <ng-container *ngIf="showErrors('workingTime')">
+            <small
+              *ngIf="
+                editProjectEmployeeForm.get('workingTime')?.hasError('required')
+              "
+              >This field is required.</small
+            >
+          </ng-container>
         </bvr-form-field>
         <bvr-form-field
           class="field"
           label="Wage"
           [required]="isRequired('wage')">
           <input formControlName="wage" type="number" />
+          <ng-container *ngIf="showErrors('wage')">
+            <small
+              *ngIf="editProjectEmployeeForm.get('wage')?.hasError('required')"
+              >This field is required.</small
+            >
+          </ng-container>
         </bvr-form-field>
       </div>
     </div>
@@ -78,3 +100,5 @@
   [description]="modalDescription"
   [title]="'Save changes'"
   [(visible)]="isSaveModalOpen"></bvr-modal>
+
+<bvr-toast></bvr-toast>

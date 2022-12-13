@@ -16,6 +16,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectEmployeesService } from '../../services/project-employees.service';
 import { ToastService } from '../../../shared/services/toast.service';
 import { ToastState } from '../../../shared/enum/toast-state';
+import { ToastComponent } from '../../../shared/components/toast/toast.component';
 
 @Component({
   selector: 'bvr-edit-employee',
@@ -28,6 +29,7 @@ import { ToastState } from '../../../shared/enum/toast-state';
     FormsModule,
     ModalComponent,
     ReactiveFormsModule,
+    ToastComponent,
   ],
   templateUrl: './edit-project-employee.component.html',
 })
@@ -88,19 +90,6 @@ export class EditProjectEmployeeComponent implements OnInit {
     });
   }
 
-  cancel(): void {
-    new Promise((resolve, _) => {
-      this.location.back();
-      resolve('done');
-    }).then(() => {
-      setTimeout(
-        () => this.toastService.showToast(ToastState.Error, 'Error message'),
-        200
-      );
-      setTimeout(() => this.toastService.dismissToast(), 3200);
-    });
-  }
-
   openArchiveModal(): void {
     this.isArchiveModalOpen = true;
     this.modalDescription = `Are you sure you want to archive ${this.employee.firstName} ${this.employee.lastName}? This action cannot be undone.`;
@@ -112,8 +101,14 @@ export class EditProjectEmployeeComponent implements OnInit {
   }
 
   openSaveModal(): void {
-    this.isSaveModalOpen = true;
-    this.modalDescription = 'Are you sure you want to save changes?';
+    if (this.editProjectEmployeeForm.valid) {
+      this.isSaveModalOpen = true;
+      this.modalDescription = 'Are you sure you want to save changes?';
+    } else {
+      this.editProjectEmployeeForm.markAllAsTouched();
+      this.toastService.showToast(ToastState.Error, 'Form invalid');
+      setTimeout(() => this.toastService.dismissToast(), 3000);
+    }
   }
 
   isRequired(name: string): boolean {
@@ -122,6 +117,30 @@ export class EditProjectEmployeeComponent implements OnInit {
       ?.hasValidator(Validators.required)
       ? true
       : false;
+  }
+
+  archive(): void {
+    this.router.navigate(['../..'], { relativeTo: this.route }).then(() => {
+      setTimeout(
+        () =>
+          this.toastService.showToast(ToastState.Success, 'Employee archived'),
+        200
+      );
+      setTimeout(() => this.toastService.dismissToast(), 3200);
+    });
+  }
+
+  cancel(): void {
+    new Promise((resolve, _) => {
+      this.location.back();
+      resolve('done');
+    }).then(() => {
+      setTimeout(
+        () => this.toastService.showToast(ToastState.Error, 'Error message'),
+        200
+      );
+      setTimeout(() => this.toastService.dismissToast(), 3200);
+    });
   }
 
   save(): void {
@@ -138,14 +157,12 @@ export class EditProjectEmployeeComponent implements OnInit {
     });
   }
 
-  archive(): void {
-    this.router.navigate(['../..'], { relativeTo: this.route }).then(() => {
-      setTimeout(
-        () =>
-          this.toastService.showToast(ToastState.Success, 'Employee archived'),
-        200
-      );
-      setTimeout(() => this.toastService.dismissToast(), 3200);
-    });
+  showErrors(name: string): boolean {
+    return !!(
+      this.editProjectEmployeeForm.get(name)?.invalid &&
+      this.editProjectEmployeeForm.get(name)?.errors &&
+      (this.editProjectEmployeeForm.get(name)?.dirty ||
+        this.editProjectEmployeeForm.get(name)?.touched)
+    );
   }
 }
