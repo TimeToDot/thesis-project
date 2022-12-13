@@ -47,23 +47,38 @@ export class TimePickerComponent implements OnInit, ControlValueAccessor {
     );
   }
 
+  getPreviousHour(): number {
+    return this.hour === 0 ? 23 : this.hour - 1;
+  }
+
   previousHour(): void {
-    this.hour === 0 ? (this.hour = 23) : --this.hour;
+    this.hour = this.getPreviousHour();
     this.updateSelectedTime();
+  }
+  getPreviousMinutes(): number {
+    return this.minutes === 0 ? 45 : this.minutes - 15;
   }
 
   previousMinutes(): void {
-    this.minutes === 0 ? (this.minutes = 45) : (this.minutes -= 15);
+    this.minutes = this.getPreviousMinutes();
     this.updateSelectedTime();
+  }
+
+  getNextHour(): number {
+    return this.hour === 23 ? 0 : this.hour + 1;
   }
 
   nextHour(): void {
-    this.hour === 23 ? (this.hour = 0) : ++this.hour;
+    this.hour = this.getNextHour();
     this.updateSelectedTime();
   }
 
+  getNextMinutes(): number {
+    return this.minutes === 45 ? 0 : this.minutes + 15;
+  }
+
   nextMinutes(): void {
-    this.minutes === 45 ? (this.minutes = 0) : (this.minutes += 15);
+    this.minutes = this.getNextMinutes();
     this.updateSelectedTime();
   }
 

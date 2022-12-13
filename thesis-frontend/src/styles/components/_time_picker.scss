@@ -21,7 +21,7 @@
   box-shadow: $shadow-default;
   display: flex;
   flex-direction: column;
-  padding: 3 * $grid-base;
+  padding: 2 * $grid-base 0;
   position: absolute;
   width: 100%;
 }
@@ -29,6 +29,20 @@
 .time-picker-row {
   display: flex;
   justify-content: center;
+  padding: 3 * $grid-base;
+
+  &.current {
+    background-color: $color-primary;
+
+    .time-picker-cell {
+      color: $color-white;
+      font-weight: $font-semibold;
+    }
+  }
+
+  &.arrows {
+    padding: 0;
+  }
 }
 
 .time-picker-cell {
@@ -38,5 +52,13 @@
 
   .button-icon {
     padding: 0;
+
+    .material-icons-outlined {
+      color: $color-text-primary;
+    }
   }
+}
+
+.colon {
+  margin: 0 3 * $grid-base;
 }
