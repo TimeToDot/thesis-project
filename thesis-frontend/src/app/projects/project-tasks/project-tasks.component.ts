@@ -8,7 +8,7 @@ import { ModalComponent } from '../../shared/components/modal/modal.component';
 import { ToastComponent } from '../../shared/components/toast/toast.component';
 import { ToastState } from '../../shared/enum/toast-state';
 import { ToastService } from '../../shared/services/toast.service';
-import { ProjectTask } from '../model/project-task.model';
+import { ProjectTask } from '../models/project-task.model';
 import { ProjectTasksService } from '../services/project-tasks.service';
 
 @Component({

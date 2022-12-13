@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, formatDate } from '@angular/common';
 import {
+  AbstractControl,
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
+  ValidationErrors,
+  ValidatorFn,
   Validators,
 } from '@angular/forms';
 import { EmployeeTask } from '../../shared/model/employee-task.model';
@@ -20,6 +23,7 @@ import { ToastService } from '../../shared/services/toast.service';
 import { ToastState } from '../../shared/enum/toast-state';
 import { ModalComponent } from '../../shared/components/modal/modal.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import * as dayjs from 'dayjs';
 
 @Component({
   selector: 'bvr-add-new-task',
@@ -40,6 +44,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class AddNewTaskComponent implements OnInit {
   addTaskForm!: FormGroup;
   isAddModalOpen: boolean = false;
+  isCancelModalOpen: boolean = false;
   modalDescription: string = '';
   newTask: EmployeeTask = {
     id: '',
@@ -97,6 +102,14 @@ export class AddNewTaskComponent implements OnInit {
     });
   }
 
+  observeProjectChange(): void {
+    this.addTaskForm.get('project')?.valueChanges.subscribe(projectId => {
+      this.tasks = this.projectTasksService.getProjectTasks(projectId);
+      this.addTaskForm.get('task')?.enable();
+      this.addTaskForm.get('task')?.setValue('');
+    });
+  }
+
   openAddModal(): void {
     if (this.addTaskForm.valid) {
       this.isAddModalOpen = true;
@@ -109,23 +122,32 @@ export class AddNewTaskComponent implements OnInit {
     }
   }
 
+  openCancelModal(): void {
+    this.isCancelModalOpen = true;
+    this.modalDescription = `Are you sure you want to leave? You will lose your unsaved changes if you continue.`;
+  }
+
   add(): void {
     this.toastService.showToast(ToastState.Success, 'Task created');
     setTimeout(() => this.toastService.dismissToast(), 3200);
+  }
+
+  cancel(): void {
+    this.router
+      .navigate(['../tasks-list'], { relativeTo: this.route })
+      .then(() => {
+        setTimeout(
+          () => this.toastService.showToast(ToastState.Error, 'Error message'),
+          200
+        );
+        setTimeout(() => this.toastService.dismissToast(), 3200);
+      });
   }
 
   isRequired(name: string): boolean {
     return this.addTaskForm.get(name)?.hasValidator(Validators.required)
       ? true
       : false;
-  }
-
-  observeProjectChange(): void {
-    this.addTaskForm.get('project')?.valueChanges.subscribe(projectId => {
-      this.tasks = this.projectTasksService.getProjectTasks(projectId);
-      this.addTaskForm.get('task')?.enable();
-      this.addTaskForm.get('task')?.setValue('');
-    });
   }
 
   showErrors(name: string): boolean {

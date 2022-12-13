@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { CdkTableModule } from '@angular/cdk/table';
 import { FormsModule } from '@angular/forms';
-import { Position } from '../model/position.model';
+import { Position } from '../models/position.model';
 import { PositionsService } from '../services/positions.service';
 import { RouterModule } from '@angular/router';
 

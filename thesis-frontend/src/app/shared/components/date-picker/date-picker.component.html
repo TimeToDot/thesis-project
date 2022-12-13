@@ -10,7 +10,7 @@
         (click)="previousMonth()"
         styleClass="button-icon">
       </bvr-button>
-      <span>{{ currentMonth | month }} {{ currentYear }}</span>
+      <div>{{ currentMonth | month }} {{ currentYear }}</div>
       <bvr-button
         icon="chevron_right"
         (click)="nextMonth()"
@@ -29,9 +29,9 @@
         [class.disabled]="day.disabled"
         [class.selected]="isCurrentDay(day)"
         (click)="selectDay(day)">
-        <span [class.saturday]="i === 5" [class.sunday]="i === 6">
+        <div [class.saturday]="i === 5" [class.sunday]="i === 6">
           {{ day.date | date: 'd' }}
-        </span>
+        </div>
       </div>
     </div>
   </div>

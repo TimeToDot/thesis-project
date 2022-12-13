@@ -9,7 +9,7 @@ import { ToastComponent } from '../../shared/components/toast/toast.component';
 import { ToastState } from '../../shared/enum/toast-state';
 import { Employee } from '../../shared/model/employee.model';
 import { ToastService } from '../../shared/services/toast.service';
-import { ProjectEmployee } from '../model/project-employee.model';
+import { ProjectEmployee } from '../models/project-employee.model';
 import { ProjectEmployeesService } from '../services/project-employees.service';
 
 @Component({

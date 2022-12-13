@@ -11,7 +11,7 @@ import {
 } from '@angular/forms';
 import { DropdownListComponent } from '../../../shared/components/dropdown-list/dropdown-list.component';
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
-import { ProjectEmployee } from '../../model/project-employee.model';
+import { ProjectEmployee } from '../../models/project-employee.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProjectEmployeesService } from '../../services/project-employees.service';
 import { ToastService } from '../../../shared/services/toast.service';

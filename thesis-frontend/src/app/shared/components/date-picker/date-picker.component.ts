@@ -2,7 +2,7 @@ import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { CommonModule, formatDate } from '@angular/common';
 import { ButtonComponent } from '../button/button.component';
 import * as dayjs from 'dayjs';
-import { Day } from '../../../calendar/model/day.model';
+import { Day } from '../../../calendar/models/day.model';
 import { Status } from '../../enum/status.enum';
 import { MonthPipe } from '../../../calendar/pipes/month.pipe';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';

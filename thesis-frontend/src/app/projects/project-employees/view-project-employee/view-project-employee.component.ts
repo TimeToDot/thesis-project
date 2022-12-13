@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
-import { ProjectEmployee } from '../../model/project-employee.model';
+import { ProjectEmployee } from '../../models/project-employee.model';
 import { ProjectEmployeesService } from '../../services/project-employees.service';
 import { ToastComponent } from '../../../shared/components/toast/toast.component';
 

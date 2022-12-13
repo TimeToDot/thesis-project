@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Status } from '../../shared/enum/status.enum';
-import { EmployeeApproval } from '../model/employee-approval.model';
+import { EmployeeApproval } from '../models/employee-approval.model';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +19,7 @@ export class EmployeesApprovalsService {
       id: '1',
       firstName: 'Beata',
       lastName: 'Iwan',
-      image: "assets/icons/icon4.png",
+      image: 'assets/icons/icon4.png',
       status: Status.Rejected,
       lastRequest: '2022-07-01',
     },

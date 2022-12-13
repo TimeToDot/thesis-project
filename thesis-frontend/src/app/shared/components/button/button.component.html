@@ -1,6 +1,6 @@
 <button *ngIf="!icon" class="button" [class]="styleClass" type="button">
-  <span *ngIf="label">{{ label | uppercase }}</span>
+  <div *ngIf="label">{{ label | uppercase }}</div>
 </button>
 <button *ngIf="icon" class="button" [class]="styleClass" type="button">
-  <span *ngIf="icon" class="material-icons-outlined">{{ icon }}</span>
+  <div *ngIf="icon" class="material-icons-outlined">{{ icon }}</div>
 </button>

@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ButtonComponent } from '../../shared/components/button/button.component';
-import { EmployeeApproval } from '../model/employee-approval.model';
+import { EmployeeApproval } from '../models/employee-approval.model';
 import { EmployeesApprovalsService } from '../services/employees-approvals.service';
 
 @Component({

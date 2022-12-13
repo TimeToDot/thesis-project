@@ -14,7 +14,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ProjectTask } from '../../model/project-task.model';
+import { ProjectTask } from '../../models/project-task.model';
 import { ProjectTasksService } from '../../services/project-tasks.service';
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
 import { ToastService } from '../../../shared/services/toast.service';

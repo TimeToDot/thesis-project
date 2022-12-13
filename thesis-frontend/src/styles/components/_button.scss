@@ -9,7 +9,7 @@
   padding: 3 * $grid-base 6 * $grid-base;
   transition: 0.5s;
 
-  span {
+  div {
     color: $color-white;
   }
 
@@ -27,7 +27,7 @@
   border-radius: 8 * $grid-base;
   padding: 2 * $grid-base;
 
-  span {
+  div {
     color: $color-text-secondary;
     transition: 0.5s;
   }
@@ -35,7 +35,7 @@
   &:hover {
     background-color: transparent;
 
-    span {
+    div {
       color: $color-text-primary;
     }
   }
@@ -48,14 +48,14 @@
 .button-text {
   background-color: transparent;
 
-  span {
+  div {
     color: $color-secondary;
   }
 
   &:hover {
     background-color: transparent;
 
-    span {
+    div {
       color: $color-secondary-hover;
     }
   }
@@ -63,7 +63,7 @@
   &:focus {
     background-color: transparent;
 
-    span {
+    div {
       color: $color-secondary-focus;
     }
   }

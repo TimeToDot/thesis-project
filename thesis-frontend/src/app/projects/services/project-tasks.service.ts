@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ProjectTask } from '../model/project-task.model';
+import { ProjectTask } from '../models/project-task.model';
 
 @Injectable({
   providedIn: 'root',

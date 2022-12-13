@@ -29,7 +29,7 @@
     display: flex;
     justify-content: space-between;
 
-    span {
+    div {
       font-size: $font-small;
     }
 
@@ -56,15 +56,15 @@
     margin: 0;
     width: 6 * $grid-base;
 
-    span {
+    div {
       font-size: $font-small;
     }
 
-    &.disabled span {
+    &.disabled div {
       color: $color-disabled;
     }
 
-    &.selected span {
+    &.selected div {
       color: $color-white;
       font-weight: 600;
     }

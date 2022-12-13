@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import * as dayjs from 'dayjs';
 import { ButtonComponent } from '../shared/components/button/button.component';
 import { Status } from '../shared/enum/status.enum';
-import { Day } from './model/day.model';
+import { Day } from './models/day.model';
 import { MonthPipe } from './pipes/month.pipe';
 
 @Component({

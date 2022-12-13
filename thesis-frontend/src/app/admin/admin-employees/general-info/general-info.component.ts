@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
 import { FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PositionsService } from '../../services/positions.service';
-import { Position } from '../../model/position.model';
+import { Position } from '../../models/position.model';
 
 @Component({
   selector: 'bvr-general-info',

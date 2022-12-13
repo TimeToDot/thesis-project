@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
-import { ProjectTask } from '../../model/project-task.model';
+import { ProjectTask } from '../../models/project-task.model';
 import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
 import { ProjectTasksService } from '../../services/project-tasks.service';
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
