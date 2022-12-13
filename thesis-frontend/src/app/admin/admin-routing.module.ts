@@ -13,6 +13,7 @@ import { CanAdminPositionsGuard } from './guards/can-admin-positions.guard';
 import { CanAdminSettingsGuard } from './guards/can-admin-settings.guard';
 import { CanAdminEmployeesGuard } from './guards/can-admin-employees.guard';
 import { ProfileComponent } from '../profile/profile.component';
+import { ViewPositionComponent } from './admin-positions/view-position/view-position.component';
 
 const adminRoutes: Routes = [
   {
@@ -48,6 +49,11 @@ const adminRoutes: Routes = [
       {
         path: 'positions/create',
         component: CreatePositionComponent,
+        canActivate: [CanAdminPositionsGuard],
+      },
+      {
+        path: 'positions/:id',
+        component: ViewPositionComponent,
         canActivate: [CanAdminPositionsGuard],
       },
       {

@@ -3,4 +3,6 @@ export interface Position {
   name: string;
   description: string;
   count: number;
+  archiveDate?: string;
+  active: boolean;
 }

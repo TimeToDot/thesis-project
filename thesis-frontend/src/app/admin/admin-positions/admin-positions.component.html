@@ -13,11 +13,13 @@
         <h4>Positions</h4>
         <h4 class="count">({{ dataSource.length }})</h4>
         <div class="radio">
-          <input name="showActive" [(ngModel)]="showActive" type="radio" [value]="true">
+          <input name="showActive" [(ngModel)]="showActive" (ngModelChange)="showActiveTable(true)" type="radio"
+            [value]="true">
           <label>Active</label>
         </div>
         <div class="radio">
-          <input name="showActive" [(ngModel)]="showActive" type="radio" [value]="false">
+          <input name="showActive" [(ngModel)]="showActive" (ngModelChange)="showActiveTable(false)" type="radio"
+            [value]="false">
           <label>Archive</label>
         </div>
       </div>
@@ -29,7 +31,7 @@
       <span class="material-icons-outlined search-icon">search</span>
     </div>
 
-    <div class="table">
+    <div *ngIf="showActive" class="table">
       <table cdk-table [dataSource]="dataSource">
         <ng-container cdkColumnDef="name">
           <th cdk-header-cell *cdkHeaderCellDef>Name</th>
@@ -40,19 +42,48 @@
           <td cdk-cell *cdkCellDef="let element">{{ element.description }}</td>
         </ng-container>
         <ng-container cdkColumnDef="count">
-          <th cdk-header-cell *cdkHeaderCellDef>count</th>
+          <th cdk-header-cell *cdkHeaderCellDef>Count</th>
           <td cdk-cell *cdkCellDef="let element">{{ element.count }}</td>
         </ng-container>
         <ng-container cdkColumnDef="actions">
           <th cdk-header-cell *cdkHeaderCellDef>Actions</th>
           <td cdk-cell *cdkCellDef="let element">
-            <bvr-button icon="edit" styleClass="button-icon" [routerLink]="[element.id,'edit']"></bvr-button>
-            <bvr-button icon="archive" styleClass="button-icon"></bvr-button>
+            <bvr-button (click)="editPosition($event, element)" icon="edit" styleClass="button-icon"></bvr-button>
+            <bvr-button (click)="openArchiveModal($event, element)" icon="archive" styleClass="button-icon">
+            </bvr-button>
           </td>
         </ng-container>
-        <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
-        <tr cdk-row *cdkRowDef="let row; columns: displayedColumns"></tr>
+        <tr cdk-header-row *cdkHeaderRowDef="displayedActiveColumns"></tr>
+        <tr cdk-row *cdkRowDef="let row; columns: displayedActiveColumns" (click)="showPositionDetails(row)"></tr>
+      </table>
+    </div>
+
+    <div *ngIf="!showActive" class="table">
+      <table cdk-table [dataSource]="dataSource">
+        <ng-container cdkColumnDef="name">
+          <th cdk-header-cell *cdkHeaderCellDef>Name</th>
+          <td cdk-cell *cdkCellDef="let element">{{ element.name }}</td>
+        </ng-container>
+        <ng-container cdkColumnDef="description">
+          <th cdk-header-cell *cdkHeaderCellDef>Description</th>
+          <td cdk-cell *cdkCellDef="let element">{{ element.description }}</td>
+        </ng-container>
+        <ng-container cdkColumnDef="count">
+          <th cdk-header-cell *cdkHeaderCellDef>Count</th>
+          <td cdk-cell *cdkCellDef="let element">{{ element.count }}</td>
+        </ng-container>
+        <ng-container cdkColumnDef="archiveDate">
+          <th cdk-header-cell *cdkHeaderCellDef>Archive Date</th>
+          <td cdk-cell *cdkCellDef="let element">{{ element.archiveDate }}</td>
+        </ng-container>
+        <tr cdk-header-row *cdkHeaderRowDef="displayedArchivedColumns"></tr>
+        <tr cdk-row *cdkRowDef="let row; columns: displayedArchivedColumns" (click)="showPositionDetails(row)"></tr>
       </table>
     </div>
   </div>
 </div>
+
+<bvr-modal (confirm)="archive()" confirmLabel="archive" [description]="modalDescription" [title]="'Archive employee'"
+  [(visible)]="isArchiveModalOpen"></bvr-modal>
+
+<bvr-toast></bvr-toast>
