@@ -1,0 +1,18 @@
+<div class="project-task">
+    <div class="task-header">
+        <img [src]="project.image" class="task-image" />
+        <div class="task-title">{{project.name | uppercase}}</div>
+    </div>
+    <div *ngFor="let employeeTask of employeeTasks" class="task">
+        <div class="task-left-side">
+            <div class="status" [class]="employeeTask.status"></div>
+            <div> {{employeeTask.task.name}}</div>
+        </div>
+        <div class="task-right-side">
+            <div class="task-time">{{employeeTask.startTime}} - {{employeeTask.endTime}}</div>
+            <bvr-button (click)="editTask($event, employeeTask)" icon="edit" styleClass="button-icon"></bvr-button>
+            <bvr-button (click)="openDeleteModal($event, employeeTask)" icon="delete" styleClass="button-icon">
+            </bvr-button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+.project-task {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.task-header {
+  align-items: center;
+  border-bottom: 0.25 * $grid-base $color-divider solid;
+  display: flex;
+  margin-top: 6 * $grid-base;
+  width: 100%;
+}
+
+.task-title {
+  color: $color-text-secondary;
+  font-size: $font-small;
+  font-weight: 600;
+}
+
+.task-image {
+  margin: 0 2 * $grid-base $grid-base;
+}
+
+.task {
+  align-items: center;
+  display: flex;
+  height: 12 * $grid-base;
+  justify-content: space-between;
+  width: 100%;
+
+  .status {
+    margin: 0 2 * $grid-base 0 5 * $grid-base;
+  }
+}
+
+.task-left-side,
+.task-right-side {
+  align-items: center;
+  display: flex;
+}
+
+.task-time {
+  margin: 0 6 * $grid-base;
+}

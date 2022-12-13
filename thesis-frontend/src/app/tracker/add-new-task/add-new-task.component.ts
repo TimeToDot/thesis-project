@@ -46,15 +46,15 @@ export class AddNewTaskComponent implements OnInit {
   isAddModalOpen: boolean = false;
   isCancelModalOpen: boolean = false;
   modalDescription: string = '';
-  newTask: EmployeeTask = {
-    id: '',
-    startDate: formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en'),
-    endDate: formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en'),
-    startTime: this.roundToMinutes(15),
-    endTime: this.roundToMinutes(15),
-    projectId: '',
-    taskId: '',
-  };
+  // newTask: EmployeeTask = {
+  //   id: '',
+  //   startDate: formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en'),
+  //   endDate: formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en'),
+  //   startTime: this.roundToMinutes(15),
+  //   endTime: this.roundToMinutes(15),
+  //   project: '',
+  //   task: '',
+  // };
   projects: DropdownOption[] = [];
   tasks: DropdownOption[] = [];
 
@@ -86,20 +86,17 @@ export class AddNewTaskComponent implements OnInit {
     this.addTaskForm = this.fb.group(
       {
         startDate: [
-          formatDate(this.newTask.startDate, 'yyyy-MM-dd', 'en'),
+          formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en'),
           [Validators.required],
         ],
         endDate: [
-          formatDate(this.newTask.endDate, 'yyyy-MM-dd', 'en'),
+          formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en'),
           [Validators.required],
         ],
-        startTime: [this.newTask.startTime, [Validators.required]],
-        endTime: [this.newTask.endTime, [Validators.required]],
-        project: [this.newTask.projectId, [Validators.required]],
-        task: [
-          { value: this.newTask.taskId, disabled: true },
-          [Validators.required],
-        ],
+        startTime: [this.roundToMinutes(15), [Validators.required]],
+        endTime: [this.roundToMinutes(15), [Validators.required]],
+        project: [null, [Validators.required]],
+        task: [{ value: null, disabled: true }, [Validators.required]],
       },
       { validators: [this.dateRangeValidator(), this.timeRangeValidator()] }
     );
