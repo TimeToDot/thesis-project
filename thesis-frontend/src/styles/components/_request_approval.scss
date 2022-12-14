@@ -27,6 +27,7 @@
   flex-direction: column;
 
   .table-header {
+    align-items: center;
     display: flex;
     flex-direction: row;
   }
@@ -38,6 +39,7 @@
     flex-direction: row;
     height: 16 * $grid-base;
     justify-content: space-between;
+    margin-left: 3 * $grid-base;
     width: 100%;
 
     > div {
@@ -64,18 +66,20 @@
     align-items: center;
     display: flex;
     flex: 1;
+    margin-left: 3 * $grid-base;
   }
 
-  .checkbox {
-    height: 5 * $grid-base;
-    margin-right: 3 * $grid-base;
-    width: 5 * $grid-base;
-  }
+  // .checkbox {
+  //   height: 5 * $grid-base;
+  //   margin-right: 3 * $grid-base;
+  //   width: 5 * $grid-base;
+  // }
 
   .task-count {
     align-items: center;
     display: flex;
     margin-right: 3 * $grid-base;
+    width: 25 * $grid-base;
 
     .status {
       margin-right: 2 * $grid-base;
