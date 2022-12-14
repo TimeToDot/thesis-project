@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { TasksListComponent } from './tasks-list.component';
@@ -9,7 +10,11 @@ describe('TasksListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RouterTestingModule, TasksListComponent],
+      imports: [
+        BrowserAnimationsModule,
+        RouterTestingModule,
+        TasksListComponent,
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(TasksListComponent);
