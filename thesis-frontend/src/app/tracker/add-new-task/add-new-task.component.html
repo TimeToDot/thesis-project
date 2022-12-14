@@ -1,14 +1,24 @@
 <form class="form" [formGroup]="addTaskForm">
   <bvr-form-field label="Project" [required]="isRequired('project')">
-    <bvr-dropdown-list formControlName="project" name="project" [options]="projects"></bvr-dropdown-list>
+    <bvr-dropdown-list
+      formControlName="project"
+      name="project"
+      [options]="projects"></bvr-dropdown-list>
     <ng-container *ngIf="showErrors('project')">
-      <small *ngIf="addTaskForm.get('project')?.hasError('required')">This field is required.</small>
+      <small *ngIf="addTaskForm.get('project')?.hasError('required')"
+        >This field is required.</small
+      >
     </ng-container>
   </bvr-form-field>
   <bvr-form-field label="Task" [required]="isRequired('task')">
-    <bvr-dropdown-list formControlName="task" name="task" [options]="tasks"></bvr-dropdown-list>
+    <bvr-dropdown-list
+      formControlName="task"
+      name="task"
+      [options]="tasks"></bvr-dropdown-list>
     <ng-container *ngIf="showErrors('task')">
-      <small *ngIf="addTaskForm.get('task')?.hasError('required')">This field is required.</small>
+      <small *ngIf="addTaskForm.get('task')?.hasError('required')"
+        >This field is required.</small
+      >
     </ng-container>
   </bvr-form-field>
 
@@ -17,13 +27,17 @@
       <bvr-form-field label="Start date" [required]="isRequired('startDate')">
         <bvr-date-picker formControlName="startDate"></bvr-date-picker>
         <ng-container *ngIf="showErrors('startDate')">
-          <small *ngIf="addTaskForm.get('startDate')?.hasError('required')">This field is required.</small>
+          <small *ngIf="addTaskForm.get('startDate')?.hasError('required')"
+            >This field is required.</small
+          >
         </ng-container>
       </bvr-form-field>
       <bvr-form-field label="Start time" [required]="isRequired('startTime')">
         <bvr-time-picker formControlName="startTime"></bvr-time-picker>
         <ng-container *ngIf="showErrors('startTime')">
-          <small *ngIf="addTaskForm.get('startTime')?.hasError('required')">This field is required.</small>
+          <small *ngIf="addTaskForm.get('startTime')?.hasError('required')"
+            >This field is required.</small
+          >
         </ng-container>
       </bvr-form-field>
     </div>
@@ -31,28 +45,51 @@
       <bvr-form-field label="End date" [required]="isRequired('endDate')">
         <bvr-date-picker formControlName="endDate"></bvr-date-picker>
         <ng-container *ngIf="showErrors() || showErrors('endDate')">
-          <small *ngIf="addTaskForm.get('endDate')?.hasError('required')">This field is required.</small>
-          <small *ngIf="addTaskForm?.hasError('dateRange')">The date is wrong.</small>
+          <small *ngIf="addTaskForm.get('endDate')?.hasError('required')"
+            >This field is required.</small
+          >
+          <small *ngIf="addTaskForm?.hasError('dateRange')"
+            >The date is wrong.</small
+          >
         </ng-container>
       </bvr-form-field>
       <bvr-form-field label="End time" [required]="isRequired('endTime')">
         <bvr-time-picker formControlName="endTime"></bvr-time-picker>
         <ng-container *ngIf="showErrors() || showErrors('endTime')">
-          <small *ngIf="addTaskForm.get('endTime')?.hasError('required')">This field is required.</small>
-          <small *ngIf="addTaskForm?.hasError('timeRange')">The date is wrong.</small>
+          <small *ngIf="addTaskForm.get('endTime')?.hasError('required')"
+            >This field is required.</small
+          >
+          <small *ngIf="addTaskForm?.hasError('timeRange')"
+            >The date is wrong.</small
+          >
         </ng-container>
       </bvr-form-field>
     </div>
   </div>
 </form>
 <div class="add-task-form-buttons">
-  <bvr-button class="form-button" (click)="openCancelModal()" label="Cancel" styleClass="button-text"></bvr-button>
-  <bvr-button class="form-button" (click)="openAddModal()" label="Add"></bvr-button>
+  <bvr-button
+    class="form-button"
+    (click)="openResetModal()"
+    label="Reset"
+    styleClass="button-text"></bvr-button>
+  <bvr-button
+    class="form-button"
+    (click)="openAddModal()"
+    label="Add"></bvr-button>
 </div>
 
-<bvr-modal (confirm)="add()" confirmLabel="Add" [description]="modalDescription" [title]="'Add New Task'"
+<bvr-modal
+  (confirm)="add()"
+  confirmLabel="Add"
+  [description]="modalDescription"
+  [title]="'Add New Task'"
   [(visible)]="isAddModalOpen"></bvr-modal>
-<bvr-modal (confirm)="cancel()" confirmLabel="Leave" [description]="modalDescription" [title]="'Leave'"
-  [(visible)]="isCancelModalOpen"></bvr-modal>
+<bvr-modal
+  (confirm)="reset()"
+  confirmLabel="Reset"
+  [description]="modalDescription"
+  [title]="'Reset'"
+  [(visible)]="isResetModalOpen"></bvr-modal>
 
 <bvr-toast></bvr-toast>

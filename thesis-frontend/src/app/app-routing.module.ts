@@ -25,6 +25,7 @@ const appRoutes: Routes = [
           { path: '', redirectTo: 'add-new-task', pathMatch: 'full' },
           { path: 'tasks-list', component: TasksListComponent },
           { path: 'add-new-task', component: AddNewTaskComponent },
+          { path: 'edit-task/:id', component: AddNewTaskComponent },
         ],
       },
       { path: 'profile', component: ProfileComponent },

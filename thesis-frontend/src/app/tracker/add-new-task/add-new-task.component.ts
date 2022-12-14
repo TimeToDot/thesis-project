@@ -44,17 +44,8 @@ import * as dayjs from 'dayjs';
 export class AddNewTaskComponent implements OnInit {
   addTaskForm!: FormGroup;
   isAddModalOpen: boolean = false;
-  isCancelModalOpen: boolean = false;
+  isResetModalOpen: boolean = false;
   modalDescription: string = '';
-  // newTask: EmployeeTask = {
-  //   id: '',
-  //   startDate: formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en'),
-  //   endDate: formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en'),
-  //   startTime: this.roundToMinutes(15),
-  //   endTime: this.roundToMinutes(15),
-  //   project: '',
-  //   task: '',
-  // };
   projects: DropdownOption[] = [];
   tasks: DropdownOption[] = [];
 
@@ -150,9 +141,9 @@ export class AddNewTaskComponent implements OnInit {
     }
   }
 
-  openCancelModal(): void {
-    this.isCancelModalOpen = true;
-    this.modalDescription = `Are you sure you want to leave? You will lose your unsaved changes if you continue.`;
+  openResetModal(): void {
+    this.isResetModalOpen = true;
+    this.modalDescription = `Are you sure you want to reset? You will lose your unsaved changes if you continue.`;
   }
 
   add(): void {
@@ -160,16 +151,18 @@ export class AddNewTaskComponent implements OnInit {
     setTimeout(() => this.toastService.dismissToast(), 3200);
   }
 
-  cancel(): void {
-    this.router
-      .navigate(['../tasks-list'], { relativeTo: this.route })
-      .then(() => {
-        setTimeout(
-          () => this.toastService.showToast(ToastState.Error, 'Error message'),
-          200
-        );
-        setTimeout(() => this.toastService.dismissToast(), 3200);
-      });
+  reset(): void {
+    this.toastService.showToast(ToastState.Error, 'Form reset');
+    setTimeout(() => this.toastService.dismissToast(), 3000);
+    // this.router
+    //   .navigate(['../tasks-list'], { relativeTo: this.route })
+    //   .then(() => {
+    //     setTimeout(
+    //       () => this.toastService.showToast(ToastState.Error, 'Error message'),
+    //       200
+    //     );
+    //     setTimeout(() => this.toastService.dismissToast(), 3200);
+    //   });
   }
 
   isRequired(name: string): boolean {

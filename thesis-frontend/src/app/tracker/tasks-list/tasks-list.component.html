@@ -1,4 +1,5 @@
 <bvr-employee-tasks
   *ngFor="let projectTasks of employeeProjectTasks"
+  (edit)="editTask($event)"
   [employeeTasks]="projectTasks.tasks"
   [project]="projectTasks.project"></bvr-employee-tasks>

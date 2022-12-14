@@ -4,6 +4,7 @@ import { EmployeeTasksService } from '../../shared/services/employee-tasks.servi
 import { EmployeeTask } from '../../shared/model/employee-task.model';
 import { EmployeeTasksComponent } from '../../shared/components/employee-tasks/employee-tasks.component';
 import { EmployeeProjectTask } from '../../shared/model/employee-project-task.model';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'bvr-tasks-list',
@@ -15,7 +16,11 @@ export class TasksListComponent implements OnInit {
   employeeTasks: EmployeeTask[] = [];
   employeeProjectTasks: EmployeeProjectTask[] = [];
 
-  constructor(private employeeTasksService: EmployeeTasksService) {}
+  constructor(
+    private employeeTasksService: EmployeeTasksService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.getEmployeeTasks();
@@ -51,5 +56,9 @@ export class TasksListComponent implements OnInit {
     this.employeeProjectTasks.sort((a, b) =>
       a.project.name.toLowerCase().localeCompare(b.project.name.toLowerCase())
     );
+  }
+
+  editTask(task: EmployeeTask): void {
+    this.router.navigate(['../edit-task', task.id], { relativeTo: this.route });
   }
 }

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../button/button.component';
 import { EmployeeTask } from '../../model/employee-task.model';
@@ -18,7 +18,7 @@ export class EmployeeTasksComponent {
     image: '',
   };
 
-  editTask(event: Event, task: EmployeeTask) {}
+  @Output() edit: EventEmitter<EmployeeTask> = new EventEmitter();
 
   openDeleteModal(event: Event, task: EmployeeTask) {}
 }
