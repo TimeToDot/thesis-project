@@ -13,9 +13,9 @@ import { Project } from '../../../projects/models/project.model';
 export class EmployeeTasksComponent {
   @Input() employeeTasks: EmployeeTask[] = [];
   @Input() project: Project = {
-    id: '2',
-    name: 'Project 2',
-    image: 'assets/companies/company2.png',
+    id: '',
+    name: '',
+    image: '',
   };
 
   editTask(event: Event, task: EmployeeTask) {}

@@ -49,6 +49,27 @@ export class EmployeeTasksService {
       },
       status: Status.Approved,
     },
+    {
+      id: '3',
+      startDate: '2022-12-21',
+      endDate: '2022-12-21',
+      startTime: '12:00',
+      endTime: '15:00',
+      project: {
+        id: '1',
+        name: 'Project 1',
+        image: 'assets/companies/company1.png',
+      },
+      task: {
+        id: '1',
+        name: 'Task A',
+        projectId: '1',
+        description: 'test',
+        creationDate: '2022-07-22',
+        active: true,
+      },
+      status: Status.Rejected,
+    },
   ];
 
   constructor() {}

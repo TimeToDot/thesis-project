@@ -1,1 +1,4 @@
-<bvr-employee-tasks [employeeTasks]="employeeTasks"></bvr-employee-tasks>
+<bvr-employee-tasks
+  *ngFor="let projectTasks of employeeProjectTasks"
+  [employeeTasks]="projectTasks.tasks"
+  [project]="projectTasks.project"></bvr-employee-tasks>

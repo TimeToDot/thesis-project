@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { EmployeeTasksService } from '../../shared/services/employee-tasks.service';
 import { EmployeeTask } from '../../shared/model/employee-task.model';
 import { EmployeeTasksComponent } from '../../shared/components/employee-tasks/employee-tasks.component';
+import { EmployeeProjectTask } from '../../shared/model/employee-project-task.model';
 
 @Component({
   selector: 'bvr-tasks-list',
@@ -12,14 +13,43 @@ import { EmployeeTasksComponent } from '../../shared/components/employee-tasks/e
 })
 export class TasksListComponent implements OnInit {
   employeeTasks: EmployeeTask[] = [];
+  employeeProjectTasks: EmployeeProjectTask[] = [];
 
   constructor(private employeeTasksService: EmployeeTasksService) {}
 
   ngOnInit(): void {
     this.getEmployeeTasks();
+    this.getEmployeeProjectTasks();
+    this.sortByProjectName();
   }
 
   getEmployeeTasks(): void {
     this.employeeTasks = this.employeeTasksService.getEmployeeTasks();
+  }
+
+  getEmployeeProjectTasks(): void {
+    this.employeeTasks.forEach(employeeTask => {
+      const index = this.findProjectIndex(employeeTask.project.id);
+      if (index !== -1) {
+        this.employeeProjectTasks[index].tasks.push(employeeTask);
+      } else {
+        this.employeeProjectTasks.push({
+          project: employeeTask.project,
+          tasks: [employeeTask],
+        });
+      }
+    });
+  }
+
+  findProjectIndex(projectId: string) {
+    return this.employeeProjectTasks.findIndex(
+      employeeProjectTask => employeeProjectTask.project.id === projectId
+    );
+  }
+
+  sortByProjectName(): void {
+    this.employeeProjectTasks.sort((a, b) =>
+      a.project.name.toLowerCase().localeCompare(b.project.name.toLowerCase())
+    );
   }
 }
