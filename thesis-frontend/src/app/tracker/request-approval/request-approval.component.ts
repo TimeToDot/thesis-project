@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule, formatDate } from '@angular/common';
+import { CommonModule, formatDate, Location } from '@angular/common';
 import { DatePickerComponent } from '../../shared/components/date-picker/date-picker.component';
 import { FormFieldComponent } from '../../shared/components/form-field/form-field.component';
 import {
@@ -14,25 +14,40 @@ import {
 import * as dayjs from 'dayjs';
 import { ProjectApproval } from '../models/project-approval.model';
 import { ProjectApprovalsService } from '../services/project-approvals.service';
+import { ButtonComponent } from '../../shared/components/button/button.component';
+import { RouterModule } from '@angular/router';
+import { ToastService } from '../../shared/services/toast.service';
+import { ToastState } from '../../shared/enum/toast-state';
+import { ModalComponent } from '../../shared/components/modal/modal.component';
+import { ToastComponent } from '../../shared/components/toast/toast.component';
 
 @Component({
   selector: 'bvr-request-approval',
   standalone: true,
   imports: [
+    ButtonComponent,
     CommonModule,
     DatePickerComponent,
     FormFieldComponent,
+    ModalComponent,
     ReactiveFormsModule,
+    RouterModule,
+    ToastComponent,
   ],
   templateUrl: './request-approval.component.html',
 })
 export class RequestApprovalComponent implements OnInit {
+  isCancelModalOpen: boolean = false;
+  isSendModalOpen: boolean = false;
+  modalDescription: string = '';
   projectApprovals: ProjectApproval[] = [];
   requestApprovalForm!: FormGroup;
 
   constructor(
     private fb: FormBuilder,
-    private projectApprovalsService: ProjectApprovalsService
+    private location: Location,
+    private projectApprovalsService: ProjectApprovalsService,
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -70,6 +85,44 @@ export class RequestApprovalComponent implements OnInit {
 
   getProjectApprovals(): void {
     this.projectApprovals = this.projectApprovalsService.getProjectApprovals();
+  }
+
+  openCancelModal(): void {
+    this.isCancelModalOpen = true;
+    this.modalDescription = `Are you sure you want to leave? You will lose your unsaved changes if you continue.`;
+  }
+
+  openSendModal(): void {
+    if (this.requestApprovalForm.valid) {
+      this.isSendModalOpen = true;
+      this.modalDescription =
+        'Are you sure you want to send X tasks to approve?';
+    } else {
+      this.requestApprovalForm.markAllAsTouched();
+      this.toastService.showToast(ToastState.Error, 'Form invalid');
+      setTimeout(() => this.toastService.dismissToast(), 3000);
+    }
+  }
+
+  cancel(): void {
+    this.location.back();
+  }
+
+  send(): void {
+    new Promise((resolve, _) => {
+      this.location.back();
+      resolve('done');
+    }).then(() => {
+      setTimeout(
+        () =>
+          this.toastService.showToast(
+            ToastState.Success,
+            'Approval request sent'
+          ),
+        200
+      );
+      setTimeout(() => this.toastService.dismissToast(), 3200);
+    });
   }
 
   isRequired(name: string): boolean {

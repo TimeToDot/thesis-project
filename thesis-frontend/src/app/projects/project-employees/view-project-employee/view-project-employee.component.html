@@ -7,7 +7,8 @@
     </div>
     <div>
       <bvr-button *ngIf="employee.active" icon="edit" [routerLink]="['edit']" styleClass="button-icon"></bvr-button>
-      <bvr-button (click)="openArchiveModal()" icon="archive" styleClass="button-icon"></bvr-button>
+      <bvr-button *ngIf="employee.active" (click)="openArchiveModal()" icon="archive" styleClass="button-icon">
+      </bvr-button>
     </div>
   </div>
   <div class="form">

@@ -57,6 +57,7 @@ export class ConfirmEmployeeComponent implements OnInit {
     ])?.value;
     this.employee = this.employeesService.getEmployee(employeeId);
   }
+
   openCancelModal(): void {
     this.isCancelModalOpen = true;
     this.modalDescription = `Are you sure you want to leave? You will lose your unsaved changes if you continue.`;

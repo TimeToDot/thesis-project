@@ -60,5 +60,17 @@
         </div>
       </div>
     </div>
+
+    <div class="form-buttons">
+      <bvr-button (click)="openCancelModal()" label="Cancel" styleClass="button-text"></bvr-button>
+      <bvr-button class="form-button" (click)="openSendModal()" label="Send"></bvr-button>
+    </div>
   </div>
+
 </div>
+<bvr-modal (confirm)="cancel()" confirmLabel="Leave" [description]="modalDescription" [title]="'Leave'"
+  [(visible)]="isCancelModalOpen"></bvr-modal>
+<bvr-modal (confirm)="send()" confirmLabel="Save" [description]="modalDescription" [title]="'Request approval'"
+  [(visible)]="isSendModalOpen"></bvr-modal>
+
+<bvr-toast></bvr-toast>
