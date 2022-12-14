@@ -1,6 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NavigationStart, Router, RouterModule } from '@angular/router';
+import {
+  ActivatedRoute,
+  NavigationStart,
+  Router,
+  RouterModule,
+} from '@angular/router';
 import { filter, Subscription } from 'rxjs';
 import { CalendarComponent } from '../calendar/calendar.component';
 import { ButtonComponent } from '../shared/components/button/button.component';
@@ -28,10 +33,11 @@ export class TrackerComponent implements OnInit, OnDestroy {
 
   private routerSubscription!: Subscription;
 
-  constructor(private router: Router) {}
+  constructor(private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
     this.observeTabNameChange();
+    this.handleNavbarNameUpdate(this.router.url);
   }
 
   ngOnDestroy(): void {
@@ -47,15 +53,19 @@ export class TrackerComponent implements OnInit, OnDestroy {
       .pipe(filter(event => event instanceof NavigationStart))
       .subscribe(event => {
         const e = event as NavigationStart;
-        if (
-          e.url.includes('edit-task') &&
-          this.isOptionInNavbarOptions('edit-task')
-        ) {
-          this.updateNavbarOptions('Add New Task', 'Edit Task', 'edit-task');
-        } else if (this.isOptionInNavbarOptions('add-new-task')) {
-          this.updateNavbarOptions('Edit Task', 'Add New Task', 'add-new-task');
-        }
+        this.handleNavbarNameUpdate(e.url);
       });
+  }
+
+  handleNavbarNameUpdate(url: string): void {
+    if (
+      url.includes('edit-task') &&
+      this.isOptionInNavbarOptions('edit-task')
+    ) {
+      this.updateNavbarOptions('Add New Task', 'Edit Task', 'edit-task');
+    } else if (this.isOptionInNavbarOptions('add-new-task')) {
+      this.updateNavbarOptions('Edit Task', 'Add New Task', 'add-new-task');
+    }
   }
 
   isOptionInNavbarOptions(path: string): boolean {
