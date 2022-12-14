@@ -21,7 +21,18 @@ import { EmployeesApprovalsService } from '../services/employees-approvals.servi
 })
 export class ProjectApprovalsComponent implements OnInit {
   dataSource: EmployeeApproval[] = [];
-  displayedColumns: string[] = ['person', 'status', 'last_request'];
+  displayedActiveColumns: string[] = [
+    'person',
+    'position',
+    'status',
+    'last_request',
+  ];
+  displayedArchivedColumns: string[] = [
+    'person',
+    'position',
+    'exit_date',
+    'last_request',
+  ];
   query: string = '';
   showActive: boolean = true;
 
@@ -29,5 +40,14 @@ export class ProjectApprovalsComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataSource = this.employeesApprovalsService.getEmployeesApprovals();
+  }
+
+  showActiveTable(value: boolean): void {
+    if (value) {
+      this.dataSource = this.employeesApprovalsService.getEmployeesApprovals();
+    } else {
+      this.dataSource =
+        this.employeesApprovalsService.getArchivedEmployeesApprovals();
+    }
   }
 }

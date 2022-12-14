@@ -4,11 +4,13 @@
       <h4>Approvals</h4>
       <h4 class="count">({{ dataSource.length }})</h4>
       <div class="radio">
-        <input name="showActive" [(ngModel)]="showActive" type="radio" [value]="true" />
+        <input name="showActive" [(ngModel)]="showActive" (ngModelChange)="showActiveTable(true)" type="radio"
+          [value]="true" />
         <label>Active</label>
       </div>
       <div class="radio">
-        <input name="showActive" [(ngModel)]="showActive" type="radio" [value]="false" />
+        <input name="showActive" [(ngModel)]="showActive" (ngModelChange)="showActiveTable(false)" type="radio"
+          [value]="false" />
         <label>Archive</label>
       </div>
     </div>
@@ -19,14 +21,22 @@
     <span class="material-icons-outlined search-icon">search</span>
   </div>
 
-  <div class="table">
+  <div *ngIf="showActive" class="table">
     <table cdk-table [dataSource]="dataSource">
       <ng-container cdkColumnDef="person">
         <th cdk-header-cell *cdkHeaderCellDef>Person</th>
         <td cdk-cell *cdkCellDef="let element">
           <div class="table-cell">
-            <img [src]="element.image" class="picture" />
-            <span>{{ element.firstName }} {{ element.lastName }}</span>
+            <img [src]="element.employee.image" class="picture" />
+            <span>{{ element.employee.firstName }} {{ element.employee.lastName }}</span>
+          </div>
+        </td>
+      </ng-container>
+      <ng-container cdkColumnDef="position">
+        <th cdk-header-cell *cdkHeaderCellDef>Position</th>
+        <td cdk-cell *cdkCellDef="let element">
+          <div class="table-cell">
+            <span>{{ element.employee.position }}</span>
           </div>
         </td>
       </ng-container>
@@ -40,13 +50,49 @@
         </td>
       </ng-container>
       <ng-container cdkColumnDef="last_request">
-        <th cdk-header-cell *cdkHeaderCellDef>Last request</th>
+        <th cdk-header-cell *cdkHeaderCellDef>Last Request</th>
         <td cdk-cell *cdkCellDef="let element">
           {{ element.lastRequest | date: 'dd/MM/yyyy' }}
         </td>
       </ng-container>
-      <tr cdk-header-row *cdkHeaderRowDef="displayedColumns"></tr>
-      <tr cdk-row *cdkRowDef="let row; columns: displayedColumns" [routerLink]="[row.id]"></tr>
+      <tr cdk-header-row *cdkHeaderRowDef="displayedActiveColumns"></tr>
+      <tr cdk-row *cdkRowDef="let row; columns: displayedActiveColumns" [routerLink]="[row.id]"></tr>
+    </table>
+  </div>
+
+  <div *ngIf="!showActive" class="table">
+    <table cdk-table [dataSource]="dataSource">
+      <ng-container cdkColumnDef="person">
+        <th cdk-header-cell *cdkHeaderCellDef>Person</th>
+        <td cdk-cell *cdkCellDef="let element">
+          <div class="table-cell">
+            <img [src]="element.employee.image" class="picture" />
+            <span>{{ element.employee.firstName }} {{ element.employee.lastName }}</span>
+          </div>
+        </td>
+      </ng-container>
+      <ng-container cdkColumnDef="position">
+        <th cdk-header-cell *cdkHeaderCellDef>Position</th>
+        <td cdk-cell *cdkCellDef="let element">
+          <div class="table-cell">
+            <span>{{ element.employee.position }}</span>
+          </div>
+        </td>
+      </ng-container>
+      <ng-container cdkColumnDef="exit_date">
+        <th cdk-header-cell *cdkHeaderCellDef>Exit Date</th>
+        <td cdk-cell *cdkCellDef="let element">
+          {{ element.employee.exitDate | date: 'dd/MM/yyyy' }}
+        </td>
+      </ng-container>
+      <ng-container cdkColumnDef="last_request">
+        <th cdk-header-cell *cdkHeaderCellDef>Last Request</th>
+        <td cdk-cell *cdkCellDef="let element">
+          {{ element.lastRequest | date: 'dd/MM/yyyy' }}
+        </td>
+      </ng-container>
+      <tr cdk-header-row *cdkHeaderRowDef="displayedArchivedColumns"></tr>
+      <tr cdk-row *cdkRowDef="let row; columns: displayedArchivedColumns" [routerLink]="[row.id]"></tr>
     </table>
   </div>
 </div>
