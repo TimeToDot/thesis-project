@@ -1,0 +1,70 @@
+<div class="card">
+  <div class="header">
+    <div class="title">
+      <span class="material-icons-outlined">schedule</span>
+      <h2 class="name">Tracker</h2>
+    </div>
+  </div>
+  <div class="card-content request-approval">
+    <div class="header">
+      <div class="name">
+        <h4>Request Approval</h4>
+      </div>
+    </div>
+    <div class="request-approval-content">
+      <form class="form" [formGroup]="requestApprovalForm">
+        <div class="left-side">
+          <bvr-form-field
+            label="Start date"
+            [required]="isRequired('startDate')">
+            <bvr-date-picker formControlName="startDate"></bvr-date-picker>
+            <ng-container *ngIf="showErrors('startDate')">
+              <small
+                *ngIf="
+                  requestApprovalForm.get('startDate')?.hasError('required')
+                "
+                >This field is required.</small
+              >
+            </ng-container>
+          </bvr-form-field>
+
+          <bvr-form-field label="End date" [required]="isRequired('endDate')">
+            <bvr-date-picker formControlName="endDate"></bvr-date-picker>
+            <ng-container *ngIf="showErrors() || showErrors('endDate')">
+              <small
+                *ngIf="requestApprovalForm.get('endDate')?.hasError('required')"
+                >This field is required.</small
+              >
+              <small *ngIf="requestApprovalForm?.hasError('dateRange')"
+                >The date is wrong.</small
+              >
+            </ng-container>
+          </bvr-form-field>
+        </div>
+      </form>
+
+      <div class="approvals-table">
+        <div class="table-header">
+          <div class="checkbox"></div>
+          <div class="table-content">
+            <div>PROJECT</div>
+            <div>TASKS TO APPROVE</div>
+          </div>
+        </div>
+        <div *ngFor="let projectApproval of projectApprovals" class="row">
+          <div class="checkbox"></div>
+          <div class="project-data">
+            <div class="project-name">
+              <img [src]="projectApproval.project.image" class="picture" />
+              <div>{{ projectApproval.project.name }}</div>
+            </div>
+            <div class="task-count">
+              <div class="status logged"></div>
+              {{ projectApproval.taskCount }} Tasks
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

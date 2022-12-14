@@ -1,0 +1,84 @@
+.request-approval {
+  margin-top: 4 * $grid-base;
+
+  > .header {
+    margin-bottom: 12 * $grid-base;
+  }
+}
+
+.request-approval-content {
+  padding: 0 31 * $grid-base 12 * $grid-base;
+  .form {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+
+    .left-side {
+      display: flex;
+      flex-direction: row;
+      gap: 8 * $grid-base;
+      width: 50%;
+    }
+  }
+}
+
+.approvals-table {
+  display: flex;
+  flex-direction: column;
+
+  .table-header {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .table-content {
+    align-items: center;
+    border-bottom: 0.25 * $grid-base $color-divider solid;
+    display: flex;
+    flex-direction: row;
+    height: 16 * $grid-base;
+    justify-content: space-between;
+    width: 100%;
+
+    > div {
+      font-weight: $font-semibold;
+    }
+  }
+
+  .row {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .project-data {
+    align-items: center;
+    border-bottom: 0.25 * $grid-base $color-divider solid;
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    height: 16 * $grid-base;
+  }
+
+  .project-name {
+    align-items: center;
+    display: flex;
+    flex: 1;
+  }
+
+  .checkbox {
+    height: 5 * $grid-base;
+    margin-right: 3 * $grid-base;
+    width: 5 * $grid-base;
+  }
+
+  .task-count {
+    align-items: center;
+    display: flex;
+    margin-right: 3 * $grid-base;
+
+    .status {
+      margin-right: 2 * $grid-base;
+    }
+  }
+}

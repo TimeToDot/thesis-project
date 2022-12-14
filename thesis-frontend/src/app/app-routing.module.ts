@@ -10,6 +10,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { LoginGuard } from './shared/guards/login.guard';
 import { TasksListComponent } from './tracker/tasks-list/tasks-list.component';
 import { AddNewTaskComponent } from './tracker/add-new-task/add-new-task.component';
+import { RequestApprovalComponent } from './tracker/request-approval/request-approval.component';
 
 const appRoutes: Routes = [
   {
@@ -18,6 +19,7 @@ const appRoutes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: 'dashboard', component: DashboardComponent },
+      { path: 'tracker/request-approval', component: RequestApprovalComponent },
       {
         path: 'tracker',
         component: TrackerComponent,
