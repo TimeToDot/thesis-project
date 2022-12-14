@@ -74,9 +74,15 @@
     label="Reset"
     styleClass="button-text"></bvr-button>
   <bvr-button
+    *ngIf="!hasTaskToSave"
     class="form-button"
     (click)="openAddModal()"
     label="Add"></bvr-button>
+  <bvr-button
+    *ngIf="hasTaskToSave"
+    class="form-button"
+    (click)="openSaveModal()"
+    label="Save"></bvr-button>
 </div>
 
 <bvr-modal
@@ -84,6 +90,12 @@
   confirmLabel="Add"
   [description]="modalDescription"
   [title]="'Add New Task'"
+  [(visible)]="isAddModalOpen"></bvr-modal>
+<bvr-modal
+  (confirm)="save()"
+  confirmLabel="Save"
+  [description]="modalDescription"
+  [title]="'Save Task'"
   [(visible)]="isAddModalOpen"></bvr-modal>
 <bvr-modal
   (confirm)="reset()"

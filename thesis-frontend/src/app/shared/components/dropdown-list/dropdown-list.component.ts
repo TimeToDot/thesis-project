@@ -34,7 +34,7 @@ export class DropdownListComponent implements ControlValueAccessor {
   selectOption(option: DropdownOption): void {
     this.markAsTouched();
     this.selectedOption = option;
-    this.onChange(this.selectedOption.id);
+    this.onChange(this.selectedOption);
     this.selectEnabled = false;
   }
 
@@ -51,7 +51,7 @@ export class DropdownListComponent implements ControlValueAccessor {
       : { name: 'Select ' + this.name, id: '' };
   }
 
-  onChange = (selectedOptionId: string) => {};
+  onChange = (selectedOptionId: DropdownOption) => {};
 
   registerOnChange(onChange: any): void {
     this.onChange = onChange;

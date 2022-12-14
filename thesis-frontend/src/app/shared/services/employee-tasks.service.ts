@@ -74,6 +74,11 @@ export class EmployeeTasksService {
 
   constructor() {}
 
+  getEmployeeTask(id: string): EmployeeTask {
+    const task = this._employeeTasks.find(task => task.id === id);
+    return task as EmployeeTask;
+  }
+
   getEmployeeTasks(): EmployeeTask[] {
     return this._employeeTasks;
   }

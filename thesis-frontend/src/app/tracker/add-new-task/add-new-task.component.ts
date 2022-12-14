@@ -24,6 +24,7 @@ import { ToastState } from '../../shared/enum/toast-state';
 import { ModalComponent } from '../../shared/components/modal/modal.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as dayjs from 'dayjs';
+import { EmployeeTasksService } from '../../shared/services/employee-tasks.service';
 
 @Component({
   selector: 'bvr-add-new-task',
@@ -43,6 +44,7 @@ import * as dayjs from 'dayjs';
 })
 export class AddNewTaskComponent implements OnInit {
   addTaskForm!: FormGroup;
+  hasTaskToSave: boolean = false;
   isAddModalOpen: boolean = false;
   isResetModalOpen: boolean = false;
   modalDescription: string = '';
@@ -53,6 +55,7 @@ export class AddNewTaskComponent implements OnInit {
     private fb: FormBuilder,
     private projectTasksService: ProjectTasksService,
     private employeeProjectService: EmployeeProjectsService,
+    private employeeTasksService: EmployeeTasksService,
     private route: ActivatedRoute,
     private router: Router,
     private toastService: ToastService
@@ -62,6 +65,7 @@ export class AddNewTaskComponent implements OnInit {
     this.projects = this.employeeProjectService.getEmployeeProjects();
     this.createForm();
     this.observeProjectChange();
+    this.loadTaskToEdit();
   }
 
   roundToMinutes(minutes: number): string {
@@ -122,18 +126,44 @@ export class AddNewTaskComponent implements OnInit {
   }
 
   observeProjectChange(): void {
-    this.addTaskForm.get('project')?.valueChanges.subscribe(projectId => {
-      this.tasks = this.projectTasksService.getProjectTasks(projectId);
+    this.addTaskForm.get('project')?.valueChanges.subscribe(project => {
+      this.tasks = this.projectTasksService.getProjectTasks(project.id);
       this.addTaskForm.get('task')?.enable();
       this.addTaskForm.get('task')?.setValue('');
     });
   }
 
+  loadTaskToEdit(): void {
+    const taskId = this.route.snapshot.paramMap.get('id');
+    if (taskId) {
+      const task = this.employeeTasksService.getEmployeeTask(taskId);
+      this.addTaskForm.get('startDate')?.setValue(task.startDate);
+      this.addTaskForm.get('startTime')?.setValue(task.startTime);
+      this.addTaskForm.get('endDate')?.setValue(task.endDate);
+      this.addTaskForm.get('endTime')?.setValue(task.endTime);
+      this.addTaskForm.get('project')?.setValue(task.project);
+      this.addTaskForm.get('task')?.setValue(task.task);
+      this.hasTaskToSave = true;
+    }
+  }
+
   openAddModal(): void {
     if (this.addTaskForm.valid) {
       this.isAddModalOpen = true;
-      const taskName = this.addTaskForm.get(['task'])?.value;
-      this.modalDescription = `Do you want to add ${taskName} to your timesheet?`;
+      const task = this.addTaskForm.get(['task'])?.value;
+      this.modalDescription = `Do you want to add ${task.name} to your timesheet?`;
+    } else {
+      this.addTaskForm.markAllAsTouched();
+      this.toastService.showToast(ToastState.Error, 'Form invalid');
+      setTimeout(() => this.toastService.dismissToast(), 3000);
+    }
+  }
+
+  openSaveModal(): void {
+    if (this.addTaskForm.valid) {
+      this.isAddModalOpen = true;
+      const task = this.addTaskForm.get(['task'])?.value;
+      this.modalDescription = `Do you want to save ${task.name}?`;
     } else {
       this.addTaskForm.markAllAsTouched();
       this.toastService.showToast(ToastState.Error, 'Form invalid');
@@ -151,18 +181,14 @@ export class AddNewTaskComponent implements OnInit {
     setTimeout(() => this.toastService.dismissToast(), 3200);
   }
 
+  save(): void {
+    this.toastService.showToast(ToastState.Success, 'Task created');
+    setTimeout(() => this.toastService.dismissToast(), 3200);
+  }
+
   reset(): void {
     this.toastService.showToast(ToastState.Error, 'Form reset');
     setTimeout(() => this.toastService.dismissToast(), 3000);
-    // this.router
-    //   .navigate(['../tasks-list'], { relativeTo: this.route })
-    //   .then(() => {
-    //     setTimeout(
-    //       () => this.toastService.showToast(ToastState.Error, 'Error message'),
-    //       200
-    //     );
-    //     setTimeout(() => this.toastService.dismissToast(), 3200);
-    //   });
   }
 
   isRequired(name: string): boolean {
