@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../button/button.component';
 import { EmployeeTask } from '../../model/employee-task.model';
 import { Project } from '../../../projects/models/project.model';
+import { Status } from '../../enum/status.enum';
 
 @Component({
   selector: 'bvr-employee-tasks',
@@ -20,4 +21,11 @@ export class EmployeeTasksComponent {
 
   @Output() edit: EventEmitter<EmployeeTask> = new EventEmitter();
   @Output() delete: EventEmitter<EmployeeTask> = new EventEmitter();
+
+  canEdit(employeeTask: EmployeeTask): boolean {
+    return (
+      employeeTask.status === Status.Logged ||
+      employeeTask.status === Status.Rejected
+    );
+  }
 }

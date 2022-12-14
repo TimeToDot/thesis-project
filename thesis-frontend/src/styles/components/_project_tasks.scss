@@ -42,4 +42,8 @@
 
 .task-time {
   margin: 0 6 * $grid-base;
+
+  &.wide {
+    margin: 0 26 * $grid-base 0 6 * $grid-base;
+  }
 }

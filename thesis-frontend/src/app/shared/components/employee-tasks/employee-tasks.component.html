@@ -9,14 +9,16 @@
       <div>{{ employeeTask.task.name }}</div>
     </div>
     <div class="task-right-side">
-      <div class="task-time">
+      <div class="task-time" [class.wide]="!canEdit(employeeTask)">
         {{ employeeTask.startTime }} - {{ employeeTask.endTime }}
       </div>
       <bvr-button
+        *ngIf="canEdit(employeeTask)"
         (click)="edit.emit(employeeTask)"
         icon="edit"
         styleClass="button-icon"></bvr-button>
       <bvr-button
+        *ngIf="canEdit(employeeTask)"
         (click)="delete.emit(employeeTask)"
         icon="delete"
         styleClass="button-icon">

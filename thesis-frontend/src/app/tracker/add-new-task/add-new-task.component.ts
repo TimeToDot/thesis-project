@@ -207,8 +207,15 @@ export class AddNewTaskComponent implements OnInit {
   }
 
   save(): void {
-    this.toastService.showToast(ToastState.Success, 'Task saved');
-    setTimeout(() => this.toastService.dismissToast(), 3000);
+    this.router
+      .navigate(['../../tasks-list'], { relativeTo: this.route })
+      .then(() => {
+        setTimeout(
+          () => this.toastService.showToast(ToastState.Success, 'Task saved'),
+          200
+        );
+        setTimeout(() => this.toastService.dismissToast(), 3200);
+      });
   }
 
   isRequired(name: string): boolean {
