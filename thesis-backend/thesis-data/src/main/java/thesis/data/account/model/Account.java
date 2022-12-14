@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import thesis.data.position.model.Position;
 import thesis.data.project.model.ProjectAccountRole;
 import thesis.data.role.model.Role;
@@ -43,17 +45,16 @@ public class  Account {
     @Column(length = 20)
     private StatusType status;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
+    @OneToOne(mappedBy = "account", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @ToString.Exclude
     private AccountDetails details;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
+    @ManyToMany(mappedBy = "accounts", fetch = FetchType.LAZY)
     @ToString.Exclude
-    private Position position;
+    private List<Position> positions;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
     @ToString.Exclude
     @JoinTable(
             name = "account_role",
@@ -61,7 +62,7 @@ public class  Account {
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private List<Role> roles;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<Task> tasks;
 

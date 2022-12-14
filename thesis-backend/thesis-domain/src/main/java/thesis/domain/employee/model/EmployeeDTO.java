@@ -1,9 +1,8 @@
 package thesis.domain.employee.model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import thesis.data.account.model.StatusType;
 
-import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Schema(description = "Information about account.")
 public record EmployeeDTO(
@@ -11,7 +10,7 @@ public record EmployeeDTO(
         String lastName,
         String email,
         String password,
-        String positionId,
+        List<String> positionIds,
         String employmentDate,
         String image,
         String sex,

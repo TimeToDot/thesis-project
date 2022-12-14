@@ -47,6 +47,10 @@ INSERT INTO role_privilege(role_id, privilege_id) select role.id, privilege.id f
 /*account_details*/
 
 /*account_role*/
-select * from privilege;
-select * from role;
-select * from role_privilege;
+
+
+/*position*/
+INSERT INTO position(name, description, status) VALUES ('EMPLOYEE_I', 'fresh worker', 'ACTIVE');
+INSERT INTO position(name, description, status) VALUES ('EMPLOYEE_II', 'fresh worker', 'ACTIVE');
+INSERT INTO position(name, description, status) VALUES ('MANAGER_I', 'fresh worker', 'ACTIVE');
+INSERT INTO position(name, description, status) VALUES ('MANAGER_II', 'fresh worker', 'ACTIVE');

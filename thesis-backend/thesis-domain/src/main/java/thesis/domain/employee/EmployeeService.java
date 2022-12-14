@@ -26,8 +26,8 @@ public class EmployeeService {
 
     public EmployeeDTO getEmployee(UUID id){
         var account = accountRepository.findById(id).orElseThrow();
-
-        return employeeDTOMapper.map(account);
+        var details = accountDetailsRepository.findByAccount(account).orElseThrow();
+        return employeeDTOMapper.map(details);
     }
 
     public List<EmployeeProjectDTO> getEmployeeProjects(UUID id){

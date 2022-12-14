@@ -12,6 +12,8 @@ import thesis.data.account.AccountRepository;
 import thesis.data.account.model.Account;
 import thesis.data.account.model.AccountDetails;
 import thesis.data.account.model.StatusType;
+import thesis.data.position.PositionRepository;
+import thesis.data.position.model.Position;
 import thesis.data.project.ProjectAccountRoleRepository;
 import thesis.data.project.ProjectDetailsRepository;
 import thesis.data.project.ProjectRepository;
@@ -42,6 +44,9 @@ public class InitDataTest {
 
     @Autowired
     private RoleRepository roleRepository;
+
+    @Autowired
+    private PositionRepository positionRepository;
 
     @Autowired
     private ProjectAccountRoleRepository projectAccountRoleRepository;
@@ -95,10 +100,12 @@ public class InitDataTest {
         var adminRole = roleRepository.findByName(RoleType.ROLE_GLOBAL_ADMIN).orElseThrow(RuntimeException::new);
         var userRole = roleRepository.findByName(RoleType.ROLE_GLOBAL_USER).orElseThrow(RuntimeException::new);
 
+        var positionManager = positionRepository.findByName("MANAGER_II").orElseThrow(AssertionError::new);
+        var positionEmployee = positionRepository.findByName("EMPLOYEE_I").orElseThrow(AssertionError::new);
 
-        var admin = createAccount("admin", "admin", "siema@email.com", adminRole);
-        var mod = createAccount("moderator", "moderator", "siema@email.com", userRole);
-        var user = createAccount("user", "user", "siema@email.com", userRole);
+        var admin = createAccount("admin", "admin", "siema@email.com", adminRole, null);
+        var mod = createAccount("moderator", "moderator", "siema@email.com", userRole, positionManager);
+        var user = createAccount("user", "user", "siema@email.com", userRole, positionEmployee);
 
         accountRepository.save(admin);
         Assert.assertNotNull(admin.getId());
@@ -107,11 +114,11 @@ public class InitDataTest {
         Assert.assertNotNull(mod.getId());
 
         accountRepository.save(user);
-        Assert.assertNotNull(mod.getId());
+        Assert.assertNotNull(user.getId());
 
         var adminDetails = createAccountDetails(admin,"Krakow", "123123123123");
-        var modDetails = createAccountDetails(mod, "Limanowa", "123123123123");
-        var userDetails = createAccountDetails(mod, "Przyszowa", "123123123123");
+        var modDetails = createAccountDetails(mod, "Limanowa", "456456456456");
+        var userDetails = createAccountDetails(user, "Przyszowa", "678678678678");
 
         accountDetailsRepository.save(adminDetails);
         accountDetailsRepository.save(modDetails);
@@ -151,13 +158,14 @@ public class InitDataTest {
         return projects;
     }
 
-    private Account createAccount(String login, String pass, String email, Role role){
+    private Account createAccount(String login, String pass, String email, Role role, Position position){
         return Account.builder()
                 .login(login)
                 .pass(passwordEncoder.encode(pass))
-                .email("siema@email.com")
+                .email("siema." +login +"@email.com")
                 .roles(List.of(role))
                 .status(StatusType.ENABLE)
+                .positions(position == null ? null : List.of(position))
                 .build();
     }
 
@@ -167,13 +175,13 @@ public class InitDataTest {
                 .city(city)
                 .pesel(pesel)
                 .phoneNumber("123123123")
-                .street("Domyslna")
+                .street("Domyslna" + account.getLogin())
                 .postalCode("12-123")
                 .taxNumber("123123123123123123")
                 .sex("male")
                 .surname("Domyśliciel")
-                .name("Domyslny")
-                .city("Domyslice")
+                .name("Domyslaw-" + account.getLogin())
+                .city("Domyslice" + account.getLogin())
                 .build();
 
     }

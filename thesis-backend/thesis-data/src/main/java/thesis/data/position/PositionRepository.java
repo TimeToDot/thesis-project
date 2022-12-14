@@ -8,5 +8,6 @@ import java.util.UUID;
 
 public interface PositionRepository extends JpaRepository<Position, UUID> {
 
+    Optional<Position> findById(UUID id);
     Optional<Position> findByName(String name);
 }

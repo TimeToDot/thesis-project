@@ -1,6 +1,7 @@
 package thesis.api.employee.model;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 public record EmployeeResponse(
 
@@ -12,7 +13,7 @@ public record EmployeeResponse(
         String email,
         @NotNull
         String password,
-        String positionId,
+        List<String> positionIds,
         String employmentDate,
         String image,
         String sex,
