@@ -1,12 +1,11 @@
 package thesis;
 
 import org.junit.Assert;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import thesis.data.account.AccountDetailsRepository;
 import thesis.data.account.AccountRepository;
@@ -27,7 +26,6 @@ import java.util.List;
 
 
 @RunWith(SpringRunner.class)
-@ActiveProfiles(profiles = "init-data")
 @SpringBootTest(classes = ThesisApplication.class)
 public class InitDataTest {
 
@@ -52,12 +50,12 @@ public class InitDataTest {
     private PasswordEncoder passwordEncoder;
 
     @Test
-    void contextLoads() {
+    public void contextLoads() {
         initData();
     }
 
 
-    void initData() {
+    private void initData() {
         var accounts = initAccount();
         var projects = initProjects(accounts);
         var projectAdminRole = roleRepository.findByName(RoleType.ROLE_PROJECT_ADMIN).orElseThrow();
@@ -170,6 +168,9 @@ public class InitDataTest {
                 .pesel(pesel)
                 .phoneNumber("123123123")
                 .street("Domyslna")
+                .postalCode("12-123")
+                .taxNumber("123123123123123123")
+                .sex("male")
                 .surname("Domyśliciel")
                 .name("Domyslny")
                 .city("Domyslice")

@@ -31,7 +31,7 @@ public class Role {
   @Column(length = 20)
   private RoleType name;
 
-  @ManyToMany(fetch = FetchType.LAZY)
+  @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(
           name = "role_privilege",
           joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),

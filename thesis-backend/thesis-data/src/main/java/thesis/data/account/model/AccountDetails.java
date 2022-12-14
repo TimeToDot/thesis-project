@@ -37,11 +37,20 @@ public class AccountDetails {
   @NotBlank(message="pesel is required")
   private String pesel;
 
+  @NotBlank(message="sex is required")
+  private String sex;
+
   @NotBlank(message="phonenumber is required")
   private String phoneNumber;
 
+  @NotBlank(message="taxNumber is required")
+  private String taxNumber;
+
   @NotBlank(message="street is required")
   private String street;
+
+  @NotBlank(message="street is required")
+  private String postalCode;
 
   @NotBlank(message="city is required")
   private String city;

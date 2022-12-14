@@ -27,7 +27,7 @@ import java.util.UUID;
                 @UniqueConstraint(columnNames = "login")
         }
 )
-public class Account {
+public class  Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -43,17 +43,17 @@ public class Account {
     @Column(length = 20)
     private StatusType status;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     @ToString.Exclude
     private AccountDetails details;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     @ToString.Exclude
     private Position position;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @ToString.Exclude
     @JoinTable(
             name = "account_role",

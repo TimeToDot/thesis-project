@@ -24,6 +24,8 @@ public class Position {
 
     private String description;
 
+    private Boolean active;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

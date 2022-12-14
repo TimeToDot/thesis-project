@@ -7,6 +7,7 @@ import lombok.experimental.SuperBuilder;
 import thesis.data.project.model.Project;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.UUID;
 
 @Getter
@@ -29,6 +30,9 @@ public class TaskForm {
   private String name;
 
   private String description;
+
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date createdAt;
 
   @ManyToOne
   @JoinColumn(name = "id_project")
