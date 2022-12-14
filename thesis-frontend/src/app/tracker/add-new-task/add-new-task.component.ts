@@ -46,7 +46,9 @@ export class AddNewTaskComponent implements OnInit {
   addTaskForm!: FormGroup;
   hasTaskToSave: boolean = false;
   isAddModalOpen: boolean = false;
+  isDeleteModalOpen: boolean = false;
   isResetModalOpen: boolean = false;
+  isSaveModalOpen: boolean = false;
   modalDescription: string = '';
   projects: DropdownOption[] = [];
   tasks: DropdownOption[] = [];
@@ -159,9 +161,15 @@ export class AddNewTaskComponent implements OnInit {
     }
   }
 
+  openDeleteModal(): void {
+    this.isDeleteModalOpen = true;
+    const task = this.addTaskForm.get(['task'])?.value;
+    this.modalDescription = `Are you sure you want to delete ${task.name}? You will lose your unsaved changes if you continue.`;
+  }
+
   openSaveModal(): void {
     if (this.addTaskForm.valid) {
-      this.isAddModalOpen = true;
+      this.isSaveModalOpen = true;
       const task = this.addTaskForm.get(['task'])?.value;
       this.modalDescription = `Do you want to save ${task.name}?`;
     } else {
@@ -178,16 +186,28 @@ export class AddNewTaskComponent implements OnInit {
 
   add(): void {
     this.toastService.showToast(ToastState.Success, 'Task created');
-    setTimeout(() => this.toastService.dismissToast(), 3200);
+    setTimeout(() => this.toastService.dismissToast(), 3000);
   }
 
-  save(): void {
-    this.toastService.showToast(ToastState.Success, 'Task created');
-    setTimeout(() => this.toastService.dismissToast(), 3200);
+  delete(): void {
+    this.router
+      .navigate(['../../tasks-list'], { relativeTo: this.route })
+      .then(() => {
+        setTimeout(
+          () => this.toastService.showToast(ToastState.Success, 'Task deleted'),
+          200
+        );
+        setTimeout(() => this.toastService.dismissToast(), 3200);
+      });
   }
 
   reset(): void {
     this.toastService.showToast(ToastState.Error, 'Form reset');
+    setTimeout(() => this.toastService.dismissToast(), 3000);
+  }
+
+  save(): void {
+    this.toastService.showToast(ToastState.Success, 'Task saved');
     setTimeout(() => this.toastService.dismissToast(), 3000);
   }
 

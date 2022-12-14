@@ -68,21 +68,30 @@
   </div>
 </form>
 <div class="add-task-form-buttons">
-  <bvr-button
-    class="form-button"
-    (click)="openResetModal()"
-    label="Reset"
-    styleClass="button-text"></bvr-button>
-  <bvr-button
-    *ngIf="!hasTaskToSave"
-    class="form-button"
-    (click)="openAddModal()"
-    label="Add"></bvr-button>
-  <bvr-button
-    *ngIf="hasTaskToSave"
-    class="form-button"
-    (click)="openSaveModal()"
-    label="Save"></bvr-button>
+  <div>
+    <bvr-button
+      *ngIf="hasTaskToSave"
+      (click)="openDeleteModal()"
+      icon="delete"
+      styleClass="button-icon"></bvr-button>
+  </div>
+  <div>
+    <bvr-button
+      class="form-button"
+      (click)="openResetModal()"
+      label="Reset"
+      styleClass="button-text"></bvr-button>
+    <bvr-button
+      *ngIf="!hasTaskToSave"
+      class="form-button"
+      (click)="openAddModal()"
+      label="Add"></bvr-button>
+    <bvr-button
+      *ngIf="hasTaskToSave"
+      class="form-button"
+      (click)="openSaveModal()"
+      label="Save"></bvr-button>
+  </div>
 </div>
 
 <bvr-modal
@@ -92,16 +101,22 @@
   [title]="'Add New Task'"
   [(visible)]="isAddModalOpen"></bvr-modal>
 <bvr-modal
-  (confirm)="save()"
-  confirmLabel="Save"
+  (confirm)="delete()"
+  confirmLabel="Delete"
   [description]="modalDescription"
-  [title]="'Save Task'"
-  [(visible)]="isAddModalOpen"></bvr-modal>
+  [title]="'Delete Task'"
+  [(visible)]="isDeleteModalOpen"></bvr-modal>
 <bvr-modal
   (confirm)="reset()"
   confirmLabel="Reset"
   [description]="modalDescription"
   [title]="'Reset'"
   [(visible)]="isResetModalOpen"></bvr-modal>
+<bvr-modal
+  (confirm)="save()"
+  confirmLabel="Save"
+  [description]="modalDescription"
+  [title]="'Save Task'"
+  [(visible)]="isSaveModalOpen"></bvr-modal>
 
 <bvr-toast></bvr-toast>

@@ -19,6 +19,5 @@ export class EmployeeTasksComponent {
   };
 
   @Output() edit: EventEmitter<EmployeeTask> = new EventEmitter();
-
-  openDeleteModal(event: Event, task: EmployeeTask) {}
+  @Output() delete: EventEmitter<EmployeeTask> = new EventEmitter();
 }

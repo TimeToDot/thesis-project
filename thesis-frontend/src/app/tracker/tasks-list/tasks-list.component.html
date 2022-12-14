@@ -1,5 +1,15 @@
 <bvr-employee-tasks
   *ngFor="let projectTasks of employeeProjectTasks"
   (edit)="editTask($event)"
+  (delete)="openDeleteModal($event)"
   [employeeTasks]="projectTasks.tasks"
   [project]="projectTasks.project"></bvr-employee-tasks>
+
+<bvr-modal
+  (confirm)="delete()"
+  confirmLabel="Delete"
+  [description]="modalDescription"
+  [title]="'Delete Task'"
+  [(visible)]="isDeleteModalOpen"></bvr-modal>
+
+<bvr-toast></bvr-toast>
