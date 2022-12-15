@@ -9,18 +9,22 @@
       <div>{{ employeeTask.task.name }}</div>
     </div>
     <div class="task-right-side">
-      <div class="task-time" [class.wide]="!canEdit(employeeTask)">
+      <div class="task-time" [ngClass]="{
+        medium: isMedium(employeeTask),
+        wide: isWide(employeeTask) && !isMedium(employeeTask)
+      }">
         {{ employeeTask.startTime }} - {{ employeeTask.endTime }}
       </div>
-      <bvr-button
-        *ngIf="canEdit(employeeTask)"
-        (click)="edit.emit(employeeTask)"
-        icon="edit"
-        styleClass="button-icon"></bvr-button>
-      <bvr-button
-        *ngIf="canEdit(employeeTask)"
-        (click)="delete.emit(employeeTask)"
-        icon="delete"
+      <bvr-button *ngIf="canEdit(employeeTask) && !isApproval" (click)="edit.emit(employeeTask)" icon="edit"
+        styleClass="button-icon">
+      </bvr-button>
+      <bvr-button *ngIf="canEdit(employeeTask) && !isApproval" (click)="delete.emit(employeeTask)" icon="delete"
+        styleClass="button-icon">
+      </bvr-button>
+      <bvr-button *ngIf="canReject(employeeTask)" (click)="rejectTask(employeeTask.id)" icon="block"
+        styleClass="button-icon">
+      </bvr-button>
+      <bvr-button *ngIf="canApprove(employeeTask)" (click)="approveTask(employeeTask.id)" icon="undo"
         styleClass="button-icon">
       </bvr-button>
     </div>
