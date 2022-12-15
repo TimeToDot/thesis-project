@@ -1,8 +1,11 @@
 <div class="project-employee">
   <div class="header">
     <div class="name">
-      <img [src]="employee.image" class="picture" />
-      <h4>{{ employee.firstName }} {{ employee.lastName }}</h4>
+      <img [src]="projectEmployee.employee.image" class="picture" />
+      <h4>
+        {{ projectEmployee.employee.firstName }}
+        {{ projectEmployee.employee.lastName }}
+      </h4>
     </div>
     <bvr-button
       (click)="openArchiveModal()"
@@ -11,17 +14,26 @@
   </div>
   <div class="form">
     <bvr-form-field class="disabled field" label="Email">
-      <input disabled [(ngModel)]="employee.email" type="text" />
+      <input
+        disabled
+        [(ngModel)]="projectEmployee.employee.email"
+        type="text" />
     </bvr-form-field>
     <div class="employment-info">
       <bvr-form-field class="disabled left-field" label="Position">
-        <input disabled [(ngModel)]="employee.position" type="text" />
+        <input
+          disabled
+          [(ngModel)]="projectEmployee.employee.position"
+          type="text" />
       </bvr-form-field>
       <bvr-form-field class="disabled left-field" label="Hire Date">
-        <input disabled [(ngModel)]="employee.employmentDate" type="text" />
+        <input
+          disabled
+          [(ngModel)]="projectEmployee.employee.employmentDate"
+          type="text" />
       </bvr-form-field>
       <bvr-form-field class="disabled field" label="Project Join Date">
-        <input disabled [(ngModel)]="employee.employmentDate" type="text" />
+        <input disabled [(ngModel)]="projectEmployee.joinDate" type="text" />
       </bvr-form-field>
     </div>
     <div *ngIf="editProjectEmployeeForm" [formGroup]="editProjectEmployeeForm">

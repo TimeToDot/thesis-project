@@ -7,7 +7,7 @@ import { ButtonComponent } from '../../shared/components/button/button.component
 import { ModalComponent } from '../../shared/components/modal/modal.component';
 import { ToastComponent } from '../../shared/components/toast/toast.component';
 import { ToastState } from '../../shared/enum/toast-state';
-import { Employee } from '../../shared/model/employee.model';
+import { Employee } from '../../shared/models/employee.model';
 import { ToastService } from '../../shared/services/toast.service';
 import { EmployeesService } from '../services/employees.service';
 

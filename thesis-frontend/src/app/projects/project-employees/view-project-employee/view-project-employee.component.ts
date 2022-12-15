@@ -24,23 +24,29 @@ import { ToastState } from '../../../shared/enum/toast-state';
   templateUrl: './view-project-employee.component.html',
 })
 export class ViewProjectEmployeeComponent implements OnInit {
-  employee: ProjectEmployee = {
+  isArchiveModalOpen: boolean = false;
+  modalDescription: string = '';
+  projectEmployee: ProjectEmployee = {
     id: '',
-    firstName: '',
-    lastName: '',
-    email: '',
-    image: '',
-    position: '',
-    employmentDate: '',
+    employee: {
+      id: '',
+      firstName: '',
+      lastName: '',
+      email: '',
+      image: '',
+      position: '',
+      employmentDate: '',
+      workingTime: 0,
+      exitDate: '',
+      active: false,
+    },
     contractType: '',
     workingTime: 0,
     wage: 0,
     joinDate: '',
     exitDate: '',
-    active: true,
+    active: false,
   };
-  isArchiveModalOpen: boolean = false;
-  modalDescription: string = '';
 
   constructor(
     private projectEmployeeService: ProjectEmployeesService,
@@ -56,14 +62,14 @@ export class ViewProjectEmployeeComponent implements OnInit {
   getEmployee(): void {
     const employeeId = this.route.snapshot.paramMap.get('id');
     if (employeeId) {
-      this.employee =
+      this.projectEmployee =
         this.projectEmployeeService.getProjectEmployee(employeeId);
     }
   }
 
   openArchiveModal(): void {
     this.isArchiveModalOpen = true;
-    this.modalDescription = `Are you sure you want to archive ${this.employee.firstName} ${this.employee.lastName}? This action cannot be undone.`;
+    this.modalDescription = `Are you sure you want to archive ${this.projectEmployee.employee.firstName} ${this.projectEmployee.employee.lastName}? This action cannot be undone.`;
   }
 
   archive(): void {

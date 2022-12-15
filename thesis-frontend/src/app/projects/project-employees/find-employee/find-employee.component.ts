@@ -5,7 +5,7 @@ import { ButtonComponent } from '../../../shared/components/button/button.compon
 import { FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormFieldComponent } from 'src/app/shared/components/form-field/form-field.component';
 import { DropdownSearchEmployeeComponent } from '../dropdown-search-employee/dropdown-search-employee.component';
-import { Employee } from '../../../shared/model/employee.model';
+import { Employee } from '../../../shared/models/employee.model';
 import { EmployeesService } from '../../../admin/services/employees.service';
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
 

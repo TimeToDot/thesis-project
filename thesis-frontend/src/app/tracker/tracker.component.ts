@@ -10,7 +10,7 @@ import { filter, Subscription } from 'rxjs';
 import { CalendarComponent } from '../calendar/calendar.component';
 import { ButtonComponent } from '../shared/components/button/button.component';
 import { TabsComponent } from '../shared/components/tabs/tabs.component';
-import { LinkOption } from '../shared/model/link-option.model';
+import { LinkOption } from '../shared/models/link-option.model';
 
 @Component({
   selector: 'bvr-tracker',

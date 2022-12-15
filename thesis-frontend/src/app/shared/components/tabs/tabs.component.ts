@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { LinkOption } from '../../model/link-option.model';
+import { LinkOption } from '../../models/link-option.model';
 
 @Component({
   selector: 'bvr-tabs',

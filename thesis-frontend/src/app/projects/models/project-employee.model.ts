@@ -1,11 +1,8 @@
+import { Employee } from '../../shared/models/employee.model';
+
 export interface ProjectEmployee {
   id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  image: string;
-  position: string;
-  employmentDate: string;
+  employee: Employee;
   contractType: string;
   workingTime: number;
   wage: number;

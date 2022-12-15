@@ -1,7 +1,7 @@
 import { Component, HostListener, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { DropdownOption } from '../../model/dropdown-option.model';
+import { DropdownOption } from '../../models/dropdown-option.model';
 
 @Component({
   selector: 'bvr-dropdown-list',

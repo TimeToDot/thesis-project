@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { RouterModule } from '@angular/router';
-import { Employee } from '../../../shared/model/employee.model';
+import { Employee } from '../../../shared/models/employee.model';
 import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
 import { FormGroup, FormsModule } from '@angular/forms';
 import { EmployeesService } from '../../../admin/services/employees.service';

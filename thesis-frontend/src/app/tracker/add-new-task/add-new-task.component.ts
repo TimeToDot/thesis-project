@@ -9,7 +9,7 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { EmployeeTask } from '../../shared/model/employee-task.model';
+import { EmployeeTask } from '../../shared/models/employee-task.model';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { FormFieldComponent } from '../../shared/components/form-field/form-field.component';
 import { EmployeeProjectsService } from '../../shared/services/employee-projects.service';
@@ -17,7 +17,7 @@ import { ProjectTasksService } from '../../projects/services/project-tasks.servi
 import { DatePickerComponent } from '../../shared/components/date-picker/date-picker.component';
 import { TimePickerComponent } from '../../shared/components/time-picker/time-picker.component';
 import { DropdownListComponent } from '../../shared/components/dropdown-list/dropdown-list.component';
-import { DropdownOption } from '../../shared/model/dropdown-option.model';
+import { DropdownOption } from '../../shared/models/dropdown-option.model';
 import { ToastComponent } from '../../shared/components/toast/toast.component';
 import { ToastService } from '../../shared/services/toast.service';
 import { ToastState } from '../../shared/enum/toast-state';

@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import { Permissions } from '../../shared/model/permissions.model';
+import { Permissions } from '../../shared/models/permissions.model';
 import { PermissionsService } from '../../shared/services/permissions.service';
 
 import { CanAdminSettingsGuard } from './can-admin-settings.guard';

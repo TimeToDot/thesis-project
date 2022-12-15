@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../button/button.component';
-import { EmployeeTask } from '../../model/employee-task.model';
+import { EmployeeTask } from '../../models/employee-task.model';
 import { Project } from '../../../projects/models/project.model';
 import { Status } from '../../enum/status.enum';
 

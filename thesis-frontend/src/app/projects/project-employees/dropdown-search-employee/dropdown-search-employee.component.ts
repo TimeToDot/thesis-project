@@ -5,7 +5,7 @@ import {
   FormsModule,
   NG_VALUE_ACCESSOR,
 } from '@angular/forms';
-import { Employee } from '../../../shared/model/employee.model';
+import { Employee } from '../../../shared/models/employee.model';
 
 @Component({
   selector: 'bvr-dropdown-search-employee',

@@ -4,9 +4,9 @@ import { PermissionsService } from '../../shared/services/permissions.service';
 import { AuthService } from '../../shared/services/auth.service';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { CommonModule } from '@angular/common';
-import { LinkGroup } from '../../shared/model/link-group.model';
+import { LinkGroup } from '../../shared/models/link-group.model';
 import { EmployeesService } from '../../admin/services/employees.service';
-import { Employee } from '../../shared/model/employee.model';
+import { Employee } from '../../shared/models/employee.model';
 
 @Component({
   selector: 'bvr-sidenav',

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Status } from '../enum/status.enum';
-import { EmployeeTask } from '../model/employee-task.model';
+import { EmployeeTask } from '../models/employee-task.model';
 
 @Injectable({
   providedIn: 'root',

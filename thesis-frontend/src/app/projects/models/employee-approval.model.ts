@@ -1,9 +1,9 @@
 import { Status } from '../../shared/enum/status.enum';
-import { Employee } from '../../shared/model/employee.model';
+import { ProjectEmployee } from './project-employee.model';
 
 export interface EmployeeApproval {
   id: string;
-  employee: Employee;
+  projectEmployee: ProjectEmployee;
   status: Status;
   lastRequest: string;
 }

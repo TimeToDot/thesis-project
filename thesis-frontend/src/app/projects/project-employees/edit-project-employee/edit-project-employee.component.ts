@@ -41,24 +41,31 @@ export class EditProjectEmployeeComponent implements OnInit {
     { id: '4', name: 'B2B' },
   ];
   editProjectEmployeeForm!: FormGroup;
-  employee: ProjectEmployee = {
-    id: '',
-    firstName: '',
-    lastName: '',
-    email: '',
-    image: '',
-    position: '',
-    employmentDate: '',
-    contractType: '',
-    workingTime: 0,
-    wage: 0,
-    joinDate: '',
-    active: false,
-  };
   isArchiveModalOpen: boolean = false;
   isCancelModalOpen: boolean = false;
   isSaveModalOpen: boolean = false;
   modalDescription: string = '';
+  projectEmployee: ProjectEmployee = {
+    id: '',
+    employee: {
+      id: '',
+      firstName: '',
+      lastName: '',
+      email: '',
+      image: '',
+      position: '',
+      employmentDate: '',
+      workingTime: 0,
+      exitDate: '',
+      active: false,
+    },
+    contractType: '',
+    workingTime: 0,
+    wage: 0,
+    joinDate: '',
+    exitDate: '',
+    active: false,
+  };
 
   constructor(
     private fb: FormBuilder,
@@ -77,7 +84,7 @@ export class EditProjectEmployeeComponent implements OnInit {
   getEmployee(): void {
     const employeeId = this.route.snapshot.paramMap.get('id');
     if (employeeId) {
-      this.employee =
+      this.projectEmployee =
         this.projectEmployeesService.getProjectEmployee(employeeId);
     }
   }
@@ -92,7 +99,7 @@ export class EditProjectEmployeeComponent implements OnInit {
 
   openArchiveModal(): void {
     this.isArchiveModalOpen = true;
-    this.modalDescription = `Are you sure you want to archive ${this.employee.firstName} ${this.employee.lastName}? This action cannot be undone.`;
+    this.modalDescription = `Are you sure you want to archive ${this.projectEmployee.employee.firstName} ${this.projectEmployee.employee.lastName}? This action cannot be undone.`;
   }
 
   openCancelModal(): void {

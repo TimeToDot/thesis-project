@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { EmployeesService } from '../admin/services/employees.service';
 import { ButtonComponent } from '../shared/components/button/button.component';
-import { Employee } from '../shared/model/employee.model';
+import { Employee } from '../shared/models/employee.model';
 
 @Component({
   selector: 'bvr-profile',

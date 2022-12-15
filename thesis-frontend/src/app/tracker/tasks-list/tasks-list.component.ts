@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EmployeeTasksService } from '../../shared/services/employee-tasks.service';
-import { EmployeeTask } from '../../shared/model/employee-task.model';
+import { EmployeeTask } from '../../shared/models/employee-task.model';
 import { EmployeeTasksComponent } from '../../shared/components/employee-tasks/employee-tasks.component';
-import { EmployeeProjectTask } from '../../shared/model/employee-project-task.model';
+import { EmployeeProjectTask } from '../../shared/models/employee-project-task.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastComponent } from '../../shared/components/toast/toast.component';
 import { ModalComponent } from '../../shared/components/modal/modal.component';

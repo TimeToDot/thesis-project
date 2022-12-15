@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Permissions } from '../model/permissions.model';
+import { Permissions } from '../models/permissions.model';
 import { ProjectPermissions } from '../../projects/models/project-permissions.model';
 
 @Injectable({

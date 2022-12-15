@@ -1,67 +1,95 @@
 <div class="project-employee">
   <div class="header">
     <div class="name">
-      <img [src]="employee.image" class="picture" [ngClass]="{ archived: !employee.active }" />
-      <h4>{{ employee.firstName }} {{ employee.lastName }}</h4>
-      <h4 *ngIf="!employee.active" class="archived">(Archived)</h4>
+      <img
+        [src]="projectEmployee.employee.image"
+        class="picture"
+        [ngClass]="{ archived: !projectEmployee.active }" />
+      <h4>
+        {{ projectEmployee.employee.firstName }}
+        {{ projectEmployee.employee.lastName }}
+      </h4>
+      <h4 *ngIf="!projectEmployee.active" class="archived">(Archived)</h4>
     </div>
     <div>
-      <bvr-button *ngIf="employee.active" icon="edit" [routerLink]="['edit']" styleClass="button-icon"></bvr-button>
-      <bvr-button *ngIf="employee.active" (click)="openArchiveModal()" icon="archive" styleClass="button-icon">
+      <bvr-button
+        *ngIf="projectEmployee.active"
+        icon="edit"
+        [routerLink]="['edit']"
+        styleClass="button-icon"></bvr-button>
+      <bvr-button
+        *ngIf="projectEmployee.active"
+        (click)="openArchiveModal()"
+        icon="archive"
+        styleClass="button-icon">
       </bvr-button>
     </div>
   </div>
   <div class="form">
     <bvr-form-field class="disabled field" label="Email">
-      <span>{{ employee.email }}</span>
+      <span>{{ projectEmployee.employee.email }}</span>
     </bvr-form-field>
     <div class="employment-info">
       <bvr-form-field class="disabled left-field" label="Position">
-        <span>{{ employee.position }}</span>
+        <span>{{ projectEmployee.employee.position }}</span>
       </bvr-form-field>
       <bvr-form-field class="disabled left-field" label="Hire Date">
-        <span>{{ employee.employmentDate }}</span>
+        <span>{{ projectEmployee.employee.employmentDate }}</span>
       </bvr-form-field>
-      <bvr-form-field class="disabled" [ngClass]="employee.active ? 'field' : 'left-field'" label="Join Date">
-        <span>{{ employee.joinDate }}</span>
+      <bvr-form-field
+        class="disabled"
+        [ngClass]="projectEmployee.active ? 'field' : 'left-field'"
+        label="Join Date">
+        <span>{{ projectEmployee.joinDate }}</span>
       </bvr-form-field>
-      <bvr-form-field *ngIf="!employee.active" class="disabled field" label="Exit Date">
-        <span>{{ employee.exitDate }}</span>
+      <bvr-form-field
+        *ngIf="!projectEmployee.active"
+        class="disabled field"
+        label="Exit Date">
+        <span>{{ projectEmployee.exitDate }}</span>
       </bvr-form-field>
     </div>
 
-    <div *ngIf="employee.active" class="contract-info">
+    <div *ngIf="projectEmployee.active" class="contract-info">
       <bvr-form-field class="left-field" label="Contract Type">
-        <span>{{ employee.contractType }}</span>
+        <span>{{ projectEmployee.contractType }}</span>
       </bvr-form-field>
       <bvr-form-field class="left-field" label="Working Time">
-        <span>{{ employee.workingTime }}</span>
+        <span>{{ projectEmployee.workingTime }}</span>
       </bvr-form-field>
       <bvr-form-field class="field" label="Wage">
-        <span>{{ employee.wage }}</span>
+        <span>{{ projectEmployee.wage }}</span>
       </bvr-form-field>
     </div>
 
-    <div *ngIf="!employee.active" class="contract-info archived">
+    <div *ngIf="!projectEmployee.active" class="contract-info archived">
       <bvr-form-field class="left-field" label="Contract Type">
-        <span>{{ employee.contractType }}</span>
+        <span>{{ projectEmployee.contractType }}</span>
       </bvr-form-field>
       <div class="financial-info">
         <bvr-form-field class="left-field" label="Working Time">
-          <span>{{ employee.workingTime }}</span>
+          <span>{{ projectEmployee.workingTime }}</span>
         </bvr-form-field>
         <bvr-form-field class="field" label="Wage">
-          <span>{{ employee.wage }}</span>
+          <span>{{ projectEmployee.wage }}</span>
         </bvr-form-field>
       </div>
     </div>
   </div>
   <div class="form-buttons">
-    <bvr-button class="form-button" label="Cancel" [routerLink]="['..']" styleClass="button-text"></bvr-button>
+    <bvr-button
+      class="form-button"
+      label="Cancel"
+      [routerLink]="['..']"
+      styleClass="button-text"></bvr-button>
   </div>
 </div>
 
-<bvr-modal (confirm)="archive()" confirmLabel="archive" [description]="modalDescription" [title]="'Archive employee'"
+<bvr-modal
+  (confirm)="archive()"
+  confirmLabel="archive"
+  [description]="modalDescription"
+  [title]="'Archive employee'"
   [(visible)]="isArchiveModalOpen"></bvr-modal>
 
 <bvr-toast></bvr-toast>

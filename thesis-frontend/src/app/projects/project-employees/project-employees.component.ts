@@ -7,7 +7,7 @@ import { ButtonComponent } from '../../shared/components/button/button.component
 import { ModalComponent } from '../../shared/components/modal/modal.component';
 import { ToastComponent } from '../../shared/components/toast/toast.component';
 import { ToastState } from '../../shared/enum/toast-state';
-import { Employee } from '../../shared/model/employee.model';
+import { Employee } from '../../shared/models/employee.model';
 import { ToastService } from '../../shared/services/toast.service';
 import { ProjectEmployee } from '../models/project-employee.model';
 import { ProjectEmployeesService } from '../services/project-employees.service';
@@ -65,7 +65,7 @@ export class ProjectEmployeesComponent implements OnInit {
   openArchiveModal(event: Event, row: ProjectEmployee): void {
     event.stopPropagation();
     this.isArchiveModalOpen = true;
-    this.modalDescription = `Are you sure you want to archive ${row.firstName} ${row.lastName}? This action cannot be undone.`;
+    this.modalDescription = `Are you sure you want to archive ${row.employee.firstName} ${row.employee.lastName}? This action cannot be undone.`;
   }
 
   showEmployeeDetails(row: Employee): void {
