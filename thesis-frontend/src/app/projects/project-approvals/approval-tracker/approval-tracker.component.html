@@ -1,4 +1,11 @@
-<div class="tracker card-body">
-  <bvr-calendar></bvr-calendar>
-  <bvr-approval-tracker-list class="tracker-right-side"></bvr-approval-tracker-list>
+<div class="approval-tracker card-body">
+  <bvr-form-field>
+    <bvr-dropdown-search-employee formControlName="id" name="id" [options]="employees">
+    </bvr-dropdown-search-employee>
+  </bvr-form-field>
+  <div class="tracker ">
+    <bvr-calendar></bvr-calendar>
+    <bvr-approval-tracker-list class=" tracker-right-side">
+    </bvr-approval-tracker-list>
+  </div>
 </div>

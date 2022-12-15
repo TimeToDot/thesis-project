@@ -1,0 +1,14 @@
+.approval-tracker {
+  display: flex;
+  flex-direction: column;
+
+  .dropdown-search-employee,
+  .form-field {
+    height: unset;
+  }
+
+  .tracker {
+    display: flex;
+    flex-direction: row;
+  }
+}
