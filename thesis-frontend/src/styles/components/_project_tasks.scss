@@ -32,6 +32,14 @@
   .status {
     margin: 0 2 * $grid-base 0 5 * $grid-base;
   }
+
+  .reject .material-icons-outlined {
+    color: $color-error;
+
+    &:hover {
+      color: $color-error-hover;
+    }
+  }
 }
 
 .task-left-side,
