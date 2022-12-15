@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { ApprovalTrackerListComponent } from './approval-tracker-list.component';
 
@@ -8,9 +10,12 @@ describe('ApprovalTrackerListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ ApprovalTrackerListComponent ]
-    })
-    .compileComponents();
+      imports: [
+        ApprovalTrackerListComponent,
+        BrowserAnimationsModule,
+        RouterTestingModule,
+      ],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ApprovalTrackerListComponent);
     component = fixture.componentInstance;
