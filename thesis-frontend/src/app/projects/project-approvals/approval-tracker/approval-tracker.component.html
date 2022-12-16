@@ -1,11 +1,43 @@
 <div class="approval-tracker card-body">
-  <bvr-form-field>
-    <bvr-dropdown-search-employee formControlName="id" name="id" [options]="employees">
-    </bvr-dropdown-search-employee>
-  </bvr-form-field>
-  <div class="tracker ">
+  <form [formGroup]="approveTasksForm">
+    <bvr-form-field>
+      <bvr-dropdown-search-employee
+        formControlName="id"
+        name="id"
+        [options]="employees">
+      </bvr-dropdown-search-employee>
+    </bvr-form-field>
+  </form>
+  <div class="tracker">
     <bvr-calendar></bvr-calendar>
-    <bvr-approval-tracker-list class=" tracker-right-side">
-    </bvr-approval-tracker-list>
+    <div class="tracker-right-side">
+      <div class="tracker-list">
+        <bvr-approval-tracker-list> </bvr-approval-tracker-list>
+      </div>
+      <div class="tracker-form-buttons">
+        <bvr-button
+          class="form-button"
+          (click)="openCancelModal()"
+          label="Cancel"
+          styleClass="button-text"></bvr-button>
+        <bvr-button
+          class="form-button"
+          (click)="openSaveModal()"
+          label="Save"></bvr-button>
+      </div>
+    </div>
   </div>
 </div>
+
+<bvr-modal
+  (confirm)="cancel()"
+  confirmLabel="Leave"
+  [description]="modalDescription"
+  [title]="'Leave'"
+  [(visible)]="isResetModalOpen"></bvr-modal>
+<bvr-modal
+  (confirm)="confirm()"
+  confirmLabel="Yes"
+  [description]="modalDescription"
+  [title]="'Confirm'"
+  [(visible)]="isSaveModalOpen"></bvr-modal>

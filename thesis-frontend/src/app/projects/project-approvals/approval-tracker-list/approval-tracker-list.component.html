@@ -1,11 +1,6 @@
-<bvr-employee-tasks *ngFor="let projectTasks of employeeProjectTasks" [employeeTasks]="projectTasks.tasks"
-  [isApproval]="true" [project]="projectTasks.project"></bvr-employee-tasks>
-
-<!-- <bvr-modal
-  (confirm)="delete()"
-  confirmLabel="Delete"
-  [description]="modalDescription"
-  [title]="'Delete Task'"
-  [(visible)]="isDeleteModalOpen"></bvr-modal> -->
-
+<bvr-employee-tasks
+  *ngFor="let projectTasks of employeeProjectTasks"
+  [employeeTasks]="projectTasks.tasks"
+  [isApproval]="true"
+  [project]="projectTasks.project"></bvr-employee-tasks>
 <bvr-toast></bvr-toast>

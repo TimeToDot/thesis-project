@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ButtonComponent } from '../../shared/components/button/button.component';
+import { ToastComponent } from '../../shared/components/toast/toast.component';
 import { EmployeeApproval } from '../models/employee-approval.model';
 import { EmployeesApprovalsService } from '../services/employees-approvals.service';
 
@@ -17,6 +18,7 @@ import { EmployeesApprovalsService } from '../services/employees-approvals.servi
     CommonModule,
     FormsModule,
     RouterModule,
+    ToastComponent,
   ],
 })
 export class ProjectApprovalsComponent implements OnInit {

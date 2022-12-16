@@ -7,8 +7,24 @@
     height: unset;
   }
 
+  .dropdown-search-employee-modal {
+    position: absolute;
+  }
+
   .tracker {
     display: flex;
     flex-direction: row;
+  }
+
+  .tracker-list {
+    height: 105 * $grid-base;
+    overflow-y: scroll;
+  }
+
+  .tracker-form-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 30 * $grid-base;
+    width: 100%;
   }
 }
