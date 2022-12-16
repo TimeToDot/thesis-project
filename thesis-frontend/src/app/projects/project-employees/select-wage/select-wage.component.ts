@@ -10,6 +10,7 @@ import { EmployeesService } from '../../../admin/services/employees.service';
 import { ToastService } from '../../../shared/services/toast.service';
 import { ToastState } from '../../../shared/enum/toast-state';
 import { ToastComponent } from '../../../shared/components/toast/toast.component';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'bvr-select-wage',
@@ -67,10 +68,13 @@ export class SelectWageComponent {
         'userInfo',
         'id',
       ])?.value;
-      this.employeesService.getEmployee(employeeId).subscribe(employee => {
-        this.isAddModalOpen = true;
-        this.modalDescription = `Are you sure you want to add ${employee.firstName} ${employee.lastName} to the Project X?`;
-      });
+      this.employeesService
+        .getEmployee(employeeId)
+        .pipe(first())
+        .subscribe(employee => {
+          this.isAddModalOpen = true;
+          this.modalDescription = `Are you sure you want to add ${employee.firstName} ${employee.lastName} to the Project X?`;
+        });
     } else {
       this.addProjectEmployeeForm.markAllAsTouched();
       this.toastService.showToast(ToastState.Error, 'Form invalid');

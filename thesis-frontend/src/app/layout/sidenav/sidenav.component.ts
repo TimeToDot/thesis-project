@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { LinkGroup } from '../../shared/models/link-group.model';
 import { EmployeesService } from '../../admin/services/employees.service';
 import { Employee } from '../../shared/models/employee.model';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'bvr-sidenav',
@@ -38,6 +39,7 @@ export class SidenavComponent implements OnInit {
   ngOnInit(): void {
     this.employeesService
       .getEmployee('1')
+      .pipe(first())
       .subscribe(employee => (this.currentEmployee = employee));
     this.getNavMenuOptions();
     this.getAdditionalNavMenuOptions();

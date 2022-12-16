@@ -10,6 +10,7 @@ import { ModalComponent } from '../../shared/components/modal/modal.component';
 import { ToastComponent } from '../../shared/components/toast/toast.component';
 import { ToastService } from '../../shared/services/toast.service';
 import { ToastState } from '../../shared/enum/toast-state';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'bvr-admin-positions',
@@ -52,14 +53,22 @@ export class AdminPositionsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.dataSource = this.positionsService.getPositions();
+    this.positionsService
+      .getPositions()
+      .subscribe(positions => (this.dataSource = positions));
   }
 
   showActiveTable(value: boolean): void {
     if (value) {
-      this.dataSource = this.positionsService.getPositions();
+      this.positionsService
+        .getPositions()
+        .pipe(first())
+        .subscribe(positions => (this.dataSource = positions));
     } else {
-      this.dataSource = this.positionsService.getArchivedPositions();
+      this.positionsService
+        .getArchivedPositions()
+        .pipe(first())
+        .subscribe(archivedPositions => (this.dataSource = archivedPositions));
     }
   }
 

@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { first } from 'rxjs';
 import { EmployeesService } from '../admin/services/employees.service';
 import { ButtonComponent } from '../shared/components/button/button.component';
 import { Employee } from '../shared/models/employee.model';
@@ -29,6 +30,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.employeesService
       .getEmployee('1')
+      .pipe(first())
       .subscribe(employee => (this.currentEmployee = employee));
   }
 }

@@ -8,6 +8,7 @@ import { DropdownSearchEmployeeComponent } from '../dropdown-search-employee/dro
 import { Employee } from '../../../shared/models/employee.model';
 import { EmployeesService } from '../../../admin/services/employees.service';
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'bvr-find-employee',
@@ -38,10 +39,13 @@ export class FindEmployeeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.employeesService.getEmployees().subscribe(employees => {
-      this.employees = employees.slice(0, 7);
-      setTimeout(() => this.observeIdSelection(), 0);
-    });
+    this.employeesService
+      .getEmployees()
+      .pipe(first())
+      .subscribe(employees => {
+        this.employees = employees.slice(0, 7);
+        setTimeout(() => this.observeIdSelection(), 0);
+      });
   }
 
   observeIdSelection(): void {

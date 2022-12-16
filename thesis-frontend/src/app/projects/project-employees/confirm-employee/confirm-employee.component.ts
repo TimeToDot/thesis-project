@@ -7,6 +7,7 @@ import { FormFieldComponent } from '../../../shared/components/form-field/form-f
 import { FormGroup, FormsModule } from '@angular/forms';
 import { EmployeesService } from '../../../admin/services/employees.service';
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'bvr-confirm-employee',
@@ -57,6 +58,7 @@ export class ConfirmEmployeeComponent implements OnInit {
     ])?.value;
     this.employeesService
       .getEmployee(employeeId)
+      .pipe(first())
       .subscribe(employee => (this.employee = employee));
   }
 

@@ -56,6 +56,7 @@ export class AdminEmployeesComponent implements OnInit {
   ngOnInit(): void {
     this.employeesService
       .getEmployees()
+      .pipe(first())
       .subscribe(employees => (this.dataSource = employees));
   }
 

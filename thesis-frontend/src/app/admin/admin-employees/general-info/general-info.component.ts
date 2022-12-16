@@ -6,6 +6,7 @@ import { FormFieldComponent } from '../../../shared/components/form-field/form-f
 import { FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PositionsService } from '../../services/positions.service';
 import { Position } from '../../models/position.model';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'bvr-general-info',
@@ -29,7 +30,10 @@ export class GeneralInfoComponent implements OnInit {
   constructor(private positionsService: PositionsService) {}
 
   ngOnInit(): void {
-    this.positions = this.positionsService.getPositions();
+    this.positionsService
+      .getPositions()
+      .pipe(first())
+      .subscribe(positions => (this.positions = positions));
   }
 
   nextStep(): void {

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
 import { Position } from '../models/position.model';
 
 @Injectable({
@@ -27,16 +28,16 @@ export class PositionsService {
 
   constructor() {}
 
-  getPosition(id: string): Position {
+  getPosition(id: string): Observable<Position> {
     const position = this._positions.find(position => position.id === id);
-    return position as Position;
+    return of(position as Position);
   }
 
-  getPositions(): Position[] {
-    return this._positions.filter(position => position.active);
+  getPositions(): Observable<Position[]> {
+    return of(this._positions.filter(position => position.active));
   }
 
-  getArchivedPositions(): Position[] {
-    return this._positions.filter(position => !position.active);
+  getArchivedPositions(): Observable<Position[]> {
+    return of(this._positions.filter(position => !position.active));
   }
 }
