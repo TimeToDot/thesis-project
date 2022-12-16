@@ -36,7 +36,9 @@ export class SidenavComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.currentEmployee = this.employeesService.getEmployee('1');
+    this.employeesService
+      .getEmployee('1')
+      .subscribe(employee => (this.currentEmployee = employee));
     this.getNavMenuOptions();
     this.getAdditionalNavMenuOptions();
   }

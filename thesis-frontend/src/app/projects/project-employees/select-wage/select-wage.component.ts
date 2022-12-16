@@ -60,25 +60,27 @@ export class SelectWageComponent {
       ? true
       : false;
   }
-  openCancelModal(): void {
-    this.isCancelModalOpen = true;
-    this.modalDescription = `Are you sure you want to leave? You will lose your unsaved changes if you continue.`;
-  }
 
   openAddModal(): void {
     if (this.addProjectEmployeeForm.valid) {
-      this.isAddModalOpen = true;
       const employeeId = this.addProjectEmployeeForm.get([
         'userInfo',
         'id',
       ])?.value;
-      const employee = this.employeesService.getEmployee(employeeId);
-      this.modalDescription = `Are you sure you want to add ${employee.firstName} ${employee.lastName} to the Project X?`;
+      this.employeesService.getEmployee(employeeId).subscribe(employee => {
+        this.isAddModalOpen = true;
+        this.modalDescription = `Are you sure you want to add ${employee.firstName} ${employee.lastName} to the Project X?`;
+      });
     } else {
       this.addProjectEmployeeForm.markAllAsTouched();
       this.toastService.showToast(ToastState.Error, 'Form invalid');
       setTimeout(() => this.toastService.dismissToast(), 3000);
     }
+  }
+
+  openCancelModal(): void {
+    this.isCancelModalOpen = true;
+    this.modalDescription = `Are you sure you want to leave? You will lose your unsaved changes if you continue.`;
   }
 
   cancel(): void {

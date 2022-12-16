@@ -55,7 +55,9 @@ export class ConfirmEmployeeComponent implements OnInit {
       'userInfo',
       'id',
     ])?.value;
-    this.employee = this.employeesService.getEmployee(employeeId);
+    this.employeesService
+      .getEmployee(employeeId)
+      .subscribe(employee => (this.employee = employee));
   }
 
   openCancelModal(): void {

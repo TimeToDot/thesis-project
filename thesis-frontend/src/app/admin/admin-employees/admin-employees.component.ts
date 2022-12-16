@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { first } from 'rxjs';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { ModalComponent } from '../../shared/components/modal/modal.component';
 import { ToastComponent } from '../../shared/components/toast/toast.component';
@@ -53,7 +54,9 @@ export class AdminEmployeesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.dataSource = this.employeesService.getEmployees();
+    this.employeesService
+      .getEmployees()
+      .subscribe(employees => (this.dataSource = employees));
   }
 
   editEmployee(event: Event, row: Employee): void {
@@ -73,9 +76,15 @@ export class AdminEmployeesComponent implements OnInit {
 
   showActiveTable(value: boolean): void {
     if (value) {
-      this.dataSource = this.employeesService.getEmployees();
+      this.employeesService
+        .getEmployees()
+        .pipe(first())
+        .subscribe(employees => (this.dataSource = employees));
     } else {
-      this.dataSource = this.employeesService.getArchivedEmployees();
+      this.employeesService
+        .getArchivedEmployees()
+        .pipe(first())
+        .subscribe(archivedEmployees => (this.dataSource = archivedEmployees));
     }
   }
 

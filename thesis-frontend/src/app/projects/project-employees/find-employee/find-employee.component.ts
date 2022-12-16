@@ -38,8 +38,10 @@ export class FindEmployeeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.employees = this.employeesService.getEmployees().slice(0, 7);
-    setTimeout(() => this.observeIdSelection(), 0);
+    this.employeesService.getEmployees().subscribe(employees => {
+      this.employees = employees.slice(0, 7);
+      setTimeout(() => this.observeIdSelection(), 0);
+    });
   }
 
   observeIdSelection(): void {
