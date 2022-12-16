@@ -9,6 +9,7 @@ import { ToastComponent } from '../../shared/components/toast/toast.component';
 import { ModalComponent } from '../../shared/components/modal/modal.component';
 import { ToastService } from '../../shared/services/toast.service';
 import { ToastState } from '../../shared/enum/toast-state';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'bvr-tasks-list',
@@ -41,7 +42,10 @@ export class TasksListComponent implements OnInit {
   }
 
   getEmployeeTasks(): void {
-    this.employeeTasks = this.employeeTasksService.getEmployeeTasks();
+    this.employeeTasksService
+      .getEmployeeTasks()
+      .pipe(first())
+      .subscribe(employeeTasks => (this.employeeTasks = employeeTasks));
   }
 
   getEmployeeProjectTasks(): void {

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { first } from 'rxjs';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { ModalComponent } from '../../shared/components/modal/modal.component';
 import { ToastComponent } from '../../shared/components/toast/toast.component';
@@ -54,7 +55,10 @@ export class ProjectEmployeesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.dataSource = this.projectEmployeesService.getProjectEmployees();
+    this.projectEmployeesService
+      .getProjectEmployees()
+      .pipe(first())
+      .subscribe(projectEmployees => (this.dataSource = projectEmployees));
   }
 
   editEmployee(event: Event, row: ProjectEmployee): void {
@@ -74,10 +78,18 @@ export class ProjectEmployeesComponent implements OnInit {
 
   showActiveTable(value: boolean): void {
     if (value) {
-      this.dataSource = this.projectEmployeesService.getProjectEmployees();
+      this.projectEmployeesService
+        .getProjectEmployees()
+        .pipe(first())
+        .subscribe(projectEmployees => (this.dataSource = projectEmployees));
     } else {
-      this.dataSource =
-        this.projectEmployeesService.getArchivedProjectEmployees();
+      this.projectEmployeesService
+        .getArchivedProjectEmployees()
+        .pipe(first())
+        .subscribe(
+          archivedProjectEmployees =>
+            (this.dataSource = archivedProjectEmployees)
+        );
     }
   }
 

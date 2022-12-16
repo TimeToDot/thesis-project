@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
 import { Status } from '../../shared/enum/status.enum';
 import { EmployeeApproval } from '../models/employee-approval.model';
 
@@ -84,15 +85,19 @@ export class EmployeesApprovalsService {
 
   constructor() {}
 
-  getEmployeesApprovals(): EmployeeApproval[] {
-    return this._employeesApprovals.filter(
-      employeeApproval => employeeApproval.projectEmployee.active
+  getEmployeesApprovals(): Observable<EmployeeApproval[]> {
+    return of(
+      this._employeesApprovals.filter(
+        employeeApproval => employeeApproval.projectEmployee.active
+      )
     );
   }
 
-  getArchivedEmployeesApprovals(): EmployeeApproval[] {
-    return this._employeesApprovals.filter(
-      employeeApproval => !employeeApproval.projectEmployee.active
+  getArchivedEmployeesApprovals(): Observable<EmployeeApproval[]> {
+    return of(
+      this._employeesApprovals.filter(
+        employeeApproval => !employeeApproval.projectEmployee.active
+      )
     );
   }
 }

@@ -17,6 +17,7 @@ import { ProjectEmployeesService } from '../../services/project-employees.servic
 import { ToastService } from '../../../shared/services/toast.service';
 import { ToastState } from '../../../shared/enum/toast-state';
 import { ToastComponent } from '../../../shared/components/toast/toast.component';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'bvr-edit-employee',
@@ -84,8 +85,10 @@ export class EditProjectEmployeeComponent implements OnInit {
   getEmployee(): void {
     const employeeId = this.route.snapshot.paramMap.get('id');
     if (employeeId) {
-      this.projectEmployee =
-        this.projectEmployeesService.getProjectEmployee(employeeId);
+      this.projectEmployeesService
+        .getProjectEmployee(employeeId)
+        .pipe(first())
+        .subscribe(projectEmployee => (this.projectEmployee = projectEmployee));
     }
   }
 

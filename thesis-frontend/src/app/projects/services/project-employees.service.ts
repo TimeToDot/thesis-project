@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
 import { ProjectEmployee } from '../models/project-employee.model';
 
 @Injectable({
@@ -89,18 +90,18 @@ export class ProjectEmployeesService {
 
   constructor() {}
 
-  getProjectEmployee(id: string): ProjectEmployee {
+  getProjectEmployee(id: string): Observable<ProjectEmployee> {
     const employee = this._projectEmployees.find(
       employee => employee.id === id
     );
-    return employee as ProjectEmployee;
+    return of(employee as ProjectEmployee);
   }
 
-  getProjectEmployees(): ProjectEmployee[] {
-    return this._projectEmployees.filter(employee => employee.active);
+  getProjectEmployees(): Observable<ProjectEmployee[]> {
+    return of(this._projectEmployees.filter(employee => employee.active));
   }
 
-  getArchivedProjectEmployees(): ProjectEmployee[] {
-    return this._projectEmployees.filter(employee => !employee.active);
+  getArchivedProjectEmployees(): Observable<ProjectEmployee[]> {
+    return of(this._projectEmployees.filter(employee => !employee.active));
   }
 }

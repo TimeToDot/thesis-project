@@ -9,6 +9,7 @@ import { ModalComponent } from '../../../shared/components/modal/modal.component
 import { ToastService } from '../../../shared/services/toast.service';
 import { ToastState } from '../../../shared/enum/toast-state';
 import { ToastComponent } from '../../../shared/components/toast/toast.component';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'bvr-view-task',
@@ -50,7 +51,10 @@ export class ViewTaskComponent implements OnInit {
   getTask(): void {
     const taskId = this.route.snapshot.paramMap.get('id');
     if (taskId) {
-      this.task = this.projectTasksService.getProjectTask(taskId);
+      this.projectTasksService
+        .getProjectTask(taskId)
+        .pipe(first())
+        .subscribe(projectTask => (this.task = projectTask));
     }
   }
 

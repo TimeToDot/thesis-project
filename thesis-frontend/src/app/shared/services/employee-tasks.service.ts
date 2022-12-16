@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
 import { Status } from '../enum/status.enum';
 import { EmployeeTask } from '../models/employee-task.model';
 
@@ -74,12 +75,12 @@ export class EmployeeTasksService {
 
   constructor() {}
 
-  getEmployeeTask(id: string): EmployeeTask {
+  getEmployeeTask(id: string): Observable<EmployeeTask> {
     const task = this._employeeTasks.find(task => task.id === id);
-    return task as EmployeeTask;
+    return of(task as EmployeeTask);
   }
 
-  getEmployeeTasks(): EmployeeTask[] {
-    return this._employeeTasks;
+  getEmployeeTasks(): Observable<EmployeeTask[]> {
+    return of(this._employeeTasks);
   }
 }

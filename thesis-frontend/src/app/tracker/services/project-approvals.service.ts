@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
 import { ProjectApproval } from '../models/project-approval.model';
 
 @Injectable({
@@ -34,7 +35,7 @@ export class ProjectApprovalsService {
 
   constructor() {}
 
-  getProjectApprovals(): ProjectApproval[] {
-    return this._projectApprovals;
+  getProjectApprovals(): Observable<ProjectApproval[]> {
+    return of(this._projectApprovals);
   }
 }

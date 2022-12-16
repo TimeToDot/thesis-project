@@ -9,6 +9,7 @@ import { ToastComponent } from '../../../shared/components/toast/toast.component
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
 import { ToastService } from '../../../shared/services/toast.service';
 import { ToastState } from '../../../shared/enum/toast-state';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'bvr-view-project-employee',
@@ -62,8 +63,10 @@ export class ViewProjectEmployeeComponent implements OnInit {
   getEmployee(): void {
     const employeeId = this.route.snapshot.paramMap.get('id');
     if (employeeId) {
-      this.projectEmployee =
-        this.projectEmployeeService.getProjectEmployee(employeeId);
+      this.projectEmployeeService
+        .getProjectEmployee(employeeId)
+        .pipe(first())
+        .subscribe(projectEmployee => (this.projectEmployee = projectEmployee));
     }
   }
 

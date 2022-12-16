@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
 import { ProjectTask } from '../models/project-task.model';
 
 @Injectable({
@@ -51,19 +52,25 @@ export class ProjectTasksService {
 
   constructor() {}
 
-  getProjectTask(taskId: string): ProjectTask {
-    return this._tasks.find(element => element.id === taskId) as ProjectTask;
+  getProjectTask(taskId: string): Observable<ProjectTask> {
+    return of(
+      this._tasks.find(element => element.id === taskId) as ProjectTask
+    );
   }
 
-  getProjectTasks(projectId: string): ProjectTask[] {
-    return this._tasks
-      .filter(element => element.projectId === projectId)
-      .filter(element => element.active);
+  getProjectTasks(projectId: string): Observable<ProjectTask[]> {
+    return of(
+      this._tasks
+        .filter(element => element.projectId === projectId)
+        .filter(element => element.active)
+    );
   }
 
-  getArchivedProjectTasks(projectId: string): ProjectTask[] {
-    return this._tasks
-      .filter(element => element.projectId === projectId)
-      .filter(element => !element.active);
+  getArchivedProjectTasks(projectId: string): Observable<ProjectTask[]> {
+    return of(
+      this._tasks
+        .filter(element => element.projectId === projectId)
+        .filter(element => !element.active)
+    );
   }
 }

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
 import { Project } from '../../projects/models/project.model';
 
 @Injectable({
@@ -13,7 +14,7 @@ export class EmployeeProjectsService {
 
   constructor() {}
 
-  getEmployeeProjects(): Project[] {
-    return this._projects;
+  getEmployeeProjects(): Observable<Project[]> {
+    return of(this._projects);
   }
 }

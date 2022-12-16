@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { first } from 'rxjs';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { ToastComponent } from '../../shared/components/toast/toast.component';
 import { EmployeeApproval } from '../models/employee-approval.model';
@@ -41,15 +42,28 @@ export class ProjectApprovalsComponent implements OnInit {
   constructor(private employeesApprovalsService: EmployeesApprovalsService) {}
 
   ngOnInit(): void {
-    this.dataSource = this.employeesApprovalsService.getEmployeesApprovals();
+    this.employeesApprovalsService
+      .getEmployeesApprovals()
+      .pipe(first())
+      .subscribe(employeesApprovals => (this.dataSource = employeesApprovals));
   }
 
   showActiveTable(value: boolean): void {
     if (value) {
-      this.dataSource = this.employeesApprovalsService.getEmployeesApprovals();
+      this.employeesApprovalsService
+        .getEmployeesApprovals()
+        .pipe(first())
+        .subscribe(
+          employeesApprovals => (this.dataSource = employeesApprovals)
+        );
     } else {
-      this.dataSource =
-        this.employeesApprovalsService.getArchivedEmployeesApprovals();
+      this.employeesApprovalsService
+        .getArchivedEmployeesApprovals()
+        .pipe(first())
+        .subscribe(
+          archivedEmployeesApprovals =>
+            (this.dataSource = archivedEmployeesApprovals)
+        );
     }
   }
 }

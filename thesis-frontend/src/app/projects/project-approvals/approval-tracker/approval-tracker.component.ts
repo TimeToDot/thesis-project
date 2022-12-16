@@ -4,7 +4,7 @@ import { ButtonComponent } from '../../../shared/components/button/button.compon
 import { CalendarComponent } from '../../../calendar/calendar.component';
 import { ApprovalTrackerListComponent } from '../approval-tracker-list/approval-tracker-list.component';
 import { TasksToRejectService } from '../../../shared/services/tasks-to-reject.service';
-import { Subscription } from 'rxjs';
+import { first, Subscription } from 'rxjs';
 import { DropdownSearchEmployeeComponent } from '../../project-employees/dropdown-search-employee/dropdown-search-employee.component';
 import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
 import { ProjectEmployeesService } from '../../services/project-employees.service';
@@ -68,9 +68,15 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
   }
 
   getProjectEmployees(): void {
-    this.employees = this.projectEmployeesService
+    this.projectEmployeesService
       .getProjectEmployees()
-      .map(projectEmployee => projectEmployee.employee);
+      .pipe(first())
+      .subscribe(
+        projectEmployees =>
+          (this.employees = projectEmployees.map(
+            projectEmployee => projectEmployee.employee
+          ))
+      );
   }
 
   openSaveModal(): void {

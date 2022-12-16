@@ -25,6 +25,7 @@ import { ModalComponent } from '../../shared/components/modal/modal.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as dayjs from 'dayjs';
 import { EmployeeTasksService } from '../../shared/services/employee-tasks.service';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'bvr-add-new-task',
@@ -64,10 +65,17 @@ export class AddNewTaskComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.projects = this.employeeProjectService.getEmployeeProjects();
+    this.getEmployeeProjects();
     this.createForm();
     this.observeProjectChange();
     this.loadTaskToEdit();
+  }
+
+  getEmployeeProjects(): void {
+    this.employeeProjectService
+      .getEmployeeProjects()
+      .pipe(first())
+      .subscribe(employeeProjects => (this.projects = employeeProjects));
   }
 
   roundToMinutes(minutes: number): string {
@@ -129,7 +137,10 @@ export class AddNewTaskComponent implements OnInit {
 
   observeProjectChange(): void {
     this.addTaskForm.get('project')?.valueChanges.subscribe(project => {
-      this.tasks = this.projectTasksService.getProjectTasks(project.id);
+      this.projectTasksService
+        .getProjectTasks(project.id)
+        .pipe(first())
+        .subscribe(projectTasks => (this.tasks = projectTasks));
       this.addTaskForm.get('task')?.enable();
       this.addTaskForm.get('task')?.setValue('');
     });
@@ -138,14 +149,19 @@ export class AddNewTaskComponent implements OnInit {
   loadTaskToEdit(): void {
     const taskId = this.route.snapshot.paramMap.get('id');
     if (taskId) {
-      const task = this.employeeTasksService.getEmployeeTask(taskId);
-      this.addTaskForm.get('startDate')?.setValue(task.startDate);
-      this.addTaskForm.get('startTime')?.setValue(task.startTime);
-      this.addTaskForm.get('endDate')?.setValue(task.endDate);
-      this.addTaskForm.get('endTime')?.setValue(task.endTime);
-      this.addTaskForm.get('project')?.setValue(task.project);
-      this.addTaskForm.get('task')?.setValue(task.task);
-      this.hasTaskToSave = true;
+      this.employeeTasksService
+        .getEmployeeTask(taskId)
+        .pipe(first())
+        .subscribe(employeeTask => {
+          const task = employeeTask;
+          this.addTaskForm.get('startDate')?.setValue(task.startDate);
+          this.addTaskForm.get('startTime')?.setValue(task.startTime);
+          this.addTaskForm.get('endDate')?.setValue(task.endDate);
+          this.addTaskForm.get('endTime')?.setValue(task.endTime);
+          this.addTaskForm.get('project')?.setValue(task.project);
+          this.addTaskForm.get('task')?.setValue(task.task);
+          this.hasTaskToSave = true;
+        });
     }
   }
 

@@ -9,6 +9,7 @@ import { EmployeeTasksService } from '../../../shared/services/employee-tasks.se
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastService } from '../../../shared/services/toast.service';
 import { ToastState } from '../../../shared/enum/toast-state';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'bvr-approval-tracker-list',
@@ -41,7 +42,10 @@ export class ApprovalTrackerListComponent {
   }
 
   getEmployeeTasks(): void {
-    this.employeeTasks = this.employeeTasksService.getEmployeeTasks();
+    this.employeeTasksService
+      .getEmployeeTasks()
+      .pipe(first())
+      .subscribe(employeeTasks => (this.employeeTasks = employeeTasks));
   }
 
   getEmployeeProjectTasks(): void {

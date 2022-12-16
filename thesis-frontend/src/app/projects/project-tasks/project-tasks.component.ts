@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { first } from 'rxjs';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { ModalComponent } from '../../shared/components/modal/modal.component';
 import { ToastComponent } from '../../shared/components/toast/toast.component';
@@ -47,14 +48,25 @@ export class ProjectTasksComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.dataSource = this.projectTasksService.getProjectTasks('1');
+    this.projectTasksService
+      .getProjectTasks('1')
+      .pipe(first())
+      .subscribe(projectTasks => (this.dataSource = projectTasks));
   }
 
   showActiveTable(value: boolean): void {
     if (value) {
-      this.dataSource = this.projectTasksService.getProjectTasks('1');
+      this.projectTasksService
+        .getProjectTasks('1')
+        .pipe(first())
+        .subscribe(projectTasks => (this.dataSource = projectTasks));
     } else {
-      this.dataSource = this.projectTasksService.getArchivedProjectTasks('1');
+      this.projectTasksService
+        .getArchivedProjectTasks('1')
+        .pipe(first())
+        .subscribe(
+          archivedProjectTasks => (this.dataSource = archivedProjectTasks)
+        );
     }
   }
 

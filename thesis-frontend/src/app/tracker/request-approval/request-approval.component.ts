@@ -20,6 +20,7 @@ import { ToastService } from '../../shared/services/toast.service';
 import { ToastState } from '../../shared/enum/toast-state';
 import { ModalComponent } from '../../shared/components/modal/modal.component';
 import { ToastComponent } from '../../shared/components/toast/toast.component';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'bvr-request-approval',
@@ -84,7 +85,12 @@ export class RequestApprovalComponent implements OnInit {
   }
 
   getProjectApprovals(): void {
-    this.projectApprovals = this.projectApprovalsService.getProjectApprovals();
+    this.projectApprovalsService
+      .getProjectApprovals()
+      .pipe(first())
+      .subscribe(
+        projectApprovals => (this.projectApprovals = projectApprovals)
+      );
   }
 
   openCancelModal(): void {

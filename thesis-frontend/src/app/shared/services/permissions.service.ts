@@ -39,7 +39,9 @@ export class PermissionsService {
     return this._permissions;
   }
 
-  getProjectPermissions(index: string | null): ProjectPermissions | undefined {
-    return this._permissions.projects.find(project => project.id === index);
+  getProjectPermissions(index: string | null): ProjectPermissions {
+    return this._permissions.projects.find(
+      project => project.id === index
+    ) as ProjectPermissions;
   }
 }
