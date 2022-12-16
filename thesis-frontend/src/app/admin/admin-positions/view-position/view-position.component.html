@@ -1,12 +1,57 @@
 <div class="card">
+  <div class="header">
+    <div class="title">
+      <h2 class="name">View position</h2>
+    </div>
+  </div>
+  <div class="card-content">
     <div class="header">
-        <div class="title">
-            <h2 class="name">Create position</h2>
-        </div>
+      <div class="name">
+        <h4>{{ position.name }}</h4>
+        <h4 *ngIf="!position.active" class="archived">(Archived)</h4>
+      </div>
+      <div>
+        <bvr-button
+          *ngIf="position.active"
+          icon="edit"
+          [routerLink]="['edit']"
+          styleClass="button-icon"></bvr-button>
+        <bvr-button
+          (click)="openArchiveModal()"
+          icon="archive"
+          styleClass="button-icon"></bvr-button>
+      </div>
     </div>
-    <div class="card-body">
-        <div>
-            <bvr-button label="Cancel" [routerLink]="['..']" styleClass="button-text"></bvr-button>
-        </div>
+    <!-- <div class="form">
+      <div class="dates">
+        <bvr-form-field class="disabled left-field" label="Creation Date">
+          <span>{{ position.creationDate }}</span>
+        </bvr-form-field>
+        <bvr-form-field
+          *ngIf="!position.active"
+          class="disabled field"
+          label="Archive Date">
+          <span>{{ position.archiveDate }}</span>
+        </bvr-form-field>
+      </div>
+      <bvr-form-field class="disabled field description" label="Description">
+        <span>{{ position.description }}</span>
+      </bvr-form-field>
+    </div> -->
+    <div class="form-buttons">
+      <bvr-button
+        label="Cancel"
+        [routerLink]="['..']"
+        styleClass="button-text"></bvr-button>
     </div>
+  </div>
+
+  <bvr-modal
+    (confirm)="archive()"
+    confirmLabel="archive"
+    [description]="modalDescription"
+    [title]="'Archive position'"
+    [(visible)]="isArchiveModalOpen"></bvr-modal>
+
+  <bvr-toast></bvr-toast>
 </div>
