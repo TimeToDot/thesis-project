@@ -5,6 +5,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.web.authentication.switchuser.SwitchUserGrantedAuthority;
 import thesis.data.account.model.Account;
 import thesis.security.services.model.UserDetailsDefault;
 
@@ -31,10 +32,16 @@ public interface UserDetailsMapper {
 
         account.getRoles().forEach(role -> {
             role.getPrivileges()
-                    .forEach(privilege -> {
-                        authorities.add(new SimpleGrantedAuthority(privilege.getName().name()));
-                    });
+                    .forEach(privilege -> authorities.add(new SimpleGrantedAuthority(privilege.getName().name())));
                 });
+
+        account.getProjectAccountRoles().forEach(projectAccountRole -> {
+            var projectId = projectAccountRole.getProject().getId();
+
+            projectAccountRole.getRole().getPrivileges().forEach(privilege -> {
+                authorities.add(new SimpleGrantedAuthority(projectId.toString() + "#" + privilege.getName().name()));
+            });
+        });
         return authorities;
     }
 }

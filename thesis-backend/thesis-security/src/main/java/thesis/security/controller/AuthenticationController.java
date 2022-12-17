@@ -11,13 +11,18 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import thesis.security.jwt.JwtUtils;
+import thesis.security.config.JwtUtils;
 import thesis.security.payload.AuthenticationRequest;
 import thesis.security.payload.AuthenticationResponse;
+import thesis.security.services.model.ProjectPrivilege;
 import thesis.security.services.model.UserDetailsDefault;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -47,15 +52,26 @@ public class AuthenticationController {
 
         ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
 
-        List<String> roles = userDetails.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .toList();
+        var authorities = userDetails
+                .getAuthorities()
+                .stream()
+                .map(GrantedAuthority::getAuthority);
 
-        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
-                .body(new AuthenticationResponse(userDetails.getId(),
-                        userDetails.getUsername(),
-                        userDetails.getEmail(),
-                        roles));
+
+        var globalAuthorities = getGlobalAuthorities(authorities);
+        var projectPrivileges = getProjectPrivileges(authorities);
+
+        return ResponseEntity
+                .ok()
+                .header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
+                .body(AuthenticationResponse.builder()
+                        .id(userDetails.getId())
+                        .username(userDetails.getUsername())
+                        .email(userDetails.getEmail())
+                        .globalAuthorities(globalAuthorities)
+                        .projectPrivileges(projectPrivileges)
+                        .build()
+                );
     }
 
     @PostMapping(
@@ -67,6 +83,35 @@ public class AuthenticationController {
                 .body("You've been signed out!");
     }
 
+    private List<String> getGlobalAuthorities(Stream<String> authorities) {
+        return authorities
+                .filter(s -> s.startsWith("CAN_"))
+                .toList();
+    }
 
+    private Map<UUID, List<String>> getProjectPrivileges(Stream<String> authorities) {
+        FuncProjectPrivilege funcProjectPrivilege = s -> {
+            var tab = s.split("#");
+            return new ProjectPrivilege(UUID.fromString(tab[0]), tab[1]);
+        };
+
+        return authorities
+                .filter(s -> !s.startsWith("CAN_"))
+                .map(funcProjectPrivilege::toPrivilege)
+                .collect(Collectors.groupingBy(
+                                ProjectPrivilege::id,
+                                Collectors.mapping(
+                                        ProjectPrivilege::privilege,
+                                        Collectors.toList()
+                                )
+                        )
+                );
+    }
+
+
+    @FunctionalInterface
+    interface FuncProjectPrivilege {
+        ProjectPrivilege toPrivilege(String s);
+    }
 
 }
