@@ -55,7 +55,8 @@ public class AuthenticationController {
         var authorities = userDetails
                 .getAuthorities()
                 .stream()
-                .map(GrantedAuthority::getAuthority);
+                .map(GrantedAuthority::getAuthority)
+                .toList();
 
 
         var globalAuthorities = getGlobalAuthorities(authorities);
@@ -83,19 +84,21 @@ public class AuthenticationController {
                 .body("You've been signed out!");
     }
 
-    private List<String> getGlobalAuthorities(Stream<String> authorities) {
+    private List<String> getGlobalAuthorities(List<String> authorities) {
         return authorities
+                .stream()
                 .filter(s -> s.startsWith("CAN_"))
                 .toList();
     }
 
-    private Map<UUID, List<String>> getProjectPrivileges(Stream<String> authorities) {
+    private Map<UUID, List<String>> getProjectPrivileges(List<String> authorities) {
         FuncProjectPrivilege funcProjectPrivilege = s -> {
             var tab = s.split("#");
             return new ProjectPrivilege(UUID.fromString(tab[0]), tab[1]);
         };
 
         return authorities
+                .stream()
                 .filter(s -> !s.startsWith("CAN_"))
                 .map(funcProjectPrivilege::toPrivilege)
                 .collect(Collectors.groupingBy(

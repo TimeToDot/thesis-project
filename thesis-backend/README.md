@@ -17,4 +17,4 @@ The [backend-thesis](../README.md) module has the following sub-modules:
 `db` : directory with sql schemas only for develop
 
 
-to open swagger go to URL -> http://localhost:8080/thesis/swagger-ui/
+to open swagger go to URL -> http://localhost:8080/thesis/swagger-ui/index.html

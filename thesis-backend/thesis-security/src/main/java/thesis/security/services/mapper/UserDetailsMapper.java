@@ -6,6 +6,7 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.web.authentication.switchuser.SwitchUserGrantedAuthority;
+import org.springframework.transaction.annotation.Transactional;
 import thesis.data.account.model.Account;
 import thesis.security.services.model.UserDetailsDefault;
 

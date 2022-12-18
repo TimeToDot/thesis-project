@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import thesis.api.employee.model.EmployeesResponse;
-import thesis.domain.PagingSettings;
+import thesis.domain.paging.PagingSettings;
 
 @RestController
 @RequestMapping("/api/employees")

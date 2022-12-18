@@ -138,6 +138,11 @@ public class InitDataTest {
                 .owner(accounts.get(1))
                 .build();
 
+        var project3 = Project.builder()
+                .name("Project3")
+                .owner(accounts.get(1))
+                .build();
+
         var projects = List.of(project1, project2);
 
         projectRepository.saveAll(projects);
