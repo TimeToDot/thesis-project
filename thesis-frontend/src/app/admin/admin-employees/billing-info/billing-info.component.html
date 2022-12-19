@@ -1,9 +1,11 @@
-<div *ngIf="createEmployeeForm" class="form" [formGroup]="createEmployeeForm">
-  <div formGroupName="billingInfo">
+<div *ngIf="createEmployeeForm" class="create-employee" [formGroup]="createEmployeeForm">
+  <div class="form" formGroupName="billingInfo">
     <bvr-form-field label="Account number" [required]="isRequired('accountNumber')">
       <input formControlName="accountNumber" type="text" />
     </bvr-form-field>
   </div>
+  <div class="form-buttons">
+    <bvr-button class="form-button" label="Cancel" [routerLink]="['..']" styleClass="button-text"></bvr-button>
+    <bvr-button class="form-button" (click)="previousStep()" label="Previous"></bvr-button>
+  </div>
 </div>
-<bvr-button label="Cancel" [routerLink]="['..']" styleClass="button-text"></bvr-button>
-<bvr-button (click)="previousStep()" label="Previous"></bvr-button>

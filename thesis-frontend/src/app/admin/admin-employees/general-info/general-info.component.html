@@ -1,4 +1,4 @@
-<div *ngIf="createEmployeeForm" class="general-info" [formGroup]="createEmployeeForm">
+<div *ngIf="createEmployeeForm" class="create-employee" [formGroup]="createEmployeeForm">
   <div class="form" formGroupName="generalInfo">
     <div class="row">
       <bvr-form-field class="left-field" label="First name" [required]="isRequired('firstName')">
@@ -30,7 +30,7 @@
   </div>
 
   <div class="form-buttons">
-    <bvr-button label="Cancel" [routerLink]="['..']" styleClass="button-text"></bvr-button>
-    <bvr-button (click)="nextStep()" label="Next"></bvr-button>
+    <bvr-button class='form-button' label="Cancel" [routerLink]="['..']" styleClass="button-text"></bvr-button>
+    <bvr-button class='form-button' (click)="nextStep()" label="Next"></bvr-button>
   </div>
 </div>

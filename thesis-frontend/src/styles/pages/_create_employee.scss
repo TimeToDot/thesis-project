@@ -1,0 +1,27 @@
+.create-employee {
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+  padding: 0 31 * $grid-base 12 * $grid-base;
+  width: 100%;
+
+  .row,
+  .house-info {
+    display: flex;
+    flex-direction: row;
+
+    input {
+      width: 100%;
+    }
+  }
+
+  .row.address-info {
+    > .left-field {
+      flex: 1;
+    }
+
+    .house-info {
+      flex: 1;
+    }
+  }
+}

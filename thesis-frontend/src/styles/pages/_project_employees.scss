@@ -36,8 +36,7 @@
     width: 100%;
   }
 
-  .employment-info,
-  .contract-info,
+  .row,
   .financial-info {
     display: flex;
   }
@@ -46,7 +45,7 @@
     margin-top: 8 * $grid-base;
   }
 
-  .contract-info.archived {
+  .row.archived {
     > .left-field {
       flex: 1;
     }

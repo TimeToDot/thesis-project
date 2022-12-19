@@ -4,6 +4,7 @@ import { ButtonComponent } from '../../../shared/components/button/button.compon
 import { RouterModule } from '@angular/router';
 import { FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
+import { DatePickerComponent } from '../../../shared/components/date-picker/date-picker.component';
 
 @Component({
   selector: 'bvr-personal-info',
@@ -11,6 +12,7 @@ import { FormFieldComponent } from '../../../shared/components/form-field/form-f
   imports: [
     ButtonComponent,
     CommonModule,
+    DatePickerComponent,
     FormFieldComponent,
     ReactiveFormsModule,
     RouterModule,

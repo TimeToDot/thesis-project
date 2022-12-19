@@ -1,31 +1,40 @@
-<div *ngIf="createEmployeeForm" class="form" [formGroup]="createEmployeeForm">
-  <div formGroupName="contactInfo">
+<div *ngIf="createEmployeeForm" class="create-employee" [formGroup]="createEmployeeForm">
+  <div class="form" formGroupName="contactInfo">
     <bvr-form-field label="Phone number" [required]="isRequired('phoneNumber')">
       <input formControlName="phoneNumber" type="tel" />
     </bvr-form-field>
     <bvr-form-field label="Private email" [required]="isRequired('privateEmail')">
       <input formControlName="privateEmail" type="email" />
     </bvr-form-field>
-    <bvr-form-field label="Street" [required]="isRequired('street')">
-      <input formControlName="street" type="text" />
-    </bvr-form-field>
-    <bvr-form-field label="House number" [required]="isRequired('houseNumber')">
-      <input formControlName="houseNumber" type="text" />
-    </bvr-form-field>
-    <bvr-form-field label="Apartment number" [required]="isRequired('apartmentNumber')">
-      <input formControlName="apartmentNumber" type="text" />
-    </bvr-form-field>
-    <bvr-form-field label="City" [required]="isRequired('city')">
-      <input formControlName="city" type="text" />
-    </bvr-form-field>
-    <bvr-form-field label="Postal code" [required]="isRequired('postalCode')">
-      <input formControlName="postalCode" type="text" />
-    </bvr-form-field>
-    <bvr-form-field label="Country" [required]="isRequired('country')">
-      <input formControlName="country" type="text" />
-    </bvr-form-field>
+    <div class="row address-info">
+      <bvr-form-field class="left-field" label="Street" [required]="isRequired('street')">
+        <input formControlName="street" type="text" />
+      </bvr-form-field>
+      <div class="house-info">
+        <bvr-form-field class="left-field" label="House number" [required]="isRequired('houseNumber')">
+          <input formControlName="houseNumber" type="text" />
+        </bvr-form-field>
+        <bvr-form-field class="field" label="Apartment number" [required]="isRequired('apartmentNumber')">
+          <input formControlName="apartmentNumber" type="text" />
+        </bvr-form-field>
+      </div>
+    </div>
+    <div class="row ">
+      <bvr-form-field class="left-field" label="City" [required]="isRequired('city')">
+        <input formControlName="city" type="text" />
+      </bvr-form-field>
+      <bvr-form-field class="left-field" label="Postal code" [required]="isRequired('postalCode')">
+        <input formControlName="postalCode" type="text" />
+      </bvr-form-field>
+      <bvr-form-field class="field" label="Country" [required]="isRequired('country')">
+        <input formControlName="country" type="text" />
+      </bvr-form-field>
+    </div>
+  </div>
+
+  <div class="form-buttons">
+    <bvr-button class="form-button" label="Cancel" [routerLink]="['..']" styleClass="button-text"></bvr-button>
+    <bvr-button class="form-button" (click)="previousStep()" label="Previous"></bvr-button>
+    <bvr-button class="form-button" (click)="nextStep()" label="Next"></bvr-button>
   </div>
 </div>
-<bvr-button label="Cancel" [routerLink]="['..']" styleClass="button-text"></bvr-button>
-<bvr-button (click)="previousStep()" label="Previous"></bvr-button>
-<bvr-button (click)="nextStep()" label="Next"></bvr-button>
