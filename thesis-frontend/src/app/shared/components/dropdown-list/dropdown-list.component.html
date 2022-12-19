@@ -1,15 +1,12 @@
-<div class="dropdown-list">
+<div #dropdown class="dropdown-list">
   <div (click)="toggleSelect()" [ngClass]="{ disabled: disabled }">
     <input readonly type="text" [value]="selectedOption.name" />
     <span class="material-icons-outlined dropdown-list-icon">{{
       selectEnabled ? 'expand_less' : 'expand_more'
-    }}</span>
+      }}</span>
   </div>
-  <div *ngIf="selectEnabled" class="dropdown-list-modal">
-    <div
-      *ngFor="let option of options"
-      class="row"
-      [ngClass]="{ selected: option.id === selectedOption.id }"
+  <div *ngIf="selectEnabled" #dropdownContent class="dropdown-list-modal">
+    <div *ngFor="let option of options" class="row" [ngClass]="{ selected: option.id === selectedOption.id }"
       (click)="selectOption(option)">
       {{ option.name }}
     </div>

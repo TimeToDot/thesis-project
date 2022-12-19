@@ -9,10 +9,9 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { EmployeeTask } from '../../shared/models/employee-task.model';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { FormFieldComponent } from '../../shared/components/form-field/form-field.component';
-import { EmployeeProjectsService } from '../../shared/services/employee-projects.service';
+import { ProjectsService } from '../../shared/services/projects.service';
 import { ProjectTasksService } from '../../projects/services/project-tasks.service';
 import { DatePickerComponent } from '../../shared/components/date-picker/date-picker.component';
 import { TimePickerComponent } from '../../shared/components/time-picker/time-picker.component';
@@ -57,7 +56,7 @@ export class AddNewTaskComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private projectTasksService: ProjectTasksService,
-    private employeeProjectService: EmployeeProjectsService,
+    private employeeProjectService: ProjectsService,
     private employeeTasksService: EmployeeTasksService,
     private route: ActivatedRoute,
     private router: Router,

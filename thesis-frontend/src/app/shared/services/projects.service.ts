@@ -5,7 +5,7 @@ import { Project } from '../../projects/models/project.model';
 @Injectable({
   providedIn: 'root',
 })
-export class EmployeeProjectsService {
+export class ProjectsService {
   private _projects: Project[] = [
     { id: '1', name: 'Project A', image: 'assets/companies/company1.png' },
     { id: '2', name: 'Project B', image: 'assets/companies/company2.png' },
@@ -13,6 +13,10 @@ export class EmployeeProjectsService {
   ];
 
   constructor() {}
+
+  getProjects(): Observable<Project[]> {
+    return of(this._projects);
+  }
 
   getEmployeeProjects(): Observable<Project[]> {
     return of(this._projects);

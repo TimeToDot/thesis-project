@@ -1,8 +1,13 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { CommonModule, formatDate } from '@angular/common';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ButtonComponent } from '../button/button.component';
-import * as dayjs from 'dayjs';
 
 @Component({
   selector: 'bvr-time-picker',
@@ -18,6 +23,9 @@ import * as dayjs from 'dayjs';
   ],
 })
 export class TimePickerComponent implements OnInit, ControlValueAccessor {
+  @ViewChild('dropdown') dropdown!: ElementRef<HTMLElement>;
+  @ViewChild('dropdownContent') dropdownContent!: ElementRef<HTMLElement>;
+
   hour: number = 0;
   minutes: number = 0;
   selectedTime: string = '00:00';
@@ -92,6 +100,23 @@ export class TimePickerComponent implements OnInit, ControlValueAccessor {
 
   toggleTimePicker(): void {
     this.timePickerEnabled = !this.timePickerEnabled;
+    if (this.timePickerEnabled) {
+      this.showDropdownUpwards();
+    }
+  }
+
+  showDropdownUpwards(): void {
+    setTimeout(() => {
+      const dropdownRect = this.dropdown.nativeElement.getBoundingClientRect();
+      const dropdownContentHeight =
+        this.dropdownContent.nativeElement.offsetHeight;
+      const availableSpaceBelow = window.innerHeight - dropdownRect.bottom;
+
+      this.dropdownContent.nativeElement.style.top =
+        dropdownContentHeight > availableSpaceBelow
+          ? `-${dropdownContentHeight}px`
+          : '100%';
+    }, 0);
   }
 
   markAsTouched() {

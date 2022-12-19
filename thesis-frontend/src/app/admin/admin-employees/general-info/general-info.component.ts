@@ -7,6 +7,10 @@ import { FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PositionsService } from '../../services/positions.service';
 import { Position } from '../../models/position.model';
 import { first } from 'rxjs';
+import { ProjectsService } from '../../../shared/services/projects.service';
+import { Project } from '../../../projects/models/project.model';
+import { DropdownListComponent } from '../../../shared/components/dropdown-list/dropdown-list.component';
+import { DatePickerComponent } from '../../../shared/components/date-picker/date-picker.component';
 
 @Component({
   selector: 'bvr-general-info',
@@ -14,6 +18,8 @@ import { first } from 'rxjs';
   imports: [
     ButtonComponent,
     CommonModule,
+    DatePickerComponent,
+    DropdownListComponent,
     FormFieldComponent,
     ReactiveFormsModule,
     RouterModule,
@@ -26,14 +32,30 @@ export class GeneralInfoComponent implements OnInit {
   @Output() nextStepChange: EventEmitter<void> = new EventEmitter();
 
   positions: Position[] = [];
+  projects: Project[] = [];
 
-  constructor(private positionsService: PositionsService) {}
+  constructor(
+    private positionsService: PositionsService,
+    private projectsService: ProjectsService
+  ) {}
 
   ngOnInit(): void {
+    this.getPositions();
+    this.getProjects();
+  }
+
+  getPositions(): void {
     this.positionsService
       .getPositions()
       .pipe(first())
       .subscribe(positions => (this.positions = positions));
+  }
+
+  getProjects(): void {
+    this.projectsService
+      .getProjects()
+      .pipe(first())
+      .subscribe(projects => (this.projects = projects));
   }
 
   nextStep(): void {

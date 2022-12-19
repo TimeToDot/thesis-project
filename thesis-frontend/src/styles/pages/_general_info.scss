@@ -1,0 +1,12 @@
+.general-info {
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+  padding: 0 31 * $grid-base 12 * $grid-base;
+  width: 100%;
+
+  .row {
+    display: flex;
+    flex-direction: row;
+  }
+}

@@ -41,7 +41,8 @@ export class CreateEmployeeComponent implements OnInit {
         lastName: ['', [Validators.required]],
         email: ['', [Validators.required]],
         password: ['', [Validators.required]],
-        positionId: ['', [Validators.required]],
+        repeatPassword: ['', [Validators.required]],
+        position: ['', [Validators.required]],
         employmentDate: [
           formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en'),
           [Validators.required],

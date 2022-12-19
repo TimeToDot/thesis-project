@@ -1,4 +1,11 @@
-import { Component, HostListener, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { CommonModule, formatDate } from '@angular/common';
 import { ButtonComponent } from '../button/button.component';
 import * as dayjs from 'dayjs';
@@ -22,6 +29,9 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 })
 export class DatePickerComponent implements OnInit, ControlValueAccessor {
   @Input() name: string = '';
+
+  @ViewChild('dropdown') dropdown!: ElementRef<HTMLElement>;
+  @ViewChild('dropdownContent') dropdownContent!: ElementRef<HTMLElement>;
 
   currentMonth!: number;
   currentYear!: number;
@@ -103,6 +113,23 @@ export class DatePickerComponent implements OnInit, ControlValueAccessor {
 
   toggleCalendar(): void {
     this.calendarEnabled = !this.calendarEnabled;
+    if (this.calendarEnabled) {
+      this.showDropdownUpwards();
+    }
+  }
+
+  showDropdownUpwards(): void {
+    setTimeout(() => {
+      const dropdownRect = this.dropdown.nativeElement.getBoundingClientRect();
+      const dropdownContentHeight =
+        this.dropdownContent.nativeElement.offsetHeight;
+      const availableSpaceBelow = window.innerHeight - dropdownRect.bottom;
+
+      this.dropdownContent.nativeElement.style.top =
+        dropdownContentHeight > availableSpaceBelow
+          ? `-${dropdownContentHeight}px`
+          : '100%';
+    }, 0);
   }
 
   previousMonth(): void {
