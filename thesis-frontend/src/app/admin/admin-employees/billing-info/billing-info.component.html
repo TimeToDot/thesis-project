@@ -5,7 +5,16 @@
     </bvr-form-field>
   </div>
   <div class="form-buttons">
-    <bvr-button class="form-button" label="Cancel" [routerLink]="['..']" styleClass="button-text"></bvr-button>
+    <bvr-button class="form-button" (click)="openCancelModal()" label="Cancel" styleClass="button-text"></bvr-button>
     <bvr-button class="form-button" (click)="previousStep()" label="Previous"></bvr-button>
+    <bvr-button class="form-button" (click)="openAddModal()" label="Add"></bvr-button>
   </div>
 </div>
+
+<bvr-modal (confirm)="add()" confirmLabel="Add" [description]="modalDescription" [title]="'Add New Employee'"
+  [(visible)]="isAddModalOpen"></bvr-modal>
+
+<bvr-modal (confirm)="cancel()" confirmLabel="Leave" [description]="modalDescription" [title]="'Leave'"
+  [(visible)]="isCancelModalOpen"></bvr-modal>
+
+<bvr-toast></bvr-toast>

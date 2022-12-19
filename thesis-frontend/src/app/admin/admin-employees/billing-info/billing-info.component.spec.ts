@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { BillingInfoComponent } from './billing-info.component';
@@ -9,7 +10,11 @@ describe('BillingInfoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BillingInfoComponent, RouterTestingModule],
+      imports: [
+        BillingInfoComponent,
+        BrowserAnimationsModule,
+        RouterTestingModule,
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(BillingInfoComponent);

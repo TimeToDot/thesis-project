@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
 
 import { ContactInfoComponent } from './contact-info.component';
 
@@ -9,7 +8,7 @@ describe('ContactInfoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ContactInfoComponent, RouterTestingModule],
+      imports: [ContactInfoComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ContactInfoComponent);
