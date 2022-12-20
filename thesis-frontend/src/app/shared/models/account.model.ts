@@ -4,7 +4,7 @@ export interface Account {
   lastName: string;
   email: string;
   password: string;
-  positionId: string;
+  position: string;
   employmentDate: string;
   workingTime: number;
   exitDate?: string;
