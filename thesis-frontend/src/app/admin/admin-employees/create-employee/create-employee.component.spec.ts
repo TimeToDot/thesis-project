@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { CreateEmployeeComponent } from './create-employee.component';
@@ -9,7 +10,11 @@ describe('CreateEmployeeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CreateEmployeeComponent, RouterTestingModule],
+      imports: [
+        BrowserAnimationsModule,
+        CreateEmployeeComponent,
+        RouterTestingModule,
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(CreateEmployeeComponent);

@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { GeneralInfoComponent } from './general-info.component';
 
@@ -8,7 +9,7 @@ describe('GeneralInfoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [GeneralInfoComponent],
+      imports: [BrowserAnimationsModule, GeneralInfoComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(GeneralInfoComponent);

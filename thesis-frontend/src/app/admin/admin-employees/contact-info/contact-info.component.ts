@@ -4,6 +4,9 @@ import { ButtonComponent } from '../../../shared/components/button/button.compon
 import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
 import { FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
+import { ToastService } from '../../../shared/services/toast.service';
+import { ToastState } from '../../../shared/enum/toast-state';
+import { ToastComponent } from '../../../shared/components/toast/toast.component';
 
 @Component({
   selector: 'bvr-contact-info',
@@ -14,6 +17,7 @@ import { ModalComponent } from '../../../shared/components/modal/modal.component
     FormFieldComponent,
     ModalComponent,
     ReactiveFormsModule,
+    ToastComponent,
   ],
   templateUrl: './contact-info.component.html',
 })
@@ -26,10 +30,16 @@ export class ContactInfoComponent {
   isCancelModalOpen: boolean = false;
   modalDescription: string = '';
 
-  constructor(private location: Location) {}
+  constructor(private location: Location, private toastService: ToastService) {}
 
   nextStep(): void {
-    this.nextStepChange.emit();
+    if (this.createEmployeeForm.get('contactInfo')?.valid) {
+      this.nextStepChange.emit();
+    } else {
+      this.createEmployeeForm.get('contactInfo')?.markAllAsTouched();
+      this.toastService.showToast(ToastState.Error, 'Form invalid');
+      setTimeout(() => this.toastService.dismissToast(), 3000);
+    }
   }
 
   previousStep(): void {
@@ -51,5 +61,22 @@ export class ContactInfoComponent {
       ?.hasValidator(Validators.required)
       ? true
       : false;
+  }
+
+  showErrors(name?: string): boolean {
+    if (name) {
+      return !!(
+        this.createEmployeeForm.get(['contactInfo', name])?.invalid &&
+        this.createEmployeeForm.get(['contactInfo', name])?.errors &&
+        (this.createEmployeeForm.get(['contactInfo', name])?.dirty ||
+          this.createEmployeeForm.get(['contactInfo', name])?.touched)
+      );
+    } else {
+      return !!(
+        this.createEmployeeForm.invalid &&
+        this.createEmployeeForm.errors &&
+        (this.createEmployeeForm.dirty || this.createEmployeeForm.touched)
+      );
+    }
   }
 }

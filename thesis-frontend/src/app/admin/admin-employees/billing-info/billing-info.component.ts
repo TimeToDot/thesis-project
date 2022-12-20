@@ -43,7 +43,7 @@ export class BillingInfoComponent {
   }
 
   openAddModal(): void {
-    if (this.createEmployeeForm.valid) {
+    if (this.createEmployeeForm.get('billingInfo')?.valid) {
       const firstName = this.createEmployeeForm.get([
         'generalInfo',
         'firstName',
@@ -87,5 +87,22 @@ export class BillingInfoComponent {
       ?.hasValidator(Validators.required)
       ? true
       : false;
+  }
+
+  showErrors(name?: string): boolean {
+    if (name) {
+      return !!(
+        this.createEmployeeForm.get(['billingInfo', name])?.invalid &&
+        this.createEmployeeForm.get(['billingInfo', name])?.errors &&
+        (this.createEmployeeForm.get(['billingInfo', name])?.dirty ||
+          this.createEmployeeForm.get(['billingInfo', name])?.touched)
+      );
+    } else {
+      return !!(
+        this.createEmployeeForm.invalid &&
+        this.createEmployeeForm.errors &&
+        (this.createEmployeeForm.dirty || this.createEmployeeForm.touched)
+      );
+    }
   }
 }
