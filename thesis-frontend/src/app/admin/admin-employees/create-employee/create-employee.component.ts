@@ -27,6 +27,12 @@ import {
 export class CreateEmployeeComponent implements OnInit {
   createEmployeeForm!: FormGroup;
   step: number = 1;
+  title: string[] = [
+    'General Info',
+    'Personal Info',
+    'Contact Info',
+    'Billing Info',
+  ];
 
   constructor(private fb: FormBuilder) {}
 
