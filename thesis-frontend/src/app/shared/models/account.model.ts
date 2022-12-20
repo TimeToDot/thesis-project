@@ -1,5 +1,3 @@
-import { Employee } from './employee.model';
-
 export interface Account {
   id: string;
   firstName: string;
@@ -8,6 +6,7 @@ export interface Account {
   password: string;
   positionId: string;
   employmentDate: string;
+  workingTime: number;
   exitDate?: string;
   image: string;
   sex: string;

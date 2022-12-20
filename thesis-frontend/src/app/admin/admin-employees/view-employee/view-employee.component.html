@@ -1,0 +1,15 @@
+<div class="card">
+    <div class="header">
+        <div class="title">
+            <h2 class="name">
+                {{ currentAccount.firstName }} {{ currentAccount.lastName }}
+            </h2>
+        </div>
+    </div>
+    <div class="card-body">
+        <div>
+            <bvr-button label="Back" [routerLink]="['..']"></bvr-button>
+            <bvr-button label="Edit" [routerLink]="['edit']"></bvr-button>
+        </div>
+    </div>
+</div>
