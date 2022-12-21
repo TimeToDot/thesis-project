@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
@@ -8,6 +8,8 @@ import { Position } from '../../models/position.model';
 import { ToastComponent } from '../../../shared/components/toast/toast.component';
 import { ToastService } from '../../../shared/services/toast.service';
 import { ToastState } from '../../../shared/enum/toast-state';
+import { PositionsService } from '../../services/positions.service';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'bvr-view-position',
@@ -22,7 +24,7 @@ import { ToastState } from '../../../shared/enum/toast-state';
   ],
   templateUrl: './view-position.component.html',
 })
-export class ViewPositionComponent {
+export class ViewPositionComponent implements OnInit {
   isArchiveModalOpen: boolean = false;
   modalDescription: string = '';
   position: Position = {
@@ -36,10 +38,27 @@ export class ViewPositionComponent {
   };
 
   constructor(
+    private positionsService: PositionsService,
     private route: ActivatedRoute,
     private router: Router,
     private toastService: ToastService
   ) {}
+
+  ngOnInit(): void {
+    this.getPosition();
+  }
+
+  getPosition(): void {
+    const positionId = this.route.snapshot.paramMap.get('id');
+    if (positionId) {
+      this.positionsService
+        .getPosition(positionId)
+        .pipe(first())
+        .subscribe(position => {
+          this.position = position;
+        });
+    }
+  }
 
   openArchiveModal(): void {
     this.isArchiveModalOpen = true;

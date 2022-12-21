@@ -1,0 +1,33 @@
+.view-position {
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  .form {
+    padding: 0 31 * $grid-base 12 * $grid-base;
+  }
+
+  .row {
+    display: flex;
+    flex-direction: row;
+
+    input {
+      width: 100%;
+    }
+  }
+
+  .header {
+    border-bottom: none;
+  }
+
+  .name {
+    align-items: center;
+    display: flex;
+
+    .archived {
+      color: $color-text-secondary;
+      margin-left: $grid-base;
+    }
+  }
+}
