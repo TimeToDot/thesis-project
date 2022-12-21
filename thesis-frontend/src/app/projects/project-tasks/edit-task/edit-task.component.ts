@@ -57,19 +57,8 @@ export class EditTaskComponent {
   ) {}
 
   ngOnInit(): void {
-    this.getTask();
     this.createForm();
-    this.loadProjectTaskToEdit();
-  }
-
-  getTask(): void {
-    const taskId = this.route.snapshot.paramMap.get('id');
-    if (taskId) {
-      this.projectTasksService
-        .getProjectTask(taskId)
-        .pipe(first())
-        .subscribe(projectTask => (this.task = projectTask));
-    }
+    this.getTask();
   }
 
   createForm(): void {
@@ -79,14 +68,14 @@ export class EditTaskComponent {
     });
   }
 
-  loadProjectTaskToEdit(): void {
-    const projectTaskId = this.route.snapshot.paramMap.get('id');
-    if (projectTaskId) {
+  getTask(): void {
+    const taskId = this.route.snapshot.paramMap.get('id');
+    if (taskId) {
       this.projectTasksService
-        .getProjectTask(projectTaskId)
+        .getProjectTask(taskId)
         .pipe(first())
-        .subscribe(account => {
-          this.task = account;
+        .subscribe(projectTask => {
+          this.task = projectTask;
           this.updateFormFields();
         });
     }

@@ -78,19 +78,8 @@ export class EditProjectEmployeeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getEmployee();
     this.createForm();
-    this.loadProjectEmployeeToEdit();
-  }
-
-  getEmployee(): void {
-    const employeeId = this.route.snapshot.paramMap.get('id');
-    if (employeeId) {
-      this.projectEmployeesService
-        .getProjectEmployee(employeeId)
-        .pipe(first())
-        .subscribe(projectEmployee => (this.projectEmployee = projectEmployee));
-    }
+    this.getProjectEmployee();
   }
 
   createForm(): void {
@@ -101,7 +90,7 @@ export class EditProjectEmployeeComponent implements OnInit {
     });
   }
 
-  loadProjectEmployeeToEdit(): void {
+  getProjectEmployee(): void {
     const projectEmployeeId = this.route.snapshot.paramMap.get('id');
     if (projectEmployeeId) {
       this.projectEmployeesService

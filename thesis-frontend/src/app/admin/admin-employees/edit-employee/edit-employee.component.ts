@@ -90,7 +90,6 @@ export class EditEmployeeComponent {
     this.createForm();
     this.getAccount();
     this.getPositions();
-    this.loadAccountToEdit();
   }
 
   createForm(): void {
@@ -134,7 +133,10 @@ export class EditEmployeeComponent {
       this.accountsService
         .getAccount(accountId)
         .pipe(first())
-        .subscribe(account => (this.account = account));
+        .subscribe(account => {
+          this.account = account;
+          this.updateFormFields();
+        });
     }
   }
 
@@ -143,19 +145,6 @@ export class EditEmployeeComponent {
       .getPositions()
       .pipe(first())
       .subscribe(positions => (this.positions = positions));
-  }
-
-  loadAccountToEdit(): void {
-    const accountId = this.route.snapshot.paramMap.get('id');
-    if (accountId) {
-      this.accountsService
-        .getAccount(accountId)
-        .pipe(first())
-        .subscribe(account => {
-          this.account = account;
-          this.updateFormFields();
-        });
-    }
   }
 
   updateFormFields(): void {

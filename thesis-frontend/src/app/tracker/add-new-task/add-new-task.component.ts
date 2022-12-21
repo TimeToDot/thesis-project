@@ -65,26 +65,10 @@ export class AddNewTaskComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getEmployeeProjects();
     this.createForm();
+    this.getEmployeeProjects();
     this.observeProjectChange();
-    this.loadTaskToEdit();
-  }
-
-  getEmployeeProjects(): void {
-    this.employeeProjectService
-      .getEmployeeProjects()
-      .pipe(first())
-      .subscribe(employeeProjects => (this.projects = employeeProjects));
-  }
-
-  roundToMinutes(minutes: number): string {
-    const ms = 1000 * 60 * minutes;
-    return formatDate(
-      new Date(Math.round(new Date().getTime() / ms) * ms),
-      'HH:mm',
-      'en'
-    );
+    this.getTask();
   }
 
   createForm(): void {
@@ -135,6 +119,15 @@ export class AddNewTaskComponent implements OnInit {
     };
   }
 
+  roundToMinutes(minutes: number): string {
+    const ms = 1000 * 60 * minutes;
+    return formatDate(
+      new Date(Math.round(new Date().getTime() / ms) * ms),
+      'HH:mm',
+      'en'
+    );
+  }
+
   observeProjectChange(): void {
     this.addTaskForm.get('project')?.valueChanges.subscribe(project => {
       this.projectTasksService
@@ -146,7 +139,14 @@ export class AddNewTaskComponent implements OnInit {
     });
   }
 
-  loadTaskToEdit(): void {
+  getEmployeeProjects(): void {
+    this.employeeProjectService
+      .getEmployeeProjects()
+      .pipe(first())
+      .subscribe(employeeProjects => (this.projects = employeeProjects));
+  }
+
+  getTask(): void {
     const taskId = this.route.snapshot.paramMap.get('id');
     if (taskId) {
       this.employeeTasksService

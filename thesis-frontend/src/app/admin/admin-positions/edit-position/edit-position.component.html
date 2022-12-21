@@ -3,42 +3,52 @@
     <div class="title">
       <h2 class="name">Edit position</h2>
     </div>
-    <bvr-button
-      (click)="openArchiveModal()"
-      icon="archive"
-      styleClass="button-icon"></bvr-button>
   </div>
-  <div class="form" [formGroup]="editPositionForm">
-    <!-- <bvr-form-field label="Task Name" [required]="isRequired('name')">
-      <input formControlName="name" type="text" />
-      <ng-container *ngIf="showErrors('name')">
-        <small *ngIf="editPositionForm.get('name')?.hasError('required')"
-          >This field is required.</small
-        >
-      </ng-container>
-    </bvr-form-field>
-    <bvr-form-field
-      label="Task Description"
-      [required]="isRequired('description')">
-      <textarea formControlName="description"></textarea>
-      <ng-container *ngIf="showErrors('description')">
-        <small
-          *ngIf="editPositionForm.get('description')?.hasError('required')"
-          >This field is required.</small
-        >
-      </ng-container>
-    </bvr-form-field> -->
-  </div>
-  <div class="form-buttons">
-    <bvr-button
-      class="form-button"
-      (click)="openCancelModal()"
-      label="Cancel"
-      styleClass="button-text"></bvr-button>
-    <bvr-button
-      class="form-button"
-      (click)="openSaveModal()"
-      label="Save"></bvr-button>
+  <div class="card-body view-position">
+    <div class="header">
+      <div class="name">
+        <h4>
+          {{ position.name }}
+        </h4>
+      </div>
+      <bvr-button
+        (click)="openArchiveModal()"
+        icon="archive"
+        styleClass="button-icon"></bvr-button>
+    </div>
+    <div class="form" [formGroup]="editPositionForm">
+      <bvr-form-field label="Task Name" [required]="isRequired('name')">
+        <input formControlName="name" type="text" />
+        <ng-container *ngIf="showErrors('name')">
+          <small *ngIf="editPositionForm.get('name')?.hasError('required')"
+            >This field is required.</small
+          >
+        </ng-container>
+      </bvr-form-field>
+      <bvr-form-field
+        label="Task Description"
+        [required]="isRequired('description')">
+        <textarea formControlName="description"></textarea>
+        <ng-container *ngIf="showErrors('description')">
+          <small
+            *ngIf="editPositionForm.get('description')?.hasError('required')"
+            >This field is required.</small
+          >
+        </ng-container>
+      </bvr-form-field>
+    </div>
+
+    <div class="form-buttons">
+      <bvr-button
+        class="form-button"
+        (click)="openCancelModal()"
+        label="Cancel"
+        styleClass="button-text"></bvr-button>
+      <bvr-button
+        class="form-button"
+        (click)="openSaveModal()"
+        label="Save"></bvr-button>
+    </div>
   </div>
 </div>
 
