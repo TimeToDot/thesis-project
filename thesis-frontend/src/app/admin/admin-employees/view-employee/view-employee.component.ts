@@ -9,6 +9,7 @@ import { FormFieldComponent } from '../../../shared/components/form-field/form-f
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
 import { ToastService } from '../../../shared/services/toast.service';
 import { ToastState } from '../../../shared/enum/toast-state';
+import { ToastComponent } from '../../../shared/components/toast/toast.component';
 
 @Component({
   selector: 'bvr-view-employee',
@@ -19,6 +20,7 @@ import { ToastState } from '../../../shared/enum/toast-state';
     FormFieldComponent,
     ModalComponent,
     RouterModule,
+    ToastComponent,
   ],
   templateUrl: './view-employee.component.html',
 })
@@ -29,7 +31,15 @@ export class ViewEmployeeComponent {
     lastName: '',
     email: '',
     password: '',
-    position: '',
+    position: {
+      id: '',
+      name: '',
+      description: '',
+      creationDate: '',
+      count: 0,
+      archiveDate: '',
+      active: true,
+    },
     employmentDate: '',
     workingTime: 0,
     exitDate: '',
@@ -67,7 +77,9 @@ export class ViewEmployeeComponent {
       this.accountsService
         .getAccount(accountId)
         .pipe(first())
-        .subscribe(account => (this.currentAccount = account));
+        .subscribe(account => {
+          this.currentAccount = account;
+        });
     }
   }
 

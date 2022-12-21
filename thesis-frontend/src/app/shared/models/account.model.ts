@@ -1,10 +1,12 @@
+import { Position } from '../../admin/models/position.model';
+
 export interface Account {
   id: string;
   firstName: string;
   lastName: string;
   email: string;
   password: string;
-  position: string;
+  position: Position;
   employmentDate: string;
   workingTime: number;
   exitDate?: string;

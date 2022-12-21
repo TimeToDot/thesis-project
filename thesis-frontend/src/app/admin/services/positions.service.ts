@@ -22,6 +22,15 @@ export class PositionsService {
       creationDate: '2022-01-20',
       count: 1,
       archiveDate: '2022-10-10',
+      active: true,
+    },
+    {
+      id: '3',
+      name: 'Backend Developer',
+      description: 'Backend Developer',
+      creationDate: '2022-01-20',
+      count: 1,
+      archiveDate: '2022-10-10',
       active: false,
     },
   ];
