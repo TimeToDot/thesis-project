@@ -32,15 +32,15 @@
     <bvr-button
       class="form-button"
       (click)="openAddModal()"
-      label="Add"></bvr-button>
+      label="Create"></bvr-button>
   </div>
 </div>
 
 <bvr-modal
   (confirm)="add()"
-  confirmLabel="Add"
+  confirmLabel="Create"
   [description]="modalDescription"
-  [title]="'Add New Employee'"
+  [title]="'Create New Employee'"
   [(visible)]="isAddModalOpen"></bvr-modal>
 
 <bvr-modal

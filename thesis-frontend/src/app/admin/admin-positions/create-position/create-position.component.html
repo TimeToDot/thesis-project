@@ -5,17 +5,57 @@
     </div>
   </div>
   <div class="card-body">
-    <div>
-      <div class="form" [formGroup]="createPositionForm">
+    <div [formGroup]="createPositionForm" class="create-position">
+      <div class="form">
         <bvr-form-field label="Name" [required]="isRequired('name')">
           <input formControlName="name" type="text" />
+          <ng-container *ngIf="showErrors('name')">
+            <small *ngIf="createPositionForm.get('name')?.hasError('required')"
+              >This field is required.</small
+            >
+          </ng-container>
         </bvr-form-field>
-        <bvr-form-field label="Description" [required]="isRequired('description')">
+        <bvr-form-field
+          label="Description"
+          [required]="isRequired('description')">
           <input formControlName="description" type="text" />
+          <ng-container *ngIf="showErrors('description')">
+            <small
+              *ngIf="
+                createPositionForm.get('description')?.hasError('required')
+              "
+              >This field is required.</small
+            >
+          </ng-container>
         </bvr-form-field>
       </div>
-      <bvr-button label="Cancel" [routerLink]="['..']" styleClass="button-text"></bvr-button>
-      <bvr-button (click)="save()" label="Save"></bvr-button>
+      <div class="form-buttons">
+        <bvr-button
+          class="form-button"
+          (click)="openCancelModal()"
+          label="Cancel"
+          styleClass="button-text"></bvr-button>
+        <bvr-button
+          class="form-button"
+          (click)="openAddModal()"
+          label="Create"></bvr-button>
+      </div>
     </div>
   </div>
 </div>
+
+<bvr-modal
+  (confirm)="add()"
+  confirmLabel="Create"
+  [description]="modalDescription"
+  [title]="'Create New Employee'"
+  [(visible)]="isAddModalOpen"></bvr-modal>
+
+<bvr-modal
+  (confirm)="cancel()"
+  confirmLabel="Leave"
+  [description]="modalDescription"
+  [title]="'Leave'"
+  [(visible)]="isCancelModalOpen"></bvr-modal>
+
+<bvr-toast></bvr-toast>
