@@ -1,6 +1,6 @@
 <div class="login-page">
   <h1>Beaver</h1>
-  <form class="login-form" [formGroup]="loginForm">
+  <form class="form" [formGroup]="loginForm">
     <div class="form-field">
       <label class="label">E-mail</label>
       <input class="input" formControlName="email" type="email" />
@@ -9,7 +9,9 @@
       <label class="label">Password</label>
       <input class="input" formControlName="password" type="password" />
     </div>
-    <bvr-button class="login-button" label="Login" (click)="login()">
-    </bvr-button>
+    <div class="form-buttons">
+      <bvr-button class="form-button" label="Login" (click)="login()">
+      </bvr-button>
+    </div>
   </form>
 </div>
