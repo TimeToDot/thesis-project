@@ -9,6 +9,7 @@ import { Employee } from '../../../shared/models/employee.model';
 import { EmployeesService } from '../../../admin/services/employees.service';
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
 import { first } from 'rxjs';
+import { ValidationService } from '../../../shared/services/validation.service';
 
 @Component({
   selector: 'bvr-find-employee',
@@ -35,7 +36,8 @@ export class FindEmployeeComponent implements OnInit {
 
   constructor(
     private employeesService: EmployeesService,
-    private location: Location
+    private location: Location,
+    private validationService: ValidationService
   ) {}
 
   ngOnInit(): void {
@@ -66,10 +68,9 @@ export class FindEmployeeComponent implements OnInit {
   }
 
   isRequired(name: string): boolean {
-    return this.addProjectEmployeeForm
-      .get(['userInfo', name])
-      ?.hasValidator(Validators.required)
-      ? true
-      : false;
+    return this.validationService.isRequired(this.addProjectEmployeeForm, [
+      'userInfo',
+      name,
+    ]);
   }
 }

@@ -14,6 +14,7 @@ import { ModalComponent } from '../../../shared/components/modal/modal.component
 import { ToastComponent } from '../../../shared/components/toast/toast.component';
 import { ToastState } from '../../../shared/enum/toast-state';
 import { ToastService } from '../../../shared/services/toast.service';
+import { ValidationService } from '../../../shared/services/validation.service';
 
 @Component({
   selector: 'bvr-general-info',
@@ -44,7 +45,8 @@ export class GeneralInfoComponent implements OnInit {
     private location: Location,
     private positionsService: PositionsService,
     private projectsService: ProjectsService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private validationService: ValidationService
   ) {}
 
   ngOnInit(): void {
@@ -86,27 +88,18 @@ export class GeneralInfoComponent implements OnInit {
   }
 
   isRequired(name: string): boolean {
-    return this.createEmployeeForm
-      .get(['generalInfo', name])
-      ?.hasValidator(Validators.required)
-      ? true
-      : false;
+    return this.validationService.isRequired(this.createEmployeeForm, [
+      'generalInfo',
+      name,
+    ]);
   }
 
   showErrors(name?: string): boolean {
-    if (name) {
-      return !!(
-        this.createEmployeeForm.get(['generalInfo', name])?.invalid &&
-        this.createEmployeeForm.get(['generalInfo', name])?.errors &&
-        (this.createEmployeeForm.get(['generalInfo', name])?.dirty ||
-          this.createEmployeeForm.get(['generalInfo', name])?.touched)
-      );
-    } else {
-      return !!(
-        this.createEmployeeForm.invalid &&
-        this.createEmployeeForm.errors &&
-        (this.createEmployeeForm.dirty || this.createEmployeeForm.touched)
-      );
-    }
+    return name
+      ? this.validationService.showErrors(this.createEmployeeForm, [
+          'generalInfo',
+          name,
+        ])
+      : this.validationService.showErrors(this.createEmployeeForm, []);
   }
 }

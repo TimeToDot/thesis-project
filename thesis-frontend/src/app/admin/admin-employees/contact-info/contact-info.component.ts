@@ -7,6 +7,7 @@ import { ModalComponent } from '../../../shared/components/modal/modal.component
 import { ToastService } from '../../../shared/services/toast.service';
 import { ToastState } from '../../../shared/enum/toast-state';
 import { ToastComponent } from '../../../shared/components/toast/toast.component';
+import { ValidationService } from '../../../shared/services/validation.service';
 
 @Component({
   selector: 'bvr-contact-info',
@@ -30,7 +31,11 @@ export class ContactInfoComponent {
   isCancelModalOpen: boolean = false;
   modalDescription: string = '';
 
-  constructor(private location: Location, private toastService: ToastService) {}
+  constructor(
+    private location: Location,
+    private toastService: ToastService,
+    private validationService: ValidationService
+  ) {}
 
   nextStep(): void {
     if (this.createEmployeeForm.get('contactInfo')?.valid) {
@@ -56,27 +61,18 @@ export class ContactInfoComponent {
   }
 
   isRequired(name: string): boolean {
-    return this.createEmployeeForm
-      .get(['contactInfo', name])
-      ?.hasValidator(Validators.required)
-      ? true
-      : false;
+    return this.validationService.isRequired(this.createEmployeeForm, [
+      'contactInfo',
+      name,
+    ]);
   }
 
   showErrors(name?: string): boolean {
-    if (name) {
-      return !!(
-        this.createEmployeeForm.get(['contactInfo', name])?.invalid &&
-        this.createEmployeeForm.get(['contactInfo', name])?.errors &&
-        (this.createEmployeeForm.get(['contactInfo', name])?.dirty ||
-          this.createEmployeeForm.get(['contactInfo', name])?.touched)
-      );
-    } else {
-      return !!(
-        this.createEmployeeForm.invalid &&
-        this.createEmployeeForm.errors &&
-        (this.createEmployeeForm.dirty || this.createEmployeeForm.touched)
-      );
-    }
+    return name
+      ? this.validationService.showErrors(this.createEmployeeForm, [
+          'contactInfo',
+          name,
+        ])
+      : this.validationService.showErrors(this.createEmployeeForm, []);
   }
 }

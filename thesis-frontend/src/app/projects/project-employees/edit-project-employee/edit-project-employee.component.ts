@@ -18,6 +18,7 @@ import { ToastService } from '../../../shared/services/toast.service';
 import { ToastState } from '../../../shared/enum/toast-state';
 import { ToastComponent } from '../../../shared/components/toast/toast.component';
 import { first } from 'rxjs';
+import { ValidationService } from '../../../shared/services/validation.service';
 
 @Component({
   selector: 'bvr-edit-employee',
@@ -74,7 +75,8 @@ export class EditProjectEmployeeComponent implements OnInit {
     private projectEmployeesService: ProjectEmployeesService,
     private route: ActivatedRoute,
     private router: Router,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private validationService: ValidationService
   ) {}
 
   ngOnInit(): void {
@@ -132,14 +134,6 @@ export class EditProjectEmployeeComponent implements OnInit {
     }
   }
 
-  isRequired(name: string): boolean {
-    return this.editProjectEmployeeForm
-      .get([name])
-      ?.hasValidator(Validators.required)
-      ? true
-      : false;
-  }
-
   archive(): void {
     this.router.navigate(['../..'], { relativeTo: this.route }).then(() => {
       setTimeout(
@@ -169,12 +163,15 @@ export class EditProjectEmployeeComponent implements OnInit {
     });
   }
 
+  isRequired(name: string): boolean {
+    return this.validationService.isRequired(this.editProjectEmployeeForm, [
+      name,
+    ]);
+  }
+
   showErrors(name: string): boolean {
-    return !!(
-      this.editProjectEmployeeForm.get(name)?.invalid &&
-      this.editProjectEmployeeForm.get(name)?.errors &&
-      (this.editProjectEmployeeForm.get(name)?.dirty ||
-        this.editProjectEmployeeForm.get(name)?.touched)
-    );
+    return this.validationService.showErrors(this.editProjectEmployeeForm, [
+      name,
+    ]);
   }
 }

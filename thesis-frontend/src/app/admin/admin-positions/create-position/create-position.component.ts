@@ -13,6 +13,7 @@ import { ToastState } from '../../../shared/enum/toast-state';
 import { ToastService } from '../../../shared/services/toast.service';
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
 import { ToastComponent } from '../../../shared/components/toast/toast.component';
+import { ValidationService } from '../../../shared/services/validation.service';
 
 @Component({
   selector: 'bvr-create-position',
@@ -39,7 +40,8 @@ export class CreatePositionComponent implements OnInit {
     private location: Location,
     private route: ActivatedRoute,
     private router: Router,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private validationService: ValidationService
   ) {}
 
   ngOnInit(): void {
@@ -86,25 +88,12 @@ export class CreatePositionComponent implements OnInit {
   }
 
   isRequired(name: string): boolean {
-    return this.createPositionForm.get(name)?.hasValidator(Validators.required)
-      ? true
-      : false;
+    return this.validationService.isRequired(this.createPositionForm, [name]);
   }
 
   showErrors(name?: string): boolean {
-    if (name) {
-      return !!(
-        this.createPositionForm.get(name)?.invalid &&
-        this.createPositionForm.get(name)?.errors &&
-        (this.createPositionForm.get(name)?.dirty ||
-          this.createPositionForm.get(name)?.touched)
-      );
-    } else {
-      return !!(
-        this.createPositionForm.invalid &&
-        this.createPositionForm.errors &&
-        (this.createPositionForm.dirty || this.createPositionForm.touched)
-      );
-    }
+    return name
+      ? this.validationService.showErrors(this.createPositionForm, [name])
+      : this.validationService.showErrors(this.createPositionForm, []);
   }
 }

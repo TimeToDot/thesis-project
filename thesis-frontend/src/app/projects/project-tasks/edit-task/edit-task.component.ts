@@ -16,6 +16,7 @@ import { ToastService } from '../../../shared/services/toast.service';
 import { ToastState } from '../../../shared/enum/toast-state';
 import { ToastComponent } from '../../../shared/components/toast/toast.component';
 import { first } from 'rxjs';
+import { ValidationService } from '../../../shared/services/validation.service';
 
 @Component({
   selector: 'bvr-edit-task',
@@ -53,7 +54,8 @@ export class EditTaskComponent {
     private projectTasksService: ProjectTasksService,
     private route: ActivatedRoute,
     private router: Router,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private validationService: ValidationService
   ) {}
 
   ngOnInit(): void {
@@ -115,12 +117,6 @@ export class EditTaskComponent {
     this.location.back();
   }
 
-  isRequired(name: string): boolean {
-    return this.editProjectTaskForm.get(name)?.hasValidator(Validators.required)
-      ? true
-      : false;
-  }
-
   save(): void {
     new Promise((resolve, _) => {
       this.location.back();
@@ -144,12 +140,11 @@ export class EditTaskComponent {
     });
   }
 
+  isRequired(name: string): boolean {
+    return this.validationService.isRequired(this.editProjectTaskForm, [name]);
+  }
+
   showErrors(name: string): boolean {
-    return !!(
-      this.editProjectTaskForm.get(name)?.invalid &&
-      this.editProjectTaskForm.get(name)?.errors &&
-      (this.editProjectTaskForm.get(name)?.dirty ||
-        this.editProjectTaskForm.get(name)?.touched)
-    );
+    return this.validationService.showErrors(this.editProjectTaskForm, [name]);
   }
 }

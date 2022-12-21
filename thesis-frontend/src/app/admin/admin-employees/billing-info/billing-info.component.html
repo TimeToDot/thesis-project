@@ -27,21 +27,21 @@
       styleClass="button-text"></bvr-button>
     <bvr-button
       class="form-button"
-      (click)="previousStep()"
+      (click)="previousStepChange.emit()"
       label="Previous"></bvr-button>
     <bvr-button
       class="form-button"
-      (click)="openAddModal()"
+      (click)="openCreateModal()"
       label="Create"></bvr-button>
   </div>
 </div>
 
 <bvr-modal
-  (confirm)="add()"
+  (confirm)="create()"
   confirmLabel="Create"
   [description]="modalDescription"
   [title]="'Create New Employee'"
-  [(visible)]="isAddModalOpen"></bvr-modal>
+  [(visible)]="isCreateModalOpen"></bvr-modal>
 
 <bvr-modal
   (confirm)="cancel()"

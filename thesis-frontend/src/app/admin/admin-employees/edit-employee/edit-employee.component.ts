@@ -20,6 +20,7 @@ import { PositionsService } from '../../services/positions.service';
 import { Position } from '../../models/position.model';
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
 import { ToastComponent } from '../../../shared/components/toast/toast.component';
+import { ValidationService } from '../../../shared/services/validation.service';
 
 @Component({
   selector: 'bvr-edit-employee',
@@ -83,7 +84,8 @@ export class EditEmployeeComponent {
     private positionsService: PositionsService,
     private route: ActivatedRoute,
     private router: Router,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private validationService: ValidationService
   ) {}
 
   ngOnInit(): void {
@@ -160,28 +162,16 @@ export class EditEmployeeComponent {
   }
 
   isRequired(group: string, name: string): boolean {
-    return this.editEmployeeForm
-      .get([group, name])
-      ?.hasValidator(Validators.required)
-      ? true
-      : false;
+    return this.validationService.isRequired(this.editEmployeeForm, [
+      group,
+      name,
+    ]);
   }
 
   showErrors(group?: string, name?: string): boolean {
-    if (name && group) {
-      return !!(
-        this.editEmployeeForm.get([group, name])?.invalid &&
-        this.editEmployeeForm.get([group, name])?.errors &&
-        (this.editEmployeeForm.get([group, name])?.dirty ||
-          this.editEmployeeForm.get([group, name])?.touched)
-      );
-    } else {
-      return !!(
-        this.editEmployeeForm.invalid &&
-        this.editEmployeeForm.errors &&
-        (this.editEmployeeForm.dirty || this.editEmployeeForm.touched)
-      );
-    }
+    return name && group
+      ? this.validationService.showErrors(this.editEmployeeForm, [group, name])
+      : this.validationService.showErrors(this.editEmployeeForm, []);
   }
 
   openArchiveModal(): void {

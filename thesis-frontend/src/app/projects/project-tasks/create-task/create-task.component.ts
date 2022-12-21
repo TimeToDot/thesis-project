@@ -13,6 +13,7 @@ import { ModalComponent } from '../../../shared/components/modal/modal.component
 import { ToastService } from '../../../shared/services/toast.service';
 import { ToastState } from '../../../shared/enum/toast-state';
 import { ToastComponent } from '../../../shared/components/toast/toast.component';
+import { ValidationService } from '../../../shared/services/validation.service';
 
 @Component({
   selector: 'bvr-create-task',
@@ -39,7 +40,8 @@ export class CreateTaskComponent {
     private location: Location,
     private route: ActivatedRoute,
     private router: Router,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private validationService: ValidationService
   ) {}
 
   ngOnInit(): void {
@@ -85,19 +87,14 @@ export class CreateTaskComponent {
   }
 
   isRequired(name: string): boolean {
-    return this.createProjectTaskForm
-      .get(name)
-      ?.hasValidator(Validators.required)
-      ? true
-      : false;
+    return this.validationService.isRequired(this.createProjectTaskForm, [
+      name,
+    ]);
   }
 
   showErrors(name: string): boolean {
-    return !!(
-      this.createProjectTaskForm.get(name)?.invalid &&
-      this.createProjectTaskForm.get(name)?.errors &&
-      (this.createProjectTaskForm.get(name)?.dirty ||
-        this.createProjectTaskForm.get(name)?.touched)
-    );
+    return this.validationService.showErrors(this.createProjectTaskForm, [
+      name,
+    ]);
   }
 }

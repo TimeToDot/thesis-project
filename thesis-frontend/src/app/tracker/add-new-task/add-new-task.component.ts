@@ -26,6 +26,7 @@ import * as dayjs from 'dayjs';
 import { EmployeeTasksService } from '../../shared/services/employee-tasks.service';
 import { first } from 'rxjs';
 import { EmployeeTask } from '../../shared/models/employee-task.model';
+import { ValidationService } from '../../shared/services/validation.service';
 
 @Component({
   selector: 'bvr-add-new-task',
@@ -61,7 +62,8 @@ export class AddNewTaskComponent implements OnInit {
     private employeeTasksService: EmployeeTasksService,
     private route: ActivatedRoute,
     private router: Router,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private validationService: ValidationService
   ) {}
 
   ngOnInit(): void {
@@ -235,25 +237,12 @@ export class AddNewTaskComponent implements OnInit {
   }
 
   isRequired(name: string): boolean {
-    return this.addTaskForm.get(name)?.hasValidator(Validators.required)
-      ? true
-      : false;
+    return this.validationService.isRequired(this.addTaskForm, [name]);
   }
 
   showErrors(name?: string): boolean {
-    if (name) {
-      return !!(
-        this.addTaskForm.get(name)?.invalid &&
-        this.addTaskForm.get(name)?.errors &&
-        (this.addTaskForm.get(name)?.dirty ||
-          this.addTaskForm.get(name)?.touched)
-      );
-    } else {
-      return !!(
-        this.addTaskForm.invalid &&
-        this.addTaskForm.errors &&
-        (this.addTaskForm.dirty || this.addTaskForm.touched)
-      );
-    }
+    return name
+      ? this.validationService.showErrors(this.addTaskForm, [name])
+      : this.validationService.showErrors(this.addTaskForm, []);
   }
 }

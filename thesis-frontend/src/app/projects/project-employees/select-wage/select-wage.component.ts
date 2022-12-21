@@ -12,6 +12,7 @@ import { ToastState } from '../../../shared/enum/toast-state';
 import { ToastComponent } from '../../../shared/components/toast/toast.component';
 import { first } from 'rxjs';
 import { ContractType } from '../../models/contract-type.model';
+import { ValidationService } from '../../../shared/services/validation.service';
 
 @Component({
   selector: 'bvr-select-wage',
@@ -48,19 +49,12 @@ export class SelectWageComponent {
     private location: Location,
     private route: ActivatedRoute,
     private router: Router,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private validationService: ValidationService
   ) {}
 
   previousStep(): void {
     this.previousStepChange.emit();
-  }
-
-  isRequired(name: string): boolean {
-    return this.addProjectEmployeeForm
-      .get(['employmentInfo', name])
-      ?.hasValidator(Validators.required)
-      ? true
-      : false;
   }
 
   openAddModal(): void {
@@ -103,12 +97,17 @@ export class SelectWageComponent {
     });
   }
 
+  isRequired(name: string): boolean {
+    return this.validationService.isRequired(this.addProjectEmployeeForm, [
+      'employmentInfo',
+      name,
+    ]);
+  }
+
   showErrors(name: string): boolean {
-    return !!(
-      this.addProjectEmployeeForm.get(['employmentInfo', name])?.invalid &&
-      this.addProjectEmployeeForm.get(['employmentInfo', name])?.errors &&
-      (this.addProjectEmployeeForm.get(['employmentInfo', name])?.dirty ||
-        this.addProjectEmployeeForm.get(['employmentInfo', name])?.touched)
-    );
+    return this.validationService.showErrors(this.addProjectEmployeeForm, [
+      'employmentInfo',
+      name,
+    ]);
   }
 }

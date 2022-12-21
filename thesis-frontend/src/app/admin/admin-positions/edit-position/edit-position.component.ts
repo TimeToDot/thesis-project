@@ -16,6 +16,7 @@ import { ToastState } from '../../../shared/enum/toast-state';
 import { Position } from '../../models/position.model';
 import { PositionsService } from '../../services/positions.service';
 import { first } from 'rxjs';
+import { ValidationService } from '../../../shared/services/validation.service';
 
 @Component({
   selector: 'bvr-edit-position',
@@ -53,7 +54,8 @@ export class EditPositionComponent implements OnInit {
     private positionsService: PositionsService,
     private route: ActivatedRoute,
     private router: Router,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private validationService: ValidationService
   ) {}
 
   ngOnInit(): void {
@@ -141,25 +143,12 @@ export class EditPositionComponent implements OnInit {
   }
 
   isRequired(name: string): boolean {
-    return this.editPositionForm.get(name)?.hasValidator(Validators.required)
-      ? true
-      : false;
+    return this.validationService.isRequired(this.editPositionForm, [name]);
   }
 
   showErrors(name?: string): boolean {
-    if (name) {
-      return !!(
-        this.editPositionForm.get(name)?.invalid &&
-        this.editPositionForm.get(name)?.errors &&
-        (this.editPositionForm.get(name)?.dirty ||
-          this.editPositionForm.get(name)?.touched)
-      );
-    } else {
-      return !!(
-        this.editPositionForm.invalid &&
-        this.editPositionForm.errors &&
-        (this.editPositionForm.dirty || this.editPositionForm.touched)
-      );
-    }
+    return name
+      ? this.validationService.showErrors(this.editPositionForm, [name])
+      : this.validationService.showErrors(this.editPositionForm, []);
   }
 }

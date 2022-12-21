@@ -21,6 +21,7 @@ import { ToastState } from '../../shared/enum/toast-state';
 import { ModalComponent } from '../../shared/components/modal/modal.component';
 import { ToastComponent } from '../../shared/components/toast/toast.component';
 import { first } from 'rxjs';
+import { ValidationService } from '../../shared/services/validation.service';
 
 @Component({
   selector: 'bvr-request-approval',
@@ -48,7 +49,8 @@ export class RequestApprovalComponent implements OnInit {
     private fb: FormBuilder,
     private location: Location,
     private projectApprovalsService: ProjectApprovalsService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private validationService: ValidationService
   ) {}
 
   ngOnInit(): void {
@@ -132,25 +134,12 @@ export class RequestApprovalComponent implements OnInit {
   }
 
   isRequired(name: string): boolean {
-    return this.requestApprovalForm.get(name)?.hasValidator(Validators.required)
-      ? true
-      : false;
+    return this.validationService.isRequired(this.requestApprovalForm, [name]);
   }
 
   showErrors(name?: string): boolean {
-    if (name) {
-      return !!(
-        this.requestApprovalForm.get(name)?.invalid &&
-        this.requestApprovalForm.get(name)?.errors &&
-        (this.requestApprovalForm.get(name)?.dirty ||
-          this.requestApprovalForm.get(name)?.touched)
-      );
-    } else {
-      return !!(
-        this.requestApprovalForm.invalid &&
-        this.requestApprovalForm.errors &&
-        (this.requestApprovalForm.dirty || this.requestApprovalForm.touched)
-      );
-    }
+    return name
+      ? this.validationService.showErrors(this.requestApprovalForm, [name])
+      : this.validationService.showErrors(this.requestApprovalForm, []);
   }
 }

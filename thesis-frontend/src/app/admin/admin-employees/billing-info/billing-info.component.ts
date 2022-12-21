@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastService } from '../../../shared/services/toast.service';
 import { ToastState } from '../../../shared/enum/toast-state';
 import { ToastComponent } from '../../../shared/components/toast/toast.component';
+import { ValidationService } from '../../../shared/services/validation.service';
 
 @Component({
   selector: 'bvr-billing-info',
@@ -27,22 +28,24 @@ export class BillingInfoComponent {
 
   @Output() previousStepChange: EventEmitter<void> = new EventEmitter();
 
-  isAddModalOpen: boolean = false;
   isCancelModalOpen: boolean = false;
+  isCreateModalOpen: boolean = false;
   modalDescription: string = '';
 
   constructor(
     private location: Location,
     private route: ActivatedRoute,
     private router: Router,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private validationService: ValidationService
   ) {}
 
-  previousStep(): void {
-    this.previousStepChange.emit();
+  openCancelModal(): void {
+    this.isCancelModalOpen = true;
+    this.modalDescription = `Are you sure you want to leave? You will lose your unsaved changes if you continue.`;
   }
 
-  openAddModal(): void {
+  openCreateModal(): void {
     if (this.createEmployeeForm.get('billingInfo')?.valid) {
       const firstName = this.createEmployeeForm.get([
         'generalInfo',
@@ -52,7 +55,7 @@ export class BillingInfoComponent {
         'generalInfo',
         'lastName',
       ])?.value;
-      this.isAddModalOpen = true;
+      this.isCreateModalOpen = true;
       this.modalDescription = `Are you sure you want to add ${firstName} ${lastName}?`;
     } else {
       this.createEmployeeForm.markAllAsTouched();
@@ -61,12 +64,11 @@ export class BillingInfoComponent {
     }
   }
 
-  openCancelModal(): void {
-    this.isCancelModalOpen = true;
-    this.modalDescription = `Are you sure you want to leave? You will lose your unsaved changes if you continue.`;
+  cancel(): void {
+    this.location.back();
   }
 
-  add(): void {
+  create(): void {
     this.router.navigate(['..'], { relativeTo: this.route }).then(() => {
       setTimeout(
         () =>
@@ -77,32 +79,19 @@ export class BillingInfoComponent {
     });
   }
 
-  cancel(): void {
-    this.location.back();
-  }
-
   isRequired(name: string): boolean {
-    return this.createEmployeeForm
-      .get(['billingInfo', name])
-      ?.hasValidator(Validators.required)
-      ? true
-      : false;
+    return this.validationService.isRequired(this.createEmployeeForm, [
+      'billingInfo',
+      name,
+    ]);
   }
 
   showErrors(name?: string): boolean {
-    if (name) {
-      return !!(
-        this.createEmployeeForm.get(['billingInfo', name])?.invalid &&
-        this.createEmployeeForm.get(['billingInfo', name])?.errors &&
-        (this.createEmployeeForm.get(['billingInfo', name])?.dirty ||
-          this.createEmployeeForm.get(['billingInfo', name])?.touched)
-      );
-    } else {
-      return !!(
-        this.createEmployeeForm.invalid &&
-        this.createEmployeeForm.errors &&
-        (this.createEmployeeForm.dirty || this.createEmployeeForm.touched)
-      );
-    }
+    return name
+      ? this.validationService.showErrors(this.createEmployeeForm, [
+          'billingInfo',
+          name,
+        ])
+      : this.validationService.showErrors(this.createEmployeeForm, []);
   }
 }

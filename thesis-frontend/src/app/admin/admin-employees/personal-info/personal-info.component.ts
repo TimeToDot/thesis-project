@@ -5,6 +5,7 @@ import { FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
 import { DatePickerComponent } from '../../../shared/components/date-picker/date-picker.component';
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
+import { ValidationService } from '../../../shared/services/validation.service';
 
 @Component({
   selector: 'bvr-personal-info',
@@ -28,7 +29,10 @@ export class PersonalInfoComponent {
   isCancelModalOpen: boolean = false;
   modalDescription: string = '';
 
-  constructor(private location: Location) {}
+  constructor(
+    private location: Location,
+    private validationService: ValidationService
+  ) {}
 
   nextStep(): void {
     this.nextStepChange.emit();
@@ -48,10 +52,9 @@ export class PersonalInfoComponent {
   }
 
   isRequired(name: string): boolean {
-    return this.createEmployeeForm
-      .get(['personalInfo', name])
-      ?.hasValidator(Validators.required)
-      ? true
-      : false;
+    return this.validationService.isRequired(this.createEmployeeForm, [
+      'personalInfo',
+      name,
+    ]);
   }
 }
