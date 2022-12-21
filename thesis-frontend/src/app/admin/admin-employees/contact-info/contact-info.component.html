@@ -1,101 +1,162 @@
-<div *ngIf="createEmployeeForm" class="create-employee" [formGroup]="createEmployeeForm">
+<div
+  *ngIf="createEmployeeForm"
+  class="create-employee"
+  [formGroup]="createEmployeeForm">
   <div class="form" formGroupName="contactInfo">
     <bvr-form-field label="Phone number" [required]="isRequired('phoneNumber')">
       <input formControlName="phoneNumber" type="tel" />
       <ng-container *ngIf="showErrors('phoneNumber')">
-        <small *ngIf="
+        <small
+          *ngIf="
             createEmployeeForm
               .get(['contactInfo', 'phoneNumber'])
               ?.hasError('required')
-          ">This field is required.</small>
+          "
+          >This field is required.</small
+        >
       </ng-container>
     </bvr-form-field>
-    <bvr-form-field label="Private email" [required]="isRequired('privateEmail')">
+    <bvr-form-field
+      label="Private email"
+      [required]="isRequired('privateEmail')">
       <input formControlName="privateEmail" type="email" />
       <ng-container *ngIf="showErrors('privateEmail')">
-        <small *ngIf="
+        <small
+          *ngIf="
             createEmployeeForm
               .get(['contactInfo', 'privateEmail'])
               ?.hasError('required')
-          ">This field is required.</small>
+          "
+          >This field is required.</small
+        >
       </ng-container>
     </bvr-form-field>
     <div class="row address-info">
-      <bvr-form-field class="left-field" label="Street" [required]="isRequired('street')">
+      <bvr-form-field
+        class="left-field"
+        label="Street"
+        [required]="isRequired('street')">
         <input formControlName="street" type="text" />
         <ng-container *ngIf="showErrors('street')">
-          <small *ngIf="
+          <small
+            *ngIf="
               createEmployeeForm
                 .get(['contactInfo', 'street'])
                 ?.hasError('required')
-            ">This field is required.</small>
+            "
+            >This field is required.</small
+          >
         </ng-container>
       </bvr-form-field>
       <div class="house-info">
-        <bvr-form-field class="left-field" label="House number" [required]="isRequired('houseNumber')">
+        <bvr-form-field
+          class="left-field"
+          label="House number"
+          [required]="isRequired('houseNumber')">
           <input formControlName="houseNumber" type="text" />
           <ng-container *ngIf="showErrors('houseNumber')">
-            <small *ngIf="
+            <small
+              *ngIf="
                 createEmployeeForm
                   .get(['contactInfo', 'houseNumber'])
                   ?.hasError('required')
-              ">This field is required.</small>
+              "
+              >This field is required.</small
+            >
           </ng-container>
         </bvr-form-field>
-        <bvr-form-field class="field" label="Apartment number" [required]="isRequired('apartmentNumber')">
+        <bvr-form-field
+          class="field"
+          label="Apartment number"
+          [required]="isRequired('apartmentNumber')">
           <input formControlName="apartmentNumber" type="text" />
           <ng-container *ngIf="showErrors('apartmentNumber')">
-            <small *ngIf="
+            <small
+              *ngIf="
                 createEmployeeForm
                   .get(['contactInfo', 'apartmentNumber'])
                   ?.hasError('required')
-              ">This field is required.</small>
+              "
+              >This field is required.</small
+            >
           </ng-container>
         </bvr-form-field>
       </div>
     </div>
     <div class="row">
-      <bvr-form-field class="left-field" label="City" [required]="isRequired('city')">
+      <bvr-form-field
+        class="left-field"
+        label="City"
+        [required]="isRequired('city')">
         <input formControlName="city" type="text" />
         <ng-container *ngIf="showErrors('city')">
-          <small *ngIf="
+          <small
+            *ngIf="
               createEmployeeForm
                 .get(['contactInfo', 'city'])
                 ?.hasError('required')
-            ">This field is required.</small>
+            "
+            >This field is required.</small
+          >
         </ng-container>
       </bvr-form-field>
-      <bvr-form-field class="left-field" label="Postal code" [required]="isRequired('postalCode')">
+      <bvr-form-field
+        class="left-field"
+        label="Postal code"
+        [required]="isRequired('postalCode')">
         <input formControlName="postalCode" type="text" />
         <ng-container *ngIf="showErrors('postalCode')">
-          <small *ngIf="
+          <small
+            *ngIf="
               createEmployeeForm
                 .get(['contactInfo', 'postalCode'])
                 ?.hasError('required')
-            ">This field is required.</small>
+            "
+            >This field is required.</small
+          >
         </ng-container>
       </bvr-form-field>
-      <bvr-form-field class="field" label="Country" [required]="isRequired('country')">
+      <bvr-form-field
+        class="field"
+        label="Country"
+        [required]="isRequired('country')">
         <input formControlName="country" type="text" />
         <ng-container *ngIf="showErrors('country')">
-          <small *ngIf="
+          <small
+            *ngIf="
               createEmployeeForm
                 .get(['contactInfo', 'country'])
                 ?.hasError('required')
-            ">This field is required.</small>
+            "
+            >This field is required.</small
+          >
         </ng-container>
       </bvr-form-field>
     </div>
   </div>
 
   <div class="form-buttons">
-    <bvr-button class="form-button" (click)="openCancelModal()" label="Cancel" styleClass="button-text"></bvr-button>
-    <bvr-button class="form-button" (click)="previousStep()" label="Previous"></bvr-button>
-    <bvr-button class="form-button" (click)="nextStep()" label="Next"></bvr-button>
+    <bvr-button
+      class="form-button"
+      (click)="openCancelModal()"
+      label="Cancel"
+      styleClass="button-text"></bvr-button>
+    <bvr-button
+      class="form-button"
+      (click)="previousStep()"
+      label="Previous"></bvr-button>
+    <bvr-button
+      class="form-button"
+      (click)="nextStep()"
+      label="Next"></bvr-button>
   </div>
 </div>
 
-<bvr-modal (confirm)="cancel()" confirmLabel="Leave" [description]="modalDescription" [title]="'Leave'"
+<bvr-modal
+  (confirm)="cancel()"
+  confirmLabel="Leave"
+  [description]="modalDescription"
+  [title]="'Leave'"
   [(visible)]="isCancelModalOpen"></bvr-modal>
 
 <bvr-toast></bvr-toast>

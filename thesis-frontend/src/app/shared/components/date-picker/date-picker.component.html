@@ -5,10 +5,16 @@
   </div>
   <div *ngIf="calendarEnabled" #dropdownContent class="date-picker-modal">
     <div class="date-picker-header">
-      <bvr-button icon="chevron_left" (click)="previousMonth()" styleClass="button-icon">
+      <bvr-button
+        icon="chevron_left"
+        (click)="previousMonth()"
+        styleClass="button-icon">
       </bvr-button>
       <div>{{ currentMonth | month }} {{ currentYear }}</div>
-      <bvr-button icon="chevron_right" (click)="nextMonth()" styleClass="button-icon">
+      <bvr-button
+        icon="chevron_right"
+        (click)="nextMonth()"
+        styleClass="button-icon">
       </bvr-button>
     </div>
     <div class="week-days">
@@ -17,8 +23,12 @@
       </div>
     </div>
     <div *ngFor="let week of monthGrid; let j = index" class="week">
-      <div *ngFor="let day of week; let i = index" class="day" [class.disabled]="day.disabled"
-        [class.selected]="isCurrentDay(day)" (click)="selectDay(day)">
+      <div
+        *ngFor="let day of week; let i = index"
+        class="day"
+        [class.disabled]="day.disabled"
+        [class.selected]="isCurrentDay(day)"
+        (click)="selectDay(day)">
         <div [class.saturday]="i === 5" [class.sunday]="i === 6">
           {{ day.date | date: 'd' }}
         </div>

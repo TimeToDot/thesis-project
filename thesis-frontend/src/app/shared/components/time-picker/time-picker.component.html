@@ -5,33 +5,59 @@
   </div>
   <div *ngIf="timePickerEnabled" #dropdownContent class="time-picker-modal">
     <div class="time-picker-row arrows">
-      <bvr-button class="time-picker-cell" (click)="previousHour()" icon="expand_less" styleClass="button-icon">
+      <bvr-button
+        class="time-picker-cell"
+        (click)="previousHour()"
+        icon="expand_less"
+        styleClass="button-icon">
       </bvr-button>
       <div class="time-picker-cell colon"></div>
-      <bvr-button class="time-picker-cell" (click)="previousMinutes()" icon="expand_less" styleClass="button-icon">
+      <bvr-button
+        class="time-picker-cell"
+        (click)="previousMinutes()"
+        icon="expand_less"
+        styleClass="button-icon">
       </bvr-button>
     </div>
     <div class="time-picker-row">
-      <div class="time-picker-cell">{{ getPreviousHour() < 10 ? '0' + getPreviousHour() : getPreviousHour() }}</div>
-          <div class="time-picker-cell colon">:</div>
-          <div class="time-picker-cell">{{ getPreviousMinutes() === 0 ? '00' : getPreviousMinutes() }}</div>
+      <div class="time-picker-cell">
+        {{
+          getPreviousHour() < 10 ? '0' + getPreviousHour() : getPreviousHour()
+        }}
       </div>
-      <div class="time-picker-row current">
-        <div class="time-picker-cell">{{ hour < 10 ? '0' + hour : hour }}</div>
-            <div class="time-picker-cell colon">:</div>
-            <div class="time-picker-cell">{{ minutes === 0 ? '00' : minutes }}</div>
-        </div>
-        <div class="time-picker-row">
-          <div class="time-picker-cell">{{ getNextHour() < 10 ? '0' + getNextHour() : getNextHour() }}</div>
-              <div class="time-picker-cell colon">:</div>
-              <div class="time-picker-cell">{{ getNextMinutes() === 0 ? '00' : getNextMinutes() }}</div>
-          </div>
-          <div class="time-picker-row arrows">
-            <bvr-button class="time-picker-cell" (click)="nextHour()" icon="expand_more" styleClass="button-icon">
-            </bvr-button>
-            <div class="time-picker-cell colon"></div>
-            <bvr-button class="time-picker-cell" (click)="nextMinutes()" icon="expand_more" styleClass="button-icon">
-            </bvr-button>
-          </div>
-        </div>
+      <div class="time-picker-cell colon">:</div>
+      <div class="time-picker-cell">
+        {{ getPreviousMinutes() === 0 ? '00' : getPreviousMinutes() }}
       </div>
+    </div>
+    <div class="time-picker-row current">
+      <div class="time-picker-cell">{{ hour < 10 ? '0' + hour : hour }}</div>
+      <div class="time-picker-cell colon">:</div>
+      <div class="time-picker-cell">{{ minutes === 0 ? '00' : minutes }}</div>
+    </div>
+    <div class="time-picker-row">
+      <div class="time-picker-cell">
+        {{ getNextHour() < 10 ? '0' + getNextHour() : getNextHour() }}
+      </div>
+      <div class="time-picker-cell colon">:</div>
+      <div class="time-picker-cell">
+        {{ getNextMinutes() === 0 ? '00' : getNextMinutes() }}
+      </div>
+    </div>
+    <div class="time-picker-row arrows">
+      <bvr-button
+        class="time-picker-cell"
+        (click)="nextHour()"
+        icon="expand_more"
+        styleClass="button-icon">
+      </bvr-button>
+      <div class="time-picker-cell colon"></div>
+      <bvr-button
+        class="time-picker-cell"
+        (click)="nextMinutes()"
+        icon="expand_more"
+        styleClass="button-icon">
+      </bvr-button>
+    </div>
+  </div>
+</div>

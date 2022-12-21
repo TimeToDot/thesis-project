@@ -1,15 +1,32 @@
-<div *ngIf="createEmployeeForm" class="create-employee" [formGroup]="createEmployeeForm">
+<div
+  *ngIf="createEmployeeForm"
+  class="create-employee"
+  [formGroup]="createEmployeeForm">
   <div class="form" formGroupName="personalInfo">
     <bvr-form-field label="Birth date" [required]="isRequired('birthDate')">
       <bvr-date-picker formControlName="birthDate"></bvr-date-picker>
     </bvr-form-field>
   </div>
   <div class="form-buttons">
-    <bvr-button class='form-button' (click)="openCancelModal()" label="Cancel" styleClass="button-text"></bvr-button>
-    <bvr-button class='form-button' (click)="previousStep()" label="Previous"></bvr-button>
-    <bvr-button class='form-button' (click)="nextStep()" label="Next"></bvr-button>
+    <bvr-button
+      class="form-button"
+      (click)="openCancelModal()"
+      label="Cancel"
+      styleClass="button-text"></bvr-button>
+    <bvr-button
+      class="form-button"
+      (click)="previousStep()"
+      label="Previous"></bvr-button>
+    <bvr-button
+      class="form-button"
+      (click)="nextStep()"
+      label="Next"></bvr-button>
   </div>
 </div>
 
-<bvr-modal (confirm)="cancel()" confirmLabel="Leave" [description]="modalDescription" [title]="'Leave'"
+<bvr-modal
+  (confirm)="cancel()"
+  confirmLabel="Leave"
+  [description]="modalDescription"
+  [title]="'Leave'"
   [(visible)]="isCancelModalOpen"></bvr-modal>

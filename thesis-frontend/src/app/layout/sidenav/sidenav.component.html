@@ -2,10 +2,14 @@
   <nav class="sidenav-menu">
     <div *ngFor="let group of navMenuGroups">
       <div class="group-header">{{ group.name | uppercase }}</div>
-      <div *ngFor="let option of group.options" class="option" [routerLink]="[option.path]" routerLinkActive="active">
+      <div
+        *ngFor="let option of group.options"
+        class="option"
+        [routerLink]="[option.path]"
+        routerLinkActive="active">
         <span class="material-icons-outlined option-icon">{{
           option.icon
-          }}</span>
+        }}</span>
         <span>{{ option.name }}</span>
       </div>
     </div>
@@ -14,10 +18,15 @@
     <div class="profile" [routerLink]="['/profile']">
       <img class="profile-image" [src]="currentEmployee.image" />
       <div class="profile-info">
-        <span>{{ currentEmployee.firstName }} {{ currentEmployee.lastName }}</span>
+        <span
+          >{{ currentEmployee.firstName }} {{ currentEmployee.lastName }}</span
+        >
         <span class="email">{{ currentEmployee.email }}</span>
       </div>
     </div>
-    <bvr-button (click)="logout()" icon="logout" styleClass="button-icon"></bvr-button>
+    <bvr-button
+      (click)="logout()"
+      icon="logout"
+      styleClass="button-icon"></bvr-button>
   </div>
 </div>

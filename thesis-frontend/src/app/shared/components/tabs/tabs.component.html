@@ -1,5 +1,9 @@
 <nav class="tabs">
-  <div *ngFor="let option of navbarOptions" class="tab" [routerLink]="option.path" routerLinkActive="active-tab">
+  <div
+    *ngFor="let option of navbarOptions"
+    class="tab"
+    [routerLink]="option.path"
+    routerLinkActive="active-tab">
     {{ option.name }}
   </div>
 </nav>

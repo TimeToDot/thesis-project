@@ -1,13 +1,16 @@
 <div *ngIf="visible" class="modal" (click)="closeModal()">
-    <div class="dialog" (click)="stopPropagation($event)">
-        <div class="dialog-text">
-            <h4 class="dialog-header">{{title}}</h4>
-            <div>{{description}}</div>
-        </div>
-
-        <div class="dialog-buttons">
-            <bvr-button (click)="closeModal()" label="Cancel" styleClass="button-text"></bvr-button>
-            <bvr-button (click)="confirmModal()" [label]="confirmLabel"></bvr-button>
-        </div>
+  <div class="dialog" (click)="stopPropagation($event)">
+    <div class="dialog-text">
+      <h4 class="dialog-header">{{ title }}</h4>
+      <div>{{ description }}</div>
     </div>
+
+    <div class="dialog-buttons">
+      <bvr-button
+        (click)="closeModal()"
+        label="Cancel"
+        styleClass="button-text"></bvr-button>
+      <bvr-button (click)="confirmModal()" [label]="confirmLabel"></bvr-button>
+    </div>
+  </div>
 </div>

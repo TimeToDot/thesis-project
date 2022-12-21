@@ -22,10 +22,24 @@
 </div>
 
 <div class="form-buttons">
-  <bvr-button class="form-button" (click)="openCancelModal()" label="Cancel" styleClass="button-text"></bvr-button>
-  <bvr-button class="form-button" (click)="previousStep()" label="Previous"></bvr-button>
-  <bvr-button class="form-button" (click)="nextStep()" label="Next"></bvr-button>
+  <bvr-button
+    class="form-button"
+    (click)="openCancelModal()"
+    label="Cancel"
+    styleClass="button-text"></bvr-button>
+  <bvr-button
+    class="form-button"
+    (click)="previousStep()"
+    label="Previous"></bvr-button>
+  <bvr-button
+    class="form-button"
+    (click)="nextStep()"
+    label="Next"></bvr-button>
 </div>
 
-<bvr-modal (confirm)="cancel()" confirmLabel="Leave" [description]="modalDescription" [title]="'Leave'"
+<bvr-modal
+  (confirm)="cancel()"
+  confirmLabel="Leave"
+  [description]="modalDescription"
+  [title]="'Leave'"
   [(visible)]="isCancelModalOpen"></bvr-modal>
