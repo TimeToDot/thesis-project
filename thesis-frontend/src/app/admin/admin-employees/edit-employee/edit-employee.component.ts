@@ -153,56 +153,21 @@ export class EditEmployeeComponent {
         .pipe(first())
         .subscribe(account => {
           this.account = account;
-          this.editEmployeeForm
-            .get(['generalInfo', 'firstName'])
-            ?.setValue(account.firstName);
-          this.editEmployeeForm
-            .get(['generalInfo', 'lastName'])
-            ?.setValue(account.lastName);
-          this.editEmployeeForm
-            .get(['generalInfo', 'email'])
-            ?.setValue(account.email);
-          this.editEmployeeForm
-            .get(['generalInfo', 'position'])
-            ?.setValue(account.position);
-          this.editEmployeeForm
-            .get(['generalInfo', 'employmentDate'])
-            ?.setValue(account.employmentDate);
-          this.editEmployeeForm
-            .get(['generalInfo', 'workingTime'])
-            ?.setValue(account.workingTime);
-          this.editEmployeeForm
-            .get(['personalInfo', 'birthDate'])
-            ?.setValue(account.birthDate);
-          this.editEmployeeForm
-            .get(['contactInfo', 'phoneNumber'])
-            ?.setValue(account.phoneNumber);
-          this.editEmployeeForm
-            .get(['contactInfo', 'privateEmail'])
-            ?.setValue(account.privateEmail);
-          this.editEmployeeForm
-            .get(['contactInfo', 'street'])
-            ?.setValue(account.street);
-          this.editEmployeeForm
-            .get(['contactInfo', 'houseNumber'])
-            ?.setValue(account.houseNumber);
-          this.editEmployeeForm
-            .get(['contactInfo', 'apartmentNumber'])
-            ?.setValue(account.apartmentNumber);
-          this.editEmployeeForm
-            .get(['contactInfo', 'city'])
-            ?.setValue(account.city);
-          this.editEmployeeForm
-            .get(['contactInfo', 'postalCode'])
-            ?.setValue(account.postalCode);
-          this.editEmployeeForm
-            .get(['contactInfo', 'country'])
-            ?.setValue(account.country);
-          this.editEmployeeForm
-            .get(['billingInfo', 'accountNumber'])
-            ?.setValue(account.accountNumber);
+          this.updateFormFields();
         });
     }
+  }
+
+  updateFormFields(): void {
+    Object.keys(this.editEmployeeForm.controls).forEach(group => {
+      Object.keys(
+        (this.editEmployeeForm.get(group) as FormGroup<any>).controls
+      ).forEach(field => {
+        this.editEmployeeForm
+          .get([group, field])
+          ?.setValue(this.account[field as keyof Account]);
+      });
+    });
   }
 
   isRequired(group: string, name: string): boolean {

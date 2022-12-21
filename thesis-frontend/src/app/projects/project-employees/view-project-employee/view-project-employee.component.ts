@@ -41,7 +41,7 @@ export class ViewProjectEmployeeComponent implements OnInit {
       exitDate: '',
       active: false,
     },
-    contractType: '',
+    contractType: { id: '', name: '' },
     workingTime: 0,
     wage: 0,
     joinDate: '',

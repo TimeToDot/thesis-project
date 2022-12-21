@@ -11,6 +11,7 @@ import { ToastService } from '../../../shared/services/toast.service';
 import { ToastState } from '../../../shared/enum/toast-state';
 import { ToastComponent } from '../../../shared/components/toast/toast.component';
 import { first } from 'rxjs';
+import { ContractType } from '../../models/contract-type.model';
 
 @Component({
   selector: 'bvr-select-wage',
@@ -32,7 +33,7 @@ export class SelectWageComponent {
 
   @Output() previousStepChange: EventEmitter<void> = new EventEmitter();
 
-  contractTypes: { id: string; name: string }[] = [
+  contractTypes: ContractType[] = [
     { id: '1', name: 'Employment contract' },
     { id: '2', name: 'Commission contract' },
     { id: '3', name: 'Specific-task contract' },

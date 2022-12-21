@@ -59,6 +59,7 @@ export class EditTaskComponent {
   ngOnInit(): void {
     this.getTask();
     this.createForm();
+    this.loadProjectTaskToEdit();
   }
 
   getTask(): void {
@@ -75,6 +76,27 @@ export class EditTaskComponent {
     this.editProjectTaskForm = this.fb.group({
       name: ['', [Validators.required]],
       description: ['', [Validators.required]],
+    });
+  }
+
+  loadProjectTaskToEdit(): void {
+    const projectTaskId = this.route.snapshot.paramMap.get('id');
+    if (projectTaskId) {
+      this.projectTasksService
+        .getProjectTask(projectTaskId)
+        .pipe(first())
+        .subscribe(account => {
+          this.task = account;
+          this.updateFormFields();
+        });
+    }
+  }
+
+  updateFormFields(): void {
+    Object.keys(this.editProjectTaskForm.controls).forEach(field => {
+      this.editProjectTaskForm
+        .get(field)
+        ?.setValue(this.task[field as keyof ProjectTask]);
     });
   }
 

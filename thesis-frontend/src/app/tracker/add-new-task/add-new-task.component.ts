@@ -25,6 +25,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import * as dayjs from 'dayjs';
 import { EmployeeTasksService } from '../../shared/services/employee-tasks.service';
 import { first } from 'rxjs';
+import { EmployeeTask } from '../../shared/models/employee-task.model';
 
 @Component({
   selector: 'bvr-add-new-task',
@@ -152,16 +153,16 @@ export class AddNewTaskComponent implements OnInit {
         .getEmployeeTask(taskId)
         .pipe(first())
         .subscribe(employeeTask => {
-          const task = employeeTask;
-          this.addTaskForm.get('startDate')?.setValue(task.startDate);
-          this.addTaskForm.get('startTime')?.setValue(task.startTime);
-          this.addTaskForm.get('endDate')?.setValue(task.endDate);
-          this.addTaskForm.get('endTime')?.setValue(task.endTime);
-          this.addTaskForm.get('project')?.setValue(task.project);
-          this.addTaskForm.get('task')?.setValue(task.task);
+          this.updateFormFields(employeeTask);
           this.hasTaskToSave = true;
         });
     }
+  }
+
+  updateFormFields(task: EmployeeTask): void {
+    Object.keys(this.addTaskForm.controls).forEach(field => {
+      this.addTaskForm.get(field)?.setValue(task[field as keyof EmployeeTask]);
+    });
   }
 
   openAddModal(): void {

@@ -60,7 +60,7 @@ export class EditProjectEmployeeComponent implements OnInit {
       exitDate: '',
       active: false,
     },
-    contractType: '',
+    contractType: { id: '', name: '' },
     workingTime: 0,
     wage: 0,
     joinDate: '',
@@ -80,6 +80,7 @@ export class EditProjectEmployeeComponent implements OnInit {
   ngOnInit(): void {
     this.getEmployee();
     this.createForm();
+    this.loadProjectEmployeeToEdit();
   }
 
   getEmployee(): void {
@@ -97,6 +98,27 @@ export class EditProjectEmployeeComponent implements OnInit {
       contractType: ['', [Validators.required]],
       workingTime: ['', [Validators.required]],
       wage: ['', [Validators.required]],
+    });
+  }
+
+  loadProjectEmployeeToEdit(): void {
+    const projectEmployeeId = this.route.snapshot.paramMap.get('id');
+    if (projectEmployeeId) {
+      this.projectEmployeesService
+        .getProjectEmployee(projectEmployeeId)
+        .pipe(first())
+        .subscribe(projectEmployee => {
+          this.projectEmployee = projectEmployee;
+          this.updateFormFields();
+        });
+    }
+  }
+
+  updateFormFields(): void {
+    Object.keys(this.editProjectEmployeeForm.controls).forEach(field => {
+      this.editProjectEmployeeForm
+        .get(field)
+        ?.setValue(this.projectEmployee[field as keyof ProjectEmployee]);
     });
   }
 
