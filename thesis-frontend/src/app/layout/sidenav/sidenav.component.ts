@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { Router, RouterLinkActive, RouterLinkWithHref } from '@angular/router';
 import { PermissionsService } from '../../shared/services/permissions.service';
 import { AuthService } from '../../shared/services/auth.service';
 import { ButtonComponent } from '../../shared/components/button/button.component';
@@ -13,7 +13,12 @@ import { first } from 'rxjs';
   selector: 'bvr-sidenav',
   templateUrl: './sidenav.component.html',
   standalone: true,
-  imports: [ButtonComponent, CommonModule, RouterModule],
+  imports: [
+    ButtonComponent,
+    CommonModule,
+    RouterLinkActive,
+    RouterLinkWithHref,
+  ],
 })
 export class SidenavComponent implements OnInit {
   currentEmployee: Employee = {

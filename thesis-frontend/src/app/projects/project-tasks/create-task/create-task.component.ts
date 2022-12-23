@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterLinkWithHref } from '@angular/router';
 import {
   FormBuilder,
   FormGroup,
@@ -24,7 +24,7 @@ import { ValidationService } from '../../../shared/services/validation.service';
     FormFieldComponent,
     ModalComponent,
     ReactiveFormsModule,
-    RouterModule,
+    RouterLinkWithHref,
     ToastComponent,
   ],
   templateUrl: './create-task.component.html',

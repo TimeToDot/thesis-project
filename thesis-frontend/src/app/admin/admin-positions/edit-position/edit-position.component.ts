@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterLinkWithHref } from '@angular/router';
 import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
 import { ToastComponent } from '../../../shared/components/toast/toast.component';
@@ -27,7 +27,7 @@ import { ValidationService } from '../../../shared/services/validation.service';
     FormFieldComponent,
     ModalComponent,
     ReactiveFormsModule,
-    RouterModule,
+    RouterLinkWithHref,
     ToastComponent,
   ],
   templateUrl: './edit-position.component.html',

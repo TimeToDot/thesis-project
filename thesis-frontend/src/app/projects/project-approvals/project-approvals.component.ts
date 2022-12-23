@@ -2,7 +2,7 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { RouterLinkWithHref } from '@angular/router';
 import { first } from 'rxjs';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { ToastComponent } from '../../shared/components/toast/toast.component';
@@ -18,7 +18,7 @@ import { EmployeesApprovalsService } from '../services/employees-approvals.servi
     CdkTableModule,
     CommonModule,
     FormsModule,
-    RouterModule,
+    RouterLinkWithHref,
     ToastComponent,
   ],
 })

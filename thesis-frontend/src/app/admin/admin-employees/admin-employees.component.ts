@@ -2,7 +2,7 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterLinkWithHref } from '@angular/router';
 import { first } from 'rxjs';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { ModalComponent } from '../../shared/components/modal/modal.component';
@@ -22,7 +22,7 @@ import { EmployeesService } from '../services/employees.service';
     CommonModule,
     FormsModule,
     ModalComponent,
-    RouterModule,
+    RouterLinkWithHref,
     ToastComponent,
   ],
 })

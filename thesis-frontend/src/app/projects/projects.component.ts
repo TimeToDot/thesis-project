@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterLinkWithHref } from '@angular/router';
 import { first } from 'rxjs';
 import { ButtonComponent } from '../shared/components/button/button.component';
 import { ProjectsService } from '../shared/services/projects.service';
@@ -10,7 +10,7 @@ import { Project } from './models/project.model';
   selector: 'bvr-projects',
   templateUrl: './projects.component.html',
   standalone: true,
-  imports: [ButtonComponent, CommonModule, RouterModule],
+  imports: [ButtonComponent, CommonModule, RouterLinkWithHref],
 })
 export class ProjectsComponent implements OnInit {
   projects: Project[] = [];

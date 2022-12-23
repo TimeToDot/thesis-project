@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
-import { RouterModule } from '@angular/router';
+import { RouterLinkWithHref } from '@angular/router';
 import { Employee } from '../../../shared/models/employee.model';
 import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
 import { FormGroup, FormsModule } from '@angular/forms';
@@ -18,7 +18,7 @@ import { first } from 'rxjs';
     FormFieldComponent,
     FormsModule,
     ModalComponent,
-    RouterModule,
+    RouterLinkWithHref,
   ],
   templateUrl: './confirm-employee.component.html',
 })

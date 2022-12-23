@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import {
   ActivatedRoute,
   ChildrenOutletContexts,
+  RouterLinkActive,
   RouterOutlet,
 } from '@angular/router';
 import { TabsComponent } from '../../shared/components/tabs/tabs.component';
@@ -15,7 +16,7 @@ import { projectAnimation } from '../animations/project.animation';
   selector: 'bvr-project',
   templateUrl: './project.component.html',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, TabsComponent],
+  imports: [CommonModule, RouterOutlet, RouterLinkActive, TabsComponent],
   animations: [projectAnimation],
 })
 export class ProjectComponent implements OnInit {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterLinkWithHref } from '@angular/router';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { ProjectTask } from '../../models/project-task.model';
 import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
@@ -19,7 +19,7 @@ import { first } from 'rxjs';
     CommonModule,
     FormFieldComponent,
     ModalComponent,
-    RouterModule,
+    RouterLinkWithHref,
     ToastComponent,
   ],
   templateUrl: './view-task.component.html',

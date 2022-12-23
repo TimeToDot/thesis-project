@@ -15,7 +15,7 @@ import * as dayjs from 'dayjs';
 import { ProjectApproval } from '../models/project-approval.model';
 import { ProjectApprovalsService } from '../services/project-approvals.service';
 import { ButtonComponent } from '../../shared/components/button/button.component';
-import { RouterModule } from '@angular/router';
+import { RouterLinkWithHref } from '@angular/router';
 import { ToastService } from '../../shared/services/toast.service';
 import { ToastState } from '../../shared/enum/toast-state';
 import { ModalComponent } from '../../shared/components/modal/modal.component';
@@ -33,7 +33,7 @@ import { ValidationService } from '../../shared/services/validation.service';
     FormFieldComponent,
     ModalComponent,
     ReactiveFormsModule,
-    RouterModule,
+    RouterLinkWithHref,
     ToastComponent,
   ],
   templateUrl: './request-approval.component.html',

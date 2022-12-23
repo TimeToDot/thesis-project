@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterLinkWithHref } from '@angular/router';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
 import { FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -24,7 +24,7 @@ import { ValidationService } from '../../../shared/services/validation.service';
     FormFieldComponent,
     ModalComponent,
     ReactiveFormsModule,
-    RouterModule,
+    RouterLinkWithHref,
     ToastComponent,
   ],
   templateUrl: './select-wage.component.html',

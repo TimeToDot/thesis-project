@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { first } from 'rxjs';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterLinkWithHref } from '@angular/router';
 import { Account } from '../../../shared/models/account.model';
 import { AccountsService } from '../../services/accounts.service';
 import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
@@ -19,7 +19,7 @@ import { ToastComponent } from '../../../shared/components/toast/toast.component
     CommonModule,
     FormFieldComponent,
     ModalComponent,
-    RouterModule,
+    RouterLinkWithHref,
     ToastComponent,
   ],
   templateUrl: './view-employee.component.html',

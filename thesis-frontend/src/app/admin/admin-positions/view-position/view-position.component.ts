@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterLinkWithHref } from '@angular/router';
 import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
 import { Position } from '../../models/position.model';
@@ -19,7 +19,7 @@ import { first } from 'rxjs';
     CommonModule,
     FormFieldComponent,
     ModalComponent,
-    RouterModule,
+    RouterLinkWithHref,
     ToastComponent,
   ],
   templateUrl: './view-position.component.html',

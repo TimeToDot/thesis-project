@@ -5,7 +5,7 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { FormsModule } from '@angular/forms';
 import { Position } from '../models/position.model';
 import { PositionsService } from '../services/positions.service';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterLinkWithHref } from '@angular/router';
 import { ModalComponent } from '../../shared/components/modal/modal.component';
 import { ToastComponent } from '../../shared/components/toast/toast.component';
 import { ToastService } from '../../shared/services/toast.service';
@@ -21,7 +21,7 @@ import { first } from 'rxjs';
     CommonModule,
     FormsModule,
     ModalComponent,
-    RouterModule,
+    RouterLinkWithHref,
     ToastComponent,
   ],
   templateUrl: './admin-positions.component.html',

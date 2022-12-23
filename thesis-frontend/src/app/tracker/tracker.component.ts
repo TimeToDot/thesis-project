@@ -5,7 +5,6 @@ import {
   NavigationStart,
   Router,
   RouterLinkWithHref,
-  RouterModule,
   RouterOutlet,
 } from '@angular/router';
 import { filter, Subscription } from 'rxjs';

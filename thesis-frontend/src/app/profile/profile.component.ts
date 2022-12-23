@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterLinkWithHref } from '@angular/router';
 import { first } from 'rxjs';
 import { EmployeesService } from '../admin/services/employees.service';
 import { ButtonComponent } from '../shared/components/button/button.component';
@@ -10,7 +10,7 @@ import { Employee } from '../shared/models/employee.model';
   selector: 'bvr-profile',
   templateUrl: './profile.component.html',
   standalone: true,
-  imports: [ButtonComponent, CommonModule, RouterModule],
+  imports: [ButtonComponent, CommonModule, RouterLinkWithHref],
 })
 export class ProfileComponent implements OnInit {
   currentEmployee: Employee = {
