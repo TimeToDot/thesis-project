@@ -4,7 +4,7 @@ import { ProjectPermissions } from '../models/project-permissions.model';
 import { PermissionsService } from '../../shared/services/permissions.service';
 
 import { ProjectComponent } from './project.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('ProjectComponent', () => {
   let component: ProjectComponent;
@@ -13,7 +13,7 @@ describe('ProjectComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BrowserAnimationsModule, ProjectComponent, RouterTestingModule],
+      imports: [NoopAnimationsModule, ProjectComponent, RouterTestingModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ProjectComponent);

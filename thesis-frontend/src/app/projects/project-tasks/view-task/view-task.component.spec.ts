@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { ViewTaskComponent } from './view-task.component';
@@ -10,11 +10,7 @@ describe('ViewTaskComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        BrowserAnimationsModule,
-        RouterTestingModule,
-        ViewTaskComponent,
-      ],
+      imports: [NoopAnimationsModule, RouterTestingModule, ViewTaskComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ViewTaskComponent);

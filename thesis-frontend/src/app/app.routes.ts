@@ -20,45 +20,44 @@ export const appRoutes: Routes = [
       {
         path: 'dashboard',
         component: DashboardComponent,
-        data: { sidenavTabs: 'dashboard' },
+        data: { sidenavTabs: 0 },
       },
       {
         path: 'tracker/request-approval',
         component: RequestApprovalComponent,
-        data: { sidenavTabs: 'tracker' },
+        data: { sidenavTabs: 1 },
       },
       {
         path: 'tracker',
         component: TrackerComponent,
-        data: { sidenavTabs: 'tracker' },
+        data: { sidenavTabs: 1 },
         children: [
           { path: '', redirectTo: 'add-new-task', pathMatch: 'full' },
           {
             path: 'tasks-list',
             component: TasksListComponent,
-            data: { sidenavTabs: 'tracker' },
+            data: { sidenavTabs: 1 },
           },
           {
             path: 'add-new-task',
             component: AddNewTaskComponent,
-            data: { sidenavTabs: 'tracker' },
+            data: { sidenavTabs: 1 },
           },
           {
             path: 'edit-task/:id',
             component: AddNewTaskComponent,
-            data: { sidenavTabs: 'tracker' },
+            data: { sidenavTabs: 1 },
           },
         ],
       },
       {
         path: 'projects',
-        data: { sidenavTabs: 'projects' },
+        data: { sidenavTabs: 2 },
         loadChildren: () =>
           import('./projects/projects.routes').then(mod => mod.projectsRoutes),
       },
       {
         path: 'admin',
-        data: { sidenavTabs: 'admin' },
         loadChildren: () =>
           import('./admin/admin.routes').then(mod => mod.adminRoutes),
       },

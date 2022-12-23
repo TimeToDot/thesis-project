@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ContactInfoComponent } from './contact-info.component';
 
@@ -9,7 +9,7 @@ describe('ContactInfoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BrowserAnimationsModule, ContactInfoComponent],
+      imports: [NoopAnimationsModule, ContactInfoComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ContactInfoComponent);
