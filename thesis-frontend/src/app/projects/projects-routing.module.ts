@@ -41,11 +41,13 @@ const projectsRoutes: Routes = [
             path: 'dashboard',
             component: ProjectDashboardComponent,
             canActivate: [CanReadProjectGuard],
+            data: { animation: 'dashboard' },
           },
           {
             path: 'tasks',
             component: ProjectTasksComponent,
             canActivate: [CanManageTasksGuard],
+            data: { animation: 'tasks' },
           },
           {
             path: 'tasks/create',
@@ -71,6 +73,7 @@ const projectsRoutes: Routes = [
             path: 'employees',
             component: ProjectEmployeesComponent,
             canActivate: [CanManageProjectEmployeesGuard],
+            data: { animation: 'employees' },
           },
           {
             path: 'employees/add',
@@ -91,6 +94,7 @@ const projectsRoutes: Routes = [
             path: 'approvals',
             component: ProjectApprovalsComponent,
             canActivate: [CanManageApprovalsGuard],
+            data: { animation: 'approvals' },
           },
           {
             path: 'approvals/:id',
@@ -101,6 +105,7 @@ const projectsRoutes: Routes = [
             path: 'settings',
             component: ProjectSettingsComponent,
             canActivate: [CanAdminProjectGuard],
+            data: { animation: 'settings' },
           },
           {
             path: '',

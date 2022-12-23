@@ -1,25 +1,34 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  ActivatedRoute,
+  ChildrenOutletContexts,
+  RouterModule,
+} from '@angular/router';
 import { TabsComponent } from '../../shared/components/tabs/tabs.component';
 import { LinkOption } from '../../shared/models/link-option.model';
 import { ProjectPermissions } from '../models/project-permissions.model';
 import { PermissionsService } from '../../shared/services/permissions.service';
+import { slideInAnimation } from '../../shared/animations/slide-in.animation';
 
 @Component({
   selector: 'bvr-project',
   templateUrl: './project.component.html',
   standalone: true,
   imports: [CommonModule, RouterModule, TabsComponent],
+  animations: [slideInAnimation],
 })
 export class ProjectComponent implements OnInit {
+  @ViewChild('cardContent') cardContent!: ElementRef;
+
   private projectId: string | null = null;
 
   navbarOptions: LinkOption[] = [];
 
   constructor(
-    private route: ActivatedRoute,
-    private permissionsService: PermissionsService
+    private contexts: ChildrenOutletContexts,
+    private permissionsService: PermissionsService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -73,5 +82,11 @@ export class ProjectComponent implements OnInit {
     if (permissions.canAdminProjects) {
       this.navbarOptions.push({ name: 'Settings', path: 'settings' });
     }
+  }
+
+  getRouteAnimationData() {
+    return this.contexts.getContext('primary')?.route?.snapshot?.data?.[
+      'animation'
+    ];
   }
 }

@@ -5,7 +5,9 @@
   box-shadow: $shadow-accent;
   display: flex;
   flex-direction: column;
+  height: calc(100% - 14 * $grid-base);
   margin: 7 * $grid-base 6 * $grid-base;
+  overflow: hidden;
   padding: 12 * $grid-base 9 * $grid-base 8 * $grid-base;
 
   .create-new-button {
@@ -18,7 +20,6 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 8 * $grid-base;
-    min-height: 12 * $grid-base;
     width: 100%;
   }
 

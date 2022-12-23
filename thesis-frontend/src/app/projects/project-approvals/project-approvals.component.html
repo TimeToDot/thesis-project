@@ -4,20 +4,12 @@
       <h4>Approvals</h4>
       <h4 class="count">({{ dataSource.length }})</h4>
       <div class="radio">
-        <input
-          name="showActive"
-          [(ngModel)]="showActive"
-          (ngModelChange)="showActiveTable(true)"
-          type="radio"
+        <input name="showActive" [(ngModel)]="showActive" (ngModelChange)="showActiveTable(true)" type="radio"
           [value]="true" />
         <label>Active</label>
       </div>
       <div class="radio">
-        <input
-          name="showActive"
-          [(ngModel)]="showActive"
-          (ngModelChange)="showActiveTable(false)"
-          type="radio"
+        <input name="showActive" [(ngModel)]="showActive" (ngModelChange)="showActiveTable(false)" type="radio"
           [value]="false" />
         <label>Archive</label>
       </div>
@@ -25,11 +17,7 @@
   </div>
 
   <div class="search-bar">
-    <input
-      class="search-input"
-      [(ngModel)]="query"
-      placeholder="Search"
-      type="search" />
+    <input class="search-input" [(ngModel)]="query" placeholder="Search" type="search" />
     <span class="material-icons-outlined search-icon">search</span>
   </div>
 
@@ -39,13 +27,9 @@
         <th cdk-header-cell *cdkHeaderCellDef>Person</th>
         <td cdk-cell *cdkCellDef="let element">
           <div class="table-cell">
-            <img
-              [src]="element.projectEmployee.employee.image"
-              class="picture" />
-            <span
-              >{{ element.projectEmployee.employee.firstName }}
-              {{ element.projectEmployee.employee.lastName }}</span
-            >
+            <img [src]="element.projectEmployee.employee.image" class="picture" />
+            <span>{{ element.projectEmployee.employee.firstName }}
+              {{ element.projectEmployee.employee.lastName }}</span>
           </div>
         </td>
       </ng-container>
@@ -73,10 +57,7 @@
         </td>
       </ng-container>
       <tr cdk-header-row *cdkHeaderRowDef="displayedActiveColumns"></tr>
-      <tr
-        cdk-row
-        *cdkRowDef="let row; columns: displayedActiveColumns"
-        [routerLink]="[row.id]"></tr>
+      <tr cdk-row *cdkRowDef="let row; columns: displayedActiveColumns" [routerLink]="[row.id]"></tr>
     </table>
   </div>
 
@@ -86,13 +67,9 @@
         <th cdk-header-cell *cdkHeaderCellDef>Person</th>
         <td cdk-cell *cdkCellDef="let element">
           <div class="table-cell">
-            <img
-              [src]="element.projectEmployee.employee.image"
-              class="picture archived" />
-            <span
-              >{{ element.projectEmployee.employee.firstName }}
-              {{ element.projectEmployee.employee.lastName }}</span
-            >
+            <img [src]="element.projectEmployee.employee.image" class="picture archived" />
+            <span>{{ element.projectEmployee.employee.firstName }}
+              {{ element.projectEmployee.employee.lastName }}</span>
           </div>
         </td>
       </ng-container>
@@ -117,10 +94,7 @@
         </td>
       </ng-container>
       <tr cdk-header-row *cdkHeaderRowDef="displayedArchivedColumns"></tr>
-      <tr
-        cdk-row
-        *cdkRowDef="let row; columns: displayedArchivedColumns"
-        [routerLink]="[row.id]"></tr>
+      <tr cdk-row *cdkRowDef="let row; columns: displayedArchivedColumns" [routerLink]="[row.id]"></tr>
     </table>
   </div>
 </div>
