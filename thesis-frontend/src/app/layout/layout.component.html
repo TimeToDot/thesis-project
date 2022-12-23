@@ -1,6 +1,6 @@
 <div class="layout">
   <bvr-sidenav class="sidenav-card"></bvr-sidenav>
-  <div class="content">
+  <div [@sidenavTabs]="getRouteAnimationData()" class="content">
     <router-outlet></router-outlet>
   </div>
 </div>

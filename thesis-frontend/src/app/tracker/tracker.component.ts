@@ -4,7 +4,9 @@ import {
   ActivatedRoute,
   NavigationStart,
   Router,
+  RouterLinkWithHref,
   RouterModule,
+  RouterOutlet,
 } from '@angular/router';
 import { filter, Subscription } from 'rxjs';
 import { CalendarComponent } from '../calendar/calendar.component';
@@ -20,7 +22,8 @@ import { LinkOption } from '../shared/models/link-option.model';
     ButtonComponent,
     CalendarComponent,
     CommonModule,
-    RouterModule,
+    RouterLinkWithHref,
+    RouterOutlet,
     TabsComponent,
   ],
 })

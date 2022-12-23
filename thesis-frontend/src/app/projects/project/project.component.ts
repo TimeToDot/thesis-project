@@ -1,26 +1,24 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   ActivatedRoute,
   ChildrenOutletContexts,
-  RouterModule,
+  RouterOutlet,
 } from '@angular/router';
 import { TabsComponent } from '../../shared/components/tabs/tabs.component';
 import { LinkOption } from '../../shared/models/link-option.model';
 import { ProjectPermissions } from '../models/project-permissions.model';
 import { PermissionsService } from '../../shared/services/permissions.service';
-import { slideInAnimation } from '../../shared/animations/slide-in.animation';
+import { projectAnimation } from '../animations/project.animation';
 
 @Component({
   selector: 'bvr-project',
   templateUrl: './project.component.html',
   standalone: true,
-  imports: [CommonModule, RouterModule, TabsComponent],
-  animations: [slideInAnimation],
+  imports: [CommonModule, RouterOutlet, TabsComponent],
+  animations: [projectAnimation],
 })
 export class ProjectComponent implements OnInit {
-  @ViewChild('cardContent') cardContent!: ElementRef;
-
   private projectId: string | null = null;
 
   navbarOptions: LinkOption[] = [];
@@ -85,8 +83,8 @@ export class ProjectComponent implements OnInit {
   }
 
   getRouteAnimationData() {
-    return this.contexts.getContext('primary')?.route?.snapshot?.data?.[
-      'animation'
+    return this.contexts.getContext('primary')?.route?.snapshot.data[
+      'projectTabs'
     ];
   }
 }

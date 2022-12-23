@@ -1,16 +1,22 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component } from '@angular/core';
+import { ChildrenOutletContexts, RouterOutlet } from '@angular/router';
+import { sidenavAnimation } from './animations/sidenav.animation';
 import { SidenavComponent } from './sidenav/sidenav.component';
 
 @Component({
   selector: 'bvr-layout',
   templateUrl: './layout.component.html',
   standalone: true,
-  imports: [CommonModule, SidenavComponent, RouterModule],
+  imports: [CommonModule, SidenavComponent, RouterOutlet],
+  animations: [sidenavAnimation],
 })
-export class LayoutComponent implements OnInit {
-  constructor() {}
+export class LayoutComponent {
+  constructor(private contexts: ChildrenOutletContexts) {}
 
-  ngOnInit(): void {}
+  getRouteAnimationData() {
+    return this.contexts.getContext('primary')?.route?.snapshot.data[
+      'sidenavTabs'
+    ];
+  }
 }
