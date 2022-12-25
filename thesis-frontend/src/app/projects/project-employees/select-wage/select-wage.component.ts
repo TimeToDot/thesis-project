@@ -89,8 +89,7 @@ export class SelectWageComponent {
   add(): void {
     this.router.navigate(['..'], { relativeTo: this.route }).then(() => {
       setTimeout(
-        () =>
-          this.toastService.showToast(ToastState.Success, 'Employee created'),
+        () => this.toastService.showToast(ToastState.Success, 'Employee added'),
         200
       );
       setTimeout(() => this.toastService.dismissToast(), 3200);

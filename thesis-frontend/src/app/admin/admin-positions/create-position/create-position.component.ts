@@ -76,7 +76,7 @@ export class CreatePositionComponent implements OnInit {
     this.router.navigate(['..'], { relativeTo: this.route }).then(() => {
       setTimeout(
         () =>
-          this.toastService.showToast(ToastState.Success, 'Employee created'),
+          this.toastService.showToast(ToastState.Success, 'Position created'),
         200
       );
       setTimeout(() => this.toastService.dismissToast(), 3200);

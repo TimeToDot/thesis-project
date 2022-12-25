@@ -1,6 +1,7 @@
 <div class="card">
   <div class="header">
     <div class="title">
+      <span class="material-icons-outlined">work_outline</span>
       <h2 class="name">Create position</h2>
     </div>
   </div>
@@ -10,52 +11,31 @@
         <bvr-form-field label="Name" [required]="isRequired('name')">
           <input formControlName="name" type="text" />
           <ng-container *ngIf="showErrors('name')">
-            <small *ngIf="createPositionForm.get('name')?.hasError('required')"
-              >This field is required.</small
-            >
+            <small *ngIf="createPositionForm.get('name')?.hasError('required')">This field is required.</small>
           </ng-container>
         </bvr-form-field>
-        <bvr-form-field
-          label="Description"
-          [required]="isRequired('description')">
+        <bvr-form-field label="Description" [required]="isRequired('description')">
           <input formControlName="description" type="text" />
           <ng-container *ngIf="showErrors('description')">
-            <small
-              *ngIf="
+            <small *ngIf="
                 createPositionForm.get('description')?.hasError('required')
-              "
-              >This field is required.</small
-            >
+              ">This field is required.</small>
           </ng-container>
         </bvr-form-field>
       </div>
       <div class="form-buttons">
-        <bvr-button
-          class="form-button"
-          (click)="openCancelModal()"
-          label="Cancel"
+        <bvr-button class="form-button" (click)="openCancelModal()" label="Cancel"
           styleClass="button-text"></bvr-button>
-        <bvr-button
-          class="form-button"
-          (click)="openAddModal()"
-          label="Create"></bvr-button>
+        <bvr-button class="form-button" (click)="openAddModal()" label="Create"></bvr-button>
       </div>
     </div>
   </div>
 </div>
 
-<bvr-modal
-  (confirm)="add()"
-  confirmLabel="Create"
-  [description]="modalDescription"
-  [title]="'Create New Employee'"
+<bvr-modal (confirm)="add()" confirmLabel="Create" [description]="modalDescription" [title]="'Create New Position'"
   [(visible)]="isAddModalOpen"></bvr-modal>
 
-<bvr-modal
-  (confirm)="cancel()"
-  confirmLabel="Leave"
-  [description]="modalDescription"
-  [title]="'Leave'"
+<bvr-modal (confirm)="cancel()" confirmLabel="Leave" [description]="modalDescription" [title]="'Leave'"
   [(visible)]="isCancelModalOpen"></bvr-modal>
 
 <bvr-toast></bvr-toast>

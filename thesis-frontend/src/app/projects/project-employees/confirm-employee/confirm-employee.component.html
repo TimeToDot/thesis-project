@@ -16,30 +16,16 @@
       <input disabled [(ngModel)]="employee.position" type="text" />
     </bvr-form-field>
     <bvr-form-field class="disabled field" label="Employment Date">
-      <input disabled [(ngModel)]="employee.employmentDate" type="text" />
+      <input disabled [ngModel]="employee.employmentDate | date: 'dd/MM/yyyy'" type="text" />
     </bvr-form-field>
   </div>
 </div>
 
 <div class="form-buttons">
-  <bvr-button
-    class="form-button"
-    (click)="openCancelModal()"
-    label="Cancel"
-    styleClass="button-text"></bvr-button>
-  <bvr-button
-    class="form-button"
-    (click)="previousStep()"
-    label="Previous"></bvr-button>
-  <bvr-button
-    class="form-button"
-    (click)="nextStep()"
-    label="Next"></bvr-button>
+  <bvr-button class="form-button" (click)="openCancelModal()" label="Cancel" styleClass="button-text"></bvr-button>
+  <bvr-button class="form-button" (click)="previousStep()" label="Previous"></bvr-button>
+  <bvr-button class="form-button" (click)="nextStep()" label="Next"></bvr-button>
 </div>
 
-<bvr-modal
-  (confirm)="cancel()"
-  confirmLabel="Leave"
-  [description]="modalDescription"
-  [title]="'Leave'"
+<bvr-modal (confirm)="cancel()" confirmLabel="Leave" [description]="modalDescription" [title]="'Leave'"
   [(visible)]="isCancelModalOpen"></bvr-modal>

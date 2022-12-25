@@ -35,7 +35,7 @@ export class ProjectTasksComponent implements OnInit {
     'creationDate',
     'actions',
   ];
-  displayedArchivedColumns: string[] = ['name', 'description', 'creationDate'];
+  displayedArchivedColumns: string[] = ['name', 'description', 'archiveDate'];
   isArchiveModalOpen: boolean = false;
   query: string = '';
   showActive: boolean = true;

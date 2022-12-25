@@ -1,6 +1,7 @@
 <div class="card">
   <div class="header">
     <div class="title">
+      <span class="material-icons-outlined">work_outline</span>
       <h2 class="name">View position</h2>
     </div>
   </div>
@@ -10,29 +11,18 @@
         <h4>{{ position.name }}</h4>
         <h4 *ngIf="!position.active" class="archived">(Archived)</h4>
       </div>
-      <div>
-        <bvr-button
-          *ngIf="position.active"
-          icon="edit"
-          [routerLink]="['edit']"
-          styleClass="button-icon"></bvr-button>
-        <bvr-button
-          (click)="openArchiveModal()"
-          icon="archive"
-          styleClass="button-icon"></bvr-button>
+      <div *ngIf="position.active">
+        <bvr-button icon="edit" [routerLink]="['edit']" styleClass="button-icon"></bvr-button>
+        <bvr-button (click)="openArchiveModal()" icon="archive" styleClass="button-icon"></bvr-button>
       </div>
     </div>
     <div class="form">
       <div class="dates">
         <bvr-form-field class="left-field" label="Creation Date">
-          <span>{{ position.creationDate }}</span>
+          <span>{{ position.creationDate | date: 'dd/MM/yyyy' }}</span>
         </bvr-form-field>
-        <bvr-form-field
-          class="field"
-          *ngIf="!position.active"
-          class="disabled field"
-          label="Archive Date">
-          <span>{{ position.archiveDate }}</span>
+        <bvr-form-field class="field" *ngIf="!position.active" class="disabled field" label="Archive Date">
+          <span>{{ position.archiveDate | date: 'dd/MM/yyyy' }}</span>
         </bvr-form-field>
       </div>
       <bvr-form-field class="field description" label="Description">
@@ -40,19 +30,12 @@
       </bvr-form-field>
     </div>
     <div class="form-buttons">
-      <bvr-button
-        label="Cancel"
-        [routerLink]="['..']"
-        styleClass="button-text"></bvr-button>
+      <bvr-button label="Cancel" [routerLink]="['..']" styleClass="button-text"></bvr-button>
     </div>
   </div>
 </div>
 
-<bvr-modal
-  (confirm)="archive()"
-  confirmLabel="archive"
-  [description]="modalDescription"
-  [title]="'Archive position'"
+<bvr-modal (confirm)="archive()" confirmLabel="archive" [description]="modalDescription" [title]="'Archive Position'"
   [(visible)]="isArchiveModalOpen"></bvr-modal>
 
 <bvr-toast></bvr-toast>

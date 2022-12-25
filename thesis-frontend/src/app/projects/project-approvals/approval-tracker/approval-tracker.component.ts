@@ -96,7 +96,8 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
   confirm(): void {
     this.router.navigate(['..'], { relativeTo: this.route }).then(() => {
       setTimeout(
-        () => this.toastService.showToast(ToastState.Success, 'Approval saved'),
+        () =>
+          this.toastService.showToast(ToastState.Success, 'Approval resolved'),
         200
       );
       setTimeout(() => this.toastService.dismissToast(), 3200);

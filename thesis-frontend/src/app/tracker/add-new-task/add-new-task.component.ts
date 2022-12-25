@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule, formatDate } from '@angular/common';
+import { CommonModule, formatDate, Location } from '@angular/common';
 import {
   AbstractControl,
   FormBuilder,
@@ -48,6 +48,7 @@ export class AddNewTaskComponent implements OnInit {
   addTaskForm!: FormGroup;
   hasTaskToSave: boolean = false;
   isAddModalOpen: boolean = false;
+  isCancelModalOpen: boolean = false;
   isDeleteModalOpen: boolean = false;
   isResetModalOpen: boolean = false;
   isSaveModalOpen: boolean = false;
@@ -60,6 +61,7 @@ export class AddNewTaskComponent implements OnInit {
     private projectTasksService: ProjectTasksService,
     private employeeProjectService: ProjectsService,
     private employeeTasksService: EmployeeTasksService,
+    private location: Location,
     private route: ActivatedRoute,
     private router: Router,
     private toastService: ToastService,
@@ -179,6 +181,11 @@ export class AddNewTaskComponent implements OnInit {
     }
   }
 
+  openCancelModal(): void {
+    this.isCancelModalOpen = true;
+    this.modalDescription = `Are you sure you want to leave? You will lose your unsaved changes if you continue.`;
+  }
+
   openDeleteModal(): void {
     this.isDeleteModalOpen = true;
     const task = this.addTaskForm.get(['task'])?.value;
@@ -189,7 +196,7 @@ export class AddNewTaskComponent implements OnInit {
     if (this.addTaskForm.valid) {
       this.isSaveModalOpen = true;
       const task = this.addTaskForm.get(['task'])?.value;
-      this.modalDescription = `Do you want to save ${task.name}?`;
+      this.modalDescription = `Are you sure you want to save changes?`;
     } else {
       this.addTaskForm.markAllAsTouched();
       this.toastService.showToast(ToastState.Error, 'Form invalid');
@@ -203,8 +210,12 @@ export class AddNewTaskComponent implements OnInit {
   }
 
   add(): void {
-    this.toastService.showToast(ToastState.Success, 'Task created');
+    this.toastService.showToast(ToastState.Success, 'Task added');
     setTimeout(() => this.toastService.dismissToast(), 3000);
+  }
+
+  cancel(): void {
+    this.location.back();
   }
 
   delete(): void {
@@ -229,7 +240,7 @@ export class AddNewTaskComponent implements OnInit {
       .navigate(['../../tasks-list'], { relativeTo: this.route })
       .then(() => {
         setTimeout(
-          () => this.toastService.showToast(ToastState.Success, 'Task saved'),
+          () => this.toastService.showToast(ToastState.Success, 'Task edited'),
           200
         );
         setTimeout(() => this.toastService.dismissToast(), 3200);
