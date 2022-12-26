@@ -14,6 +14,7 @@ import { ToastService } from '../../../shared/services/toast.service';
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { ProjectEmployee } from '../../models/project-employee.model';
 
 @Component({
   selector: 'bvr-approval-tracker',
@@ -36,6 +37,27 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
   isResetModalOpen: boolean = false;
   isSaveModalOpen: boolean = false;
   modalDescription: string = '';
+  projectEmployee: ProjectEmployee = {
+    id: '',
+    employee: {
+      id: '',
+      firstName: '',
+      lastName: '',
+      email: '',
+      image: '',
+      position: '',
+      employmentDate: '',
+      workingTime: 0,
+      exitDate: '',
+      active: false,
+    },
+    contractType: { id: '', name: '' },
+    workingTime: 0,
+    wage: 0,
+    joinDate: '',
+    exitDate: '',
+    active: false,
+  };
 
   private tasksToRejectSubscribtion: Subscription = new Subscription();
 
@@ -51,6 +73,7 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.observeRejectedTasks();
     this.createForm();
+    this.getProjectEmployee();
     this.getProjectEmployees();
   }
 
@@ -67,16 +90,43 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
     });
   }
 
+  getProjectEmployee(): void {
+    const projectEmployeeId = this.route.snapshot.paramMap.get('id');
+    if (projectEmployeeId) {
+      this.projectEmployeesService
+        .getProjectEmployee(projectEmployeeId)
+        .pipe(first())
+        .subscribe(projectEmployee => {
+          this.projectEmployee = projectEmployee;
+          this.updateFormFields();
+        });
+    }
+  }
+
+  updateFormFields(): void {
+    Object.keys(this.approveTasksForm.controls).forEach(field => {
+      this.approveTasksForm
+        .get(field)
+        ?.setValue(this.projectEmployee[field as keyof ProjectEmployee]);
+    });
+  }
+
   getProjectEmployees(): void {
     this.projectEmployeesService
       .getProjectEmployees()
       .pipe(first())
-      .subscribe(
-        projectEmployees =>
-          (this.employees = projectEmployees.map(
-            projectEmployee => projectEmployee.employee
-          ))
-      );
+      .subscribe(projectEmployees => {
+        this.employees = projectEmployees.map(
+          projectEmployee => projectEmployee.employee
+        );
+        this.observeIdSelection();
+      });
+  }
+
+  observeIdSelection(): void {
+    this.approveTasksForm.get(['id'])?.valueChanges.subscribe(value => {
+      this.router.navigate([`../${value}`], { relativeTo: this.route });
+    });
   }
 
   openSaveModal(): void {

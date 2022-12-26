@@ -16,9 +16,35 @@
     box-shadow: $shadow-default;
     margin: 0;
 
+    .search-icon {
+      height: 6 * $grid-base;
+      padding: 0 0 0 6 * $grid-base;
+    }
+
+    .clear-icon,
+    .expand-icon {
+      color: $color-text-secondary;
+      cursor: pointer;
+      height: unset;
+      margin: 0 6 * $grid-base 0 0;
+      padding: unset;
+      position: absolute;
+      right: 0;
+      transition: 0.5s;
+
+      &:hover {
+        color: $color-text-primary;
+      }
+    }
+
+    .expand-icon {
+      pointer-events: none;
+    }
+
     .search-input {
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
+      padding-left: 15 * $grid-base;
       height: 14 * $grid-base;
     }
   }

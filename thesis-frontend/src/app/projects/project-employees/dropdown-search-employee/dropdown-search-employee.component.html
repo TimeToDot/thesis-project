@@ -1,21 +1,17 @@
 <div class="dropdown-search-employee">
   <div [ngClass]="{ disabled: disabled }">
     <div class="search-bar">
-      <input
-        (blur)="onBlur()"
-        class="search-input"
-        (focus)="onFocus()"
-        [(ngModel)]="query"
-        placeholder="Search by full name or email"
-        type="search" />
-      <span class="material-icons-outlined search-icon">search</span>
+      <input (blur)="onBlur()" class="search-input" (focus)="onFocus()" [(ngModel)]="query"
+        placeholder="Search by full name or email" type="search" />
+      <img *ngIf="image" [src]="image" class="search-icon" />
+      <span *ngIf="!image" class="material-icons-outlined search-icon">search</span>
+      <span *ngIf="this.query.length > 0 && selectEnabled" class="material-icons-outlined clear-icon"
+        (click)="clearQuery()">close</span>
+      <span *ngIf="!selectEnabled" class="material-icons-outlined expand-icon">expand_more</span>
     </div>
   </div>
   <div *ngIf="selectEnabled" class="dropdown-search-employee-modal">
-    <div
-      *ngFor="let option of options"
-      class="row"
-      [ngClass]="{ selected: option.id === selectedOption }"
+    <div *ngFor="let option of options" class="row" [ngClass]="{ selected: option.id === selectedOption }"
       (click)="selectOption(option.id)">
       <div class="name">
         <img [src]="option.image" class="picture" />

@@ -41,6 +41,10 @@ export class FindEmployeeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.getEmployees();
+  }
+
+  getEmployees(): void {
     this.employeesService
       .getEmployees()
       .pipe(first())
