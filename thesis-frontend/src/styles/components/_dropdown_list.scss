@@ -22,8 +22,9 @@
 
 .dropdown-list-modal {
   background-color: $color-white;
-  // border-radius: 2 * $grid-base;
   box-shadow: $shadow-default;
+  max-height: 75 * $grid-base;
+  overflow-y: scroll;
   position: absolute;
   width: 100%;
   z-index: 2;
