@@ -6,19 +6,19 @@
     </div>
   </div>
   <div class="card-body">
-    <div [formGroup]="createPositionForm" class="create-position">
+    <div [formGroup]="addPositionForm" class="create-position">
       <div class="form">
         <bvr-form-field label="Name" [required]="isRequired('name')">
           <input formControlName="name" type="text" />
           <ng-container *ngIf="showErrors('name')">
-            <small *ngIf="createPositionForm.get('name')?.hasError('required')">This field is required.</small>
+            <small *ngIf="addPositionForm.get('name')?.hasError('required')">This field is required.</small>
           </ng-container>
         </bvr-form-field>
         <bvr-form-field label="Description" [required]="isRequired('description')">
           <input formControlName="description" type="text" />
           <ng-container *ngIf="showErrors('description')">
             <small *ngIf="
-                createPositionForm.get('description')?.hasError('required')
+                addPositionForm.get('description')?.hasError('required')
               ">This field is required.</small>
           </ng-container>
         </bvr-form-field>

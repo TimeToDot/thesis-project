@@ -11,7 +11,7 @@ import { PermissionsService } from '../../shared/services/permissions.service';
 @Injectable({
   providedIn: 'root',
 })
-export class CanCreateProjectEmployeeGuard implements CanActivate {
+export class CanAddProjectEmployeeGuard implements CanActivate {
   private projectIdPosition: number = 2;
 
   constructor(
@@ -32,7 +32,7 @@ export class CanCreateProjectEmployeeGuard implements CanActivate {
     const projectId = url.split('/')[this.projectIdPosition];
     const permissions =
       this.permissionsService.getProjectPermissions(projectId);
-    if (permissions && permissions.canCreateProjectEmployee) {
+    if (permissions && permissions.canAddProjectEmployee) {
       return true;
     }
 

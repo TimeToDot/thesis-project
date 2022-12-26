@@ -1,22 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { ActivatedRoute, Router, RouterLinkWithHref } from '@angular/router';
-import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
 import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ToastState } from '../../../shared/enum/toast-state';
-import { ToastService } from '../../../shared/services/toast.service';
+import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
+import { ToastService } from '../../../shared/services/toast.service';
+import { ToastState } from '../../../shared/enum/toast-state';
 import { ToastComponent } from '../../../shared/components/toast/toast.component';
 import { ValidationService } from '../../../shared/services/validation.service';
 
 @Component({
-  selector: 'bvr-create-position',
+  selector: 'bvr-add-task',
   standalone: true,
   imports: [
     ButtonComponent,
@@ -27,10 +27,10 @@ import { ValidationService } from '../../../shared/services/validation.service';
     RouterLinkWithHref,
     ToastComponent,
   ],
-  templateUrl: './create-position.component.html',
+  templateUrl: './add-task.component.html',
 })
-export class CreatePositionComponent implements OnInit {
-  createPositionForm!: FormGroup;
+export class AddTaskComponent {
+  addProjectTaskForm!: FormGroup;
   isAddModalOpen: boolean = false;
   isCancelModalOpen: boolean = false;
   modalDescription: string = '';
@@ -49,19 +49,19 @@ export class CreatePositionComponent implements OnInit {
   }
 
   createForm(): void {
-    this.createPositionForm = this.fb.group({
+    this.addProjectTaskForm = this.fb.group({
       name: ['', [Validators.required]],
       description: ['', [Validators.required]],
     });
   }
 
   openAddModal(): void {
-    if (this.createPositionForm.valid) {
-      const name = this.createPositionForm.get('name')?.value;
+    if (this.addProjectTaskForm.valid) {
       this.isAddModalOpen = true;
-      this.modalDescription = `Are you sure you want to add ${name}?`;
+      const taskName = this.addProjectTaskForm.get(['name'])?.value;
+      this.modalDescription = `Do you want to add ${taskName} to the Project X?`;
     } else {
-      this.createPositionForm.markAllAsTouched();
+      this.addProjectTaskForm.markAllAsTouched();
       this.toastService.showToast(ToastState.Error, 'Form invalid');
       setTimeout(() => this.toastService.dismissToast(), 3000);
     }
@@ -75,8 +75,7 @@ export class CreatePositionComponent implements OnInit {
   add(): void {
     this.router.navigate(['..'], { relativeTo: this.route }).then(() => {
       setTimeout(
-        () =>
-          this.toastService.showToast(ToastState.Success, 'Position created'),
+        () => this.toastService.showToast(ToastState.Success, 'Task created'),
         200
       );
       setTimeout(() => this.toastService.dismissToast(), 3200);
@@ -88,12 +87,10 @@ export class CreatePositionComponent implements OnInit {
   }
 
   isRequired(name: string): boolean {
-    return this.validationService.isRequired(this.createPositionForm, [name]);
+    return this.validationService.isRequired(this.addProjectTaskForm, [name]);
   }
 
-  showErrors(name?: string): boolean {
-    return name
-      ? this.validationService.showErrors(this.createPositionForm, [name])
-      : this.validationService.showErrors(this.createPositionForm, []);
+  showErrors(name: string): boolean {
+    return this.validationService.showErrors(this.addProjectTaskForm, [name]);
   }
 }

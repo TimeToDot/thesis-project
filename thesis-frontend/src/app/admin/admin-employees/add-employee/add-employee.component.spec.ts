@@ -2,22 +2,22 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { CreatePositionComponent } from './create-position.component';
+import { AddEmployeeComponent } from './add-employee.component';
 
-describe('CreatePositionComponent', () => {
-  let component: CreatePositionComponent;
-  let fixture: ComponentFixture<CreatePositionComponent>;
+describe('AddEmployeeComponent', () => {
+  let component: AddEmployeeComponent;
+  let fixture: ComponentFixture<AddEmployeeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
         NoopAnimationsModule,
-        CreatePositionComponent,
+        AddEmployeeComponent,
         RouterTestingModule,
       ],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(CreatePositionComponent);
+    fixture = TestBed.createComponent(AddEmployeeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

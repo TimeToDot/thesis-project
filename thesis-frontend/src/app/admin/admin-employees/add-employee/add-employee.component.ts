@@ -12,7 +12,7 @@ import {
 } from '@angular/forms';
 
 @Component({
-  selector: 'bvr-create-employee',
+  selector: 'bvr-add-employee',
   standalone: true,
   imports: [
     BillingInfoComponent,
@@ -22,10 +22,10 @@ import {
     PersonalInfoComponent,
     ReactiveFormsModule,
   ],
-  templateUrl: './create-employee.component.html',
+  templateUrl: './add-employee.component.html',
 })
-export class CreateEmployeeComponent implements OnInit {
-  createEmployeeForm!: FormGroup;
+export class AddEmployeeComponent implements OnInit {
+  addEmployeeForm!: FormGroup;
   step: number = 1;
   title: string[] = [
     'General Info',
@@ -41,7 +41,7 @@ export class CreateEmployeeComponent implements OnInit {
   }
 
   createForm(): void {
-    this.createEmployeeForm = this.fb.group({
+    this.addEmployeeForm = this.fb.group({
       generalInfo: this.fb.group({
         firstName: ['', [Validators.required]],
         lastName: ['', [Validators.required]],

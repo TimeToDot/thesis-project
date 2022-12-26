@@ -21,7 +21,7 @@ import { ValidationService } from '../../../shared/services/validation.service';
   templateUrl: './personal-info.component.html',
 })
 export class PersonalInfoComponent {
-  @Input() createEmployeeForm!: FormGroup;
+  @Input() addEmployeeForm!: FormGroup;
 
   @Output() nextStepChange: EventEmitter<void> = new EventEmitter();
   @Output() previousStepChange: EventEmitter<void> = new EventEmitter();
@@ -52,7 +52,7 @@ export class PersonalInfoComponent {
   }
 
   isRequired(name: string): boolean {
-    return this.validationService.isRequired(this.createEmployeeForm, [
+    return this.validationService.isRequired(this.addEmployeeForm, [
       'personalInfo',
       name,
     ]);

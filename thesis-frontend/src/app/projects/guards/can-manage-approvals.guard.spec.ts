@@ -33,7 +33,7 @@ describe('CanManageApprovalsGuard', () => {
           canManageProjectEmployees: true,
           canManageApprovals: true,
           canAdminProjects: true,
-          canCreateProjectEmployee: true,
+          canAddProjectEmployee: true,
         };
       },
     };

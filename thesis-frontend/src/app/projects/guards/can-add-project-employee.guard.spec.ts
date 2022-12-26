@@ -3,10 +3,10 @@ import { Router } from '@angular/router';
 import { ProjectPermissions } from '../models/project-permissions.model';
 import { PermissionsService } from '../../shared/services/permissions.service';
 
-import { CanCreateProjectEmployeeGuard } from './can-create-project-employee.guard';
+import { CanAddProjectEmployeeGuard } from './can-add-project-employee.guard';
 
-describe('CanCreateProjectEmployeeGuard', () => {
-  let guard: CanCreateProjectEmployeeGuard;
+describe('CanAddProjectEmployeeGuard', () => {
+  let guard: CanAddProjectEmployeeGuard;
   let permissionsService: PermissionsService;
   let routeMock: any = { snapshot: {} };
   let routeStateMock: any = { snapshot: {}, url: '/' };
@@ -14,7 +14,7 @@ describe('CanCreateProjectEmployeeGuard', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    guard = TestBed.inject(CanCreateProjectEmployeeGuard);
+    guard = TestBed.inject(CanAddProjectEmployeeGuard);
     permissionsService = TestBed.inject(PermissionsService);
     router = TestBed.inject(Router);
   });
@@ -33,7 +33,7 @@ describe('CanCreateProjectEmployeeGuard', () => {
           canManageProjectEmployees: true,
           canManageApprovals: true,
           canAdminProjects: true,
-          canCreateProjectEmployee: true,
+          canAddProjectEmployee: true,
         };
       },
     };

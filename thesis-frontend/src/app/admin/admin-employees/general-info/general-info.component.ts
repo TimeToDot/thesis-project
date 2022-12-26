@@ -32,7 +32,7 @@ import { ValidationService } from '../../../shared/services/validation.service';
   templateUrl: './general-info.component.html',
 })
 export class GeneralInfoComponent implements OnInit {
-  @Input() createEmployeeForm!: FormGroup;
+  @Input() addEmployeeForm!: FormGroup;
 
   @Output() nextStepChange: EventEmitter<void> = new EventEmitter();
 
@@ -69,10 +69,10 @@ export class GeneralInfoComponent implements OnInit {
   }
 
   nextStep(): void {
-    if (this.createEmployeeForm.get('generalInfo')?.valid) {
+    if (this.addEmployeeForm.get('generalInfo')?.valid) {
       this.nextStepChange.emit();
     } else {
-      this.createEmployeeForm.get('generalInfo')?.markAllAsTouched();
+      this.addEmployeeForm.get('generalInfo')?.markAllAsTouched();
       this.toastService.showToast(ToastState.Error, 'Form invalid');
       setTimeout(() => this.toastService.dismissToast(), 3000);
     }
@@ -88,7 +88,7 @@ export class GeneralInfoComponent implements OnInit {
   }
 
   isRequired(name: string): boolean {
-    return this.validationService.isRequired(this.createEmployeeForm, [
+    return this.validationService.isRequired(this.addEmployeeForm, [
       'generalInfo',
       name,
     ]);
@@ -96,10 +96,10 @@ export class GeneralInfoComponent implements OnInit {
 
   showErrors(name?: string): boolean {
     return name
-      ? this.validationService.showErrors(this.createEmployeeForm, [
+      ? this.validationService.showErrors(this.addEmployeeForm, [
           'generalInfo',
           name,
         ])
-      : this.validationService.showErrors(this.createEmployeeForm, []);
+      : this.validationService.showErrors(this.addEmployeeForm, []);
   }
 }

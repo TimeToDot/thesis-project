@@ -1,7 +1,5 @@
 import { Routes } from '@angular/router';
-import { LayoutComponent } from '../layout/layout.component';
-import { AuthGuard } from '../shared/guards/auth.guard';
-import { CanCreateProjectEmployeeGuard } from './guards/can-create-project-employee.guard';
+import { CanAddProjectEmployeeGuard } from './guards/can-add-project-employee.guard';
 import { CanAdminProjectGuard } from './guards/can-admin-project.guard';
 import { CanManageApprovalsGuard } from './guards/can-manage-approvals.guard';
 import { CanManageTasksGuard } from './guards/can-manage-tasks.guard';
@@ -9,7 +7,7 @@ import { CanReadProjectGuard } from './guards/can-read-project.guard';
 import { ProjectApprovalsComponent } from './project-approvals/project-approvals.component';
 import { ProjectDashboardComponent } from './project-dashboard/project-dashboard.component';
 import { ProjectSettingsComponent } from './project-settings/project-settings.component';
-import { CreateTaskComponent } from './project-tasks/create-task/create-task.component';
+import { AddTaskComponent } from './project-tasks/add-task/add-task.component';
 import { EditTaskComponent } from './project-tasks/edit-task/edit-task.component';
 import { ProjectTasksComponent } from './project-tasks/project-tasks.component';
 import { AddProjectEmployeeComponent } from './project-employees/add-project-employee/add-project-employee.component';
@@ -44,8 +42,8 @@ export const projectsRoutes: Routes = [
         data: { projectTabs: 1 },
       },
       {
-        path: 'tasks/create',
-        component: CreateTaskComponent,
+        path: 'tasks/add',
+        component: AddTaskComponent,
         canActivate: [CanManageTasksGuard],
         data: { projectTabs: 1 },
       },
@@ -76,7 +74,7 @@ export const projectsRoutes: Routes = [
       {
         path: 'employees/add',
         component: AddProjectEmployeeComponent,
-        canActivate: [CanCreateProjectEmployeeGuard],
+        canActivate: [CanAddProjectEmployeeGuard],
         data: { projectTabs: 2 },
       },
       {

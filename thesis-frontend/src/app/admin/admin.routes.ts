@@ -1,12 +1,10 @@
 import { Routes } from '@angular/router';
-import { LayoutComponent } from '../layout/layout.component';
-import { AuthGuard } from '../shared/guards/auth.guard';
 import { AdminPositionsComponent } from './admin-positions/admin-positions.component';
-import { CreatePositionComponent } from './admin-positions/create-position/create-position.component';
+import { AddPositionComponent } from './admin-positions/add-position/add-position.component';
 import { EditPositionComponent } from './admin-positions/edit-position/edit-position.component';
 import { AdminSettingsComponent } from './admin-settings/admin-settings.component';
 import { AdminEmployeesComponent } from './admin-employees/admin-employees.component';
-import { CreateEmployeeComponent } from './admin-employees/create-employee/create-employee.component';
+import { AddEmployeeComponent } from './admin-employees/add-employee/add-employee.component';
 import { EditEmployeeComponent } from './admin-employees/edit-employee/edit-employee.component';
 import { CanAdminPositionsGuard } from './guards/can-admin-positions.guard';
 import { CanAdminSettingsGuard } from './guards/can-admin-settings.guard';
@@ -22,8 +20,8 @@ export const adminRoutes: Routes = [
     data: { sidenavTabs: 3 },
   },
   {
-    path: 'employees/create',
-    component: CreateEmployeeComponent,
+    path: 'employees/add',
+    component: AddEmployeeComponent,
     canActivate: [CanAdminEmployeesGuard],
     data: { sidenavTabs: 3 },
   },
@@ -46,8 +44,8 @@ export const adminRoutes: Routes = [
     data: { sidenavTabs: 4 },
   },
   {
-    path: 'positions/create',
-    component: CreatePositionComponent,
+    path: 'positions/add',
+    component: AddPositionComponent,
     canActivate: [CanAdminPositionsGuard],
     data: { sidenavTabs: 4 },
   },

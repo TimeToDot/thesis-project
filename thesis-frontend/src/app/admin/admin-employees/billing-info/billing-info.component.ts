@@ -24,12 +24,12 @@ import { ValidationService } from '../../../shared/services/validation.service';
   templateUrl: './billing-info.component.html',
 })
 export class BillingInfoComponent {
-  @Input() createEmployeeForm!: FormGroup;
+  @Input() addEmployeeForm!: FormGroup;
 
   @Output() previousStepChange: EventEmitter<void> = new EventEmitter();
 
   isCancelModalOpen: boolean = false;
-  isCreateModalOpen: boolean = false;
+  isAddModalOpen: boolean = false;
   modalDescription: string = '';
 
   constructor(
@@ -45,20 +45,20 @@ export class BillingInfoComponent {
     this.modalDescription = `Are you sure you want to leave? You will lose your unsaved changes if you continue.`;
   }
 
-  openCreateModal(): void {
-    if (this.createEmployeeForm.get('billingInfo')?.valid) {
-      const firstName = this.createEmployeeForm.get([
+  openAddModal(): void {
+    if (this.addEmployeeForm.get('billingInfo')?.valid) {
+      const firstName = this.addEmployeeForm.get([
         'generalInfo',
         'firstName',
       ])?.value;
-      const lastName = this.createEmployeeForm.get([
+      const lastName = this.addEmployeeForm.get([
         'generalInfo',
         'lastName',
       ])?.value;
-      this.isCreateModalOpen = true;
+      this.isAddModalOpen = true;
       this.modalDescription = `Are you sure you want to add ${firstName} ${lastName}?`;
     } else {
-      this.createEmployeeForm.markAllAsTouched();
+      this.addEmployeeForm.markAllAsTouched();
       this.toastService.showToast(ToastState.Error, 'Form invalid');
       setTimeout(() => this.toastService.dismissToast(), 3000);
     }
@@ -68,11 +68,10 @@ export class BillingInfoComponent {
     this.location.back();
   }
 
-  create(): void {
+  add(): void {
     this.router.navigate(['..'], { relativeTo: this.route }).then(() => {
       setTimeout(
-        () =>
-          this.toastService.showToast(ToastState.Success, 'Employee created'),
+        () => this.toastService.showToast(ToastState.Success, 'Employee added'),
         200
       );
       setTimeout(() => this.toastService.dismissToast(), 3200);
@@ -80,7 +79,7 @@ export class BillingInfoComponent {
   }
 
   isRequired(name: string): boolean {
-    return this.validationService.isRequired(this.createEmployeeForm, [
+    return this.validationService.isRequired(this.addEmployeeForm, [
       'billingInfo',
       name,
     ]);
@@ -88,10 +87,10 @@ export class BillingInfoComponent {
 
   showErrors(name?: string): boolean {
     return name
-      ? this.validationService.showErrors(this.createEmployeeForm, [
+      ? this.validationService.showErrors(this.addEmployeeForm, [
           'billingInfo',
           name,
         ])
-      : this.validationService.showErrors(this.createEmployeeForm, []);
+      : this.validationService.showErrors(this.addEmployeeForm, []);
   }
 }
