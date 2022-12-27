@@ -18,7 +18,7 @@
     </div>
     <div class="row">
         <bvr-form-field class="left-field" label="Date Of Birth">
-            <span>{{account.birthDate}}</span>
+            <span>{{account.birthDate | date: 'dd/MM/yyyy'}}</span>
         </bvr-form-field>
         <bvr-form-field class="field" label="Place Of Birth">
             <span>{{account.birthPlace}}</span>

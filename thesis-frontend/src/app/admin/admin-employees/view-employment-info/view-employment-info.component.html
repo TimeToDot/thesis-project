@@ -4,8 +4,11 @@
         <bvr-form-field class="left-field" label="Position">
             <span>{{account.position.name}}</span>
         </bvr-form-field>
-        <bvr-form-field class="field" label="Hire Date">
-            <span>{{account.employmentDate}}</span>
+        <bvr-form-field label="Hire Date" [ngClass]="account.active ? 'field' : 'left-field'">
+            <span>{{account.employmentDate | date: 'dd/MM/yyyy'}}</span>
+        </bvr-form-field>
+        <bvr-form-field *ngIf="!account.active" class="field" label="Exit Date">
+            <span>{{account.exitDate | date: 'dd/MM/yyyy'}}</span>
         </bvr-form-field>
     </div>
     <div class="row">
