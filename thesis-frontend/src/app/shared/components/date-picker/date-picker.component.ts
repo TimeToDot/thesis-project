@@ -33,16 +33,18 @@ export class DatePickerComponent implements OnInit, ControlValueAccessor {
   @ViewChild('dropdown') dropdown!: ElementRef<HTMLElement>;
   @ViewChild('dropdownContent') dropdownContent!: ElementRef<HTMLElement>;
 
+  calendarEnabled: boolean = false;
   currentMonth!: number;
   currentYear!: number;
   currentDay!: string;
   days: string[] = [];
-  calendarEnabled: boolean = false;
   gridMonthEndDay!: number;
   gridMonthStartDay!: number;
+  isMonth: boolean = true;
   monthEndDay!: number;
   monthGrid: Day[][] = [];
   monthStartDay!: number;
+  months: string[][] = [];
   touched: boolean = false;
 
   private readonly sundayOffset: number = 1;
@@ -55,6 +57,7 @@ export class DatePickerComponent implements OnInit, ControlValueAccessor {
     this.currentMonth = dayjs().month();
     this.currentYear = dayjs().month(this.currentMonth).year();
     this.initDaysOfWeek();
+    this.initMonths();
     this.generateGrid();
   }
 
@@ -67,6 +70,15 @@ export class DatePickerComponent implements OnInit, ControlValueAccessor {
       'Friday',
       'Saturday',
       'Sunday',
+    ];
+  }
+
+  initMonths(): void {
+    this.months = [
+      ['JAN', 'FEB', 'MAR'],
+      ['APR', 'MAY', 'JUN'],
+      ['JUL', 'AUG', 'SEP'],
+      ['OCT', 'NOV', 'DEC'],
     ];
   }
 
@@ -132,6 +144,10 @@ export class DatePickerComponent implements OnInit, ControlValueAccessor {
     }, 0);
   }
 
+  toggleMonth(): void {
+    this.isMonth = !this.isMonth;
+  }
+
   previousMonth(): void {
     --this.currentMonth;
     this.currentYear = dayjs().month(this.currentMonth).year();
@@ -140,6 +156,18 @@ export class DatePickerComponent implements OnInit, ControlValueAccessor {
 
   nextMonth(): void {
     ++this.currentMonth;
+    this.currentYear = dayjs().month(this.currentMonth).year();
+    this.generateGrid();
+  }
+
+  previousYear(): void {
+    this.currentMonth -= 12;
+    this.currentYear = dayjs().month(this.currentMonth).year();
+    this.generateGrid();
+  }
+
+  nextYear(): void {
+    this.currentMonth += 12;
     this.currentYear = dayjs().month(this.currentMonth).year();
     this.generateGrid();
   }
@@ -153,6 +181,10 @@ export class DatePickerComponent implements OnInit, ControlValueAccessor {
     }
   }
 
+  selectMonth(month: number): void {
+    this.currentMonth = this.currentMonth - (this.currentMonth % 12) + month;
+  }
+
   markAsTouched() {
     if (!this.touched) {
       this.onTouched();
@@ -162,6 +194,10 @@ export class DatePickerComponent implements OnInit, ControlValueAccessor {
 
   isCurrentDay(day: Day): boolean {
     return formatDate(day.date, 'yyyy-MM-dd', 'en') === this.currentDay;
+  }
+
+  isCurrentMonth(month: number): boolean {
+    return month === this.currentMonth % 12;
   }
 
   writeValue(currentDay: string): void {

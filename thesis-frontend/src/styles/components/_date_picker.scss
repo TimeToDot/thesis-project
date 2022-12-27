@@ -19,7 +19,6 @@
   background-color: $color-white;
   border-radius: 2 * $grid-base;
   box-shadow: $shadow-default;
-  padding: 3 * $grid-base;
   position: absolute;
   width: 100%;
   z-index: 2;
@@ -28,14 +27,24 @@
     align-items: center;
     display: flex;
     justify-content: space-between;
+    padding-top: 3 * $grid-base;
 
     div {
+      cursor: pointer;
       font-size: $font-small;
     }
 
     .material-icons-outlined {
       font-size: $font-normal;
     }
+  }
+
+  .date-picker-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 46 * $grid-base;
+    padding: 0 3 * $grid-base 3 * $grid-base;
   }
 
   .week-days {
@@ -49,6 +58,11 @@
 
   .week {
     justify-content: space-between;
+  }
+
+  .month .day {
+    height: 8 * $grid-base;
+    width: 8 * $grid-base;
   }
 
   .day {
