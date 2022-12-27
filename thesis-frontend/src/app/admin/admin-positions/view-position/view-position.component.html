@@ -24,6 +24,9 @@
         <bvr-form-field class="field" *ngIf="!position.active" class="disabled field" label="Archive Date">
           <span>{{ position.archiveDate | date: 'dd/MM/yyyy' }}</span>
         </bvr-form-field>
+        <bvr-form-field class="field" *ngIf="position.active" class="disabled field" label="Count">
+          <span>{{ position.count }}</span>
+        </bvr-form-field>
       </div>
       <bvr-form-field class="field description" label="Description">
         <span>{{ position.description }}</span>

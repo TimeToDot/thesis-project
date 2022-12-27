@@ -17,6 +17,10 @@
     background-color: $color-success;
   }
 
+  &.info {
+    background-color: $color-info;
+  }
+
   .button-icon div,
   .message {
     color: $color-white;

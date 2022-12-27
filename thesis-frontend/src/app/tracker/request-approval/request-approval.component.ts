@@ -6,6 +6,7 @@ import {
   AbstractControl,
   FormBuilder,
   FormGroup,
+  FormsModule,
   ReactiveFormsModule,
   ValidationErrors,
   ValidatorFn,
@@ -31,6 +32,7 @@ import { ValidationService } from '../../shared/services/validation.service';
     CommonModule,
     DatePickerComponent,
     FormFieldComponent,
+    FormsModule,
     ModalComponent,
     ReactiveFormsModule,
     RouterLinkWithHref,
@@ -39,6 +41,7 @@ import { ValidationService } from '../../shared/services/validation.service';
   templateUrl: './request-approval.component.html',
 })
 export class RequestApprovalComponent implements OnInit {
+  areAllSelected: boolean = true;
   isCancelModalOpen: boolean = false;
   isSendModalOpen: boolean = false;
   modalDescription: string = '';
@@ -93,6 +96,10 @@ export class RequestApprovalComponent implements OnInit {
       .subscribe(
         projectApprovals => (this.projectApprovals = projectApprovals)
       );
+  }
+
+  toggleProjectsSelection(value: boolean): void {
+    this.projectApprovals.forEach(element => (element.approve = value));
   }
 
   openCancelModal(): void {

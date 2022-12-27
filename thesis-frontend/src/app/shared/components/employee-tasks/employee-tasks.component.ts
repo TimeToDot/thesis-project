@@ -5,6 +5,8 @@ import { EmployeeTask } from '../../models/employee-task.model';
 import { Project } from '../../../projects/models/project.model';
 import { Status } from '../../enum/status.enum';
 import { TasksToRejectService } from '../../services/tasks-to-reject.service';
+import { ToastState } from '../../enum/toast-state';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'bvr-employee-tasks',
@@ -26,7 +28,10 @@ export class EmployeeTasksComponent implements OnInit {
 
   tasksToReject: string[] = [];
 
-  constructor(private tasksToRejectService: TasksToRejectService) {}
+  constructor(
+    private tasksToRejectService: TasksToRejectService,
+    private toastService: ToastService
+  ) {}
 
   ngOnInit(): void {
     this.tasksToRejectService.tasksToReject.subscribe(
@@ -73,9 +78,11 @@ export class EmployeeTasksComponent implements OnInit {
 
   approveTask(employeeTaskId: string): void {
     this.tasksToRejectService.removeTask(employeeTaskId);
+    this.toastService.showToast(ToastState.Info, 'Task approved');
   }
 
   rejectTask(employeeTaskId: string): void {
     this.tasksToRejectService.addTask(employeeTaskId);
+    this.toastService.showToast(ToastState.Info, 'Task rejected');
   }
 }

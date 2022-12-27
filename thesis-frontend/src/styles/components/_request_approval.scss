@@ -15,13 +15,12 @@
   .form {
     display: flex;
     flex-direction: row;
-    width: 100%;
 
     .left-side {
       display: flex;
       flex-direction: row;
       gap: 8 * $grid-base;
-      width: 50%;
+      width: 75%;
     }
   }
 

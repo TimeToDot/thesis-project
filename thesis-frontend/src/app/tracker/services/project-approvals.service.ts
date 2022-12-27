@@ -8,6 +8,7 @@ import { ProjectApproval } from '../models/project-approval.model';
 export class ProjectApprovalsService {
   private _projectApprovals: ProjectApproval[] = [
     {
+      approve: true,
       project: {
         id: '1',
         name: 'Project 1',
@@ -16,6 +17,7 @@ export class ProjectApprovalsService {
       taskCount: 63,
     },
     {
+      approve: true,
       project: {
         id: '2',
         name: 'Project 2',
@@ -24,6 +26,7 @@ export class ProjectApprovalsService {
       taskCount: 123,
     },
     {
+      approve: true,
       project: {
         id: '3',
         name: 'Project 3',

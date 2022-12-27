@@ -34,7 +34,7 @@
     <div *ngIf="showActive" class="table">
       <table cdk-table [dataSource]="dataSource">
         <ng-container cdkColumnDef="name">
-          <th cdk-header-cell *cdkHeaderCellDef>Name</th>
+          <th cdk-header-cell *cdkHeaderCellDef>Position</th>
           <td cdk-cell *cdkCellDef="let element">{{ element.name }}</td>
         </ng-container>
         <ng-container cdkColumnDef="description">
@@ -61,7 +61,7 @@
     <div *ngIf="!showActive" class="table">
       <table cdk-table [dataSource]="dataSource">
         <ng-container cdkColumnDef="name">
-          <th cdk-header-cell *cdkHeaderCellDef>Name</th>
+          <th cdk-header-cell *cdkHeaderCellDef>Position</th>
           <td cdk-cell *cdkCellDef="let element">{{ element.name }}</td>
         </ng-container>
         <ng-container cdkColumnDef="description">

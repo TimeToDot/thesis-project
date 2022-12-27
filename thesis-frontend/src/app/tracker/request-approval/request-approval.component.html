@@ -14,30 +14,20 @@
     <div class="request-approval-content">
       <form class="form" [formGroup]="requestApprovalForm">
         <div class="left-side">
-          <bvr-form-field
-            label="Start date"
-            [required]="isRequired('startDate')">
+          <bvr-form-field label="Start date" [required]="isRequired('startDate')">
             <bvr-date-picker formControlName="startDate"></bvr-date-picker>
             <ng-container *ngIf="showErrors('startDate')">
-              <small
-                *ngIf="
+              <small *ngIf="
                   requestApprovalForm.get('startDate')?.hasError('required')
-                "
-                >This field is required.</small
-              >
+                ">This field is required.</small>
             </ng-container>
           </bvr-form-field>
 
           <bvr-form-field label="End date" [required]="isRequired('endDate')">
             <bvr-date-picker formControlName="endDate"></bvr-date-picker>
             <ng-container *ngIf="showErrors() || showErrors('endDate')">
-              <small
-                *ngIf="requestApprovalForm.get('endDate')?.hasError('required')"
-                >This field is required.</small
-              >
-              <small *ngIf="requestApprovalForm?.hasError('dateRange')"
-                >The date is wrong.</small
-              >
+              <small *ngIf="requestApprovalForm.get('endDate')?.hasError('required')">This field is required.</small>
+              <small *ngIf="requestApprovalForm?.hasError('dateRange')">The date is wrong.</small>
             </ng-container>
           </bvr-form-field>
         </div>
@@ -46,7 +36,7 @@
       <div class="approvals-table">
         <div class="table-header">
           <div class="checkbox">
-            <input type="checkbox" />
+            <input type="checkbox" [(ngModel)]="areAllSelected" (ngModelChange)="toggleProjectsSelection($event)" />
           </div>
           <div class="table-content">
             <div>PROJECT</div>
@@ -55,7 +45,7 @@
         </div>
         <div *ngFor="let projectApproval of projectApprovals" class="row">
           <div class="checkbox">
-            <input type="checkbox" />
+            <input type="checkbox" [(ngModel)]="projectApproval.approve" />
           </div>
           <div class="project-data">
             <div class="project-name">
@@ -72,28 +62,14 @@
     </div>
 
     <div class="form-buttons">
-      <bvr-button
-        (click)="openCancelModal()"
-        label="Cancel"
-        styleClass="button-text"></bvr-button>
-      <bvr-button
-        class="form-button"
-        (click)="openSendModal()"
-        label="Send"></bvr-button>
+      <bvr-button (click)="openCancelModal()" label="Cancel" styleClass="button-text"></bvr-button>
+      <bvr-button class="form-button" (click)="openSendModal()" label="Send"></bvr-button>
     </div>
   </div>
 </div>
-<bvr-modal
-  (confirm)="cancel()"
-  confirmLabel="Leave"
-  [description]="modalDescription"
-  [title]="'Leave'"
+<bvr-modal (confirm)="cancel()" confirmLabel="Leave" [description]="modalDescription" [title]="'Leave'"
   [(visible)]="isCancelModalOpen"></bvr-modal>
-<bvr-modal
-  (confirm)="send()"
-  confirmLabel="Save"
-  [description]="modalDescription"
-  [title]="'Request approval'"
+<bvr-modal (confirm)="send()" confirmLabel="Save" [description]="modalDescription" [title]="'Request approval'"
   [(visible)]="isSendModalOpen"></bvr-modal>
 
 <bvr-toast></bvr-toast>
