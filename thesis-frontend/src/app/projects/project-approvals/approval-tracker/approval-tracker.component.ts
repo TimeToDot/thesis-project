@@ -15,6 +15,7 @@ import { ModalComponent } from '../../../shared/components/modal/modal.component
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ProjectEmployee } from '../../models/project-employee.model';
+import { EmployeesApprovalsService } from '../../services/employees-approvals.service';
 
 @Component({
   selector: 'bvr-approval-tracker',
@@ -34,6 +35,7 @@ import { ProjectEmployee } from '../../models/project-employee.model';
 export class ApprovalTrackerComponent implements OnInit, OnDestroy {
   approveTasksForm!: FormGroup;
   employees: Employee[] = [];
+  isActive: boolean = true;
   isResetModalOpen: boolean = false;
   isSaveModalOpen: boolean = false;
   modalDescription: string = '';
@@ -62,6 +64,7 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
   private tasksToRejectSubscribtion: Subscription = new Subscription();
 
   constructor(
+    private employeesApprovalsService: EmployeesApprovalsService,
     private fb: FormBuilder,
     private projectEmployeesService: ProjectEmployeesService,
     private route: ActivatedRoute,
@@ -74,7 +77,6 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
     this.observeRejectedTasks();
     this.createForm();
     this.getProjectEmployee();
-    this.getProjectEmployees();
   }
 
   observeRejectedTasks(): void {
@@ -91,14 +93,18 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
   }
 
   getProjectEmployee(): void {
-    const projectEmployeeId = this.route.snapshot.paramMap.get('id');
-    if (projectEmployeeId) {
-      this.projectEmployeesService
-        .getProjectEmployee(projectEmployeeId)
+    const employeeApprovalId = this.route.snapshot.paramMap.get('id');
+    if (employeeApprovalId) {
+      this.employeesApprovalsService
+        .getEmployeeApproval(employeeApprovalId)
         .pipe(first())
-        .subscribe(projectEmployee => {
-          this.projectEmployee = projectEmployee;
+        .subscribe(employeeApproval => {
+          this.projectEmployee = employeeApproval.projectEmployee;
           this.updateFormFields();
+          console.log(this.projectEmployee);
+          this.projectEmployee.active
+            ? this.getProjectEmployees()
+            : this.getArchivedProjectEmployees();
         });
     }
   }
@@ -107,7 +113,7 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
     Object.keys(this.approveTasksForm.controls).forEach(field => {
       this.approveTasksForm
         .get(field)
-        ?.setValue(this.projectEmployee[field as keyof ProjectEmployee]);
+        ?.setValue(this.projectEmployee.employee[field as keyof Employee]);
     });
   }
 
@@ -119,6 +125,20 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
         this.employees = projectEmployees.map(
           projectEmployee => projectEmployee.employee
         );
+        this.isActive = true;
+        this.observeIdSelection();
+      });
+  }
+
+  getArchivedProjectEmployees(): void {
+    this.projectEmployeesService
+      .getArchivedProjectEmployees()
+      .pipe(first())
+      .subscribe(archivedProjectEmployees => {
+        this.employees = archivedProjectEmployees.map(
+          projectEmployee => projectEmployee.employee
+        );
+        this.isActive = false;
         this.observeIdSelection();
       });
   }

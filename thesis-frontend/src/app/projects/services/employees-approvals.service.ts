@@ -81,9 +81,42 @@ export class EmployeesApprovalsService {
       status: Status.Approved,
       lastRequest: '2022-07-01',
     },
+    {
+      id: '3',
+      projectEmployee: {
+        id: '4',
+        employee: {
+          id: '3',
+          firstName: 'Anna',
+          lastName: 'Nowak',
+          email: 'anna.nowak@gmail.com',
+          image: 'assets/icons/icon7.png',
+          position: 'Product Designer',
+          employmentDate: '2022-07-01',
+          workingTime: 40,
+          exitDate: '2022-09-01',
+          active: false,
+        },
+        contractType: { id: '4', name: 'B2B' },
+        workingTime: 40,
+        wage: 35,
+        joinDate: '2021-09-10',
+        exitDate: '2022-04-23',
+        active: false,
+      },
+      status: Status.Approved,
+      lastRequest: '2022-07-01',
+    },
   ];
 
   constructor() {}
+
+  getEmployeeApproval(id: string): Observable<EmployeeApproval> {
+    const employeeApproval = this._employeesApprovals.find(
+      employeeApproval => employeeApproval.id === id
+    );
+    return of(employeeApproval as EmployeeApproval);
+  }
 
   getEmployeesApprovals(): Observable<EmployeeApproval[]> {
     return of(

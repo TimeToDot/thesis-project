@@ -6,7 +6,8 @@
   position: relative;
   width: 100%;
 
-  .search-input {
+  .search-input,
+  .search-placeholder {
     border: 0.25 * $grid-base $color-divider solid;
     border-radius: 2 * $grid-base;
     outline: none;
@@ -15,6 +16,17 @@
 
     &:focus + .search-icon {
       color: $color-text-primary;
+    }
+  }
+
+  .search-placeholder {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+
+    .archived {
+      color: $color-text-secondary;
+      margin-left: $grid-base;
     }
   }
 

@@ -41,7 +41,8 @@
       pointer-events: none;
     }
 
-    .search-input {
+    .search-input,
+    .search-placeholder {
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
       padding-left: 15 * $grid-base;
