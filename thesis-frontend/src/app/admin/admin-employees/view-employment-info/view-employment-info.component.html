@@ -1,1 +1,30 @@
-<p>view-employment-info works!</p>
+<div class="form">
+    <div class="form-header">{{ 'Employment Info' | uppercase }}</div>
+    <div class="row">
+        <bvr-form-field class="left-field" label="Position">
+            <span>{{account.position.name}}</span>
+        </bvr-form-field>
+        <bvr-form-field class="field" label="Hire Date">
+            <span>{{account.employmentDate}}</span>
+        </bvr-form-field>
+    </div>
+    <div class="row">
+        <bvr-form-field class="left-field" label="Contract Type">
+            <span>{{account.contractType.name}}</span>
+        </bvr-form-field>
+        <bvr-form-field class="field" label="Working Time">
+            <span>{{account.workingTime}}</span>
+        </bvr-form-field>
+    </div>
+    <div class="row">
+        <bvr-form-field class="left-field" label="Rate">
+            <span>{{account.rate}}</span>
+        </bvr-form-field>
+        <bvr-form-field class="field" label="Payday">
+            <span>{{account.payday}}</span>
+        </bvr-form-field>
+    </div>
+    <bvr-form-field label="Account number">
+        <span>{{account.accountNumber}}</span>
+    </bvr-form-field>
+</div>
