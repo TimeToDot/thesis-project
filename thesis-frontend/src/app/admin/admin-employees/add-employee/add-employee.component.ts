@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, formatDate } from '@angular/common';
-import { BillingInfoComponent } from '../billing-info/billing-info.component';
-import { ContactInfoComponent } from '../contact-info/contact-info.component';
-import { GeneralInfoComponent } from '../general-info/general-info.component';
 import { PersonalInfoComponent } from '../personal-info/personal-info.component';
 import {
   FormBuilder,
@@ -10,29 +7,28 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { AccountInfoComponent } from '../account-info/account-info.component';
+import { AddressInfoComponent } from '../address-info/address-info.component';
+import { EmploymentInfoComponent } from '../employment-info/employment-info.component';
+import { tabAnimation } from '../../../shared/animations/tab.animation';
 
 @Component({
   selector: 'bvr-add-employee',
   standalone: true,
   imports: [
-    BillingInfoComponent,
+    AccountInfoComponent,
+    AddressInfoComponent,
     CommonModule,
-    ContactInfoComponent,
-    GeneralInfoComponent,
+    EmploymentInfoComponent,
     PersonalInfoComponent,
     ReactiveFormsModule,
   ],
   templateUrl: './add-employee.component.html',
+  animations: [tabAnimation],
 })
 export class AddEmployeeComponent implements OnInit {
   addEmployeeForm!: FormGroup;
   step: number = 1;
-  title: string[] = [
-    'General Info',
-    'Personal Info',
-    'Contact Info',
-    'Billing Info',
-  ];
 
   constructor(private fb: FormBuilder) {}
 
@@ -42,37 +38,45 @@ export class AddEmployeeComponent implements OnInit {
 
   createForm(): void {
     this.addEmployeeForm = this.fb.group({
-      generalInfo: this.fb.group({
+      personalInfo: this.fb.group({
         firstName: ['', [Validators.required]],
         lastName: ['', [Validators.required]],
-        email: ['', [Validators.required]],
-        password: ['', [Validators.required]],
-        repeatPassword: ['', [Validators.required]],
-        position: ['', [Validators.required]],
-        workingTime: ['', [Validators.required]],
-        employmentDate: [
-          formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en'),
-          [Validators.required],
-        ],
-      }),
-      personalInfo: this.fb.group({
+        middleName: ['', []],
+        sex: ['', [Validators.required]],
         birthDate: [
           formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en'),
           [Validators.required],
         ],
+        birthPlace: ['', [Validators.required]],
+        idCardNumber: ['', [Validators.required]],
+        pesel: ['', []],
       }),
-      contactInfo: this.fb.group({
-        phoneNumber: ['', [Validators.required]],
-        privateEmail: ['', [Validators.required]],
+      addressInfo: this.fb.group({
         street: ['', [Validators.required]],
         houseNumber: ['', [Validators.required]],
-        apartmentNumber: ['', [Validators.required]],
+        apartmentNumber: ['', []],
         city: ['', [Validators.required]],
         postalCode: ['', [Validators.required]],
         country: ['', [Validators.required]],
+        phoneNumber: ['', [Validators.required]],
+        privateEmail: ['', [Validators.required]],
       }),
-      billingInfo: this.fb.group({
+      employmentInfo: this.fb.group({
+        position: ['', [Validators.required]],
+        employmentDate: [
+          formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en'),
+          [Validators.required],
+        ],
+        contractType: ['', [Validators.required]],
+        workingTime: ['', [Validators.required]],
+        rate: ['', [Validators.required]],
+        payday: ['', [Validators.required]],
         accountNumber: ['', [Validators.required]],
+      }),
+      accountInfo: this.fb.group({
+        email: ['', [Validators.required]],
+        password: ['', [Validators.required]],
+        repeatPassword: ['', [Validators.required]],
       }),
     });
   }

@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { PersonalInfoComponent } from './personal-info.component';
 
@@ -8,7 +9,7 @@ describe('PersonalInfoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PersonalInfoComponent],
+      imports: [NoopAnimationsModule, PersonalInfoComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(PersonalInfoComponent);

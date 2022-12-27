@@ -1,17 +1,17 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
-import { ButtonComponent } from '../../../shared/components/button/button.component';
-import { FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
-import { ModalComponent } from '../../../shared/components/modal/modal.component';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastService } from '../../../shared/services/toast.service';
-import { ToastState } from '../../../shared/enum/toast-state';
-import { ToastComponent } from '../../../shared/components/toast/toast.component';
 import { ValidationService } from '../../../shared/services/validation.service';
+import { ToastState } from '../../../shared/enum/toast-state';
+import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
+import { ButtonComponent } from '../../../shared/components/button/button.component';
+import { ModalComponent } from '../../../shared/components/modal/modal.component';
+import { ToastComponent } from '../../../shared/components/toast/toast.component';
 
 @Component({
-  selector: 'bvr-billing-info',
+  selector: 'bvr-account-info',
   standalone: true,
   imports: [
     ButtonComponent,
@@ -21,9 +21,9 @@ import { ValidationService } from '../../../shared/services/validation.service';
     ReactiveFormsModule,
     ToastComponent,
   ],
-  templateUrl: './billing-info.component.html',
+  templateUrl: './account-info.component.html',
 })
-export class BillingInfoComponent {
+export class AccountInfoComponent {
   @Input() addEmployeeForm!: FormGroup;
 
   @Output() previousStepChange: EventEmitter<void> = new EventEmitter();
@@ -46,13 +46,13 @@ export class BillingInfoComponent {
   }
 
   openAddModal(): void {
-    if (this.addEmployeeForm.get('billingInfo')?.valid) {
+    if (this.addEmployeeForm.get('accountInfo')?.valid) {
       const firstName = this.addEmployeeForm.get([
-        'generalInfo',
+        'personalInfo',
         'firstName',
       ])?.value;
       const lastName = this.addEmployeeForm.get([
-        'generalInfo',
+        'personalInfo',
         'lastName',
       ])?.value;
       this.isAddModalOpen = true;
@@ -80,7 +80,7 @@ export class BillingInfoComponent {
 
   isRequired(name: string): boolean {
     return this.validationService.isRequired(this.addEmployeeForm, [
-      'billingInfo',
+      'accountInfo',
       name,
     ]);
   }
@@ -88,7 +88,7 @@ export class BillingInfoComponent {
   showErrors(name?: string): boolean {
     return name
       ? this.validationService.showErrors(this.addEmployeeForm, [
-          'billingInfo',
+          'accountInfo',
           name,
         ])
       : this.validationService.showErrors(this.addEmployeeForm, []);

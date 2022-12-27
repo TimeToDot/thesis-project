@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Account } from '../../shared/models/account.model';
+import { ContractType } from '../../projects/models/contract-type.model';
 
 @Injectable({
   providedIn: 'root',
@@ -10,9 +11,18 @@ export class AccountsService {
     {
       id: '0',
       firstName: 'Robert',
+      middleName: 'Karol',
       lastName: 'Skrzypczak',
+      sex: 'male',
+      birthDate: '1999-03-12',
+      birthPlace: 'Kraków',
+      idCardNumber: 'CCC675432',
       email: 'robert.skrzypczak@gmail.com',
       image: 'assets/icons/icon14.png',
+      pesel: 1231231231,
+      contractType: { id: '4', name: 'B2B' },
+      rate: 35,
+      payday: 1,
       position: {
         id: '1',
         name: 'Frontend Developer',
@@ -25,8 +35,6 @@ export class AccountsService {
       workingTime: 40,
       active: true,
       password: 'abc',
-      sex: 'male',
-      birthDate: '1999-03-12',
       phoneNumber: '777-777-777',
       privateEmail: 'bob@gmail.com',
       street: 'Nowowiejska',
@@ -40,9 +48,16 @@ export class AccountsService {
     {
       id: '1',
       firstName: 'Beata',
+      middleName: '',
       lastName: 'Iwan',
       email: 'beata.iwan@gmail.com',
       image: 'assets/icons/icon4.png',
+      pesel: 1231231231,
+      birthPlace: 'Kraków',
+      idCardNumber: 'CCC675432',
+      contractType: { id: '4', name: 'B2B' },
+      rate: 35,
+      payday: 1,
       position: {
         id: '2',
         name: 'Product Designer',
@@ -71,9 +86,16 @@ export class AccountsService {
     {
       id: '2',
       firstName: 'Joanna',
+      middleName: '',
       lastName: 'Malawska',
       email: 'joanna.malawska@gmail.com',
       image: 'assets/icons/icon8.png',
+      pesel: 1231231231,
+      birthPlace: 'Kraków',
+      idCardNumber: 'CCC675432',
+      contractType: { id: '4', name: 'B2B' },
+      rate: 35,
+      payday: 1,
       position: {
         id: '2',
         name: 'Product Designer',
@@ -102,9 +124,16 @@ export class AccountsService {
     {
       id: '3',
       firstName: 'Anna',
+      middleName: '',
       lastName: 'Nowak',
       email: 'anna.nowak@gmail.com',
       image: 'assets/icons/icon7.png',
+      birthPlace: 'Kraków',
+      idCardNumber: 'CCC675432',
+      pesel: 1231231231,
+      contractType: { id: '4', name: 'B2B' },
+      rate: 35,
+      payday: 1,
       position: {
         id: '2',
         name: 'Product Designer',
@@ -134,9 +163,16 @@ export class AccountsService {
     {
       id: '4',
       firstName: 'Paweł',
+      middleName: '',
       lastName: 'Szymański',
       email: 'pawel.szymanski@gmail.com',
       image: 'assets/icons/icon19.png',
+      birthPlace: 'Kraków',
+      idCardNumber: 'CCC675432',
+      pesel: 1231231231,
+      contractType: { id: '4', name: 'B2B' },
+      rate: 35,
+      payday: 1,
       position: {
         id: '2',
         name: 'Product Designer',
@@ -165,9 +201,16 @@ export class AccountsService {
     {
       id: '5',
       firstName: 'Maria',
+      middleName: '',
       lastName: 'Wiśniewska',
       email: 'maria.wisniewska@gmail.com',
       image: 'assets/icons/icon3.png',
+      birthPlace: 'Kraków',
+      idCardNumber: 'CCC675432',
+      pesel: 1231231231,
+      contractType: { id: '4', name: 'B2B' },
+      rate: 35,
+      payday: 1,
       position: {
         id: '1',
         name: 'Frontend Developer',
@@ -196,9 +239,16 @@ export class AccountsService {
     {
       id: '6',
       firstName: 'Jan',
+      middleName: '',
       email: 'jan.kowalski@gmail.com',
       lastName: 'Kowalski',
       image: 'assets/icons/icon13.png',
+      birthPlace: 'Kraków',
+      idCardNumber: 'CCC675432',
+      pesel: 1231231231,
+      contractType: { id: '4', name: 'B2B' },
+      rate: 35,
+      payday: 1,
       position: {
         id: '1',
         name: 'Frontend Developer',
@@ -227,9 +277,16 @@ export class AccountsService {
     {
       id: '7',
       firstName: 'Emil',
+      middleName: '',
       lastName: 'Zieliński',
       email: 'emil.zielinski@gmail.com',
       image: 'assets/icons/icon18.png',
+      birthPlace: 'Kraków',
+      idCardNumber: 'CCC675432',
+      pesel: 1231231231,
+      contractType: { id: '4', name: 'B2B' },
+      rate: 35,
+      payday: 1,
       position: {
         id: '2',
         name: 'Product Designer',
@@ -258,9 +315,16 @@ export class AccountsService {
     {
       id: '8',
       firstName: 'Krystian',
+      middleName: '',
       lastName: 'Kowalczyk',
       email: 'krystian.kowalczyk@gmail.com',
       image: 'assets/icons/icon16.png',
+      birthPlace: 'Kraków',
+      idCardNumber: 'CCC675432',
+      pesel: 1231231231,
+      contractType: { id: '4', name: 'B2B' },
+      rate: 35,
+      payday: 1,
       position: {
         id: '2',
         name: 'Product Designer',

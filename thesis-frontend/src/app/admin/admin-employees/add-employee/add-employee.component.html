@@ -2,13 +2,13 @@
   <div class="header">
     <div class="title">
       <span class="material-icons-outlined">work_outline</span>
-      <h2 class="name">Add New Employee</h2>
+      <h2 class="name">Employees</h2>
     </div>
   </div>
   <div class="card-body">
     <div class="stepper">
       <div class="title">
-        <h4>{{ title[step - 1] }}</h4>
+        <h4>Add New Employee</h4>
       </div>
       <div class="stepper-header">
         <div class="step" [ngClass]="{ 'active-step': step === 1, 'previous-step': step > 1 }">
@@ -35,21 +35,21 @@
           4
         </div>
       </div>
-      <form class="steps">
+      <form [@tabs]="step" class="steps">
         <div *ngIf="step === 1">
-          <bvr-general-info [addEmployeeForm]="addEmployeeForm" (nextStepChange)="nextStep()"></bvr-general-info>
+          <bvr-personal-info [addEmployeeForm]="addEmployeeForm" (nextStepChange)="nextStep()"></bvr-personal-info>
         </div>
         <div *ngIf="step === 2">
-          <bvr-personal-info [addEmployeeForm]="addEmployeeForm" (nextStepChange)="nextStep()"
-            (previousStepChange)="previousStep()"></bvr-personal-info>
+          <bvr-address-info [addEmployeeForm]="addEmployeeForm" (nextStepChange)="nextStep()"
+            (previousStepChange)="previousStep()"></bvr-address-info>
         </div>
         <div *ngIf="step === 3">
-          <bvr-contact-info [addEmployeeForm]="addEmployeeForm" (nextStepChange)="nextStep()"
-            (previousStepChange)="previousStep()"></bvr-contact-info>
+          <bvr-employment-info [addEmployeeForm]="addEmployeeForm" (nextStepChange)="nextStep()"
+            (previousStepChange)="previousStep()"></bvr-employment-info>
         </div>
         <div *ngIf="step === 4">
-          <bvr-billing-info [addEmployeeForm]="addEmployeeForm" (previousStepChange)="previousStep()">
-          </bvr-billing-info>
+          <bvr-account-info [addEmployeeForm]="addEmployeeForm"
+            (previousStepChange)="previousStep()"></bvr-account-info>
         </div>
       </form>
     </div>

@@ -1,0 +1,49 @@
+<div *ngIf="addEmployeeForm" class="add-employee" [formGroup]="addEmployeeForm">
+    <div class="form" formGroupName="accountInfo">
+        <div class="form-header">{{ 'Account Info' | uppercase }}</div>
+        <bvr-form-field label="Email" [required]="isRequired('email')">
+            <input formControlName="email" type="email" />
+            <ng-container *ngIf="showErrors('email')">
+                <small *ngIf="
+                    addEmployeeForm
+                      .get(['accountInfo', 'email'])
+                      ?.hasError('required')
+                  ">This field is required.</small>
+            </ng-container>
+        </bvr-form-field>
+        <bvr-form-field label="Password" [required]="isRequired('password')">
+            <input formControlName="password" type="password" />
+            <ng-container *ngIf="showErrors('password')">
+                <small *ngIf="
+                      addEmployeeForm
+                        .get(['accountInfo', 'password'])
+                        ?.hasError('required')
+                    ">This field is required.</small>
+            </ng-container>
+        </bvr-form-field>
+        <bvr-form-field label="Repeat Password" [required]="isRequired('repeatPassword')">
+            <input formControlName="repeatPassword" type="password" />
+            <ng-container *ngIf="showErrors('repeatPassword')">
+                <small *ngIf="
+                      addEmployeeForm
+                        .get(['accountInfo', 'repeatPassword'])
+                        ?.hasError('required')
+                    ">This field is required.</small>
+            </ng-container>
+        </bvr-form-field>
+    </div>
+    <div class="form-buttons">
+        <bvr-button class="form-button" (click)="openCancelModal()" label="Cancel"
+            styleClass="button-text"></bvr-button>
+        <bvr-button class="form-button" (click)="previousStepChange.emit()" label="Previous"></bvr-button>
+        <bvr-button class="form-button" (click)="openAddModal()" label="Add"></bvr-button>
+    </div>
+</div>
+
+<bvr-modal (confirm)="add()" confirmLabel="Add" [description]="modalDescription" [title]="'Add New Employee'"
+    [(visible)]="isAddModalOpen"></bvr-modal>
+
+<bvr-modal (confirm)="cancel()" confirmLabel="Leave" [description]="modalDescription" [title]="'Leave'"
+    [(visible)]="isCancelModalOpen"></bvr-modal>
+
+<bvr-toast></bvr-toast>

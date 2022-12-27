@@ -1,3 +1,4 @@
+import { provideHttpClient } from '@angular/common/http';
 import { enableProdMode } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -12,5 +13,9 @@ if (environment.production) {
 }
 
 bootstrapApplication(AppComponent, {
-  providers: [provideAnimations(), provideRouter(appRoutes)],
+  providers: [
+    provideAnimations(),
+    provideRouter(appRoutes),
+    provideHttpClient(),
+  ],
 });

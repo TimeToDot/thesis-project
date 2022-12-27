@@ -17,8 +17,8 @@ import { ToastService } from '../../services/toast.service';
   templateUrl: './toast.component.html',
   animations: [
     trigger('toastTrigger', [
-      state('open', style({ transform: 'translateY(0%)' })),
-      state('close', style({ transform: 'translateY(200%)' })),
+      state('open', style({ transform: 'translateY(-200%)' })),
+      state('close', style({ transform: 'translateY(0%)' })),
       transition('open <=> close', [animate('300ms ease-in-out')]),
     ]),
   ],

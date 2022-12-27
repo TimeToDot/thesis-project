@@ -8,7 +8,7 @@ import {
   trigger,
 } from '@angular/animations';
 
-export const projectAnimation = trigger('projectTabs', [
+export const tabAnimation = trigger('tabs', [
   transition(':increment', [
     style({ position: 'relative' }),
     query(':enter, :leave', [

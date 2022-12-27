@@ -10,14 +10,14 @@ import { TabsComponent } from '../../shared/components/tabs/tabs.component';
 import { LinkOption } from '../../shared/models/link-option.model';
 import { ProjectPermissions } from '../models/project-permissions.model';
 import { PermissionsService } from '../../shared/services/permissions.service';
-import { projectAnimation } from '../animations/project.animation';
+import { tabAnimation } from '../../shared/animations/tab.animation';
 
 @Component({
   selector: 'bvr-project',
   templateUrl: './project.component.html',
   standalone: true,
   imports: [CommonModule, RouterOutlet, RouterLinkActive, TabsComponent],
-  animations: [projectAnimation],
+  animations: [tabAnimation],
 })
 export class ProjectComponent implements OnInit {
   private projectId: string | null = null;
@@ -84,8 +84,6 @@ export class ProjectComponent implements OnInit {
   }
 
   getRouteAnimationData() {
-    return this.contexts.getContext('primary')?.route?.snapshot.data[
-      'projectTabs'
-    ];
+    return this.contexts.getContext('primary')?.route?.snapshot.data['tabs'];
   }
 }
