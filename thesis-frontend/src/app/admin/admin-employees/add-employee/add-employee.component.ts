@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule, formatDate } from '@angular/common';
+import { CommonModule, formatDate, Location } from '@angular/common';
 import { PersonalInfoComponent } from '../personal-info/personal-info.component';
 import {
   FormBuilder,
@@ -11,6 +11,7 @@ import { AccountInfoComponent } from '../account-info/account-info.component';
 import { AddressInfoComponent } from '../address-info/address-info.component';
 import { EmploymentInfoComponent } from '../employment-info/employment-info.component';
 import { tabAnimation } from '../../../shared/animations/tab.animation';
+import { ModalComponent } from '../../../shared/components/modal/modal.component';
 
 @Component({
   selector: 'bvr-add-employee',
@@ -20,6 +21,7 @@ import { tabAnimation } from '../../../shared/animations/tab.animation';
     AddressInfoComponent,
     CommonModule,
     EmploymentInfoComponent,
+    ModalComponent,
     PersonalInfoComponent,
     ReactiveFormsModule,
   ],
@@ -28,9 +30,11 @@ import { tabAnimation } from '../../../shared/animations/tab.animation';
 })
 export class AddEmployeeComponent implements OnInit {
   addEmployeeForm!: FormGroup;
+  isCancelModalOpen: boolean = false;
+  modalDescription: string = '';
   step: number = 1;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private location: Location) {}
 
   ngOnInit(): void {
     this.createForm();
@@ -87,5 +91,14 @@ export class AddEmployeeComponent implements OnInit {
 
   previousStep(): void {
     --this.step;
+  }
+
+  openCancelModal(): void {
+    this.isCancelModalOpen = true;
+    this.modalDescription = `Are you sure you want to leave? You will lose your unsaved changes if you continue.`;
+  }
+
+  cancel(): void {
+    this.location.back();
   }
 }

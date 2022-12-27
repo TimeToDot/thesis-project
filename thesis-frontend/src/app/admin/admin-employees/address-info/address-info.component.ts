@@ -1,9 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { CommonModule, Location } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
-import { ModalComponent } from '../../../shared/components/modal/modal.component';
 import { ToastComponent } from '../../../shared/components/toast/toast.component';
 import { ToastService } from '../../../shared/services/toast.service';
 import { ValidationService } from '../../../shared/services/validation.service';
@@ -21,7 +20,6 @@ import { DropdownOption } from '../../../shared/models/dropdown-option.model';
     CommonModule,
     DropdownListComponent,
     FormFieldComponent,
-    ModalComponent,
     ReactiveFormsModule,
     ToastComponent,
   ],
@@ -31,15 +29,13 @@ export class AddressInfoComponent implements OnInit {
   @Input() addEmployeeForm!: FormGroup;
 
   @Output() nextStepChange: EventEmitter<void> = new EventEmitter();
+  @Output() openCancelModal: EventEmitter<void> = new EventEmitter();
   @Output() previousStepChange: EventEmitter<void> = new EventEmitter();
 
   countries: DropdownOption[] = [];
-  isCancelModalOpen: boolean = false;
-  modalDescription: string = '';
 
   constructor(
     private countriesService: CountriesService,
-    private location: Location,
     private toastService: ToastService,
     private validationService: ValidationService
   ) {}
@@ -65,19 +61,6 @@ export class AddressInfoComponent implements OnInit {
       this.toastService.showToast(ToastState.Error, 'Form invalid');
       setTimeout(() => this.toastService.dismissToast(), 3000);
     }
-  }
-
-  previousStep(): void {
-    this.previousStepChange.emit();
-  }
-
-  openCancelModal(): void {
-    this.isCancelModalOpen = true;
-    this.modalDescription = `Are you sure you want to leave? You will lose your unsaved changes if you continue.`;
-  }
-
-  cancel(): void {
-    this.location.back();
   }
 
   isRequired(name: string): boolean {

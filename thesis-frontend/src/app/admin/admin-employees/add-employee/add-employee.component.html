@@ -37,21 +37,25 @@
       </div>
       <form [@tabs]="step" class="steps">
         <div *ngIf="step === 1">
-          <bvr-personal-info [addEmployeeForm]="addEmployeeForm" (nextStepChange)="nextStep()"></bvr-personal-info>
+          <bvr-personal-info [addEmployeeForm]="addEmployeeForm" (nextStepChange)="nextStep()"
+            (openCancelModal)="openCancelModal()"></bvr-personal-info>
         </div>
         <div *ngIf="step === 2">
           <bvr-address-info [addEmployeeForm]="addEmployeeForm" (nextStepChange)="nextStep()"
-            (previousStepChange)="previousStep()"></bvr-address-info>
+            (openCancelModal)="openCancelModal()" (previousStepChange)="previousStep()"></bvr-address-info>
         </div>
         <div *ngIf="step === 3">
           <bvr-employment-info [addEmployeeForm]="addEmployeeForm" (nextStepChange)="nextStep()"
-            (previousStepChange)="previousStep()"></bvr-employment-info>
+            (openCancelModal)="openCancelModal()" (previousStepChange)="previousStep()"></bvr-employment-info>
         </div>
         <div *ngIf="step === 4">
-          <bvr-account-info [addEmployeeForm]="addEmployeeForm"
+          <bvr-account-info [addEmployeeForm]="addEmployeeForm" (openCancelModal)="openCancelModal()"
             (previousStepChange)="previousStep()"></bvr-account-info>
         </div>
       </form>
     </div>
   </div>
 </div>
+
+<bvr-modal (confirm)="cancel()" confirmLabel="Leave" [description]="modalDescription" [title]="'Leave'"
+  [(visible)]="isCancelModalOpen"></bvr-modal>

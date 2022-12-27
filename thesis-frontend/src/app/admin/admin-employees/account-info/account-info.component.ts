@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { CommonModule, Location } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastService } from '../../../shared/services/toast.service';
@@ -26,6 +26,7 @@ import { ToastComponent } from '../../../shared/components/toast/toast.component
 export class AccountInfoComponent {
   @Input() addEmployeeForm!: FormGroup;
 
+  @Output() openCancelModal: EventEmitter<void> = new EventEmitter();
   @Output() previousStepChange: EventEmitter<void> = new EventEmitter();
 
   isCancelModalOpen: boolean = false;
@@ -33,17 +34,11 @@ export class AccountInfoComponent {
   modalDescription: string = '';
 
   constructor(
-    private location: Location,
     private route: ActivatedRoute,
     private router: Router,
     private toastService: ToastService,
     private validationService: ValidationService
   ) {}
-
-  openCancelModal(): void {
-    this.isCancelModalOpen = true;
-    this.modalDescription = `Are you sure you want to leave? You will lose your unsaved changes if you continue.`;
-  }
 
   openAddModal(): void {
     if (this.addEmployeeForm.get('accountInfo')?.valid) {
@@ -62,10 +57,6 @@ export class AccountInfoComponent {
       this.toastService.showToast(ToastState.Error, 'Form invalid');
       setTimeout(() => this.toastService.dismissToast(), 3000);
     }
-  }
-
-  cancel(): void {
-    this.location.back();
   }
 
   add(): void {
