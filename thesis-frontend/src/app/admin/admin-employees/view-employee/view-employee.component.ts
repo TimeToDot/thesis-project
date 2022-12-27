@@ -2,7 +2,12 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { first } from 'rxjs';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
-import { ActivatedRoute, Router, RouterLinkWithHref } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+  RouterLinkWithHref,
+  RouterOutlet,
+} from '@angular/router';
 import { Account } from '../../../shared/models/account.model';
 import { AccountsService } from '../../services/accounts.service';
 import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
@@ -10,6 +15,8 @@ import { ModalComponent } from '../../../shared/components/modal/modal.component
 import { ToastService } from '../../../shared/services/toast.service';
 import { ToastState } from '../../../shared/enum/toast-state';
 import { ToastComponent } from '../../../shared/components/toast/toast.component';
+import { TabsComponent } from '../../../shared/components/tabs/tabs.component';
+import { LinkOption } from '../../../shared/models/link-option.model';
 
 @Component({
   selector: 'bvr-view-employee',
@@ -20,6 +27,8 @@ import { ToastComponent } from '../../../shared/components/toast/toast.component
     FormFieldComponent,
     ModalComponent,
     RouterLinkWithHref,
+    RouterOutlet,
+    TabsComponent,
     ToastComponent,
   ],
   templateUrl: './view-employee.component.html',
@@ -66,6 +75,7 @@ export class ViewEmployeeComponent {
   };
   isArchiveModalOpen: boolean = false;
   modalDescription: string = '';
+  navbarOptions: LinkOption[] = [];
 
   constructor(
     private accountsService: AccountsService,
@@ -76,6 +86,7 @@ export class ViewEmployeeComponent {
 
   ngOnInit(): void {
     this.getAccount();
+    this.getNavbarOptions();
   }
 
   getAccount(): void {
@@ -88,6 +99,13 @@ export class ViewEmployeeComponent {
           this.currentAccount = account;
         });
     }
+  }
+
+  getNavbarOptions(): void {
+    this.navbarOptions.push({ name: 'Personal', path: 'personal-info' });
+    this.navbarOptions.push({ name: 'Address', path: 'address-info' });
+    this.navbarOptions.push({ name: 'Employment', path: 'employment-info' });
+    this.navbarOptions.push({ name: 'Account', path: 'account-info' });
   }
 
   openArchiveModal(): void {
@@ -104,5 +122,9 @@ export class ViewEmployeeComponent {
       );
       setTimeout(() => this.toastService.dismissToast(), 3200);
     });
+  }
+
+  onOutletLoaded(component: any): void {
+    component.account = this.currentAccount;
   }
 }

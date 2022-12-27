@@ -1,0 +1,35 @@
+<div class="form" formGroupName="personalInfo">
+    <div class="form-header">{{ 'Personal Info' | uppercase }}</div>
+    <div class="row">
+        <bvr-form-field class="left-field" label="First Name">
+            <span>{{account.firstName}}</span>
+        </bvr-form-field>
+        <bvr-form-field class="field" label="Last Name">
+            <span>{{account.lastName}}</span>
+        </bvr-form-field>
+    </div>
+    <div class="row">
+        <bvr-form-field class="left-field" label="Middle Name">
+            <span>{{account.middleName}}</span>
+        </bvr-form-field>
+        <bvr-form-field class="field" label="Sex">
+            <span>{{account.sex}}</span>
+        </bvr-form-field>
+    </div>
+    <div class="row">
+        <bvr-form-field class="left-field" label="Date Of Birth">
+            <span>{{account.birthDate}}</span>
+        </bvr-form-field>
+        <bvr-form-field class="field" label="Place Of Birth">
+            <span>{{account.birthPlace}}</span>
+        </bvr-form-field>
+    </div>
+    <div class="row">
+        <bvr-form-field class="left-field" label="ID Card Number">
+            <span>{{account.idCardNumber}}</span>
+        </bvr-form-field>
+        <bvr-form-field class="field" label="PESEL">
+            <span>{{account.pesel}}</span>
+        </bvr-form-field>
+    </div>
+</div>

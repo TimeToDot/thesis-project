@@ -3,14 +3,12 @@
     <div class="title">
       <h2 class="name">Employee</h2>
     </div>
+    <bvr-tabs [navbarOptions]="navbarOptions"></bvr-tabs>
   </div>
   <div class="card-body view-employee">
     <div class="header">
       <div class="name">
-        <img
-          [src]="currentAccount.image"
-          class="picture"
-          [ngClass]="{ archived: !currentAccount.active }" />
+        <img [src]="currentAccount.image" class="picture" [ngClass]="{ archived: !currentAccount.active }" />
         <h4>
           {{ currentAccount.firstName }}
           {{ currentAccount.lastName }}
@@ -18,20 +16,18 @@
         <h4 *ngIf="!currentAccount.active" class="archived">(Archived)</h4>
       </div>
       <div>
-        <bvr-button
-          *ngIf="currentAccount.active"
-          icon="edit"
-          [routerLink]="['edit']"
+        <bvr-button *ngIf="currentAccount.active" icon="edit" [routerLink]="['edit']"
           styleClass="button-icon"></bvr-button>
-        <bvr-button
-          *ngIf="currentAccount.active"
-          (click)="openArchiveModal()"
-          icon="archive"
-          styleClass="button-icon">
+        <bvr-button *ngIf="currentAccount.active" (click)="openArchiveModal()" icon="archive" styleClass="button-icon">
         </bvr-button>
       </div>
     </div>
-    <div class="form">
+
+    <div class="view-employee-content">
+      <router-outlet (activate)="onOutletLoaded($event)"></router-outlet>
+    </div>
+
+    <!-- <div class="form">
       <div formGroupName="generalInfo">
         <bvr-form-field class="" label="Email">
           <span>{{ currentAccount.email }}</span>
@@ -94,23 +90,15 @@
           <span>{{ currentAccount.accountNumber }}</span>
         </bvr-form-field>
       </div>
-    </div>
+    </div> -->
 
     <div class="form-buttons">
-      <bvr-button
-        class="form-button"
-        label="Cancel"
-        [routerLink]="['..']"
-        styleClass="button-text"></bvr-button>
+      <bvr-button class="form-button" label="Cancel" [routerLink]="['..']" styleClass="button-text"></bvr-button>
     </div>
   </div>
 </div>
 
-<bvr-modal
-  (confirm)="archive()"
-  confirmLabel="archive"
-  [description]="modalDescription"
-  [title]="'Archive employee'"
+<bvr-modal (confirm)="archive()" confirmLabel="archive" [description]="modalDescription" [title]="'Archive employee'"
   [(visible)]="isArchiveModalOpen"></bvr-modal>
 
 <bvr-toast></bvr-toast>

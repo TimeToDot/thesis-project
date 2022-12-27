@@ -32,9 +32,9 @@ export class PersonalInfoComponent {
   @Output() openCancelModal: EventEmitter<void> = new EventEmitter();
 
   sexes: DropdownOption[] = [
-    { id: '1', name: 'male' },
-    { id: '2', name: 'female' },
-    { id: '3', name: 'other' },
+    { id: '1', name: 'Male' },
+    { id: '2', name: 'Female' },
+    { id: '3', name: 'Other' },
   ];
 
   constructor(

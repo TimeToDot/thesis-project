@@ -4,8 +4,22 @@
   flex-direction: column;
   width: 100%;
 
+  .view-employee-content {
+    width: 100%;
+  }
+
+  .form-header {
+    align-self: flex-start;
+    color: $color-text-secondary;
+    display: flex;
+    font-size: $font-small;
+    font-weight: 600;
+    height: 12 * $grid-base;
+    margin: 4 * $grid-base 0 12 * $grid-base;
+  }
+
   .form {
-    padding: 0 31 * $grid-base 12 * $grid-base;
+    padding: 0 31 * $grid-base;
   }
 
   .row,

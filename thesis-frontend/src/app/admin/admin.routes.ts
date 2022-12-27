@@ -11,6 +11,10 @@ import { CanAdminSettingsGuard } from './guards/can-admin-settings.guard';
 import { CanAdminEmployeesGuard } from './guards/can-admin-employees.guard';
 import { ViewPositionComponent } from './admin-positions/view-position/view-position.component';
 import { ViewEmployeeComponent } from './admin-employees/view-employee/view-employee.component';
+import { ViewPersonalInfoComponent } from './admin-employees/view-personal-info/view-personal-info.component';
+import { ViewAddressInfoComponent } from './admin-employees/view-address-info/view-address-info.component';
+import { ViewEmploymentInfoComponent } from './admin-employees/view-employment-info/view-employment-info.component';
+import { ViewAccountInfoComponent } from './admin-employees/view-account-info/view-account-info.component';
 
 export const adminRoutes: Routes = [
   {
@@ -30,6 +34,33 @@ export const adminRoutes: Routes = [
     component: ViewEmployeeComponent,
     canActivate: [CanAdminEmployeesGuard],
     data: { sidenavTabs: 3 },
+    children: [
+      {
+        path: 'personal-info',
+        component: ViewPersonalInfoComponent,
+        canActivate: [CanAdminEmployeesGuard],
+        data: { sidenavTabs: 3, tabs: 1 },
+      },
+      {
+        path: 'address-info',
+        component: ViewAddressInfoComponent,
+        canActivate: [CanAdminEmployeesGuard],
+        data: { sidenavTabs: 3, tabs: 2 },
+      },
+      {
+        path: 'employment-info',
+        component: ViewEmploymentInfoComponent,
+        canActivate: [CanAdminEmployeesGuard],
+        data: { sidenavTabs: 3, tabs: 3 },
+      },
+      {
+        path: 'account-info',
+        component: ViewAccountInfoComponent,
+        canActivate: [CanAdminEmployeesGuard],
+        data: { sidenavTabs: 3, tabs: 4 },
+      },
+      { path: '', redirectTo: 'personal-info', pathMatch: 'full' },
+    ],
   },
   {
     path: 'employees/:id/edit',
