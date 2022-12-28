@@ -75,7 +75,7 @@ export class EditEmployeeComponent {
     workingTime: 0,
     exitDate: '',
     image: '',
-    sex: '',
+    sex: { id: '', name: '' },
     birthPlace: '',
     idCardNumber: '',
     pesel: 0,
@@ -90,7 +90,7 @@ export class EditEmployeeComponent {
     apartmentNumber: '',
     city: '',
     postalCode: '',
-    country: '',
+    country: { id: '', name: '' },
     accountNumber: '',
     active: true,
   };
@@ -124,9 +124,6 @@ export class EditEmployeeComponent {
   }
 
   getCurrentTab(): void {
-    console.log(
-      this.contexts.getContext('primary')?.route?.snapshot.data['tabs']
-    );
     this.tabIndex =
       this.contexts.getContext('primary')?.route?.snapshot.data['tabs'];
   }
@@ -217,19 +214,6 @@ export class EditEmployeeComponent {
           ?.setValue(this.account[field as keyof Account]);
       });
     });
-  }
-
-  isRequired(group: string, name: string): boolean {
-    return this.validationService.isRequired(this.editEmployeeForm, [
-      group,
-      name,
-    ]);
-  }
-
-  showErrors(group?: string, name?: string): boolean {
-    return name && group
-      ? this.validationService.showErrors(this.editEmployeeForm, [group, name])
-      : this.validationService.showErrors(this.editEmployeeForm, []);
   }
 
   openArchiveModal(): void {

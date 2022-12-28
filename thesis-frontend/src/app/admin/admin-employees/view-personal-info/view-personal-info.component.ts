@@ -30,7 +30,7 @@ export class ViewPersonalInfoComponent {
     workingTime: 0,
     exitDate: '',
     image: '',
-    sex: '',
+    sex: { id: '', name: '' },
     birthPlace: '',
     idCardNumber: '',
     pesel: 0,
@@ -45,7 +45,7 @@ export class ViewPersonalInfoComponent {
     apartmentNumber: '',
     city: '',
     postalCode: '',
-    country: '',
+    country: { id: '', name: '' },
     accountNumber: '',
     active: true,
   };

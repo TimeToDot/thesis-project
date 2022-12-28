@@ -1,1 +1,35 @@
-<p>edit-account-info works!</p>
+<div *ngIf="editEmployeeForm" [formGroup]="editEmployeeForm">
+    <div class="form" formGroupName="accountInfo">
+        <div class="form-header">{{ 'Account Info' | uppercase }}</div>
+        <bvr-form-field label="Email" [required]="isRequired('email')">
+            <input formControlName="email" type="email" />
+            <ng-container *ngIf="showErrors('email')">
+                <small *ngIf="
+                    editEmployeeForm
+                      .get(['accountInfo', 'email'])
+                      ?.hasError('required')
+                  ">This field is required.</small>
+            </ng-container>
+        </bvr-form-field>
+        <!-- <bvr-form-field label="Password" [required]="isRequired('password')">
+            <input formControlName="password" type="password" />
+            <ng-container *ngIf="showErrors('password')">
+                <small *ngIf="
+                      editEmployeeForm
+                        .get(['accountInfo', 'password'])
+                        ?.hasError('required')
+                    ">This field is required.</small>
+            </ng-container>
+        </bvr-form-field>
+        <bvr-form-field label="Repeat Password" [required]="isRequired('repeatPassword')">
+            <input formControlName="repeatPassword" type="password" />
+            <ng-container *ngIf="showErrors('repeatPassword')">
+                <small *ngIf="
+                      editEmployeeForm
+                        .get(['accountInfo', 'repeatPassword'])
+                        ?.hasError('required')
+                    ">This field is required.</small>
+            </ng-container>
+        </bvr-form-field> -->
+    </div>
+</div>

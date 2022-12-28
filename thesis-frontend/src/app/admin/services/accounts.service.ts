@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Account } from '../../shared/models/account.model';
-import { ContractType } from '../../projects/models/contract-type.model';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +12,7 @@ export class AccountsService {
       firstName: 'Robert',
       middleName: 'Karol',
       lastName: 'Skrzypczak',
-      sex: 'male',
+      sex: { id: '1', name: 'Male' },
       birthDate: '1999-03-12',
       birthPlace: 'Kraków',
       idCardNumber: 'CCC675432',
@@ -42,7 +41,10 @@ export class AccountsService {
       apartmentNumber: '43',
       city: 'Warszawa',
       postalCode: '35-323',
-      country: 'Poland',
+      country: {
+        name: '🇵🇱 Poland',
+        id: '175',
+      },
       accountNumber: '90 0023 0231 2145 3443 2133 2300',
     },
     {
@@ -71,7 +73,7 @@ export class AccountsService {
       workingTime: 40,
       active: true,
       password: 'abc',
-      sex: 'male',
+      sex: { id: '2', name: 'Female' },
       birthDate: '1999-03-12',
       phoneNumber: '777-777-777',
       privateEmail: 'iwaaaaaaaan@gmail.com',
@@ -80,7 +82,10 @@ export class AccountsService {
       apartmentNumber: '43',
       city: 'Warszawa',
       postalCode: '35-323',
-      country: 'Poland',
+      country: {
+        name: '🇵🇱 Poland',
+        id: '175',
+      },
       accountNumber: '90 0023 0231 2145 3443 2133 2300',
     },
     {
@@ -109,7 +114,7 @@ export class AccountsService {
       workingTime: 40,
       active: true,
       password: 'abc',
-      sex: 'male',
+      sex: { id: '2', name: 'Female' },
       birthDate: '1999-03-12',
       phoneNumber: '777-777-777',
       privateEmail: 'asia@gmail.com',
@@ -118,7 +123,10 @@ export class AccountsService {
       apartmentNumber: '43',
       city: 'Warszawa',
       postalCode: '35-323',
-      country: 'Poland',
+      country: {
+        name: '🇵🇱 Poland',
+        id: '175',
+      },
       accountNumber: '90 0023 0231 2145 3443 2133 2300',
     },
     {
@@ -148,7 +156,7 @@ export class AccountsService {
       exitDate: '2022-09-01',
       active: false,
       password: 'abc',
-      sex: 'male',
+      sex: { id: '2', name: 'Female' },
       birthDate: '1999-03-12',
       phoneNumber: '777-777-777',
       privateEmail: 'nowczi@gmail.com',
@@ -157,7 +165,10 @@ export class AccountsService {
       apartmentNumber: '43',
       city: 'Warszawa',
       postalCode: '35-323',
-      country: 'Poland',
+      country: {
+        name: '🇵🇱 Poland',
+        id: '175',
+      },
       accountNumber: '90 0023 0231 2145 3443 2133 2300',
     },
     {
@@ -186,7 +197,7 @@ export class AccountsService {
       workingTime: 40,
       active: true,
       password: 'abc',
-      sex: 'male',
+      sex: { id: '1', name: 'Male' },
       birthDate: '1999-03-12',
       phoneNumber: '777-777-777',
       privateEmail: 'szymon@gmail.com',
@@ -195,7 +206,10 @@ export class AccountsService {
       apartmentNumber: '43',
       city: 'Warszawa',
       postalCode: '35-323',
-      country: 'Poland',
+      country: {
+        name: '🇵🇱 Poland',
+        id: '175',
+      },
       accountNumber: '90 0023 0231 2145 3443 2133 2300',
     },
     {
@@ -224,7 +238,7 @@ export class AccountsService {
       exitDate: '2022-09-01',
       active: false,
       password: 'abc',
-      sex: 'male',
+      sex: { id: '2', name: 'Female' },
       birthDate: '1999-03-12',
       phoneNumber: '777-777-777',
       privateEmail: 'marthaaa@gmail.com',
@@ -233,7 +247,10 @@ export class AccountsService {
       apartmentNumber: '43',
       city: 'Warszawa',
       postalCode: '35-323',
-      country: 'Poland',
+      country: {
+        name: '🇵🇱 Poland',
+        id: '175',
+      },
       accountNumber: '90 0023 0231 2145 3443 2133 2300',
     },
     {
@@ -262,7 +279,7 @@ export class AccountsService {
       exitDate: '2022-09-01',
       active: false,
       password: 'abc',
-      sex: 'male',
+      sex: { id: '1', name: 'Male' },
       birthDate: '1999-03-12',
       phoneNumber: '777-777-777',
       privateEmail: 'kowalski@gmail.com',
@@ -271,7 +288,10 @@ export class AccountsService {
       apartmentNumber: '43',
       city: 'Warszawa',
       postalCode: '35-323',
-      country: 'Poland',
+      country: {
+        name: '🇵🇱 Poland',
+        id: '175',
+      },
       accountNumber: '90 0023 0231 2145 3443 2133 2300',
     },
     {
@@ -300,7 +320,7 @@ export class AccountsService {
       workingTime: 40,
       active: true,
       password: 'abc',
-      sex: 'male',
+      sex: { id: '1', name: 'Male' },
       birthDate: '1999-03-12',
       phoneNumber: '777-777-777',
       privateEmail: 'zielu@gmail.com',
@@ -309,7 +329,10 @@ export class AccountsService {
       apartmentNumber: '43',
       city: 'Warszawa',
       postalCode: '35-323',
-      country: 'Poland',
+      country: {
+        name: '🇵🇱 Poland',
+        id: '175',
+      },
       accountNumber: '90 0023 0231 2145 3443 2133 2300',
     },
     {
@@ -338,7 +361,7 @@ export class AccountsService {
       workingTime: 40,
       active: true,
       password: 'abc',
-      sex: 'male',
+      sex: { id: '1', name: 'Male' },
       birthDate: '1999-03-12',
       phoneNumber: '777-777-777',
       privateEmail: 'kowal-@gmail.com',
@@ -347,7 +370,10 @@ export class AccountsService {
       apartmentNumber: '43',
       city: 'Warszawa',
       postalCode: '35-323',
-      country: 'Poland',
+      country: {
+        name: '🇵🇱 Poland',
+        id: '175',
+      },
       accountNumber: '90 0023 0231 2145 3443 2133 2300',
     },
   ];

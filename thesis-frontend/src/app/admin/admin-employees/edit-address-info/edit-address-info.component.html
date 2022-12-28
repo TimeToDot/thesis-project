@@ -1,1 +1,93 @@
-<p>edit-address-info works!</p>
+<div *ngIf="editEmployeeForm" [formGroup]="editEmployeeForm">
+    <div class="form" formGroupName="addressInfo">
+        <div class="form-header">{{ 'Address Info' | uppercase }}</div>
+        <div class="row address-info">
+            <bvr-form-field class="left-field" label="Street" [required]="isRequired('street')">
+                <input formControlName="street" type="text" />
+                <ng-container *ngIf="showErrors('street')">
+                    <small *ngIf="
+                      editEmployeeForm
+                        .get(['addressInfo', 'street'])
+                        ?.hasError('required')
+                    ">This field is required.</small>
+                </ng-container>
+            </bvr-form-field>
+            <div class="house-info">
+                <bvr-form-field class="left-field" label="House Number" [required]="isRequired('houseNumber')">
+                    <input formControlName="houseNumber" type="text" />
+                    <ng-container *ngIf="showErrors('houseNumber')">
+                        <small *ngIf="
+                        editEmployeeForm
+                          .get(['addressInfo', 'houseNumber'])
+                          ?.hasError('required')
+                      ">This field is required.</small>
+                    </ng-container>
+                </bvr-form-field>
+                <bvr-form-field class="field" label="Apartment Number" [required]="isRequired('apartmentNumber')">
+                    <input formControlName="apartmentNumber" type="text" />
+                    <ng-container *ngIf="showErrors('apartmentNumber')">
+                        <small *ngIf="
+                        editEmployeeForm
+                          .get(['addressInfo', 'apartmentNumber'])
+                          ?.hasError('required')
+                      ">This field is required.</small>
+                    </ng-container>
+                </bvr-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <bvr-form-field class="left-field" label="City" [required]="isRequired('city')">
+                <input formControlName="city" type="text" />
+                <ng-container *ngIf="showErrors('city')">
+                    <small *ngIf="
+                      editEmployeeForm
+                        .get(['addressInfo', 'city'])
+                        ?.hasError('required')
+                    ">This field is required.</small>
+                </ng-container>
+            </bvr-form-field>
+            <bvr-form-field class="field" label="Postal Code" [required]="isRequired('postalCode')">
+                <input formControlName="postalCode" type="text" />
+                <ng-container *ngIf="showErrors('postalCode')">
+                    <small *ngIf="
+                      editEmployeeForm
+                        .get(['addressInfo', 'postalCode'])
+                        ?.hasError('required')
+                    ">This field is required.</small>
+                </ng-container>
+            </bvr-form-field>
+        </div>
+        <bvr-form-field class="field" label="Country" [required]="isRequired('country')">
+            <bvr-dropdown-list formControlName="country" name="country" [options]="countries"></bvr-dropdown-list>
+            <ng-container *ngIf="showErrors('country')">
+                <small *ngIf="
+                      editEmployeeForm
+                        .get(['addressInfo', 'country'])
+                        ?.hasError('required')
+                    ">This field is required.</small>
+            </ng-container>
+        </bvr-form-field>
+        <div class="row">
+            <bvr-form-field class="left-field" label="Phone number" [required]="isRequired('phoneNumber')">
+                <input formControlName="phoneNumber" type="tel" />
+                <ng-container *ngIf="showErrors('phoneNumber')">
+                    <small *ngIf="
+                    editEmployeeForm
+                      .get(['addressInfo', 'phoneNumber'])
+                      ?.hasError('required')
+                  ">This field is required.</small>
+                </ng-container>
+            </bvr-form-field>
+            <bvr-form-field class="field" label="Private email" [required]="isRequired('privateEmail')">
+                <input formControlName="privateEmail" type="email" />
+                <ng-container *ngIf="showErrors('privateEmail')">
+                    <small *ngIf="
+                    editEmployeeForm
+                      .get(['addressInfo', 'privateEmail'])
+                      ?.hasError('required')
+                  ">This field is required.</small>
+                </ng-container>
+            </bvr-form-field>
+        </div>
+    </div>
+</div>

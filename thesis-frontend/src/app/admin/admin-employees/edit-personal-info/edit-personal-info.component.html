@@ -1,1 +1,86 @@
-<p>edit-personal-info works!</p>
+<div *ngIf="editEmployeeForm" [formGroup]="editEmployeeForm">
+    <div class="form" formGroupName="personalInfo">
+        <div class="form-header">{{ 'Personal Info' | uppercase }}</div>
+        <div class="row">
+            <bvr-form-field class="left-field" label="First Name" [required]="isRequired('firstName')">
+                <input formControlName="firstName" type="text" />
+                <ng-container *ngIf="showErrors('firstName')">
+                    <small *ngIf="
+                  editEmployeeForm
+                    .get(['personalInfo', 'firstName'])
+                    ?.hasError('required')
+                ">This field is required.</small>
+                </ng-container>
+            </bvr-form-field>
+            <bvr-form-field class="field" label="Last Name" [required]="isRequired('lastName')">
+                <input formControlName="lastName" type="text" />
+                <ng-container *ngIf="showErrors('lastName')">
+                    <small *ngIf="
+                  editEmployeeForm
+                    .get(['personalInfo', 'lastName'])
+                    ?.hasError('required')
+                ">This field is required.</small>
+                </ng-container>
+            </bvr-form-field>
+        </div>
+        <div class="row">
+            <bvr-form-field class="left-field" label="Middle Name" [required]="isRequired('middleName')">
+                <input formControlName="middleName" type="text" />
+                <ng-container *ngIf="showErrors('middleName')">
+                    <small *ngIf="
+                  editEmployeeForm
+                    .get(['personalInfo', 'middleName'])
+                    ?.hasError('required')
+                ">This field is required.</small>
+                </ng-container>
+            </bvr-form-field>
+            <bvr-form-field class="field" label="Sex" [required]="isRequired('sex')">
+                <bvr-dropdown-list formControlName="sex" name="sex" [options]="sexes"></bvr-dropdown-list>
+                <ng-container *ngIf="showErrors('sex')">
+                    <small *ngIf="
+                  editEmployeeForm
+                    .get(['personalInfo', 'sex'])
+                    ?.hasError('required')
+                ">This field is required.</small>
+                </ng-container>
+            </bvr-form-field>
+        </div>
+        <div class="row">
+            <bvr-form-field class="left-field" label="Date Of Birth" [required]="isRequired('birthDate')">
+                <bvr-date-picker formControlName="birthDate"></bvr-date-picker>
+            </bvr-form-field>
+            <bvr-form-field class="field" label="Place Of Birth" [required]="isRequired('birthPlace')">
+                <input formControlName="birthPlace" type="text" />
+                <ng-container *ngIf="showErrors('birthPlace')">
+                    <small *ngIf="
+                        editEmployeeForm
+                          .get(['personalInfo', 'birthPlace'])
+                          ?.hasError('required')
+                      ">This field is required.</small>
+                </ng-container>
+            </bvr-form-field>
+        </div>
+        <div class="row">
+            <bvr-form-field class="left-field" label="ID Card Number" [required]="isRequired('idCardNumber')">
+                <input formControlName="idCardNumber" type="text" />
+                <ng-container *ngIf="showErrors('idCardNumber')">
+                    <small *ngIf="
+                          editEmployeeForm
+                            .get(['personalInfo', 'idCardNumber'])
+                            ?.hasError('required')
+                        ">This field is required.</small>
+                </ng-container>
+            </bvr-form-field>
+            <bvr-form-field class="field" label="PESEL" [required]="isRequired('pesel')">
+                <input formControlName="pesel" type="text" />
+                <ng-container *ngIf="showErrors('pesel')">
+                    <small *ngIf="
+                          editEmployeeForm
+                            .get(['personalInfo', 'pesel'])
+                            ?.hasError('required')
+                        ">This field is required.</small>
+                </ng-container>
+            </bvr-form-field>
+        </div>
+    </div>
+</div>

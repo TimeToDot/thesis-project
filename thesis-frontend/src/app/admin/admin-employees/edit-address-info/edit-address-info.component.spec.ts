@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EditAddressInfoComponent } from './edit-address-info.component';
@@ -8,9 +9,8 @@ describe('EditAddressInfoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ EditAddressInfoComponent ]
-    })
-    .compileComponents();
+      imports: [EditAddressInfoComponent, HttpClientTestingModule],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(EditAddressInfoComponent);
     component = fixture.componentInstance;

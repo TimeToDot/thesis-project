@@ -6,7 +6,7 @@ export interface Account {
   firstName: string;
   middleName: string;
   lastName: string;
-  sex: string;
+  sex: { id: string; name: string };
   birthDate: string;
   birthPlace: string;
   idCardNumber: string;
@@ -16,7 +16,7 @@ export interface Account {
   apartmentNumber: string;
   city: string;
   postalCode: string;
-  country: string;
+  country: { id: string; name: string };
   phoneNumber: string;
   privateEmail: string;
   position: Position;
