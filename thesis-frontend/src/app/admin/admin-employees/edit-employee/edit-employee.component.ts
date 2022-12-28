@@ -166,8 +166,6 @@ export class EditEmployeeComponent {
       }),
       accountInfo: this.fb.group({
         email: ['', [Validators.required]],
-        // password: ['', [Validators.required]],
-        // repeatPassword: ['', [Validators.required]],
       }),
     });
   }

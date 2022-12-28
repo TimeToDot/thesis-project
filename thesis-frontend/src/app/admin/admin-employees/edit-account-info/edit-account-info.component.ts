@@ -1,13 +1,24 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { ValidationService } from '../../../shared/services/validation.service';
 import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
+import { EditPasswordComponent } from '../edit-password/edit-password.component';
 
 @Component({
   selector: 'bvr-edit-account-info',
   standalone: true,
-  imports: [CommonModule, FormFieldComponent, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    EditPasswordComponent,
+    FormFieldComponent,
+    ReactiveFormsModule,
+  ],
   templateUrl: './edit-account-info.component.html',
 })
 export class EditAccountInfoComponent {
