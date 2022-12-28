@@ -84,14 +84,29 @@ public class EmployeeController extends ThesisController {
         return ResponseEntity.ok(employeeProjectsResponse);
     }
 
-    
+    @GetMapping("projects/toApprove")
+    public ResponseEntity<EmployeeProjectsToApproveResponse> getProjectsToApprove(
+            @RequestHeader UUID employeeId,
+            @RequestBody EmployeeProjectsToApproveRequest request
+    ){
+        // TODO: 28/12/2022
+        return null;
+    }
+
+    @PostMapping("projects/toApprove")
+    public ResponseEntity<EmployeeProjectsToApproveResponse> sendProjectsToApprove(
+            @RequestHeader UUID employeeId,
+            @RequestBody EmployeeProjectsToApprovePayload payload
+    ){
+        // TODO: 28/12/2022
+        return null;
+    }
 
     @GetMapping("/tasks")
     public ResponseEntity<EmployeeTasksResponse> getEmployeeTasks(
             @RequestHeader @NotNull UUID employeeId,
             @RequestHeader @NotNull UUID projectId,
-            @RequestBody EmployeeTasksRequest employeeTasksRequest,
-            @RequestBody PagingSettings settings){
+            @RequestBody EmployeeTasksRequest request){
 
         // TODO: 28/12/2022
 

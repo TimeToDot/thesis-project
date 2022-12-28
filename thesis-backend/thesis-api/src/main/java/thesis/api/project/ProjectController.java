@@ -3,10 +3,8 @@ package thesis.api.project;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import thesis.api.ThesisController;
-import thesis.api.project.model.ProjectTaskCreatePayload;
-import thesis.api.project.model.ProjectTaskResponse;
-import thesis.api.project.model.ProjectTaskUpdatePayload;
-import thesis.api.project.model.ProjectTasksResponse;
+import thesis.api.project.model.*;
+import thesis.domain.paging.PagingSettings;
 
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
@@ -57,6 +55,42 @@ public class ProjectController extends ThesisController {
         // TODO: 28/12/2022
         return null;
 
+    }
+
+    @GetMapping("/employee")
+    public ResponseEntity<ProjectEmployeeResponse> getProjectEmployee(
+            @RequestHeader @NotNull UUID employeeId,
+            @RequestHeader @NotNull UUID projectId
+    ){
+        // TODO: 28/12/2022
+        return null;
+    }
+
+    @PostMapping("/employee")
+    public ResponseEntity<ProjectEmployeeResponse> addProjectEmployee(
+            @RequestHeader @NotNull UUID employeeId,
+            @RequestHeader @NotNull UUID projectId
+    ){
+        return null;
+    }
+
+    @PutMapping("/employee")
+    public ResponseEntity<ProjectEmployeeResponse> updateProjectEmployee(
+            @RequestHeader @NotNull UUID employeeId,
+            @RequestHeader @NotNull UUID projectId
+    ){
+        return null;
+    }
+
+    @GetMapping("/employees")
+    public ResponseEntity<ProjectEmployeesResponse> getProjectEmployees(
+            @RequestHeader @NotNull UUID employeeId,
+            @RequestHeader @NotNull UUID projectId,
+            @RequestBody PagingSettings settings,
+            @RequestParam(value="active", required = false, defaultValue = "true") Boolean active
+            ){
+        // TODO: 28/12/2022
+        return null;
     }
 
 }

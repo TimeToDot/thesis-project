@@ -2,9 +2,11 @@ package thesis.api.employee.model;
 
 import thesis.domain.paging.PagingSettings;
 
-public record EmployeeTasksRequest(
-        String startDate,
-        String endDate,
+import java.util.Date;
+
+public record EmployeeProjectsToApproveRequest(
+        Date startDate,
+        Date endDate,
         PagingSettings settings
 ) {
 }
