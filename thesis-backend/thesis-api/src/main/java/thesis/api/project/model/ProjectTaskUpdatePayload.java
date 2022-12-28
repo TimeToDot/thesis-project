@@ -2,10 +2,11 @@ package thesis.api.project.model;
 
 import java.util.UUID;
 
-public record ProjectTask(
+public record ProjectTaskUpdatePayload(
         UUID id,
         String name,
         String description,
-        String creationDate
+        Boolean active
 ) {
+
 }

@@ -2,7 +2,7 @@ package thesis.api.employee.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
-import thesis.api.employee.model.Project;
+import thesis.api.employee.model.EmployeeProjectResponse;
 import thesis.domain.employee.model.EmployeeProjectDTO;
 import thesis.domain.mapper.MapStructConfig;
 
@@ -11,5 +11,5 @@ public interface EmployeeProjectMapper {
 
     EmployeeProjectMapper INSTANCE = Mappers.getMapper(EmployeeProjectMapper.class);
 
-    Project map(EmployeeProjectDTO employeeDTO);
+    EmployeeProjectResponse map(EmployeeProjectDTO employeeDTO);
 }

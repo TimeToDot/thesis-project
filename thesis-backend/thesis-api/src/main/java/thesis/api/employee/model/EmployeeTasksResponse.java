@@ -7,7 +7,7 @@ import thesis.domain.paging.Sorting;
 import java.util.List;
 
 public record EmployeeTasksResponse (
-    List<EmployeeTask> employeeTasks,
+    List<EmployeeTaskResponse> employeeTaskResponses,
     Paging paging,
     Sorting sorting
 )

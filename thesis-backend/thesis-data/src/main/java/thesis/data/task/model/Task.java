@@ -40,4 +40,7 @@ public class Task {
   private Date dateTo;
 
   private String name;
+
+  @Enumerated(EnumType.STRING)
+  private TaskStatus status;
 }

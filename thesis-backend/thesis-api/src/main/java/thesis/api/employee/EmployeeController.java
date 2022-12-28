@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,14 +14,14 @@ import thesis.api.ThesisController;
 import thesis.api.employee.mapper.EmployeeMapper;
 import thesis.api.employee.mapper.EmployeeProjectMapper;
 import thesis.api.employee.mapper.EmployeeProjectsMapper;
-import thesis.api.employee.model.EmployeeProjectsResponse;
-import thesis.api.employee.model.EmployeeResponse;
-import thesis.api.employee.model.EmployeeTasksRequest;
-import thesis.api.employee.model.EmployeeTasksResponse;
+import thesis.api.employee.model.*;
+import thesis.api.employee.model.calendar.EmployeeCalendarResponse;
 import thesis.domain.paging.PagingSettings;
 import thesis.domain.employee.EmployeeService;
 import thesis.security.services.model.UserDetailsDefault;
 
+import javax.validation.constraints.NotNull;
+import java.util.Date;
 import java.util.UUID;
 
 @Slf4j
@@ -45,7 +46,7 @@ public class EmployeeController extends ThesisController {
             @ApiResponse(responseCode = "404", description = "Customer not found"),
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
-    @GetMapping("/{id}")
+    @GetMapping
     @PreAuthorize("hasAuthority(" + CAN_READ + ")")
     public ResponseEntity<EmployeeResponse> getEmployee(@PathVariable UUID id){
 
@@ -72,7 +73,7 @@ public class EmployeeController extends ThesisController {
             ){
 
         if (!verifyEmployeeId(employeeId)){
-            log.error("oo fuck");
+            log.error("oo prosze: {}", employeeId);
             return ResponseEntity.badRequest().build();
         }
         log.info("controller: employeeId: {}, page: {}, size: {}", employeeId, pagingSettings.getPage(), pagingSettings.getSize());
@@ -83,14 +84,63 @@ public class EmployeeController extends ThesisController {
         return ResponseEntity.ok(employeeProjectsResponse);
     }
 
-    @GetMapping("/{id}/tasks")
+    
+
+    @GetMapping("/tasks")
     public ResponseEntity<EmployeeTasksResponse> getEmployeeTasks(
-            @PathVariable UUID id,
+            @RequestHeader @NotNull UUID employeeId,
+            @RequestHeader @NotNull UUID projectId,
             @RequestBody EmployeeTasksRequest employeeTasksRequest,
-            @RequestBody PagingSettings pagingSettings){
+            @RequestBody PagingSettings settings){
+
+        // TODO: 28/12/2022
 
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/task/{taskId}")
+    public ResponseEntity<EmployeeTasksResponse> getEmployeeTask(
+            @RequestHeader @NotNull UUID employeeId,
+            @RequestHeader @NotNull UUID projectId,
+            @PathVariable UUID taskId){
+
+        // TODO: 28/12/2022
+
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/task")
+    public ResponseEntity<EmployeeTaskResponse> addEmployeeTask( // TODO: 28/12/2022 zmienic response na uuid po testach
+            @RequestHeader @NotNull UUID employeeId,
+            @RequestHeader @NotNull UUID projectId,
+            @RequestBody EmployeeTaskCreatePayload payload
+    ){
+        // TODO: 28/12/2022
+       return null;
+    }
+
+    @PutMapping("/task")
+    public ResponseEntity<EmployeeTaskResponse> updateEmployeeTask( // TODO: 28/12/2022 zmienic response na uuid po testach
+            @RequestHeader @NotNull UUID employeeId,
+            @RequestHeader @NotNull UUID projectId,
+            @RequestBody EmployeeTaskUpdatePayload payload
+    ){
+        // TODO: 28/12/2022
+        return null;
+    }
+
+
+
+    @GetMapping("/calendar")
+    public ResponseEntity<EmployeeCalendarResponse> getEmployeeCalendar(
+            @RequestHeader @NotNull UUID employeeId,
+            @RequestBody @DateTimeFormat(pattern = "MM-yyyy") Date date){
+        // TODO: 26/12/2022
+        return  null;
+    }
+
+
+
 
 
     private boolean verifyEmployeeId(UUID id){

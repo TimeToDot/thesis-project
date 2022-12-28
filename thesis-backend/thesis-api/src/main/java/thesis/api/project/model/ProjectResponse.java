@@ -4,7 +4,7 @@ import java.util.UUID;
 
 
 
-public record Project (
+public record ProjectResponse(
         UUID id,
         String name,
         String description,
