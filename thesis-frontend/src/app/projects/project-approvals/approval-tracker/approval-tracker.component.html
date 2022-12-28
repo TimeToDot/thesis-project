@@ -14,7 +14,7 @@
       <div class="form-buttons">
         <bvr-button class="form-button" (click)="openCancelModal()" label="Cancel"
           styleClass="button-text"></bvr-button>
-        <bvr-button *ngIf="isActive" class="form-button" (click)="openSaveModal()" label="Save"></bvr-button>
+        <bvr-button *ngIf="isActive" class="form-button" (click)="openConfirmModal()" label="Confirm"></bvr-button>
       </div>
     </div>
   </div>
@@ -22,5 +22,5 @@
 
 <bvr-modal (confirm)="cancel()" confirmLabel="Leave" [description]="modalDescription" [title]="'Leave'"
   [(visible)]="isResetModalOpen"></bvr-modal>
-<bvr-modal (confirm)="confirm()" confirmLabel="Yes" [description]="modalDescription" [title]="'Confirm'"
-  [(visible)]="isSaveModalOpen"></bvr-modal>
+<bvr-modal (confirm)="confirm()" confirmLabel="Confirm" [description]="modalDescription" [title]="'Confirm'"
+  [(visible)]="isConfirmModalOpen"></bvr-modal>

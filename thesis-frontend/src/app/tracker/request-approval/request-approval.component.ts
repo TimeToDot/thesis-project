@@ -41,7 +41,7 @@ import { ValidationService } from '../../shared/services/validation.service';
   templateUrl: './request-approval.component.html',
 })
 export class RequestApprovalComponent implements OnInit {
-  areAllSelected: boolean = true;
+  areAllSelected: boolean = false;
   isCancelModalOpen: boolean = false;
   isSendModalOpen: boolean = false;
   modalDescription: string = '';

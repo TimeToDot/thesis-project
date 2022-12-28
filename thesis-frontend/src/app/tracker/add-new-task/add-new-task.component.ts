@@ -173,7 +173,7 @@ export class AddNewTaskComponent implements OnInit {
     if (this.addTaskForm.valid) {
       this.isAddModalOpen = true;
       const task = this.addTaskForm.get(['task'])?.value;
-      this.modalDescription = `Do you want to add ${task.name} to your timesheet?`;
+      this.modalDescription = `Are you sure you want to add ${task.name} to your timesheet?`;
     } else {
       this.addTaskForm.markAllAsTouched();
       this.toastService.showToast(ToastState.Error, 'Form invalid');

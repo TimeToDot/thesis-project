@@ -2,7 +2,7 @@
   <div class="header">
     <div class="title">
       <span class="material-icons-outlined">work_outline</span>
-      <h2 class="name">Edit position</h2>
+      <h2 class="name">Position</h2>
     </div>
   </div>
   <div class="card-body view-position">
@@ -15,13 +15,13 @@
       <bvr-button (click)="openArchiveModal()" icon="archive" styleClass="button-icon"></bvr-button>
     </div>
     <div class="form" [formGroup]="editPositionForm">
-      <bvr-form-field label="Task Name" [required]="isRequired('name')">
+      <bvr-form-field label="Position Name" [required]="isRequired('name')">
         <input formControlName="name" type="text" />
         <ng-container *ngIf="showErrors('name')">
           <small *ngIf="editPositionForm.get('name')?.hasError('required')">This field is required.</small>
         </ng-container>
       </bvr-form-field>
-      <bvr-form-field label="Task Description" [required]="isRequired('description')">
+      <bvr-form-field label="Position Description" [required]="isRequired('description')">
         <textarea formControlName="description"></textarea>
         <ng-container *ngIf="showErrors('description')">
           <small *ngIf="editPositionForm.get('description')?.hasError('required')">This field is required.</small>
@@ -36,7 +36,7 @@
   </div>
 </div>
 
-<bvr-modal (confirm)="archive()" confirmLabel="Archive" [description]="modalDescription" [title]="'Archive Position'"
+<bvr-modal (confirm)="archive()" confirmLabel="Archive" [description]="modalDescription" [title]="'Archive position'"
   [(visible)]="isArchiveModalOpen"></bvr-modal>
 <bvr-modal (confirm)="cancel()" confirmLabel="Leave" [description]="modalDescription" [title]="'Leave'"
   [(visible)]="isCancelModalOpen"></bvr-modal>

@@ -75,7 +75,7 @@ export class AddTaskComponent {
   add(): void {
     this.router.navigate(['..'], { relativeTo: this.route }).then(() => {
       setTimeout(
-        () => this.toastService.showToast(ToastState.Success, 'Task created'),
+        () => this.toastService.showToast(ToastState.Success, 'Task added'),
         200
       );
       setTimeout(() => this.toastService.dismissToast(), 3200);

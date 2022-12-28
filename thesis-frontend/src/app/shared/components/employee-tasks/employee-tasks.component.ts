@@ -79,10 +79,12 @@ export class EmployeeTasksComponent implements OnInit {
   approveTask(employeeTaskId: string): void {
     this.tasksToRejectService.removeTask(employeeTaskId);
     this.toastService.showToast(ToastState.Info, 'Task approved');
+    setTimeout(() => this.toastService.dismissToast(), 3000);
   }
 
   rejectTask(employeeTaskId: string): void {
     this.tasksToRejectService.addTask(employeeTaskId);
     this.toastService.showToast(ToastState.Info, 'Task rejected');
+    setTimeout(() => this.toastService.dismissToast(), 3000);
   }
 }

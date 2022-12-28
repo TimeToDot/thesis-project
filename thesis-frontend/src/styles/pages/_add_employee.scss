@@ -11,8 +11,8 @@
     display: flex;
     font-size: $font-small;
     font-weight: 600;
-    height: 12 * $grid-base;
-    margin: 4 * $grid-base 0 12 * $grid-base;
+    justify-content: center;
+    margin-bottom: 6 * $grid-base;
   }
 
   .row,

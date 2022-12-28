@@ -19,6 +19,10 @@
     .search-icon {
       height: 6 * $grid-base;
       padding: 0 0 0 6 * $grid-base;
+
+      &.icon-archived {
+        filter: grayscale(100%);
+      }
     }
 
     .clear-icon,

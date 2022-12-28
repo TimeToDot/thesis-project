@@ -36,8 +36,8 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
   approveTasksForm!: FormGroup;
   employees: Employee[] = [];
   isActive: boolean = true;
+  isConfirmModalOpen: boolean = false;
   isResetModalOpen: boolean = false;
-  isSaveModalOpen: boolean = false;
   modalDescription: string = '';
   projectEmployee: ProjectEmployee = {
     id: '',
@@ -149,14 +149,14 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
     });
   }
 
-  openSaveModal(): void {
-    this.isSaveModalOpen = true;
-    this.modalDescription = `Are you sure you want to approve X and reject Y tasks?`;
-  }
-
   openCancelModal(): void {
     this.isResetModalOpen = true;
     this.modalDescription = `Are you sure you want to reset? You will lose your unsaved changes if you continue.`;
+  }
+
+  openConfirmModal(): void {
+    this.isConfirmModalOpen = true;
+    this.modalDescription = `Are you sure you want to approve X and reject Y tasks?`;
   }
 
   cancel(): void {

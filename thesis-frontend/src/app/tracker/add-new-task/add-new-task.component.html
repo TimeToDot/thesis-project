@@ -14,13 +14,13 @@
 
   <div class="dates">
     <div class="date">
-      <bvr-form-field label="Start date" [required]="isRequired('startDate')">
+      <bvr-form-field label="Start Date" [required]="isRequired('startDate')">
         <bvr-date-picker formControlName="startDate"></bvr-date-picker>
         <ng-container *ngIf="showErrors('startDate')">
           <small *ngIf="addTaskForm.get('startDate')?.hasError('required')">This field is required.</small>
         </ng-container>
       </bvr-form-field>
-      <bvr-form-field label="Start time" [required]="isRequired('startTime')">
+      <bvr-form-field label="Start Time" [required]="isRequired('startTime')">
         <bvr-time-picker formControlName="startTime"></bvr-time-picker>
         <ng-container *ngIf="showErrors('startTime')">
           <small *ngIf="addTaskForm.get('startTime')?.hasError('required')">This field is required.</small>
@@ -28,14 +28,14 @@
       </bvr-form-field>
     </div>
     <div class="date">
-      <bvr-form-field label="End date" [required]="isRequired('endDate')">
+      <bvr-form-field label="End Date" [required]="isRequired('endDate')">
         <bvr-date-picker formControlName="endDate"></bvr-date-picker>
         <ng-container *ngIf="showErrors() || showErrors('endDate')">
           <small *ngIf="addTaskForm.get('endDate')?.hasError('required')">This field is required.</small>
           <small *ngIf="addTaskForm?.hasError('dateRange')">The date is wrong.</small>
         </ng-container>
       </bvr-form-field>
-      <bvr-form-field label="End time" [required]="isRequired('endTime')">
+      <bvr-form-field label="End Time" [required]="isRequired('endTime')">
         <bvr-time-picker formControlName="endTime"></bvr-time-picker>
         <ng-container *ngIf="showErrors() || showErrors('endTime')">
           <small *ngIf="addTaskForm.get('endTime')?.hasError('required')">This field is required.</small>
@@ -67,7 +67,7 @@
   [(visible)]="isResetModalOpen"></bvr-modal>
 <bvr-modal (confirm)="cancel()" confirmLabel="Leave" [description]="modalDescription" [title]="'Leave'"
   [(visible)]="isCancelModalOpen"></bvr-modal>
-<bvr-modal (confirm)="save()" confirmLabel="Save" [description]="modalDescription" [title]="'Save Task'"
+<bvr-modal (confirm)="save()" confirmLabel="Save" [description]="modalDescription" [title]="'Save changes'"
   [(visible)]="isSaveModalOpen"></bvr-modal>
 
 <bvr-toast></bvr-toast>

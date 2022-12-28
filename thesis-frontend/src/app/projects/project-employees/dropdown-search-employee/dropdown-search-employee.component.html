@@ -1,13 +1,13 @@
 <div class="dropdown-search-employee">
   <div [ngClass]="{ disabled: disabled }">
     <div class="search-bar">
-      <input *ngIf="selectEnabled" (blur)="onBlur()" class="search-input" (focus)="onFocus()" [(ngModel)]="query"
-        placeholder="Search by full name or email" type="search" />
+      <input *ngIf="selectEnabled || !(selectEnabled || selectedOption)" (blur)="onBlur()" class="search-input"
+        (focus)="onFocus()" [(ngModel)]="query" placeholder="Search by full name or email" type="search" />
       <div *ngIf="!selectEnabled && selectedOption" class="search-placeholder" (click)="onFocus()">
         <div>{{query}}</div>
         <div *ngIf="!isActive" class="archived">(Archived)</div>
       </div>
-      <img *ngIf="image" [src]="image" class="search-icon" />
+      <img *ngIf="image" [src]="image" class="search-icon" [class.icon-archived]="!isActive" />
       <span *ngIf="!image" class="material-icons-outlined search-icon">search</span>
       <span *ngIf="this.query.length > 0 && selectEnabled" class="material-icons-outlined clear-icon"
         (click)="clearQuery()">close</span>
