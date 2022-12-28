@@ -15,6 +15,10 @@ import { ViewPersonalInfoComponent } from './admin-employees/view-personal-info/
 import { ViewAddressInfoComponent } from './admin-employees/view-address-info/view-address-info.component';
 import { ViewEmploymentInfoComponent } from './admin-employees/view-employment-info/view-employment-info.component';
 import { ViewAccountInfoComponent } from './admin-employees/view-account-info/view-account-info.component';
+import { EditPersonalInfoComponent } from './admin-employees/edit-personal-info/edit-personal-info.component';
+import { EditAddressInfoComponent } from './admin-employees/edit-address-info/edit-address-info.component';
+import { EditEmploymentInfoComponent } from './admin-employees/edit-employment-info/edit-employment-info.component';
+import { EditAccountInfoComponent } from './admin-employees/edit-account-info/edit-account-info.component';
 
 export const adminRoutes: Routes = [
   {
@@ -67,6 +71,33 @@ export const adminRoutes: Routes = [
     component: EditEmployeeComponent,
     canActivate: [CanAdminEmployeesGuard],
     data: { sidenavTabs: 3 },
+    children: [
+      {
+        path: 'personal-info',
+        component: EditPersonalInfoComponent,
+        canActivate: [CanAdminEmployeesGuard],
+        data: { sidenavTabs: 3, tabs: 1 },
+      },
+      {
+        path: 'address-info',
+        component: EditAddressInfoComponent,
+        canActivate: [CanAdminEmployeesGuard],
+        data: { sidenavTabs: 3, tabs: 2 },
+      },
+      {
+        path: 'employment-info',
+        component: EditEmploymentInfoComponent,
+        canActivate: [CanAdminEmployeesGuard],
+        data: { sidenavTabs: 3, tabs: 3 },
+      },
+      {
+        path: 'account-info',
+        component: EditAccountInfoComponent,
+        canActivate: [CanAdminEmployeesGuard],
+        data: { sidenavTabs: 3, tabs: 4 },
+      },
+      { path: '', redirectTo: 'personal-info', pathMatch: 'full' },
+    ],
   },
   {
     path: 'positions',

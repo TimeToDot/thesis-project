@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule, formatDate, Location } from '@angular/common';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { Account } from '../../../shared/models/account.model';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { AccountsService } from '../../services/accounts.service';
 import { first } from 'rxjs';
 import { ToastState } from '../../../shared/enum/toast-state';
@@ -21,6 +21,8 @@ import { Position } from '../../models/position.model';
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
 import { ToastComponent } from '../../../shared/components/toast/toast.component';
 import { ValidationService } from '../../../shared/services/validation.service';
+import { TabsComponent } from '../../../shared/components/tabs/tabs.component';
+import { LinkOption } from '../../../shared/models/link-option.model';
 
 @Component({
   selector: 'bvr-edit-employee',
@@ -33,6 +35,8 @@ import { ValidationService } from '../../../shared/services/validation.service';
     FormFieldComponent,
     ModalComponent,
     ReactiveFormsModule,
+    RouterOutlet,
+    TabsComponent,
     ToastComponent,
   ],
   templateUrl: './edit-employee.component.html',
@@ -82,6 +86,7 @@ export class EditEmployeeComponent {
   isCancelModalOpen: boolean = false;
   isSaveModalOpen: boolean = false;
   modalDescription: string = '';
+  navbarOptions: LinkOption[] = [];
   positions: Position[] = [];
 
   constructor(
@@ -97,6 +102,7 @@ export class EditEmployeeComponent {
 
   ngOnInit(): void {
     this.createForm();
+    this.getNavbarOptions();
     this.getAccount();
     this.getPositions();
   }
@@ -134,6 +140,13 @@ export class EditEmployeeComponent {
         accountNumber: ['', [Validators.required]],
       }),
     });
+  }
+
+  getNavbarOptions(): void {
+    this.navbarOptions.push({ name: 'Personal', path: 'personal-info' });
+    this.navbarOptions.push({ name: 'Address', path: 'address-info' });
+    this.navbarOptions.push({ name: 'Employment', path: 'employment-info' });
+    this.navbarOptions.push({ name: 'Account', path: 'account-info' });
   }
 
   getAccount(): void {
@@ -229,5 +242,9 @@ export class EditEmployeeComponent {
       );
       setTimeout(() => this.toastService.dismissToast(), 3200);
     });
+  }
+
+  onOutletLoaded(component: any): void {
+    component.account = this.account;
   }
 }

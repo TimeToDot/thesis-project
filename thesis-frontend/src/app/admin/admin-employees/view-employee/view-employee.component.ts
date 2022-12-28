@@ -34,7 +34,7 @@ import { LinkOption } from '../../../shared/models/link-option.model';
   templateUrl: './view-employee.component.html',
 })
 export class ViewEmployeeComponent {
-  currentAccount: Account = {
+  account: Account = {
     id: '',
     firstName: '',
     middleName: '',
@@ -96,7 +96,7 @@ export class ViewEmployeeComponent {
         .getAccount(accountId)
         .pipe(first())
         .subscribe(account => {
-          this.currentAccount = account;
+          this.account = account;
         });
     }
   }
@@ -110,7 +110,7 @@ export class ViewEmployeeComponent {
 
   openArchiveModal(): void {
     this.isArchiveModalOpen = true;
-    this.modalDescription = `Are you sure you want to archive ${this.currentAccount.firstName} ${this.currentAccount.lastName}? This action cannot be undone.`;
+    this.modalDescription = `Are you sure you want to archive ${this.account.firstName} ${this.account.lastName}? This action cannot be undone.`;
   }
 
   archive(): void {
@@ -125,6 +125,6 @@ export class ViewEmployeeComponent {
   }
 
   onOutletLoaded(component: any): void {
-    component.account = this.currentAccount;
+    component.account = this.account;
   }
 }

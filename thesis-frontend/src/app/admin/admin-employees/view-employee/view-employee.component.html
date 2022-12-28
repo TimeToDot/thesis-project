@@ -8,17 +8,16 @@
   <div class="card-body view-employee">
     <div class="header">
       <div class="name">
-        <img [src]="currentAccount.image" class="picture" [ngClass]="{ archived: !currentAccount.active }" />
+        <img [src]="account.image" class="picture" [ngClass]="{ archived: !account.active }" />
         <h4>
-          {{ currentAccount.firstName }}
-          {{ currentAccount.lastName }}
+          {{ account.firstName }}
+          {{ account.lastName }}
         </h4>
-        <h4 *ngIf="!currentAccount.active" class="archived">(Archived)</h4>
+        <h4 *ngIf="!account.active" class="archived">(Archived)</h4>
       </div>
       <div>
-        <bvr-button *ngIf="currentAccount.active" icon="edit" [routerLink]="['edit']"
-          styleClass="button-icon"></bvr-button>
-        <bvr-button *ngIf="currentAccount.active" (click)="openArchiveModal()" icon="archive" styleClass="button-icon">
+        <bvr-button *ngIf="account.active" icon="edit" [routerLink]="['edit']" styleClass="button-icon"></bvr-button>
+        <bvr-button *ngIf="account.active" (click)="openArchiveModal()" icon="archive" styleClass="button-icon">
         </bvr-button>
       </div>
     </div>
