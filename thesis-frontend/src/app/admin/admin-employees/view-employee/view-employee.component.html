@@ -22,11 +22,12 @@
       </div>
     </div>
 
-    <div [@tabs]="getRouteAnimationData()" class="view-employee-content">
+    <div [@tabs]="getRouteAnimationData()" (@tabs.start)="toggleFormButtons(false)"
+      (@tabs.done)="toggleFormButtons(true)" class="view-employee-content">
       <router-outlet (activate)="onOutletLoaded($event)"></router-outlet>
     </div>
 
-    <div class="form-buttons">
+    <div *ngIf="enableFormButtons" class="form-buttons">
       <bvr-button class="form-button" label="Cancel" [routerLink]="['..']" styleClass="button-text"></bvr-button>
     </div>
   </div>

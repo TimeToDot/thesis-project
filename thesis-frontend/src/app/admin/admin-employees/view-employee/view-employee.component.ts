@@ -76,6 +76,7 @@ export class ViewEmployeeComponent {
     accountNumber: '',
     active: true,
   };
+  enableFormButtons: boolean = true;
   isArchiveModalOpen: boolean = false;
   modalDescription: string = '';
   navbarOptions: LinkOption[] = [];
@@ -134,5 +135,9 @@ export class ViewEmployeeComponent {
 
   getRouteAnimationData() {
     return this.contexts.getContext('primary')?.route?.snapshot.data['tabs'];
+  }
+
+  toggleFormButtons(value: boolean): void {
+    this.enableFormButtons = value;
   }
 }

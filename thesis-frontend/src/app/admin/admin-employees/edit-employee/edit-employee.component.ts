@@ -24,7 +24,6 @@ import { PositionsService } from '../../services/positions.service';
 import { Position } from '../../models/position.model';
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
 import { ToastComponent } from '../../../shared/components/toast/toast.component';
-import { ValidationService } from '../../../shared/services/validation.service';
 import { TabsComponent } from '../../../shared/components/tabs/tabs.component';
 import { LinkOption } from '../../../shared/models/link-option.model';
 import { EditPersonalInfoComponent } from '../edit-personal-info/edit-personal-info.component';
@@ -95,6 +94,7 @@ export class EditEmployeeComponent {
     active: true,
   };
   editEmployeeForm!: FormGroup;
+  enableFormButtons: boolean = true;
   isArchiveModalOpen: boolean = false;
   isCancelModalOpen: boolean = false;
   isSaveModalOpen: boolean = false;
@@ -111,8 +111,7 @@ export class EditEmployeeComponent {
     private positionsService: PositionsService,
     private route: ActivatedRoute,
     private router: Router,
-    private toastService: ToastService,
-    private validationService: ValidationService
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -264,5 +263,9 @@ export class EditEmployeeComponent {
       );
       setTimeout(() => this.toastService.dismissToast(), 3200);
     });
+  }
+
+  toggleFormButtons(value: boolean): void {
+    this.enableFormButtons = value;
   }
 }
