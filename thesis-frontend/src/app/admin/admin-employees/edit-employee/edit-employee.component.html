@@ -3,7 +3,8 @@
     <div class="title">
       <h2 class="name">Edit employee</h2>
     </div>
-    <bvr-tabs [navbarOptions]="navbarOptions"></bvr-tabs>
+    <bvr-tabs [hasRouting]="false" [navbarOptions]="navbarOptions" [selectedIndex]="tabIndex"
+      (selectedIndexChange)="updateTabIndex($event)"></bvr-tabs>
   </div>
   <div class="card-body view-employee">
     <div class="header">
@@ -17,8 +18,11 @@
       <bvr-button (click)="openArchiveModal()" icon="archive" styleClass="button-icon"></bvr-button>
     </div>
 
-    <div class="view-employee-content">
-      <router-outlet (activate)="onOutletLoaded($event)"></router-outlet>
+    <div [@tabs]="tabIndex" class="view-employee-content">
+      <bvr-edit-personal-info *ngIf="tabIndex === 0" [editEmployeeForm]="editEmployeeForm"></bvr-edit-personal-info>
+      <bvr-edit-address-info *ngIf="tabIndex === 1" [editEmployeeForm]="editEmployeeForm"></bvr-edit-address-info>
+      <bvr-edit-employment-info *ngIf="tabIndex === 2" [editEmployeeForm]="editEmployeeForm"></bvr-edit-employment-info>
+      <bvr-edit-account-info *ngIf="tabIndex === 3" [editEmployeeForm]="editEmployeeForm"></bvr-edit-account-info>
     </div>
 
     <div class="form-buttons">

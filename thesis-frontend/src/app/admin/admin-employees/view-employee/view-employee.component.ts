@@ -4,6 +4,7 @@ import { first } from 'rxjs';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import {
   ActivatedRoute,
+  ChildrenOutletContexts,
   Router,
   RouterLinkWithHref,
   RouterOutlet,
@@ -17,6 +18,7 @@ import { ToastState } from '../../../shared/enum/toast-state';
 import { ToastComponent } from '../../../shared/components/toast/toast.component';
 import { TabsComponent } from '../../../shared/components/tabs/tabs.component';
 import { LinkOption } from '../../../shared/models/link-option.model';
+import { tabAnimation } from '../../../shared/animations/tab.animation';
 
 @Component({
   selector: 'bvr-view-employee',
@@ -32,6 +34,7 @@ import { LinkOption } from '../../../shared/models/link-option.model';
     ToastComponent,
   ],
   templateUrl: './view-employee.component.html',
+  animations: [tabAnimation],
 })
 export class ViewEmployeeComponent {
   account: Account = {
@@ -79,6 +82,7 @@ export class ViewEmployeeComponent {
 
   constructor(
     private accountsService: AccountsService,
+    private contexts: ChildrenOutletContexts,
     private route: ActivatedRoute,
     private router: Router,
     private toastService: ToastService
@@ -126,5 +130,9 @@ export class ViewEmployeeComponent {
 
   onOutletLoaded(component: any): void {
     component.account = this.account;
+  }
+
+  getRouteAnimationData() {
+    return this.contexts.getContext('primary')?.route?.snapshot.data['tabs'];
   }
 }

@@ -22,7 +22,7 @@
       </div>
     </div>
 
-    <div class="view-employee-content">
+    <div [@tabs]="getRouteAnimationData()" class="view-employee-content">
       <router-outlet (activate)="onOutletLoaded($event)"></router-outlet>
     </div>
 

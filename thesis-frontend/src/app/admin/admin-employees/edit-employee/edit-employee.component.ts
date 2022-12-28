@@ -2,7 +2,11 @@ import { Component } from '@angular/core';
 import { CommonModule, formatDate, Location } from '@angular/common';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { Account } from '../../../shared/models/account.model';
-import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
+import {
+  ActivatedRoute,
+  ChildrenOutletContexts,
+  Router,
+} from '@angular/router';
 import { AccountsService } from '../../services/accounts.service';
 import { first } from 'rxjs';
 import { ToastState } from '../../../shared/enum/toast-state';
@@ -23,6 +27,11 @@ import { ToastComponent } from '../../../shared/components/toast/toast.component
 import { ValidationService } from '../../../shared/services/validation.service';
 import { TabsComponent } from '../../../shared/components/tabs/tabs.component';
 import { LinkOption } from '../../../shared/models/link-option.model';
+import { EditPersonalInfoComponent } from '../edit-personal-info/edit-personal-info.component';
+import { EditAddressInfoComponent } from '../edit-address-info/edit-address-info.component';
+import { EditEmploymentInfoComponent } from '../edit-employment-info/edit-employment-info.component';
+import { EditAccountInfoComponent } from '../edit-account-info/edit-account-info.component';
+import { tabAnimation } from '../../../shared/animations/tab.animation';
 
 @Component({
   selector: 'bvr-edit-employee',
@@ -32,14 +41,18 @@ import { LinkOption } from '../../../shared/models/link-option.model';
     CommonModule,
     DatePickerComponent,
     DropdownListComponent,
+    EditPersonalInfoComponent,
+    EditAddressInfoComponent,
+    EditEmploymentInfoComponent,
+    EditAccountInfoComponent,
     FormFieldComponent,
     ModalComponent,
     ReactiveFormsModule,
-    RouterOutlet,
     TabsComponent,
     ToastComponent,
   ],
   templateUrl: './edit-employee.component.html',
+  animations: [tabAnimation],
 })
 export class EditEmployeeComponent {
   account: Account = {
@@ -88,9 +101,11 @@ export class EditEmployeeComponent {
   modalDescription: string = '';
   navbarOptions: LinkOption[] = [];
   positions: Position[] = [];
+  tabIndex: number = 0;
 
   constructor(
     private accountsService: AccountsService,
+    private contexts: ChildrenOutletContexts,
     private fb: FormBuilder,
     private location: Location,
     private positionsService: PositionsService,
@@ -101,43 +116,62 @@ export class EditEmployeeComponent {
   ) {}
 
   ngOnInit(): void {
+    this.getCurrentTab();
     this.createForm();
     this.getNavbarOptions();
     this.getAccount();
     this.getPositions();
   }
 
+  getCurrentTab(): void {
+    console.log(
+      this.contexts.getContext('primary')?.route?.snapshot.data['tabs']
+    );
+    this.tabIndex =
+      this.contexts.getContext('primary')?.route?.snapshot.data['tabs'];
+  }
+
   createForm(): void {
     this.editEmployeeForm = this.fb.group({
-      generalInfo: this.fb.group({
+      personalInfo: this.fb.group({
         firstName: ['', [Validators.required]],
         lastName: ['', [Validators.required]],
-        email: ['', [Validators.required]],
+        middleName: ['', []],
+        sex: ['', [Validators.required]],
+        birthDate: [
+          formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en'),
+          [Validators.required],
+        ],
+        birthPlace: ['', [Validators.required]],
+        idCardNumber: ['', [Validators.required]],
+        pesel: ['', []],
+      }),
+      addressInfo: this.fb.group({
+        street: ['', [Validators.required]],
+        houseNumber: ['', [Validators.required]],
+        apartmentNumber: ['', []],
+        city: ['', [Validators.required]],
+        postalCode: ['', [Validators.required]],
+        country: ['', [Validators.required]],
+        phoneNumber: ['', [Validators.required]],
+        privateEmail: ['', [Validators.required]],
+      }),
+      employmentInfo: this.fb.group({
         position: ['', [Validators.required]],
         employmentDate: [
           formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en'),
           [Validators.required],
         ],
+        contractType: ['', [Validators.required]],
         workingTime: ['', [Validators.required]],
-      }),
-      personalInfo: this.fb.group({
-        birthDate: [
-          formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en'),
-          [Validators.required],
-        ],
-      }),
-      contactInfo: this.fb.group({
-        phoneNumber: ['', [Validators.required]],
-        privateEmail: ['', [Validators.required]],
-        street: ['', [Validators.required]],
-        houseNumber: ['', [Validators.required]],
-        apartmentNumber: ['', [Validators.required]],
-        city: ['', [Validators.required]],
-        postalCode: ['', [Validators.required]],
-        country: ['', [Validators.required]],
-      }),
-      billingInfo: this.fb.group({
+        rate: ['', [Validators.required]],
+        payday: ['', [Validators.required]],
         accountNumber: ['', [Validators.required]],
+      }),
+      accountInfo: this.fb.group({
+        email: ['', [Validators.required]],
+        // password: ['', [Validators.required]],
+        // repeatPassword: ['', [Validators.required]],
       }),
     });
   }
@@ -167,6 +201,10 @@ export class EditEmployeeComponent {
       .getPositions()
       .pipe(first())
       .subscribe(positions => (this.positions = positions));
+  }
+
+  updateTabIndex(index: number): void {
+    this.tabIndex = index;
   }
 
   updateFormFields(): void {
@@ -242,9 +280,5 @@ export class EditEmployeeComponent {
       );
       setTimeout(() => this.toastService.dismissToast(), 3200);
     });
-  }
-
-  onOutletLoaded(component: any): void {
-    component.account = this.account;
   }
 }
