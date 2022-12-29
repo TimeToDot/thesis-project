@@ -51,6 +51,7 @@ export class AddNewTaskComponent implements OnInit {
   isCancelModalOpen: boolean = false;
   isDeleteModalOpen: boolean = false;
   isFromGuard: boolean = false;
+  isGuardDisabled: boolean = false;
   isResetModalOpen: boolean = false;
   isSaveModalOpen: boolean = false;
   modalDescription: string = '';
@@ -218,10 +219,12 @@ export class AddNewTaskComponent implements OnInit {
   }
 
   cancel(value: boolean): void {
+    this.disableGuard();
     this.isFromGuard ? this.redirectSubject.next(value) : this.location.back();
   }
 
   delete(): void {
+    this.disableGuard();
     this.router
       .navigate(['../../tasks-list'], { relativeTo: this.route })
       .then(() => {
@@ -239,6 +242,7 @@ export class AddNewTaskComponent implements OnInit {
   }
 
   save(): void {
+    this.disableGuard();
     this.router
       .navigate(['../../tasks-list'], { relativeTo: this.route })
       .then(() => {
@@ -248,6 +252,11 @@ export class AddNewTaskComponent implements OnInit {
         );
         setTimeout(() => this.toastService.dismissToast(), 3200);
       });
+  }
+
+  disableGuard(): void {
+    this.isGuardDisabled = true;
+    this.redirectSubject.next(true);
   }
 
   isRequired(name: string): boolean {

@@ -3,7 +3,7 @@
     <div class="form-header">{{ 'Personal Info' | uppercase }}</div>
     <div class="row">
       <bvr-form-field class="left-field" label="First Name" [required]="isRequired('firstName')">
-        <input formControlName="firstName" placeholder="Name" type="text" />
+        <input formControlName="firstName" placeholder="First Name" type="text" />
         <ng-container *ngIf="showErrors('firstName')">
           <small *ngIf="
                   addEmployeeForm
@@ -13,7 +13,7 @@
         </ng-container>
       </bvr-form-field>
       <bvr-form-field class="field" label="Last Name" [required]="isRequired('lastName')">
-        <input formControlName="lastName" placeholder="Name" type="text" />
+        <input formControlName="lastName" placeholder="Last Name" type="text" />
         <ng-container *ngIf="showErrors('lastName')">
           <small *ngIf="
                   addEmployeeForm

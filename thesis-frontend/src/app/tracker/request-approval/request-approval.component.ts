@@ -44,6 +44,7 @@ export class RequestApprovalComponent implements OnInit {
   areAllSelected: boolean = false;
   isCancelModalOpen: boolean = false;
   isFromGuard: boolean = false;
+  isGuardDisabled: boolean = false;
   isSendModalOpen: boolean = false;
   modalDescription: string = '';
   projectApprovals: ProjectApproval[] = [];
@@ -123,10 +124,12 @@ export class RequestApprovalComponent implements OnInit {
   }
 
   cancel(value: boolean): void {
+    this.disableGuard();
     this.isFromGuard ? this.redirectSubject.next(value) : this.location.back();
   }
 
   send(): void {
+    this.disableGuard();
     new Promise((resolve, _) => {
       this.location.back();
       resolve('done');
@@ -141,6 +144,11 @@ export class RequestApprovalComponent implements OnInit {
       );
       setTimeout(() => this.toastService.dismissToast(), 3200);
     });
+  }
+
+  disableGuard(): void {
+    this.isGuardDisabled = true;
+    this.redirectSubject.next(true);
   }
 
   isRequired(name: string): boolean {

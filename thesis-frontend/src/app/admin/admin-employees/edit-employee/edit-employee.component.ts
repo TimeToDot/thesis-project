@@ -98,6 +98,7 @@ export class EditEmployeeComponent {
   isArchiveModalOpen: boolean = false;
   isCancelModalOpen: boolean = false;
   isFromGuard: boolean = false;
+  isGuardDisabled: boolean = false;
   isSaveModalOpen: boolean = false;
   modalDescription: string = '';
   navbarOptions: LinkOption[] = [];
@@ -238,6 +239,7 @@ export class EditEmployeeComponent {
   }
 
   archive(): void {
+    this.disableGuard();
     this.router.navigate(['../..'], { relativeTo: this.route }).then(() => {
       setTimeout(
         () =>
@@ -249,10 +251,12 @@ export class EditEmployeeComponent {
   }
 
   cancel(value: boolean): void {
+    this.disableGuard();
     this.isFromGuard ? this.redirectSubject.next(value) : this.location.back();
   }
 
   save(): void {
+    this.disableGuard();
     new Promise((resolve, _) => {
       this.location.back();
       resolve('done');
@@ -264,6 +268,11 @@ export class EditEmployeeComponent {
       );
       setTimeout(() => this.toastService.dismissToast(), 3200);
     });
+  }
+
+  disableGuard(): void {
+    this.isGuardDisabled = true;
+    this.redirectSubject.next(true);
   }
 
   toggleFormButtons(value: boolean): void {

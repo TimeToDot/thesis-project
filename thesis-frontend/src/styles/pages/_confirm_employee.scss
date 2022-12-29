@@ -1,12 +1,37 @@
-.confirm-employee {
-  align-items: flex-start;
+.add-new-employee {
   display: flex;
   flex-direction: column;
-  padding: 0 31 * $grid-base 12 * $grid-base;
+  flex: 1;
+}
+
+.add-project-employee {
+  flex: 1;
+  padding: 8 * $grid-base 31 * $grid-base;
+
+  .row {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+  }
+}
+
+.confirm-employee {
+  // align-items: flex-start;
+  display: flex;
+  flex-direction: row;
+  // padding: 0 31 * $grid-base 12 * $grid-base;
   width: 100%;
 
-  input {
+  .employee-details {
     width: 100%;
+
+    .email {
+      flex: 2;
+    }
+
+    .position {
+      flex: 1;
+    }
   }
 
   .personal-info {
@@ -19,13 +44,7 @@
 
   .picture {
     height: 37.5 * $grid-base;
-    margin-right: 16 * $grid-base;
+    margin-right: 11 * $grid-base;
     width: 37.5 * $grid-base;
-  }
-
-  .row {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
   }
 }

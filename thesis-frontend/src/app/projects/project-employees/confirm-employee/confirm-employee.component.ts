@@ -41,6 +41,7 @@ export class ConfirmEmployeeComponent implements OnInit {
   };
   isCancelModalOpen: boolean = false;
   isFromGuard: boolean = false;
+  isGuardDisabled: boolean = false;
   modalDescription: string = '';
   redirectSubject: Subject<boolean> = new Subject<boolean>();
 
@@ -71,7 +72,13 @@ export class ConfirmEmployeeComponent implements OnInit {
   }
 
   cancel(value: boolean): void {
+    this.disableGuard();
     this.isFromGuard ? this.redirectSubject.next(value) : this.location.back();
+  }
+
+  disableGuard(): void {
+    this.isGuardDisabled = true;
+    this.redirectSubject.next(true);
   }
 
   nextStep(): void {

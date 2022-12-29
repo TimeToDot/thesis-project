@@ -37,6 +37,7 @@ export class EditPositionComponent implements OnInit {
   isArchiveModalOpen: boolean = false;
   isCancelModalOpen: boolean = false;
   isFromGuard: boolean = false;
+  isGuardDisabled: boolean = false;
   isSaveModalOpen: boolean = false;
   modalDescription: string = '';
   position: Position = {
@@ -117,10 +118,12 @@ export class EditPositionComponent implements OnInit {
   }
 
   cancel(value: boolean): void {
+    this.disableGuard();
     this.isFromGuard ? this.redirectSubject.next(value) : this.location.back();
   }
 
   save(): void {
+    this.disableGuard();
     new Promise((resolve, _) => {
       this.location.back();
       resolve('done');
@@ -135,6 +138,7 @@ export class EditPositionComponent implements OnInit {
   }
 
   archive(): void {
+    this.disableGuard();
     this.router.navigate(['../..'], { relativeTo: this.route }).then(() => {
       setTimeout(
         () =>
@@ -143,6 +147,11 @@ export class EditPositionComponent implements OnInit {
       );
       setTimeout(() => this.toastService.dismissToast(), 3200);
     });
+  }
+
+  disableGuard(): void {
+    this.isGuardDisabled = true;
+    this.redirectSubject.next(true);
   }
 
   isRequired(name: string): boolean {

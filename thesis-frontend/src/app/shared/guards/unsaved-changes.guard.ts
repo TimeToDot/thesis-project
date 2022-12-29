@@ -21,13 +21,12 @@ export class UnsavedChangesGuard implements CanDeactivate<any> {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    let subject = new Subject<boolean>();
+    if (component.isGuardDisabled) {
+      return true;
+    }
     component.openCancelModal(true);
+    let subject = new Subject<boolean>();
     subject = component.redirectSubject;
-    const subscription = subject.subscribe(value => {
-      console.log(value);
-      subscription.unsubscribe();
-    });
     return subject.asObservable();
   }
 }

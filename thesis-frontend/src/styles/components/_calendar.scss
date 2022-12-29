@@ -19,12 +19,12 @@
 }
 
 .week-days {
-  color: $color-text-secondary;
   display: flex;
-  font-weight: 600;
 
   .day {
+    color: $color-text-secondary;
     cursor: auto;
+    font-weight: 600;
   }
 }
 

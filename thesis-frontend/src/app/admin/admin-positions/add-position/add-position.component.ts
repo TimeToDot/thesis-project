@@ -35,6 +35,7 @@ export class AddPositionComponent implements OnInit {
   isAddModalOpen: boolean = false;
   isCancelModalOpen: boolean = false;
   isFromGuard: boolean = false;
+  isGuardDisabled: boolean = false;
   modalDescription: string = '';
   redirectSubject: Subject<boolean> = new Subject<boolean>();
 
@@ -77,6 +78,7 @@ export class AddPositionComponent implements OnInit {
   }
 
   add(): void {
+    this.disableGuard();
     this.router.navigate(['..'], { relativeTo: this.route }).then(() => {
       setTimeout(
         () => this.toastService.showToast(ToastState.Success, 'Position added'),
@@ -87,7 +89,13 @@ export class AddPositionComponent implements OnInit {
   }
 
   cancel(value: boolean): void {
+    this.disableGuard();
     this.isFromGuard ? this.redirectSubject.next(value) : this.location.back();
+  }
+
+  disableGuard(): void {
+    this.isGuardDisabled = true;
+    this.redirectSubject.next(true);
   }
 
   isRequired(name: string): boolean {

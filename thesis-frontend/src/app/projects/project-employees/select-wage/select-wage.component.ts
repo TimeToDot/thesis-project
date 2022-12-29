@@ -43,6 +43,7 @@ export class SelectWageComponent {
   isAddModalOpen: boolean = false;
   isCancelModalOpen: boolean = false;
   isFromGuard: boolean = false;
+  isGuardDisabled: boolean = false;
   modalDescription: string = '';
   redirectSubject: Subject<boolean> = new Subject<boolean>();
 
@@ -86,10 +87,12 @@ export class SelectWageComponent {
   }
 
   cancel(value: boolean): void {
+    this.disableGuard();
     this.isFromGuard ? this.redirectSubject.next(value) : this.location.back();
   }
 
   add(): void {
+    this.disableGuard();
     this.router.navigate(['..'], { relativeTo: this.route }).then(() => {
       setTimeout(
         () => this.toastService.showToast(ToastState.Success, 'Employee added'),
@@ -97,6 +100,11 @@ export class SelectWageComponent {
       );
       setTimeout(() => this.toastService.dismissToast(), 3200);
     });
+  }
+
+  disableGuard(): void {
+    this.isGuardDisabled = true;
+    this.redirectSubject.next(true);
   }
 
   isRequired(name: string): boolean {
