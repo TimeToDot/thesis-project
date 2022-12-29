@@ -22,9 +22,9 @@
       <span>{{ task.description }}</span>
     </bvr-form-field>
   </div>
-  <div class="form-buttons">
-    <bvr-button label="Cancel" [routerLink]="['..']" styleClass="button-text"></bvr-button>
-  </div>
+</div>
+<div class="form-buttons">
+  <bvr-button label="Cancel" [routerLink]="['..']" styleClass="button-text"></bvr-button>
 </div>
 
 <bvr-modal (confirm)="archive()" confirmLabel="archive" [description]="modalDescription" [title]="'Archive task'"

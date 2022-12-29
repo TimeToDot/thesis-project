@@ -14,10 +14,4 @@
     height: 105 * $grid-base;
     overflow-y: scroll;
   }
-
-  .form-buttons {
-    justify-content: flex-end;
-    display: flex;
-    margin-top: 8 * $grid-base;
-  }
 }

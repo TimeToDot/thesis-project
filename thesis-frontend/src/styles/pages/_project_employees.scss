@@ -1,6 +1,7 @@
 .project-employee {
   align-items: flex-end;
   display: flex;
+  flex: 1;
   flex-direction: column;
 
   .header {
@@ -39,10 +40,6 @@
   .row,
   .financial-info {
     display: flex;
-  }
-
-  .form-buttons {
-    margin-top: 8 * $grid-base;
   }
 
   .row.archived {

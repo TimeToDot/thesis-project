@@ -52,8 +52,9 @@
             (openCancelModal)="openCancelModal($event)" (previousStepChange)="previousStep()"></bvr-employment-info>
         </ng-container>
         <ng-container *ngIf="step === 4">
-          <bvr-account-info class="outlet" [addEmployeeForm]="addEmployeeForm" [enableFormButtons]="enableFormButtons"
-            (openCancelModal)="openCancelModal($event)" (previousStepChange)="previousStep()"></bvr-account-info>
+          <bvr-account-info class="outlet" [addEmployeeForm]="addEmployeeForm" (disableGuard)="disableGuard($event)"
+            [enableFormButtons]="enableFormButtons" (openCancelModal)="openCancelModal($event)"
+            (previousStepChange)="previousStep()"></bvr-account-info>
         </ng-container>
       </form>
     </div>

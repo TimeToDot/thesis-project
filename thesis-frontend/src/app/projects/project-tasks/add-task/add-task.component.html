@@ -18,11 +18,10 @@
       </ng-container>
     </bvr-form-field>
   </div>
-  <div class="form-buttons">
-    <bvr-button class="form-button" (click)="openCancelModal(false)" label="Cancel"
-      styleClass="button-text"></bvr-button>
-    <bvr-button class="form-button" (click)="openAddModal()" label="Add"></bvr-button>
-  </div>
+</div>
+<div class="form-buttons">
+  <bvr-button class="form-button" (click)="openCancelModal(false)" label="Cancel" styleClass="button-text"></bvr-button>
+  <bvr-button class="form-button" (click)="openAddModal()" label="Add"></bvr-button>
 </div>
 
 <bvr-modal (confirm)="add()" confirmLabel="Add" [description]="modalDescription" [title]="'Add new task'"

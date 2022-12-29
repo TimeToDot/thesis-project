@@ -5,7 +5,8 @@
   width: 100%;
 
   .form {
-    padding: 0 31 * $grid-base 12 * $grid-base;
+    flex: 1;
+    padding: 0 31 * $grid-base;
   }
 
   .row {

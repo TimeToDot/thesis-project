@@ -23,9 +23,8 @@
                       ">This field is required.</small>
                     </ng-container>
                 </bvr-form-field>
-                <bvr-form-field class="field" label="Apartment Number" placeholder="0"
-                    [required]="isRequired('apartmentNumber')">
-                    <input formControlName="apartmentNumber" type="text" />
+                <bvr-form-field class="field" label="Apartment Number" [required]="isRequired('apartmentNumber')">
+                    <input formControlName="apartmentNumber" placeholder="0" type="text" />
                     <ng-container *ngIf="showErrors('apartmentNumber')">
                         <small *ngIf="
                         addEmployeeForm

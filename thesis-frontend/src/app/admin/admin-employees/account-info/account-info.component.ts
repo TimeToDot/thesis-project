@@ -27,11 +27,12 @@ export class AccountInfoComponent {
   @Input() addEmployeeForm!: FormGroup;
   @Input() enableFormButtons: boolean = false;
 
+  @Output() disableGuard: EventEmitter<boolean> = new EventEmitter();
   @Output() openCancelModal: EventEmitter<boolean> = new EventEmitter();
   @Output() previousStepChange: EventEmitter<void> = new EventEmitter();
 
-  isCancelModalOpen: boolean = false;
   isAddModalOpen: boolean = false;
+  isCancelModalOpen: boolean = false;
   modalDescription: string = '';
 
   constructor(
@@ -61,6 +62,7 @@ export class AccountInfoComponent {
   }
 
   add(): void {
+    this.disableGuard.emit(true);
     this.router.navigate(['..'], { relativeTo: this.route }).then(() => {
       setTimeout(
         () => this.toastService.showToast(ToastState.Success, 'Employee added'),

@@ -1,6 +1,7 @@
 .project-task {
   align-items: flex-end;
   display: flex;
+  flex: 1;
   flex-direction: column;
 
   .header {
@@ -32,9 +33,5 @@
 
   .dates {
     display: flex;
-  }
-
-  .form-buttons {
-    margin-top: 8 * $grid-base;
   }
 }
