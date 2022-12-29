@@ -89,8 +89,12 @@ export class AddTaskComponent {
   }
 
   cancel(value: boolean): void {
-    this.disableGuard();
-    this.isFromGuard ? this.redirectSubject.next(value) : this.location.back();
+    if (this.isFromGuard) {
+      this.redirectSubject.next(value);
+    } else {
+      this.disableGuard();
+      this.location.back();
+    }
   }
 
   disableGuard(): void {

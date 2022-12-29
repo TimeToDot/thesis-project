@@ -164,10 +164,12 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
   }
 
   cancel(value: boolean): void {
-    this.disableGuard();
-    this.isFromGuard
-      ? this.redirectSubject.next(value)
-      : this.router.navigate(['..'], { relativeTo: this.route });
+    if (this.isFromGuard) {
+      this.redirectSubject.next(value);
+    } else {
+      this.disableGuard();
+      this.router.navigate(['..'], { relativeTo: this.route });
+    }
   }
 
   confirm(): void {

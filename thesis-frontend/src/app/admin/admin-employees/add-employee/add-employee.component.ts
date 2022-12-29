@@ -97,7 +97,6 @@ export class AddEmployeeComponent implements OnInit {
   }
 
   openCancelModal(fromGuard: boolean): void {
-    console.log('???');
     this.isCancelModalOpen = true;
     this.isFromGuard = fromGuard;
     this.modalDescription = `Are you sure you want to leave? You will lose your unsaved changes if you continue.`;

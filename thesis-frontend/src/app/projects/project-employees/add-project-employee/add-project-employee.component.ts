@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
-import { ConfirmEmployeeComponent } from '../confirm-employee/confirm-employee.component';
-import { FindEmployeeComponent } from '../find-employee/find-employee.component';
-import { SelectWageComponent } from '../select-wage/select-wage.component';
 import {
   FormBuilder,
   FormGroup,
@@ -31,13 +28,10 @@ import { ToastComponent } from '../../../shared/components/toast/toast.component
   imports: [
     ButtonComponent,
     CommonModule,
-    ConfirmEmployeeComponent,
     DropdownSearchEmployeeComponent,
-    FindEmployeeComponent,
     FormFieldComponent,
     ModalComponent,
     ReactiveFormsModule,
-    SelectWageComponent,
     ToastComponent,
   ],
   templateUrl: './add-project-employee.component.html',
@@ -135,8 +129,12 @@ export class AddProjectEmployeeComponent implements OnInit {
   }
 
   cancel(value: boolean): void {
-    this.disableGuard();
-    this.isFromGuard ? this.redirectSubject.next(value) : this.location.back();
+    if (this.isFromGuard) {
+      this.redirectSubject.next(value);
+    } else {
+      this.disableGuard();
+      this.location.back();
+    }
   }
 
   disableGuard(): void {
