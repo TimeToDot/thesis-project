@@ -5,14 +5,14 @@
     </div>
   </div>
   <div class="form" [formGroup]="addProjectTaskForm">
-    <bvr-form-field label="Task Name" [required]="isRequired('name')">
+    <bvr-form-field label="Task Name" placeholder="Task Name" [required]="isRequired('name')">
       <input formControlName="name" type="text" />
       <ng-container *ngIf="showErrors('name')">
         <small *ngIf="addProjectTaskForm.get('name')?.hasError('required')">This field is required.</small>
       </ng-container>
     </bvr-form-field>
     <bvr-form-field label="Task Description" [required]="isRequired('description')">
-      <textarea formControlName="description"></textarea>
+      <textarea formControlName="description" placeholder="Example task description"></textarea>
       <ng-container *ngIf="showErrors('description')">
         <small *ngIf="addProjectTaskForm.get('description')?.hasError('required')">This field is required.</small>
       </ng-container>

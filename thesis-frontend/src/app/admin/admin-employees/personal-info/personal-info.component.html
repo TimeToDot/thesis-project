@@ -3,7 +3,7 @@
     <div class="form-header">{{ 'Personal Info' | uppercase }}</div>
     <div class="row">
       <bvr-form-field class="left-field" label="First Name" [required]="isRequired('firstName')">
-        <input formControlName="firstName" type="text" />
+        <input formControlName="firstName" placeholder="Name" type="text" />
         <ng-container *ngIf="showErrors('firstName')">
           <small *ngIf="
                   addEmployeeForm
@@ -13,7 +13,7 @@
         </ng-container>
       </bvr-form-field>
       <bvr-form-field class="field" label="Last Name" [required]="isRequired('lastName')">
-        <input formControlName="lastName" type="text" />
+        <input formControlName="lastName" placeholder="Name" type="text" />
         <ng-container *ngIf="showErrors('lastName')">
           <small *ngIf="
                   addEmployeeForm
@@ -25,7 +25,7 @@
     </div>
     <div class="row">
       <bvr-form-field class="left-field" label="Middle Name" [required]="isRequired('middleName')">
-        <input formControlName="middleName" type="text" />
+        <input formControlName="middleName" placeholder="Middle Name" type="text" />
         <ng-container *ngIf="showErrors('middleName')">
           <small *ngIf="
                   addEmployeeForm
@@ -50,7 +50,7 @@
         <bvr-date-picker formControlName="birthDate"></bvr-date-picker>
       </bvr-form-field>
       <bvr-form-field class="field" label="Place Of Birth" [required]="isRequired('birthPlace')">
-        <input formControlName="birthPlace" type="text" />
+        <input formControlName="birthPlace" placeholder="Place Of Birth" type="text" />
         <ng-container *ngIf="showErrors('birthPlace')">
           <small *ngIf="
                         addEmployeeForm
@@ -62,7 +62,7 @@
     </div>
     <div class="row">
       <bvr-form-field class="left-field" label="ID Card Number" [required]="isRequired('idCardNumber')">
-        <input formControlName="idCardNumber" type="text" />
+        <input formControlName="idCardNumber" placeholder="ABC 000000" type="text" />
         <ng-container *ngIf="showErrors('idCardNumber')">
           <small *ngIf="
                           addEmployeeForm
@@ -72,7 +72,7 @@
         </ng-container>
       </bvr-form-field>
       <bvr-form-field class="field" label="PESEL" [required]="isRequired('pesel')">
-        <input formControlName="pesel" type="text" />
+        <input formControlName="pesel" placeholder="00000000000" type="text" />
         <ng-container *ngIf="showErrors('pesel')">
           <small *ngIf="
                           addEmployeeForm

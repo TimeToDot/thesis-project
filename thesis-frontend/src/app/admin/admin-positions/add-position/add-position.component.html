@@ -13,13 +13,13 @@
     </div>
     <div class="form" [formGroup]="addPositionForm">
       <bvr-form-field label="Name" [required]="isRequired('name')">
-        <input formControlName="name" type="text" />
+        <input formControlName="name" placeholder="Position Name" type="text" />
         <ng-container *ngIf="showErrors('name')">
           <small *ngIf="addPositionForm.get('name')?.hasError('required')">This field is required.</small>
         </ng-container>
       </bvr-form-field>
       <bvr-form-field label="Description" [required]="isRequired('description')">
-        <input formControlName="description" type="text" />
+        <input formControlName="description" placeholder="Example position description" type="text" />
         <ng-container *ngIf="showErrors('description')">
           <small *ngIf="
                 addPositionForm.get('description')?.hasError('required')

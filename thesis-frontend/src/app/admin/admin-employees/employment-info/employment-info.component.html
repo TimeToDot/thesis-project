@@ -28,7 +28,7 @@
                 </ng-container>
             </bvr-form-field>
             <bvr-form-field class="field" label="Working Time" [required]="isRequired('workingTime')">
-                <input formControlName="workingTime" type="number" />
+                <input formControlName="workingTime" placeholder="Working Time" type="number" />
                 <ng-container *ngIf="showErrors('workingTime')">
                     <small *ngIf="
                         addEmployeeForm
@@ -40,7 +40,7 @@
         </div>
         <div class="row">
             <bvr-form-field class="left-field" label="Rate" [required]="isRequired('rate')">
-                <input formControlName="rate" type="number" />
+                <input formControlName="rate" placeholder="00.00 PLN" type="number" />
                 <ng-container *ngIf="showErrors('rate')">
                     <small *ngIf=" addEmployeeForm
                                                 .get(['employmentInfo', 'rate'])
@@ -49,7 +49,7 @@
                 </ng-container>
             </bvr-form-field>
             <bvr-form-field class="field" label="Payday" [required]="isRequired('payday')">
-                <input formControlName="payday" type="number" />
+                <input formControlName="payday" placeholder="Day" type="number" />
                 <ng-container *ngIf="showErrors('payday')">
                     <small *ngIf="
                                 addEmployeeForm
@@ -60,7 +60,7 @@
             </bvr-form-field>
         </div>
         <bvr-form-field label="Account number" [required]="isRequired('accountNumber')">
-            <input formControlName="accountNumber" type="text" />
+            <input formControlName="accountNumber" placeholder="00 0000 0000 0000 0000 0000" type="text" />
             <ng-container *ngIf="showErrors('accountNumber')">
                 <small *ngIf="
             addEmployeeForm

@@ -2,7 +2,7 @@
     <div class="form" formGroupName="accountInfo">
         <div class="form-header">{{ 'Account Info' | uppercase }}</div>
         <bvr-form-field label="Email" [required]="isRequired('email')">
-            <input formControlName="email" type="email" />
+            <input formControlName="email" placeholder="email.example@mail.com" type="email" />
             <ng-container *ngIf="showErrors('email')">
                 <small *ngIf="
                     addEmployeeForm
@@ -12,7 +12,7 @@
             </ng-container>
         </bvr-form-field>
         <bvr-form-field label="Password" [required]="isRequired('password')">
-            <input formControlName="password" type="password" />
+            <input formControlName="password" placeholder="*********" type="password" />
             <ng-container *ngIf="showErrors('password')">
                 <small *ngIf="
                       addEmployeeForm
@@ -22,7 +22,7 @@
             </ng-container>
         </bvr-form-field>
         <bvr-form-field label="Repeat Password" [required]="isRequired('repeatPassword')">
-            <input formControlName="repeatPassword" type="password" />
+            <input formControlName="repeatPassword" placeholder="*********" type="password" />
             <ng-container *ngIf="showErrors('repeatPassword')">
                 <small *ngIf="
                       addEmployeeForm
