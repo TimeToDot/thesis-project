@@ -16,6 +16,7 @@ import { ToastService } from '../../services/toast.service';
 })
 export class EmployeeTasksComponent implements OnInit {
   @Input() employeeTasks: EmployeeTask[] = [];
+  @Input() isActive: boolean = true;
   @Input() isApproval: boolean = false;
   @Input() project: Project = {
     id: '',
@@ -64,14 +65,17 @@ export class EmployeeTasksComponent implements OnInit {
 
   isWide(employeeTask: EmployeeTask): boolean {
     return (
-      (!this.canEdit(employeeTask) && !this.canReject(employeeTask)) ||
-      this.isApproval
+      this.isActive &&
+      ((!this.canEdit(employeeTask) && !this.canReject(employeeTask)) ||
+        this.isApproval)
     );
   }
 
   isMedium(employeeTask: EmployeeTask): boolean {
     return (
-      (!this.canEdit(employeeTask) && this.canReject(employeeTask)) ||
+      (this.isActive &&
+        !this.canEdit(employeeTask) &&
+        this.canReject(employeeTask)) ||
       (this.isApproval && this.tasksToReject.includes(employeeTask.id))
     );
   }

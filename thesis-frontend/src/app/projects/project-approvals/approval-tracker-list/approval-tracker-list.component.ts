@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EmployeeTasksComponent } from '../../../shared/components/employee-tasks/employee-tasks.component';
 import { ToastComponent } from '../../../shared/components/toast/toast.component';
@@ -14,6 +14,8 @@ import { first } from 'rxjs';
   templateUrl: './approval-tracker-list.component.html',
 })
 export class ApprovalTrackerListComponent {
+  @Input() isActive: boolean = true;
+
   employeeTasks: EmployeeTask[] = [];
   employeeProjectTasks: EmployeeProjectTask[] = [];
 

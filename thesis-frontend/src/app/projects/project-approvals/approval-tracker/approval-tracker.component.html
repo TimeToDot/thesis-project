@@ -9,7 +9,7 @@
     <bvr-calendar></bvr-calendar>
     <div class="tracker-right-side">
       <div class="tracker-list">
-        <bvr-approval-tracker-list> </bvr-approval-tracker-list>
+        <bvr-approval-tracker-list [isActive]="isActive"> </bvr-approval-tracker-list>
       </div>
       <div class="form-buttons">
         <bvr-button class="form-button" (click)="openCancelModal()" label="Cancel"
