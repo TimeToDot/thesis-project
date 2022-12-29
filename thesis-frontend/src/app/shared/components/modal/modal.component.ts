@@ -14,17 +14,13 @@ export class ModalComponent {
   @Input() title: string = '';
   @Input() visible: boolean = false;
 
-  @Output() confirm: EventEmitter<void> = new EventEmitter();
+  @Output() confirm: EventEmitter<boolean> = new EventEmitter();
   @Output() visibleChange: EventEmitter<boolean> = new EventEmitter();
 
-  closeModal(): void {
+  closeModal(shouldRedirect: boolean): void {
     this.visible = false;
     this.visibleChange.emit(this.visible);
-  }
-
-  confirmModal(): void {
-    this.closeModal();
-    this.confirm.emit();
+    this.confirm.emit(shouldRedirect);
   }
 
   stopPropagation(event: Event): void {

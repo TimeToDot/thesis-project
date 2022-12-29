@@ -29,7 +29,7 @@ export class PersonalInfoComponent {
   @Input() addEmployeeForm!: FormGroup;
 
   @Output() nextStepChange: EventEmitter<void> = new EventEmitter();
-  @Output() openCancelModal: EventEmitter<void> = new EventEmitter();
+  @Output() openCancelModal: EventEmitter<boolean> = new EventEmitter();
 
   sexes: DropdownOption[] = [
     { id: '1', name: 'Male' },

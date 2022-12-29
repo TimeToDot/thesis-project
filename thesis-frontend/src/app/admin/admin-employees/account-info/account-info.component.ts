@@ -26,7 +26,7 @@ import { ToastComponent } from '../../../shared/components/toast/toast.component
 export class AccountInfoComponent {
   @Input() addEmployeeForm!: FormGroup;
 
-  @Output() openCancelModal: EventEmitter<void> = new EventEmitter();
+  @Output() openCancelModal: EventEmitter<boolean> = new EventEmitter();
   @Output() previousStepChange: EventEmitter<void> = new EventEmitter();
 
   isCancelModalOpen: boolean = false;

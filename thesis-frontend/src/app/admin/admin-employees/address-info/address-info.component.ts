@@ -29,7 +29,7 @@ export class AddressInfoComponent implements OnInit {
   @Input() addEmployeeForm!: FormGroup;
 
   @Output() nextStepChange: EventEmitter<void> = new EventEmitter();
-  @Output() openCancelModal: EventEmitter<void> = new EventEmitter();
+  @Output() openCancelModal: EventEmitter<boolean> = new EventEmitter();
   @Output() previousStepChange: EventEmitter<void> = new EventEmitter();
 
   countries: DropdownOption[] = [];

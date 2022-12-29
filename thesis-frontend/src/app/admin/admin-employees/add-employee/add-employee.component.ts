@@ -12,6 +12,7 @@ import { AddressInfoComponent } from '../address-info/address-info.component';
 import { EmploymentInfoComponent } from '../employment-info/employment-info.component';
 import { tabAnimation } from '../../../shared/animations/tab.animation';
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'bvr-add-employee',
@@ -31,7 +32,9 @@ import { ModalComponent } from '../../../shared/components/modal/modal.component
 export class AddEmployeeComponent implements OnInit {
   addEmployeeForm!: FormGroup;
   isCancelModalOpen: boolean = false;
+  isFromGuard: boolean = false;
   modalDescription: string = '';
+  redirectSubject: Subject<boolean> = new Subject<boolean>();
   step: number = 1;
 
   constructor(private fb: FormBuilder, private location: Location) {}
@@ -93,12 +96,14 @@ export class AddEmployeeComponent implements OnInit {
     --this.step;
   }
 
-  openCancelModal(): void {
+  openCancelModal(fromGuard: boolean): void {
+    console.log('???');
     this.isCancelModalOpen = true;
+    this.isFromGuard = fromGuard;
     this.modalDescription = `Are you sure you want to leave? You will lose your unsaved changes if you continue.`;
   }
 
-  cancel(): void {
-    this.location.back();
+  cancel(value: boolean): void {
+    this.isFromGuard ? this.redirectSubject.next(value) : this.location.back();
   }
 }

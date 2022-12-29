@@ -4,7 +4,7 @@ import { ButtonComponent } from '../../../shared/components/button/button.compon
 import { CalendarComponent } from '../../../calendar/calendar.component';
 import { ApprovalTrackerListComponent } from '../approval-tracker-list/approval-tracker-list.component';
 import { TasksToRejectService } from '../../../shared/services/tasks-to-reject.service';
-import { first, Subscription } from 'rxjs';
+import { first, Subject, Subscription } from 'rxjs';
 import { DropdownSearchEmployeeComponent } from '../../project-employees/dropdown-search-employee/dropdown-search-employee.component';
 import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
 import { ProjectEmployeesService } from '../../services/project-employees.service';
@@ -37,6 +37,7 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
   employees: Employee[] = [];
   isActive: boolean = true;
   isConfirmModalOpen: boolean = false;
+  isFromGuard: boolean = false;
   isResetModalOpen: boolean = false;
   modalDescription: string = '';
   projectEmployee: ProjectEmployee = {
@@ -60,6 +61,7 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
     exitDate: '',
     active: false,
   };
+  redirectSubject: Subject<boolean> = new Subject<boolean>();
 
   private tasksToRejectSubscribtion: Subscription = new Subscription();
 
@@ -149,8 +151,9 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
     });
   }
 
-  openCancelModal(): void {
+  openCancelModal(fromGuard: boolean): void {
     this.isResetModalOpen = true;
+    this.isFromGuard = fromGuard;
     this.modalDescription = `Are you sure you want to reset? You will lose your unsaved changes if you continue.`;
   }
 
@@ -159,8 +162,10 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
     this.modalDescription = `Are you sure you want to approve X and reject Y tasks?`;
   }
 
-  cancel(): void {
-    this.router.navigate(['..'], { relativeTo: this.route });
+  cancel(value: boolean): void {
+    this.isFromGuard
+      ? this.redirectSubject.next(value)
+      : this.router.navigate(['..'], { relativeTo: this.route });
   }
 
   confirm(): void {

@@ -10,7 +10,7 @@ import { EmployeesService } from '../../../admin/services/employees.service';
 import { ToastService } from '../../../shared/services/toast.service';
 import { ToastState } from '../../../shared/enum/toast-state';
 import { ToastComponent } from '../../../shared/components/toast/toast.component';
-import { first } from 'rxjs';
+import { first, Subject } from 'rxjs';
 import { ContractType } from '../../models/contract-type.model';
 import { ValidationService } from '../../../shared/services/validation.service';
 
@@ -42,7 +42,9 @@ export class SelectWageComponent {
   ];
   isAddModalOpen: boolean = false;
   isCancelModalOpen: boolean = false;
+  isFromGuard: boolean = false;
   modalDescription: string = '';
+  redirectSubject: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     private employeesService: EmployeesService,
@@ -77,13 +79,14 @@ export class SelectWageComponent {
     }
   }
 
-  openCancelModal(): void {
+  openCancelModal(fromGuard: boolean): void {
     this.isCancelModalOpen = true;
+    this.isFromGuard = fromGuard;
     this.modalDescription = `Are you sure you want to leave? You will lose your unsaved changes if you continue.`;
   }
 
-  cancel(): void {
-    this.location.back();
+  cancel(value: boolean): void {
+    this.isFromGuard ? this.redirectSubject.next(value) : this.location.back();
   }
 
   add(): void {

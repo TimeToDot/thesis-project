@@ -5,6 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { LoginGuard } from './shared/guards/login.guard';
+import { UnsavedChangesGuard } from './shared/guards/unsaved-changes.guard';
 import { AddNewTaskComponent } from './tracker/add-new-task/add-new-task.component';
 import { RequestApprovalComponent } from './tracker/request-approval/request-approval.component';
 import { TasksListComponent } from './tracker/tasks-list/tasks-list.component';
@@ -47,6 +48,7 @@ export const appRoutes: Routes = [
             path: 'edit-task/:id',
             component: AddNewTaskComponent,
             data: { sidenavTabs: 1 },
+            canDeactivate: [UnsavedChangesGuard],
           },
         ],
       },

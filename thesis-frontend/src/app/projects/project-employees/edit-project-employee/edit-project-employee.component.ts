@@ -17,7 +17,7 @@ import { ProjectEmployeesService } from '../../services/project-employees.servic
 import { ToastService } from '../../../shared/services/toast.service';
 import { ToastState } from '../../../shared/enum/toast-state';
 import { ToastComponent } from '../../../shared/components/toast/toast.component';
-import { first } from 'rxjs';
+import { first, Subject } from 'rxjs';
 import { ValidationService } from '../../../shared/services/validation.service';
 
 @Component({
@@ -45,6 +45,7 @@ export class EditProjectEmployeeComponent implements OnInit {
   editProjectEmployeeForm!: FormGroup;
   isArchiveModalOpen: boolean = false;
   isCancelModalOpen: boolean = false;
+  isFromGuard: boolean = false;
   isSaveModalOpen: boolean = false;
   modalDescription: string = '';
   projectEmployee: ProjectEmployee = {
@@ -68,6 +69,7 @@ export class EditProjectEmployeeComponent implements OnInit {
     exitDate: '',
     active: false,
   };
+  redirectSubject: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     private fb: FormBuilder,
@@ -118,8 +120,9 @@ export class EditProjectEmployeeComponent implements OnInit {
     this.modalDescription = `Are you sure you want to archive ${this.projectEmployee.employee.firstName} ${this.projectEmployee.employee.lastName}? This action cannot be undone.`;
   }
 
-  openCancelModal(): void {
+  openCancelModal(fromGuard: boolean): void {
     this.isCancelModalOpen = true;
+    this.isFromGuard = fromGuard;
     this.modalDescription = `Are you sure you want to leave? You will lose your unsaved changes if you continue.`;
   }
 
@@ -145,8 +148,8 @@ export class EditProjectEmployeeComponent implements OnInit {
     });
   }
 
-  cancel(): void {
-    this.location.back();
+  cancel(value: boolean): void {
+    this.isFromGuard ? this.redirectSubject.next(value) : this.location.back();
   }
 
   save(): void {

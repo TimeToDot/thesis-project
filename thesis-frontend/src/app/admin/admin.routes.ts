@@ -19,6 +19,7 @@ import { EditPersonalInfoComponent } from './admin-employees/edit-personal-info/
 import { EditAddressInfoComponent } from './admin-employees/edit-address-info/edit-address-info.component';
 import { EditEmploymentInfoComponent } from './admin-employees/edit-employment-info/edit-employment-info.component';
 import { EditAccountInfoComponent } from './admin-employees/edit-account-info/edit-account-info.component';
+import { UnsavedChangesGuard } from '../shared/guards/unsaved-changes.guard';
 
 export const adminRoutes: Routes = [
   {
@@ -31,36 +32,42 @@ export const adminRoutes: Routes = [
     path: 'employees/add',
     component: AddEmployeeComponent,
     canActivate: [CanAdminEmployeesGuard],
+    canDeactivate: [UnsavedChangesGuard],
     data: { sidenavTabs: 3 },
   },
   {
     path: 'employees/:id',
     component: ViewEmployeeComponent,
     canActivate: [CanAdminEmployeesGuard],
+    canDeactivate: [UnsavedChangesGuard],
     data: { sidenavTabs: 3 },
     children: [
       {
         path: 'personal-info',
         component: ViewPersonalInfoComponent,
         canActivate: [CanAdminEmployeesGuard],
+        canDeactivate: [UnsavedChangesGuard],
         data: { sidenavTabs: 3, tabs: 1 },
       },
       {
         path: 'address-info',
         component: ViewAddressInfoComponent,
         canActivate: [CanAdminEmployeesGuard],
+        canDeactivate: [UnsavedChangesGuard],
         data: { sidenavTabs: 3, tabs: 2 },
       },
       {
         path: 'employment-info',
         component: ViewEmploymentInfoComponent,
         canActivate: [CanAdminEmployeesGuard],
+        canDeactivate: [UnsavedChangesGuard],
         data: { sidenavTabs: 3, tabs: 3 },
       },
       {
         path: 'account-info',
         component: ViewAccountInfoComponent,
         canActivate: [CanAdminEmployeesGuard],
+        canDeactivate: [UnsavedChangesGuard],
         data: { sidenavTabs: 3, tabs: 4 },
       },
       { path: '', redirectTo: 'personal-info', pathMatch: 'full' },
@@ -70,6 +77,7 @@ export const adminRoutes: Routes = [
     path: 'employees/:id/edit',
     component: EditEmployeeComponent,
     canActivate: [CanAdminEmployeesGuard],
+    canDeactivate: [UnsavedChangesGuard],
     data: { sidenavTabs: 3 },
     children: [
       {
@@ -109,6 +117,7 @@ export const adminRoutes: Routes = [
     path: 'positions/add',
     component: AddPositionComponent,
     canActivate: [CanAdminPositionsGuard],
+    canDeactivate: [UnsavedChangesGuard],
     data: { sidenavTabs: 4 },
   },
   {
@@ -121,6 +130,7 @@ export const adminRoutes: Routes = [
     path: 'positions/:id/edit',
     component: EditPositionComponent,
     canActivate: [CanAdminPositionsGuard],
+    canDeactivate: [UnsavedChangesGuard],
     data: { sidenavTabs: 4 },
   },
   {

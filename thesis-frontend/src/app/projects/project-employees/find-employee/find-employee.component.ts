@@ -8,7 +8,7 @@ import { DropdownSearchEmployeeComponent } from '../dropdown-search-employee/dro
 import { Employee } from '../../../shared/models/employee.model';
 import { EmployeesService } from '../../../admin/services/employees.service';
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
-import { first } from 'rxjs';
+import { first, Subject } from 'rxjs';
 import { ValidationService } from '../../../shared/services/validation.service';
 
 @Component({
@@ -32,7 +32,9 @@ export class FindEmployeeComponent implements OnInit {
 
   employees: Employee[] = [];
   isCancelModalOpen: boolean = false;
+  isFromGuard: boolean = false;
   modalDescription: string = '';
+  redirectSubject: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     private employeesService: EmployeesService,
@@ -62,13 +64,14 @@ export class FindEmployeeComponent implements OnInit {
       });
   }
 
-  openCancelModal(): void {
+  openCancelModal(fromGuard: boolean): void {
     this.isCancelModalOpen = true;
+    this.isFromGuard = fromGuard;
     this.modalDescription = `Are you sure you want to leave? You will lose your unsaved changes if you continue.`;
   }
 
-  cancel(): void {
-    this.location.back();
+  cancel(value: boolean): void {
+    this.isFromGuard ? this.redirectSubject.next(value) : this.location.back();
   }
 
   isRequired(name: string): boolean {

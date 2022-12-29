@@ -71,7 +71,7 @@
         </bvr-form-field>
     </div>
     <div class="form-buttons">
-        <bvr-button class="form-button" (click)="openCancelModal.emit()" label="Cancel"
+        <bvr-button class="form-button" (click)="openCancelModal.emit(false)" label="Cancel"
             styleClass="button-text"></bvr-button>
         <bvr-button class="form-button" (click)="previousStepChange.emit()" label="Previous"></bvr-button>
         <bvr-button class="form-button" (click)="nextStep()" label="Next"></bvr-button>

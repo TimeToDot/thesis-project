@@ -8,7 +8,7 @@ import {
   Router,
 } from '@angular/router';
 import { AccountsService } from '../../services/accounts.service';
-import { first } from 'rxjs';
+import { first, Subject } from 'rxjs';
 import { ToastState } from '../../../shared/enum/toast-state';
 import { ToastService } from '../../../shared/services/toast.service';
 import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
@@ -97,10 +97,12 @@ export class EditEmployeeComponent {
   enableFormButtons: boolean = true;
   isArchiveModalOpen: boolean = false;
   isCancelModalOpen: boolean = false;
+  isFromGuard: boolean = false;
   isSaveModalOpen: boolean = false;
   modalDescription: string = '';
   navbarOptions: LinkOption[] = [];
   positions: Position[] = [];
+  redirectSubject: Subject<boolean> = new Subject<boolean>();
   tabIndex: number = 0;
 
   constructor(
@@ -218,8 +220,9 @@ export class EditEmployeeComponent {
     this.modalDescription = `Are you sure you want to archive ${this.account.firstName} ${this.account.lastName}? This action cannot be undone.`;
   }
 
-  openCancelModal(): void {
+  openCancelModal(fromGuard: boolean): void {
     this.isCancelModalOpen = true;
+    this.isFromGuard = fromGuard;
     this.modalDescription = `Are you sure you want to leave? You will lose your unsaved changes if you continue.`;
   }
 
@@ -245,8 +248,8 @@ export class EditEmployeeComponent {
     });
   }
 
-  cancel(): void {
-    this.location.back();
+  cancel(value: boolean): void {
+    this.isFromGuard ? this.redirectSubject.next(value) : this.location.back();
   }
 
   save(): void {

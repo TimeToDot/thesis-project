@@ -24,7 +24,7 @@ import { ModalComponent } from '../../shared/components/modal/modal.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as dayjs from 'dayjs';
 import { EmployeeTasksService } from '../../shared/services/employee-tasks.service';
-import { first } from 'rxjs';
+import { first, Subject } from 'rxjs';
 import { EmployeeTask } from '../../shared/models/employee-task.model';
 import { ValidationService } from '../../shared/services/validation.service';
 
@@ -50,10 +50,12 @@ export class AddNewTaskComponent implements OnInit {
   isAddModalOpen: boolean = false;
   isCancelModalOpen: boolean = false;
   isDeleteModalOpen: boolean = false;
+  isFromGuard: boolean = false;
   isResetModalOpen: boolean = false;
   isSaveModalOpen: boolean = false;
   modalDescription: string = '';
   projects: DropdownOption[] = [];
+  redirectSubject: Subject<boolean> = new Subject<boolean>();
   tasks: DropdownOption[] = [];
 
   constructor(
@@ -181,8 +183,9 @@ export class AddNewTaskComponent implements OnInit {
     }
   }
 
-  openCancelModal(): void {
+  openCancelModal(fromGuard: boolean): void {
     this.isCancelModalOpen = true;
+    this.isFromGuard = fromGuard;
     this.modalDescription = `Are you sure you want to leave? You will lose your unsaved changes if you continue.`;
   }
 
@@ -214,8 +217,8 @@ export class AddNewTaskComponent implements OnInit {
     setTimeout(() => this.toastService.dismissToast(), 3000);
   }
 
-  cancel(): void {
-    this.location.back();
+  cancel(value: boolean): void {
+    this.isFromGuard ? this.redirectSubject.next(value) : this.location.back();
   }
 
   delete(): void {

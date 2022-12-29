@@ -28,7 +28,8 @@
     </div>
 
     <div *ngIf="enableFormButtons" class="form-buttons">
-      <bvr-button class="form-button" (click)="openCancelModal()" label="Cancel" styleClass="button-text"></bvr-button>
+      <bvr-button class="form-button" (click)="openCancelModal(false)" label="Cancel"
+        styleClass="button-text"></bvr-button>
       <bvr-button class="form-button" (click)="openSaveModal()" label="Save"></bvr-button>
     </div>
   </div>
@@ -36,7 +37,7 @@
 
 <bvr-modal (confirm)="archive()" confirmLabel="archive" [description]="modalDescription" [title]="'Archive employee'"
   [(visible)]="isArchiveModalOpen"></bvr-modal>
-<bvr-modal (confirm)="cancel()" confirmLabel="Leave" [description]="modalDescription" [title]="'Leave'"
+<bvr-modal (confirm)="cancel($event)" confirmLabel="Leave" [description]="modalDescription" [title]="'Leave'"
   [(visible)]="isCancelModalOpen"></bvr-modal>
 <bvr-modal (confirm)="save()" confirmLabel="Save" [description]="modalDescription" [title]="'Save changes'"
   [(visible)]="isSaveModalOpen"></bvr-modal>

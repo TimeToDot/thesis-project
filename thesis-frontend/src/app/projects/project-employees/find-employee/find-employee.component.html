@@ -1,25 +1,11 @@
-<div
-  *ngIf="addProjectEmployeeForm"
-  class="form"
-  [formGroup]="addProjectEmployeeForm">
+<div *ngIf="addProjectEmployeeForm" class="form" [formGroup]="addProjectEmployeeForm">
   <div class="employees-dropdown" formGroupName="userInfo">
     <bvr-form-field label="Employee" [required]="isRequired('id')">
-      <bvr-dropdown-search-employee
-        formControlName="id"
-        name="id"
-        [options]="employees"></bvr-dropdown-search-employee>
+      <bvr-dropdown-search-employee formControlName="id" name="id" [options]="employees"></bvr-dropdown-search-employee>
     </bvr-form-field>
   </div>
 </div>
-<bvr-button
-  class="form-button"
-  (click)="openCancelModal()"
-  label="Cancel"
-  styleClass="button-text"></bvr-button>
+<bvr-button class="form-button" (click)="openCancelModal(false)" label="Cancel" styleClass="button-text"></bvr-button>
 
-<bvr-modal
-  (confirm)="cancel()"
-  confirmLabel="Leave"
-  [description]="modalDescription"
-  [title]="'Leave'"
+<bvr-modal (confirm)="cancel($event)" confirmLabel="Leave" [description]="modalDescription" [title]="'Leave'"
   [(visible)]="isCancelModalOpen"></bvr-modal>

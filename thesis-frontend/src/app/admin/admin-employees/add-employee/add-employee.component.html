@@ -38,18 +38,18 @@
       <form [@tabs]="step" class="steps">
         <div *ngIf="step === 1">
           <bvr-personal-info [addEmployeeForm]="addEmployeeForm" (nextStepChange)="nextStep()"
-            (openCancelModal)="openCancelModal()"></bvr-personal-info>
+            (openCancelModal)="openCancelModal($event)"></bvr-personal-info>
         </div>
         <div *ngIf="step === 2">
           <bvr-address-info [addEmployeeForm]="addEmployeeForm" (nextStepChange)="nextStep()"
-            (openCancelModal)="openCancelModal()" (previousStepChange)="previousStep()"></bvr-address-info>
+            (openCancelModal)="openCancelModal($event)" (previousStepChange)="previousStep()"></bvr-address-info>
         </div>
         <div *ngIf="step === 3">
           <bvr-employment-info [addEmployeeForm]="addEmployeeForm" (nextStepChange)="nextStep()"
-            (openCancelModal)="openCancelModal()" (previousStepChange)="previousStep()"></bvr-employment-info>
+            (openCancelModal)="openCancelModal($event)" (previousStepChange)="previousStep()"></bvr-employment-info>
         </div>
         <div *ngIf="step === 4">
-          <bvr-account-info [addEmployeeForm]="addEmployeeForm" (openCancelModal)="openCancelModal()"
+          <bvr-account-info [addEmployeeForm]="addEmployeeForm" (openCancelModal)="openCancelModal($event)"
             (previousStepChange)="previousStep()"></bvr-account-info>
         </div>
       </form>
@@ -57,5 +57,5 @@
   </div>
 </div>
 
-<bvr-modal (confirm)="cancel()" confirmLabel="Leave" [description]="modalDescription" [title]="'Leave'"
+<bvr-modal (confirm)="cancel($event)" confirmLabel="Leave" [description]="modalDescription" [title]="'Leave'"
   [(visible)]="isCancelModalOpen"></bvr-modal>

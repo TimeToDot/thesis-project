@@ -19,6 +19,7 @@ import { CanManageProjectEmployeesGuard } from './guards/can-manage-project-empl
 import { ViewProjectEmployeeComponent } from './project-employees/view-project-employee/view-project-employee.component';
 import { ApprovalTrackerComponent } from './project-approvals/approval-tracker/approval-tracker.component';
 import { ViewTaskComponent } from './project-tasks/view-task/view-task.component';
+import { UnsavedChangesGuard } from '../shared/guards/unsaved-changes.guard';
 
 export const projectsRoutes: Routes = [
   {
@@ -45,6 +46,7 @@ export const projectsRoutes: Routes = [
         path: 'tasks/add',
         component: AddTaskComponent,
         canActivate: [CanManageTasksGuard],
+        canDeactivate: [UnsavedChangesGuard],
         data: { tabs: 1 },
       },
       {
@@ -57,12 +59,7 @@ export const projectsRoutes: Routes = [
         path: 'tasks/:id/edit',
         component: EditTaskComponent,
         canActivate: [CanManageTasksGuard],
-        data: { tabs: 1 },
-      },
-      {
-        path: 'tasks/edit',
-        component: EditTaskComponent,
-        canActivate: [CanManageTasksGuard],
+        canDeactivate: [UnsavedChangesGuard],
         data: { tabs: 1 },
       },
       {
@@ -75,6 +72,7 @@ export const projectsRoutes: Routes = [
         path: 'employees/add',
         component: AddProjectEmployeeComponent,
         canActivate: [CanAddProjectEmployeeGuard],
+        canDeactivate: [UnsavedChangesGuard],
         data: { tabs: 2 },
       },
       {
@@ -87,6 +85,7 @@ export const projectsRoutes: Routes = [
         path: 'employees/:id/edit',
         component: EditProjectEmployeeComponent,
         canActivate: [CanManageProjectEmployeesGuard],
+        canDeactivate: [UnsavedChangesGuard],
         data: { tabs: 2 },
       },
       {

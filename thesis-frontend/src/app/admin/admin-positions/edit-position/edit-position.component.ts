@@ -15,7 +15,7 @@ import { ToastService } from '../../../shared/services/toast.service';
 import { ToastState } from '../../../shared/enum/toast-state';
 import { Position } from '../../models/position.model';
 import { PositionsService } from '../../services/positions.service';
-import { first } from 'rxjs';
+import { first, Subject } from 'rxjs';
 import { ValidationService } from '../../../shared/services/validation.service';
 
 @Component({
@@ -35,8 +35,9 @@ import { ValidationService } from '../../../shared/services/validation.service';
 export class EditPositionComponent implements OnInit {
   editPositionForm!: FormGroup;
   isArchiveModalOpen: boolean = false;
-  isSaveModalOpen: boolean = false;
   isCancelModalOpen: boolean = false;
+  isFromGuard: boolean = false;
+  isSaveModalOpen: boolean = false;
   modalDescription: string = '';
   position: Position = {
     id: '',
@@ -47,6 +48,7 @@ export class EditPositionComponent implements OnInit {
     archiveDate: '',
     active: true,
   };
+  redirectSubject: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     private fb: FormBuilder,
@@ -97,8 +99,9 @@ export class EditPositionComponent implements OnInit {
     this.modalDescription = `Are you sure you want to archive position ${positionName}? This action cannot be undone.`;
   }
 
-  openCancelModal(): void {
+  openCancelModal(fromGuard: boolean): void {
     this.isCancelModalOpen = true;
+    this.isFromGuard = fromGuard;
     this.modalDescription = `Are you sure you want to leave? You will lose your unsaved changes if you continue.`;
   }
 
@@ -113,8 +116,8 @@ export class EditPositionComponent implements OnInit {
     }
   }
 
-  cancel(): void {
-    this.location.back();
+  cancel(value: boolean): void {
+    this.isFromGuard ? this.redirectSubject.next(value) : this.location.back();
   }
 
   save(): void {
