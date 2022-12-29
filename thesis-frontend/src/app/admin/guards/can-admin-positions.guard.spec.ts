@@ -34,6 +34,7 @@ describe('CanAdminPositionsGuard', () => {
         return {
           projects: [],
           canAddEmployee: false,
+          canAddProject: false,
           canAdminEmployees: false,
           canAdminSettings: false,
           canAdminPositions: false,

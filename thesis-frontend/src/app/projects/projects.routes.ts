@@ -20,8 +20,15 @@ import { ViewProjectEmployeeComponent } from './project-employees/view-project-e
 import { ApprovalTrackerComponent } from './project-approvals/approval-tracker/approval-tracker.component';
 import { ViewTaskComponent } from './project-tasks/view-task/view-task.component';
 import { UnsavedChangesGuard } from '../shared/guards/unsaved-changes.guard';
+import { AddNewProjectComponent } from './add-new-project/add-new-project.component';
+import { CanAddProjectGuard } from './guards/can-add-project.guard';
 
 export const projectsRoutes: Routes = [
+  {
+    path: 'add',
+    component: AddNewProjectComponent,
+    canActivate: [CanAddProjectGuard],
+  },
   {
     path: '',
     component: ProjectsComponent,
