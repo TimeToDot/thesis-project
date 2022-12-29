@@ -1,2 +1,43 @@
 .projects {
+  column-gap: 3 * $grid-base;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  row-gap: 3 * $grid-base;
+}
+
+.project-card {
+  background: $color-white;
+  border-radius: 2 * $grid-base;
+  box-shadow: $shadow-default;
+  display: flex;
+  flex-direction: column;
+  padding: 6 * $grid-base;
+
+  .project-image {
+    height: 12 * $grid-base;
+    width: 12 * $grid-base;
+
+    &.archived {
+      filter: grayscale(100%);
+    }
+  }
+
+  .project-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .project-details {
+    display: flex;
+    margin-top: 4 * $grid-base;
+  }
+
+  .material-icons-outlined {
+    margin-right: 3 * $grid-base;
+  }
+
+  .form-buttons {
+    margin-top: 6 * $grid-base;
+  }
 }

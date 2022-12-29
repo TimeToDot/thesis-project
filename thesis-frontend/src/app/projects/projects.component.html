@@ -6,9 +6,49 @@
     </div>
   </div>
   <div class="card-content">
-    <div class="projects">
-      <bvr-button *ngFor="let project of projects" [label]="project.name"
-        [routerLink]="['/projects', project.id]"></bvr-button>
+    <div class="header">
+      <div class="title">
+        <h4>Projects</h4>
+        <h4 class="count">({{ projects.length }})</h4>
+        <div class="radio">
+          <input name="showActive" [(ngModel)]="showActive" (ngModelChange)="showActiveProjects(true)" type="radio"
+            [value]="true" />
+          <label>Active</label>
+        </div>
+        <div class="radio">
+          <input name="showActive" [(ngModel)]="showActive" (ngModelChange)="showActiveProjects(false)" type="radio"
+            [value]="false" />
+          <label>Archived</label>
+        </div>
+      </div>
+      <bvr-button class="add-new-button" label="Add new" [routerLink]="['add']"></bvr-button>
+    </div>
+
+    <div class="search-bar">
+      <input class="search-input" [(ngModel)]="query" placeholder="Search" type="search" />
+      <span class="material-icons-outlined search-icon">search</span>
+    </div>
+
+    <div class="card-content">
+      <div class="projects">
+        <div *ngFor="let project of projects" class="project-card">
+          <div class="project-header">
+            <h3>{{project.name}}</h3>
+            <img class="project-image" [src]="project.image" [ngClass]="{ archived: !project.active }" />
+          </div>
+          <div class="project-details">
+            <span class="material-icons-outlined">groups</span>
+            <div>{{project.employeesCount}} employees</div>
+          </div>
+          <div class="project-details">
+            <span class="material-icons-outlined">calendar_month</span>
+            <div>{{ project.creationDate| date: 'dd/MM/yyyy' }}</div>
+          </div>
+          <div class="form-buttons">
+            <bvr-button class="form-button" label="Open" [routerLink]="['/projects', project.id]"></bvr-button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

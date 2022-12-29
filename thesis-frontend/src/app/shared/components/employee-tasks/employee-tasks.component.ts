@@ -22,6 +22,9 @@ export class EmployeeTasksComponent implements OnInit {
     id: '',
     name: '',
     image: '',
+    employeesCount: 0,
+    creationDate: '',
+    active: false,
   };
 
   @Output() delete: EventEmitter<EmployeeTask> = new EventEmitter();

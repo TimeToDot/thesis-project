@@ -2,7 +2,7 @@
   align-items: center;
   box-shadow: $shadow-default;
   display: flex;
-  margin: 4 * $grid-base 0;
+  margin-bottom: 6 * $grid-base;
   position: relative;
   width: 100%;
 
@@ -10,6 +10,7 @@
   .search-placeholder {
     border: 0.25 * $grid-base $color-divider solid;
     border-radius: 2 * $grid-base;
+    height: 12 * $grid-base;
     outline: none;
     padding: 2 * $grid-base 0 2 * $grid-base 10 * $grid-base;
     width: 100%;

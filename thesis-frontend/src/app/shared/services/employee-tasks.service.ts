@@ -18,6 +18,9 @@ export class EmployeeTasksService {
         id: '2',
         name: 'Project 2',
         image: 'assets/companies/company2.png',
+        employeesCount: 50,
+        creationDate: '2021-03-11',
+        active: true,
       },
       task: {
         id: '2',
@@ -39,6 +42,9 @@ export class EmployeeTasksService {
         id: '1',
         name: 'Project 1',
         image: 'assets/companies/company1.png',
+        employeesCount: 50,
+        creationDate: '2021-03-11',
+        active: true,
       },
       task: {
         id: '1',
@@ -60,6 +66,9 @@ export class EmployeeTasksService {
         id: '1',
         name: 'Project 1',
         image: 'assets/companies/company1.png',
+        employeesCount: 50,
+        creationDate: '2021-03-11',
+        active: true,
       },
       task: {
         id: '1',

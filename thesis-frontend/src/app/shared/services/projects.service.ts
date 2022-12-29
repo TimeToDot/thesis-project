@@ -7,15 +7,56 @@ import { Project } from '../../projects/models/project.model';
 })
 export class ProjectsService {
   private _projects: Project[] = [
-    { id: '1', name: 'Project A', image: 'assets/companies/company1.png' },
-    { id: '2', name: 'Project B', image: 'assets/companies/company2.png' },
-    { id: '3', name: 'Project C', image: 'assets/companies/company3.png' },
+    {
+      id: '1',
+      name: 'Volkswagen',
+      image: 'assets/companies/company1.png',
+      employeesCount: 50,
+      creationDate: '2021-03-11',
+      active: true,
+    },
+    {
+      id: '2',
+      name: 'IKEA',
+      image: 'assets/companies/company2.png',
+      employeesCount: 50,
+      creationDate: '2021-03-11',
+      active: true,
+    },
+    {
+      id: '3',
+      name: 'Starbucks',
+      image: 'assets/companies/company3.png',
+      employeesCount: 50,
+      creationDate: '2021-03-11',
+      active: true,
+    },
+    {
+      id: '4',
+      name: "McDonald's",
+      image: 'assets/companies/company4.png',
+      employeesCount: 50,
+      creationDate: '2021-03-11',
+      active: false,
+    },
+    {
+      id: '5',
+      name: 'Jeep',
+      image: 'assets/companies/company5.png',
+      employeesCount: 50,
+      creationDate: '2021-03-11',
+      active: false,
+    },
   ];
 
   constructor() {}
 
   getProjects(): Observable<Project[]> {
-    return of(this._projects);
+    return of(this._projects.filter(project => project.active));
+  }
+
+  getArchivedProjects(): Observable<Project[]> {
+    return of(this._projects.filter(project => !project.active));
   }
 
   getEmployeeProjects(): Observable<Project[]> {

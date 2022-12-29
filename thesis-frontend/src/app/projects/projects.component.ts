@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { RouterLinkWithHref } from '@angular/router';
 import { first } from 'rxjs';
 import { ButtonComponent } from '../shared/components/button/button.component';
@@ -10,10 +11,12 @@ import { Project } from './models/project.model';
   selector: 'bvr-projects',
   templateUrl: './projects.component.html',
   standalone: true,
-  imports: [ButtonComponent, CommonModule, RouterLinkWithHref],
+  imports: [ButtonComponent, CommonModule, FormsModule, RouterLinkWithHref],
 })
 export class ProjectsComponent implements OnInit {
   projects: Project[] = [];
+  query: string = '';
+  showActive: boolean = true;
 
   constructor(private projectsService: ProjectsService) {}
 
@@ -21,9 +24,20 @@ export class ProjectsComponent implements OnInit {
     this.getProjects();
   }
 
+  showActiveProjects(active: boolean): void {
+    active ? this.getProjects() : this.getArchivedProjects();
+  }
+
   getProjects(): void {
     this.projectsService
       .getProjects()
+      .pipe(first())
+      .subscribe(projects => (this.projects = projects));
+  }
+
+  getArchivedProjects(): void {
+    this.projectsService
+      .getArchivedProjects()
       .pipe(first())
       .subscribe(projects => (this.projects = projects));
   }

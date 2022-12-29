@@ -60,19 +60,21 @@ export class ProjectTasksComponent implements OnInit {
   }
 
   showActiveTable(value: boolean): void {
-    if (value) {
-      this.projectTasksService
-        .getProjectTasks('1')
-        .pipe(first())
-        .subscribe(projectTasks => (this.dataSource = projectTasks));
-    } else {
-      this.projectTasksService
-        .getArchivedProjectTasks('1')
-        .pipe(first())
-        .subscribe(
-          archivedProjectTasks => (this.dataSource = archivedProjectTasks)
-        );
-    }
+    value ? this.getProjectTasks('1') : this.getArchivedProjectTasks('1');
+  }
+
+  getProjectTasks(index: string): void {
+    this.projectTasksService
+      .getProjectTasks(index)
+      .pipe(first())
+      .subscribe(projectTasks => (this.dataSource = projectTasks));
+  }
+
+  getArchivedProjectTasks(index: string): void {
+    this.projectTasksService
+      .getArchivedProjectTasks(index)
+      .pipe(first())
+      .subscribe(projectTasks => (this.dataSource = projectTasks));
   }
 
   editTask(event: Event, row: ProjectTask): void {
