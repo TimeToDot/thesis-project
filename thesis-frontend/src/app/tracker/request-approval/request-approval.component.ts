@@ -127,13 +127,15 @@ export class RequestApprovalComponent implements OnInit {
     if (this.isFromGuard) {
       this.redirectSubject.next(value);
     } else {
-      this.disableGuard();
-      this.location.back();
+      this.disableGuard(value);
+      if (value) {
+        this.location.back();
+      }
     }
   }
 
   send(): void {
-    this.disableGuard();
+    this.disableGuard(true);
     new Promise((resolve, _) => {
       this.location.back();
       resolve('done');
@@ -150,9 +152,9 @@ export class RequestApprovalComponent implements OnInit {
     });
   }
 
-  disableGuard(): void {
+  disableGuard(value: boolean): void {
     this.isGuardDisabled = true;
-    this.redirectSubject.next(true);
+    this.redirectSubject.next(value);
   }
 
   isRequired(name: string): boolean {

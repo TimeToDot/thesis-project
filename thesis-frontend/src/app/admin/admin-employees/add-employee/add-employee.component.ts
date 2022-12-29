@@ -33,6 +33,7 @@ export class AddEmployeeComponent implements OnInit {
   addEmployeeForm!: FormGroup;
   isCancelModalOpen: boolean = false;
   isFromGuard: boolean = false;
+  isGuardDisabled: boolean = false;
   modalDescription: string = '';
   redirectSubject: Subject<boolean> = new Subject<boolean>();
   step: number = 1;
@@ -103,6 +104,18 @@ export class AddEmployeeComponent implements OnInit {
   }
 
   cancel(value: boolean): void {
-    this.isFromGuard ? this.redirectSubject.next(value) : this.location.back();
+    if (this.isFromGuard) {
+      this.redirectSubject.next(value);
+    } else {
+      this.disableGuard(value);
+      if (value) {
+        this.location.back();
+      }
+    }
+  }
+
+  disableGuard(value: boolean): void {
+    this.isGuardDisabled = true;
+    this.redirectSubject.next(value);
   }
 }

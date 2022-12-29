@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { first } from 'rxjs';
+import { CommonModule, Location } from '@angular/common';
+import { first, Subject } from 'rxjs';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import {
   ActivatedRoute,
@@ -78,12 +78,17 @@ export class ViewEmployeeComponent {
   };
   enableFormButtons: boolean = true;
   isArchiveModalOpen: boolean = false;
+  isCancelModalOpen: boolean = false;
+  isFromGuard: boolean = false;
+  isGuardDisabled: boolean = false;
   modalDescription: string = '';
   navbarOptions: LinkOption[] = [];
+  redirectSubject: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     private accountsService: AccountsService,
     private contexts: ChildrenOutletContexts,
+    private location: Location,
     private route: ActivatedRoute,
     private router: Router,
     private toastService: ToastService
@@ -118,6 +123,12 @@ export class ViewEmployeeComponent {
     this.modalDescription = `Are you sure you want to archive ${this.account.firstName} ${this.account.lastName}? This action cannot be undone.`;
   }
 
+  openCancelModal(fromGuard: boolean): void {
+    this.isCancelModalOpen = true;
+    this.isFromGuard = fromGuard;
+    this.modalDescription = `Are you sure you want to leave? You will lose your unsaved changes if you continue.`;
+  }
+
   archive(): void {
     this.router.navigate(['..'], { relativeTo: this.route }).then(() => {
       setTimeout(
@@ -127,6 +138,22 @@ export class ViewEmployeeComponent {
       );
       setTimeout(() => this.toastService.dismissToast(), 3200);
     });
+  }
+
+  cancel(value: boolean): void {
+    if (this.isFromGuard) {
+      this.redirectSubject.next(value);
+    } else {
+      this.disableGuard(value);
+      if (value) {
+        this.location.back();
+      }
+    }
+  }
+
+  disableGuard(value: boolean): void {
+    this.isGuardDisabled = true;
+    this.redirectSubject.next(value);
   }
 
   onOutletLoaded(component: any): void {

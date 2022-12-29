@@ -167,13 +167,15 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
     if (this.isFromGuard) {
       this.redirectSubject.next(value);
     } else {
-      this.disableGuard();
-      this.router.navigate(['..'], { relativeTo: this.route });
+      this.disableGuard(value);
+      if (value) {
+        this.router.navigate(['..'], { relativeTo: this.route });
+      }
     }
   }
 
   confirm(): void {
-    this.disableGuard();
+    this.disableGuard(true);
     this.router.navigate(['..'], { relativeTo: this.route }).then(() => {
       setTimeout(
         () =>
@@ -184,9 +186,9 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
     });
   }
 
-  disableGuard(): void {
+  disableGuard(value: boolean): void {
     this.isGuardDisabled = true;
-    this.redirectSubject.next(true);
+    this.redirectSubject.next(value);
   }
 
   ngOnDestroy(): void {

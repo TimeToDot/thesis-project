@@ -6,7 +6,7 @@
     </div>
     <bvr-tabs [navbarOptions]="navbarOptions"></bvr-tabs>
   </div>
-  <div class="card-body view-employee">
+  <div class="card-content view-employee">
     <div class="header">
       <div class="name">
         <img [src]="account.image" class="picture" [ngClass]="{ archived: !account.active }" />
@@ -29,12 +29,15 @@
     </div>
 
     <div *ngIf="enableFormButtons" class="form-buttons">
-      <bvr-button class="form-button" label="Cancel" [routerLink]="['..']" styleClass="button-text"></bvr-button>
+      <bvr-button class="form-button" (click)="openCancelModal(false)" label="Cancel"
+        styleClass="button-text"></bvr-button>
     </div>
   </div>
 </div>
 
 <bvr-modal (confirm)="archive()" confirmLabel="archive" [description]="modalDescription" [title]="'Archive employee'"
   [(visible)]="isArchiveModalOpen"></bvr-modal>
+<bvr-modal (confirm)="cancel($event)" confirmLabel="Leave" [description]="modalDescription" [title]="'Leave'"
+  [(visible)]="isCancelModalOpen"></bvr-modal>
 
 <bvr-toast></bvr-toast>

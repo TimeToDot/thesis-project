@@ -222,13 +222,15 @@ export class AddNewTaskComponent implements OnInit {
     if (this.isFromGuard) {
       this.redirectSubject.next(value);
     } else {
-      this.disableGuard();
-      this.location.back();
+      this.disableGuard(value);
+      if (value) {
+        this.location.back();
+      }
     }
   }
 
   delete(): void {
-    this.disableGuard();
+    this.disableGuard(true);
     this.router
       .navigate(['../../tasks-list'], { relativeTo: this.route })
       .then(() => {
@@ -246,7 +248,7 @@ export class AddNewTaskComponent implements OnInit {
   }
 
   save(): void {
-    this.disableGuard();
+    this.disableGuard(true);
     this.router
       .navigate(['../../tasks-list'], { relativeTo: this.route })
       .then(() => {
@@ -258,9 +260,9 @@ export class AddNewTaskComponent implements OnInit {
       });
   }
 
-  disableGuard(): void {
+  disableGuard(value: boolean): void {
     this.isGuardDisabled = true;
-    this.redirectSubject.next(true);
+    this.redirectSubject.next(value);
   }
 
   isRequired(name: string): boolean {

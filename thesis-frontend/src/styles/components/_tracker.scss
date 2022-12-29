@@ -1,7 +1,10 @@
-.tracker.card-body {
+.tracker {
   box-shadow: $shadow-default;
+  display: flex;
+  justify-content: space-between;
   margin-top: 4 * $grid-base;
   padding: 6 * $grid-base;
+  width: 100%;
 }
 
 .tracker-right-side {
@@ -29,7 +32,7 @@
 }
 
 @media screen and (max-width: 1400px) {
-  .tracker.card-body {
+  .tracker {
     align-items: center;
     flex-direction: column-reverse;
   }

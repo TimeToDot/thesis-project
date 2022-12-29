@@ -5,7 +5,7 @@
       <h2 class="name">Projects</h2>
     </div>
   </div>
-  <div class="card-body">
+  <div class="card-content">
     <div class="projects">
       <bvr-button *ngFor="let project of projects" [label]="project.name"
         [routerLink]="['/projects', project.id]"></bvr-button>

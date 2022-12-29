@@ -78,7 +78,7 @@ export class AddTaskComponent {
   }
 
   add(): void {
-    this.disableGuard();
+    this.disableGuard(true);
     this.router.navigate(['..'], { relativeTo: this.route }).then(() => {
       setTimeout(
         () => this.toastService.showToast(ToastState.Success, 'Task added'),
@@ -92,14 +92,16 @@ export class AddTaskComponent {
     if (this.isFromGuard) {
       this.redirectSubject.next(value);
     } else {
-      this.disableGuard();
-      this.location.back();
+      this.disableGuard(value);
+      if (value) {
+        this.location.back();
+      }
     }
   }
 
-  disableGuard(): void {
+  disableGuard(value: boolean): void {
     this.isGuardDisabled = true;
-    this.redirectSubject.next(true);
+    this.redirectSubject.next(value);
   }
 
   isRequired(name: string): boolean {

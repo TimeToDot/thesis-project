@@ -117,17 +117,30 @@ export class EditTaskComponent {
     }
   }
 
+  archive(): void {
+    this.disableGuard(true);
+    this.router.navigate(['../..'], { relativeTo: this.route }).then(() => {
+      setTimeout(
+        () => this.toastService.showToast(ToastState.Success, 'Task archived'),
+        200
+      );
+      setTimeout(() => this.toastService.dismissToast(), 3200);
+    });
+  }
+
   cancel(value: boolean): void {
     if (this.isFromGuard) {
       this.redirectSubject.next(value);
     } else {
-      this.disableGuard();
-      this.location.back();
+      this.disableGuard(value);
+      if (value) {
+        this.location.back();
+      }
     }
   }
 
   save(): void {
-    this.disableGuard();
+    this.disableGuard(true);
     new Promise((resolve, _) => {
       this.location.back();
       resolve('done');
@@ -140,20 +153,9 @@ export class EditTaskComponent {
     });
   }
 
-  archive(): void {
-    this.disableGuard();
-    this.router.navigate(['../..'], { relativeTo: this.route }).then(() => {
-      setTimeout(
-        () => this.toastService.showToast(ToastState.Success, 'Task archived'),
-        200
-      );
-      setTimeout(() => this.toastService.dismissToast(), 3200);
-    });
-  }
-
-  disableGuard(): void {
+  disableGuard(value: boolean): void {
     this.isGuardDisabled = true;
-    this.redirectSubject.next(true);
+    this.redirectSubject.next(value);
   }
 
   isRequired(name: string): boolean {
