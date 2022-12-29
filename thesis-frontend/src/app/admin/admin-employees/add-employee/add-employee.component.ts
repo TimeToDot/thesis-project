@@ -31,6 +31,7 @@ import { Subject } from 'rxjs';
 })
 export class AddEmployeeComponent implements OnInit {
   addEmployeeForm!: FormGroup;
+  enableFormButtons: boolean = true;
   isCancelModalOpen: boolean = false;
   isFromGuard: boolean = false;
   isGuardDisabled: boolean = false;
@@ -117,5 +118,9 @@ export class AddEmployeeComponent implements OnInit {
   disableGuard(value: boolean): void {
     this.isGuardDisabled = true;
     this.redirectSubject.next(value);
+  }
+
+  toggleFormButtons(value: boolean): void {
+    this.enableFormButtons = value;
   }
 }

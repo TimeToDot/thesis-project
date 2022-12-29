@@ -22,9 +22,6 @@ import { ToastComponent } from '../../../shared/components/toast/toast.component
 @Component({
   selector: 'bvr-add-project-employee',
   standalone: true,
-  host: {
-    class: 'add-new-employee',
-  },
   imports: [
     ButtonComponent,
     CommonModule,

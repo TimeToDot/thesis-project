@@ -1,8 +1,9 @@
 .add-employee {
   align-items: flex-end;
   display: flex;
+  flex: 1;
   flex-direction: column;
-  padding: 0 31 * $grid-base 12 * $grid-base;
+  padding: 0 31 * $grid-base;
   width: 100%;
 
   .form-header {

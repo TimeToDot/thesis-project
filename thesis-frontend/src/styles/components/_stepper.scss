@@ -1,4 +1,7 @@
 .stepper {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
   width: 100%;
 
   .title h4 {
@@ -51,4 +54,11 @@
     border-color: $color-disabled;
     color: $color-text-secondary;
   }
+}
+
+.steps {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  width: 100%;
 }

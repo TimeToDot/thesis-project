@@ -27,6 +27,7 @@ import { DropdownOption } from '../../../shared/models/dropdown-option.model';
 })
 export class AddressInfoComponent implements OnInit {
   @Input() addEmployeeForm!: FormGroup;
+  @Input() enableFormButtons: boolean = false;
 
   @Output() nextStepChange: EventEmitter<void> = new EventEmitter();
   @Output() openCancelModal: EventEmitter<boolean> = new EventEmitter();

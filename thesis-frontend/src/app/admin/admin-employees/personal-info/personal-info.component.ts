@@ -27,6 +27,7 @@ import { ToastComponent } from '../../../shared/components/toast/toast.component
 })
 export class PersonalInfoComponent {
   @Input() addEmployeeForm!: FormGroup;
+  @Input() enableFormButtons: boolean = false;
 
   @Output() nextStepChange: EventEmitter<void> = new EventEmitter();
   @Output() openCancelModal: EventEmitter<boolean> = new EventEmitter();
