@@ -11,11 +11,15 @@
         <h4>Add New Employee</h4>
       </div>
       <div class="stepper-header">
-        <div class="step" [ngClass]="{ 'active-step': step === 1, 'previous-step': step > 1 }">
+        <div
+          class="step"
+          [ngClass]="{ 'active-step': step === 1, 'previous-step': step > 1 }">
           1
         </div>
         <div class="divider"></div>
-        <div class="step" [ngClass]="{
+        <div
+          class="step"
+          [ngClass]="{
             'next-step': step === 1,
             'active-step': step === 2,
             'previous-step': step > 2
@@ -23,7 +27,9 @@
           2
         </div>
         <div class="divider"></div>
-        <div class="step" [ngClass]="{
+        <div
+          class="step"
+          [ngClass]="{
             'next-step': step < 3,
             'active-step': step === 3,
             'previous-step': step === 4
@@ -31,29 +37,50 @@
           3
         </div>
         <div class="divider"></div>
-        <div class="step" [ngClass]="{ 'active-step': step === 4, 'next-step': step < 4 }">
+        <div
+          class="step"
+          [ngClass]="{ 'active-step': step === 4, 'next-step': step < 4 }">
           4
         </div>
       </div>
-      <form [@tabs]="step" (@tabs.start)="toggleFormButtons(false)" (@tabs.done)="toggleFormButtons(true)"
+      <form
+        [@tabs]="step"
+        (@tabs.start)="toggleFormButtons(false)"
+        (@tabs.done)="toggleFormButtons(true)"
         class="steps">
         <ng-container *ngIf="step === 1">
-          <bvr-personal-info class="outlet" [addEmployeeForm]="addEmployeeForm" [enableFormButtons]="enableFormButtons"
-            (nextStepChange)="nextStep()" (openCancelModal)="openCancelModal($event)"></bvr-personal-info>
+          <bvr-personal-info
+            class="outlet"
+            [addEmployeeForm]="addEmployeeForm"
+            [enableFormButtons]="enableFormButtons"
+            (nextStepChange)="nextStep()"
+            (openCancelModal)="openCancelModal($event)"></bvr-personal-info>
         </ng-container>
         <ng-container *ngIf="step === 2">
-          <bvr-address-info class="outlet" [addEmployeeForm]="addEmployeeForm" [enableFormButtons]="enableFormButtons"
-            (nextStepChange)="nextStep()" (openCancelModal)="openCancelModal($event)"
+          <bvr-address-info
+            class="outlet"
+            [addEmployeeForm]="addEmployeeForm"
+            [enableFormButtons]="enableFormButtons"
+            (nextStepChange)="nextStep()"
+            (openCancelModal)="openCancelModal($event)"
             (previousStepChange)="previousStep()"></bvr-address-info>
         </ng-container>
         <ng-container *ngIf="step === 3">
-          <bvr-employment-info class="outlet" [addEmployeeForm]="addEmployeeForm"
-            [enableFormButtons]="enableFormButtons" (nextStepChange)="nextStep()"
-            (openCancelModal)="openCancelModal($event)" (previousStepChange)="previousStep()"></bvr-employment-info>
+          <bvr-employment-info
+            class="outlet"
+            [addEmployeeForm]="addEmployeeForm"
+            [enableFormButtons]="enableFormButtons"
+            (nextStepChange)="nextStep()"
+            (openCancelModal)="openCancelModal($event)"
+            (previousStepChange)="previousStep()"></bvr-employment-info>
         </ng-container>
         <ng-container *ngIf="step === 4">
-          <bvr-account-info class="outlet" [addEmployeeForm]="addEmployeeForm" (disableGuard)="disableGuard($event)"
-            [enableFormButtons]="enableFormButtons" (openCancelModal)="openCancelModal($event)"
+          <bvr-account-info
+            class="outlet"
+            [addEmployeeForm]="addEmployeeForm"
+            (disableGuard)="disableGuard($event)"
+            [enableFormButtons]="enableFormButtons"
+            (openCancelModal)="openCancelModal($event)"
             (previousStepChange)="previousStep()"></bvr-account-info>
         </ng-container>
       </form>
@@ -61,5 +88,9 @@
   </div>
 </div>
 
-<bvr-modal (confirm)="cancel($event)" confirmLabel="Leave" [description]="modalDescription" [title]="'Leave'"
+<bvr-modal
+  (confirm)="cancel($event)"
+  confirmLabel="Leave"
+  [description]="modalDescription"
+  [title]="'Leave'"
   [(visible)]="isCancelModalOpen"></bvr-modal>

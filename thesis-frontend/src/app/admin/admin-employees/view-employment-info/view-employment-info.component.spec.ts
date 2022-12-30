@@ -8,9 +8,8 @@ describe('ViewEmploymentInfoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ ViewEmploymentInfoComponent ]
-    })
-    .compileComponents();
+      imports: [ViewEmploymentInfoComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ViewEmploymentInfoComponent);
     component = fixture.componentInstance;

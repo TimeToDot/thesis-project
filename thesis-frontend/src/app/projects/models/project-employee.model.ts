@@ -1,10 +1,10 @@
+import { DropdownOption } from '../../shared/models/dropdown-option.model';
 import { Employee } from '../../shared/models/employee.model';
-import { ContractType } from './contract-type.model';
 
 export interface ProjectEmployee {
   id: string;
   employee: Employee;
-  contractType: ContractType;
+  contractType: DropdownOption;
   workingTime: number;
   wage: number;
   joinDate: string;

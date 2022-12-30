@@ -13,7 +13,7 @@ import { first } from 'rxjs';
 import { Position } from '../../models/position.model';
 import { DatePickerComponent } from '../../../shared/components/date-picker/date-picker.component';
 import { ContractTypesService } from '../../services/contract-types.service';
-import { ContractType } from '../../../projects/models/contract-type.model';
+import { DropdownOption } from '../../../shared/models/dropdown-option.model';
 
 @Component({
   selector: 'bvr-employment-info',
@@ -37,7 +37,7 @@ export class EmploymentInfoComponent implements OnInit {
   @Output() openCancelModal: EventEmitter<boolean> = new EventEmitter();
   @Output() previousStepChange: EventEmitter<void> = new EventEmitter();
 
-  contractTypes: ContractType[] = [];
+  contractTypes: DropdownOption[] = [];
   positions: Position[] = [];
 
   constructor(

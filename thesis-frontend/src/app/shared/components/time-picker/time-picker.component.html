@@ -1,9 +1,17 @@
-<div #dropdown class="time-picker">
+<div
+  #dropdown
+  class="time-picker">
   <div (click)="toggleTimePicker()">
-    <input readonly type="text" [value]="selectedTime" />
+    <input
+      readonly
+      type="text"
+      [value]="selectedTime" />
     <span class="material-icons-outlined time-picker-icon">schedule</span>
   </div>
-  <div *ngIf="timePickerEnabled" #dropdownContent class="time-picker-modal">
+  <div
+    *ngIf="timePickerEnabled"
+    #dropdownContent
+    class="time-picker-modal">
     <div class="time-picker-row arrows">
       <bvr-button
         class="time-picker-cell"

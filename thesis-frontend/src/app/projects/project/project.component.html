@@ -6,7 +6,9 @@
     </div>
     <bvr-tabs [navbarOptions]="navbarOptions"></bvr-tabs>
   </div>
-  <div [@tabs]="getRouteAnimationData()" class="card-content">
+  <div
+    [@tabs]="getRouteAnimationData()"
+    class="card-content">
     <router-outlet class="router-outlet"></router-outlet>
   </div>
 </div>

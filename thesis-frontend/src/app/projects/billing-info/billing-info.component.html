@@ -1,6 +1,117 @@
-<div *ngIf="enableFormButtons" class="form-buttons">
-    <bvr-button class="form-button" (click)="openCancelModal.emit(false)" label="Cancel"
-        styleClass="button-text"></bvr-button>
-    <bvr-button class="form-button" (click)="previousStepChange.emit()" label="Previous"></bvr-button>
-    <!-- <bvr-button class="form-button" (click)="openAddModal()" label="Add"></bvr-button> -->
+<div
+  *ngIf="addProjectForm"
+  class="add-project"
+  [formGroup]="addProjectForm">
+  <div
+    class="form"
+    formGroupName="billingInfo">
+    <bvr-form-field
+      label="Billing Period"
+      [required]="isRequired('billingPeriod')">
+      <bvr-dropdown-list
+        formControlName="billingPeriod"
+        name="Billing Period"
+        [options]="billingPeriods"></bvr-dropdown-list>
+      <ng-container *ngIf="showErrors('billingPeriod')">
+        <small
+          *ngIf="
+            addProjectForm
+              .get(['billingInfo', 'billingPeriod'])
+              ?.hasError('required')
+          "
+          >This field is required.</small
+        >
+      </ng-container>
+    </bvr-form-field>
+    <div class="form-header">{{ 'Salary Modifiers' | uppercase }}</div>
+    <div class="modifiers">
+      <bvr-form-field
+        class="left-field"
+        label="Overtime"
+        [required]="isRequired('overtimeModifier')">
+        <input
+          formControlName="overtimeModifier"
+          type="number" />
+        <ng-container *ngIf="showErrors('overtimeModifier')">
+          <small
+            *ngIf="
+              addProjectForm
+                .get(['billingInfo', 'overtimeModifier'])
+                ?.hasError('required')
+            "
+            >This field is required.</small
+          >
+        </ng-container>
+      </bvr-form-field>
+      <bvr-form-field
+        class="left-field"
+        label="Bonus Modifier"
+        [required]="isRequired('bonusModifier')">
+        <input
+          formControlName="bonusModifier"
+          type="number" />
+        <ng-container *ngIf="showErrors('bonusModifier')">
+          <small
+            *ngIf="
+              addProjectForm
+                .get(['billingInfo', 'bonusModifier'])
+                ?.hasError('required')
+            "
+            >This field is required.</small
+          >
+        </ng-container>
+      </bvr-form-field>
+      <bvr-form-field
+        class="field"
+        label="Night Modifier"
+        [required]="isRequired('nightModifier')">
+        <input
+          formControlName="nightModifier"
+          type="number" />
+        <ng-container *ngIf="showErrors('nightModifier')">
+          <small
+            *ngIf="
+              addProjectForm
+                .get(['billingInfo', 'nightModifier'])
+                ?.hasError('required')
+            "
+            >This field is required.</small
+          >
+        </ng-container>
+      </bvr-form-field>
+      <bvr-form-field
+        class="field"
+        label="Holiday Modifier"
+        [required]="isRequired('holidayModifier')">
+        <input
+          formControlName="holidayModifier"
+          type="number" />
+        <ng-container *ngIf="showErrors('holidayModifier')">
+          <small
+            *ngIf="
+              addProjectForm
+                .get(['billingInfo', 'holidayModifier'])
+                ?.hasError('required')
+            "
+            >This field is required.</small
+          >
+        </ng-container>
+      </bvr-form-field>
+    </div>
+  </div>
+</div>
+
+<div
+  *ngIf="enableFormButtons"
+  class="form-buttons">
+  <bvr-button
+    class="form-button"
+    (click)="openCancelModal.emit(false)"
+    label="Cancel"
+    styleClass="button-text"></bvr-button>
+  <bvr-button
+    class="form-button"
+    (click)="previousStepChange.emit()"
+    label="Previous"></bvr-button>
+  <!-- <bvr-button class="form-button" (click)="openAddModal()" label="Add"></bvr-button> -->
 </div>

@@ -1,35 +1,51 @@
 <div class="form">
-    <div class="form-header">{{ 'Address Info' | uppercase }}</div>
-    <div class="row address-info">
-        <bvr-form-field class="left-field" label="Street">
-            <span>{{account.street}}</span>
-        </bvr-form-field>
-        <div class="house-info">
-            <bvr-form-field class="left-field" label="House Number">
-                <span>{{account.houseNumber}}</span>
-            </bvr-form-field>
-            <bvr-form-field class="field" label="Apartment Number">
-                <span>{{account.apartmentNumber}}</span>
-            </bvr-form-field>
-        </div>
-    </div>
-    <div class="row">
-        <bvr-form-field class="left-field" label="City">
-            <span>{{account.city}}</span>
-        </bvr-form-field>
-        <bvr-form-field class="field" label="Postal Code">
-            <span>{{account.postalCode}}</span>
-        </bvr-form-field>
-    </div>
-    <bvr-form-field class="field" label="Country">
-        <span>{{account.country.name}}</span>
+  <div class="form-header">{{ 'Address Info' | uppercase }}</div>
+  <div class="row address-info">
+    <bvr-form-field
+      class="left-field"
+      label="Street">
+      <span>{{ account.street }}</span>
     </bvr-form-field>
-    <div class="row">
-        <bvr-form-field class="left-field" label="Phone number">
-            <span>{{account.phoneNumber}}</span>
-        </bvr-form-field>
-        <bvr-form-field class="field" label="Private email">
-            <span>{{account.privateEmail}}</span>
-        </bvr-form-field>
+    <div class="house-info">
+      <bvr-form-field
+        class="left-field"
+        label="House Number">
+        <span>{{ account.houseNumber }}</span>
+      </bvr-form-field>
+      <bvr-form-field
+        class="field"
+        label="Apartment Number">
+        <span>{{ account.apartmentNumber }}</span>
+      </bvr-form-field>
     </div>
+  </div>
+  <div class="row">
+    <bvr-form-field
+      class="left-field"
+      label="City">
+      <span>{{ account.city }}</span>
+    </bvr-form-field>
+    <bvr-form-field
+      class="field"
+      label="Postal Code">
+      <span>{{ account.postalCode }}</span>
+    </bvr-form-field>
+  </div>
+  <bvr-form-field
+    class="field"
+    label="Country">
+    <span>{{ account.country.name }}</span>
+  </bvr-form-field>
+  <div class="row">
+    <bvr-form-field
+      class="left-field"
+      label="Phone number">
+      <span>{{ account.phoneNumber }}</span>
+    </bvr-form-field>
+    <bvr-form-field
+      class="field"
+      label="Private email">
+      <span>{{ account.privateEmail }}</span>
+    </bvr-form-field>
+  </div>
 </div>

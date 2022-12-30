@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { ContractType } from '../../projects/models/contract-type.model';
+import { DropdownOption } from '../../shared/models/dropdown-option.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ContractTypesService {
-  private _contractTypes: ContractType[] = [
+  private _contractTypes: DropdownOption[] = [
     { id: '1', name: 'Employment contract' },
     { id: '2', name: 'Commission contract' },
     { id: '3', name: 'Specific-task contract' },
@@ -15,7 +15,7 @@ export class ContractTypesService {
 
   constructor() {}
 
-  getContractTypes(): Observable<ContractType[]> {
+  getContractTypes(): Observable<DropdownOption[]> {
     return of(this._contractTypes);
   }
 }

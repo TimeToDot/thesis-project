@@ -4,12 +4,17 @@
       <span class="material-icons-outlined">schedule</span>
       <h2 class="name">Tracker</h2>
     </div>
-    <bvr-button class="add-new-button" label="Request approval" [routerLink]="['request-approval']"></bvr-button>
+    <bvr-button
+      class="add-new-button"
+      label="Request approval"
+      [routerLink]="['request-approval']"></bvr-button>
   </div>
   <div class="tracker">
     <bvr-calendar></bvr-calendar>
     <div class="tracker-right-side">
-      <bvr-tabs class="tracker-tabs" [navbarOptions]="navbarOptions"></bvr-tabs>
+      <bvr-tabs
+        class="tracker-tabs"
+        [navbarOptions]="navbarOptions"></bvr-tabs>
       <div>
         <router-outlet></router-outlet>
       </div>

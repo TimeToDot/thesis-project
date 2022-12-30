@@ -4,42 +4,81 @@
       <span class="material-icons-outlined">groups</span>
       <h2 class="name">Employee</h2>
     </div>
-    <bvr-tabs [hasRouting]="false" [navbarOptions]="navbarOptions" [selectedIndex]="tabIndex"
+    <bvr-tabs
+      [hasRouting]="false"
+      [navbarOptions]="navbarOptions"
+      [selectedIndex]="tabIndex"
       (selectedIndexChange)="updateTabIndex($event)"></bvr-tabs>
   </div>
   <div class="card-content view-employee">
     <div class="header">
       <div class="name">
-        <img [src]="account.image" class="picture" />
+        <img
+          [src]="account.image"
+          class="picture" />
         <h4>
           {{ account.firstName }}
           {{ account.lastName }}
         </h4>
       </div>
-      <bvr-button (click)="openArchiveModal()" icon="archive" styleClass="button-icon"></bvr-button>
+      <bvr-button
+        (click)="openArchiveModal()"
+        icon="archive"
+        styleClass="button-icon"></bvr-button>
     </div>
 
-    <div [@tabs]="tabIndex" (@tabs.start)="toggleFormButtons(false)" (@tabs.done)="toggleFormButtons(true)"
+    <div
+      [@tabs]="tabIndex"
+      (@tabs.start)="toggleFormButtons(false)"
+      (@tabs.done)="toggleFormButtons(true)"
       class="view-employee-content">
-      <bvr-edit-personal-info *ngIf="tabIndex === 0" [editEmployeeForm]="editEmployeeForm"></bvr-edit-personal-info>
-      <bvr-edit-address-info *ngIf="tabIndex === 1" [editEmployeeForm]="editEmployeeForm"></bvr-edit-address-info>
-      <bvr-edit-employment-info *ngIf="tabIndex === 2" [editEmployeeForm]="editEmployeeForm"></bvr-edit-employment-info>
-      <bvr-edit-account-info *ngIf="tabIndex === 3" [editEmployeeForm]="editEmployeeForm"></bvr-edit-account-info>
+      <bvr-edit-personal-info
+        *ngIf="tabIndex === 0"
+        [editEmployeeForm]="editEmployeeForm"></bvr-edit-personal-info>
+      <bvr-edit-address-info
+        *ngIf="tabIndex === 1"
+        [editEmployeeForm]="editEmployeeForm"></bvr-edit-address-info>
+      <bvr-edit-employment-info
+        *ngIf="tabIndex === 2"
+        [editEmployeeForm]="editEmployeeForm"></bvr-edit-employment-info>
+      <bvr-edit-account-info
+        *ngIf="tabIndex === 3"
+        [editEmployeeForm]="editEmployeeForm"></bvr-edit-account-info>
     </div>
 
-    <div *ngIf="enableFormButtons" class="form-buttons">
-      <bvr-button class="form-button" (click)="openCancelModal(false)" label="Cancel"
+    <div
+      *ngIf="enableFormButtons"
+      class="form-buttons">
+      <bvr-button
+        class="form-button"
+        (click)="openCancelModal(false)"
+        label="Cancel"
         styleClass="button-text"></bvr-button>
-      <bvr-button class="form-button" (click)="openSaveModal()" label="Save"></bvr-button>
+      <bvr-button
+        class="form-button"
+        (click)="openSaveModal()"
+        label="Save"></bvr-button>
     </div>
   </div>
 </div>
 
-<bvr-modal (confirm)="archive()" confirmLabel="archive" [description]="modalDescription" [title]="'Archive employee'"
+<bvr-modal
+  (confirm)="archive()"
+  confirmLabel="archive"
+  [description]="modalDescription"
+  [title]="'Archive employee'"
   [(visible)]="isArchiveModalOpen"></bvr-modal>
-<bvr-modal (confirm)="cancel($event)" confirmLabel="Leave" [description]="modalDescription" [title]="'Leave'"
+<bvr-modal
+  (confirm)="cancel($event)"
+  confirmLabel="Leave"
+  [description]="modalDescription"
+  [title]="'Leave'"
   [(visible)]="isCancelModalOpen"></bvr-modal>
-<bvr-modal (confirm)="save()" confirmLabel="Save" [description]="modalDescription" [title]="'Save changes'"
+<bvr-modal
+  (confirm)="save()"
+  confirmLabel="Save"
+  [description]="modalDescription"
+  [title]="'Save changes'"
   [(visible)]="isSaveModalOpen"></bvr-modal>
 
 <bvr-toast></bvr-toast>

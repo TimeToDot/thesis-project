@@ -1,12 +1,19 @@
 <nav class="tabs">
   <ng-container *ngIf="hasRouting">
-    <div *ngFor="let option of navbarOptions" class="tab" [routerLink]="option.path" routerLinkActive="active-tab">
+    <div
+      *ngFor="let option of navbarOptions"
+      class="tab"
+      [routerLink]="option.path"
+      routerLinkActive="active-tab">
       {{ option.name }}
     </div>
   </ng-container>
   <ng-container *ngIf="!hasRouting">
-    <div *ngFor="let option of navbarOptions; let i = index" class="tab" (click)="selectTab(i)"
-      [ngClass]="{'active-tab': i === selectedIndex}">
+    <div
+      *ngFor="let option of navbarOptions; let i = index"
+      class="tab"
+      (click)="selectTab(i)"
+      [ngClass]="{ 'active-tab': i === selectedIndex }">
       {{ option.name }}
     </div>
   </ng-container>

@@ -1,11 +1,22 @@
-<input accept="image/png, image/gif, image/jpeg" (change)="onFileSelected($event)" class="file-input" type="file"
-    #fileUpload>
+<input
+  accept="image/png, image/gif, image/jpeg"
+  (change)="onFileSelected($event)"
+  class="file-input"
+  type="file"
+  #fileUpload />
 
 <div class="file-upload">
-    <div *ngIf="!file.name" class="file-preview"></div>
-    <img *ngIf="file.name" [src]="file.src" class="file-preview" />
-    <div class="file-info">
-        <div>Min size 150x150px, max weight 1MB</div>
-        <bvr-button (click)="fileUpload.click()" label="Upload"></bvr-button>
-    </div>
+  <div
+    *ngIf="!file.name"
+    class="file-preview"></div>
+  <img
+    *ngIf="file.name"
+    [src]="file.src"
+    class="file-preview" />
+  <div class="file-info">
+    <div>Min size 150x150px, max weight 1MB</div>
+    <bvr-button
+      (click)="fileUpload.click()"
+      label="Upload"></bvr-button>
+  </div>
 </div>

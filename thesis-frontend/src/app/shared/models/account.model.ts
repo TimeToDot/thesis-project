@@ -1,5 +1,5 @@
 import { Position } from '../../admin/models/position.model';
-import { ContractType } from '../../projects/models/contract-type.model';
+import { DropdownOption } from './dropdown-option.model';
 
 export interface Account {
   id: string;
@@ -22,7 +22,7 @@ export interface Account {
   position: Position;
   employmentDate: string;
   exitDate?: string;
-  contractType: ContractType;
+  contractType: DropdownOption;
   workingTime: number;
   rate: number;
   payday: number;

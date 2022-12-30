@@ -1,31 +1,51 @@
 <div class="employee-tasks">
   <div class="task-header">
-    <img [src]="project.image" class="task-image" />
+    <img
+      [src]="project.image"
+      class="task-image" />
     <div class="task-title">{{ project.name | uppercase }}</div>
   </div>
-  <div *ngFor="let employeeTask of employeeTasks" class="task">
+  <div
+    *ngFor="let employeeTask of employeeTasks"
+    class="task">
     <div class="task-left-side">
-      <div class="status" [class]="employeeTask.status"></div>
+      <div
+        class="status"
+        [class]="employeeTask.status"></div>
       <div>{{ employeeTask.task.name }}</div>
     </div>
     <div class="task-right-side">
-      <div class="task-time" [ngClass]="{
+      <div
+        class="task-time"
+        [ngClass]="{
           medium: isMedium(employeeTask),
           wide: isWide(employeeTask) && !isMedium(employeeTask)
         }">
         {{ employeeTask.startTime }} - {{ employeeTask.endTime }}
       </div>
       <div *ngIf="isActive">
-        <bvr-button *ngIf="canEdit(employeeTask) && !isApproval" (click)="edit.emit(employeeTask)" icon="edit"
+        <bvr-button
+          *ngIf="canEdit(employeeTask) && !isApproval"
+          (click)="edit.emit(employeeTask)"
+          icon="edit"
           styleClass="button-icon">
         </bvr-button>
-        <bvr-button *ngIf="canEdit(employeeTask) && !isApproval" (click)="delete.emit(employeeTask)" icon="delete"
+        <bvr-button
+          *ngIf="canEdit(employeeTask) && !isApproval"
+          (click)="delete.emit(employeeTask)"
+          icon="delete"
           styleClass="button-icon">
         </bvr-button>
-        <bvr-button *ngIf="canReject(employeeTask)" (click)="rejectTask(employeeTask.id)" icon="block"
+        <bvr-button
+          *ngIf="canReject(employeeTask)"
+          (click)="rejectTask(employeeTask.id)"
+          icon="block"
           styleClass="button-icon reject">
         </bvr-button>
-        <bvr-button *ngIf="canApprove(employeeTask)" (click)="approveTask(employeeTask.id)" icon="undo"
+        <bvr-button
+          *ngIf="canApprove(employeeTask)"
+          (click)="approveTask(employeeTask.id)"
+          icon="undo"
           styleClass="button-icon">
         </bvr-button>
       </div>

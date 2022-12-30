@@ -28,4 +28,15 @@
       height: 48 * $grid-base;
     }
   }
+
+  .modifiers {
+    column-gap: 3 * $grid-base;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    row-gap: 3 * $grid-base;
+
+    input {
+      width: 100%;
+    }
+  }
 }

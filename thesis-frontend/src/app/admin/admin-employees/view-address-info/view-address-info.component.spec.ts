@@ -8,9 +8,8 @@ describe('ViewAddressInfoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ ViewAddressInfoComponent ]
-    })
-    .compileComponents();
+      imports: [ViewAddressInfoComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ViewAddressInfoComponent);
     component = fixture.componentInstance;

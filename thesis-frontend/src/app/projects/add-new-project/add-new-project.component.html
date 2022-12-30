@@ -1,54 +1,76 @@
 <div class="card">
-    <div class="header">
-        <div class="title">
-            <span class="material-icons-outlined">desktop_windows</span>
-            <h2 class="name">Projects</h2>
-        </div>
+  <div class="header">
+    <div class="title">
+      <span class="material-icons-outlined">desktop_windows</span>
+      <h2 class="name">Projects</h2>
     </div>
-    <div class="card-content">
-        <div class="stepper">
-            <div class="title">
-                <h4>Add New Project</h4>
-            </div>
-            <div class="stepper-header">
-                <div class="step" [ngClass]="{ 'active-step': step === 1, 'previous-step': step > 1 }">
-                    1
-                </div>
-                <div class="divider"></div>
-                <div class="step" [ngClass]="{
+  </div>
+  <div class="card-content">
+    <div class="stepper">
+      <div class="title">
+        <h4>Add New Project</h4>
+      </div>
+      <div class="stepper-header">
+        <div
+          class="step"
+          [ngClass]="{ 'active-step': step === 1, 'previous-step': step > 1 }">
+          1
+        </div>
+        <div class="divider"></div>
+        <div
+          class="step"
+          [ngClass]="{
             'next-step': step === 1,
             'active-step': step === 2,
             'previous-step': step > 2
           }">
-                    2
-                </div>
-                <div class="divider"></div>
-                <div class="step" [ngClass]="{ 'active-step': step === 3, 'next-step': step < 3 }">
-                    3
-                </div>
-            </div>
-            <form [@tabs]="step" (@tabs.start)="toggleFormButtons(false)" (@tabs.done)="toggleFormButtons(true)"
-                class="steps">
-                <ng-container *ngIf="step === 1">
-                    <bvr-general-info class="outlet" [addProjectForm]="addProjectForm"
-                        [enableFormButtons]="enableFormButtons" (nextStepChange)="nextStep()"
-                        (openCancelModal)="openCancelModal($event)"></bvr-general-info>
-                </ng-container>
-                <ng-container *ngIf="step === 2">
-                    <bvr-moderator-info class="outlet" [addProjectForm]="addProjectForm"
-                        [enableFormButtons]="enableFormButtons" (nextStepChange)="nextStep()"
-                        (openCancelModal)="openCancelModal($event)"
-                        (previousStepChange)="previousStep()"></bvr-moderator-info>
-                </ng-container>
-                <ng-container *ngIf="step === 3">
-                    <bvr-billing-info class="outlet" [addProjectForm]="addProjectForm"
-                        [enableFormButtons]="enableFormButtons" (openCancelModal)="openCancelModal($event)"
-                        (previousStepChange)="previousStep()"></bvr-billing-info>
-                </ng-container>
-            </form>
+          2
         </div>
+        <div class="divider"></div>
+        <div
+          class="step"
+          [ngClass]="{ 'active-step': step === 3, 'next-step': step < 3 }">
+          3
+        </div>
+      </div>
+      <form
+        [@tabs]="step"
+        (@tabs.start)="toggleFormButtons(false)"
+        (@tabs.done)="toggleFormButtons(true)"
+        class="steps">
+        <ng-container *ngIf="step === 1">
+          <bvr-general-info
+            class="outlet"
+            [addProjectForm]="addProjectForm"
+            [enableFormButtons]="enableFormButtons"
+            (nextStepChange)="nextStep()"
+            (openCancelModal)="openCancelModal($event)"></bvr-general-info>
+        </ng-container>
+        <ng-container *ngIf="step === 2">
+          <bvr-moderator-info
+            class="outlet"
+            [addProjectForm]="addProjectForm"
+            [enableFormButtons]="enableFormButtons"
+            (nextStepChange)="nextStep()"
+            (openCancelModal)="openCancelModal($event)"
+            (previousStepChange)="previousStep()"></bvr-moderator-info>
+        </ng-container>
+        <ng-container *ngIf="step === 3">
+          <bvr-billing-info
+            class="outlet"
+            [addProjectForm]="addProjectForm"
+            [enableFormButtons]="enableFormButtons"
+            (openCancelModal)="openCancelModal($event)"
+            (previousStepChange)="previousStep()"></bvr-billing-info>
+        </ng-container>
+      </form>
     </div>
+  </div>
 </div>
 
-<bvr-modal (confirm)="cancel($event)" confirmLabel="Leave" [description]="modalDescription" [title]="'Leave'"
-    [(visible)]="isCancelModalOpen"></bvr-modal>
+<bvr-modal
+  (confirm)="cancel($event)"
+  confirmLabel="Leave"
+  [description]="modalDescription"
+  [title]="'Leave'"
+  [(visible)]="isCancelModalOpen"></bvr-modal>

@@ -11,34 +11,63 @@
         <h4>Add New Position</h4>
       </div>
     </div>
-    <div class="form" [formGroup]="addPositionForm">
-      <bvr-form-field label="Name" [required]="isRequired('name')">
-        <input formControlName="name" placeholder="Position Name" type="text" />
+    <div
+      class="form"
+      [formGroup]="addPositionForm">
+      <bvr-form-field
+        label="Name"
+        [required]="isRequired('name')">
+        <input
+          formControlName="name"
+          placeholder="Position Name"
+          type="text" />
         <ng-container *ngIf="showErrors('name')">
-          <small *ngIf="addPositionForm.get('name')?.hasError('required')">This field is required.</small>
+          <small *ngIf="addPositionForm.get('name')?.hasError('required')"
+            >This field is required.</small
+          >
         </ng-container>
       </bvr-form-field>
-      <bvr-form-field label="Description" [required]="isRequired('description')">
-        <input formControlName="description" placeholder="Example position description" type="text" />
+      <bvr-form-field
+        label="Description"
+        [required]="isRequired('description')">
+        <input
+          formControlName="description"
+          placeholder="Example position description"
+          type="text" />
         <ng-container *ngIf="showErrors('description')">
-          <small *ngIf="
-                addPositionForm.get('description')?.hasError('required')
-              ">This field is required.</small>
+          <small
+            *ngIf="addPositionForm.get('description')?.hasError('required')"
+            >This field is required.</small
+          >
         </ng-container>
       </bvr-form-field>
     </div>
     <div class="form-buttons">
-      <bvr-button class="form-button" (click)="openCancelModal(false)" label="Cancel"
+      <bvr-button
+        class="form-button"
+        (click)="openCancelModal(false)"
+        label="Cancel"
         styleClass="button-text"></bvr-button>
-      <bvr-button class="form-button" (click)="openAddModal()" label="Add"></bvr-button>
+      <bvr-button
+        class="form-button"
+        (click)="openAddModal()"
+        label="Add"></bvr-button>
     </div>
   </div>
 </div>
 
-<bvr-modal (confirm)="add()" confirmLabel="Add" [description]="modalDescription" [title]="'Add new position'"
+<bvr-modal
+  (confirm)="add()"
+  confirmLabel="Add"
+  [description]="modalDescription"
+  [title]="'Add new position'"
   [(visible)]="isAddModalOpen"></bvr-modal>
 
-<bvr-modal (confirm)="cancel($event)" confirmLabel="Leave" [description]="modalDescription" [title]="'Leave'"
+<bvr-modal
+  (confirm)="cancel($event)"
+  confirmLabel="Leave"
+  [description]="modalDescription"
+  [title]="'Leave'"
   [(visible)]="isCancelModalOpen"></bvr-modal>
 
 <bvr-toast></bvr-toast>

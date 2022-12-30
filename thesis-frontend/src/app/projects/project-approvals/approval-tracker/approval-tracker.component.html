@@ -1,7 +1,11 @@
 <div class="approval-tracker card-content">
   <form [formGroup]="approveTasksForm">
     <bvr-form-field>
-      <bvr-dropdown-search-employee [isActive]="isActive" formControlName="id" name="id" [options]="employees">
+      <bvr-dropdown-search-employee
+        [isActive]="isActive"
+        formControlName="id"
+        name="id"
+        [options]="employees">
       </bvr-dropdown-search-employee>
     </bvr-form-field>
   </form>
@@ -9,18 +13,34 @@
     <bvr-calendar></bvr-calendar>
     <div class="tracker-right-side">
       <div class="tracker-list">
-        <bvr-approval-tracker-list [isActive]="isActive"> </bvr-approval-tracker-list>
+        <bvr-approval-tracker-list [isActive]="isActive">
+        </bvr-approval-tracker-list>
       </div>
       <div class="form-buttons">
-        <bvr-button class="form-button" (click)="openCancelModal(false)" label="Cancel"
+        <bvr-button
+          class="form-button"
+          (click)="openCancelModal(false)"
+          label="Cancel"
           styleClass="button-text"></bvr-button>
-        <bvr-button *ngIf="isActive" class="form-button" (click)="openConfirmModal()" label="Confirm"></bvr-button>
+        <bvr-button
+          *ngIf="isActive"
+          class="form-button"
+          (click)="openConfirmModal()"
+          label="Confirm"></bvr-button>
       </div>
     </div>
   </div>
 </div>
 
-<bvr-modal (confirm)="cancel($event)" confirmLabel="Leave" [description]="modalDescription" [title]="'Leave'"
+<bvr-modal
+  (confirm)="cancel($event)"
+  confirmLabel="Leave"
+  [description]="modalDescription"
+  [title]="'Leave'"
   [(visible)]="isResetModalOpen"></bvr-modal>
-<bvr-modal (confirm)="confirm()" confirmLabel="Confirm" [description]="modalDescription" [title]="'Confirm'"
+<bvr-modal
+  (confirm)="confirm()"
+  confirmLabel="Confirm"
+  [description]="modalDescription"
+  [title]="'Confirm'"
   [(visible)]="isConfirmModalOpen"></bvr-modal>

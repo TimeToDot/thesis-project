@@ -3,74 +3,179 @@
     <h4>Tasks</h4>
     <h4 class="count">({{ dataSource.length }})</h4>
     <div class="radio">
-      <input name="showActive" [(ngModel)]="showActive" (ngModelChange)="showActiveTable(true)" type="radio"
+      <input
+        name="showActive"
+        [(ngModel)]="showActive"
+        (ngModelChange)="showActiveTable(true)"
+        type="radio"
         [value]="true" />
       <label>Active</label>
     </div>
     <div class="radio">
-      <input name="showActive" [(ngModel)]="showActive" (ngModelChange)="showActiveTable(false)" type="radio"
+      <input
+        name="showActive"
+        [(ngModel)]="showActive"
+        (ngModelChange)="showActiveTable(false)"
+        type="radio"
         [value]="false" />
       <label>Archived</label>
     </div>
   </div>
-  <bvr-button class="add-new-button" label="Add new" [routerLink]="['add']"></bvr-button>
+  <bvr-button
+    class="add-new-button"
+    label="Add new"
+    [routerLink]="['add']"></bvr-button>
 </div>
 
 <div class="search-bar">
-  <input class="search-input" [(ngModel)]="query" placeholder="Search" type="search" />
+  <input
+    class="search-input"
+    [(ngModel)]="query"
+    placeholder="Search"
+    type="search" />
   <span class="material-icons-outlined search-icon">search</span>
 </div>
 
-<div *ngIf="showActive" class="table">
-  <table cdk-table [dataSource]="dataSource">
+<div
+  *ngIf="showActive"
+  class="table">
+  <table
+    cdk-table
+    [dataSource]="dataSource">
     <ng-container cdkColumnDef="name">
-      <th cdk-header-cell *cdkHeaderCellDef>Task</th>
-      <td cdk-cell *cdkCellDef="let element">{{ element.name }}</td>
-    </ng-container>
-    <ng-container cdkColumnDef="description">
-      <th cdk-header-cell *cdkHeaderCellDef>Description</th>
-      <td cdk-cell *cdkCellDef="let element">{{ element.description }}</td>
-    </ng-container>
-    <ng-container cdkColumnDef="creationDate">
-      <th cdk-header-cell *cdkHeaderCellDef>Creation Date</th>
-      <td cdk-cell *cdkCellDef="let element">{{ element.creationDate }}</td>
-    </ng-container>
-    <ng-container cdkColumnDef="actions">
-      <th cdk-header-cell *cdkHeaderCellDef>Actions</th>
-      <td cdk-cell *cdkCellDef="let element">
-        <bvr-button (click)="editTask($event, element)" icon="edit" styleClass="button-icon"></bvr-button>
-        <bvr-button (click)="openArchiveModal($event, element)" icon="archive" styleClass="button-icon"></bvr-button>
+      <th
+        cdk-header-cell
+        *cdkHeaderCellDef>
+        Task
+      </th>
+      <td
+        cdk-cell
+        *cdkCellDef="let element">
+        {{ element.name }}
       </td>
     </ng-container>
-    <tr cdk-header-row *cdkHeaderRowDef="displayedActiveColumns"></tr>
-    <tr cdk-row *cdkRowDef="let row; columns: displayedActiveColumns" (click)="showTaskDetails(row)"></tr>
-  </table>
-</div>
-
-<div *ngIf="!showActive" class="table">
-  <table cdk-table [dataSource]="dataSource">
-    <ng-container cdkColumnDef="name">
-      <th cdk-header-cell *cdkHeaderCellDef>Task</th>
-      <td cdk-cell *cdkCellDef="let element">{{ element.name }}</td>
-    </ng-container>
     <ng-container cdkColumnDef="description">
-      <th cdk-header-cell *cdkHeaderCellDef>Description</th>
-      <td cdk-cell *cdkCellDef="let element">{{ element.description }}</td>
+      <th
+        cdk-header-cell
+        *cdkHeaderCellDef>
+        Description
+      </th>
+      <td
+        cdk-cell
+        *cdkCellDef="let element">
+        {{ element.description }}
+      </td>
     </ng-container>
     <ng-container cdkColumnDef="creationDate">
-      <th cdk-header-cell *cdkHeaderCellDef>Creation Date</th>
-      <td cdk-cell *cdkCellDef="let element">{{ element.creationDate }}</td>
+      <th
+        cdk-header-cell
+        *cdkHeaderCellDef>
+        Creation Date
+      </th>
+      <td
+        cdk-cell
+        *cdkCellDef="let element">
+        {{ element.creationDate }}
+      </td>
     </ng-container>
-    <ng-container cdkColumnDef="archiveDate">
-      <th cdk-header-cell *cdkHeaderCellDef>Archive Date</th>
-      <td cdk-cell *cdkCellDef="let element">{{ element.archiveDate }}</td>
+    <ng-container cdkColumnDef="actions">
+      <th
+        cdk-header-cell
+        *cdkHeaderCellDef>
+        Actions
+      </th>
+      <td
+        cdk-cell
+        *cdkCellDef="let element">
+        <bvr-button
+          (click)="editTask($event, element)"
+          icon="edit"
+          styleClass="button-icon"></bvr-button>
+        <bvr-button
+          (click)="openArchiveModal($event, element)"
+          icon="archive"
+          styleClass="button-icon"></bvr-button>
+      </td>
     </ng-container>
-    <tr cdk-header-row *cdkHeaderRowDef="displayedArchivedColumns"></tr>
-    <tr cdk-row *cdkRowDef="let row; columns: displayedArchivedColumns" (click)="showTaskDetails(row)"></tr>
+    <tr
+      cdk-header-row
+      *cdkHeaderRowDef="displayedActiveColumns"></tr>
+    <tr
+      cdk-row
+      *cdkRowDef="let row; columns: displayedActiveColumns"
+      (click)="showTaskDetails(row)"></tr>
   </table>
 </div>
 
-<bvr-modal (confirm)="archive()" confirmLabel="archive" [description]="archiveDescription" [title]="'Archive task'"
+<div
+  *ngIf="!showActive"
+  class="table">
+  <table
+    cdk-table
+    [dataSource]="dataSource">
+    <ng-container cdkColumnDef="name">
+      <th
+        cdk-header-cell
+        *cdkHeaderCellDef>
+        Task
+      </th>
+      <td
+        cdk-cell
+        *cdkCellDef="let element">
+        {{ element.name }}
+      </td>
+    </ng-container>
+    <ng-container cdkColumnDef="description">
+      <th
+        cdk-header-cell
+        *cdkHeaderCellDef>
+        Description
+      </th>
+      <td
+        cdk-cell
+        *cdkCellDef="let element">
+        {{ element.description }}
+      </td>
+    </ng-container>
+    <ng-container cdkColumnDef="creationDate">
+      <th
+        cdk-header-cell
+        *cdkHeaderCellDef>
+        Creation Date
+      </th>
+      <td
+        cdk-cell
+        *cdkCellDef="let element">
+        {{ element.creationDate }}
+      </td>
+    </ng-container>
+    <ng-container cdkColumnDef="archiveDate">
+      <th
+        cdk-header-cell
+        *cdkHeaderCellDef>
+        Archive Date
+      </th>
+      <td
+        cdk-cell
+        *cdkCellDef="let element">
+        {{ element.archiveDate }}
+      </td>
+    </ng-container>
+    <tr
+      cdk-header-row
+      *cdkHeaderRowDef="displayedArchivedColumns"></tr>
+    <tr
+      cdk-row
+      *cdkRowDef="let row; columns: displayedArchivedColumns"
+      (click)="showTaskDetails(row)"></tr>
+  </table>
+</div>
+
+<bvr-modal
+  (confirm)="archive()"
+  confirmLabel="archive"
+  [description]="archiveDescription"
+  [title]="'Archive task'"
   [(visible)]="isArchiveModalOpen"></bvr-modal>
 
 <bvr-toast></bvr-toast>

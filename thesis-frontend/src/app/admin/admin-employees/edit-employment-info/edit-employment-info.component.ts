@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { ContractType } from '../../../projects/models/contract-type.model';
 import { Position } from '../../models/position.model';
 import { ContractTypesService } from '../../services/contract-types.service';
 import { PositionsService } from '../../services/positions.service';
@@ -10,6 +9,7 @@ import { first } from 'rxjs';
 import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
 import { DropdownListComponent } from '../../../shared/components/dropdown-list/dropdown-list.component';
 import { DatePickerComponent } from '../../../shared/components/date-picker/date-picker.component';
+import { DropdownOption } from '../../../shared/models/dropdown-option.model';
 
 @Component({
   selector: 'bvr-edit-employment-info',
@@ -26,7 +26,7 @@ import { DatePickerComponent } from '../../../shared/components/date-picker/date
 export class EditEmploymentInfoComponent implements OnInit {
   @Input() editEmployeeForm!: FormGroup;
 
-  contractTypes: ContractType[] = [];
+  contractTypes: DropdownOption[] = [];
   positions: Position[] = [];
 
   constructor(

@@ -1,44 +1,84 @@
-<div #dropdown class="date-picker">
+<div
+  #dropdown
+  class="date-picker">
   <div (click)="toggleCalendar()">
-    <input readonly type="text" [value]="currentDay | date: 'dd/MM/yyyy'" />
+    <input
+      readonly
+      type="text"
+      [value]="currentDay | date: 'dd/MM/yyyy'" />
     <span class="material-icons-outlined date-picker-icon">calendar_month</span>
   </div>
-  <div *ngIf="calendarEnabled && isMonth" #dropdownContent class="date-picker-modal">
+  <div
+    *ngIf="calendarEnabled && isMonth"
+    #dropdownContent
+    class="date-picker-modal">
     <div class="date-picker-header">
-      <bvr-button icon="chevron_left" (click)="previousMonth()" styleClass="button-icon">
+      <bvr-button
+        icon="chevron_left"
+        (click)="previousMonth()"
+        styleClass="button-icon">
       </bvr-button>
-      <div (click)="toggleMonth()">{{ currentMonth | month }} {{ currentYear }}</div>
-      <bvr-button icon="chevron_right" (click)="nextMonth()" styleClass="button-icon">
+      <div (click)="toggleMonth()">
+        {{ currentMonth | month }} {{ currentYear }}
+      </div>
+      <bvr-button
+        icon="chevron_right"
+        (click)="nextMonth()"
+        styleClass="button-icon">
       </bvr-button>
     </div>
     <div class="date-picker-content">
       <div class="week-days">
-        <div *ngFor="let dayOfWeek of days" class="day">
+        <div
+          *ngFor="let dayOfWeek of days"
+          class="day">
           {{ dayOfWeek | slice: 0:1 }}
         </div>
       </div>
-      <div *ngFor="let week of monthGrid; let j = index" class="week">
-        <div *ngFor="let day of week; let i = index" class="day" [class.disabled]="day.disabled"
-          [class.selected]="isCurrentDay(day)" (click)="selectDay(day)">
-          <div [class.saturday]="i === 5" [class.sunday]="i === 6">
+      <div
+        *ngFor="let week of monthGrid; let j = index"
+        class="week">
+        <div
+          *ngFor="let day of week; let i = index"
+          class="day"
+          [class.disabled]="day.disabled"
+          [class.selected]="isCurrentDay(day)"
+          (click)="selectDay(day)">
+          <div
+            [class.saturday]="i === 5"
+            [class.sunday]="i === 6">
             {{ day.date | date: 'd' }}
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div *ngIf="calendarEnabled && !isMonth" #dropdownContent class="date-picker-modal">
+  <div
+    *ngIf="calendarEnabled && !isMonth"
+    #dropdownContent
+    class="date-picker-modal">
     <div class="date-picker-header">
-      <bvr-button icon="chevron_left" (click)="previousYear()" styleClass="button-icon">
+      <bvr-button
+        icon="chevron_left"
+        (click)="previousYear()"
+        styleClass="button-icon">
       </bvr-button>
       <div (click)="toggleMonth()">{{ currentYear }}</div>
-      <bvr-button icon="chevron_right" (click)="nextYear()" styleClass="button-icon">
+      <bvr-button
+        icon="chevron_right"
+        (click)="nextYear()"
+        styleClass="button-icon">
       </bvr-button>
     </div>
     <div class="date-picker-content month">
-      <div *ngFor="let monthRow of months; let j = index" class="week">
-        <div *ngFor=" let month of monthRow; let i = index" class="day" [class.selected]="isCurrentMonth(j*3+i)"
-          (click)="selectMonth(j*3+i)">
+      <div
+        *ngFor="let monthRow of months; let j = index"
+        class="week">
+        <div
+          *ngFor="let month of monthRow; let i = index"
+          class="day"
+          [class.selected]="isCurrentMonth(j * 3 + i)"
+          (click)="selectMonth(j * 3 + i)">
           <div class="saturday">
             {{ month }}
           </div>
