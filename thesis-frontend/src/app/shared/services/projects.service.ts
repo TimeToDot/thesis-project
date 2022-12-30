@@ -51,6 +51,11 @@ export class ProjectsService {
 
   constructor() {}
 
+  getProject(id: string): Observable<Project> {
+    const project = this._projects.find(project => project.id === id);
+    return of(project as Project);
+  }
+
   getProjects(): Observable<Project[]> {
     return of(this._projects.filter(project => project.active));
   }
