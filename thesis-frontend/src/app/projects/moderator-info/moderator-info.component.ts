@@ -71,13 +71,13 @@ export class ModeratorInfoComponent implements OnInit {
   }
 
   nextStep(): void {
-    // if (this.addProjectForm.get('moderator')?.valid) {
-    this.nextStepChange.emit();
-    // } else {
-    //   this.addProjectForm.get('moderator')?.markAllAsTouched();
-    //   this.toastService.showToast(ToastState.Error, 'Form invalid');
-    //   setTimeout(() => this.toastService.dismissToast(), 3000);
-    // }
+    if (this.addProjectForm.get('moderator')?.valid) {
+      this.nextStepChange.emit();
+    } else {
+      this.addProjectForm.get('moderator')?.markAllAsTouched();
+      this.toastService.showToast(ToastState.Error, 'Form invalid');
+      setTimeout(() => this.toastService.dismissToast(), 3000);
+    }
   }
 
   isRequired(name: string): boolean {

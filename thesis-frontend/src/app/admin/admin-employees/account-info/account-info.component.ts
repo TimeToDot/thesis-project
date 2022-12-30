@@ -61,15 +61,18 @@ export class AccountInfoComponent {
     }
   }
 
-  add(): void {
+  add(value: boolean): void {
     this.disableGuard.emit(true);
-    this.router.navigate(['..'], { relativeTo: this.route }).then(() => {
-      setTimeout(
-        () => this.toastService.showToast(ToastState.Success, 'Employee added'),
-        200
-      );
-      setTimeout(() => this.toastService.dismissToast(), 3200);
-    });
+    if (value) {
+      this.router.navigate(['..'], { relativeTo: this.route }).then(() => {
+        setTimeout(
+          () =>
+            this.toastService.showToast(ToastState.Success, 'Employee added'),
+          200
+        );
+        setTimeout(() => this.toastService.dismissToast(), 3200);
+      });
+    }
   }
 
   isRequired(name: string): boolean {

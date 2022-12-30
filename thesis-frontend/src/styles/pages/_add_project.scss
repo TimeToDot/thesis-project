@@ -39,4 +39,11 @@
       width: 100%;
     }
   }
+
+  .disabled {
+    label,
+    input::placeholder {
+      color: $color-disabled;
+    }
+  }
 }

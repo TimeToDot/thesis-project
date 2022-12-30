@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterLinkWithHref } from '@angular/router';
 import { first } from 'rxjs';
 import { ButtonComponent } from '../shared/components/button/button.component';
+import { ToastComponent } from '../shared/components/toast/toast.component';
 import { ProjectsService } from '../shared/services/projects.service';
 import { Project } from './models/project.model';
 
@@ -11,7 +12,13 @@ import { Project } from './models/project.model';
   selector: 'bvr-projects',
   templateUrl: './projects.component.html',
   standalone: true,
-  imports: [ButtonComponent, CommonModule, FormsModule, RouterLinkWithHref],
+  imports: [
+    ButtonComponent,
+    CommonModule,
+    FormsModule,
+    RouterLinkWithHref,
+    ToastComponent,
+  ],
 })
 export class ProjectsComponent implements OnInit {
   projects: Project[] = [];

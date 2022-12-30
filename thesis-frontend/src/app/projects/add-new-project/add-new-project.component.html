@@ -59,6 +59,7 @@
           <bvr-billing-info
             class="outlet"
             [addProjectForm]="addProjectForm"
+            (disableGuard)="disableGuard($event)"
             [enableFormButtons]="enableFormButtons"
             (openCancelModal)="openCancelModal($event)"
             (previousStepChange)="previousStep()"></bvr-billing-info>

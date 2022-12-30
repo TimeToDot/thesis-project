@@ -213,9 +213,11 @@ export class AddNewTaskComponent implements OnInit {
     this.modalDescription = `Are you sure you want to reset? You will lose your unsaved changes if you continue.`;
   }
 
-  add(): void {
-    this.toastService.showToast(ToastState.Success, 'Task added');
-    setTimeout(() => this.toastService.dismissToast(), 3000);
+  add(value: boolean): void {
+    if (value) {
+      this.toastService.showToast(ToastState.Success, 'Task added');
+      setTimeout(() => this.toastService.dismissToast(), 3000);
+    }
   }
 
   cancel(value: boolean): void {

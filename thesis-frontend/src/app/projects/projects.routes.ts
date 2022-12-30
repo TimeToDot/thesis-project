@@ -28,6 +28,7 @@ export const projectsRoutes: Routes = [
     path: 'add',
     component: AddNewProjectComponent,
     canActivate: [CanAddProjectGuard],
+    canDeactivate: [UnsavedChangesGuard],
   },
   {
     path: '',

@@ -28,10 +28,18 @@
       <bvr-form-field
         class="left-field"
         label="Overtime"
+        [ngClass]="{ disabled: isDisabled('overtimeModifier') }"
         [required]="isRequired('overtimeModifier')">
-        <input
-          formControlName="overtimeModifier"
-          type="number" />
+        <div class="row">
+          <input
+            formControlName="overtimeModifier"
+            placeholder="0"
+            type="number" />
+          <bvr-switch
+            (valueChange)="
+              enableField('overtimeModifier', $event)
+            "></bvr-switch>
+        </div>
         <ng-container *ngIf="showErrors('overtimeModifier')">
           <small
             *ngIf="
@@ -46,10 +54,16 @@
       <bvr-form-field
         class="left-field"
         label="Bonus Modifier"
+        [ngClass]="{ disabled: isDisabled('bonusModifier') }"
         [required]="isRequired('bonusModifier')">
-        <input
-          formControlName="bonusModifier"
-          type="number" />
+        <div class="row">
+          <input
+            formControlName="bonusModifier"
+            placeholder="0"
+            type="number" />
+          <bvr-switch
+            (valueChange)="enableField('bonusModifier', $event)"></bvr-switch>
+        </div>
         <ng-container *ngIf="showErrors('bonusModifier')">
           <small
             *ngIf="
@@ -64,10 +78,16 @@
       <bvr-form-field
         class="field"
         label="Night Modifier"
+        [ngClass]="{ disabled: isDisabled('nightModifier') }"
         [required]="isRequired('nightModifier')">
-        <input
-          formControlName="nightModifier"
-          type="number" />
+        <div class="row">
+          <input
+            formControlName="nightModifier"
+            placeholder="0"
+            type="number" />
+          <bvr-switch
+            (valueChange)="enableField('nightModifier', $event)"></bvr-switch>
+        </div>
         <ng-container *ngIf="showErrors('nightModifier')">
           <small
             *ngIf="
@@ -82,10 +102,16 @@
       <bvr-form-field
         class="field"
         label="Holiday Modifier"
+        [ngClass]="{ disabled: isDisabled('holidayModifier') }"
         [required]="isRequired('holidayModifier')">
-        <input
-          formControlName="holidayModifier"
-          type="number" />
+        <div class="row">
+          <input
+            formControlName="holidayModifier"
+            placeholder="0"
+            type="number" />
+          <bvr-switch
+            (valueChange)="enableField('holidayModifier', $event)"></bvr-switch>
+        </div>
         <ng-container *ngIf="showErrors('holidayModifier')">
           <small
             *ngIf="
@@ -113,5 +139,17 @@
     class="form-button"
     (click)="previousStepChange.emit()"
     label="Previous"></bvr-button>
-  <!-- <bvr-button class="form-button" (click)="openAddModal()" label="Add"></bvr-button> -->
+  <bvr-button
+    class="form-button"
+    (click)="openAddModal()"
+    label="Add"></bvr-button>
 </div>
+
+<bvr-modal
+  (confirm)="add($event)"
+  confirmLabel="Add"
+  [description]="modalDescription"
+  [title]="'Add new project'"
+  [(visible)]="isAddModalOpen"></bvr-modal>
+
+<bvr-toast></bvr-toast>

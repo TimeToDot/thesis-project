@@ -48,15 +48,15 @@ export class AddNewProjectComponent implements OnInit {
       generalInfo: this.fb.group({
         projectName: ['', [Validators.required]],
         logo: [null, [Validators.required]],
-        description: ['', []],
+        description: [''],
       }),
       moderator: ['', [Validators.required]],
       billingInfo: this.fb.group({
         billingPeriod: ['', [Validators.required]],
-        overtimeModifier: ['', [Validators.required]],
-        bonusModifier: ['', [Validators.required]],
-        nightModifier: ['', [Validators.required]],
-        holidayModifier: ['', [Validators.required]],
+        overtimeModifier: [{ value: '', disabled: true }],
+        bonusModifier: [{ value: '', disabled: true }],
+        nightModifier: [{ value: '', disabled: true }],
+        holidayModifier: [{ value: '', disabled: true }],
       }),
     });
   }

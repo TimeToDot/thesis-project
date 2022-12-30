@@ -77,15 +77,17 @@ export class AddTaskComponent {
     this.modalDescription = `Are you sure you want to leave? You will lose your unsaved changes if you continue.`;
   }
 
-  add(): void {
+  add(value: boolean): void {
     this.disableGuard(true);
-    this.router.navigate(['..'], { relativeTo: this.route }).then(() => {
-      setTimeout(
-        () => this.toastService.showToast(ToastState.Success, 'Task added'),
-        200
-      );
-      setTimeout(() => this.toastService.dismissToast(), 3200);
-    });
+    if (value) {
+      this.router.navigate(['..'], { relativeTo: this.route }).then(() => {
+        setTimeout(
+          () => this.toastService.showToast(ToastState.Success, 'Task added'),
+          200
+        );
+        setTimeout(() => this.toastService.dismissToast(), 3200);
+      });
+    }
   }
 
   cancel(value: boolean): void {

@@ -1,0 +1,47 @@
+.switch {
+  display: inline-block;
+  height: 4 * $grid-base;
+  position: relative;
+  margin: 3 * $grid-base;
+  width: 9 * $grid-base;
+
+  .slider {
+    background-color: $color-divider;
+    border-radius: 8 * $grid-base;
+    bottom: 0;
+    cursor: pointer;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: 0.5s;
+
+    &::after {
+      background-color: $color-white;
+      border: 0.25 * $grid-base $color-divider solid;
+      border-radius: 100%;
+      box-shadow: $shadow-default;
+      content: '';
+      height: 5 * $grid-base;
+      position: absolute;
+      top: -0.5 * $grid-base;
+      transition: 0.5s;
+      width: 5 * $grid-base;
+    }
+  }
+
+  input {
+    display: none;
+
+    &:checked + .slider {
+      background-color: $color-divider;
+    }
+
+    &:checked + .slider::after {
+      background-color: $color-primary;
+      -webkit-transform: translateX(4 * $grid-base);
+      -ms-transform: translateX(4 * $grid-base);
+      transform: translateX(4 * $grid-base);
+    }
+  }
+}
