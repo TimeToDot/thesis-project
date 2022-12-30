@@ -24,6 +24,7 @@ export class DropdownSearchEmployeeComponent implements ControlValueAccessor {
   @Input() isActive: boolean = true;
   @Input() name: string = '';
   @Input() options: Employee[] = [];
+
   disabled: boolean = false;
   image: string = '';
   query: string = '';

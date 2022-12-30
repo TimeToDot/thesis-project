@@ -32,6 +32,7 @@ export class EditModeratorInfoComponent implements OnInit {
 
   ngOnInit(): void {
     this.getEmployees();
+    this.getEmployee();
   }
 
   getEmployees(): void {

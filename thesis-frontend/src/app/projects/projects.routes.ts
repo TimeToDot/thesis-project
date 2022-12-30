@@ -41,6 +41,7 @@ export const projectsRoutes: Routes = [
     path: ':id/edit',
     component: EditProjectComponent,
     canActivate: [CanAdminProjectGuard],
+    canDeactivate: [UnsavedChangesGuard],
     children: [
       {
         path: 'general-info',

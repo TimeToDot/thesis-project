@@ -59,6 +59,18 @@ export class EditProjectComponent implements OnInit {
     id: '',
     name: '',
     image: '',
+    moderator: {
+      id: '',
+      firstName: '',
+      lastName: '',
+      email: '',
+      image: '',
+      position: '',
+      employmentDate: '',
+      workingTime: 0,
+      active: false,
+    },
+    billingPeriod: { id: '', name: '' },
     employeesCount: 0,
     creationDate: '',
     active: false,
@@ -97,8 +109,8 @@ export class EditProjectComponent implements OnInit {
   createForm(): void {
     this.editProjectForm = this.fb.group({
       generalInfo: this.fb.group({
-        projectName: ['', [Validators.required]],
-        logo: [null, [Validators.required]],
+        name: ['', [Validators.required]],
+        image: [null, [Validators.required]],
         description: [''],
       }),
       moderator: ['', [Validators.required]],
@@ -137,6 +149,9 @@ export class EditProjectComponent implements OnInit {
         });
       }
     });
+    this.editProjectForm
+      .get(['moderator'])
+      ?.setValue(this.project.moderator.id);
   }
 
   updateTabIndex(index: number): void {

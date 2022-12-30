@@ -37,7 +37,7 @@ export class FileUploadComponent implements ControlValueAccessor {
   }
 
   writeValue(file: FileInfo | null): void {
-    this.file = file ? file : { name: '', src: '' };
+    this.file = file && typeof file !== 'string' ? file : { name: '', src: '' };
   }
 
   onChange = (file: FileInfo) => {};

@@ -8,17 +8,15 @@
     <div class="form-header">{{ 'General' | uppercase }}</div>
     <bvr-form-field
       label="Project Name"
-      [required]="isRequired('projectName')">
+      [required]="isRequired('name')">
       <input
-        formControlName="projectName"
+        formControlName="name"
         placeholder="Project Name"
         type="text" />
-      <ng-container *ngIf="showErrors('projectName')">
+      <ng-container *ngIf="showErrors('name')">
         <small
           *ngIf="
-            addProjectForm
-              .get(['generalInfo', 'projectName'])
-              ?.hasError('required')
+            addProjectForm.get(['generalInfo', 'name'])?.hasError('required')
           "
           >This field is required.</small
         >
@@ -28,10 +26,10 @@
       <bvr-form-field
         class="left-field"
         label="Logo"
-        [required]="isRequired('logo')">
-        <bvr-file-upload formControlName="logo"></bvr-file-upload>
-        <ng-container *ngIf="showErrors('logo')">
-          <small *ngIf="addProjectForm.get('logo')?.hasError('required')"
+        [required]="isRequired('image')">
+        <bvr-file-upload formControlName="image"></bvr-file-upload>
+        <ng-container *ngIf="showErrors('image')">
+          <small *ngIf="addProjectForm.get('image')?.hasError('required')"
             >This field is required.</small
           >
         </ng-container>
