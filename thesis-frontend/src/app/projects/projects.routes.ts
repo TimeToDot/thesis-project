@@ -22,6 +22,9 @@ import { UnsavedChangesGuard } from '../shared/guards/unsaved-changes.guard';
 import { AddNewProjectComponent } from './add-new-project/add-new-project.component';
 import { CanAddProjectGuard } from './guards/can-add-project.guard';
 import { EditProjectComponent } from './edit-project/edit-project.component';
+import { EditGeneralInfoComponent } from './edit-general-info/edit-general-info.component';
+import { EditModeratorInfoComponent } from './edit-moderator-info/edit-moderator-info.component';
+import { EditBillingInfoComponent } from './edit-billing-info/edit-billing-info.component';
 
 export const projectsRoutes: Routes = [
   {
@@ -38,6 +41,27 @@ export const projectsRoutes: Routes = [
     path: ':id/edit',
     component: EditProjectComponent,
     canActivate: [CanAdminProjectGuard],
+    children: [
+      {
+        path: 'general-info',
+        component: EditGeneralInfoComponent,
+        canActivate: [CanAdminProjectGuard],
+        data: { tabs: 0 },
+      },
+      {
+        path: 'moderator-info',
+        component: EditModeratorInfoComponent,
+        canActivate: [CanAdminProjectGuard],
+        data: { tabs: 1 },
+      },
+      {
+        path: 'modifiers-info',
+        component: EditBillingInfoComponent,
+        canActivate: [CanAdminProjectGuard],
+        data: { tabs: 2 },
+      },
+      { path: '', redirectTo: 'general-info', pathMatch: 'full' },
+    ],
   },
   {
     path: ':id/view',

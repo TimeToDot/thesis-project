@@ -1,1 +1,31 @@
-<p>edit-project works!</p>
+<div class="card">
+  <div class="header">
+    <div class="title">
+      <bvr-button
+        (click)="goToDashboard()"
+        icon="arrow_back"
+        styleClass="button-icon back"></bvr-button>
+      <h2 class="name">Project</h2>
+    </div>
+    <bvr-tabs
+      [hasRouting]="false"
+      [navbarOptions]="navbarOptions"
+      [selectedIndex]="tabIndex"
+      (selectedIndexChange)="updateTabIndex($event)"></bvr-tabs>
+  </div>
+  <div
+    [@tabs]="tabIndex"
+    (@tabs.start)="toggleFormButtons(false)"
+    (@tabs.done)="toggleFormButtons(true)"
+    class="view-employee-content">
+    <bvr-edit-general-info
+      *ngIf="tabIndex === 0"
+      [editProjectForm]="editProjectForm"></bvr-edit-general-info>
+    <bvr-edit-moderator-info
+      *ngIf="tabIndex === 1"
+      [editProjectForm]="editProjectForm"></bvr-edit-moderator-info>
+    <bvr-edit-billing-info
+      *ngIf="tabIndex === 2"
+      [editProjectForm]="editProjectForm"></bvr-edit-billing-info>
+  </div>
+</div>
