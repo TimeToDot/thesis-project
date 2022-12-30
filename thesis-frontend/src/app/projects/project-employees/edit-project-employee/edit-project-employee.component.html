@@ -51,59 +51,41 @@
           type="text" />
       </bvr-form-field>
     </div>
-    <div
-      *ngIf="editProjectEmployeeForm"
-      [formGroup]="editProjectEmployeeForm">
+    <bvr-form-field
+      class="disabled field"
+      label="Contract Type">
+      <input
+        disabled
+        [ngModel]="projectEmployee.employee.contractType.name"
+        type="text" />
+    </bvr-form-field>
+    <div class="row">
       <bvr-form-field
-        class="row"
-        label="Contract Type"
-        [required]="isRequired('contractType')">
-        <bvr-dropdown-list
-          formControlName="contractType"
-          name="contract type"
-          [options]="contractTypes">
-        </bvr-dropdown-list>
-        <ng-container *ngIf="showErrors('contractType')">
+        *ngIf="editProjectEmployeeForm"
+        class="left-field"
+        [formGroup]="editProjectEmployeeForm"
+        label="Working Time"
+        [required]="isRequired('workingTime')">
+        <input
+          formControlName="workingTime"
+          type="number" />
+        <ng-container *ngIf="showErrors('workingTime')">
           <small
             *ngIf="
-              editProjectEmployeeForm.get('contractType')?.hasError('required')
+              editProjectEmployeeForm.get('workingTime')?.hasError('required')
             "
             >This field is required.</small
           >
         </ng-container>
       </bvr-form-field>
-      <div class="row">
-        <bvr-form-field
-          class="left-field"
-          label="Working Time"
-          [required]="isRequired('workingTime')">
-          <input
-            formControlName="workingTime"
-            type="number" />
-          <ng-container *ngIf="showErrors('workingTime')">
-            <small
-              *ngIf="
-                editProjectEmployeeForm.get('workingTime')?.hasError('required')
-              "
-              >This field is required.</small
-            >
-          </ng-container>
-        </bvr-form-field>
-        <bvr-form-field
-          class="field"
-          label="Wage"
-          [required]="isRequired('wage')">
-          <input
-            formControlName="wage"
-            type="number" />
-          <ng-container *ngIf="showErrors('wage')">
-            <small
-              *ngIf="editProjectEmployeeForm.get('wage')?.hasError('required')"
-              >This field is required.</small
-            >
-          </ng-container>
-        </bvr-form-field>
-      </div>
+      <bvr-form-field
+        class="disabled field"
+        label="Wage">
+        <input
+          disabled
+          [ngModel]="projectEmployee.employee.wage"
+          type="text" />
+      </bvr-form-field>
     </div>
   </div>
 </div>

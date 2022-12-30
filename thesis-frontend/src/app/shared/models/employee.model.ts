@@ -1,3 +1,5 @@
+import { DropdownOption } from './dropdown-option.model';
+
 export interface Employee {
   id: string;
   firstName: string;
@@ -8,5 +10,7 @@ export interface Employee {
   employmentDate: string;
   exitDate?: string;
   workingTime: number;
+  wage: number;
+  contractType: DropdownOption;
   active: boolean;
 }

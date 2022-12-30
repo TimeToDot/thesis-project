@@ -31,32 +31,31 @@
   </div>
   <div class="form">
     <bvr-form-field
-      class="disabled field"
+      class="field"
       label="Email">
       <span>{{ projectEmployee.employee.email }}</span>
     </bvr-form-field>
     <div class="row">
       <bvr-form-field
-        class="disabled left-field"
+        class="left-field"
         label="Position">
         <span>{{ projectEmployee.employee.position }}</span>
       </bvr-form-field>
       <bvr-form-field
-        class="disabled left-field"
+        class="left-field"
         label="Hire Date">
         <span>{{
           projectEmployee.employee.employmentDate | date: 'dd/MM/yyyy'
         }}</span>
       </bvr-form-field>
       <bvr-form-field
-        class="disabled"
         [ngClass]="projectEmployee.active ? 'field' : 'left-field'"
         label="Join Date">
         <span>{{ projectEmployee.joinDate | date: 'dd/MM/yyyy' }}</span>
       </bvr-form-field>
       <bvr-form-field
         *ngIf="!projectEmployee.active"
-        class="disabled field"
+        class="field"
         label="Exit Date">
         <span>{{ projectEmployee.exitDate | date: 'dd/MM/yyyy' }}</span>
       </bvr-form-field>
@@ -68,7 +67,7 @@
       <bvr-form-field
         class="left-field"
         label="Contract Type">
-        <span>{{ projectEmployee.contractType.name }}</span>
+        <span>{{ projectEmployee.employee.contractType.name }}</span>
       </bvr-form-field>
       <bvr-form-field
         class="left-field"
@@ -78,7 +77,7 @@
       <bvr-form-field
         class="field"
         label="Wage">
-        <span>{{ projectEmployee.wage }}</span>
+        <span>{{ projectEmployee.employee.wage }}</span>
       </bvr-form-field>
     </div>
 
@@ -88,7 +87,7 @@
       <bvr-form-field
         class="left-field"
         label="Contract Type">
-        <span>{{ projectEmployee.contractType.name }}</span>
+        <span>{{ projectEmployee.employee.contractType.name }}</span>
       </bvr-form-field>
       <div class="financial-info">
         <bvr-form-field
@@ -99,7 +98,7 @@
         <bvr-form-field
           class="field"
           label="Wage">
-          <span>{{ projectEmployee.wage }}</span>
+          <span>{{ projectEmployee.employee.wage }}</span>
         </bvr-form-field>
       </div>
     </div>

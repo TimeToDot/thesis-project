@@ -65,11 +65,6 @@ export const projectsRoutes: Routes = [
     ],
   },
   {
-    path: ':id/view',
-    component: EditProjectComponent,
-    canActivate: [CanReadProjectGuard],
-  },
-  {
     path: ':id',
     component: ProjectComponent,
     children: [

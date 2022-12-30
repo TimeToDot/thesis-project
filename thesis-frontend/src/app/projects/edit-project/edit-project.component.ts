@@ -67,6 +67,8 @@ export class EditProjectComponent implements OnInit {
       image: '',
       position: '',
       employmentDate: '',
+      contractType: { id: '', name: '' },
+      wage: 0,
       workingTime: 0,
       active: false,
     },

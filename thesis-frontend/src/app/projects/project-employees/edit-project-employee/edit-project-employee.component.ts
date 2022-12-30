@@ -59,13 +59,13 @@ export class EditProjectEmployeeComponent implements OnInit {
       image: '',
       position: '',
       employmentDate: '',
+      contractType: { id: '', name: '' },
+      wage: 0,
       workingTime: 0,
       exitDate: '',
       active: false,
     },
-    contractType: { id: '', name: '' },
     workingTime: 0,
-    wage: 0,
     joinDate: '',
     exitDate: '',
     active: false,
@@ -89,9 +89,7 @@ export class EditProjectEmployeeComponent implements OnInit {
 
   createForm(): void {
     this.editProjectEmployeeForm = this.fb.group({
-      contractType: ['', [Validators.required]],
       workingTime: ['', [Validators.required]],
-      wage: ['', [Validators.required]],
     });
   }
 
