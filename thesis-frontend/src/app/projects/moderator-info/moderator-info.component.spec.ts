@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ModeratorInfoComponent } from './moderator-info.component';
 
@@ -8,9 +9,8 @@ describe('ModeratorInfoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ ModeratorInfoComponent ]
-    })
-    .compileComponents();
+      imports: [ModeratorInfoComponent, NoopAnimationsModule],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ModeratorInfoComponent);
     component = fixture.componentInstance;
