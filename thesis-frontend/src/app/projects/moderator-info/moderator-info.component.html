@@ -1,6 +1,44 @@
+<div *ngIf="addProjectForm" class="add-project" [formGroup]="addProjectForm">
+    <div class="form ">
+        <bvr-form-field label="Moderator" [required]="isRequired('moderator')">
+            <bvr-dropdown-search-employee formControlName="moderator" name="moderator"
+                [options]="employees"></bvr-dropdown-search-employee>
+        </bvr-form-field>
+    </div>
+
+    <div *ngIf="employee" class="form">
+        <div class="confirm-employee ">
+            <img [src]="employee.image" class="picture" />
+            <div class="employee-details">
+                <div class="row">
+                    <bvr-form-field class="disabled left-field" label="Name">
+                        <span>{{ employee.firstName }}</span>
+                    </bvr-form-field>
+                    <bvr-form-field class="disabled left-field" label="Surname">
+                        <span>{{ employee.lastName }}</span>
+                    </bvr-form-field>
+                    <bvr-form-field class="disabled field" label="Hire Date">
+                        <span>{{ employee.employmentDate | date: 'dd/MM/yyyy' }}</span>
+                    </bvr-form-field>
+                </div>
+                <div class="row">
+                    <bvr-form-field class="disabled left-field position" label="Position">
+                        <span>{{ employee.position }}</span>
+                    </bvr-form-field>
+                    <bvr-form-field class="disabled left-field email" label="Email">
+                        <span>{{ employee.email }}</span>
+                    </bvr-form-field>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div *ngIf="enableFormButtons" class="form-buttons">
     <bvr-button class="form-button" (click)="openCancelModal.emit(false)" label="Cancel"
         styleClass="button-text"></bvr-button>
     <bvr-button class="form-button" (click)="previousStepChange.emit()" label="Previous"></bvr-button>
     <bvr-button class="form-button" (click)="nextStep()" label="Next"></bvr-button>
 </div>
+
+<bvr-toast></bvr-toast>

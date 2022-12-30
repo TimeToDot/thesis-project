@@ -35,13 +35,13 @@ export class GeneralInfoComponent {
   ) {}
 
   nextStep(): void {
-    if (this.addProjectForm.get('generalInfo')?.valid) {
-      this.nextStepChange.emit();
-    } else {
-      this.addProjectForm.get('generalInfo')?.markAllAsTouched();
-      this.toastService.showToast(ToastState.Error, 'Form invalid');
-      setTimeout(() => this.toastService.dismissToast(), 3000);
-    }
+    // if (this.addProjectForm.get('generalInfo')?.valid) {
+    this.nextStepChange.emit();
+    // } else {
+    //   this.addProjectForm.get('generalInfo')?.markAllAsTouched();
+    //   this.toastService.showToast(ToastState.Error, 'Form invalid');
+    //   setTimeout(() => this.toastService.dismissToast(), 3000);
+    // }
   }
 
   isRequired(name: string): boolean {
