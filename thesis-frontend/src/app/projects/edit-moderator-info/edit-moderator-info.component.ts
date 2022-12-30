@@ -32,7 +32,6 @@ export class EditModeratorInfoComponent implements OnInit {
 
   ngOnInit(): void {
     this.getEmployees();
-    this.getEmployee();
   }
 
   getEmployees(): void {
@@ -41,6 +40,7 @@ export class EditModeratorInfoComponent implements OnInit {
       .pipe(first())
       .subscribe(employees => {
         this.employees = employees.slice(0, 7);
+        this.getEmployee();
         setTimeout(() => this.observeIdSelection(), 0);
       });
   }
@@ -53,10 +53,12 @@ export class EditModeratorInfoComponent implements OnInit {
 
   getEmployee(): void {
     const employeeId = this.editProjectForm.get(['moderator'])?.value;
-    this.employeesService
-      .getEmployee(employeeId)
-      .pipe(first())
-      .subscribe(employee => (this.employee = employee));
+    if (employeeId) {
+      this.employeesService
+        .getEmployee(employeeId)
+        .pipe(first())
+        .subscribe(employee => (this.employee = employee));
+    }
   }
 
   isRequired(name: string): boolean {
