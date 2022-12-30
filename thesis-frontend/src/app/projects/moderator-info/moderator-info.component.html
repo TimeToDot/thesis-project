@@ -11,6 +11,11 @@
         formControlName="moderator"
         name="moderator"
         [options]="employees"></bvr-dropdown-search-employee>
+      <ng-container *ngIf="showErrors('moderator')">
+        <small *ngIf="addProjectForm.get(['moderator'])?.hasError('required')"
+          >This field is required.</small
+        >
+      </ng-container>
     </bvr-form-field>
   </div>
 

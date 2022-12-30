@@ -1,1 +1,62 @@
-<p>edit-moderator-info works!</p>
+<div
+  *ngIf="editProjectForm"
+  class="add-project"
+  [formGroup]="editProjectForm">
+  <div class="form">
+    <div class="form-header">{{ 'Moderator' | uppercase }}</div>
+    <bvr-form-field
+      label="Moderator"
+      [required]="isRequired('moderator')">
+      <bvr-dropdown-search-employee
+        formControlName="moderator"
+        name="moderator"
+        [options]="employees"></bvr-dropdown-search-employee>
+      <ng-container *ngIf="showErrors('moderator')">
+        <small *ngIf="editProjectForm.get(['moderator'])?.hasError('required')"
+          >This field is required.</small
+        >
+      </ng-container>
+    </bvr-form-field>
+  </div>
+
+  <div
+    *ngIf="employee"
+    class="form">
+    <div class="confirm-employee">
+      <img
+        [src]="employee.image"
+        class="picture" />
+      <div class="employee-details">
+        <div class="row">
+          <bvr-form-field
+            class="disabled left-field"
+            label="Name">
+            <span>{{ employee.firstName }}</span>
+          </bvr-form-field>
+          <bvr-form-field
+            class="disabled left-field"
+            label="Surname">
+            <span>{{ employee.lastName }}</span>
+          </bvr-form-field>
+          <bvr-form-field
+            class="disabled field"
+            label="Hire Date">
+            <span>{{ employee.employmentDate | date: 'dd/MM/yyyy' }}</span>
+          </bvr-form-field>
+        </div>
+        <div class="row">
+          <bvr-form-field
+            class="disabled left-field position"
+            label="Position">
+            <span>{{ employee.position }}</span>
+          </bvr-form-field>
+          <bvr-form-field
+            class="disabled left-field email"
+            label="Email">
+            <span>{{ employee.email }}</span>
+          </bvr-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

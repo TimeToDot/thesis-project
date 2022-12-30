@@ -1,0 +1,61 @@
+.view-project {
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  .view-project-content {
+    flex: 1;
+    width: 100%;
+  }
+
+  .form-header {
+    align-self: flex-start;
+    color: $color-text-secondary;
+    display: flex;
+    font-size: $font-small;
+    font-weight: 600;
+    vertical-align: middle;
+    margin-bottom: 6 * $grid-base;
+  }
+
+  .row,
+  .house-info {
+    display: flex;
+    flex-direction: row;
+
+    input {
+      width: 100%;
+    }
+  }
+
+  .row.address-info {
+    > .left-field {
+      flex: 1;
+    }
+
+    .house-info {
+      flex: 1;
+    }
+  }
+
+  .header {
+    border-bottom: none;
+  }
+
+  .name {
+    align-items: center;
+    display: flex;
+
+    .picture {
+      height: 12 * $grid-base;
+      margin-right: 4 * $grid-base;
+      width: 12 * $grid-base;
+    }
+
+    .archived {
+      color: $color-text-secondary;
+      margin-left: $grid-base;
+    }
+  }
+}

@@ -127,7 +127,7 @@ export class EditProjectComponent implements OnInit {
 
   updateFormFields(): void {
     Object.keys(this.editProjectForm.controls).forEach(group => {
-      if ((this.editProjectForm.get(group) as FormGroup<any>).controls) {
+      if (this.editProjectForm.get(group) instanceof FormGroup<any>) {
         Object.keys(
           (this.editProjectForm.get(group) as FormGroup<any>).controls
         ).forEach(field => {
