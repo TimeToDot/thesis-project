@@ -1,7 +1,10 @@
 <div class="card">
   <div class="header">
     <div class="title">
-      <span class="material-icons-outlined">desktop_windows</span>
+      <bvr-button
+        icon="arrow_back"
+        [routerLink]="['/projects']"
+        styleClass="button-icon back"></bvr-button>
       <h2 class="name">Project</h2>
     </div>
     <bvr-tabs [navbarOptions]="navbarOptions"></bvr-tabs>

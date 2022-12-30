@@ -3,7 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import {
   ActivatedRoute,
   ChildrenOutletContexts,
+  Data,
   RouterLinkActive,
+  RouterLinkWithHref,
   RouterOutlet,
 } from '@angular/router';
 import { TabsComponent } from '../../shared/components/tabs/tabs.component';
@@ -11,12 +13,20 @@ import { LinkOption } from '../../shared/models/link-option.model';
 import { ProjectPermissions } from '../models/project-permissions.model';
 import { PermissionsService } from '../../shared/services/permissions.service';
 import { tabAnimation } from '../../shared/animations/tab.animation';
+import { ButtonComponent } from '../../shared/components/button/button.component';
 
 @Component({
   selector: 'bvr-project',
   templateUrl: './project.component.html',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterLinkActive, TabsComponent],
+  imports: [
+    ButtonComponent,
+    CommonModule,
+    RouterOutlet,
+    RouterLinkActive,
+    RouterLinkWithHref,
+    TabsComponent,
+  ],
   animations: [tabAnimation],
 })
 export class ProjectComponent implements OnInit {
@@ -49,7 +59,6 @@ export class ProjectComponent implements OnInit {
       this.getTasksOption(permissions);
       this.getEmployeesOption(permissions);
       this.getApprovalsOption(permissions);
-      this.getSettingsOption(permissions);
     }
   }
 
@@ -77,13 +86,7 @@ export class ProjectComponent implements OnInit {
     }
   }
 
-  getSettingsOption(permissions: ProjectPermissions): void {
-    if (permissions.canAdminProjects) {
-      this.navbarOptions.push({ name: 'Settings', path: 'settings' });
-    }
-  }
-
-  getRouteAnimationData() {
+  getRouteAnimationData(): Data {
     return this.contexts.getContext('primary')?.route?.snapshot.data['tabs'];
   }
 }

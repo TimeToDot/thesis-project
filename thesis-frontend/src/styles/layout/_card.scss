@@ -41,6 +41,11 @@
       margin-right: 4 * $grid-base;
     }
   }
+
+  .back {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
 .card-content {

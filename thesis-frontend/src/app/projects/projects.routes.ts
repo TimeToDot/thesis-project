@@ -6,7 +6,6 @@ import { CanManageTasksGuard } from './guards/can-manage-tasks.guard';
 import { CanReadProjectGuard } from './guards/can-read-project.guard';
 import { ProjectApprovalsComponent } from './project-approvals/project-approvals.component';
 import { ProjectDashboardComponent } from './project-dashboard/project-dashboard.component';
-import { ProjectSettingsComponent } from './project-settings/project-settings.component';
 import { AddTaskComponent } from './project-tasks/add-task/add-task.component';
 import { EditTaskComponent } from './project-tasks/edit-task/edit-task.component';
 import { ProjectTasksComponent } from './project-tasks/project-tasks.component';
@@ -22,6 +21,7 @@ import { ViewTaskComponent } from './project-tasks/view-task/view-task.component
 import { UnsavedChangesGuard } from '../shared/guards/unsaved-changes.guard';
 import { AddNewProjectComponent } from './add-new-project/add-new-project.component';
 import { CanAddProjectGuard } from './guards/can-add-project.guard';
+import { EditProjectComponent } from './edit-project/edit-project.component';
 
 export const projectsRoutes: Routes = [
   {
@@ -33,6 +33,16 @@ export const projectsRoutes: Routes = [
   {
     path: '',
     component: ProjectsComponent,
+  },
+  {
+    path: ':id/edit',
+    component: EditProjectComponent,
+    canActivate: [CanAdminProjectGuard],
+  },
+  {
+    path: ':id/view',
+    component: EditProjectComponent,
+    canActivate: [CanReadProjectGuard],
   },
   {
     path: ':id',
@@ -107,12 +117,6 @@ export const projectsRoutes: Routes = [
         component: ApprovalTrackerComponent,
         canActivate: [CanManageApprovalsGuard],
         data: { tabs: 3 },
-      },
-      {
-        path: 'settings',
-        component: ProjectSettingsComponent,
-        canActivate: [CanAdminProjectGuard],
-        data: { tabs: 4 },
       },
       {
         path: '',
