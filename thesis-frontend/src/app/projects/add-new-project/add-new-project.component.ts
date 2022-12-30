@@ -47,7 +47,7 @@ export class AddNewProjectComponent implements OnInit {
     this.addProjectForm = this.fb.group({
       generalInfo: this.fb.group({
         projectName: ['', [Validators.required]],
-        logo: ['', [Validators.required]],
+        logo: [null, [Validators.required]],
         description: ['', []],
       }),
       moderator: ['', [Validators.required]],

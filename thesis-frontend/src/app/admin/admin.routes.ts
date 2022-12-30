@@ -39,7 +39,6 @@ export const adminRoutes: Routes = [
     path: 'employees/:id',
     component: ViewEmployeeComponent,
     canActivate: [CanAdminEmployeesGuard],
-    canDeactivate: [UnsavedChangesGuard],
     data: { sidenavTabs: 3 },
     children: [
       {

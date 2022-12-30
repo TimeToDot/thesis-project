@@ -54,7 +54,7 @@
 .form-field {
   display: flex;
   flex-direction: column;
-  height: 20 * $grid-base;
+  min-height: 20 * $grid-base;
   margin-bottom: 6 * $grid-base;
 
   span {

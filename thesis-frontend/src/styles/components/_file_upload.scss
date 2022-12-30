@@ -1,0 +1,31 @@
+.file-input {
+  display: none;
+}
+
+.file-upload {
+  border: 0.25 * $grid-base $color-divider solid;
+  display: flex;
+  justify-content: space-between;
+  padding: 3 * $grid-base;
+}
+
+.file-preview {
+  background: $color-divider;
+  border: 0.5 * $grid-base $color-text-secondary dashed;
+  border-radius: 100%;
+  height: 37.5 * $grid-base;
+  margin: 0 3 * $grid-base 8 * $grid-base 0;
+  width: 37.5 * $grid-base;
+}
+
+.file-info {
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 37.5 * $grid-base;
+
+  > div {
+    color: $color-text-secondary;
+  }
+}
