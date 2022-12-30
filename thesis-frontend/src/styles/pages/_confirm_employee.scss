@@ -13,13 +13,18 @@
     flex-direction: row;
     width: 100%;
   }
+
+  .disabled {
+    label,
+    input::placeholder {
+      color: $color-disabled;
+    }
+  }
 }
 
 .confirm-employee {
-  // align-items: flex-start;
   display: flex;
   flex-direction: row;
-  // padding: 0 31 * $grid-base 12 * $grid-base;
   width: 100%;
 
   .employee-details {

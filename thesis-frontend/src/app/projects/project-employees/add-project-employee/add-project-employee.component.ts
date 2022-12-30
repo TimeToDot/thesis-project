@@ -18,6 +18,7 @@ import { ToastState } from '../../../shared/enum/toast-state';
 import { ToastService } from '../../../shared/services/toast.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastComponent } from '../../../shared/components/toast/toast.component';
+import { SwitchComponent } from '../../../shared/components/switch/switch.component';
 
 @Component({
   selector: 'bvr-add-project-employee',
@@ -29,6 +30,7 @@ import { ToastComponent } from '../../../shared/components/toast/toast.component
     FormFieldComponent,
     ModalComponent,
     ReactiveFormsModule,
+    SwitchComponent,
     ToastComponent,
   ],
   templateUrl: './add-project-employee.component.html',
@@ -63,7 +65,7 @@ export class AddProjectEmployeeComponent implements OnInit {
     this.addProjectEmployeeForm = this.fb.group({
       id: ['', [Validators.required]],
       workingTime: ['', [Validators.required]],
-      salaryModifier: ['', [Validators.required]],
+      salaryModifier: [{ value: '', disabled: true }],
     });
   }
 
@@ -142,6 +144,16 @@ export class AddProjectEmployeeComponent implements OnInit {
   disableGuard(value: boolean): void {
     this.isGuardDisabled = true;
     this.redirectSubject.next(value);
+  }
+
+  enableField(name: string, value: boolean): void {
+    value
+      ? this.addProjectEmployeeForm.get([name])?.enable()
+      : this.addProjectEmployeeForm.get([name])?.disable();
+  }
+
+  isDisabled(name: string): boolean {
+    return !!this.addProjectEmployeeForm.get([name])?.disabled;
   }
 
   isRequired(name: string): boolean {

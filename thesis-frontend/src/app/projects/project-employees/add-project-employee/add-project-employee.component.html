@@ -73,10 +73,16 @@
       <bvr-form-field
         class="field"
         label="Salary Modifier"
+        [ngClass]="{ disabled: isDisabled('salaryModifier') }"
         [required]="isRequired('salaryModifier')">
-        <input
-          formControlName="salaryModifier"
-          type="number" />
+        <div class="row">
+          <input
+            formControlName="salaryModifier"
+            placeholder="0"
+            type="number" />
+          <bvr-switch
+            (valueChange)="enableField('salaryModifier', $event)"></bvr-switch>
+        </div>
         <ng-container *ngIf="showErrors('salaryModifier')">
           <small
             *ngIf="
