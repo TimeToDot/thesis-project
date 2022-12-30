@@ -75,15 +75,15 @@
       <bvr-form-field
         class="left-field"
         label="Rate"
-        [required]="isRequired('rate')">
+        [required]="isRequired('wage')">
         <input
-          formControlName="rate"
+          formControlName="wage"
           type="number" />
-        <ng-container *ngIf="showErrors('rate')">
+        <ng-container *ngIf="showErrors('wage')">
           <small
             *ngIf="
               editEmployeeForm
-                .get(['employmentInfo', 'rate'])
+                .get(['employmentInfo', 'wage'])
                 ?.hasError('required')
             "
             >This field is required.</small

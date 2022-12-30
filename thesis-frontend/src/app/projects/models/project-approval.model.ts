@@ -1,7 +1,7 @@
 import { Status } from '../../shared/enum/status.enum';
 import { ProjectEmployee } from './project-employee.model';
 
-export interface EmployeeApproval {
+export interface ProjectApproval {
   id: string;
   projectEmployee: ProjectEmployee;
   status: Status;

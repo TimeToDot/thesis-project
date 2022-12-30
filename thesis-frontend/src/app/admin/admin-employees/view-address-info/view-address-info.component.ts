@@ -35,7 +35,7 @@ export class ViewAddressInfoComponent {
     idCardNumber: '',
     pesel: 0,
     contractType: { id: '', name: '' },
-    rate: 0,
+    wage: 0,
     payday: 0,
     birthDate: '',
     phoneNumber: '',

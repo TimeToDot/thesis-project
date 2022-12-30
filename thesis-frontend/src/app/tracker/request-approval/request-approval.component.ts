@@ -14,7 +14,7 @@ import {
 } from '@angular/forms';
 import * as dayjs from 'dayjs';
 import { ProjectApproval } from '../models/project-approval.model';
-import { ProjectApprovalsService } from '../services/project-approvals.service';
+import { ApprovalsService } from '../services/approvals.service';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { RouterLinkWithHref } from '@angular/router';
 import { ToastService } from '../../shared/services/toast.service';
@@ -54,14 +54,14 @@ export class RequestApprovalComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private location: Location,
-    private projectApprovalsService: ProjectApprovalsService,
+    private approvalsService: ApprovalsService,
     private toastService: ToastService,
     private validationService: ValidationService
   ) {}
 
   ngOnInit(): void {
     this.createForm();
-    this.getProjectApprovals();
+    this.getProjectsToApprove();
   }
 
   createForm(): void {
@@ -92,9 +92,9 @@ export class RequestApprovalComponent implements OnInit {
     };
   }
 
-  getProjectApprovals(): void {
-    this.projectApprovalsService
-      .getProjectApprovals()
+  getProjectsToApprove(): void {
+    this.approvalsService
+      .getProjectsToApprove()
       .pipe(first())
       .subscribe(
         projectApprovals => (this.projectApprovals = projectApprovals)

@@ -5,7 +5,7 @@ import { ProjectApproval } from '../models/project-approval.model';
 @Injectable({
   providedIn: 'root',
 })
-export class ProjectApprovalsService {
+export class ApprovalsService {
   private _projectApprovals: ProjectApproval[] = [
     {
       approve: false,
@@ -89,7 +89,7 @@ export class ProjectApprovalsService {
 
   constructor() {}
 
-  getProjectApprovals(): Observable<ProjectApproval[]> {
+  getProjectsToApprove(): Observable<ProjectApproval[]> {
     return of(this._projectApprovals);
   }
 }

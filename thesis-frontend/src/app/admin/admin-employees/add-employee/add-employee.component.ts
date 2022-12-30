@@ -50,7 +50,7 @@ export class AddEmployeeComponent implements OnInit {
       personalInfo: this.fb.group({
         firstName: ['', [Validators.required]],
         lastName: ['', [Validators.required]],
-        middleName: ['', []],
+        middleName: [''],
         sex: ['', [Validators.required]],
         birthDate: [
           formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en'),
@@ -58,7 +58,7 @@ export class AddEmployeeComponent implements OnInit {
         ],
         birthPlace: ['', [Validators.required]],
         idCardNumber: ['', [Validators.required]],
-        pesel: ['', []],
+        pesel: [''],
       }),
       addressInfo: this.fb.group({
         street: ['', [Validators.required]],
@@ -78,7 +78,7 @@ export class AddEmployeeComponent implements OnInit {
         ],
         contractType: ['', [Validators.required]],
         workingTime: ['', [Validators.required]],
-        rate: ['', [Validators.required]],
+        wage: ['', [Validators.required]],
         payday: ['', [Validators.required]],
         accountNumber: ['', [Validators.required]],
       }),

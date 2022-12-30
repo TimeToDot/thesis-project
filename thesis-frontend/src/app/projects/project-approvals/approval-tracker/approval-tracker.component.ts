@@ -15,7 +15,7 @@ import { ModalComponent } from '../../../shared/components/modal/modal.component
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ProjectEmployee } from '../../models/project-employee.model';
-import { EmployeesApprovalsService } from '../../services/employees-approvals.service';
+import { ProjectApprovalsService } from '../../services/project-approvals.service';
 
 @Component({
   selector: 'bvr-approval-tracker',
@@ -67,7 +67,7 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
   private tasksToRejectSubscribtion: Subscription = new Subscription();
 
   constructor(
-    private employeesApprovalsService: EmployeesApprovalsService,
+    private ProjectApprovalsService: ProjectApprovalsService,
     private fb: FormBuilder,
     private projectEmployeesService: ProjectEmployeesService,
     private route: ActivatedRoute,
@@ -96,13 +96,12 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
   }
 
   getProjectEmployee(): void {
-    const employeeApprovalId = this.route.snapshot.paramMap.get('id');
-    if (employeeApprovalId) {
-      this.employeesApprovalsService
-        .getEmployeeApproval(employeeApprovalId)
+    const projectApprovalId = this.route.snapshot.paramMap.get('id');
+    if (projectApprovalId) {
+      this.ProjectApprovalsService.getProjectApproval(projectApprovalId)
         .pipe(first())
-        .subscribe(employeeApproval => {
-          this.projectEmployee = employeeApproval.projectEmployee;
+        .subscribe(projectApproval => {
+          this.projectEmployee = projectApproval.projectEmployee;
           this.updateFormFields();
           console.log(this.projectEmployee);
           this.projectEmployee.active

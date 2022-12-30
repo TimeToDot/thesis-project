@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Status } from '../../shared/enum/status.enum';
-import { EmployeeApproval } from '../models/employee-approval.model';
+import { ProjectApproval } from '../models/project-approval.model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class EmployeesApprovalsService {
-  private _employeesApprovals: EmployeeApproval[] = [
+export class ProjectApprovalsService {
+  private _projectApprovals: ProjectApproval[] = [
     {
       id: '0',
       projectEmployee: {
@@ -111,25 +111,25 @@ export class EmployeesApprovalsService {
 
   constructor() {}
 
-  getEmployeeApproval(id: string): Observable<EmployeeApproval> {
-    const employeeApproval = this._employeesApprovals.find(
-      employeeApproval => employeeApproval.id === id
+  getProjectApproval(id: string): Observable<ProjectApproval> {
+    const projectApproval = this._projectApprovals.find(
+      projectApproval => projectApproval.id === id
     );
-    return of(employeeApproval as EmployeeApproval);
+    return of(projectApproval as ProjectApproval);
   }
 
-  getEmployeesApprovals(): Observable<EmployeeApproval[]> {
+  getProjectApprovals(): Observable<ProjectApproval[]> {
     return of(
-      this._employeesApprovals.filter(
-        employeeApproval => employeeApproval.projectEmployee.active
+      this._projectApprovals.filter(
+        projectApproval => projectApproval.projectEmployee.active
       )
     );
   }
 
-  getArchivedEmployeesApprovals(): Observable<EmployeeApproval[]> {
+  getArchivedProjectApprovals(): Observable<ProjectApproval[]> {
     return of(
-      this._employeesApprovals.filter(
-        employeeApproval => !employeeApproval.projectEmployee.active
+      this._projectApprovals.filter(
+        projectApproval => !projectApproval.projectEmployee.active
       )
     );
   }

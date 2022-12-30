@@ -20,7 +20,7 @@ export class AccountsService {
       image: 'assets/icons/icon14.png',
       pesel: 1231231231,
       contractType: { id: '4', name: 'B2B' },
-      rate: 35,
+      wage: 35,
       payday: 1,
       position: {
         id: '1',
@@ -58,7 +58,7 @@ export class AccountsService {
       birthPlace: 'Kraków',
       idCardNumber: 'CCC675432',
       contractType: { id: '4', name: 'B2B' },
-      rate: 35,
+      wage: 35,
       payday: 1,
       position: {
         id: '2',
@@ -99,7 +99,7 @@ export class AccountsService {
       birthPlace: 'Kraków',
       idCardNumber: 'CCC675432',
       contractType: { id: '4', name: 'B2B' },
-      rate: 35,
+      wage: 35,
       payday: 1,
       position: {
         id: '2',
@@ -140,7 +140,7 @@ export class AccountsService {
       idCardNumber: 'CCC675432',
       pesel: 1231231231,
       contractType: { id: '4', name: 'B2B' },
-      rate: 35,
+      wage: 35,
       payday: 1,
       position: {
         id: '2',
@@ -182,7 +182,7 @@ export class AccountsService {
       idCardNumber: 'CCC675432',
       pesel: 1231231231,
       contractType: { id: '4', name: 'B2B' },
-      rate: 35,
+      wage: 35,
       payday: 1,
       position: {
         id: '2',
@@ -223,7 +223,7 @@ export class AccountsService {
       idCardNumber: 'CCC675432',
       pesel: 1231231231,
       contractType: { id: '4', name: 'B2B' },
-      rate: 35,
+      wage: 35,
       payday: 1,
       position: {
         id: '1',
@@ -264,7 +264,7 @@ export class AccountsService {
       idCardNumber: 'CCC675432',
       pesel: 1231231231,
       contractType: { id: '4', name: 'B2B' },
-      rate: 35,
+      wage: 35,
       payday: 1,
       position: {
         id: '1',
@@ -305,7 +305,7 @@ export class AccountsService {
       idCardNumber: 'CCC675432',
       pesel: 1231231231,
       contractType: { id: '4', name: 'B2B' },
-      rate: 35,
+      wage: 35,
       payday: 1,
       position: {
         id: '2',
@@ -346,7 +346,7 @@ export class AccountsService {
       idCardNumber: 'CCC675432',
       pesel: 1231231231,
       contractType: { id: '4', name: 'B2B' },
-      rate: 35,
+      wage: 35,
       payday: 1,
       position: {
         id: '2',

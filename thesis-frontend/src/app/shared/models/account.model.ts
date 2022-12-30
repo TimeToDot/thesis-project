@@ -24,7 +24,7 @@ export interface Account {
   exitDate?: string;
   contractType: DropdownOption;
   workingTime: number;
-  rate: number;
+  wage: number;
   payday: number;
   accountNumber: string;
   email: string;

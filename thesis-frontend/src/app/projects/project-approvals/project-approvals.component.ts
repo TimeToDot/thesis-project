@@ -6,8 +6,8 @@ import { RouterLinkWithHref } from '@angular/router';
 import { first } from 'rxjs';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { ToastComponent } from '../../shared/components/toast/toast.component';
-import { EmployeeApproval } from '../models/employee-approval.model';
-import { EmployeesApprovalsService } from '../services/employees-approvals.service';
+import { ProjectApproval } from '../models/project-approval.model';
+import { ProjectApprovalsService } from '../services/project-approvals.service';
 
 @Component({
   selector: 'bvr-project-approvals',
@@ -23,7 +23,7 @@ import { EmployeesApprovalsService } from '../services/employees-approvals.servi
   ],
 })
 export class ProjectApprovalsComponent implements OnInit {
-  dataSource: EmployeeApproval[] = [];
+  dataSource: ProjectApproval[] = [];
   displayedActiveColumns: string[] = [
     'person',
     'position',
@@ -39,31 +39,27 @@ export class ProjectApprovalsComponent implements OnInit {
   query: string = '';
   showActive: boolean = true;
 
-  constructor(private employeesApprovalsService: EmployeesApprovalsService) {}
+  constructor(private projectApprovalsService: ProjectApprovalsService) {}
 
   ngOnInit(): void {
-    this.employeesApprovalsService
-      .getEmployeesApprovals()
+    this.getProjectApprovals();
+  }
+
+  getProjectApprovals(): void {
+    this.projectApprovalsService
+      .getProjectApprovals()
       .pipe(first())
-      .subscribe(employeesApprovals => (this.dataSource = employeesApprovals));
+      .subscribe(projectApprovals => (this.dataSource = projectApprovals));
+  }
+
+  getArchivedProjectApprovals(): void {
+    this.projectApprovalsService
+      .getArchivedProjectApprovals()
+      .pipe(first())
+      .subscribe(projectApprovals => (this.dataSource = projectApprovals));
   }
 
   showActiveTable(value: boolean): void {
-    if (value) {
-      this.employeesApprovalsService
-        .getEmployeesApprovals()
-        .pipe(first())
-        .subscribe(
-          employeesApprovals => (this.dataSource = employeesApprovals)
-        );
-    } else {
-      this.employeesApprovalsService
-        .getArchivedEmployeesApprovals()
-        .pipe(first())
-        .subscribe(
-          archivedEmployeesApprovals =>
-            (this.dataSource = archivedEmployeesApprovals)
-        );
-    }
+    value ? this.getProjectApprovals() : this.getArchivedProjectApprovals();
   }
 }
