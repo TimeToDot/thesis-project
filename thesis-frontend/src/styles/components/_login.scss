@@ -1,13 +1,55 @@
 .login-page {
   align-items: center;
+  background: $color-background;
   display: flex;
   flex-direction: column;
   height: 100%;
   justify-content: center;
+}
+
+.login-window {
+  align-items: center;
+  background: $color-white;
+  border-radius: 2 * $grid-base;
+  box-shadow: $shadow-default;
+  display: flex;
+  flex-direction: column;
+  width: 100 * $grid-base;
+  padding: 6 * $grid-base 6 * $grid-base 12 * $grid-base;
+
+  .logo {
+    padding: 6 * $grid-base 0;
+  }
 
   .form {
     display: flex;
     flex-direction: column;
-    width: 75 * $grid-base;
+    padding: 8 * $grid-base 0 2 * $grid-base;
+  }
+
+  .forgot-password {
+    align-self: flex-start;
+    color: $color-text-secondary;
+    cursor: pointer;
+    font-size: $font-small;
+    font-weight: 600;
+    margin-bottom: 8 * $grid-base;
+  }
+
+  .forgot-info {
+    color: $color-text-secondary;
+    font-size: $font-small;
+    font-weight: 600;
+    margin: 8 * $grid-base 0;
+  }
+
+  button {
+    justify-content: center;
+    width: 100%;
+  }
+
+  input,
+  .login-button {
+    width: 100%;
   }
 }
