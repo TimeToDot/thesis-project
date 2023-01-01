@@ -19,9 +19,10 @@ import { ToastState } from '../../../shared/enum/toast-state';
 import { ToastComponent } from '../../../shared/components/toast/toast.component';
 import { first, Subject } from 'rxjs';
 import { ValidationService } from '../../../shared/services/validation.service';
+import { InputNumberComponent } from '../../../shared/components/input-number/input-number.component';
 
 @Component({
-  selector: 'bvr-edit-employee',
+  selector: 'bvr-edit-project-employee',
   standalone: true,
   imports: [
     ButtonComponent,
@@ -29,6 +30,7 @@ import { ValidationService } from '../../../shared/services/validation.service';
     DropdownListComponent,
     FormFieldComponent,
     FormsModule,
+    InputNumberComponent,
     ModalComponent,
     ReactiveFormsModule,
     ToastComponent,

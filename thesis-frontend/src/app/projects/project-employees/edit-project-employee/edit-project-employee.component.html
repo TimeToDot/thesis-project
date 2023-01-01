@@ -73,9 +73,13 @@
         [formGroup]="editProjectEmployeeForm"
         label="Working Time"
         [required]="isRequired('workingTime')">
-        <input
+        <!-- <input
           formControlName="workingTime"
-          type="number" />
+          type="number" /> -->
+        <bvr-input-number
+          formControlName="workingTime"
+          placeholder="0"
+          suffix="h"></bvr-input-number>
         <ng-container *ngIf="showErrors('workingTime')">
           <small
             *ngIf="
