@@ -19,6 +19,7 @@
   background-color: $color-white;
   border-radius: 2 * $grid-base;
   box-shadow: $shadow-default;
+  min-width: 48 * $grid-base;
   position: absolute;
   width: 100%;
   z-index: 2;

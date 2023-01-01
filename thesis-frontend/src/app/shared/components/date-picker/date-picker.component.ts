@@ -90,10 +90,15 @@ export class DatePickerComponent implements OnInit, ControlValueAccessor {
 
   getGridStartDay(): void {
     const monthStartWeekday = dayjs()
+      .year(this.currentYear)
       .month(this.currentMonth)
       .startOf('M')
       .day();
-    this.monthStartDay = dayjs().month(this.currentMonth).startOf('M').date();
+    this.monthStartDay = dayjs()
+      .year(this.currentYear)
+      .month(this.currentMonth)
+      .startOf('M')
+      .date();
     this.gridMonthStartDay =
       this.monthStartDay + this.sundayOffset - monthStartWeekday;
     if (this.gridMonthStartDay === 2) {
@@ -102,8 +107,16 @@ export class DatePickerComponent implements OnInit, ControlValueAccessor {
   }
 
   getGridEndDay(): void {
-    const monthEndWeekday = dayjs().month(this.currentMonth).endOf('M').day();
-    this.monthEndDay = dayjs().month(this.currentMonth).endOf('M').date();
+    const monthEndWeekday = dayjs()
+      .year(this.currentYear)
+      .month(this.currentMonth)
+      .endOf('M')
+      .day();
+    this.monthEndDay = dayjs()
+      .year(this.currentYear)
+      .month(this.currentMonth)
+      .endOf('M')
+      .date();
     this.gridMonthEndDay =
       this.monthEndDay + 6 + this.sundayOffset - monthEndWeekday;
   }
@@ -114,7 +127,11 @@ export class DatePickerComponent implements OnInit, ControlValueAccessor {
       let week = [] as Day[];
       for (let j = 0; j < 7; ++i, ++j) {
         week.push({
-          date: dayjs().month(this.currentMonth).date(i).format('MM/DD/YYYY'),
+          date: dayjs()
+            .year(this.currentYear)
+            .month(this.currentMonth)
+            .date(i)
+            .format('MM/DD/YYYY'),
           disabled: i < this.monthStartDay || i > this.monthEndDay,
           status: Status.None,
         });
@@ -149,26 +166,32 @@ export class DatePickerComponent implements OnInit, ControlValueAccessor {
   }
 
   previousMonth(): void {
-    --this.currentMonth;
-    this.currentYear = dayjs().month(this.currentMonth).year();
+    if (this.currentMonth === 0) {
+      this.currentMonth = 11;
+      --this.currentYear;
+    } else {
+      --this.currentMonth;
+    }
     this.generateGrid();
   }
 
   nextMonth(): void {
-    ++this.currentMonth;
-    this.currentYear = dayjs().month(this.currentMonth).year();
+    if (this.currentMonth === 11) {
+      this.currentMonth = 0;
+      ++this.currentYear;
+    } else {
+      ++this.currentMonth;
+    }
     this.generateGrid();
   }
 
   previousYear(): void {
-    this.currentMonth -= 12;
-    this.currentYear = dayjs().month(this.currentMonth).year();
+    --this.currentYear;
     this.generateGrid();
   }
 
   nextYear(): void {
-    this.currentMonth += 12;
-    this.currentYear = dayjs().month(this.currentMonth).year();
+    ++this.currentYear;
     this.generateGrid();
   }
 
