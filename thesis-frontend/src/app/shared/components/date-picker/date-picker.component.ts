@@ -205,7 +205,8 @@ export class DatePickerComponent implements OnInit, ControlValueAccessor {
   }
 
   selectMonth(month: number): void {
-    this.currentMonth = this.currentMonth - (this.currentMonth % 12) + month;
+    this.currentMonth = month;
+    this.generateGrid();
   }
 
   markAsTouched() {
