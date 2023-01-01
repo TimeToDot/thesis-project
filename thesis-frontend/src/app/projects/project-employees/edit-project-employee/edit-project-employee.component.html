@@ -2,8 +2,15 @@
   <div class="header">
     <div class="name">
       <img
-        [src]="projectEmployee.employee.image"
-        class="picture" />
+        *ngIf="projectEmployee.employee.image"
+        class="picture"
+        [src]="projectEmployee.employee.image" />
+      <span
+        *ngIf="!projectEmployee.employee.image"
+        class="picture">
+        {{ projectEmployee.employee.firstName[0]
+        }}{{ projectEmployee.employee.lastName[0] }}
+      </span>
       <h4>
         {{ projectEmployee.employee.firstName }}
         {{ projectEmployee.employee.lastName }}

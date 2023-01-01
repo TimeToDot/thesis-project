@@ -1,8 +1,14 @@
 <div class="employee-tasks">
   <div class="task-header">
     <img
-      [src]="project.image"
-      class="task-image" />
+      *ngIf="project.image"
+      class="task-image"
+      [src]="project.image" />
+    <span
+      *ngIf="!project.image"
+      class="picture">
+      {{ project.name[0] }}
+    </span>
     <div class="task-title">{{ project.name | uppercase }}</div>
   </div>
   <div

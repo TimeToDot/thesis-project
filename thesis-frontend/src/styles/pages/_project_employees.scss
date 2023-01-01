@@ -16,7 +16,11 @@
     display: flex;
 
     .picture {
+      align-items: center;
+      background: $color-disabled;
+      display: flex;
       height: 12 * $grid-base;
+      justify-content: center;
       margin-right: 4 * $grid-base;
       width: 12 * $grid-base;
     }

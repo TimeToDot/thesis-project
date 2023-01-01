@@ -53,8 +53,14 @@
       (click)="selectOption(option.id)">
       <div class="name">
         <img
-          [src]="option.image"
-          class="picture" />
+          *ngIf="option.image"
+          class="picture"
+          [src]="option.image" />
+        <span
+          *ngIf="!option.image"
+          class="picture">
+          {{ option.firstName[0] }}{{ option.lastName[0] }}
+        </span>
         <span>{{ option.firstName }} {{ option.lastName }}</span>
       </div>
       <div class="email">{{ option.email }}</div>

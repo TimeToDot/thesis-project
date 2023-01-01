@@ -50,8 +50,12 @@
 }
 
 .picture {
+  align-items: center;
+  background: $color-disabled;
   border-radius: 8 * $grid-base;
+  display: flex;
   height: 8 * $grid-base;
+  justify-content: center;
   margin-right: 3 * $grid-base;
   width: 8 * $grid-base;
 

@@ -48,7 +48,11 @@
   }
 
   .picture {
+    align-items: center;
+    background: $color-disabled;
+    display: flex;
     height: 37.5 * $grid-base;
+    justify-content: center;
     margin-right: 11 * $grid-base;
     width: 37.5 * $grid-base;
   }

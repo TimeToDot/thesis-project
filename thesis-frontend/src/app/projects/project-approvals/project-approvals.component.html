@@ -50,8 +50,15 @@
           *cdkCellDef="let element">
           <div class="table-cell">
             <img
-              [src]="element.projectEmployee.employee.image"
-              class="picture" />
+              *ngIf="element.projectEmployee.employee.image"
+              class="picture"
+              [src]="element.projectEmployee.employee.image" />
+            <span
+              *ngIf="!element.projectEmployee.employee.image"
+              class="picture">
+              {{ element.projectEmployee.employee.firstName[0]
+              }}{{ element.projectEmployee.employee.lastName[0] }}
+            </span>
             <span
               >{{ element.projectEmployee.employee.firstName }}
               {{ element.projectEmployee.employee.lastName }}</span
@@ -129,8 +136,15 @@
           *cdkCellDef="let element">
           <div class="table-cell">
             <img
-              [src]="element.projectEmployee.employee.image"
-              class="picture archived" />
+              *ngIf="element.projectEmployee.employee.image"
+              class="picture archived"
+              [src]="element.projectEmployee.employee.image" />
+            <span
+              *ngIf="!element.projectEmployee.employee.image"
+              class="picture archived">
+              {{ element.projectEmployee.employee.firstName[0]
+              }}{{ element.projectEmployee.employee.lastName[0] }}
+            </span>
             <span
               >{{ element.projectEmployee.employee.firstName }}
               {{ element.projectEmployee.employee.lastName }}</span

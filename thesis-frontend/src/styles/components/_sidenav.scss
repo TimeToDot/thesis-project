@@ -77,8 +77,12 @@
   }
 
   .profile-image {
+    align-items: center;
+    background: $color-disabled;
     border-radius: 10 * $grid-base;
+    display: flex;
     height: 10 * $grid-base;
+    justify-content: center;
     width: 10 * $grid-base;
   }
 

@@ -14,7 +14,11 @@
   padding: 6 * $grid-base;
 
   .project-image {
+    align-items: center;
+    background: $color-disabled;
+    display: flex;
     height: 12 * $grid-base;
+    justify-content: center;
     width: 12 * $grid-base;
 
     &.archived {

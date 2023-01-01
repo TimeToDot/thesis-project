@@ -17,8 +17,14 @@
     <div class="header">
       <div class="name">
         <img
-          [src]="project.image"
-          class="picture" />
+          *ngIf="project.image"
+          class="picture"
+          [src]="project.image" />
+        <span
+          *ngIf="!project.image"
+          class="picture">
+          {{ project.name[0] }}
+        </span>
         <h4>
           {{ project.name }}
         </h4>

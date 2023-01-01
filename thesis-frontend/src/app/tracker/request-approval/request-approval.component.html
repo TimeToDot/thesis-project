@@ -71,8 +71,14 @@
           <div class="project-data">
             <div class="project-name">
               <img
-                [src]="projectApproval.project.image"
-                class="picture" />
+                *ngIf="projectApproval.project.image"
+                class="picture"
+                [src]="projectApproval.project.image" />
+              <span
+                *ngIf="!projectApproval.project.image"
+                class="picture">
+                {{ projectApproval.project.name[0] }}
+              </span>
               <div>{{ projectApproval.project.name }}</div>
             </div>
             <div class="task-count">

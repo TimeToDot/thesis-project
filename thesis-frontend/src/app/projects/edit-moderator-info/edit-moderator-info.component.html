@@ -24,8 +24,14 @@
     class="form">
     <div class="confirm-employee">
       <img
-        [src]="employee.image"
-        class="picture" />
+        *ngIf="employee.image"
+        class="picture"
+        [src]="employee.image" />
+      <span
+        *ngIf="!employee.image"
+        class="picture">
+        {{ employee.firstName[0] }}{{ employee.lastName[0] }}
+      </span>
       <div class="employee-details">
         <div class="row">
           <bvr-form-field

@@ -63,8 +63,14 @@
             *cdkCellDef="let element">
             <div class="table-cell">
               <img
+                *ngIf="element.image"
                 [src]="element.image"
                 class="picture" />
+              <span
+                *ngIf="!element.image"
+                class="picture">
+                {{ element.firstName[0] }}{{ element.lastName[0] }}
+              </span>
               <span>{{ element.firstName }} {{ element.lastName }}</span>
             </div>
           </td>
@@ -152,8 +158,14 @@
             *cdkCellDef="let element">
             <div class="table-cell">
               <img
+                *ngIf="element.image"
                 [src]="element.image"
                 class="picture archived" />
+              <span
+                *ngIf="!element.image"
+                class="picture">
+                {{ element.firstName[0] }}{{ element.lastName[0] }}
+              </span>
               <span>{{ element.firstName }} {{ element.lastName }}</span>
             </div>
           </td>
