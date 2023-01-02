@@ -5,7 +5,6 @@ import { CalendarComponent } from '../../../calendar/calendar.component';
 import { ApprovalTrackerListComponent } from '../approval-tracker-list/approval-tracker-list.component';
 import { TasksToRejectService } from '../../../shared/services/tasks-to-reject.service';
 import { first, Subject, Subscription } from 'rxjs';
-import { DropdownSearchEmployeeComponent } from '../../project-employees/dropdown-search-employee/dropdown-search-employee.component';
 import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
 import { ProjectEmployeesService } from '../../services/project-employees.service';
 import { Employee } from '../../../shared/models/employee.model';
@@ -16,6 +15,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ProjectEmployee } from '../../models/project-employee.model';
 import { ProjectApprovalsService } from '../../services/project-approvals.service';
+import { DropdownSearchEmployeeComponent } from '../../../shared/components/dropdown-search-employee/dropdown-search-employee.component';
 
 @Component({
   selector: 'bvr-approval-tracker',

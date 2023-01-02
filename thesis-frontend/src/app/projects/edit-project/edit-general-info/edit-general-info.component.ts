@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { ValidationService } from '../../shared/services/validation.service';
-import { FormFieldComponent } from '../../shared/components/form-field/form-field.component';
-import { FileUploadComponent } from '../../shared/components/file-upload/file-upload.component';
+import { ValidationService } from '../../../shared/services/validation.service';
+import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
+import { FileUploadComponent } from '../../../shared/components/file-upload/file-upload.component';
 
 @Component({
   selector: 'bvr-edit-general-info',

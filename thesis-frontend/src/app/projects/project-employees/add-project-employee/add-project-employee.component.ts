@@ -13,12 +13,12 @@ import { EmployeesService } from '../../../admin/services/employees.service';
 import { ValidationService } from '../../../shared/services/validation.service';
 import { first, Subject } from 'rxjs';
 import { Employee } from '../../../shared/models/employee.model';
-import { DropdownSearchEmployeeComponent } from '../dropdown-search-employee/dropdown-search-employee.component';
 import { ToastState } from '../../../shared/enum/toast-state';
 import { ToastService } from '../../../shared/services/toast.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastComponent } from '../../../shared/components/toast/toast.component';
 import { SwitchComponent } from '../../../shared/components/switch/switch.component';
+import { DropdownSearchEmployeeComponent } from '../../../shared/components/dropdown-search-employee/dropdown-search-employee.component';
 
 @Component({
   selector: 'bvr-add-project-employee',

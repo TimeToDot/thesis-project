@@ -1,13 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { ValidationService } from '../../shared/services/validation.service';
-import { FormFieldComponent } from '../../shared/components/form-field/form-field.component';
-import { SwitchComponent } from '../../shared/components/switch/switch.component';
+import { ValidationService } from '../../../shared/services/validation.service';
+import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
+import { SwitchComponent } from '../../../shared/components/switch/switch.component';
 import { first } from 'rxjs';
-import { BillingPeriodService } from '../services/billing-period.service';
-import { DropdownOption } from '../../shared/models/dropdown-option.model';
-import { DropdownListComponent } from '../../shared/components/dropdown-list/dropdown-list.component';
+import { BillingPeriodService } from '../../services/billing-period.service';
+import { DropdownOption } from '../../../shared/models/dropdown-option.model';
+import { DropdownListComponent } from '../../../shared/components/dropdown-list/dropdown-list.component';
 
 @Component({
   selector: 'bvr-edit-billing-info',

@@ -1,16 +1,16 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { ButtonComponent } from '../../shared/components/button/button.component';
-import { FormFieldComponent } from '../../shared/components/form-field/form-field.component';
-import { DropdownSearchEmployeeComponent } from '../project-employees/dropdown-search-employee/dropdown-search-employee.component';
-import { EmployeesService } from '../../admin/services/employees.service';
+import { ButtonComponent } from '../../../shared/components/button/button.component';
+import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
+import { EmployeesService } from '../../../admin/services/employees.service';
 import { first } from 'rxjs';
-import { Employee } from '../../shared/models/employee.model';
-import { ValidationService } from '../../shared/services/validation.service';
-import { ToastState } from '../../shared/enum/toast-state';
-import { ToastService } from '../../shared/services/toast.service';
-import { ToastComponent } from '../../shared/components/toast/toast.component';
+import { Employee } from '../../../shared/models/employee.model';
+import { ValidationService } from '../../../shared/services/validation.service';
+import { ToastState } from '../../../shared/enum/toast-state';
+import { ToastService } from '../../../shared/services/toast.service';
+import { ToastComponent } from '../../../shared/components/toast/toast.component';
+import { DropdownSearchEmployeeComponent } from '../../../shared/components/dropdown-search-employee/dropdown-search-employee.component';
 
 @Component({
   selector: 'bvr-moderator-info',

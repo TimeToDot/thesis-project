@@ -1,12 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { EmployeesService } from '../../admin/services/employees.service';
+import { EmployeesService } from '../../../admin/services/employees.service';
 import { first } from 'rxjs';
-import { Employee } from '../../shared/models/employee.model';
-import { FormFieldComponent } from '../../shared/components/form-field/form-field.component';
-import { DropdownSearchEmployeeComponent } from '../project-employees/dropdown-search-employee/dropdown-search-employee.component';
-import { ValidationService } from '../../shared/services/validation.service';
+import { Employee } from '../../../shared/models/employee.model';
+import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
+import { ValidationService } from '../../../shared/services/validation.service';
+import { DropdownSearchEmployeeComponent } from '../../../shared/components/dropdown-search-employee/dropdown-search-employee.component';
 
 @Component({
   selector: 'bvr-edit-moderator-info',

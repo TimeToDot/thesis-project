@@ -1,13 +1,13 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { ButtonComponent } from '../../shared/components/button/button.component';
-import { FormFieldComponent } from '../../shared/components/form-field/form-field.component';
-import { ToastState } from '../../shared/enum/toast-state';
-import { ToastService } from '../../shared/services/toast.service';
-import { ValidationService } from '../../shared/services/validation.service';
-import { ToastComponent } from '../../shared/components/toast/toast.component';
-import { FileUploadComponent } from '../../shared/components/file-upload/file-upload.component';
+import { ButtonComponent } from '../../../shared/components/button/button.component';
+import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
+import { ToastState } from '../../../shared/enum/toast-state';
+import { ToastService } from '../../../shared/services/toast.service';
+import { ValidationService } from '../../../shared/services/validation.service';
+import { ToastComponent } from '../../../shared/components/toast/toast.component';
+import { FileUploadComponent } from '../../../shared/components/file-upload/file-upload.component';
 
 @Component({
   selector: 'bvr-general-info',

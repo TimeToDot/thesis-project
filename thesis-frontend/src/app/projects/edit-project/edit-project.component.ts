@@ -9,9 +9,9 @@ import {
 } from '@angular/router';
 import { TabsComponent } from '../../shared/components/tabs/tabs.component';
 import { LinkOption } from '../../shared/models/link-option.model';
-import { EditBillingInfoComponent } from '../edit-billing-info/edit-billing-info.component';
-import { EditGeneralInfoComponent } from '../edit-general-info/edit-general-info.component';
-import { EditModeratorInfoComponent } from '../edit-moderator-info/edit-moderator-info.component';
+import { EditBillingInfoComponent } from './edit-billing-info/edit-billing-info.component';
+import { EditGeneralInfoComponent } from './edit-general-info/edit-general-info.component';
+import { EditModeratorInfoComponent } from './edit-moderator-info/edit-moderator-info.component';
 import {
   FormBuilder,
   FormGroup,

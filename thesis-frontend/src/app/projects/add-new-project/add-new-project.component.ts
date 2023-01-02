@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
-import { GeneralInfoComponent } from '../general-info/general-info.component';
-import { ModeratorInfoComponent } from '../moderator-info/moderator-info.component';
-import { BillingInfoComponent } from '../billing-info/billing-info.component';
+import { GeneralInfoComponent } from './general-info/general-info.component';
+import { ModeratorInfoComponent } from './moderator-info/moderator-info.component';
+import { BillingInfoComponent } from './billing-info/billing-info.component';
 import { ModalComponent } from '../../shared/components/modal/modal.component';
 import { Subject } from 'rxjs';
 import { tabAnimation } from '../../shared/animations/tab.animation';

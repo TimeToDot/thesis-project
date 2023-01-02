@@ -22,9 +22,9 @@ import { UnsavedChangesGuard } from '../shared/guards/unsaved-changes.guard';
 import { AddNewProjectComponent } from './add-new-project/add-new-project.component';
 import { CanAddProjectGuard } from './guards/can-add-project.guard';
 import { EditProjectComponent } from './edit-project/edit-project.component';
-import { EditGeneralInfoComponent } from './edit-general-info/edit-general-info.component';
-import { EditModeratorInfoComponent } from './edit-moderator-info/edit-moderator-info.component';
-import { EditBillingInfoComponent } from './edit-billing-info/edit-billing-info.component';
+import { EditGeneralInfoComponent } from './edit-project/edit-general-info/edit-general-info.component';
+import { EditModeratorInfoComponent } from './edit-project/edit-moderator-info/edit-moderator-info.component';
+import { EditBillingInfoComponent } from './edit-project/edit-billing-info/edit-billing-info.component';
 
 export const projectsRoutes: Routes = [
   {
