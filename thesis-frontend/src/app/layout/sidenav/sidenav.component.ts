@@ -1,38 +1,54 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { RouterLinkActive, RouterLinkWithHref } from '@angular/router';
 import { PermissionsService } from '../../shared/services/permissions.service';
-import { LinkOption } from '../../shared/model/link-option.model';
-import { AuthService } from '../../shared/services/auth.service';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { CommonModule } from '@angular/common';
-import { LinkGroup } from '../../shared/model/link-group.model';
-import { AccountService } from '../../shared/services/account.service';
-import { Account } from '../../shared/model/account.model';
+import { LinkGroup } from '../../shared/models/link-group.model';
+import { EmployeesService } from '../../admin/services/employees.service';
+import { Employee } from '../../shared/models/employee.model';
+import { first } from 'rxjs';
+import { ModalComponent } from '../../shared/components/modal/modal.component';
 
 @Component({
   selector: 'bvr-sidenav',
   templateUrl: './sidenav.component.html',
   standalone: true,
-  imports: [ButtonComponent, CommonModule, RouterModule],
+  imports: [
+    ButtonComponent,
+    CommonModule,
+    ModalComponent,
+    RouterLinkActive,
+    RouterLinkWithHref,
+  ],
 })
 export class SidenavComponent implements OnInit {
-  currentEmployee: Account = {
-    email: '',
+  @Output() openLogoutModal: EventEmitter<void> = new EventEmitter();
+
+  currentEmployee: Employee = {
+    id: '',
     firstName: '',
-    image: '',
     lastName: '',
+    email: '',
+    image: '',
+    position: '',
+    employmentDate: '',
+    contractType: { id: '', name: '' },
+    wage: 0,
+    workingTime: 0,
+    active: false,
   };
   navMenuGroups: LinkGroup[] = [];
 
   constructor(
-    private accountService: AccountService,
-    private authService: AuthService,
-    private permissionsService: PermissionsService,
-    private router: Router
+    private employeesService: EmployeesService,
+    private permissionsService: PermissionsService
   ) {}
 
   ngOnInit(): void {
-    this.currentEmployee = this.accountService.getEmployeeAccount();
+    this.employeesService
+      .getEmployee('1')
+      .pipe(first())
+      .subscribe(employee => (this.currentEmployee = employee));
     this.getNavMenuOptions();
     this.getAdditionalNavMenuOptions();
   }
@@ -85,10 +101,5 @@ export class SidenavComponent implements OnInit {
       });
     }
     this.navMenuGroups.push(managementOptions);
-  }
-
-  logout(): void {
-    this.authService.logout();
-    this.router.navigateByUrl('/login');
   }
 }

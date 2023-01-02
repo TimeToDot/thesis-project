@@ -1,0 +1,87 @@
+<div class="card">
+  <div class="header">
+    <div class="title">
+      <bvr-button
+        (click)="openCancelModal(false)"
+        icon="arrow_back"
+        styleClass="button-icon back"></bvr-button>
+      <h2 class="name">Project</h2>
+    </div>
+    <bvr-tabs
+      [hasRouting]="false"
+      [navbarOptions]="navbarOptions"
+      [selectedIndex]="tabIndex"
+      (selectedIndexChange)="updateTabIndex($event)"></bvr-tabs>
+  </div>
+  <div class="card-content view-project">
+    <div class="header">
+      <div class="name">
+        <img
+          *ngIf="project.image"
+          class="picture"
+          [src]="project.image" />
+        <span
+          *ngIf="!project.image"
+          class="picture">
+          {{ project.name[0] }}
+        </span>
+        <h4>
+          {{ project.name }}
+        </h4>
+      </div>
+      <bvr-button
+        (click)="openArchiveModal()"
+        icon="archive"
+        styleClass="button-icon"></bvr-button>
+    </div>
+    <div
+      [@tabs]="tabIndex"
+      (@tabs.start)="toggleFormButtons(false)"
+      (@tabs.done)="toggleFormButtons(true)"
+      class="view-project-content">
+      <bvr-edit-general-info
+        *ngIf="tabIndex === 0"
+        [editProjectForm]="editProjectForm"></bvr-edit-general-info>
+      <bvr-edit-moderator-info
+        *ngIf="tabIndex === 1"
+        [editProjectForm]="editProjectForm"></bvr-edit-moderator-info>
+      <bvr-edit-billing-info
+        *ngIf="tabIndex === 2"
+        [editProjectForm]="editProjectForm"></bvr-edit-billing-info>
+    </div>
+    <div
+      *ngIf="enableFormButtons"
+      class="form-buttons">
+      <bvr-button
+        class="form-button"
+        (click)="openCancelModal(false)"
+        label="Cancel"
+        styleClass="button-text"></bvr-button>
+      <bvr-button
+        class="form-button"
+        (click)="openSaveModal()"
+        label="Save"></bvr-button>
+    </div>
+  </div>
+</div>
+
+<bvr-modal
+  (confirm)="archive()"
+  confirmLabel="archive"
+  [description]="modalDescription"
+  [title]="'Archive project'"
+  [(visible)]="isArchiveModalOpen"></bvr-modal>
+<bvr-modal
+  (confirm)="cancel($event)"
+  confirmLabel="Leave"
+  [description]="modalDescription"
+  [title]="'Leave'"
+  [(visible)]="isCancelModalOpen"></bvr-modal>
+<bvr-modal
+  (confirm)="save($event)"
+  confirmLabel="Save"
+  [description]="modalDescription"
+  [title]="'Save changes'"
+  [(visible)]="isSaveModalOpen"></bvr-modal>
+
+<bvr-toast></bvr-toast>

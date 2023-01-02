@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import { Permissions } from '../../shared/model/permissions.model';
+import { Permissions } from '../../shared/models/permissions.model';
 import { PermissionsService } from '../../shared/services/permissions.service';
 
 import { CanAdminEmployeesGuard } from './can-admin-employees.guard';
@@ -33,7 +33,8 @@ describe('CanAdminEmployeesGuard', () => {
       getEmployeePermissions: (): Permissions => {
         return {
           projects: [],
-          canCreateEmployee: false,
+          canAddEmployee: false,
+          canAddProject: false,
           canAdminEmployees: false,
           canAdminSettings: false,
           canAdminPositions: false,

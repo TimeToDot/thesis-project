@@ -22,8 +22,9 @@
 
 .dropdown-list-modal {
   background-color: $color-white;
-  border-radius: 2 * $grid-base;
-  box-shadow: 0 $grid-base 12 * $grid-base $color-shadow;
+  box-shadow: $shadow-default;
+  max-height: 75 * $grid-base;
+  overflow-y: scroll;
   position: absolute;
   width: 100%;
   z-index: 2;
@@ -37,7 +38,7 @@
     transition: 0.5s;
 
     &:hover {
-      background-color: $color-secondary;
+      background-color: $color-row-hover;
     }
 
     &.selected {

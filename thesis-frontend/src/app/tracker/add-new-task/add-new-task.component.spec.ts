@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { AddNewTaskComponent } from './add-new-task.component';
 
@@ -8,7 +10,7 @@ describe('AddNewTaskComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AddNewTaskComponent],
+      imports: [AddNewTaskComponent, NoopAnimationsModule, RouterTestingModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(AddNewTaskComponent);

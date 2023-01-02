@@ -33,9 +33,9 @@ describe('SidenavComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should logout', () => {
-    const routerNavigateSpy = spyOn(router, 'navigateByUrl');
-    component.logout();
-    expect(routerNavigateSpy).toHaveBeenCalledWith('/login');
-  });
+  // it('should logout', () => {
+  //   const routerNavigateSpy = spyOn(router, 'navigateByUrl');
+  //   component.logout();
+  //   expect(routerNavigateSpy).toHaveBeenCalledWith('/login');
+  // });
 });

@@ -1,2 +1,130 @@
-<p>edit-project-employee works!</p>
-<bvr-button label="Cancel" (click)="cancel()"></bvr-button>
+<div class="project-employee">
+  <div class="header">
+    <div class="name">
+      <img
+        *ngIf="projectEmployee.employee.image"
+        class="picture"
+        [src]="projectEmployee.employee.image" />
+      <span
+        *ngIf="!projectEmployee.employee.image"
+        class="picture">
+        {{ projectEmployee.employee.firstName[0]
+        }}{{ projectEmployee.employee.lastName[0] }}
+      </span>
+      <h4>
+        {{ projectEmployee.employee.firstName }}
+        {{ projectEmployee.employee.lastName }}
+      </h4>
+    </div>
+    <bvr-button
+      (click)="openArchiveModal()"
+      icon="archive"
+      styleClass="button-icon"></bvr-button>
+  </div>
+  <div class="form">
+    <bvr-form-field
+      class="disabled field"
+      label="Email">
+      <input
+        disabled
+        [(ngModel)]="projectEmployee.employee.email"
+        type="text" />
+    </bvr-form-field>
+    <div class="row">
+      <bvr-form-field
+        class="disabled left-field"
+        label="Position">
+        <input
+          disabled
+          [(ngModel)]="projectEmployee.employee.position"
+          type="text" />
+      </bvr-form-field>
+      <bvr-form-field
+        class="disabled left-field"
+        label="Hire Date">
+        <input
+          disabled
+          [ngModel]="
+            projectEmployee.employee.employmentDate | date: 'dd/MM/yyyy'
+          "
+          type="text" />
+      </bvr-form-field>
+      <bvr-form-field
+        class="disabled field"
+        label="Project Join Date">
+        <input
+          disabled
+          [ngModel]="projectEmployee.joinDate | date: 'dd/MM/yyyy'"
+          type="text" />
+      </bvr-form-field>
+    </div>
+    <bvr-form-field
+      class="disabled field"
+      label="Contract Type">
+      <input
+        disabled
+        [ngModel]="projectEmployee.employee.contractType.name"
+        type="text" />
+    </bvr-form-field>
+    <div class="row">
+      <bvr-form-field
+        *ngIf="editProjectEmployeeForm"
+        class="left-field"
+        [formGroup]="editProjectEmployeeForm"
+        label="Working Time"
+        [required]="isRequired('workingTime')">
+        <bvr-input-number
+          formControlName="workingTime"
+          placeholder="0"
+          suffix="h"></bvr-input-number>
+        <ng-container *ngIf="showErrors('workingTime')">
+          <small
+            *ngIf="
+              editProjectEmployeeForm.get('workingTime')?.hasError('required')
+            "
+            >This field is required.</small
+          >
+        </ng-container>
+      </bvr-form-field>
+      <bvr-form-field
+        class="disabled field"
+        label="Wage">
+        <input
+          disabled
+          [ngModel]="projectEmployee.employee.wage"
+          type="text" />
+      </bvr-form-field>
+    </div>
+  </div>
+</div>
+<div class="form-buttons">
+  <bvr-button
+    class="form-button"
+    (click)="openCancelModal(false)"
+    label="Cancel"
+    styleClass="button-text"></bvr-button>
+  <bvr-button
+    (click)="openSaveModal()"
+    label="Save"></bvr-button>
+</div>
+
+<bvr-modal
+  (confirm)="archive()"
+  confirmLabel="archive"
+  [description]="modalDescription"
+  [title]="'Archive employee'"
+  [(visible)]="isArchiveModalOpen"></bvr-modal>
+<bvr-modal
+  (confirm)="cancel($event)"
+  confirmLabel="Leave"
+  [description]="modalDescription"
+  [title]="'Leave'"
+  [(visible)]="isCancelModalOpen"></bvr-modal>
+<bvr-modal
+  (confirm)="save($event)"
+  confirmLabel="Save"
+  [description]="modalDescription"
+  [title]="'Save changes'"
+  [(visible)]="isSaveModalOpen"></bvr-modal>
+
+<bvr-toast></bvr-toast>

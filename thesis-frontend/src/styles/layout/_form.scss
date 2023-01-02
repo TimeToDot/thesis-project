@@ -10,6 +10,20 @@
     border: none;
     border-bottom: 0.25 * $grid-base $color-divider solid;
     height: 11 * $grid-base;
+    padding: 2 * $grid-base;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  textarea {
+    background-color: $color-white;
+    border: 0.25 * $grid-base $color-divider solid;
+    border-radius: 2 * $grid-base;
+    height: 30 * $grid-base;
+    padding: 2 * $grid-base;
+    resize: none;
 
     &:focus {
       outline: none;
@@ -19,16 +33,56 @@
   label {
     color: $color-text-secondary;
     font-size: $font-small;
+  }
 
-    span {
-      color: $color-rejected;
-      font-size: $font-small;
-    }
+  .disabled,
+  .disabled input,
+  .disabled span {
+    color: $color-text-secondary;
+  }
+
+  .field {
+    width: 100%;
+  }
+
+  .left-field {
+    margin-right: 6 * $grid-base;
+    width: 100%;
   }
 }
 
 .form-field {
   display: flex;
   flex-direction: column;
-  margin: 3 * $grid-base;
+  min-height: 20 * $grid-base;
+  margin-bottom: 6 * $grid-base;
+
+  span {
+    padding: 2 * $grid-base 0 0 2 * $grid-base;
+    height: 11 * $grid-base;
+  }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type='number'] {
+    -moz-appearance: textfield;
+  }
+}
+
+.form-page {
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-buttons {
+  align-self: flex-end;
+
+  .form-button {
+    margin-left: 2 * $grid-base;
+  }
 }

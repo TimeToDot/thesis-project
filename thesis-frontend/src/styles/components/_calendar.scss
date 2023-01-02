@@ -11,16 +11,20 @@
     .chevron {
       height: 12 * $grid-base;
     }
+
+    h3 {
+      font-weight: 400;
+    }
   }
 }
 
 .week-days {
-  color: $color-text-secondary;
   display: flex;
-  font-weight: 600;
 
   .day {
+    color: $color-text-secondary;
     cursor: auto;
+    font-weight: 600;
   }
 }
 
@@ -64,31 +68,5 @@
 }
 
 .sunday {
-  color: $color-rejected;
-}
-
-.status {
-  border-radius: 2 * $grid-base;
-  height: 2 * $grid-base;
-  width: 2 * $grid-base;
-
-  &.pending {
-    background-color: $color-pending;
-  }
-
-  &.rejected {
-    background-color: $color-rejected;
-  }
-
-  &.approved {
-    background-color: $color-approved;
-  }
-
-  &.logged {
-    background-color: $color-logged;
-  }
-
-  &.none {
-    background-color: $color-white;
-  }
+  color: $color-error;
 }

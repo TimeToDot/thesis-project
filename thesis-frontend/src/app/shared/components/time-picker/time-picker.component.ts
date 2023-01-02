@@ -1,8 +1,13 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { CommonModule, formatDate } from '@angular/common';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ButtonComponent } from '../button/button.component';
-import * as dayjs from 'dayjs';
 
 @Component({
   selector: 'bvr-time-picker',
@@ -18,6 +23,9 @@ import * as dayjs from 'dayjs';
   ],
 })
 export class TimePickerComponent implements OnInit, ControlValueAccessor {
+  @ViewChild('dropdown') dropdown!: ElementRef<HTMLElement>;
+  @ViewChild('dropdownContent') dropdownContent!: ElementRef<HTMLElement>;
+
   hour: number = 0;
   minutes: number = 0;
   selectedTime: string = '00:00';
@@ -47,23 +55,38 @@ export class TimePickerComponent implements OnInit, ControlValueAccessor {
     );
   }
 
+  getPreviousHour(): number {
+    return this.hour === 0 ? 23 : this.hour - 1;
+  }
+
   previousHour(): void {
-    this.hour === 0 ? (this.hour = 23) : --this.hour;
+    this.hour = this.getPreviousHour();
     this.updateSelectedTime();
+  }
+  getPreviousMinutes(): number {
+    return this.minutes === 0 ? 45 : this.minutes - 15;
   }
 
   previousMinutes(): void {
-    this.minutes === 0 ? (this.minutes = 45) : (this.minutes -= 15);
+    this.minutes = this.getPreviousMinutes();
     this.updateSelectedTime();
+  }
+
+  getNextHour(): number {
+    return this.hour === 23 ? 0 : this.hour + 1;
   }
 
   nextHour(): void {
-    this.hour === 23 ? (this.hour = 0) : ++this.hour;
+    this.hour = this.getNextHour();
     this.updateSelectedTime();
   }
 
+  getNextMinutes(): number {
+    return this.minutes === 45 ? 0 : this.minutes + 15;
+  }
+
   nextMinutes(): void {
-    this.minutes === 45 ? (this.minutes = 0) : (this.minutes += 15);
+    this.minutes = this.getNextMinutes();
     this.updateSelectedTime();
   }
 
@@ -77,6 +100,23 @@ export class TimePickerComponent implements OnInit, ControlValueAccessor {
 
   toggleTimePicker(): void {
     this.timePickerEnabled = !this.timePickerEnabled;
+    if (this.timePickerEnabled) {
+      this.showDropdownUpwards();
+    }
+  }
+
+  showDropdownUpwards(): void {
+    setTimeout(() => {
+      const dropdownRect = this.dropdown.nativeElement.getBoundingClientRect();
+      const dropdownContentHeight =
+        this.dropdownContent.nativeElement.offsetHeight;
+      const availableSpaceBelow = window.innerHeight - dropdownRect.bottom;
+
+      this.dropdownContent.nativeElement.style.top =
+        dropdownContentHeight > availableSpaceBelow
+          ? `-${dropdownContentHeight}px`
+          : '100%';
+    }, 0);
   }
 
   markAsTouched() {

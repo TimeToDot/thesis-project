@@ -1,0 +1,73 @@
+<div class="card">
+  <div class="header">
+    <div class="title">
+      <span class="material-icons-outlined">work_outline</span>
+      <h2 class="name">Position</h2>
+    </div>
+  </div>
+  <div class="card-content view-position">
+    <div class="header">
+      <div class="name">
+        <h4>{{ position.name }}</h4>
+        <h4
+          *ngIf="!position.active"
+          class="archived">
+          (Archived)
+        </h4>
+      </div>
+      <div *ngIf="position.active">
+        <bvr-button
+          icon="edit"
+          [routerLink]="['edit']"
+          styleClass="button-icon"></bvr-button>
+        <bvr-button
+          (click)="openArchiveModal()"
+          icon="archive"
+          styleClass="button-icon"></bvr-button>
+      </div>
+    </div>
+    <div class="form">
+      <div class="dates">
+        <bvr-form-field
+          class="left-field"
+          label="Creation Date">
+          <span>{{ position.creationDate | date: 'dd/MM/yyyy' }}</span>
+        </bvr-form-field>
+        <bvr-form-field
+          class="field"
+          *ngIf="!position.active"
+          class="disabled field"
+          label="Archive Date">
+          <span>{{ position.archiveDate | date: 'dd/MM/yyyy' }}</span>
+        </bvr-form-field>
+        <bvr-form-field
+          class="field"
+          *ngIf="position.active"
+          class="disabled field"
+          label="Count">
+          <span>{{ position.count }}</span>
+        </bvr-form-field>
+      </div>
+      <bvr-form-field
+        class="field description"
+        label="Description">
+        <span>{{ position.description }}</span>
+      </bvr-form-field>
+    </div>
+    <div class="form-buttons">
+      <bvr-button
+        label="Cancel"
+        [routerLink]="['..']"
+        styleClass="button-text"></bvr-button>
+    </div>
+  </div>
+</div>
+
+<bvr-modal
+  (confirm)="archive()"
+  confirmLabel="archive"
+  [description]="modalDescription"
+  [title]="'Archive position'"
+  [(visible)]="isArchiveModalOpen"></bvr-modal>
+
+<bvr-toast></bvr-toast>

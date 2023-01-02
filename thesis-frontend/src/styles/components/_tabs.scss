@@ -6,10 +6,14 @@
   border-radius: 2 * $grid-base;
   color: $color-text-secondary;
   cursor: pointer;
-  margin-right: 3 * $grid-base;
+  margin: 0 $grid-base;
   padding: 3 * $grid-base 4 * $grid-base;
   text-align: center;
   transition: 0.5s;
+
+  &:hover:not(.active-tab) {
+    background-color: $color-row-hover;
+  }
 }
 
 .active-tab {

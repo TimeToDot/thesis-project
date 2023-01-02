@@ -18,8 +18,8 @@
 .date-picker-modal {
   background-color: $color-white;
   border-radius: 2 * $grid-base;
-  box-shadow: 0 $grid-base 12 * $grid-base $color-shadow;
-  padding: 3 * $grid-base;
+  box-shadow: $shadow-default;
+  min-width: 48 * $grid-base;
   position: absolute;
   width: 100%;
   z-index: 2;
@@ -28,14 +28,24 @@
     align-items: center;
     display: flex;
     justify-content: space-between;
+    padding-top: 3 * $grid-base;
 
-    span {
+    div {
+      cursor: pointer;
       font-size: $font-small;
     }
 
     .material-icons-outlined {
-      font-size: $font-regular;
+      font-size: $font-normal;
     }
+  }
+
+  .date-picker-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 46 * $grid-base;
+    padding: 0 3 * $grid-base 3 * $grid-base;
   }
 
   .week-days {
@@ -51,20 +61,25 @@
     justify-content: space-between;
   }
 
+  .month .day {
+    height: 8 * $grid-base;
+    width: 8 * $grid-base;
+  }
+
   .day {
     height: 6 * $grid-base;
     margin: 0;
     width: 6 * $grid-base;
 
-    span {
+    div {
       font-size: $font-small;
     }
 
-    &.disabled span {
+    &.disabled div {
       color: $color-disabled;
     }
 
-    &.selected span {
+    &.selected div {
       color: $color-white;
       font-weight: 600;
     }

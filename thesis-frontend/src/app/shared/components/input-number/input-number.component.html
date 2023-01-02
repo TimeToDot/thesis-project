@@ -1,0 +1,9 @@
+<div class="input-number">
+  <input
+    [placeholder]="placeholder"
+    (keydown)="onKeyDown($event)"
+    [ngModel]="value"
+    (ngModelChange)="input($event)"
+    type="text" />
+  <span class="suffix">{{ suffix }}</span>
+</div>

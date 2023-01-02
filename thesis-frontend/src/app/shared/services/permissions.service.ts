@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Permissions } from '../model/permissions.model';
-import { ProjectPermissions } from '../../projects/model/project-permissions.model';
+import { Permissions } from '../models/permissions.model';
+import { ProjectPermissions } from '../../projects/models/project-permissions.model';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +15,7 @@ export class PermissionsService {
         canManageProjectEmployees: true,
         canManageApprovals: true,
         canAdminProjects: true,
-        canCreateProjectEmployee: true,
+        canAddProjectEmployee: true,
       },
       {
         id: '2',
@@ -24,10 +24,20 @@ export class PermissionsService {
         canManageProjectEmployees: true,
         canManageApprovals: false,
         canAdminProjects: true,
-        canCreateProjectEmployee: true,
+        canAddProjectEmployee: true,
+      },
+      {
+        id: '3',
+        canReadProject: true,
+        canManageTasks: true,
+        canManageProjectEmployees: false,
+        canManageApprovals: true,
+        canAdminProjects: true,
+        canAddProjectEmployee: false,
       },
     ],
-    canCreateEmployee: true,
+    canAddEmployee: true,
+    canAddProject: true,
     canAdminEmployees: true,
     canAdminSettings: true,
     canAdminPositions: true,
@@ -39,7 +49,9 @@ export class PermissionsService {
     return this._permissions;
   }
 
-  getProjectPermissions(index: string | null): ProjectPermissions | undefined {
-    return this._permissions.projects.find(project => project.id === index);
+  getProjectPermissions(index: string | null): ProjectPermissions {
+    return this._permissions.projects.find(
+      project => project.id === index
+    ) as ProjectPermissions;
   }
 }

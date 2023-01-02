@@ -1,7 +1,13 @@
-import { Component, HostListener, Input } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  Input,
+  ViewChild,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { DropdownOption } from '../../model/dropdown-option.model';
+import { DropdownOption } from '../../models/dropdown-option.model';
 
 @Component({
   selector: 'bvr-dropdown-list',
@@ -20,6 +26,9 @@ export class DropdownListComponent implements ControlValueAccessor {
   @Input() name: string = '';
   @Input() options: DropdownOption[] = [];
 
+  @ViewChild('dropdown') dropdown!: ElementRef<HTMLElement>;
+  @ViewChild('dropdownContent') dropdownContent!: ElementRef<HTMLElement>;
+
   disabled: boolean = false;
   selectEnabled: boolean = false;
   selectedOption: DropdownOption = { name: 'Select option', id: '' };
@@ -29,12 +38,29 @@ export class DropdownListComponent implements ControlValueAccessor {
 
   toggleSelect(): void {
     this.selectEnabled = !this.selectEnabled;
+    if (this.selectEnabled) {
+      this.showDropdownUpwards();
+    }
+  }
+
+  showDropdownUpwards(): void {
+    setTimeout(() => {
+      const dropdownRect = this.dropdown.nativeElement.getBoundingClientRect();
+      const dropdownContentHeight =
+        this.dropdownContent.nativeElement.offsetHeight;
+      const availableSpaceBelow = window.innerHeight - dropdownRect.bottom;
+
+      this.dropdownContent.nativeElement.style.top =
+        dropdownContentHeight > availableSpaceBelow
+          ? `-${dropdownContentHeight}px`
+          : '100%';
+    }, 0);
   }
 
   selectOption(option: DropdownOption): void {
     this.markAsTouched();
     this.selectedOption = option;
-    this.onChange(this.selectedOption.id);
+    this.onChange(this.selectedOption);
     this.selectEnabled = false;
   }
 
@@ -51,7 +77,7 @@ export class DropdownListComponent implements ControlValueAccessor {
       : { name: 'Select ' + this.name, id: '' };
   }
 
-  onChange = (selectedOptionId: string) => {};
+  onChange = (selectedOptionId: DropdownOption) => {};
 
   registerOnChange(onChange: any): void {
     this.onChange = onChange;

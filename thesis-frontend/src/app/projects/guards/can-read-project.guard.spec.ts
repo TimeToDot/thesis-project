@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import { ProjectPermissions } from '../model/project-permissions.model';
+import { ProjectPermissions } from '../models/project-permissions.model';
 import { PermissionsService } from '../../shared/services/permissions.service';
 
 import { CanReadProjectGuard } from './can-read-project.guard';
@@ -33,7 +33,7 @@ describe('CanReadProjectGuard', () => {
           canManageProjectEmployees: true,
           canManageApprovals: true,
           canAdminProjects: true,
-          canCreateProjectEmployee: true,
+          canAddProjectEmployee: true,
         };
       },
     };

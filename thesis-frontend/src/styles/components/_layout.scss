@@ -5,9 +5,10 @@
   .content {
     background-color: $color-background;
     width: 100%;
+    overflow: hidden;
   }
 
-  .sidenav-wrapper {
+  .sidenav-card {
     height: 100vh;
     position: sticky;
     top: 0;

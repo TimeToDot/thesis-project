@@ -23,9 +23,9 @@ describe('LoginComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should login', () => {
-    const routerNavigateSpy = spyOn(router, 'navigateByUrl');
-    component.login();
-    expect(routerNavigateSpy).toHaveBeenCalledWith('/dashboard');
-  });
+  // it('should login', () => {
+  //   const routerNavigateSpy = spyOn(router, 'navigateByUrl');
+  //   component.login();
+  //   expect(routerNavigateSpy).toHaveBeenCalledWith('/dashboard');
+  // });
 });

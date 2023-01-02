@@ -1,43 +1,64 @@
 .stepper {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
   width: 100%;
+
+  .title h4 {
+    color: $color-text-primary;
+    padding-left: 0;
+  }
 }
 
 .stepper-header {
   align-items: center;
   display: flex;
   justify-content: center;
-  margin: 4 * $grid-base;
+  margin: 8 * $grid-base;
 
   .divider {
-    border-top: 0.25 * $grid-base $color-secondary solid;
+    border-top: 0.25 * $grid-base $color-divider solid;
     height: 0.25 * $grid-base;
-    width: 25%;
+    width: 15%;
   }
 
   .step {
     align-items: center;
     border: 0.25 * $grid-base $color-secondary solid;
-    border-radius: 8 * $grid-base;
+    border-radius: 100%;
     display: flex;
     height: 8 * $grid-base;
     justify-content: center;
-    margin: 0 4 * $grid-base;
+    margin: 0 12 * $grid-base;
     width: 8 * $grid-base;
   }
 
   .previous-step {
-    background-color: $color-secondary;
-    border-color: $color-secondary;
+    background-color: $color-divider;
+    border-color: $color-divider;
+    color: $color-secondary;
   }
 
   .active-step {
     background-color: $color-primary;
     border-color: $color-primary;
     color: $color-white;
+    font-size: 1.25 * $font-normal;
+    font-weight: $font-semibold;
+    height: 10 * $grid-base;
+    width: 10 * $grid-base;
   }
 
   .next-step {
-    background-color: $color-divider;
-    border-color: $color-divider;
+    background-color: $color-disabled;
+    border-color: $color-disabled;
+    color: $color-text-secondary;
   }
+}
+
+.steps {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  width: 100%;
 }

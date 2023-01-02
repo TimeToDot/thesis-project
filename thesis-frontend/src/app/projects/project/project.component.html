@@ -1,12 +1,17 @@
-<div class="wrapper">
+<div class="card">
   <div class="header">
     <div class="title">
-      <span class="material-icons-outlined">desktop_windows</span>
-      <h3 class="name">Project</h3>
+      <bvr-button
+        icon="arrow_back"
+        [routerLink]="['/projects']"
+        styleClass="button-icon back"></bvr-button>
+      <h2 class="name">Project</h2>
     </div>
     <bvr-tabs [navbarOptions]="navbarOptions"></bvr-tabs>
   </div>
-  <div class="wrapper-content">
-    <router-outlet></router-outlet>
+  <div
+    [@tabs]="getRouteAnimationData()"
+    class="card-content">
+    <router-outlet class="router-outlet"></router-outlet>
   </div>
 </div>

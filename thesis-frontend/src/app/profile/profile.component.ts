@@ -1,27 +1,38 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { RouterLinkWithHref } from '@angular/router';
+import { first } from 'rxjs';
+import { EmployeesService } from '../admin/services/employees.service';
 import { ButtonComponent } from '../shared/components/button/button.component';
-import { Account } from '../shared/model/account.model';
-import { AccountService } from '../shared/services/account.service';
+import { Employee } from '../shared/models/employee.model';
 
 @Component({
   selector: 'bvr-profile',
   templateUrl: './profile.component.html',
   standalone: true,
-  imports: [ButtonComponent, CommonModule, RouterModule],
+  imports: [ButtonComponent, CommonModule, RouterLinkWithHref],
 })
 export class ProfileComponent implements OnInit {
-  currentEmployee: Account = {
-    email: '',
+  currentEmployee: Employee = {
+    id: '',
     firstName: '',
-    image: '',
     lastName: '',
+    email: '',
+    image: '',
+    position: '',
+    employmentDate: '',
+    contractType: { id: '', name: '' },
+    wage: 0,
+    workingTime: 0,
+    active: false,
   };
 
-  constructor(private accountService: AccountService) {}
+  constructor(private employeesService: EmployeesService) {}
 
   ngOnInit(): void {
-    this.currentEmployee = this.accountService.getEmployeeAccount();
+    this.employeesService
+      .getEmployee('1')
+      .pipe(first())
+      .subscribe(employee => (this.currentEmployee = employee));
   }
 }
