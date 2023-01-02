@@ -20,21 +20,21 @@
     </div>
   </div>
   <div class="form">
-    <div class="dates">
+    <div class="row">
       <bvr-form-field
-        class="disabled left-field"
+        class="left-field"
         label="Creation Date">
         <span>{{ task.creationDate }}</span>
       </bvr-form-field>
       <bvr-form-field
         *ngIf="!task.active"
-        class="disabled field"
+        class="field"
         label="Archive Date">
         <span>{{ task.archiveDate }}</span>
       </bvr-form-field>
     </div>
     <bvr-form-field
-      class="disabled field description"
+      class="field description"
       label="Description">
       <span>{{ task.description }}</span>
     </bvr-form-field>

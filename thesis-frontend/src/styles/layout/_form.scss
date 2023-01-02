@@ -30,6 +30,15 @@
     }
   }
 
+  .row {
+    display: flex;
+    flex-direction: row;
+
+    input {
+      width: 100%;
+    }
+  }
+
   label {
     color: $color-text-secondary;
     font-size: $font-small;
