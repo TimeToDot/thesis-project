@@ -26,10 +26,10 @@ import { ModalComponent } from '../../../shared/components/modal/modal.component
 import { ToastComponent } from '../../../shared/components/toast/toast.component';
 import { TabsComponent } from '../../../shared/components/tabs/tabs.component';
 import { LinkOption } from '../../../shared/models/link-option.model';
-import { EditPersonalInfoComponent } from '../edit-personal-info/edit-personal-info.component';
-import { EditAddressInfoComponent } from '../edit-address-info/edit-address-info.component';
-import { EditEmploymentInfoComponent } from '../edit-employment-info/edit-employment-info.component';
-import { EditAccountInfoComponent } from '../edit-account-info/edit-account-info.component';
+import { EditPersonalInfoComponent } from './edit-personal-info/edit-personal-info.component';
+import { EditAddressInfoComponent } from './edit-address-info/edit-address-info.component';
+import { EditEmploymentInfoComponent } from './edit-employment-info/edit-employment-info.component';
+import { EditAccountInfoComponent } from './edit-account-info/edit-account-info.component';
 import { tabAnimation } from '../../../shared/animations/tab.animation';
 
 @Component({

@@ -1,12 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
-import { ValidationService } from '../../../shared/services/validation.service';
-import { DropdownListComponent } from '../../../shared/components/dropdown-list/dropdown-list.component';
-import { CountriesService } from '../../services/countries.service';
+import { FormFieldComponent } from '../../../../shared/components/form-field/form-field.component';
+import { ValidationService } from '../../../../shared/services/validation.service';
+import { DropdownListComponent } from '../../../../shared/components/dropdown-list/dropdown-list.component';
+import { CountriesService } from '../../../services/countries.service';
 import { first } from 'rxjs';
-import { DropdownOption } from '../../../shared/models/dropdown-option.model';
+import { DropdownOption } from '../../../../shared/models/dropdown-option.model';
 
 @Component({
   selector: 'bvr-edit-address-info',

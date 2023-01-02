@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule, formatDate, Location } from '@angular/common';
-import { PersonalInfoComponent } from '../personal-info/personal-info.component';
+import { PersonalInfoComponent } from './personal-info/personal-info.component';
 import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { AccountInfoComponent } from '../account-info/account-info.component';
-import { AddressInfoComponent } from '../address-info/address-info.component';
-import { EmploymentInfoComponent } from '../employment-info/employment-info.component';
+import { AccountInfoComponent } from './account-info/account-info.component';
+import { AddressInfoComponent } from './address-info/address-info.component';
+import { EmploymentInfoComponent } from './employment-info/employment-info.component';
 import { tabAnimation } from '../../../shared/animations/tab.animation';
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
 import { Subject } from 'rxjs';

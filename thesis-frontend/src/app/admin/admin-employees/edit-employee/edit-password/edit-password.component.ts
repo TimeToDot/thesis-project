@@ -6,13 +6,13 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ValidationService } from '../../../shared/services/validation.service';
-import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
-import { ButtonComponent } from '../../../shared/components/button/button.component';
-import { ModalComponent } from '../../../shared/components/modal/modal.component';
-import { ToastState } from '../../../shared/enum/toast-state';
-import { ToastService } from '../../../shared/services/toast.service';
-import { ToastComponent } from '../../../shared/components/toast/toast.component';
+import { ValidationService } from '../../../../shared/services/validation.service';
+import { FormFieldComponent } from '../../../../shared/components/form-field/form-field.component';
+import { ButtonComponent } from '../../../../shared/components/button/button.component';
+import { ModalComponent } from '../../../../shared/components/modal/modal.component';
+import { ToastState } from '../../../../shared/enum/toast-state';
+import { ToastService } from '../../../../shared/services/toast.service';
+import { ToastComponent } from '../../../../shared/components/toast/toast.component';
 
 @Component({
   selector: 'bvr-edit-password',

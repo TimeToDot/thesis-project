@@ -1,19 +1,19 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { ToastService } from '../../../shared/services/toast.service';
-import { ValidationService } from '../../../shared/services/validation.service';
-import { ToastState } from '../../../shared/enum/toast-state';
-import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
-import { ButtonComponent } from '../../../shared/components/button/button.component';
-import { ToastComponent } from '../../../shared/components/toast/toast.component';
-import { DropdownListComponent } from '../../../shared/components/dropdown-list/dropdown-list.component';
-import { PositionsService } from '../../services/positions.service';
+import { ToastService } from '../../../../shared/services/toast.service';
+import { ValidationService } from '../../../../shared/services/validation.service';
+import { ToastState } from '../../../../shared/enum/toast-state';
+import { FormFieldComponent } from '../../../../shared/components/form-field/form-field.component';
+import { ButtonComponent } from '../../../../shared/components/button/button.component';
+import { ToastComponent } from '../../../../shared/components/toast/toast.component';
+import { DropdownListComponent } from '../../../../shared/components/dropdown-list/dropdown-list.component';
+import { PositionsService } from '../../../services/positions.service';
 import { first } from 'rxjs';
-import { Position } from '../../models/position.model';
-import { DatePickerComponent } from '../../../shared/components/date-picker/date-picker.component';
-import { ContractTypesService } from '../../services/contract-types.service';
-import { DropdownOption } from '../../../shared/models/dropdown-option.model';
+import { Position } from '../../../models/position.model';
+import { DatePickerComponent } from '../../../../shared/components/date-picker/date-picker.component';
+import { ContractTypesService } from '../../../services/contract-types.service';
+import { DropdownOption } from '../../../../shared/models/dropdown-option.model';
 
 @Component({
   selector: 'bvr-employment-info',

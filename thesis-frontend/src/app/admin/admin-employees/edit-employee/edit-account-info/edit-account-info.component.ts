@@ -1,13 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { ValidationService } from '../../../shared/services/validation.service';
-import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { ValidationService } from '../../../../shared/services/validation.service';
+import { FormFieldComponent } from '../../../../shared/components/form-field/form-field.component';
 import { EditPasswordComponent } from '../edit-password/edit-password.component';
 
 @Component({

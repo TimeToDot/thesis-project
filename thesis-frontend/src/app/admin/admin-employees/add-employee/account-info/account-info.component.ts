@@ -2,13 +2,13 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ToastService } from '../../../shared/services/toast.service';
-import { ValidationService } from '../../../shared/services/validation.service';
-import { ToastState } from '../../../shared/enum/toast-state';
-import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
-import { ButtonComponent } from '../../../shared/components/button/button.component';
-import { ModalComponent } from '../../../shared/components/modal/modal.component';
-import { ToastComponent } from '../../../shared/components/toast/toast.component';
+import { ToastService } from '../../../../shared/services/toast.service';
+import { ValidationService } from '../../../../shared/services/validation.service';
+import { ToastState } from '../../../../shared/enum/toast-state';
+import { FormFieldComponent } from '../../../../shared/components/form-field/form-field.component';
+import { ButtonComponent } from '../../../../shared/components/button/button.component';
+import { ModalComponent } from '../../../../shared/components/modal/modal.component';
+import { ToastComponent } from '../../../../shared/components/toast/toast.component';
 
 @Component({
   selector: 'bvr-account-info',

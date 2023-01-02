@@ -11,14 +11,14 @@ import { CanAdminSettingsGuard } from './guards/can-admin-settings.guard';
 import { CanAdminEmployeesGuard } from './guards/can-admin-employees.guard';
 import { ViewPositionComponent } from './admin-positions/view-position/view-position.component';
 import { ViewEmployeeComponent } from './admin-employees/view-employee/view-employee.component';
-import { ViewPersonalInfoComponent } from './admin-employees/view-personal-info/view-personal-info.component';
-import { ViewAddressInfoComponent } from './admin-employees/view-address-info/view-address-info.component';
-import { ViewEmploymentInfoComponent } from './admin-employees/view-employment-info/view-employment-info.component';
-import { ViewAccountInfoComponent } from './admin-employees/view-account-info/view-account-info.component';
-import { EditPersonalInfoComponent } from './admin-employees/edit-personal-info/edit-personal-info.component';
-import { EditAddressInfoComponent } from './admin-employees/edit-address-info/edit-address-info.component';
-import { EditEmploymentInfoComponent } from './admin-employees/edit-employment-info/edit-employment-info.component';
-import { EditAccountInfoComponent } from './admin-employees/edit-account-info/edit-account-info.component';
+import { ViewPersonalInfoComponent } from './admin-employees/view-employee/view-personal-info/view-personal-info.component';
+import { ViewAddressInfoComponent } from './admin-employees/view-employee/view-address-info/view-address-info.component';
+import { ViewEmploymentInfoComponent } from './admin-employees/view-employee/view-employment-info/view-employment-info.component';
+import { ViewAccountInfoComponent } from './admin-employees/view-employee/view-account-info/view-account-info.component';
+import { EditPersonalInfoComponent } from './admin-employees/edit-employee/edit-personal-info/edit-personal-info.component';
+import { EditAddressInfoComponent } from './admin-employees/edit-employee/edit-address-info/edit-address-info.component';
+import { EditEmploymentInfoComponent } from './admin-employees/edit-employee/edit-employment-info/edit-employment-info.component';
+import { EditAccountInfoComponent } from './admin-employees/edit-employee/edit-account-info/edit-account-info.component';
 import { UnsavedChangesGuard } from '../shared/guards/unsaved-changes.guard';
 
 export const adminRoutes: Routes = [

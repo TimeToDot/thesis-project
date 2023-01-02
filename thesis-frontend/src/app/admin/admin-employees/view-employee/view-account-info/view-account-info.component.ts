@@ -1,15 +1,15 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
-import { Account } from '../../../shared/models/account.model';
+import { Account } from '../../../../shared/models/account.model';
+import { FormFieldComponent } from '../../../../shared/components/form-field/form-field.component';
 
 @Component({
-  selector: 'bvr-view-personal-info',
+  selector: 'bvr-view-account-info',
   standalone: true,
   imports: [CommonModule, FormFieldComponent],
-  templateUrl: './view-personal-info.component.html',
+  templateUrl: './view-account-info.component.html',
 })
-export class ViewPersonalInfoComponent {
+export class ViewAccountInfoComponent {
   @Input() account: Account = {
     id: '',
     firstName: '',

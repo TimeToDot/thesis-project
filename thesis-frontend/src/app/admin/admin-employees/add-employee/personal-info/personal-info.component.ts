@@ -1,15 +1,15 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ButtonComponent } from '../../../shared/components/button/button.component';
+import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
-import { DatePickerComponent } from '../../../shared/components/date-picker/date-picker.component';
-import { ValidationService } from '../../../shared/services/validation.service';
-import { DropdownListComponent } from '../../../shared/components/dropdown-list/dropdown-list.component';
-import { DropdownOption } from '../../../shared/models/dropdown-option.model';
-import { ToastState } from '../../../shared/enum/toast-state';
-import { ToastService } from '../../../shared/services/toast.service';
-import { ToastComponent } from '../../../shared/components/toast/toast.component';
+import { FormFieldComponent } from '../../../../shared/components/form-field/form-field.component';
+import { DatePickerComponent } from '../../../../shared/components/date-picker/date-picker.component';
+import { ValidationService } from '../../../../shared/services/validation.service';
+import { DropdownListComponent } from '../../../../shared/components/dropdown-list/dropdown-list.component';
+import { DropdownOption } from '../../../../shared/models/dropdown-option.model';
+import { ToastState } from '../../../../shared/enum/toast-state';
+import { ToastService } from '../../../../shared/services/toast.service';
+import { ToastComponent } from '../../../../shared/components/toast/toast.component';
 
 @Component({
   selector: 'bvr-personal-info',

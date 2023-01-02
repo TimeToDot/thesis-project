@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Account } from '../../../shared/models/account.model';
-import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
+import { Account } from '../../../../shared/models/account.model';
+import { FormFieldComponent } from '../../../../shared/components/form-field/form-field.component';
 
 @Component({
   selector: 'bvr-view-address-info',

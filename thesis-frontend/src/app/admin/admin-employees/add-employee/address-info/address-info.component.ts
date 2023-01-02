@@ -1,16 +1,16 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
-import { ButtonComponent } from '../../../shared/components/button/button.component';
-import { ToastComponent } from '../../../shared/components/toast/toast.component';
-import { ToastService } from '../../../shared/services/toast.service';
-import { ValidationService } from '../../../shared/services/validation.service';
-import { ToastState } from '../../../shared/enum/toast-state';
-import { CountriesService } from '../../services/countries.service';
+import { FormFieldComponent } from '../../../../shared/components/form-field/form-field.component';
+import { ButtonComponent } from '../../../../shared/components/button/button.component';
+import { ToastComponent } from '../../../../shared/components/toast/toast.component';
+import { ToastService } from '../../../../shared/services/toast.service';
+import { ValidationService } from '../../../../shared/services/validation.service';
+import { ToastState } from '../../../../shared/enum/toast-state';
+import { CountriesService } from '../../../services/countries.service';
 import { first } from 'rxjs';
-import { DropdownListComponent } from '../../../shared/components/dropdown-list/dropdown-list.component';
-import { DropdownOption } from '../../../shared/models/dropdown-option.model';
+import { DropdownListComponent } from '../../../../shared/components/dropdown-list/dropdown-list.component';
+import { DropdownOption } from '../../../../shared/models/dropdown-option.model';
 
 @Component({
   selector: 'bvr-address-info',
