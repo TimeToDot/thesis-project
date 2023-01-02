@@ -1,0 +1,13 @@
+<!-- <ng-container *ngIf="showErrors('email')">
+  <small
+    *ngIf="addEmployeeForm.get(['accountInfo', 'email'])?.hasError('required')"
+    >This field is required.</small
+  >
+</ng-container> -->
+<!-- <ng-container
+  *ngIf="control && control.errors && (control.dirty || control.touched)">
+</ng-container> -->
+
+<small *ngFor="let message of getErrorList(); let last = last">
+  {{ last ? message : '' }}
+</small>

@@ -15,6 +15,7 @@ import { ToastState } from '../../../shared/enum/toast-state';
 import { ToastComponent } from '../../../shared/components/toast/toast.component';
 import { ValidationService } from '../../../shared/services/validation.service';
 import { Subject } from 'rxjs';
+import { ErrorComponent } from '../../../shared/components/error/error.component';
 
 @Component({
   selector: 'bvr-add-task',
@@ -22,6 +23,7 @@ import { Subject } from 'rxjs';
   imports: [
     ButtonComponent,
     CommonModule,
+    ErrorComponent,
     FormFieldComponent,
     ModalComponent,
     ReactiveFormsModule,

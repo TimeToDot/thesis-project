@@ -14,11 +14,9 @@
       <input
         formControlName="name"
         type="text" />
-      <ng-container *ngIf="showErrors('name')">
-        <small *ngIf="addProjectTaskForm.get('name')?.hasError('required')"
-          >This field is required.</small
-        >
-      </ng-container>
+      <bvr-error
+        class="error"
+        [control]="addProjectTaskForm.controls['name']"></bvr-error>
     </bvr-form-field>
     <bvr-form-field
       label="Task Description"
@@ -26,12 +24,9 @@
       <textarea
         formControlName="description"
         placeholder="Example task description"></textarea>
-      <ng-container *ngIf="showErrors('description')">
-        <small
-          *ngIf="addProjectTaskForm.get('description')?.hasError('required')"
-          >This field is required.</small
-        >
-      </ng-container>
+      <bvr-error
+        class="error"
+        [control]="addProjectTaskForm.controls['description']"></bvr-error>
     </bvr-form-field>
   </div>
 </div>
