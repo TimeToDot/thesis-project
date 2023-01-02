@@ -1,4 +1,4 @@
-package thesis.security.jwt;
+package thesis.security.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;

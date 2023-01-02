@@ -23,5 +23,5 @@ public class TaskFormDetails {
   private String description;
 
   @Enumerated(EnumType.STRING)
-  private TaskType type;
+  private TaskFormType status;
 }

@@ -3,7 +3,8 @@ CREATE TABLE "account" (
                            "login" varchar NOT NULL,
                            "pass" varchar NOT NULL,
                            "status" varchar NOT NULL,
-                           "email" varchar NOT NULL
+                           "email" varchar NOT NULL,
+                           "position_id" uuid
 );
 
 CREATE TABLE "account_details" (
@@ -12,17 +13,26 @@ CREATE TABLE "account_details" (
                                    "name" varchar NOT NULL,
                                    "surname" varchar NOT NULL,
                                    "pesel" varchar NOT NULL,
+                                   "sex" varchar NOT NULL,
+                                   "tax_number" varchar NOT NULL,
                                    "phone_number" varchar NOT NULL,
                                    "city" varchar NOT NULL,
+                                   "postal_code" varchar NOT NULL,
                                    "street" varchar NOT NULL,
                                    "created_at" timestamp DEFAULT 'now()'
 );
 
 CREATE TABLE "position" (
                         "id" uuid DEFAULT gen_random_uuid() PRIMARY KEY,
-                        "account_id" uuid NOT NULL,
                         "name" varchar,
-                        "description" varchar
+                        "description" varchar,
+                        "status" varchar
+);
+
+CREATE TABLE "position_account" (
+                                "id" uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+                                "position_id" uuid NOT NULL,
+                                "account_id" uuid NOT NULL
 );
 
 CREATE TABLE "account_role" (
@@ -72,7 +82,8 @@ CREATE TABLE "task_form" (
                              "id" uuid DEFAULT gen_random_uuid() PRIMARY KEY,
                              "name" varchar NOT NULL,
                              "description" varchar,
-                             "id_project" uuid NOT NULL
+                             "id_project" uuid NOT NULL,
+                             "created_at" timestamp DEFAULT 'now()'
 );
 
 CREATE TABLE "task_form_details" (
@@ -123,6 +134,10 @@ ALTER TABLE "account_role" ADD FOREIGN KEY ("account_id") REFERENCES "account" (
 
 ALTER TABLE "account_role" ADD FOREIGN KEY ("role_id") REFERENCES "role" ("id");
 
+ALTER TABLE "position_account" ADD FOREIGN KEY ("account_id") REFERENCES "account" ("id");
+
+ALTER TABLE "position_account" ADD FOREIGN KEY ("position_id") REFERENCES "position" ("id");
+
 ALTER TABLE "role_privilege" ADD FOREIGN KEY ("role_id") REFERENCES "role" ("id");
 
 ALTER TABLE "role_privilege" ADD FOREIGN KEY ("privilege_id") REFERENCES "privilege" ("id");
@@ -145,8 +160,8 @@ ALTER TABLE "task" ADD FOREIGN KEY ("account_id") REFERENCES "account" ("id");
 
 ALTER TABLE "task" ADD FOREIGN KEY ("form_id") REFERENCES "task_form" ("id");
 
-ALTER TABLE "position" ADD FOREIGN KEY ("account_id") REFERENCES "account" ("id");
-
 ALTER TABLE "account_message" ADD FOREIGN KEY ("account_from") REFERENCES "account" ("id");
 
 ALTER TABLE "account_message" ADD FOREIGN KEY ("account_to") REFERENCES "account" ("id");
+
+ALTER TABLE "account" ADD FOREIGN KEY ("position_id") REFERENCES "position" ("id");

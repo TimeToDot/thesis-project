@@ -10,7 +10,7 @@ spring:
     database: POSTGRESQL
     show-sql: true
     hibernate:
-      ddl-auto:
+      ddl-auto: validate
     properties:
       hibernate:
         jdbc:

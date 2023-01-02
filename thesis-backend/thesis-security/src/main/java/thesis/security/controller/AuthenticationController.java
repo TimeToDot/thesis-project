@@ -2,6 +2,7 @@ package thesis.security.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,14 +11,18 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import thesis.security.jwt.JwtUtils;
+import thesis.security.config.JwtUtils;
 import thesis.security.payload.AuthenticationRequest;
 import thesis.security.payload.AuthenticationResponse;
+import thesis.security.services.model.ProjectPrivilege;
 import thesis.security.services.model.UserDetailsDefault;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -31,8 +36,12 @@ public class AuthenticationController {
 
     // TODO: 03/12/2022 spaghetti code
 
-    @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody AuthenticationRequest authenticationRequest) {
+    @PostMapping(
+            value = "/signin",
+            produces = MediaType.APPLICATION_JSON_VALUE,
+            consumes = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<AuthenticationResponse> authenticateUser(@Valid @RequestBody AuthenticationRequest authenticationRequest) {
 
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword()));
@@ -43,24 +52,69 @@ public class AuthenticationController {
 
         ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
 
-        List<String> roles = userDetails.getAuthorities().stream()
+        var authorities = userDetails
+                .getAuthorities()
+                .stream()
                 .map(GrantedAuthority::getAuthority)
-                .collect(Collectors.toList());
+                .toList();
 
-        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
-                .body(new AuthenticationResponse(userDetails.getId(),
-                        userDetails.getUsername(),
-                        userDetails.getEmail(),
-                        roles));
+
+        var globalAuthorities = getGlobalAuthorities(authorities);
+        var projectPrivileges = getProjectPrivileges(authorities);
+
+        return ResponseEntity
+                .ok()
+                .header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
+                .body(AuthenticationResponse.builder()
+                        .id(userDetails.getId())
+                        .username(userDetails.getUsername())
+                        .email(userDetails.getEmail())
+                        .globalAuthorities(globalAuthorities)
+                        .projectPrivileges(projectPrivileges)
+                        .build()
+                );
     }
 
-    @PostMapping("/signout")
-    public ResponseEntity<?> logoutUser() {
+    @PostMapping(
+            value = "/signout"
+    )
+    public ResponseEntity<String> logoutUser() {
         ResponseCookie cookie = jwtUtils.getCleanJwtCookie();
         return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString())
                 .body("You've been signed out!");
     }
 
+    private List<String> getGlobalAuthorities(List<String> authorities) {
+        return authorities
+                .stream()
+                .filter(s -> s.startsWith("CAN_"))
+                .toList();
+    }
 
+    private Map<UUID, List<String>> getProjectPrivileges(List<String> authorities) {
+        FuncProjectPrivilege funcProjectPrivilege = s -> {
+            var tab = s.split("#");
+            return new ProjectPrivilege(UUID.fromString(tab[0]), tab[1]);
+        };
+
+        return authorities
+                .stream()
+                .filter(s -> !s.startsWith("CAN_"))
+                .map(funcProjectPrivilege::toPrivilege)
+                .collect(Collectors.groupingBy(
+                                ProjectPrivilege::id,
+                                Collectors.mapping(
+                                        ProjectPrivilege::privilege,
+                                        Collectors.toList()
+                                )
+                        )
+                );
+    }
+
+
+    @FunctionalInterface
+    interface FuncProjectPrivilege {
+        ProjectPrivilege toPrivilege(String s);
+    }
 
 }

@@ -1,4 +1,4 @@
-package thesis.security.jwt;
+package thesis.security.config;
 
 import io.jsonwebtoken.*;
 import lombok.extern.slf4j.Slf4j;
@@ -26,7 +26,7 @@ public class JwtUtils {
 
 
     public String getJwtFromCookies(HttpServletRequest request){
-        var cookie = WebUtils.getCookie(request, jwtCookie);
+            var cookie = WebUtils.getCookie(request, jwtCookie);
 
         if (cookie == null){
             return null;
@@ -45,9 +45,9 @@ public class JwtUtils {
                 .build();
     }
 
-    public ResponseCookie getCleanJwtCookie() { //todo is it necessary?
+    public ResponseCookie getCleanJwtCookie() {
         return ResponseCookie
-                .from(jwtCookie, null)
+                .from(jwtCookie, "")
                 .path("/api")
                 .build();
     }

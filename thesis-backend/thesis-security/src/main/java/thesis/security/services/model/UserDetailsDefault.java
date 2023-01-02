@@ -34,7 +34,7 @@ public class UserDetailsDefault implements UserDetails {
     // disable for default
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override

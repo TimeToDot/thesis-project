@@ -1,4 +1,4 @@
-package thesis.security.jwt;
+package thesis.security.config;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -6,8 +6,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.filter.OncePerRequestFilter;
-import thesis.domain.employee.EmployeeService;
 import thesis.security.services.UserDetailsServiceDefault;
 
 import javax.servlet.FilterChain;
@@ -24,9 +24,11 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     private final UserDetailsServiceDefault userDetailsService;
 
 
+    @Transactional
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         try {
+            log.info("doFilter");
             var jwt = parseJwt(request);
 
             if (StringUtils.isNotEmpty(jwt) && jwtUtils.validateJwtToken(jwt)){

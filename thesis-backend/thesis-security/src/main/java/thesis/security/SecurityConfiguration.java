@@ -14,9 +14,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import thesis.security.jwt.AuthPoint;
-import thesis.security.jwt.AuthTokenFilter;
-import thesis.security.jwt.JwtUtils;
+import thesis.security.config.AuthPoint;
+import thesis.security.config.AuthTokenFilter;
+import thesis.security.config.JwtUtils;
 import thesis.security.services.UserDetailsServiceDefault;
 
 @AllArgsConstructor
@@ -42,7 +42,12 @@ public class SecurityConfiguration {
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
             .authorizeRequests().antMatchers("/api/authorization/**").permitAll()
             .antMatchers("/api/authentication/**").permitAll()
-            .antMatchers("/api/test/**").permitAll()
+            .antMatchers("/api/swagger-ui/**").permitAll()
+            .antMatchers("/swagger-ui/**").permitAll()
+            .antMatchers("/swagger-ui.html").permitAll()
+            .antMatchers("/api-docs/**").permitAll()
+            .antMatchers("/actuator/**").permitAll()
+            .antMatchers("/thesis-docs/**").permitAll()
             .anyRequest().authenticated().and()
             .authenticationProvider(authenticationProvider())
             .addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class)

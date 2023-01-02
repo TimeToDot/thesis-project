@@ -10,6 +10,6 @@ import java.util.UUID;
 @Repository
 public interface AccountMessageRepository extends JpaRepository<AccountMessage, UUID> {
   List<AccountMessage> findByAccountFromId(UUID accountFromId);
-  List<AccountMessage> findByAccountFromIdOrderByTimestamp(UUID accountFromId);
+  List<AccountMessage> findByAccountFromIdOrderByData(UUID accountFromId);
   List<AccountMessage> findByAccountFromIdAndAccountToId(UUID accountFromId, UUID accountToId);
 }

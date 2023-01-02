@@ -24,6 +24,7 @@ INSERT INTO role(name) VALUES ('ROLE_PROJECT_USER');
 /*user*/
 INSERT INTO role_privilege(role_id, privilege_id) select role.id, privilege.id from role, privilege where role.name = 'ROLE_GLOBAL_USER' and privilege.name = 'CAN_READ';
 /*admin*/
+INSERT INTO role_privilege(role_id, privilege_id) select role.id, privilege.id from role, privilege where role.name = 'ROLE_GLOBAL_ADMIN' and privilege.name = 'CAN_READ';
 INSERT INTO role_privilege(role_id, privilege_id) select role.id, privilege.id from role, privilege where role.name = 'ROLE_GLOBAL_ADMIN' and privilege.name = 'CAN_ADMIN_USERS';
 INSERT INTO role_privilege(role_id, privilege_id) select role.id, privilege.id from role, privilege where role.name = 'ROLE_GLOBAL_ADMIN' and privilege.name = 'CAN_CREATE_USERS';
 INSERT INTO role_privilege(role_id, privilege_id) select role.id, privilege.id from role, privilege where role.name = 'ROLE_GLOBAL_ADMIN' and privilege.name = 'CAN_ADMIN_SETTINGS';
@@ -47,6 +48,10 @@ INSERT INTO role_privilege(role_id, privilege_id) select role.id, privilege.id f
 /*account_details*/
 
 /*account_role*/
-select * from privilege;
-select * from role;
-select * from role_privilege;
+
+
+/*position*/
+INSERT INTO position(name, description, status) VALUES ('EMPLOYEE_I', 'fresh worker', 'ACTIVE');
+INSERT INTO position(name, description, status) VALUES ('EMPLOYEE_II', 'fresh worker', 'ACTIVE');
+INSERT INTO position(name, description, status) VALUES ('MANAGER_I', 'fresh worker', 'ACTIVE');
+INSERT INTO position(name, description, status) VALUES ('MANAGER_II', 'fresh worker', 'ACTIVE');

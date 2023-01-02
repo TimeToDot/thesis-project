@@ -26,7 +26,7 @@ public class Privilege {
   @Enumerated(EnumType.STRING)
   private PrivilegeType name;
 
-  @ManyToMany(mappedBy = "privileges")
+  @ManyToMany(mappedBy = "privileges", fetch = FetchType.LAZY)
   @ToString.Exclude
   private List<Role> roles;
 

@@ -1,6 +1,6 @@
 package thesis.data.task.model;
 
-public enum TaskType {
+public enum TaskFormType {
   OPEN,
   IN_PROGRESS,
   REVIEW,

@@ -6,6 +6,8 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.Hibernate;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import thesis.data.account.model.Account;
 import thesis.data.permission.model.Privilege;
 
@@ -31,7 +33,8 @@ public class Role {
   @Column(length = 20)
   private RoleType name;
 
-  @ManyToMany(fetch = FetchType.LAZY)
+  @ManyToMany
+  @LazyCollection(LazyCollectionOption.FALSE)
   @JoinTable(
           name = "role_privilege",
           joinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"),

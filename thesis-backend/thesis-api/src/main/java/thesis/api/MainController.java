@@ -1,5 +1,6 @@
 package thesis.api;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,10 +11,6 @@ import java.util.UUID;
 
 /**
  * <h1>MainController</h1>
- *
- * @author docz <a href="http://www.ailleron.com">AILLERON S.A.</a>
- * @version 1.0.0
- * @since TODO
  */
 
 @RestController
@@ -23,6 +20,7 @@ public class MainController {
 
 
   @GetMapping(value = "/customers", produces = "application/json")
+  @PreAuthorize("hasAuthority('CAN_READ')")
   public List<CustomerDto> getCustomerList(){
     var customers = getTempCustomers();
 

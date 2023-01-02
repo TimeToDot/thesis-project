@@ -20,51 +20,60 @@ import java.util.UUID;
 @Table(name = "account_details")
 public class AccountDetails {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private UUID id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private UUID id;
 
-  @OneToOne
-  @JoinColumn(name = "account_id")
-  private Account account;
+    @OneToOne
+    @JoinColumn(name = "account_id", referencedColumnName = "id", nullable = false)
+    private Account account;
 
-  @NotBlank(message="name is required")
-  private String name;
+    @NotBlank(message = "name is required")
+    private String name;
 
-  @NotBlank(message="surname is required")
-  private String surname;
+    @NotBlank(message = "surname is required")
+    private String surname;
 
-  @NotBlank(message="pesel is required")
-  private String pesel;
+    @NotBlank(message = "pesel is required")
+    private String pesel;
 
-  @NotBlank(message="phonenumber is required")
-  private String phoneNumber;
+    @NotBlank(message = "sex is required")
+    private String sex;
 
-  @NotBlank(message="street is required")
-  private String street;
+    @NotBlank(message = "phonenumber is required")
+    private String phoneNumber;
 
-  @NotBlank(message="city is required")
-  private String city;
+    @NotBlank(message = "taxNumber is required")
+    private String taxNumber;
 
-  @Temporal(TemporalType.TIMESTAMP)
-  private Date createdAt;
+    @NotBlank(message = "street is required")
+    private String street;
 
-  public void setAccount(Account account) {
-    this.account = account;
-  }
+    @NotBlank(message = "street is required")
+    private String postalCode;
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o)
-      return true;
-    if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o))
-      return false;
-    AccountDetails that = (AccountDetails) o;
-    return id != null && Objects.equals(id, that.id);
-  }
+    @NotBlank(message = "city is required")
+    private String city;
 
-  @Override
-  public int hashCode() {
-    return getClass().hashCode();
-  }
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o))
+            return false;
+        AccountDetails that = (AccountDetails) o;
+        return id != null && Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

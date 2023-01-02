@@ -35,7 +35,7 @@ public class AccountMessage {
   private Account accountTo;
 
   @Temporal(TemporalType.TIMESTAMP)
-  private Date timestamp;
+  private Date createdAt;
 
 
   @Override
