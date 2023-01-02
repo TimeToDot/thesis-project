@@ -1,0 +1,12 @@
+.input-number {
+  position: relative;
+
+  input {
+    padding-right: 12 * $grid-base;
+  }
+
+  .suffix {
+    position: absolute;
+    right: 2 * $grid-base;
+  }
+}

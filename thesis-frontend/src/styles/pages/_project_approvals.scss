@@ -1,0 +1,8 @@
+.project-approvals .status-cell {
+  align-items: center;
+  display: flex;
+
+  .status {
+    margin-right: 2 * $grid-base;
+  }
+}

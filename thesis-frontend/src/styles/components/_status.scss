@@ -1,0 +1,25 @@
+.status {
+  border-radius: 2 * $grid-base;
+  height: 2 * $grid-base;
+  width: 2 * $grid-base;
+
+  &.pending {
+    background-color: $color-warning;
+  }
+
+  &.rejected {
+    background-color: $color-error;
+  }
+
+  &.approved {
+    background-color: $color-success;
+  }
+
+  &.logged {
+    background-color: $color-info;
+  }
+
+  &.none {
+    background-color: $color-white;
+  }
+}

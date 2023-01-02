@@ -1,0 +1,16 @@
+.layout {
+  display: flex;
+  min-height: 100%;
+
+  .content {
+    background-color: $color-background;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .sidenav-card {
+    height: 100vh;
+    position: sticky;
+    top: 0;
+  }
+}

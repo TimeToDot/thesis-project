@@ -1,0 +1,51 @@
+<div
+  *ngIf="editProjectForm"
+  class="add-project"
+  [formGroup]="editProjectForm">
+  <div
+    class="form"
+    formGroupName="generalInfo">
+    <div class="form-header">{{ 'General' | uppercase }}</div>
+    <bvr-form-field
+      label="Project Name"
+      [required]="isRequired('name')">
+      <input
+        formControlName="name"
+        placeholder="Project Name"
+        type="text" />
+      <ng-container *ngIf="showErrors('name')">
+        <small
+          *ngIf="
+            editProjectForm.get(['generalInfo', 'name'])?.hasError('required')
+          "
+          >This field is required.</small
+        >
+      </ng-container>
+    </bvr-form-field>
+    <div class="row">
+      <bvr-form-field
+        class="left-field"
+        label="Logo"
+        [required]="isRequired('image')">
+        <bvr-file-upload formControlName="image"></bvr-file-upload>
+        <ng-container *ngIf="showErrors('image')">
+          <small *ngIf="editProjectForm.get('image')?.hasError('required')"
+            >This field is required.</small
+          >
+        </ng-container>
+      </bvr-form-field>
+      <bvr-form-field
+        class="field"
+        label="Description"
+        [required]="isRequired('description')">
+        <textarea formControlName="description"></textarea>
+        <ng-container *ngIf="showErrors('description')">
+          <small
+            *ngIf="editProjectForm.get('description')?.hasError('required')"
+            >This field is required.</small
+          >
+        </ng-container>
+      </bvr-form-field>
+    </div>
+  </div>
+</div>
