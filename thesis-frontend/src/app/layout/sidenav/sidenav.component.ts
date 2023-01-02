@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, RouterLinkActive, RouterLinkWithHref } from '@angular/router';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { RouterLinkActive, RouterLinkWithHref } from '@angular/router';
 import { PermissionsService } from '../../shared/services/permissions.service';
-import { AuthService } from '../../shared/services/auth.service';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { CommonModule } from '@angular/common';
 import { LinkGroup } from '../../shared/models/link-group.model';
 import { EmployeesService } from '../../admin/services/employees.service';
 import { Employee } from '../../shared/models/employee.model';
 import { first } from 'rxjs';
+import { ModalComponent } from '../../shared/components/modal/modal.component';
 
 @Component({
   selector: 'bvr-sidenav',
@@ -16,11 +16,14 @@ import { first } from 'rxjs';
   imports: [
     ButtonComponent,
     CommonModule,
+    ModalComponent,
     RouterLinkActive,
     RouterLinkWithHref,
   ],
 })
 export class SidenavComponent implements OnInit {
+  @Output() openLogoutModal: EventEmitter<void> = new EventEmitter();
+
   currentEmployee: Employee = {
     id: '',
     firstName: '',
@@ -38,9 +41,7 @@ export class SidenavComponent implements OnInit {
 
   constructor(
     private employeesService: EmployeesService,
-    private authService: AuthService,
-    private permissionsService: PermissionsService,
-    private router: Router
+    private permissionsService: PermissionsService
   ) {}
 
   ngOnInit(): void {
@@ -100,10 +101,5 @@ export class SidenavComponent implements OnInit {
       });
     }
     this.navMenuGroups.push(managementOptions);
-  }
-
-  logout(): void {
-    this.authService.logout();
-    this.router.navigateByUrl('/login');
   }
 }

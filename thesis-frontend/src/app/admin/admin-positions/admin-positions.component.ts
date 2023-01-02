@@ -88,7 +88,7 @@ export class AdminPositionsComponent implements OnInit {
   }
 
   archive(): void {
-    this.toastService.showToast(ToastState.Success, 'Position archived');
+    this.toastService.showToast(ToastState.Info, 'Position archived');
     setTimeout(() => this.toastService.dismissToast(), 3000);
   }
 }

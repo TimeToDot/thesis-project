@@ -121,7 +121,7 @@ export class EditTaskComponent {
     this.disableGuard(true);
     this.router.navigate(['../..'], { relativeTo: this.route }).then(() => {
       setTimeout(
-        () => this.toastService.showToast(ToastState.Success, 'Task archived'),
+        () => this.toastService.showToast(ToastState.Info, 'Task archived'),
         200
       );
       setTimeout(() => this.toastService.dismissToast(), 3200);
@@ -139,18 +139,20 @@ export class EditTaskComponent {
     }
   }
 
-  save(): void {
+  save(value: boolean): void {
     this.disableGuard(true);
-    new Promise((resolve, _) => {
-      this.location.back();
-      resolve('done');
-    }).then(() => {
-      setTimeout(
-        () => this.toastService.showToast(ToastState.Success, 'Task edited'),
-        200
-      );
-      setTimeout(() => this.toastService.dismissToast(), 3200);
-    });
+    if (value) {
+      new Promise((resolve, _) => {
+        this.location.back();
+        resolve('done');
+      }).then(() => {
+        setTimeout(
+          () => this.toastService.showToast(ToastState.Success, 'Task edited'),
+          200
+        );
+        setTimeout(() => this.toastService.dismissToast(), 3200);
+      });
+    }
   }
 
   disableGuard(value: boolean): void {

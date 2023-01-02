@@ -21,7 +21,7 @@ export class UnsavedChangesGuard implements CanDeactivate<any> {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    if (component.isGuardDisabled) {
+    if (component.isGuardDisabled || nextState?.url === '/login') {
       return true;
     }
     component.openCancelModal(true);

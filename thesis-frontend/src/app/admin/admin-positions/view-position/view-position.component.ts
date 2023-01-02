@@ -68,8 +68,7 @@ export class ViewPositionComponent implements OnInit {
   archive(): void {
     this.router.navigate(['..'], { relativeTo: this.route }).then(() => {
       setTimeout(
-        () =>
-          this.toastService.showToast(ToastState.Success, 'Position archived'),
+        () => this.toastService.showToast(ToastState.Info, 'Position archived'),
         200
       );
       setTimeout(() => this.toastService.dismissToast(), 3200);

@@ -78,7 +78,7 @@ export class ViewProjectEmployeeComponent implements OnInit {
   archive(): void {
     this.router.navigate(['..'], { relativeTo: this.route }).then(() => {
       setTimeout(
-        () => this.toastService.showToast(ToastState.Success, 'Task archived'),
+        () => this.toastService.showToast(ToastState.Info, 'Task archived'),
         200
       );
       setTimeout(() => this.toastService.dismissToast(), 3200);

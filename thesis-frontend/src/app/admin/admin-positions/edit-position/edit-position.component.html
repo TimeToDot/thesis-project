@@ -72,7 +72,7 @@
   [title]="'Leave'"
   [(visible)]="isCancelModalOpen"></bvr-modal>
 <bvr-modal
-  (confirm)="save()"
+  (confirm)="save($event)"
   confirmLabel="Save"
   [description]="modalDescription"
   [title]="'Save changes'"

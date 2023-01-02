@@ -76,7 +76,7 @@ export class TasksListComponent implements OnInit {
 
   openDeleteModal(task: EmployeeTask): void {
     this.isDeleteModalOpen = true;
-    this.modalDescription = `Are you sure you want to delete ${task.task.name}? You will lose your unsaved changes if you continue.`;
+    this.modalDescription = `Are you sure you want to delete ${task.task.name}? This action cannot be undone.`;
   }
 
   editTask(task: EmployeeTask): void {
@@ -84,7 +84,7 @@ export class TasksListComponent implements OnInit {
   }
 
   delete(): void {
-    this.toastService.showToast(ToastState.Success, 'Task deleted');
+    this.toastService.showToast(ToastState.Info, 'Task deleted');
     setTimeout(() => this.toastService.dismissToast(), 3000);
   }
 }

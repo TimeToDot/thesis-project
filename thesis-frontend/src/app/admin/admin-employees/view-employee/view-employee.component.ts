@@ -132,8 +132,7 @@ export class ViewEmployeeComponent {
   archive(): void {
     this.router.navigate(['..'], { relativeTo: this.route }).then(() => {
       setTimeout(
-        () =>
-          this.toastService.showToast(ToastState.Success, 'Employee archived'),
+        () => this.toastService.showToast(ToastState.Info, 'Employee archived'),
         200
       );
       setTimeout(() => this.toastService.dismissToast(), 3200);

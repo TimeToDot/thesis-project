@@ -242,8 +242,7 @@ export class EditEmployeeComponent {
     this.disableGuard(true);
     this.router.navigate(['../..'], { relativeTo: this.route }).then(() => {
       setTimeout(
-        () =>
-          this.toastService.showToast(ToastState.Success, 'Employee archived'),
+        () => this.toastService.showToast(ToastState.Info, 'Employee archived'),
         200
       );
       setTimeout(() => this.toastService.dismissToast(), 3200);
@@ -261,19 +260,21 @@ export class EditEmployeeComponent {
     }
   }
 
-  save(): void {
+  save(value: boolean): void {
     this.disableGuard(true);
-    new Promise((resolve, _) => {
-      this.location.back();
-      resolve('done');
-    }).then(() => {
-      setTimeout(
-        () =>
-          this.toastService.showToast(ToastState.Success, 'Employee edited'),
-        200
-      );
-      setTimeout(() => this.toastService.dismissToast(), 3200);
-    });
+    if (value) {
+      new Promise((resolve, _) => {
+        this.location.back();
+        resolve('done');
+      }).then(() => {
+        setTimeout(
+          () =>
+            this.toastService.showToast(ToastState.Success, 'Employee edited'),
+          200
+        );
+        setTimeout(() => this.toastService.dismissToast(), 3200);
+      });
+    }
   }
 
   disableGuard(value: boolean): void {

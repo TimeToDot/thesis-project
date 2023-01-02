@@ -190,8 +190,7 @@ export class EditProjectComponent implements OnInit {
     this.disableGuard(true);
     this.router.navigate(['/projects']).then(() => {
       setTimeout(
-        () =>
-          this.toastService.showToast(ToastState.Success, 'Project archived'),
+        () => this.toastService.showToast(ToastState.Info, 'Project archived'),
         200
       );
       setTimeout(() => this.toastService.dismissToast(), 3200);
@@ -209,18 +208,21 @@ export class EditProjectComponent implements OnInit {
     }
   }
 
-  save(): void {
+  save(value: boolean): void {
     this.disableGuard(true);
-    new Promise((resolve, _) => {
-      this.location.back();
-      resolve('done');
-    }).then(() => {
-      setTimeout(
-        () => this.toastService.showToast(ToastState.Success, 'Project edited'),
-        200
-      );
-      setTimeout(() => this.toastService.dismissToast(), 3200);
-    });
+    if (value) {
+      new Promise((resolve, _) => {
+        this.location.back();
+        resolve('done');
+      }).then(() => {
+        setTimeout(
+          () =>
+            this.toastService.showToast(ToastState.Success, 'Project edited'),
+          200
+        );
+        setTimeout(() => this.toastService.dismissToast(), 3200);
+      });
+    }
   }
 
   disableGuard(value: boolean): void {

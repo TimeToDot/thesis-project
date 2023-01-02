@@ -93,7 +93,7 @@ export class ProjectTasksComponent implements OnInit {
   }
 
   archive(): void {
-    this.toastService.showToast(ToastState.Success, 'Task archived');
+    this.toastService.showToast(ToastState.Info, 'Task archived');
     setTimeout(() => this.toastService.dismissToast(), 3000);
   }
 }

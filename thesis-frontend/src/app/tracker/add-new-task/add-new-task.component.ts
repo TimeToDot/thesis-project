@@ -193,7 +193,7 @@ export class AddNewTaskComponent implements OnInit {
   openDeleteModal(): void {
     this.isDeleteModalOpen = true;
     const task = this.addTaskForm.get(['task'])?.value;
-    this.modalDescription = `Are you sure you want to delete ${task.name}? You will lose your unsaved changes if you continue.`;
+    this.modalDescription = `Are you sure you want to delete ${task.name}? This action cannot be undone.`;
   }
 
   openSaveModal(): void {
@@ -210,7 +210,7 @@ export class AddNewTaskComponent implements OnInit {
 
   openResetModal(): void {
     this.isResetModalOpen = true;
-    this.modalDescription = `Are you sure you want to reset? You will lose your unsaved changes if you continue.`;
+    this.modalDescription = `Are you sure you want to reset? You will lose your changes if you continue.`;
   }
 
   add(value: boolean): void {
@@ -237,7 +237,7 @@ export class AddNewTaskComponent implements OnInit {
       .navigate(['../../tasks-list'], { relativeTo: this.route })
       .then(() => {
         setTimeout(
-          () => this.toastService.showToast(ToastState.Success, 'Task deleted'),
+          () => this.toastService.showToast(ToastState.Info, 'Task deleted'),
           200
         );
         setTimeout(() => this.toastService.dismissToast(), 3200);
@@ -245,21 +245,24 @@ export class AddNewTaskComponent implements OnInit {
   }
 
   reset(): void {
-    this.toastService.showToast(ToastState.Error, 'Form reset');
+    this.toastService.showToast(ToastState.Info, 'Form reset');
     setTimeout(() => this.toastService.dismissToast(), 3000);
   }
 
-  save(): void {
+  save(value: boolean): void {
     this.disableGuard(true);
-    this.router
-      .navigate(['../../tasks-list'], { relativeTo: this.route })
-      .then(() => {
-        setTimeout(
-          () => this.toastService.showToast(ToastState.Success, 'Task edited'),
-          200
-        );
-        setTimeout(() => this.toastService.dismissToast(), 3200);
-      });
+    if (value) {
+      this.router
+        .navigate(['../../tasks-list'], { relativeTo: this.route })
+        .then(() => {
+          setTimeout(
+            () =>
+              this.toastService.showToast(ToastState.Success, 'Task edited'),
+            200
+          );
+          setTimeout(() => this.toastService.dismissToast(), 3200);
+        });
+    }
   }
 
   disableGuard(value: boolean): void {

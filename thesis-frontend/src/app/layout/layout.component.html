@@ -1,8 +1,18 @@
 <div class="layout">
-  <bvr-sidenav class="sidenav-card"></bvr-sidenav>
+  <bvr-sidenav
+    class="sidenav-card"
+    (openLogoutModal)="openLogoutModal()"></bvr-sidenav>
   <div
     [@sidenavTabs]="getRouteAnimationData()"
     class="content">
     <router-outlet></router-outlet>
   </div>
 </div>
+
+<bvr-modal
+  class="logout-modal"
+  (confirm)="logout($event)"
+  confirmLabel="Log out"
+  [description]="modalDescription"
+  [title]="'Log out'"
+  [(visible)]="isLogoutModalOpen"></bvr-modal>

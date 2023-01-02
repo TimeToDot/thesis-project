@@ -94,7 +94,7 @@ export class ProjectEmployeesComponent implements OnInit {
   }
 
   archive(): void {
-    this.toastService.showToast(ToastState.Success, 'Employee archived');
+    this.toastService.showToast(ToastState.Info, 'Employee archived');
     setTimeout(() => this.toastService.dismissToast(), 3000);
   }
 }
