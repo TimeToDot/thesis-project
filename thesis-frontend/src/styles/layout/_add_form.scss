@@ -1,4 +1,4 @@
-.add-employee {
+.add-form {
   align-items: flex-end;
   display: flex;
   flex: 1;
@@ -24,6 +24,21 @@
     input {
       width: 100%;
     }
+
+    textarea {
+      height: 48 * $grid-base;
+    }
+  }
+
+  .modifiers {
+    column-gap: 3 * $grid-base;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    row-gap: 3 * $grid-base;
+
+    input {
+      width: 100%;
+    }
   }
 
   .row.address-info {
@@ -33,6 +48,13 @@
 
     .house-info {
       flex: 1;
+    }
+  }
+
+  .disabled {
+    label,
+    input::placeholder {
+      color: $color-disabled;
     }
   }
 }
