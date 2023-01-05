@@ -1,105 +1,111 @@
-<div class="title">
-  <h4>Add New Employee</h4>
+<div class="header">
+  <div class="title">
+    <h4>Add New Employee</h4>
+  </div>
 </div>
 <div
   *ngIf="addProjectEmployeeForm"
-  class="form add-project-employee"
+  class="view-form"
   [formGroup]="addProjectEmployeeForm">
-  <bvr-form-field
-    label="Employee"
-    [required]="isRequired('id')">
-    <bvr-dropdown-search-employee
-      formControlName="id"
-      name="id"
-      [options]="employees"></bvr-dropdown-search-employee>
-  </bvr-form-field>
+  <div class="form">
+    <bvr-form-field
+      label="Employee"
+      [required]="isRequired('id')">
+      <bvr-dropdown-search-employee
+        formControlName="id"
+        name="id"
+        [options]="employees"></bvr-dropdown-search-employee>
+    </bvr-form-field>
 
-  <div
-    *ngIf="employee"
-    class="form">
-    <div class="confirm-employee">
-      <img
-        *ngIf="employee.image"
-        class="picture"
-        [src]="employee.image" />
-      <span
-        *ngIf="!employee.image"
-        class="picture">
-        {{ employee.firstName[0] }}{{ employee.lastName[0] }}
-      </span>
-      <div class="employee-details">
-        <div class="row">
-          <bvr-form-field
-            class="disabled left-field"
-            label="Name">
-            <span>{{ employee.firstName }}</span>
-          </bvr-form-field>
-          <bvr-form-field
-            class="disabled left-field"
-            label="Surname">
-            <span>{{ employee.lastName }}</span>
-          </bvr-form-field>
-          <bvr-form-field
-            class="disabled field"
-            label="Hire Date">
-            <span>{{ employee.employmentDate | date: 'dd/MM/yyyy' }}</span>
-          </bvr-form-field>
-        </div>
-        <div class="row">
-          <bvr-form-field
-            class="disabled left-field position"
-            label="Position">
-            <span>{{ employee.position }}</span>
-          </bvr-form-field>
-          <bvr-form-field
-            class="disabled left-field email"
-            label="Email">
-            <span>{{ employee.email }}</span>
-          </bvr-form-field>
+    <div *ngIf="employee">
+      <div class="confirm-employee">
+        <img
+          *ngIf="employee.image"
+          class="picture"
+          [src]="employee.image" />
+        <span
+          *ngIf="!employee.image"
+          class="picture">
+          {{ employee.firstName[0] }}{{ employee.lastName[0] }}
+        </span>
+        <div class="employee-details">
+          <div class="row">
+            <bvr-form-field
+              class="disabled left-field"
+              label="Name">
+              <span>{{ employee.firstName }}</span>
+            </bvr-form-field>
+            <bvr-form-field
+              class="disabled left-field"
+              label="Surname">
+              <span>{{ employee.lastName }}</span>
+            </bvr-form-field>
+            <bvr-form-field
+              class="disabled field"
+              label="Hire Date">
+              <span>{{ employee.employmentDate | date: 'dd/MM/yyyy' }}</span>
+            </bvr-form-field>
+          </div>
+          <div class="row">
+            <bvr-form-field
+              class="disabled left-field position"
+              label="Position">
+              <span>{{ employee.position }}</span>
+            </bvr-form-field>
+            <bvr-form-field
+              class="disabled left-field email"
+              label="Email">
+              <span>{{ employee.email }}</span>
+            </bvr-form-field>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="row">
-      <bvr-form-field
-        class="left-field"
-        label="Working Time"
-        [required]="isRequired('workingTime')">
-        <input
-          formControlName="workingTime"
-          type="number" />
-        <ng-container *ngIf="showErrors('workingTime')">
-          <small
-            *ngIf="
-              addProjectEmployeeForm.get(['workingTime'])?.hasError('required')
-            "
-            >This field is required.</small
-          >
-        </ng-container>
-      </bvr-form-field>
-      <bvr-form-field
-        class="field"
-        label="Salary Modifier"
-        [ngClass]="{ disabled: isDisabled('salaryModifier') }"
-        [required]="isRequired('salaryModifier')">
-        <div class="row">
+      <div class="row">
+        <bvr-form-field
+          class="left-field"
+          label="Working Time"
+          [required]="isRequired('workingTime')">
           <input
-            formControlName="salaryModifier"
-            placeholder="0"
+            formControlName="workingTime"
             type="number" />
-          <bvr-switch
-            (valueChange)="enableField('salaryModifier', $event)"></bvr-switch>
-        </div>
-        <ng-container *ngIf="showErrors('salaryModifier')">
-          <small
-            *ngIf="
-              addProjectEmployeeForm
-                .get(['salaryModifier'])
-                ?.hasError('required')
-            "
-            >This field is required.</small
-          >
-        </ng-container>
-      </bvr-form-field>
+          <ng-container *ngIf="showErrors('workingTime')">
+            <small
+              *ngIf="
+                addProjectEmployeeForm
+                  .get(['workingTime'])
+                  ?.hasError('required')
+              "
+              >This field is required.</small
+            >
+          </ng-container>
+        </bvr-form-field>
+        <bvr-form-field
+          class="field"
+          label="Salary Modifier"
+          [ngClass]="{ disabled: isDisabled('salaryModifier') }"
+          [required]="isRequired('salaryModifier')">
+          <div class="row">
+            <input
+              formControlName="salaryModifier"
+              placeholder="0"
+              type="number" />
+            <bvr-switch
+              (valueChange)="
+                enableField('salaryModifier', $event)
+              "></bvr-switch>
+          </div>
+          <ng-container *ngIf="showErrors('salaryModifier')">
+            <small
+              *ngIf="
+                addProjectEmployeeForm
+                  .get(['salaryModifier'])
+                  ?.hasError('required')
+              "
+              >This field is required.</small
+            >
+          </ng-container>
+        </bvr-form-field>
+      </div>
     </div>
   </div>
 </div>
