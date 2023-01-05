@@ -1,27 +1,23 @@
 <div
   *ngIf="editProjectForm"
-  class="add-form"
+  class="form"
   [formGroup]="editProjectForm">
-  <div class="form">
-    <div class="form-header">{{ 'Moderator' | uppercase }}</div>
-    <bvr-form-field
-      label="Moderator"
-      [required]="isRequired('moderator')">
-      <bvr-dropdown-search-employee
-        formControlName="moderator"
-        name="moderator"
-        [options]="employees"></bvr-dropdown-search-employee>
-      <ng-container *ngIf="showErrors('moderator')">
-        <small *ngIf="editProjectForm.get(['moderator'])?.hasError('required')"
-          >This field is required.</small
-        >
-      </ng-container>
-    </bvr-form-field>
-  </div>
+  <div class="form-header">{{ 'Moderator' | uppercase }}</div>
+  <bvr-form-field
+    label="Moderator"
+    [required]="isRequired('moderator')">
+    <bvr-dropdown-search-employee
+      formControlName="moderator"
+      name="moderator"
+      [options]="employees"></bvr-dropdown-search-employee>
+    <ng-container *ngIf="showErrors('moderator')">
+      <small *ngIf="editProjectForm.get(['moderator'])?.hasError('required')"
+        >This field is required.</small
+      >
+    </ng-container>
+  </bvr-form-field>
 
-  <div
-    *ngIf="employee"
-    class="form">
+  <div *ngIf="employee">
     <div class="confirm-employee">
       <img
         *ngIf="employee.image"

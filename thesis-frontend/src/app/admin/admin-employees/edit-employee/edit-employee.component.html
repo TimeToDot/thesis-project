@@ -10,7 +10,7 @@
       [selectedIndex]="tabIndex"
       (selectedIndexChange)="updateTabIndex($event)"></bvr-tabs>
   </div>
-  <div class="card-content view-employee">
+  <div class="card-content view-form">
     <div class="header">
       <div class="name">
         <img
@@ -37,7 +37,7 @@
       [@tabs]="tabIndex"
       (@tabs.start)="toggleFormButtons(false)"
       (@tabs.done)="toggleFormButtons(true)"
-      class="view-employee-content">
+      class="view-form-content">
       <bvr-edit-personal-info
         *ngIf="tabIndex === 0"
         [editEmployeeForm]="editEmployeeForm"></bvr-edit-personal-info>

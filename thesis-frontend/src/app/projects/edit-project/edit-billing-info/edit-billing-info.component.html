@@ -1,10 +1,8 @@
 <div
   *ngIf="editProjectForm"
-  class="add-form"
+  class="form"
   [formGroup]="editProjectForm">
-  <div
-    class="form"
-    formGroupName="billingInfo">
+  <div formGroupName="billingInfo">
     <bvr-form-field
       label="Billing Period"
       [required]="isRequired('billingPeriod')">

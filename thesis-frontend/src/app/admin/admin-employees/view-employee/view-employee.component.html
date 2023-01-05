@@ -6,7 +6,7 @@
     </div>
     <bvr-tabs [navbarOptions]="navbarOptions"></bvr-tabs>
   </div>
-  <div class="card-content view-employee">
+  <div class="card-content view-form">
     <div class="header">
       <div class="name">
         <img
@@ -48,7 +48,7 @@
       [@tabs]="getRouteAnimationData()"
       (@tabs.start)="toggleFormButtons(false)"
       (@tabs.done)="toggleFormButtons(true)"
-      class="view-employee-content">
+      class="view-form-content">
       <router-outlet (activate)="onOutletLoaded($event)"></router-outlet>
     </div>
 

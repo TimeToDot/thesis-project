@@ -1,10 +1,19 @@
-.add-form {
+.view-form {
   align-items: flex-end;
   display: flex;
-  flex: 1;
   flex-direction: column;
-  padding: 0 31 * $grid-base;
   width: 100%;
+
+  .view-form-content {
+    flex: 1;
+    width: 100%;
+  }
+
+  .form {
+    flex: 1;
+    padding: 0 31 * $grid-base;
+    width: 100%;
+  }
 
   .form-header {
     align-self: flex-start;
@@ -12,7 +21,6 @@
     display: flex;
     font-size: $font-small;
     font-weight: 600;
-    justify-content: center;
     margin-bottom: 6 * $grid-base;
   }
 
@@ -48,6 +56,30 @@
 
     .house-info {
       flex: 1;
+    }
+  }
+
+  .header {
+    border-bottom: none;
+  }
+
+  .name {
+    align-items: center;
+    display: flex;
+
+    .picture {
+      align-items: center;
+      background: $color-disabled;
+      display: flex;
+      height: 12 * $grid-base;
+      justify-content: center;
+      margin-right: 4 * $grid-base;
+      width: 12 * $grid-base;
+    }
+
+    .archived {
+      color: $color-text-secondary;
+      margin-left: $grid-base;
     }
   }
 
