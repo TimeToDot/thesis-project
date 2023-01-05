@@ -16,10 +16,14 @@ export class ProjectApprovalsService {
   }
 
   getProjectApprovals(): Observable<ProjectApproval[]> {
-    return this.http.get<ProjectApproval[]>(`${this.url}?active=true`);
+    return this.http.get<ProjectApproval[]>(
+      `${this.url}?projectEmployee.active=true`
+    );
   }
 
   getArchivedProjectApprovals(): Observable<ProjectApproval[]> {
-    return this.http.get<ProjectApproval[]>(`${this.url}?active=false`);
+    return this.http.get<ProjectApproval[]>(
+      `${this.url}?projectEmployee.active=false`
+    );
   }
 }
