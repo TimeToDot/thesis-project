@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Position } from '../models/position.model';
@@ -6,47 +7,19 @@ import { Position } from '../models/position.model';
   providedIn: 'root',
 })
 export class PositionsService {
-  private _positions: Position[] = [
-    {
-      id: '1',
-      name: 'Frontend Developer',
-      description: 'Frontend Developer',
-      creationDate: '2022-01-20',
-      count: 1,
-      active: true,
-    },
-    {
-      id: '2',
-      name: 'Product Designer',
-      description: 'Product Designer',
-      creationDate: '2022-01-20',
-      count: 1,
-      archiveDate: '2022-10-10',
-      active: true,
-    },
-    {
-      id: '3',
-      name: 'Backend Developer',
-      description: 'Backend Developer',
-      creationDate: '2022-01-20',
-      count: 1,
-      archiveDate: '2022-10-10',
-      active: false,
-    },
-  ];
+  private url: string = 'http://localhost:3000/positions';
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
   getPosition(id: string): Observable<Position> {
-    const position = this._positions.find(position => position.id === id);
-    return of(position as Position);
+    return this.http.get<Position>(`${this.url}/${id}`);
   }
 
   getPositions(): Observable<Position[]> {
-    return of(this._positions.filter(position => position.active));
+    return this.http.get<Position[]>(`${this.url}?active=true`);
   }
 
   getArchivedPositions(): Observable<Position[]> {
-    return of(this._positions.filter(position => !position.active));
+    return this.http.get<Position[]>(`${this.url}?active=false`);
   }
 }

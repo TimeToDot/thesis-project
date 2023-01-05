@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { DropdownOption } from '../../shared/models/dropdown-option.model';
@@ -6,16 +7,11 @@ import { DropdownOption } from '../../shared/models/dropdown-option.model';
   providedIn: 'root',
 })
 export class BillingPeriodService {
-  private _billingPeriods: DropdownOption[] = [
-    { id: '1', name: 'Week' },
-    { id: '2', name: '2 Weeks' },
-    { id: '3', name: 'Month' },
-    { id: '4', name: 'Season' },
-  ];
+  private url: string = 'http://localhost:3000/billing-periods';
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
   getBillingPeriods(): Observable<DropdownOption[]> {
-    return of(this._billingPeriods);
+    return this.http.get<DropdownOption[]>(this.url);
   }
 }

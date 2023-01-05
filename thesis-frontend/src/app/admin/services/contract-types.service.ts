@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { DropdownOption } from '../../shared/models/dropdown-option.model';
@@ -6,16 +7,11 @@ import { DropdownOption } from '../../shared/models/dropdown-option.model';
   providedIn: 'root',
 })
 export class ContractTypesService {
-  private _contractTypes: DropdownOption[] = [
-    { id: '1', name: 'Employment contract' },
-    { id: '2', name: 'Commission contract' },
-    { id: '3', name: 'Specific-task contract' },
-    { id: '4', name: 'B2B' },
-  ];
+  private url: string = 'http://localhost:3000/contract-types';
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
   getContractTypes(): Observable<DropdownOption[]> {
-    return of(this._contractTypes);
+    return this.http.get<DropdownOption[]>(this.url);
   }
 }

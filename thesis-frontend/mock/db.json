@@ -491,5 +491,45 @@
       },
       "accountNumber": "90 0023 0231 2145 3443 2133 2300"
     }
+  ],
+  "contract-types": [
+    { "id": "1", "name": "Employment contract" },
+    { "id": "2", "name": "Commission contract" },
+    { "id": "3", "name": "Specific-task contract" },
+    { "id": "4", "name": "B2B" }
+  ],
+  "positions": [
+    {
+      "id": "1",
+      "name": "Frontend Developer",
+      "description": "Frontend Developer",
+      "creationDate": "2022-01-20",
+      "count": 1,
+      "active": true
+    },
+    {
+      "id": "2",
+      "name": "Product Designer",
+      "description": "Product Designer",
+      "creationDate": "2022-01-20",
+      "count": 1,
+      "archiveDate": "2022-10-10",
+      "active": true
+    },
+    {
+      "id": "3",
+      "name": "Backend Developer",
+      "description": "Backend Developer",
+      "creationDate": "2022-01-20",
+      "count": 1,
+      "archiveDate": "2022-10-10",
+      "active": false
+    }
+  ],
+  "billing-periods": [
+    { "id": "1", "name": "Week" },
+    { "id": "2", "name": "2 Weeks" },
+    { "id": "3", "name": "Month" },
+    { "id": "4", "name": "Season" }
   ]
 }
