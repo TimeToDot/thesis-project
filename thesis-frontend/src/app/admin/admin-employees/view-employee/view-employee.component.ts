@@ -37,45 +37,7 @@ import { tabAnimation } from '../../../shared/animations/tab.animation';
   animations: [tabAnimation],
 })
 export class ViewEmployeeComponent {
-  account: Account = {
-    id: '',
-    firstName: '',
-    middleName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    position: {
-      id: '',
-      name: '',
-      description: '',
-      creationDate: '',
-      count: 0,
-      archiveDate: '',
-      active: true,
-    },
-    employmentDate: '',
-    workingTime: 0,
-    exitDate: '',
-    image: '',
-    sex: { id: '', name: '' },
-    birthPlace: '',
-    idCardNumber: '',
-    pesel: 0,
-    contractType: { id: '', name: '' },
-    wage: 0,
-    payday: 0,
-    birthDate: '',
-    phoneNumber: '',
-    privateEmail: '',
-    street: '',
-    houseNumber: '',
-    apartmentNumber: '',
-    city: '',
-    postalCode: '',
-    country: { id: '', name: '' },
-    accountNumber: '',
-    active: true,
-  };
+  account!: Account;
   enableFormButtons: boolean = true;
   isArchiveModalOpen: boolean = false;
   isCancelModalOpen: boolean = false;

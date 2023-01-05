@@ -6,7 +6,9 @@
     </div>
     <bvr-tabs [navbarOptions]="navbarOptions"></bvr-tabs>
   </div>
-  <div class="card-content view-form">
+  <div
+    *ngIf="account"
+    class="card-content view-form">
     <div class="header">
       <div class="title">
         <img
