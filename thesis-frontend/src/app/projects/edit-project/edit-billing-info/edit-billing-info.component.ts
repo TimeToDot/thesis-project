@@ -5,7 +5,7 @@ import { ValidationService } from '../../../shared/services/validation.service';
 import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
 import { SwitchComponent } from '../../../shared/components/switch/switch.component';
 import { first } from 'rxjs';
-import { BillingPeriodService } from '../../services/billing-period.service';
+import { BillingPeriodsService } from '../../services/billing-periods.service';
 import { DropdownOption } from '../../../shared/models/dropdown-option.model';
 import { DropdownListComponent } from '../../../shared/components/dropdown-list/dropdown-list.component';
 
@@ -27,7 +27,7 @@ export class EditBillingInfoComponent {
   billingPeriods: DropdownOption[] = [];
 
   constructor(
-    private billingPeriodService: BillingPeriodService,
+    private billingPeriodsService: BillingPeriodsService,
     private validationService: ValidationService
   ) {}
 
@@ -36,7 +36,7 @@ export class EditBillingInfoComponent {
   }
 
   getBillingPeriods(): void {
-    this.billingPeriodService
+    this.billingPeriodsService
       .getBillingPeriods()
       .pipe(first())
       .subscribe(billingPeriods => (this.billingPeriods = billingPeriods));

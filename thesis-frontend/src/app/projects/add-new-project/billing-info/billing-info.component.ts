@@ -5,7 +5,7 @@ import { ButtonComponent } from '../../../shared/components/button/button.compon
 import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
 import { DropdownListComponent } from '../../../shared/components/dropdown-list/dropdown-list.component';
 import { ValidationService } from '../../../shared/services/validation.service';
-import { BillingPeriodService } from '../../services/billing-period.service';
+import { BillingPeriodsService } from '../../services/billing-periods.service';
 import { first } from 'rxjs';
 import { DropdownOption } from '../../../shared/models/dropdown-option.model';
 import { SwitchComponent } from '../../../shared/components/switch/switch.component';
@@ -43,7 +43,7 @@ export class BillingInfoComponent implements OnInit {
   modalDescription: string = '';
 
   constructor(
-    private billingPeriodService: BillingPeriodService,
+    private billingPeriodsService: BillingPeriodsService,
     private route: ActivatedRoute,
     private router: Router,
     private toastService: ToastService,
@@ -55,7 +55,7 @@ export class BillingInfoComponent implements OnInit {
   }
 
   getBillingPeriods(): void {
-    this.billingPeriodService
+    this.billingPeriodsService
       .getBillingPeriods()
       .pipe(first())
       .subscribe(billingPeriods => (this.billingPeriods = billingPeriods));
