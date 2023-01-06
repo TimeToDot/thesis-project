@@ -2,6 +2,7 @@ import { Employee } from '../../shared/models/employee.model';
 
 export interface ProjectEmployee {
   id: string;
+  projectId: string;
   employee: Employee;
   workingTime: number;
   joinDate: string;

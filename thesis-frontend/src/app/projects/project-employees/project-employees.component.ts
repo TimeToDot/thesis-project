@@ -55,10 +55,7 @@ export class ProjectEmployeesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.projectEmployeesService
-      .getProjectEmployees()
-      .pipe(first())
-      .subscribe(projectEmployees => (this.dataSource = projectEmployees));
+    this.getProjectEmployees();
   }
 
   editEmployee(event: Event, row: ProjectEmployee): void {
@@ -77,19 +74,30 @@ export class ProjectEmployeesComponent implements OnInit {
   }
 
   showActiveTable(value: boolean): void {
-    if (value) {
+    value ? this.getProjectEmployees : this.getArchivedProjectEmployees();
+  }
+
+  getProjectEmployees(): void {
+    const projectId = this.route.parent?.snapshot.paramMap.get('id');
+    if (projectId) {
       this.projectEmployeesService
-        .getProjectEmployees()
+        .getProjectEmployees(projectId)
         .pipe(first())
-        .subscribe(projectEmployees => (this.dataSource = projectEmployees));
-    } else {
+        .subscribe(projectEmployees => {
+          this.dataSource = projectEmployees;
+        });
+    }
+  }
+
+  getArchivedProjectEmployees(): void {
+    const projectId = this.route.parent?.snapshot.paramMap.get('id');
+    if (projectId) {
       this.projectEmployeesService
-        .getArchivedProjectEmployees()
+        .getArchivedProjectEmployees(projectId)
         .pipe(first())
-        .subscribe(
-          archivedProjectEmployees =>
-            (this.dataSource = archivedProjectEmployees)
-        );
+        .subscribe(archivedProjectEmployees => {
+          this.dataSource = archivedProjectEmployees;
+        });
     }
   }
 

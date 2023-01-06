@@ -7,19 +7,30 @@ import { ProjectEmployee } from '../models/project-employee.model';
   providedIn: 'root',
 })
 export class ProjectEmployeesService {
-  private url: string = 'http://localhost:3000/project-employees';
+  private url: string = 'http://localhost:3000/projects';
 
   constructor(private http: HttpClient) {}
 
-  getProjectEmployee(id: string): Observable<ProjectEmployee> {
-    return this.http.get<ProjectEmployee>(`${this.url}/${id}`);
+  getProjectEmployee(
+    projectId: string,
+    employeeId: string
+  ): Observable<ProjectEmployee> {
+    return this.http.get<ProjectEmployee>(
+      `${this.url}/${projectId}/employees/${employeeId}`
+    );
   }
 
-  getProjectEmployees(): Observable<ProjectEmployee[]> {
-    return this.http.get<ProjectEmployee[]>(`${this.url}?active=true`);
+  getProjectEmployees(projectId: string): Observable<ProjectEmployee[]> {
+    return this.http.get<ProjectEmployee[]>(
+      `${this.url}/${projectId}/employees?active=true`
+    );
   }
 
-  getArchivedProjectEmployees(): Observable<ProjectEmployee[]> {
-    return this.http.get<ProjectEmployee[]>(`${this.url}?active=false`);
+  getArchivedProjectEmployees(
+    projectId: string
+  ): Observable<ProjectEmployee[]> {
+    return this.http.get<ProjectEmployee[]>(
+      `${this.url}/${projectId}/employees?active=false`
+    );
   }
 }
