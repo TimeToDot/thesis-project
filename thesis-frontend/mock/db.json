@@ -535,6 +535,7 @@
   "project-approvals": [
     {
       "id": "0",
+      "projectId": "1",
       "projectEmployee": {
         "id": "0",
         "employee": {
@@ -554,11 +555,12 @@
         "joinDate": "2021-09-10",
         "active": true
       },
-      "status": "Pending",
+      "status": "pending",
       "lastRequest": "2021-09-15"
     },
     {
       "id": "1",
+      "projectId": "1",
       "projectEmployee": {
         "id": "1",
         "employee": {
@@ -578,11 +580,12 @@
         "joinDate": "2021-09-10",
         "active": true
       },
-      "status": "Rejected",
+      "status": "rejected",
       "lastRequest": "2022-07-01"
     },
     {
       "id": "2",
+      "projectId": "1",
       "projectEmployee": {
         "id": "3",
         "employee": {
@@ -603,11 +606,12 @@
         "exitDate": "2022-04-23",
         "active": false
       },
-      "status": "Approved",
+      "status": "approved",
       "lastRequest": "2022-07-01"
     },
     {
       "id": "3",
+      "projectId": "1",
       "projectEmployee": {
         "id": "4",
         "employee": {
@@ -629,7 +633,7 @@
         "exitDate": "2022-04-23",
         "active": false
       },
-      "status": "Approved",
+      "status": "approved",
       "lastRequest": "2022-07-01"
     }
   ],

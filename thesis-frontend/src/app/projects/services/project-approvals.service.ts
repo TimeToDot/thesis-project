@@ -7,23 +7,30 @@ import { ProjectApproval } from '../models/project-approval.model';
   providedIn: 'root',
 })
 export class ProjectApprovalsService {
-  private url: string = 'http://localhost:3000/project-approvals';
+  private url: string = 'http://localhost:3000/projects';
 
   constructor(private http: HttpClient) {}
 
-  getProjectApproval(id: string): Observable<ProjectApproval> {
-    return this.http.get<ProjectApproval>(`${this.url}/${id}`);
-  }
-
-  getProjectApprovals(): Observable<ProjectApproval[]> {
-    return this.http.get<ProjectApproval[]>(
-      `${this.url}?projectEmployee.active=true`
+  getProjectApproval(
+    projectId: string,
+    approvalId: string
+  ): Observable<ProjectApproval> {
+    return this.http.get<ProjectApproval>(
+      `${this.url}/${projectId}/approvals/${approvalId}`
     );
   }
 
-  getArchivedProjectApprovals(): Observable<ProjectApproval[]> {
+  getProjectApprovals(projectId: string): Observable<ProjectApproval[]> {
     return this.http.get<ProjectApproval[]>(
-      `${this.url}?projectEmployee.active=false`
+      `${this.url}/${projectId}/approvals?active=true`
+    );
+  }
+
+  getArchivedProjectApprovals(
+    projectId: string
+  ): Observable<ProjectApproval[]> {
+    return this.http.get<ProjectApproval[]>(
+      `${this.url}/${projectId}/approvals?active=true`
     );
   }
 }

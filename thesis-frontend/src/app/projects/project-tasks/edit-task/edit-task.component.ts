@@ -74,10 +74,11 @@ export class EditTaskComponent {
   }
 
   getTask(): void {
+    const projectId = this.route.parent?.snapshot.paramMap.get('id');
     const taskId = this.route.snapshot.paramMap.get('id');
-    if (taskId) {
+    if (projectId && taskId) {
       this.projectTasksService
-        .getProjectTask(taskId)
+        .getProjectTask(projectId, taskId)
         .pipe(first())
         .subscribe(projectTask => {
           this.task = projectTask;

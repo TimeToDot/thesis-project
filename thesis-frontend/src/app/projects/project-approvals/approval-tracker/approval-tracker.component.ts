@@ -67,7 +67,7 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
   private tasksToRejectSubscribtion: Subscription = new Subscription();
 
   constructor(
-    private ProjectApprovalsService: ProjectApprovalsService,
+    private projectApprovalsService: ProjectApprovalsService,
     private fb: FormBuilder,
     private projectEmployeesService: ProjectEmployeesService,
     private route: ActivatedRoute,
@@ -96,14 +96,15 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
   }
 
   getProjectEmployee(): void {
+    const projectId = this.route.parent?.snapshot.paramMap.get('id');
     const projectApprovalId = this.route.snapshot.paramMap.get('id');
-    if (projectApprovalId) {
-      this.ProjectApprovalsService.getProjectApproval(projectApprovalId)
+    if (projectId && projectApprovalId) {
+      this.projectApprovalsService
+        .getProjectApproval(projectId, projectApprovalId)
         .pipe(first())
         .subscribe(projectApproval => {
           this.projectEmployee = projectApproval.projectEmployee;
           this.updateFormFields();
-          console.log(this.projectEmployee);
           this.projectEmployee.active
             ? this.getProjectEmployees()
             : this.getArchivedProjectEmployees();

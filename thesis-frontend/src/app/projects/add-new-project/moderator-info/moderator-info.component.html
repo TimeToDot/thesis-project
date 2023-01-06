@@ -8,6 +8,7 @@
       label="Moderator"
       [required]="isRequired('moderator')">
       <bvr-dropdown-search-employee
+        *ngIf="employees.length"
         formControlName="moderator"
         name="moderator"
         [options]="employees"></bvr-dropdown-search-employee>

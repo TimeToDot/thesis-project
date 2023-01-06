@@ -12,6 +12,7 @@
       label="Employee"
       [required]="isRequired('id')">
       <bvr-dropdown-search-employee
+        *ngIf="employees.length"
         formControlName="id"
         name="id"
         [options]="employees"></bvr-dropdown-search-employee>

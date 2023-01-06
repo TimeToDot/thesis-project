@@ -2,6 +2,7 @@
   <form [formGroup]="approveTasksForm">
     <bvr-form-field>
       <bvr-dropdown-search-employee
+        *ngIf="employees.length"
         [isActive]="isActive"
         formControlName="id"
         name="id"
