@@ -10,6 +10,7 @@ import { ModalComponent } from '../../shared/components/modal/modal.component';
 import { ToastService } from '../../shared/services/toast.service';
 import { ToastState } from '../../shared/enum/toast-state';
 import { first } from 'rxjs';
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'bvr-tasks-list',
@@ -29,6 +30,7 @@ export class TasksListComponent implements OnInit {
   modalDescription: string = '';
 
   constructor(
+    private authService: AuthService,
     private employeeTasksService: EmployeeTasksService,
     private route: ActivatedRoute,
     private router: Router,
@@ -37,15 +39,20 @@ export class TasksListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getEmployeeTasks();
-    this.getEmployeeProjectTasks();
     this.sortByProjectName();
   }
 
   getEmployeeTasks(): void {
-    this.employeeTasksService
-      .getEmployeeTasks()
-      .pipe(first())
-      .subscribe(employeeTasks => (this.employeeTasks = employeeTasks));
+    const employeeId = this.authService.getLoggedEmployeeId();
+    if (employeeId) {
+      this.employeeTasksService
+        .getEmployeeTasks(employeeId)
+        .pipe(first())
+        .subscribe(employeeTasks => {
+          this.employeeTasks = employeeTasks;
+          this.getEmployeeProjectTasks();
+        });
+    }
   }
 
   getEmployeeProjectTasks(): void {

@@ -27,6 +27,7 @@ import { EmployeeTasksService } from '../../shared/services/employee-tasks.servi
 import { first, Subject } from 'rxjs';
 import { EmployeeTask } from '../../shared/models/employee-task.model';
 import { ValidationService } from '../../shared/services/validation.service';
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'bvr-add-new-task',
@@ -60,6 +61,7 @@ export class AddNewTaskComponent implements OnInit {
   tasks: DropdownOption[] = [];
 
   constructor(
+    private authService: AuthService,
     private fb: FormBuilder,
     private projectTasksService: ProjectTasksService,
     private employeeProjectService: ProjectsService,
@@ -154,10 +156,11 @@ export class AddNewTaskComponent implements OnInit {
   }
 
   getTask(): void {
+    const employeeId = this.authService.getLoggedEmployeeId();
     const taskId = this.route.snapshot.paramMap.get('id');
-    if (taskId) {
+    if (employeeId && taskId) {
       this.employeeTasksService
-        .getEmployeeTask(taskId)
+        .getEmployeeTask(employeeId, taskId)
         .pipe(first())
         .subscribe(employeeTask => {
           this.updateFormFields(employeeTask);

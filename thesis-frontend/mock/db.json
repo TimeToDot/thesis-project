@@ -760,5 +760,124 @@
       "creationDate": "2022-01-12",
       "active": true
     }
+  ],
+  "employee-tasks": [
+    {
+      "id": "1",
+      "employeeId": "1",
+      "startDate": "2022-11-21",
+      "endDate": "2012-11-21",
+      "startTime": "12:00",
+      "endTime": "15:00",
+      "project": {
+        "id": "2",
+        "name": "Project 2",
+        "image": "assets/companies/company2.png",
+        "moderator": {
+          "id": "0",
+          "firstName": "Robert",
+          "lastName": "Skrzypczak",
+          "email": "robert.skrzypczak@gmail.com",
+          "image": "assets/icons/icon14.png",
+          "position": "Frontend Developer",
+          "employmentDate": "2021-08-15",
+          "contractType": { "id": "4", "name": "B2B" },
+          "wage": 45,
+          "workingTime": 40,
+          "active": true
+        },
+        "billingPeriod": { "id": "3", "name": "Month" },
+        "employeesCount": 50,
+        "creationDate": "2021-03-11",
+        "active": true
+      },
+      "task": {
+        "id": "2",
+        "name": "Task B",
+        "projectId": "2",
+        "description": "test",
+        "creationDate": "2022-08-15",
+        "active": true
+      },
+      "status": "pending"
+    },
+    {
+      "id": "2",
+      "employeeId": "1",
+      "startDate": "2022-12-21",
+      "endDate": "2022-12-21",
+      "startTime": "12:00",
+      "endTime": "15:00",
+      "project": {
+        "id": "1",
+        "name": "Project 1",
+        "image": "assets/companies/company1.png",
+        "moderator": {
+          "id": "0",
+          "firstName": "Robert",
+          "lastName": "Skrzypczak",
+          "email": "robert.skrzypczak@gmail.com",
+          "image": "assets/icons/icon14.png",
+          "position": "Frontend Developer",
+          "employmentDate": "2021-08-15",
+          "contractType": { "id": "4", "name": "B2B" },
+          "wage": 45,
+          "workingTime": 40,
+          "active": true
+        },
+        "billingPeriod": { "id": "3", "name": "Month" },
+        "employeesCount": 50,
+        "creationDate": "2021-03-11",
+        "active": true
+      },
+      "task": {
+        "id": "1",
+        "name": "Task A",
+        "projectId": "1",
+        "description": "test",
+        "creationDate": "2022-07-22",
+        "active": true
+      },
+      "status": "approved"
+    },
+    {
+      "id": "3",
+      "employeeId": "1",
+      "startDate": "2022-12-21",
+      "endDate": "2022-12-21",
+      "startTime": "12:00",
+      "endTime": "15:00",
+      "project": {
+        "id": "1",
+        "name": "Project 1",
+        "image": "assets/companies/company1.png",
+        "moderator": {
+          "id": "0",
+          "firstName": "Robert",
+          "lastName": "Skrzypczak",
+          "email": "robert.skrzypczak@gmail.com",
+          "image": "assets/icons/icon14.png",
+          "position": "Frontend Developer",
+          "employmentDate": "2021-08-15",
+          "contractType": { "id": "4", "name": "B2B" },
+          "wage": 45,
+          "workingTime": 40,
+          "active": true
+        },
+        "billingPeriod": { "id": "3", "name": "Month" },
+        "employeesCount": 50,
+        "creationDate": "2021-03-11",
+        "active": true
+      },
+      "task": {
+        "id": "1",
+        "name": "Task A",
+        "projectId": "1",
+        "description": "test",
+        "creationDate": "2022-07-22",
+        "active": true
+      },
+      "status": "rejected"
+    }
   ]
 }

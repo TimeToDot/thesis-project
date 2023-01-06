@@ -43,6 +43,7 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
   modalDescription: string = '';
   projectEmployee!: ProjectEmployee;
   redirectSubject: Subject<boolean> = new Subject<boolean>();
+  refreshTaskList: Subject<void> = new Subject<void>();
 
   private tasksToRejectSubscribtion: Subscription = new Subscription();
 
@@ -134,7 +135,9 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
 
   observeIdSelection(): void {
     this.approveTasksForm.get(['id'])?.valueChanges.subscribe(value => {
-      this.router.navigate([`../${value}`], { relativeTo: this.route });
+      this.router
+        .navigate([`../${value}`], { relativeTo: this.route })
+        .then(() => this.refreshTaskList.next());
     });
   }
 
