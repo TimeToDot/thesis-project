@@ -40,15 +40,7 @@ export class EditPositionComponent implements OnInit {
   isGuardDisabled: boolean = false;
   isSaveModalOpen: boolean = false;
   modalDescription: string = '';
-  position: Position = {
-    id: '',
-    name: '',
-    description: '',
-    creationDate: '',
-    count: 0,
-    archiveDate: '',
-    active: true,
-  };
+  position!: Position;
   redirectSubject: Subject<boolean> = new Subject<boolean>();
 
   constructor(

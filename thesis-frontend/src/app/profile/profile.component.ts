@@ -10,6 +10,7 @@ import { EmployeesService } from '../admin/services/employees.service';
 import { tabAnimation } from '../shared/animations/tab.animation';
 import { ButtonComponent } from '../shared/components/button/button.component';
 import { TabsComponent } from '../shared/components/tabs/tabs.component';
+import { ToastComponent } from '../shared/components/toast/toast.component';
 import { Account } from '../shared/models/account.model';
 import { LinkOption } from '../shared/models/link-option.model';
 import { AuthService } from '../shared/services/auth.service';
@@ -24,6 +25,7 @@ import { AuthService } from '../shared/services/auth.service';
     RouterLinkWithHref,
     RouterOutlet,
     TabsComponent,
+    ToastComponent,
   ],
   animations: [tabAnimation],
 })

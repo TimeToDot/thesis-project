@@ -7,6 +7,7 @@ import { ViewProjectsInfoComponent } from './admin/admin-employees/view-employee
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LayoutComponent } from './layout/layout.component';
 import { LoginComponent } from './login/login.component';
+import { EditPhotoComponent } from './profile/edit-photo/edit-photo.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { LoginGuard } from './shared/guards/login.guard';
@@ -99,6 +100,11 @@ export const appRoutes: Routes = [
           },
           { path: '', redirectTo: 'personal-info', pathMatch: 'full' },
         ],
+      },
+      {
+        path: 'profile/edit',
+        component: EditPhotoComponent,
+        canDeactivate: [UnsavedChangesGuard],
       },
       { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
     ],

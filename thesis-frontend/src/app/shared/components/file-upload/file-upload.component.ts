@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ButtonComponent } from '../button/button.component';
@@ -19,6 +19,8 @@ import { FileInfo } from '../../models/file-info.model';
   ],
 })
 export class FileUploadComponent implements ControlValueAccessor {
+  @Input() label: string = 'Upload';
+
   file: FileInfo = { name: '', src: '' };
   touched: boolean = false;
 

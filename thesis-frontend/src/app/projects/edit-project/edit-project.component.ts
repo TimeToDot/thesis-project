@@ -55,28 +55,7 @@ export class EditProjectComponent implements OnInit {
   isSaveModalOpen: boolean = false;
   modalDescription: string = '';
   navbarOptions: LinkOption[] = [];
-  project: Project = {
-    id: '',
-    name: '',
-    image: '',
-    moderator: {
-      id: '',
-      firstName: '',
-      lastName: '',
-      email: '',
-      image: '',
-      position: '',
-      employmentDate: '',
-      contractType: { id: '', name: '' },
-      wage: 0,
-      workingTime: 0,
-      active: false,
-    },
-    billingPeriod: { id: '', name: '' },
-    employeesCount: 0,
-    creationDate: '',
-    active: false,
-  };
+  project!: Project;
   redirectSubject: Subject<boolean> = new Subject<boolean>();
   tabIndex: number = 0;
 

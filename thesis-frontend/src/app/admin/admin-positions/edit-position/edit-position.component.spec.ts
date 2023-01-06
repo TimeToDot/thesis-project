@@ -12,8 +12,8 @@ describe('EditPositionComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        NoopAnimationsModule,
         HttpClientTestingModule,
+        NoopAnimationsModule,
         EditPositionComponent,
         RouterTestingModule,
       ],
