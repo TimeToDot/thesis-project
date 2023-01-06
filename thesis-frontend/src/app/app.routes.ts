@@ -1,4 +1,9 @@
 import { Routes } from '@angular/router';
+import { ViewAccountInfoComponent } from './admin/admin-employees/view-employee/view-account-info/view-account-info.component';
+import { ViewAddressInfoComponent } from './admin/admin-employees/view-employee/view-address-info/view-address-info.component';
+import { ViewEmploymentInfoComponent } from './admin/admin-employees/view-employee/view-employment-info/view-employment-info.component';
+import { ViewPersonalInfoComponent } from './admin/admin-employees/view-employee/view-personal-info/view-personal-info.component';
+import { ViewProjectsInfoComponent } from './admin/admin-employees/view-employee/view-projects-info/view-projects-info.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LayoutComponent } from './layout/layout.component';
 import { LoginComponent } from './login/login.component';
@@ -63,7 +68,38 @@ export const appRoutes: Routes = [
         loadChildren: () =>
           import('./admin/admin.routes').then(mod => mod.adminRoutes),
       },
-      { path: 'profile', component: ProfileComponent },
+      {
+        path: 'profile',
+        component: ProfileComponent,
+        children: [
+          {
+            path: 'personal-info',
+            component: ViewPersonalInfoComponent,
+            data: { tabs: 1 },
+          },
+          {
+            path: 'address-info',
+            component: ViewAddressInfoComponent,
+            data: { tabs: 2 },
+          },
+          {
+            path: 'employment-info',
+            component: ViewEmploymentInfoComponent,
+            data: { tabs: 3 },
+          },
+          {
+            path: 'account-info',
+            component: ViewAccountInfoComponent,
+            data: { tabs: 4 },
+          },
+          {
+            path: 'projects-info',
+            component: ViewProjectsInfoComponent,
+            data: { tabs: 5 },
+          },
+          { path: '', redirectTo: 'personal-info', pathMatch: 'full' },
+        ],
+      },
       { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
     ],
   },

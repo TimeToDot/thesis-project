@@ -103,4 +103,11 @@
       color: $color-disabled;
     }
   }
+
+  .project-info {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    padding: 2 * $grid-base;
+  }
 }

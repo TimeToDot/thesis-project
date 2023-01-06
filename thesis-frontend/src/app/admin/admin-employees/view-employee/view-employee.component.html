@@ -59,7 +59,7 @@
       class="form-buttons">
       <bvr-button
         class="form-button"
-        (click)="openCancelModal(false)"
+        [routerLink]="['..']"
         label="Cancel"
         styleClass="button-text"></bvr-button>
     </div>
@@ -72,11 +72,5 @@
   [description]="modalDescription"
   [title]="'Archive employee'"
   [(visible)]="isArchiveModalOpen"></bvr-modal>
-<bvr-modal
-  (confirm)="cancel($event)"
-  confirmLabel="Leave"
-  [description]="modalDescription"
-  [title]="'Leave'"
-  [(visible)]="isCancelModalOpen"></bvr-modal>
 
 <bvr-toast></bvr-toast>

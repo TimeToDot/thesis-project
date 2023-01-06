@@ -3,6 +3,8 @@
   "/employees/:employeeId/tasks": "/employee-tasks?employeeId=:employeeId",
   "/employees/:employeeId/tasks/:taskId": "/employee-tasks/:taskId?employeeId=:employeeId",
   "/employees/:employeeId/approve": "/approvals",
+  "/employees/:employeeId/projects\\?active=:active": "/employee-projects?employeeId=:employeeId&project.active=:active",
+  "/employees/:employeeId/projects": "/employee-projects?employeeId=:employeeId",
   "/projects/:projectId/tasks\\?active=:active": "/project-tasks?projectId=:projectId&active=:active",
   "/projects/:projectId/tasks/:taskId": "/project-tasks/:taskId?projectId=:projectId",
   "/projects/:projectId/approvals\\?active=:active": "/project-approvals?projectId=:projectId&projectEmployee.active=:active",

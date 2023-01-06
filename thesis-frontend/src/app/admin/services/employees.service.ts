@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Project } from '../../projects/models/project.model';
 import { Account } from '../../shared/models/account.model';
+import { EmployeeProject } from '../../shared/models/employee-project.model';
 import { Employee } from '../../shared/models/employee.model';
 import { ProjectApproval } from '../../tracker/models/project-approval.model';
 
@@ -26,8 +27,16 @@ export class EmployeesService {
     return this.http.get<Employee[]>(`${this.url}?active=false`);
   }
 
-  getEmployeeProjects(id: string): Observable<Project[]> {
-    return this.http.get<Project[]>(`${this.url}/${id}/projects`);
+  getActiveEmployeeProjects(employeeId: string): Observable<EmployeeProject[]> {
+    return this.http.get<EmployeeProject[]>(
+      `${this.url}/${employeeId}/projects?active=true`
+    );
+  }
+
+  getEmployeeProjects(employeeId: string): Observable<EmployeeProject[]> {
+    return this.http.get<EmployeeProject[]>(
+      `${this.url}/${employeeId}/projects`
+    );
   }
 
   getProjectsToApprove(employeeId: string): Observable<ProjectApproval[]> {

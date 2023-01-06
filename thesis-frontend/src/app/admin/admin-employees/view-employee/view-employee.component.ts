@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule, Location } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { first, Subject } from 'rxjs';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import {
@@ -40,7 +40,6 @@ export class ViewEmployeeComponent {
   employee!: Account;
   enableFormButtons: boolean = true;
   isArchiveModalOpen: boolean = false;
-  isCancelModalOpen: boolean = false;
   isFromGuard: boolean = false;
   isGuardDisabled: boolean = false;
   modalDescription: string = '';
@@ -50,7 +49,6 @@ export class ViewEmployeeComponent {
   constructor(
     private contexts: ChildrenOutletContexts,
     private employeesService: EmployeesService,
-    private location: Location,
     private route: ActivatedRoute,
     private router: Router,
     private toastService: ToastService
@@ -78,17 +76,12 @@ export class ViewEmployeeComponent {
     this.navbarOptions.push({ name: 'Address', path: 'address-info' });
     this.navbarOptions.push({ name: 'Employment', path: 'employment-info' });
     this.navbarOptions.push({ name: 'Account', path: 'account-info' });
+    this.navbarOptions.push({ name: 'Projects', path: 'projects-info' });
   }
 
   openArchiveModal(): void {
     this.isArchiveModalOpen = true;
     this.modalDescription = `Are you sure you want to archive ${this.employee.firstName} ${this.employee.lastName}? This action cannot be undone.`;
-  }
-
-  openCancelModal(fromGuard: boolean): void {
-    this.isCancelModalOpen = true;
-    this.isFromGuard = fromGuard;
-    this.modalDescription = `Are you sure you want to leave? You will lose your unsaved changes if you continue.`;
   }
 
   archive(): void {
@@ -99,17 +92,6 @@ export class ViewEmployeeComponent {
       );
       setTimeout(() => this.toastService.dismissToast(), 3200);
     });
-  }
-
-  cancel(value: boolean): void {
-    if (this.isFromGuard) {
-      this.redirectSubject.next(value);
-    } else {
-      this.disableGuard(value);
-      if (value) {
-        this.location.back();
-      }
-    }
   }
 
   disableGuard(value: boolean): void {

@@ -153,10 +153,12 @@ export class AddNewTaskComponent implements OnInit {
     const employeeId = this.authService.getLoggedEmployeeId();
     if (employeeId) {
       this.employeesService
-        .getEmployeeProjects(employeeId)
+        .getActiveEmployeeProjects(employeeId)
         .pipe(first())
         .subscribe(employeeProjects => {
-          this.projects = employeeProjects;
+          this.projects = employeeProjects.map(
+            employeeProject => employeeProject.project
+          );
         });
     }
   }

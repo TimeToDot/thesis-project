@@ -1,14 +1,46 @@
 <div class="card">
   <div class="header">
     <div class="title">
-      <h2>{{ currentEmployee.firstName }} {{ currentEmployee.lastName }}</h2>
+      <span class="material-icons-outlined">person</span>
+      <h2>User Profile</h2>
     </div>
+    <bvr-tabs [navbarOptions]="navbarOptions"></bvr-tabs>
   </div>
   <div class="card-content">
-    <div>
-      <bvr-button
-        label="Back"
-        [routerLink]="['..']"></bvr-button>
+    <div
+      *ngIf="employee"
+      class="card-content view-form">
+      <div class="header">
+        <div class="title">
+          <img
+            *ngIf="employee.image"
+            class="picture"
+            [ngClass]="{ archived: !employee.active }"
+            [src]="employee.image" />
+          <span
+            *ngIf="!employee.image"
+            class="picture">
+            {{ employee.firstName[0] }}{{ employee.lastName[0] }}
+          </span>
+          <h4>
+            {{ employee.firstName }}
+            {{ employee.lastName }}
+          </h4>
+        </div>
+        <div>
+          <!-- <bvr-button
+            *ngIf="employee.active"
+            icon="edit"
+            [routerLink]="['edit']"
+            styleClass="button-icon"></bvr-button> -->
+        </div>
+      </div>
+
+      <div
+        [@tabs]="getRouteAnimationData()"
+        class="view-form-content">
+        <router-outlet (activate)="onOutletLoaded($event)"></router-outlet>
+      </div>
     </div>
   </div>
 </div>

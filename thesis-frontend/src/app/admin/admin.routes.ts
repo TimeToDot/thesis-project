@@ -20,6 +20,7 @@ import { EditAddressInfoComponent } from './admin-employees/edit-employee/edit-a
 import { EditEmploymentInfoComponent } from './admin-employees/edit-employee/edit-employment-info/edit-employment-info.component';
 import { EditAccountInfoComponent } from './admin-employees/edit-employee/edit-account-info/edit-account-info.component';
 import { UnsavedChangesGuard } from '../shared/guards/unsaved-changes.guard';
+import { ViewProjectsInfoComponent } from './admin-employees/view-employee/view-projects-info/view-projects-info.component';
 
 export const adminRoutes: Routes = [
   {
@@ -64,6 +65,12 @@ export const adminRoutes: Routes = [
         component: ViewAccountInfoComponent,
         canActivate: [CanAdminEmployeesGuard],
         data: { sidenavTabs: 3, tabs: 4 },
+      },
+      {
+        path: 'projects-info',
+        component: ViewProjectsInfoComponent,
+        canActivate: [CanAdminEmployeesGuard],
+        data: { sidenavTabs: 3, tabs: 5 },
       },
       { path: '', redirectTo: 'personal-info', pathMatch: 'full' },
     ],
