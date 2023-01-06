@@ -9,7 +9,7 @@
     "test": "ng test",
     "test:headless": "ng test --watch=false --browsers=ChromeHeadless",
     "format": "npx prettier \"src/**/*.{ts,html,scss}\" --write",
-    "mock:server": "json-server --watch mock/db.json"
+    "mock:server": "json-server --watch mock/db.json --routes mock/routes.json"
   },
   "lint-staged": {
     "src/**/*.{ts,scss,html}": [

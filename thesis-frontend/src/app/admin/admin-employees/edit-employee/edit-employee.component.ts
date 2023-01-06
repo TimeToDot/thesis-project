@@ -7,7 +7,6 @@ import {
   ChildrenOutletContexts,
   Router,
 } from '@angular/router';
-import { AccountsService } from '../../services/accounts.service';
 import { first, Subject } from 'rxjs';
 import { ToastState } from '../../../shared/enum/toast-state';
 import { ToastService } from '../../../shared/services/toast.service';
@@ -31,6 +30,7 @@ import { EditAddressInfoComponent } from './edit-address-info/edit-address-info.
 import { EditEmploymentInfoComponent } from './edit-employment-info/edit-employment-info.component';
 import { EditAccountInfoComponent } from './edit-account-info/edit-account-info.component';
 import { tabAnimation } from '../../../shared/animations/tab.animation';
+import { EmployeesService } from '../../services/employees.service';
 
 @Component({
   selector: 'bvr-edit-employee',
@@ -54,7 +54,7 @@ import { tabAnimation } from '../../../shared/animations/tab.animation';
   animations: [tabAnimation],
 })
 export class EditEmployeeComponent {
-  account: Account = {
+  employee: Account = {
     id: '',
     firstName: '',
     middleName: '',
@@ -107,8 +107,8 @@ export class EditEmployeeComponent {
   tabIndex: number = 0;
 
   constructor(
-    private accountsService: AccountsService,
     private contexts: ChildrenOutletContexts,
+    private employeesService: EmployeesService,
     private fb: FormBuilder,
     private location: Location,
     private positionsService: PositionsService,
@@ -121,7 +121,7 @@ export class EditEmployeeComponent {
     this.getCurrentTab();
     this.createForm();
     this.getNavbarOptions();
-    this.getAccount();
+    this.getEmployee();
     this.getPositions();
   }
 
@@ -180,14 +180,14 @@ export class EditEmployeeComponent {
     this.navbarOptions.push({ name: 'Account', path: 'account-info' });
   }
 
-  getAccount(): void {
-    const accountId = this.route.snapshot.paramMap.get('id');
-    if (accountId) {
-      this.accountsService
-        .getAccount(accountId)
+  getEmployee(): void {
+    const employeeId = this.route.snapshot.paramMap.get('id');
+    if (employeeId) {
+      this.employeesService
+        .getEmployee(employeeId)
         .pipe(first())
-        .subscribe(account => {
-          this.account = account;
+        .subscribe(employee => {
+          this.employee = employee;
           this.updateFormFields();
         });
     }
@@ -211,14 +211,14 @@ export class EditEmployeeComponent {
       ).forEach(field => {
         this.editEmployeeForm
           .get([group, field])
-          ?.setValue(this.account[field as keyof Account]);
+          ?.setValue(this.employee[field as keyof Account]);
       });
     });
   }
 
   openArchiveModal(): void {
     this.isArchiveModalOpen = true;
-    this.modalDescription = `Are you sure you want to archive ${this.account.firstName} ${this.account.lastName}? This action cannot be undone.`;
+    this.modalDescription = `Are you sure you want to archive ${this.employee.firstName} ${this.employee.lastName}? This action cannot be undone.`;
   }
 
   openCancelModal(fromGuard: boolean): void {

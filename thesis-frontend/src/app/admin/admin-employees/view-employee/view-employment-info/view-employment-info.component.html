@@ -1,48 +1,50 @@
-<div class="form">
+<div
+  *ngIf="employee"
+  class="form">
   <div class="form-header">{{ 'Employment Info' | uppercase }}</div>
   <div class="row">
     <bvr-form-field
       class="left-field"
       label="Position">
-      <span>{{ account.position.name }}</span>
+      <span>{{ employee.position.name }}</span>
     </bvr-form-field>
     <bvr-form-field
       label="Hire Date"
-      [ngClass]="account.active ? 'field' : 'left-field'">
-      <span>{{ account.employmentDate | date: 'dd/MM/yyyy' }}</span>
+      [ngClass]="employee.active ? 'field' : 'left-field'">
+      <span>{{ employee.employmentDate | date: 'dd/MM/yyyy' }}</span>
     </bvr-form-field>
     <bvr-form-field
-      *ngIf="!account.active"
+      *ngIf="!employee.active"
       class="field"
       label="Exit Date">
-      <span>{{ account.exitDate | date: 'dd/MM/yyyy' }}</span>
+      <span>{{ employee.exitDate | date: 'dd/MM/yyyy' }}</span>
     </bvr-form-field>
   </div>
   <div class="row">
     <bvr-form-field
       class="left-field"
       label="Contract Type">
-      <span>{{ account.contractType.name }}</span>
+      <span>{{ employee.contractType.name }}</span>
     </bvr-form-field>
     <bvr-form-field
       class="field"
       label="Working Time">
-      <span>{{ account.workingTime }}</span>
+      <span>{{ employee.workingTime }}</span>
     </bvr-form-field>
   </div>
   <div class="row">
     <bvr-form-field
       class="left-field"
       label="Rate">
-      <span>{{ account.wage }}</span>
+      <span>{{ employee.wage }}</span>
     </bvr-form-field>
     <bvr-form-field
       class="field"
       label="Payday">
-      <span>{{ account.payday }}</span>
+      <span>{{ employee.payday }}</span>
     </bvr-form-field>
   </div>
   <bvr-form-field label="Account number">
-    <span>{{ account.accountNumber }}</span>
+    <span>{{ employee.accountNumber }}</span>
   </bvr-form-field>
 </div>

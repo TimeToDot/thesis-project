@@ -4,7 +4,7 @@ import { RouterLinkWithHref } from '@angular/router';
 import { first } from 'rxjs';
 import { EmployeesService } from '../admin/services/employees.service';
 import { ButtonComponent } from '../shared/components/button/button.component';
-import { Employee } from '../shared/models/employee.model';
+import { Account } from '../shared/models/account.model';
 
 @Component({
   selector: 'bvr-profile',
@@ -13,18 +13,44 @@ import { Employee } from '../shared/models/employee.model';
   imports: [ButtonComponent, CommonModule, RouterLinkWithHref],
 })
 export class ProfileComponent implements OnInit {
-  currentEmployee: Employee = {
+  currentEmployee: Account = {
     id: '',
     firstName: '',
+    middleName: '',
     lastName: '',
     email: '',
-    image: '',
-    position: '',
+    password: '',
+    position: {
+      id: '',
+      name: '',
+      description: '',
+      creationDate: '',
+      count: 0,
+      archiveDate: '',
+      active: true,
+    },
     employmentDate: '',
+    workingTime: 0,
+    exitDate: '',
+    image: '',
+    sex: { id: '', name: '' },
+    birthPlace: '',
+    idCardNumber: '',
+    pesel: 0,
     contractType: { id: '', name: '' },
     wage: 0,
-    workingTime: 0,
-    active: false,
+    payday: 0,
+    birthDate: '',
+    phoneNumber: '',
+    privateEmail: '',
+    street: '',
+    houseNumber: '',
+    apartmentNumber: '',
+    city: '',
+    postalCode: '',
+    country: { id: '', name: '' },
+    accountNumber: '',
+    active: true,
   };
 
   constructor(private employeesService: EmployeesService) {}
@@ -33,6 +59,9 @@ export class ProfileComponent implements OnInit {
     this.employeesService
       .getEmployee('1')
       .pipe(first())
-      .subscribe(employee => (this.currentEmployee = employee));
+      .subscribe(employee => {
+        console.log(employee);
+        this.currentEmployee = employee;
+      });
   }
 }

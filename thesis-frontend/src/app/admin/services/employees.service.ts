@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Account } from '../../shared/models/account.model';
 import { Employee } from '../../shared/models/employee.model';
 
 @Injectable({
@@ -11,8 +12,8 @@ export class EmployeesService {
 
   constructor(private http: HttpClient) {}
 
-  getEmployee(id: string): Observable<Employee> {
-    return this.http.get<Employee>(`${this.url}/${id}`);
+  getEmployee(id: string): Observable<Account> {
+    return this.http.get<Account>(`${this.url}/${id}`);
   }
 
   getEmployees(): Observable<Employee[]> {

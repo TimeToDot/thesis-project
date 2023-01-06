@@ -19,6 +19,7 @@
   </nav>
   <div class="sidenav-footer">
     <div
+      *ngIf="currentEmployee"
       class="profile"
       [routerLink]="['/profile']">
       <img

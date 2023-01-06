@@ -19,6 +19,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastComponent } from '../../../shared/components/toast/toast.component';
 import { SwitchComponent } from '../../../shared/components/switch/switch.component';
 import { DropdownSearchEmployeeComponent } from '../../../shared/components/dropdown-search-employee/dropdown-search-employee.component';
+import { Account } from '../../../shared/models/account.model';
 
 @Component({
   selector: 'bvr-add-project-employee',
@@ -37,7 +38,7 @@ import { DropdownSearchEmployeeComponent } from '../../../shared/components/drop
 })
 export class AddProjectEmployeeComponent implements OnInit {
   addProjectEmployeeForm!: FormGroup;
-  employee!: Employee;
+  employee!: Account;
   employees: Employee[] = [];
   isAddModalOpen: boolean = false;
   isCancelModalOpen: boolean = false;

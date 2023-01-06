@@ -14,17 +14,17 @@
     <div class="header">
       <div class="title">
         <img
-          *ngIf="!account.image"
-          [src]="account.image"
+          *ngIf="!employee.image"
+          [src]="employee.image"
           class="picture" />
         <span
-          *ngIf="!account.image"
+          *ngIf="!employee.image"
           class="picture">
-          {{ account.firstName[0] }}{{ account.lastName[0] }}
+          {{ employee.firstName[0] }}{{ employee.lastName[0] }}
         </span>
         <h4>
-          {{ account.firstName }}
-          {{ account.lastName }}
+          {{ employee.firstName }}
+          {{ employee.lastName }}
         </h4>
       </div>
       <bvr-button

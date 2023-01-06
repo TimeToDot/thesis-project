@@ -10,7 +10,6 @@ import {
   RouterOutlet,
 } from '@angular/router';
 import { Account } from '../../../shared/models/account.model';
-import { AccountsService } from '../../services/accounts.service';
 import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
 import { ToastService } from '../../../shared/services/toast.service';
@@ -19,6 +18,7 @@ import { ToastComponent } from '../../../shared/components/toast/toast.component
 import { TabsComponent } from '../../../shared/components/tabs/tabs.component';
 import { LinkOption } from '../../../shared/models/link-option.model';
 import { tabAnimation } from '../../../shared/animations/tab.animation';
+import { EmployeesService } from '../../services/employees.service';
 
 @Component({
   selector: 'bvr-view-employee',
@@ -37,7 +37,7 @@ import { tabAnimation } from '../../../shared/animations/tab.animation';
   animations: [tabAnimation],
 })
 export class ViewEmployeeComponent {
-  account!: Account;
+  employee!: Account;
   enableFormButtons: boolean = true;
   isArchiveModalOpen: boolean = false;
   isCancelModalOpen: boolean = false;
@@ -48,8 +48,8 @@ export class ViewEmployeeComponent {
   redirectSubject: Subject<boolean> = new Subject<boolean>();
 
   constructor(
-    private accountsService: AccountsService,
     private contexts: ChildrenOutletContexts,
+    private employeesService: EmployeesService,
     private location: Location,
     private route: ActivatedRoute,
     private router: Router,
@@ -57,18 +57,18 @@ export class ViewEmployeeComponent {
   ) {}
 
   ngOnInit(): void {
-    this.getAccount();
+    this.getEmployee();
     this.getNavbarOptions();
   }
 
-  getAccount(): void {
-    const accountId = this.route.snapshot.paramMap.get('id');
-    if (accountId) {
-      this.accountsService
-        .getAccount(accountId)
+  getEmployee(): void {
+    const employeeId = this.route.snapshot.paramMap.get('id');
+    if (employeeId) {
+      this.employeesService
+        .getEmployee(employeeId)
         .pipe(first())
-        .subscribe(account => {
-          this.account = account;
+        .subscribe(employee => {
+          this.employee = employee;
         });
     }
   }
@@ -82,7 +82,7 @@ export class ViewEmployeeComponent {
 
   openArchiveModal(): void {
     this.isArchiveModalOpen = true;
-    this.modalDescription = `Are you sure you want to archive ${this.account.firstName} ${this.account.lastName}? This action cannot be undone.`;
+    this.modalDescription = `Are you sure you want to archive ${this.employee.firstName} ${this.employee.lastName}? This action cannot be undone.`;
   }
 
   openCancelModal(fromGuard: boolean): void {
@@ -118,7 +118,7 @@ export class ViewEmployeeComponent {
   }
 
   onOutletLoaded(component: any): void {
-    component.account = this.account;
+    component.employee = this.employee;
   }
 
   getRouteAnimationData() {

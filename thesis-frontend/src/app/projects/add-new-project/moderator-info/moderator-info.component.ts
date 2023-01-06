@@ -11,6 +11,7 @@ import { ToastState } from '../../../shared/enum/toast-state';
 import { ToastService } from '../../../shared/services/toast.service';
 import { ToastComponent } from '../../../shared/components/toast/toast.component';
 import { DropdownSearchEmployeeComponent } from '../../../shared/components/dropdown-search-employee/dropdown-search-employee.component';
+import { Account } from '../../../shared/models/account.model';
 
 @Component({
   selector: 'bvr-moderator-info',
@@ -33,7 +34,7 @@ export class ModeratorInfoComponent implements OnInit {
   @Output() previousStepChange: EventEmitter<void> = new EventEmitter();
   @Output() openCancelModal: EventEmitter<boolean> = new EventEmitter();
 
-  employee!: Employee;
+  employee!: Account;
   employees: Employee[] = [];
 
   constructor(

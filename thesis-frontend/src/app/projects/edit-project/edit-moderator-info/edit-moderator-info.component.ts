@@ -7,6 +7,7 @@ import { Employee } from '../../../shared/models/employee.model';
 import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
 import { ValidationService } from '../../../shared/services/validation.service';
 import { DropdownSearchEmployeeComponent } from '../../../shared/components/dropdown-search-employee/dropdown-search-employee.component';
+import { Account } from '../../../shared/models/account.model';
 
 @Component({
   selector: 'bvr-edit-moderator-info',
@@ -22,7 +23,7 @@ import { DropdownSearchEmployeeComponent } from '../../../shared/components/drop
 export class EditModeratorInfoComponent implements OnInit {
   @Input() editProjectForm!: FormGroup;
 
-  employee!: Employee;
+  employee!: Account;
   employees: Employee[] = [];
 
   constructor(
