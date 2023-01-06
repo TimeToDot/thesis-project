@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -9,7 +10,11 @@ describe('RequestApprovalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule, RequestApprovalComponent],
+      imports: [
+        HttpClientTestingModule,
+        NoopAnimationsModule,
+        RequestApprovalComponent,
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(RequestApprovalComponent);

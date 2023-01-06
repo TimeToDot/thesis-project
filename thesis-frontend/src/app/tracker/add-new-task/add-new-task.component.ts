@@ -28,6 +28,7 @@ import { first, Subject } from 'rxjs';
 import { EmployeeTask } from '../../shared/models/employee-task.model';
 import { ValidationService } from '../../shared/services/validation.service';
 import { AuthService } from '../../shared/services/auth.service';
+import { EmployeesService } from '../../admin/services/employees.service';
 
 @Component({
   selector: 'bvr-add-new-task',
@@ -64,7 +65,7 @@ export class AddNewTaskComponent implements OnInit {
     private authService: AuthService,
     private fb: FormBuilder,
     private projectTasksService: ProjectTasksService,
-    private employeeProjectService: ProjectsService,
+    private employeesService: EmployeesService,
     private employeeTasksService: EmployeeTasksService,
     private location: Location,
     private route: ActivatedRoute,
@@ -149,10 +150,15 @@ export class AddNewTaskComponent implements OnInit {
   }
 
   getEmployeeProjects(): void {
-    this.employeeProjectService
-      .getEmployeeProjects()
-      .pipe(first())
-      .subscribe(employeeProjects => (this.projects = employeeProjects));
+    const employeeId = this.authService.getLoggedEmployeeId();
+    if (employeeId) {
+      this.employeesService
+        .getEmployeeProjects(employeeId)
+        .pipe(first())
+        .subscribe(employeeProjects => {
+          this.projects = employeeProjects;
+        });
+    }
   }
 
   getTask(): void {

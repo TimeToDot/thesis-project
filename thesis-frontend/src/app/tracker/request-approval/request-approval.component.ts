@@ -14,7 +14,6 @@ import {
 } from '@angular/forms';
 import * as dayjs from 'dayjs';
 import { ProjectApproval } from '../models/project-approval.model';
-import { ApprovalsService } from '../services/approvals.service';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { RouterLinkWithHref } from '@angular/router';
 import { ToastService } from '../../shared/services/toast.service';
@@ -23,6 +22,8 @@ import { ModalComponent } from '../../shared/components/modal/modal.component';
 import { ToastComponent } from '../../shared/components/toast/toast.component';
 import { first, Subject } from 'rxjs';
 import { ValidationService } from '../../shared/services/validation.service';
+import { EmployeesService } from '../../admin/services/employees.service';
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'bvr-request-approval',
@@ -52,9 +53,10 @@ export class RequestApprovalComponent implements OnInit {
   requestApprovalForm!: FormGroup;
 
   constructor(
+    private authService: AuthService,
+    private employeesService: EmployeesService,
     private fb: FormBuilder,
     private location: Location,
-    private approvalsService: ApprovalsService,
     private toastService: ToastService,
     private validationService: ValidationService
   ) {}
@@ -93,12 +95,15 @@ export class RequestApprovalComponent implements OnInit {
   }
 
   getProjectsToApprove(): void {
-    this.approvalsService
-      .getProjectsToApprove()
-      .pipe(first())
-      .subscribe(
-        projectApprovals => (this.projectApprovals = projectApprovals)
-      );
+    const employeeId = this.authService.getLoggedEmployeeId();
+    if (employeeId) {
+      this.employeesService
+        .getProjectsToApprove(employeeId)
+        .pipe(first())
+        .subscribe(
+          projectApprovals => (this.projectApprovals = projectApprovals)
+        );
+    }
   }
 
   toggleProjectsSelection(value: boolean): void {
