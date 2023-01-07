@@ -173,6 +173,7 @@ export const adminRoutes: Routes = [
     path: 'settings/edit',
     component: EditAdminSettingsComponent,
     canActivate: [CanAdminSettingsGuard],
+    canDeactivate: [UnsavedChangesGuard],
     data: { sidenavTabs: 5 },
     children: [
       {

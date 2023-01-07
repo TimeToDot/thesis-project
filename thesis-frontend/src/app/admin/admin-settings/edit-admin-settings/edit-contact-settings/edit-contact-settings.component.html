@@ -1,1 +1,179 @@
-<p>edit-contact-settings works!</p>
+<div
+  *ngIf="editGlobalSettingsForm"
+  [formGroup]="editGlobalSettingsForm">
+  <div
+    class="form"
+    formGroupName="contactInfo">
+    <div class="form-header">{{ 'Address Info' | uppercase }}</div>
+    <div class="row address-info">
+      <bvr-form-field
+        class="left-field"
+        label="Street"
+        [required]="isRequired('street')">
+        <input
+          formControlName="street"
+          type="text" />
+        <ng-container *ngIf="showErrors('street')">
+          <small
+            *ngIf="
+              editGlobalSettingsForm
+                .get(['contactInfo', 'street'])
+                ?.hasError('required')
+            "
+            >This field is required.</small
+          >
+        </ng-container>
+      </bvr-form-field>
+      <div class="house-info">
+        <bvr-form-field
+          class="left-field"
+          label="House Number"
+          [required]="isRequired('houseNumber')">
+          <input
+            formControlName="houseNumber"
+            type="text" />
+          <ng-container *ngIf="showErrors('houseNumber')">
+            <small
+              *ngIf="
+                editGlobalSettingsForm
+                  .get(['contactInfo', 'houseNumber'])
+                  ?.hasError('required')
+              "
+              >This field is required.</small
+            >
+          </ng-container>
+        </bvr-form-field>
+        <bvr-form-field
+          class="field"
+          label="Apartment Number"
+          [required]="isRequired('apartmentNumber')">
+          <input
+            formControlName="apartmentNumber"
+            type="text" />
+          <ng-container *ngIf="showErrors('apartmentNumber')">
+            <small
+              *ngIf="
+                editGlobalSettingsForm
+                  .get(['contactInfo', 'apartmentNumber'])
+                  ?.hasError('required')
+              "
+              >This field is required.</small
+            >
+          </ng-container>
+        </bvr-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <bvr-form-field
+        class="left-field"
+        label="City"
+        [required]="isRequired('city')">
+        <input
+          formControlName="city"
+          type="text" />
+        <ng-container *ngIf="showErrors('city')">
+          <small
+            *ngIf="
+              editGlobalSettingsForm
+                .get(['contactInfo', 'city'])
+                ?.hasError('required')
+            "
+            >This field is required.</small
+          >
+        </ng-container>
+      </bvr-form-field>
+      <bvr-form-field
+        class="field"
+        label="Postal Code"
+        [required]="isRequired('postalCode')">
+        <input
+          formControlName="postalCode"
+          type="text" />
+        <ng-container *ngIf="showErrors('postalCode')">
+          <small
+            *ngIf="
+              editGlobalSettingsForm
+                .get(['contactInfo', 'postalCode'])
+                ?.hasError('required')
+            "
+            >This field is required.</small
+          >
+        </ng-container>
+      </bvr-form-field>
+    </div>
+    <bvr-form-field
+      class="field"
+      label="Country"
+      [required]="isRequired('country')">
+      <bvr-dropdown-list
+        formControlName="country"
+        name="country"
+        [options]="countries"></bvr-dropdown-list>
+      <ng-container *ngIf="showErrors('country')">
+        <small
+          *ngIf="
+            editGlobalSettingsForm
+              .get(['contactInfo', 'country'])
+              ?.hasError('required')
+          "
+          >This field is required.</small
+        >
+      </ng-container>
+    </bvr-form-field>
+    <div class="row">
+      <bvr-form-field
+        class="left-field"
+        label="Phone Number"
+        [required]="isRequired('phoneNumber')">
+        <input
+          formControlName="phoneNumber"
+          type="tel" />
+        <ng-container *ngIf="showErrors('phoneNumber')">
+          <small
+            *ngIf="
+              editGlobalSettingsForm
+                .get(['contactInfo', 'phoneNumber'])
+                ?.hasError('required')
+            "
+            >This field is required.</small
+          >
+        </ng-container>
+      </bvr-form-field>
+      <bvr-form-field
+        class="field"
+        label="Email"
+        [required]="isRequired('email')">
+        <input
+          formControlName="email"
+          type="email" />
+        <ng-container *ngIf="showErrors('email')">
+          <small
+            *ngIf="
+              editGlobalSettingsForm
+                .get(['contactInfo', 'email'])
+                ?.hasError('required')
+            "
+            >This field is required.</small
+          >
+        </ng-container>
+      </bvr-form-field>
+    </div>
+    <bvr-form-field
+      label="Website"
+      [required]="isRequired('website')">
+      <input
+        formControlName="website"
+        type="text" />
+      <ng-container *ngIf="showErrors('website')">
+        <small
+          *ngIf="
+            editGlobalSettingsForm
+              .get(['contactInfo', 'website'])
+              ?.hasError('required')
+          "
+          >This field is required.</small
+        >
+      </ng-container>
+    </bvr-form-field>
+  </div>
+</div>

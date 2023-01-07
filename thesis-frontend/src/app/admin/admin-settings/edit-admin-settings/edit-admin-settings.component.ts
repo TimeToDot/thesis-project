@@ -6,7 +6,7 @@ import { ButtonComponent } from '../../../shared/components/button/button.compon
 import { first, Subject } from 'rxjs';
 import { GlobalSettingsService } from '../../services/global-settings.service';
 import { GlobalSettings } from '../../models/global-settings.model';
-import { ActivatedRoute, ChildrenOutletContexts } from '@angular/router';
+import { ChildrenOutletContexts } from '@angular/router';
 import { EditCompanySettingsComponent } from './edit-company-settings/edit-company-settings.component';
 import { EditContactSettingsComponent } from './edit-contact-settings/edit-contact-settings.component';
 import { EditGeneralSettingsComponent } from './edit-general-settings/edit-general-settings.component';
@@ -57,7 +57,6 @@ export class EditAdminSettingsComponent implements OnInit {
     private fb: FormBuilder,
     private globalSettingsService: GlobalSettingsService,
     private location: Location,
-    private route: ActivatedRoute,
     private toastService: ToastService
   ) {}
 
@@ -135,13 +134,6 @@ export class EditAdminSettingsComponent implements OnInit {
     this.tabIndex = index;
   }
 
-  getCurrentTabName(): string {
-    return this.navbarOptions.find(
-      option =>
-        option.path === this.route.snapshot.firstChild?.routeConfig?.path
-    )?.name as string;
-  }
-
   openCancelModal(fromGuard: boolean): void {
     this.isCancelModalOpen = true;
     this.isFromGuard = fromGuard;
@@ -179,7 +171,10 @@ export class EditAdminSettingsComponent implements OnInit {
       }).then(() => {
         setTimeout(
           () =>
-            this.toastService.showToast(ToastState.Success, 'Employee edited'),
+            this.toastService.showToast(
+              ToastState.Success,
+              'Global settings edited'
+            ),
           200
         );
         setTimeout(() => this.toastService.dismissToast(), 3200);

@@ -10,6 +10,7 @@ import { first } from 'rxjs';
 import { tabAnimation } from '../../shared/animations/tab.animation';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { TabsComponent } from '../../shared/components/tabs/tabs.component';
+import { ToastComponent } from '../../shared/components/toast/toast.component';
 import { LinkOption } from '../../shared/models/link-option.model';
 import { GlobalSettings } from '../models/global-settings.model';
 import { GlobalSettingsService } from '../services/global-settings.service';
@@ -24,6 +25,7 @@ import { GlobalSettingsService } from '../services/global-settings.service';
     RouterLinkWithHref,
     RouterOutlet,
     TabsComponent,
+    ToastComponent,
   ],
   animations: [tabAnimation],
 })
