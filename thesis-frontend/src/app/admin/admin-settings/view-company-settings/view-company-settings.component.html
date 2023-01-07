@@ -1,1 +1,42 @@
-<p>view-company-settings works!</p>
+<div
+  *ngIf="globalSettings"
+  class="form">
+  <div class="row">
+    <bvr-form-field
+      class="left-field"
+      label="Company Name">
+      <span>{{ globalSettings.companyName }}</span>
+    </bvr-form-field>
+    <bvr-form-field
+      class="field"
+      label="REGON">
+      <span>{{ globalSettings.regon }}</span>
+    </bvr-form-field>
+  </div>
+  <div class="row">
+    <bvr-form-field
+      class="left-field"
+      label="NIP">
+      <span>{{ globalSettings.nip }}</span>
+    </bvr-form-field>
+    <bvr-form-field
+      class="field"
+      label="KRS">
+      <span>{{ globalSettings.krs }}</span>
+    </bvr-form-field>
+  </div>
+  <div class="row">
+    <bvr-form-field
+      class="left-field"
+      label="Logo"
+      ><img
+        [src]="globalSettings.image"
+        class="file-preview" />
+    </bvr-form-field>
+    <bvr-form-field
+      class="field"
+      label="Description">
+      <span>{{ globalSettings.description }}</span>
+    </bvr-form-field>
+  </div>
+</div>

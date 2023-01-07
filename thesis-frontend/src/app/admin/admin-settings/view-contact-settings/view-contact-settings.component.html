@@ -1,1 +1,57 @@
-<p>view-contact-settings works!</p>
+<div
+  *ngIf="globalSettings"
+  class="form">
+  <div class="row address-info">
+    <bvr-form-field
+      class="left-field"
+      label="Street">
+      <span>{{ globalSettings.street }}</span>
+    </bvr-form-field>
+    <div class="house-info">
+      <bvr-form-field
+        class="left-field"
+        label="House Number">
+        <span>{{ globalSettings.houseNumber }}</span>
+      </bvr-form-field>
+      <bvr-form-field
+        class="field"
+        label="Apartment Number">
+        <span>{{ globalSettings.apartmentNumber }}</span>
+      </bvr-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <bvr-form-field
+      class="left-field"
+      label="City">
+      <span>{{ globalSettings.city }}</span>
+    </bvr-form-field>
+    <bvr-form-field
+      class="field"
+      label="Postal Code">
+      <span>{{ globalSettings.postalCode }}</span>
+    </bvr-form-field>
+  </div>
+  <bvr-form-field
+    class="field"
+    label="Country">
+    <span>{{ globalSettings.country.name }}</span>
+  </bvr-form-field>
+  <div class="row">
+    <bvr-form-field
+      class="left-field"
+      label="Phone number">
+      <span>{{ globalSettings.phoneNumber }}</span>
+    </bvr-form-field>
+    <bvr-form-field
+      class="field"
+      label="Private email">
+      <span>{{ globalSettings.email }}</span>
+    </bvr-form-field>
+  </div>
+  <bvr-form-field
+    class="left-field"
+    label="Website">
+    <span>{{ globalSettings.website }}</span>
+  </bvr-form-field>
+</div>

@@ -5,6 +5,22 @@
   margin: 3 * $grid-base;
   width: 9 * $grid-base;
 
+  &.disabled {
+    .slider {
+      cursor: default;
+    }
+
+    input {
+      &:checked + .slider {
+        background-color: $color-disabled;
+      }
+
+      &:checked + .slider::after {
+        background-color: $color-divider;
+      }
+    }
+  }
+
   .slider {
     background-color: $color-divider;
     border-radius: 8 * $grid-base;

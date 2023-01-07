@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import {
+  ActivatedRoute,
   ChildrenOutletContexts,
   RouterLinkWithHref,
   RouterOutlet,
@@ -32,7 +33,8 @@ export class AdminSettingsComponent implements OnInit {
 
   constructor(
     private contexts: ChildrenOutletContexts,
-    private globalSettingsService: GlobalSettingsService
+    private globalSettingsService: GlobalSettingsService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -53,6 +55,13 @@ export class AdminSettingsComponent implements OnInit {
     this.navbarOptions.push({ name: 'General', path: 'general' });
     this.navbarOptions.push({ name: 'Company Info', path: 'company' });
     this.navbarOptions.push({ name: 'Contact', path: 'contact' });
+  }
+
+  getCurrentTab(): string {
+    return this.navbarOptions.find(
+      option =>
+        option.path === this.route.snapshot.firstChild?.routeConfig?.path
+    )?.name as string;
   }
 
   onOutletLoaded(component: any): void {

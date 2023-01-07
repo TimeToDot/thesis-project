@@ -1,1 +1,38 @@
-<p>view-general-settings works!</p>
+<div
+  *ngIf="globalSettings"
+  class="form">
+  <bvr-form-field class="left-field">
+    <div class="project-info">
+      <div>Require confirmation on task submission</div>
+      <bvr-switch
+        class="switch-field"
+        [disabled]="true"
+        [selected]="
+          globalSettings.requireConfirmationOnTaskSubmission
+        "></bvr-switch>
+    </div>
+  </bvr-form-field>
+  <bvr-form-field class="left-field">
+    <div class="project-info">
+      <div>Show Dashboards</div>
+      <bvr-switch
+        class="switch-field"
+        [disabled]="true"
+        [selected]="globalSettings.showDashboards"></bvr-switch>
+    </div>
+  </bvr-form-field>
+  <bvr-form-field class="left-field">
+    <div class="project-info">
+      <div>Show Projects</div>
+      <bvr-switch
+        class="switch-field"
+        [disabled]="true"
+        [selected]="globalSettings.showProjects"></bvr-switch>
+    </div>
+  </bvr-form-field>
+  <bvr-form-field
+    class="left-field"
+    label="Default Page">
+    <span>{{ globalSettings.defaultPage | titlecase }}</span>
+  </bvr-form-field>
+</div>

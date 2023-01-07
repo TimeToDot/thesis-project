@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -9,9 +9,9 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './switch.component.html',
 })
 export class SwitchComponent {
+  @Input() disabled: boolean = false;
+  @Input() selected: boolean = false;
   @Output() valueChange: EventEmitter<boolean> = new EventEmitter();
-
-  selected: boolean = false;
 
   onChange(value: boolean): void {
     this.selected = value;
