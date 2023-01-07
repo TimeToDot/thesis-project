@@ -1206,5 +1206,29 @@
       "joinDate": "2021-09-10",
       "exitDate": "2022-11-17"
     }
-  ]
+  ],
+  "global-settings": {
+    "requireConfirmationOnTaskSubmission": true,
+    "showDashboards": true,
+    "showProjects": true,
+    "defaultPage": "dashboard",
+    "companyName": "Amazon",
+    "regon": "000000000",
+    "nip": "00000000",
+    "krs": "00000000",
+    "image": "assets/companies/company5.png",
+    "description": "Example project description",
+    "street": "Podchorążych",
+    "houseNumber": "2",
+    "apartmentNumber": "1",
+    "city": "Kraków",
+    "postalCode": "30-048",
+    "country": {
+      "name": "🇵🇱 Poland",
+      "id": "175"
+    },
+    "phoneNumber": "000-000-000",
+    "email": "company.mail@mail.com",
+    "website": "company.com"
+  }
 }

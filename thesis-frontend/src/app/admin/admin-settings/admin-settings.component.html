@@ -4,6 +4,30 @@
       <span class="material-icons-outlined">settings</span>
       <h2>Global settings</h2>
     </div>
+    <bvr-tabs [navbarOptions]="navbarOptions"></bvr-tabs>
   </div>
-  <div class="card-content"></div>
+  <div
+    *ngIf="globalSettings"
+    class="card-content view-form">
+    <div class="header">
+      <div class="title">
+        <img
+          class="picture"
+          [src]="globalSettings.image" />
+        <h4>General</h4>
+      </div>
+      <div>
+        <bvr-button
+          icon="edit"
+          [routerLink]="['edit']"
+          styleClass="button-icon"></bvr-button>
+      </div>
+    </div>
+
+    <div
+      [@tabs]="getRouteAnimationData()"
+      class="view-form-content">
+      <router-outlet (activate)="onOutletLoaded($event)"></router-outlet>
+    </div>
+  </div>
 </div>

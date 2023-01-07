@@ -21,6 +21,9 @@ import { EditEmploymentInfoComponent } from './admin-employees/edit-employee/edi
 import { EditAccountInfoComponent } from './admin-employees/edit-employee/edit-account-info/edit-account-info.component';
 import { UnsavedChangesGuard } from '../shared/guards/unsaved-changes.guard';
 import { ViewProjectsInfoComponent } from './admin-employees/view-employee/view-projects-info/view-projects-info.component';
+import { ViewGeneralSettingsComponent } from './admin-settings/view-general-settings/view-general-settings.component';
+import { ViewCompanySettingsComponent } from './admin-settings/view-company-settings/view-company-settings.component';
+import { ViewContactSettingsComponent } from './admin-settings/view-contact-settings/view-contact-settings.component';
 
 export const adminRoutes: Routes = [
   {
@@ -140,5 +143,26 @@ export const adminRoutes: Routes = [
     component: AdminSettingsComponent,
     canActivate: [CanAdminSettingsGuard],
     data: { sidenavTabs: 5 },
+    children: [
+      {
+        path: 'general',
+        component: ViewGeneralSettingsComponent,
+        canActivate: [CanAdminSettingsGuard],
+        data: { sidenavTabs: 5, tabs: 1 },
+      },
+      {
+        path: 'company',
+        component: ViewCompanySettingsComponent,
+        canActivate: [CanAdminSettingsGuard],
+        data: { sidenavTabs: 5, tabs: 2 },
+      },
+      {
+        path: 'contact',
+        component: ViewContactSettingsComponent,
+        canActivate: [CanAdminSettingsGuard],
+        data: { sidenavTabs: 5, tabs: 3 },
+      },
+      { path: '', redirectTo: 'general', pathMatch: 'full' },
+    ],
   },
 ];
