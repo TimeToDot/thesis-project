@@ -1,8 +1,8 @@
 <div class="card">
   <div class="header">
     <div class="title">
-      <span class="material-icons-outlined">groups</span>
-      <h2>Employee</h2>
+      <span class="material-icons-outlined">settings</span>
+      <h2>Global Settings</h2>
     </div>
     <bvr-tabs
       [hasRouting]="false"
@@ -11,28 +11,15 @@
       (selectedIndexChange)="updateTabIndex($event)"></bvr-tabs>
   </div>
   <div
-    *ngIf="employee"
+    *ngIf="globalSettings"
     class="card-content view-form">
     <div class="header">
       <div class="title">
         <img
-          *ngIf="!employee.image"
-          [src]="employee.image"
-          class="picture" />
-        <span
-          *ngIf="!employee.image"
-          class="picture">
-          {{ employee.firstName[0] }}{{ employee.lastName[0] }}
-        </span>
-        <h4>
-          {{ employee.firstName }}
-          {{ employee.lastName }}
-        </h4>
+          class="picture"
+          [src]="globalSettings.image" />
+        <h4>{{ getCurrentTab() }}</h4>
       </div>
-      <bvr-button
-        (click)="openArchiveModal()"
-        icon="archive"
-        styleClass="button-icon"></bvr-button>
     </div>
 
     <div
@@ -40,18 +27,21 @@
       (@tabs.start)="toggleFormButtons(false)"
       (@tabs.done)="toggleFormButtons(true)"
       class="view-form-content">
-      <bvr-edit-personal-info
+      <bvr-edit-general-settings
         *ngIf="tabIndex === 0"
-        [editEmployeeForm]="editEmployeeForm"></bvr-edit-personal-info>
-      <bvr-edit-address-info
+        [editGlobalSettingsForm]="
+          editGlobalSettingsForm
+        "></bvr-edit-general-settings>
+      <bvr-edit-company-settings
         *ngIf="tabIndex === 1"
-        [editEmployeeForm]="editEmployeeForm"></bvr-edit-address-info>
-      <bvr-edit-employment-info
+        [editGlobalSettingsForm]="
+          editGlobalSettingsForm
+        "></bvr-edit-company-settings>
+      <bvr-edit-contact-settings
         *ngIf="tabIndex === 2"
-        [editEmployeeForm]="editEmployeeForm"></bvr-edit-employment-info>
-      <bvr-edit-account-info
-        *ngIf="tabIndex === 3"
-        [editEmployeeForm]="editEmployeeForm"></bvr-edit-account-info>
+        [editGlobalSettingsForm]="
+          editGlobalSettingsForm
+        "></bvr-edit-contact-settings>
     </div>
 
     <div
@@ -70,12 +60,6 @@
   </div>
 </div>
 
-<bvr-modal
-  (confirm)="archive()"
-  confirmLabel="archive"
-  [description]="modalDescription"
-  [title]="'Archive employee'"
-  [(visible)]="isArchiveModalOpen"></bvr-modal>
 <bvr-modal
   (confirm)="cancel($event)"
   confirmLabel="Leave"

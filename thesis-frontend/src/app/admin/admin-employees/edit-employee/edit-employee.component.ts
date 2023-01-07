@@ -54,45 +54,7 @@ import { EmployeesService } from '../../services/employees.service';
   animations: [tabAnimation],
 })
 export class EditEmployeeComponent {
-  employee: Account = {
-    id: '',
-    firstName: '',
-    middleName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    position: {
-      id: '',
-      name: '',
-      description: '',
-      creationDate: '',
-      count: 0,
-      archiveDate: '',
-      active: true,
-    },
-    employmentDate: '',
-    workingTime: 0,
-    exitDate: '',
-    image: '',
-    sex: { id: '', name: '' },
-    birthPlace: '',
-    idCardNumber: '',
-    pesel: 0,
-    contractType: { id: '', name: '' },
-    wage: 0,
-    payday: 0,
-    birthDate: '',
-    phoneNumber: '',
-    privateEmail: '',
-    street: '',
-    houseNumber: '',
-    apartmentNumber: '',
-    city: '',
-    postalCode: '',
-    country: { id: '', name: '' },
-    accountNumber: '',
-    active: true,
-  };
+  employee!: Account;
   editEmployeeForm!: FormGroup;
   enableFormButtons: boolean = true;
   isArchiveModalOpen: boolean = false;

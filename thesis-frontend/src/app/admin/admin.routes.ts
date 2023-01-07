@@ -24,6 +24,10 @@ import { ViewProjectsInfoComponent } from './admin-employees/view-employee/view-
 import { ViewGeneralSettingsComponent } from './admin-settings/view-general-settings/view-general-settings.component';
 import { ViewCompanySettingsComponent } from './admin-settings/view-company-settings/view-company-settings.component';
 import { ViewContactSettingsComponent } from './admin-settings/view-contact-settings/view-contact-settings.component';
+import { EditAdminSettingsComponent } from './admin-settings/edit-admin-settings/edit-admin-settings.component';
+import { EditGeneralSettingsComponent } from './admin-settings/edit-admin-settings/edit-general-settings/edit-general-settings.component';
+import { EditCompanySettingsComponent } from './admin-settings/edit-admin-settings/edit-company-settings/edit-company-settings.component';
+import { EditContactSettingsComponent } from './admin-settings/edit-admin-settings/edit-contact-settings/edit-contact-settings.component';
 
 export const adminRoutes: Routes = [
   {
@@ -161,6 +165,33 @@ export const adminRoutes: Routes = [
         component: ViewContactSettingsComponent,
         canActivate: [CanAdminSettingsGuard],
         data: { sidenavTabs: 5, tabs: 3 },
+      },
+      { path: '', redirectTo: 'general', pathMatch: 'full' },
+    ],
+  },
+  {
+    path: 'settings/edit',
+    component: EditAdminSettingsComponent,
+    canActivate: [CanAdminSettingsGuard],
+    data: { sidenavTabs: 5 },
+    children: [
+      {
+        path: 'general',
+        component: EditGeneralSettingsComponent,
+        canActivate: [CanAdminSettingsGuard],
+        data: { sidenavTabs: 5, tabs: 0 },
+      },
+      {
+        path: 'company',
+        component: EditCompanySettingsComponent,
+        canActivate: [CanAdminSettingsGuard],
+        data: { sidenavTabs: 5, tabs: 1 },
+      },
+      {
+        path: 'contact',
+        component: EditContactSettingsComponent,
+        canActivate: [CanAdminSettingsGuard],
+        data: { sidenavTabs: 5, tabs: 2 },
       },
       { path: '', redirectTo: 'general', pathMatch: 'full' },
     ],
