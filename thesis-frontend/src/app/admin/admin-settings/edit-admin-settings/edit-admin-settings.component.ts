@@ -6,11 +6,16 @@ import { ButtonComponent } from '../../../shared/components/button/button.compon
 import { first, Subject } from 'rxjs';
 import { GlobalSettingsService } from '../../services/global-settings.service';
 import { GlobalSettings } from '../../models/global-settings.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, ChildrenOutletContexts } from '@angular/router';
 import { EditCompanySettingsComponent } from './edit-company-settings/edit-company-settings.component';
 import { EditContactSettingsComponent } from './edit-contact-settings/edit-contact-settings.component';
 import { EditGeneralSettingsComponent } from './edit-general-settings/edit-general-settings.component';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
 import { ToastComponent } from '../../../shared/components/toast/toast.component';
 import { ToastState } from '../../../shared/enum/toast-state';
@@ -48,6 +53,7 @@ export class EditAdminSettingsComponent implements OnInit {
   tabIndex: number = 0;
 
   constructor(
+    private contexts: ChildrenOutletContexts,
     private fb: FormBuilder,
     private globalSettingsService: GlobalSettingsService,
     private location: Location,
@@ -56,17 +62,45 @@ export class EditAdminSettingsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getGlobalSettings();
+    this.getCurrentTab();
+    this.createForm();
     this.getNavbarOptions();
+    this.getGlobalSettings();
   }
 
-  getGlobalSettings(): void {
-    this.globalSettingsService
-      .getGlobalSettings()
-      .pipe(first())
-      .subscribe(globalSettings => {
-        this.globalSettings = globalSettings;
-      });
+  getCurrentTab(): void {
+    this.tabIndex =
+      this.contexts.getContext('primary')?.route?.snapshot.data['tabs'];
+  }
+
+  createForm(): void {
+    this.editGlobalSettingsForm = this.fb.group({
+      generalInfo: this.fb.group({
+        requireConfirmationOnTaskSubmission: [false],
+        showDashboards: [false],
+        showProjects: [false],
+        defaultPage: [''],
+      }),
+      companyInfo: this.fb.group({
+        companyName: ['', [Validators.required]],
+        regon: ['', [Validators.required]],
+        nip: ['', [Validators.required]],
+        krs: ['', [Validators.required]],
+        logo: ['', [Validators.required]],
+        description: [''],
+      }),
+      contactInfo: this.fb.group({
+        street: ['', [Validators.required]],
+        houseNumber: ['', [Validators.required]],
+        apartmentNumber: [''],
+        city: ['', [Validators.required]],
+        postalCode: ['', [Validators.required]],
+        country: ['', [Validators.required]],
+        phoneNumber: ['', [Validators.required]],
+        email: ['', [Validators.required]],
+        website: ['', [Validators.required]],
+      }),
+    });
   }
 
   getNavbarOptions(): void {
@@ -75,11 +109,33 @@ export class EditAdminSettingsComponent implements OnInit {
     this.navbarOptions.push({ name: 'Contact', path: 'contact' });
   }
 
+  getGlobalSettings(): void {
+    this.globalSettingsService
+      .getGlobalSettings()
+      .pipe(first())
+      .subscribe(globalSettings => {
+        this.globalSettings = globalSettings;
+        this.updateFormFields();
+      });
+  }
+
+  updateFormFields(): void {
+    Object.keys(this.editGlobalSettingsForm.controls).forEach(group => {
+      Object.keys(
+        (this.editGlobalSettingsForm.get(group) as FormGroup<any>).controls
+      ).forEach(field => {
+        this.editGlobalSettingsForm
+          .get([group, field])
+          ?.setValue(this.globalSettings[field as keyof GlobalSettings]);
+      });
+    });
+  }
+
   updateTabIndex(index: number): void {
     this.tabIndex = index;
   }
 
-  getCurrentTab(): string {
+  getCurrentTabName(): string {
     return this.navbarOptions.find(
       option =>
         option.path === this.route.snapshot.firstChild?.routeConfig?.path
