@@ -2,7 +2,7 @@ export interface GlobalSettings {
   requireConfirmationOnTaskSubmission: boolean;
   showDashboards: boolean;
   showProjects: boolean;
-  defaultPage: string;
+  defaultPage: { id: string; name: string };
   companyName: string;
   regon: string;
   nip: string;

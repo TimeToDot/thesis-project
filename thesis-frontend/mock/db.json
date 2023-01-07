@@ -1211,7 +1211,7 @@
     "requireConfirmationOnTaskSubmission": true,
     "showDashboards": true,
     "showProjects": true,
-    "defaultPage": "dashboard",
+    "defaultPage": { "id": "1", "name": "Dashboard" },
     "companyName": "Amazon",
     "regon": "000000000",
     "nip": "00000000",

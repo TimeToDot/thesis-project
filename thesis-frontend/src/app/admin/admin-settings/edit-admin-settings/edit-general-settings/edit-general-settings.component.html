@@ -7,19 +7,25 @@
     <bvr-form-field class="left-field">
       <div class="project-info">
         <div>Require confirmation on task submission</div>
-        <bvr-switch class="switch-field"></bvr-switch>
+        <bvr-switch
+          class="switch-field"
+          formControlName="requireConfirmationOnTaskSubmission"></bvr-switch>
       </div>
     </bvr-form-field>
     <bvr-form-field class="left-field">
       <div class="project-info">
         <div>Show Dashboards</div>
-        <bvr-switch class="switch-field"></bvr-switch>
+        <bvr-switch
+          class="switch-field"
+          formControlName="showDashboards"></bvr-switch>
       </div>
     </bvr-form-field>
     <bvr-form-field class="left-field">
       <div class="project-info">
         <div>Show Projects</div>
-        <bvr-switch class="switch-field"></bvr-switch>
+        <bvr-switch
+          class="switch-field"
+          formControlName="showProjects"></bvr-switch>
       </div>
     </bvr-form-field>
     <bvr-form-field
@@ -27,7 +33,8 @@
       label="Default Page">
       <bvr-dropdown-list
         formControlName="defaultPage"
-        name="contract type"></bvr-dropdown-list>
+        name="contract type"
+        [options]="options"></bvr-dropdown-list>
     </bvr-form-field>
   </div>
 </div>
