@@ -1,0 +1,51 @@
+<ng-container *ngIf="employee">
+  <div class="header">
+    <div class="title">
+      <img
+        *ngIf="employee.image"
+        class="picture"
+        [ngClass]="{ archived: !employee.active }"
+        [src]="employee.image" />
+      <span
+        *ngIf="!employee.image"
+        class="picture">
+        {{ employee.firstName[0] }}{{ employee.lastName[0] }}
+      </span>
+      <h4>Hi, {{ employee.firstName }}!</h4>
+    </div>
+  </div>
+  <div class="chart-content">
+    <img
+      src="assets/svg/beaver.svg"
+      class="logo" />
+    <div class="projects">
+      <div class="projects-header">
+        <div class="projects-title">PROJECTS</div>
+      </div>
+      <div
+        *ngFor="let employeeProject of employeeProjects"
+        class="task">
+        <img
+          *ngIf="employeeProject.project.image"
+          class="task-image"
+          [src]="employeeProject.project.image" />
+        <span
+          *ngIf="!employeeProject.project.image"
+          class="picture">
+          {{ employeeProject.project.name[0] }}
+        </span>
+        <div class="row-data">
+          <label>{{ employeeProject.project.name }}</label>
+          <div class="details">
+            <small class="dates">
+              {{ employee.position.name | titlecase }}</small
+            >
+            <small class="dates">
+              {{ employeeProject.joinDate | date: 'dd/MM/yyyy' }}
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

@@ -19,7 +19,9 @@
 }
 
 .task-image {
+  height: 8 * $grid-base;
   margin: 0 2 * $grid-base $grid-base;
+  width: 8 * $grid-base;
 }
 
 .task {

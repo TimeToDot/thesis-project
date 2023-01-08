@@ -1017,7 +1017,9 @@
         "creationDate": "2021-03-11",
         "active": true
       },
-      "taskCount": 63
+      "taskCount": 63,
+      "status": "pending",
+      "updateDate": "2022-10-11"
     },
     {
       "approve": false,
@@ -1043,7 +1045,9 @@
         "creationDate": "2021-03-11",
         "active": true
       },
-      "taskCount": 123
+      "taskCount": 123,
+      "status": "pending",
+      "updateDate": "2022-10-11"
     },
     {
       "approve": false,
@@ -1069,7 +1073,9 @@
         "creationDate": "2021-03-11",
         "active": true
       },
-      "taskCount": 49
+      "taskCount": 49,
+      "status": "pending",
+      "updateDate": "2022-10-11"
     }
   ],
   "employee-projects": [

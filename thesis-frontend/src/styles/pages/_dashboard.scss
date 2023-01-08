@@ -1,0 +1,108 @@
+.dashboard-row {
+  display: flex;
+  gap: 3 * $grid-base;
+  margin-bottom: 3 * $grid-base;
+
+  .table {
+    background-color: $color-white;
+    border-radius: 2 * $grid-base;
+    box-shadow: $shadow-default;
+    padding: 3 * $grid-base;
+    width: 75 * $grid-base;
+
+    .button-text {
+      padding-right: 0;
+
+      div {
+        font-size: 0.625 * $font-normal;
+        line-height: 3.75 * $grid-base;
+      }
+    }
+  }
+
+  .chart {
+    align-items: flex-start;
+    background-color: $color-white;
+    border-radius: 2 * $grid-base;
+    box-shadow: $shadow-default;
+    flex: 1;
+    padding: 3 * $grid-base 6 * $grid-base 6 * $grid-base;
+
+    .header {
+      margin-bottom: 3 * $grid-base;
+    }
+
+    .logo {
+      margin: 3 * $grid-base;
+    }
+
+    .chart-content {
+      display: flex;
+      width: 100%;
+
+      .projects {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+      }
+
+      .projects-header {
+        align-items: center;
+        border-bottom: 0.25 * $grid-base $color-divider solid;
+        display: flex;
+        width: 100%;
+      }
+
+      .projects-title {
+        color: $color-text-secondary;
+        font-size: $font-small;
+        font-weight: 600;
+        margin-bottom: 2 * $grid-base;
+      }
+    }
+  }
+}
+
+.chart,
+.table {
+  .table-header {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .table-row {
+    align-items: center;
+    display: flex;
+    height: 14 * $grid-base;
+  }
+
+  .row-data {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+  }
+
+  .task-image {
+    margin: 3 * $grid-base;
+  }
+
+  .details {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    small {
+      color: $color-text-primary;
+    }
+
+    .status {
+      margin-right: $grid-base;
+    }
+
+    .dates {
+      color: $color-text-secondary;
+    }
+  }
+}

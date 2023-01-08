@@ -13,7 +13,7 @@ import {
   Validators,
 } from '@angular/forms';
 import * as dayjs from 'dayjs';
-import { ProjectApproval } from '../models/project-approval.model';
+import { Approval } from '../models/approval.model';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { RouterLinkWithHref } from '@angular/router';
 import { ToastService } from '../../shared/services/toast.service';
@@ -48,7 +48,7 @@ export class RequestApprovalComponent implements OnInit {
   isGuardDisabled: boolean = false;
   isSendModalOpen: boolean = false;
   modalDescription: string = '';
-  projectApprovals: ProjectApproval[] = [];
+  projectApprovals: Approval[] = [];
   redirectSubject: Subject<boolean> = new Subject<boolean>();
   requestApprovalForm!: FormGroup;
 

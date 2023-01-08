@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EditContactSettingsComponent } from './edit-contact-settings.component';
@@ -8,9 +9,8 @@ describe('EditContactSettingsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ EditContactSettingsComponent ]
-    })
-    .compileComponents();
+      imports: [EditContactSettingsComponent, HttpClientTestingModule],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(EditContactSettingsComponent);
     component = fixture.componentInstance;
