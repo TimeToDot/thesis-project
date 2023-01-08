@@ -39,13 +39,18 @@
   tr {
     td:first-child,
     th:first-child {
-      padding-left: 8 * $grid-base;
+      padding-left: 6 * $grid-base;
     }
 
     td:last-child,
     th:last-child {
-      padding-right: 8 * $grid-base;
+      padding-right: 6 * $grid-base;
     }
+  }
+
+  .actions {
+    text-align: center;
+    width: 27 * $grid-base;
   }
 }
 
