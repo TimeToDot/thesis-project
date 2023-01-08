@@ -54,7 +54,9 @@ export class HoursInProjectsComponent implements OnInit {
         ],
       },
       options: {
-        aspectRatio: 2.5,
+        // aspectRatio: 2.5,
+        responsive: true,
+        maintainAspectRatio: false,
         scales: {
           x: {
             stacked: true,

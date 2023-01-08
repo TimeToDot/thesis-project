@@ -60,6 +60,13 @@
         margin-bottom: 2 * $grid-base;
       }
     }
+
+    .chart-container {
+      height: 20vh;
+      padding-top: 3 * $grid-base;
+      position: relative;
+      width: calc(100vw - (194 * $grid-base));
+    }
   }
 }
 
