@@ -1,4 +1,6 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { RequestsStatusComponent } from './requests-status.component';
 
@@ -8,9 +10,12 @@ describe('RequestsStatusComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ RequestsStatusComponent ]
-    })
-    .compileComponents();
+      imports: [
+        HttpClientTestingModule,
+        RequestsStatusComponent,
+        RouterTestingModule,
+      ],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(RequestsStatusComponent);
     component = fixture.componentInstance;
