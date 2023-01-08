@@ -7,8 +7,20 @@
   </div>
   <div class="card-content">
     <div class="dashboard-row">
-      <bvr-user-projects class="chart view-form"></bvr-user-projects>
-      <bvr-last-tasks class="table"> </bvr-last-tasks>
+      <bvr-user-projects
+        class="chart view-form"
+        [isCompact]="permissions.canAdminPositions"></bvr-user-projects>
+      <bvr-top-positions
+        *ngIf="permissions.canAdminPositions"
+        class="chart"></bvr-top-positions>
+      <bvr-last-tasks
+        *ngIf="!permissions.canAdminEmployees"
+        class="table">
+      </bvr-last-tasks>
+      <bvr-new-employees
+        *ngIf="permissions.canAdminEmployees"
+        class="table">
+      </bvr-new-employees>
     </div>
     <div class="dashboard-row">
       <bvr-hours-in-projects class="chart"></bvr-hours-in-projects>

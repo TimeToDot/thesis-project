@@ -3,6 +3,10 @@
   gap: 3 * $grid-base;
   margin-bottom: 3 * $grid-base;
 
+  .logo {
+    width: 30 * $grid-base;
+  }
+
   .table {
     background-color: $color-white;
     border-radius: 2 * $grid-base;
@@ -62,10 +66,8 @@
     }
 
     .chart-container {
-      height: 20vh;
       padding-top: 3 * $grid-base;
       position: relative;
-      width: calc(100vw - (194 * $grid-base));
     }
   }
 }
@@ -75,6 +77,7 @@
   .table-header {
     align-items: center;
     display: flex;
+    height: 10 * $grid-base;
     justify-content: space-between;
   }
 
@@ -94,7 +97,8 @@
     margin: 3 * $grid-base;
   }
 
-  .details {
+  .details,
+  .compact-details {
     align-items: center;
     display: flex;
     flex-direction: row;
@@ -111,5 +115,9 @@
     .dates {
       color: $color-text-secondary;
     }
+  }
+
+  .compact-details {
+    justify-content: flex-end;
   }
 }

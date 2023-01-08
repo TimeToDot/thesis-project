@@ -33,7 +33,6 @@ export class RequestsStatusComponent implements OnInit {
         .pipe(first())
         .subscribe(projectApprovals => {
           this.projectApprovals = projectApprovals;
-          console.log(this.projectApprovals);
         });
     }
   }

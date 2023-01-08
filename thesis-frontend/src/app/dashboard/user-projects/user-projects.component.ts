@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Account } from '../../shared/models/account.model';
 import { EmployeeProject } from '../../shared/models/employee-project.model';
@@ -13,6 +13,8 @@ import { first } from 'rxjs';
   templateUrl: './user-projects.component.html',
 })
 export class UserProjectsComponent implements OnInit {
+  @Input() isCompact: boolean = false;
+
   employee!: Account;
   employeeProjects: EmployeeProject[] = [];
 

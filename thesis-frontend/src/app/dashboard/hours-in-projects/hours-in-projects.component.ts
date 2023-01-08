@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Chart } from 'chart.js/auto';
 
@@ -10,6 +10,8 @@ import { Chart } from 'chart.js/auto';
 })
 export class HoursInProjectsComponent implements OnInit {
   chart: any;
+  contentOffset: number = 776;
+  contentSmallOffset: number = 582;
 
   constructor() {}
 
@@ -72,5 +74,14 @@ export class HoursInProjectsComponent implements OnInit {
         },
       },
     });
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any): void {
+    const width =
+      event.target.innerWidth > 1200
+        ? event.target.innerWidth - this.contentOffset
+        : event.target.innerWidth - this.contentSmallOffset;
+    this.chart.canvas.parentNode.style.width = `${width}px`;
   }
 }
