@@ -1,14 +1,14 @@
-import { AfterViewInit, Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Chart } from 'chart.js/auto';
 
 @Component({
-  selector: 'bvr-top-positions',
+  selector: 'bvr-top-tasks',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './top-positions.component.html',
+  templateUrl: './top-tasks.component.html',
 })
-export class TopPositionsComponent implements OnInit, AfterViewInit {
+export class TopTasksComponent {
   chart: any;
   contentOffset: number = 1140;
   contentSmallOffset: number = 864;
@@ -24,7 +24,7 @@ export class TopPositionsComponent implements OnInit, AfterViewInit {
   }
 
   createChart(): void {
-    this.chart = new Chart('TopPositions', {
+    this.chart = new Chart('TopTasks', {
       type: 'pie',
       data: {
         labels: [

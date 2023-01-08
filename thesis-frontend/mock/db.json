@@ -772,6 +772,7 @@
       "project": {
         "id": "2",
         "name": "IKEA",
+        "description": "Test description",
         "image": "assets/companies/company2.png",
         "moderator": {
           "id": "0",
@@ -811,6 +812,7 @@
       "project": {
         "id": "1",
         "name": "Volkswagen",
+        "description": "Test description",
         "image": "assets/companies/company1.png",
         "moderator": {
           "id": "0",
@@ -850,6 +852,7 @@
       "project": {
         "id": "1",
         "name": "Volkswagen",
+        "description": "Test description",
         "image": "assets/companies/company1.png",
         "moderator": {
           "id": "0",
@@ -884,6 +887,7 @@
     {
       "id": "1",
       "name": "Volkswagen",
+      "description": "Test description",
       "image": "assets/companies/company1.png",
       "moderator": {
         "id": "0",
@@ -906,6 +910,7 @@
     {
       "id": "2",
       "name": "IKEA",
+      "description": "Test description",
       "image": "assets/companies/company2.png",
       "moderator": {
         "id": "0",
@@ -928,6 +933,7 @@
     {
       "id": "3",
       "name": "Starbucks",
+      "description": "Test description",
       "image": "assets/companies/company3.png",
       "moderator": {
         "id": "0",
@@ -950,6 +956,7 @@
     {
       "id": "4",
       "name": "McDonald's",
+      "description": "Test description",
       "image": "assets/companies/company4.png",
       "moderator": {
         "id": "0",
@@ -972,6 +979,7 @@
     {
       "id": "5",
       "name": "Jeep",
+      "description": "Test description",
       "image": "assets/companies/company5.png",
       "moderator": {
         "id": "0",
@@ -998,6 +1006,7 @@
       "project": {
         "id": "1",
         "name": "Volkswagen",
+        "description": "Test description",
         "image": "assets/companies/company1.png",
         "moderator": {
           "id": "0",
@@ -1026,6 +1035,7 @@
       "project": {
         "id": "2",
         "name": "IKEA",
+        "description": "Test description",
         "image": "assets/companies/company2.png",
         "moderator": {
           "id": "0",
@@ -1054,6 +1064,7 @@
       "project": {
         "id": "3",
         "name": "Starbucks",
+        "description": "Test description",
         "image": "assets/companies/company3.png",
         "moderator": {
           "id": "0",
@@ -1083,6 +1094,7 @@
       "project": {
         "id": "1",
         "name": "Volkswagen",
+        "description": "Test description",
         "image": "assets/companies/company1.png",
         "moderator": {
           "id": "0",
@@ -1109,6 +1121,7 @@
       "project": {
         "id": "2",
         "name": "IKEA",
+        "description": "Test description",
         "image": "assets/companies/company2.png",
         "moderator": {
           "id": "0",
@@ -1135,6 +1148,7 @@
       "project": {
         "id": "3",
         "name": "Starbucks",
+        "description": "Test description",
         "image": "assets/companies/company3.png",
         "moderator": {
           "id": "0",
@@ -1162,6 +1176,7 @@
       "project": {
         "id": "4",
         "name": "McDonald's",
+        "description": "Test description",
         "image": "assets/companies/company4.png",
         "moderator": {
           "id": "0",
@@ -1189,6 +1204,7 @@
       "project": {
         "id": "5",
         "name": "Jeep",
+        "description": "Test description",
         "image": "assets/companies/company5.png",
         "moderator": {
           "id": "0",

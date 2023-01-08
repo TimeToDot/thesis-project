@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { AfterViewInit, Component, HostListener, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Chart } from 'chart.js/auto';
 
@@ -8,7 +8,7 @@ import { Chart } from 'chart.js/auto';
   imports: [CommonModule],
   templateUrl: './hours-in-projects.component.html',
 })
-export class HoursInProjectsComponent implements OnInit {
+export class HoursInProjectsComponent implements OnInit, AfterViewInit {
   chart: any;
   contentOffset: number = 776;
   contentSmallOffset: number = 582;
@@ -17,6 +17,10 @@ export class HoursInProjectsComponent implements OnInit {
 
   ngOnInit(): void {
     this.createChart();
+  }
+
+  ngAfterViewInit(): void {
+    window.dispatchEvent(new Event('resize'));
   }
 
   createChart(): void {

@@ -1,8 +1,30 @@
-<div class="form-buttons">
-  <bvr-button
-    class="form-button"
-    [routerLink]="['../edit']"
-    label="Edit"></bvr-button>
-</div>
+<ng-container *ngIf="projectPermissions">
+  <div class="dashboard-row">
+    <bvr-project-description class="table main"></bvr-project-description>
+    <bvr-top-positions
+      *ngIf="projectPermissions.canManageProjectEmployees"
+      class="chart"></bvr-top-positions>
+    <bvr-top-tasks
+      *ngIf="!projectPermissions.canManageProjectEmployees"
+      class="chart"></bvr-top-tasks>
+    <bvr-new-project-employees
+      *ngIf="projectPermissions.canManageProjectEmployees"
+      class="table">
+    </bvr-new-project-employees>
+    <bvr-last-tasks
+      *ngIf="!projectPermissions.canManageProjectEmployees"
+      class="table">
+    </bvr-last-tasks>
+  </div>
+  <div class="dashboard-row">
+    <bvr-hours-in-projects class="chart"></bvr-hours-in-projects>
+    <bvr-new-requests
+      *ngIf="projectPermissions.canManageApprovals"
+      class="table"></bvr-new-requests>
+    <bvr-requests-status
+      *ngIf="!projectPermissions.canManageApprovals"
+      class="table"></bvr-requests-status>
+  </div>
+</ng-container>
 
 <bvr-toast></bvr-toast>

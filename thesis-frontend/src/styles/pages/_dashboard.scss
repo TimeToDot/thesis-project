@@ -29,7 +29,6 @@
     background-color: $color-white;
     border-radius: 2 * $grid-base;
     box-shadow: $shadow-default;
-    flex: 1;
     padding: 3 * $grid-base 6 * $grid-base 6 * $grid-base;
 
     .header {
@@ -74,6 +73,10 @@
 
 .chart,
 .table {
+  &.main {
+    width: 87 * $grid-base;
+  }
+
   .table-header {
     align-items: center;
     display: flex;

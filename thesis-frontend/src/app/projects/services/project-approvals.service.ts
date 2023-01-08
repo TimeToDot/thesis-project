@@ -30,7 +30,7 @@ export class ProjectApprovalsService {
     projectId: string
   ): Observable<ProjectApproval[]> {
     return this.http.get<ProjectApproval[]>(
-      `${this.url}/${projectId}/approvals?active=true`
+      `${this.url}/${projectId}/approvals?active=false`
     );
   }
 }

@@ -1,0 +1,35 @@
+<div class="table-header">
+  <div class="table-name">New requests</div>
+  <bvr-button
+    label="Show All"
+    [routerLink]="['../approvals']"
+    styleClass="button-text"></bvr-button>
+</div>
+<div
+  *ngFor="let projectApproval of projectApprovals"
+  class="table-row">
+  <img
+    *ngIf="projectApproval.projectEmployee.employee.image"
+    class="task-image"
+    [src]="projectApproval.projectEmployee.employee.image" />
+  <span
+    *ngIf="!projectApproval.projectEmployee.employee.image"
+    class="picture">
+    {{ projectApproval.projectEmployee.employee.firstName[0]
+    }}{{ projectApproval.projectEmployee.employee.lastName[0] }}
+  </span>
+  <div class="row-data">
+    <label>
+      {{ projectApproval.projectEmployee.employee.firstName }}
+      {{ projectApproval.projectEmployee.employee.lastName }}</label
+    >
+    <div class="details">
+      <div class="details">
+        <small> {{ projectApproval.projectEmployee.employee.position }}</small>
+      </div>
+      <small class="dates">
+        {{ projectApproval.lastRequest | date: 'dd/MM/yyyy' }}
+      </small>
+    </div>
+  </div>
+</div>

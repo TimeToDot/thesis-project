@@ -1,25 +1,23 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { ProjectDashboardComponent } from './project-dashboard.component';
+import { NewRequestsComponent } from './new-requests.component';
 
-describe('ProjectDashboardComponent', () => {
-  let component: ProjectDashboardComponent;
-  let fixture: ComponentFixture<ProjectDashboardComponent>;
+describe('NewRequestsComponent', () => {
+  let component: NewRequestsComponent;
+  let fixture: ComponentFixture<NewRequestsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
-        NoopAnimationsModule,
-        ProjectDashboardComponent,
+        NewRequestsComponent,
         RouterTestingModule,
       ],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ProjectDashboardComponent);
+    fixture = TestBed.createComponent(NewRequestsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

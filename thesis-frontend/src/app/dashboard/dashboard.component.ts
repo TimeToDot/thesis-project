@@ -36,6 +36,5 @@ export class DashboardComponent implements OnInit {
 
   getPermissions(): void {
     this.permissions = this.permissionsService.getEmployeePermissions();
-    console.log(this.permissions);
   }
 }
