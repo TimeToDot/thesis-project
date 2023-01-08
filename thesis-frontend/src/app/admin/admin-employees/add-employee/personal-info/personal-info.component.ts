@@ -10,6 +10,7 @@ import { DropdownOption } from '../../../../shared/models/dropdown-option.model'
 import { ToastState } from '../../../../shared/enum/toast-state';
 import { ToastService } from '../../../../shared/services/toast.service';
 import { ToastComponent } from '../../../../shared/components/toast/toast.component';
+import { ErrorComponent } from '../../../../shared/components/error/error.component';
 
 @Component({
   selector: 'bvr-personal-info',
@@ -19,6 +20,7 @@ import { ToastComponent } from '../../../../shared/components/toast/toast.compon
     CommonModule,
     DatePickerComponent,
     DropdownListComponent,
+    ErrorComponent,
     FormFieldComponent,
     ReactiveFormsModule,
     ToastComponent,

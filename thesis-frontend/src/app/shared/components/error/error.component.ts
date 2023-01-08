@@ -9,22 +9,27 @@ import { AbstractControl, AbstractControlDirective } from '@angular/forms';
   templateUrl: './error.component.html',
 })
 export class ErrorComponent {
-  @Input() control!: AbstractControl | AbstractControlDirective;
+  @Input() control!: AbstractControl | AbstractControlDirective | null;
 
   errorsList: string[] = [];
   errorMessages: { [name: string]: (param: any) => string } = {
-    required: (params: any) => `This field is required.`,
+    required: (params: any) => `This field is required`,
+    min: (params: any) => `Value is too short`,
+    max: (params: any) => `Value is too long`,
+    pattern: (params: any) => `Invalid value`,
   };
 
   getErrorList(): string[] {
     if (this.control && this.control.errors) {
       this.errorsList = [];
       Object.keys(this.control.errors).map(error => {
-        this.control.touched || this.control.dirty
-          ? this.errorsList.push(
-              this.errorMessages[error](this.control.errors![error])
-            )
-          : '';
+        if (this.control) {
+          this.control.touched || this.control.dirty
+            ? this.errorsList.push(
+                this.errorMessages[error](this.control.errors![error])
+              )
+            : '';
+        }
       });
       return this.errorsList;
     }

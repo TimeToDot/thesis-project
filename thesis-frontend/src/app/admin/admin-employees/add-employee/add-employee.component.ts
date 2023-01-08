@@ -13,6 +13,7 @@ import { EmploymentInfoComponent } from './employment-info/employment-info.compo
 import { tabAnimation } from '../../../shared/animations/tab.animation';
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
 import { Subject } from 'rxjs';
+import { Regex } from '../../../shared/helpers/regex.helper';
 
 @Component({
   selector: 'bvr-add-employee',
@@ -48,17 +49,23 @@ export class AddEmployeeComponent implements OnInit {
   createForm(): void {
     this.addEmployeeForm = this.fb.group({
       personalInfo: this.fb.group({
-        firstName: ['', [Validators.required]],
-        lastName: ['', [Validators.required]],
-        middleName: [''],
+        firstName: ['', [Validators.required, Validators.pattern(Regex.ALPHA)]],
+        lastName: ['', [Validators.required, Validators.pattern(Regex.ALPHA)]],
+        middleName: ['', [Validators.pattern(Regex.ALPHA)]],
         sex: ['', [Validators.required]],
         birthDate: [
           formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en'),
           [Validators.required],
         ],
-        birthPlace: ['', [Validators.required]],
-        idCardNumber: ['', [Validators.required]],
-        pesel: [''],
+        birthPlace: [
+          '',
+          [Validators.required, Validators.pattern(Regex.ALPHA)],
+        ],
+        idCardNumber: [
+          '',
+          [Validators.required, Validators.pattern(Regex.ALPHANUMERIC)],
+        ],
+        pesel: ['', [Validators.pattern(Regex.PESEL)]],
       }),
       addressInfo: this.fb.group({
         street: ['', [Validators.required]],

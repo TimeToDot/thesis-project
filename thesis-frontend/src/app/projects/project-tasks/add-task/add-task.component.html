@@ -16,7 +16,7 @@
         type="text" />
       <bvr-error
         class="error"
-        [control]="addProjectTaskForm.controls['name']"></bvr-error>
+        [control]="addProjectTaskForm.get(['name'])"></bvr-error>
     </bvr-form-field>
     <bvr-form-field
       label="Task Description"
