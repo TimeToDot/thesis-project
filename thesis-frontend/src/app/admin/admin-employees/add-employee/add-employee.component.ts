@@ -68,14 +68,29 @@ export class AddEmployeeComponent implements OnInit {
         pesel: ['', [Validators.pattern(Regex.PESEL)]],
       }),
       addressInfo: this.fb.group({
-        street: ['', [Validators.required]],
-        houseNumber: ['', [Validators.required]],
-        apartmentNumber: ['', []],
-        city: ['', [Validators.required]],
-        postalCode: ['', [Validators.required]],
+        street: [
+          '',
+          [Validators.required, Validators.pattern(Regex.ALPHANUMERIC)],
+        ],
+        houseNumber: [
+          '',
+          [Validators.required, Validators.pattern(Regex.ALPHANUMERIC)],
+        ],
+        apartmentNumber: ['', [Validators.pattern(Regex.ALPHANUMERIC)]],
+        city: ['', [Validators.required, Validators.pattern(Regex.ALPHA)]],
+        postalCode: [
+          '',
+          [Validators.required, Validators.pattern(Regex.ALPHANUMERIC)],
+        ],
         country: ['', [Validators.required]],
-        phoneNumber: ['', [Validators.required]],
-        privateEmail: ['', [Validators.required]],
+        phoneNumber: [
+          '',
+          [Validators.required, Validators.pattern(Regex.PHONE)],
+        ],
+        privateEmail: [
+          '',
+          [Validators.required, Validators.pattern(Regex.EMAIL)],
+        ],
       }),
       employmentInfo: this.fb.group({
         position: ['', [Validators.required]],

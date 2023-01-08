@@ -11,6 +11,7 @@ import { CountriesService } from '../../../services/countries.service';
 import { first } from 'rxjs';
 import { DropdownListComponent } from '../../../../shared/components/dropdown-list/dropdown-list.component';
 import { DropdownOption } from '../../../../shared/models/dropdown-option.model';
+import { ErrorComponent } from '../../../../shared/components/error/error.component';
 
 @Component({
   selector: 'bvr-address-info',
@@ -19,6 +20,7 @@ import { DropdownOption } from '../../../../shared/models/dropdown-option.model'
     ButtonComponent,
     CommonModule,
     DropdownListComponent,
+    ErrorComponent,
     FormFieldComponent,
     ReactiveFormsModule,
     ToastComponent,
