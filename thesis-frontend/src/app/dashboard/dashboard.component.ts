@@ -4,6 +4,7 @@ import { ButtonComponent } from '../shared/components/button/button.component';
 import { LastTasksComponent } from './last-tasks/last-tasks.component';
 import { RequestsStatusComponent } from './requests-status/requests-status.component';
 import { UserProjectsComponent } from './user-projects/user-projects.component';
+import { HoursInProjectsComponent } from './hours-in-projects/hours-in-projects.component';
 
 @Component({
   selector: 'bvr-dashboard',
@@ -12,6 +13,7 @@ import { UserProjectsComponent } from './user-projects/user-projects.component';
   imports: [
     ButtonComponent,
     CommonModule,
+    HoursInProjectsComponent,
     LastTasksComponent,
     RequestsStatusComponent,
     UserProjectsComponent,
