@@ -9,6 +9,7 @@ import { FormFieldComponent } from '../../../../shared/components/form-field/for
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { ModalComponent } from '../../../../shared/components/modal/modal.component';
 import { ToastComponent } from '../../../../shared/components/toast/toast.component';
+import { ErrorComponent } from '../../../../shared/components/error/error.component';
 
 @Component({
   selector: 'bvr-account-info',
@@ -16,6 +17,7 @@ import { ToastComponent } from '../../../../shared/components/toast/toast.compon
   imports: [
     ButtonComponent,
     CommonModule,
+    ErrorComponent,
     FormFieldComponent,
     ModalComponent,
     ReactiveFormsModule,

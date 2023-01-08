@@ -14,6 +14,8 @@ import { Position } from '../../../models/position.model';
 import { DatePickerComponent } from '../../../../shared/components/date-picker/date-picker.component';
 import { ContractTypesService } from '../../../services/contract-types.service';
 import { DropdownOption } from '../../../../shared/models/dropdown-option.model';
+import { ErrorComponent } from '../../../../shared/components/error/error.component';
+import { InputNumberComponent } from '../../../../shared/components/input-number/input-number.component';
 
 @Component({
   selector: 'bvr-employment-info',
@@ -23,7 +25,9 @@ import { DropdownOption } from '../../../../shared/models/dropdown-option.model'
     CommonModule,
     DatePickerComponent,
     DropdownListComponent,
+    ErrorComponent,
     FormFieldComponent,
+    InputNumberComponent,
     ReactiveFormsModule,
     ToastComponent,
   ],

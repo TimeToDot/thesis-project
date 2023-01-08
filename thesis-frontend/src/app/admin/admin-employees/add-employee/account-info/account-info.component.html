@@ -13,14 +13,9 @@
         formControlName="email"
         placeholder="email.example@mail.com"
         type="email" />
-      <ng-container *ngIf="showErrors('email')">
-        <small
-          *ngIf="
-            addEmployeeForm.get(['accountInfo', 'email'])?.hasError('required')
-          "
-          >This field is required.</small
-        >
-      </ng-container>
+      <bvr-error
+        class="error"
+        [control]="addEmployeeForm.get(['accountInfo', 'email'])"></bvr-error>
     </bvr-form-field>
     <bvr-form-field
       label="Password"
@@ -29,16 +24,11 @@
         formControlName="password"
         placeholder="*********"
         type="password" />
-      <ng-container *ngIf="showErrors('password')">
-        <small
-          *ngIf="
-            addEmployeeForm
-              .get(['accountInfo', 'password'])
-              ?.hasError('required')
-          "
-          >This field is required.</small
-        >
-      </ng-container>
+      <bvr-error
+        class="error"
+        [control]="
+          addEmployeeForm.get(['accountInfo', 'password'])
+        "></bvr-error>
     </bvr-form-field>
     <bvr-form-field
       label="Repeat Password"
@@ -47,17 +37,15 @@
         formControlName="repeatPassword"
         placeholder="*********"
         type="password" />
-      <ng-container *ngIf="showErrors('repeatPassword')">
-        <small
-          *ngIf="
-            addEmployeeForm
-              .get(['accountInfo', 'repeatPassword'])
-              ?.hasError('required')
-          "
-          >This field is required.</small
-        >
-      </ng-container>
+      <bvr-error
+        class="error"
+        [control]="
+          addEmployeeForm.get(['accountInfo', 'repeatPassword'])
+        "></bvr-error>
     </bvr-form-field>
+    <bvr-error
+      class="error"
+      [control]="addEmployeeForm.get(['accountInfo'])"></bvr-error>
   </div>
 </div>
 <div
