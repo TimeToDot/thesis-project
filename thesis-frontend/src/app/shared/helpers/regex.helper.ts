@@ -5,6 +5,9 @@ export class Regex {
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
   );
   static readonly NUMERIC: RegExp = new RegExp(/^[\p{N}]+$/u);
+  static readonly PASSWORD: RegExp = new RegExp(
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,}$/
+  );
   static readonly PESEL: RegExp = new RegExp(/^[\p{N}]{11}$/u);
   static readonly PHONE: RegExp = new RegExp(/^[+]?[\p{N}\s-]+$/u);
 }

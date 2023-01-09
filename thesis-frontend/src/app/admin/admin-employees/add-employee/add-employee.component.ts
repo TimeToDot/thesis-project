@@ -17,6 +17,7 @@ import { tabAnimation } from '../../../shared/animations/tab.animation';
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
 import { Subject } from 'rxjs';
 import { Regex } from '../../../shared/helpers/regex.helper';
+import { CustomValidators } from '../../../shared/helpers/custom-validators.helper';
 
 @Component({
   selector: 'bvr-add-employee',
@@ -104,12 +105,20 @@ export class AddEmployeeComponent implements OnInit {
         contractType: ['', [Validators.required]],
         workingTime: [
           '',
-          [Validators.required, this.minValue(0), this.maxValue(168)],
+          [
+            Validators.required,
+            CustomValidators.minValue(0),
+            CustomValidators.maxValue(168),
+          ],
         ],
-        wage: ['', [Validators.required, this.minValue(0)]],
+        wage: ['', [Validators.required, CustomValidators.minValue(0)]],
         payday: [
           '',
-          [Validators.required, this.minValue(1), this.maxValue(31)],
+          [
+            Validators.required,
+            CustomValidators.minValue(1),
+            CustomValidators.maxValue(31),
+          ],
         ],
         accountNumber: [
           '',
@@ -119,37 +128,22 @@ export class AddEmployeeComponent implements OnInit {
       accountInfo: this.fb.group(
         {
           email: ['', [Validators.required, Validators.pattern(Regex.EMAIL)]],
-          password: ['', [Validators.required]],
-          repeatPassword: ['', [Validators.required]],
+          password: ['', [Validators.required, CustomValidators.password()]],
+          repeatPassword: [
+            '',
+            [Validators.required, CustomValidators.password()],
+          ],
         },
-        { validators: [this.passwordValidator()] }
+        {
+          validators: [
+            CustomValidators.passwordMatchingValidator(
+              'password',
+              'repeatPassword'
+            ),
+          ],
+        }
       ),
     });
-  }
-
-  minValue(min: number): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      return control.value < min ? { minValue: min } : null;
-    };
-  }
-
-  maxValue(max: number): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      return control.value > max ? { maxValue: max } : null;
-    };
-  }
-
-  passwordValidator(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      const password = control.get('password')?.value;
-      const repeatedPassword = control.get('repeatPassword')?.value;
-      if (password && repeatedPassword) {
-        return password.localeCompare(repeatedPassword) === 0
-          ? null
-          : { password: true };
-      }
-      return null;
-    };
   }
 
   nextStep(): void {

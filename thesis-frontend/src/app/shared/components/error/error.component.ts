@@ -18,7 +18,9 @@ export class ErrorComponent {
     max: (params: any) => `Value is too long`,
     minValue: (params: any) => `Minimum value is ${params}`,
     maxValue: (params: any) => `Maximum value is ${params}`,
-    password: (params: any) => `Passwords don't match`,
+    password: (params: any) =>
+      `Password must be at least 8 characters long, must include lower and upper case characters and at least one number and symbol`,
+    passwordMatching: (params: any) => `Passwords don't match`,
     pattern: (params: any) => `Invalid value`,
   };
 

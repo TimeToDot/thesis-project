@@ -4,6 +4,7 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ValidationService } from '../../../../shared/services/validation.service';
 import { FormFieldComponent } from '../../../../shared/components/form-field/form-field.component';
 import { EditPasswordComponent } from '../edit-password/edit-password.component';
+import { ErrorComponent } from '../../../../shared/components/error/error.component';
 
 @Component({
   selector: 'bvr-edit-account-info',
@@ -11,6 +12,7 @@ import { EditPasswordComponent } from '../edit-password/edit-password.component'
   imports: [
     CommonModule,
     EditPasswordComponent,
+    ErrorComponent,
     FormFieldComponent,
     ReactiveFormsModule,
   ],

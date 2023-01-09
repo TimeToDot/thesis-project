@@ -7,6 +7,7 @@ import { DropdownListComponent } from '../../../../shared/components/dropdown-li
 import { CountriesService } from '../../../services/countries.service';
 import { first } from 'rxjs';
 import { DropdownOption } from '../../../../shared/models/dropdown-option.model';
+import { ErrorComponent } from '../../../../shared/components/error/error.component';
 
 @Component({
   selector: 'bvr-edit-address-info',
@@ -14,6 +15,7 @@ import { DropdownOption } from '../../../../shared/models/dropdown-option.model'
   imports: [
     CommonModule,
     DropdownListComponent,
+    ErrorComponent,
     FormFieldComponent,
     ReactiveFormsModule,
   ],

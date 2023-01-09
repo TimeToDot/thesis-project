@@ -13,16 +13,11 @@
         <input
           formControlName="street"
           type="text" />
-        <ng-container *ngIf="showErrors('street')">
-          <small
-            *ngIf="
-              editEmployeeForm
-                .get(['addressInfo', 'street'])
-                ?.hasError('required')
-            "
-            >This field is required.</small
-          >
-        </ng-container>
+        <bvr-error
+          class="error"
+          [control]="
+            editEmployeeForm.get(['addressInfo', 'street'])
+          "></bvr-error>
       </bvr-form-field>
       <div class="house-info">
         <bvr-form-field
@@ -32,16 +27,11 @@
           <input
             formControlName="houseNumber"
             type="text" />
-          <ng-container *ngIf="showErrors('houseNumber')">
-            <small
-              *ngIf="
-                editEmployeeForm
-                  .get(['addressInfo', 'houseNumber'])
-                  ?.hasError('required')
-              "
-              >This field is required.</small
-            >
-          </ng-container>
+          <bvr-error
+            class="error"
+            [control]="
+              editEmployeeForm.get(['addressInfo', 'houseNumber'])
+            "></bvr-error>
         </bvr-form-field>
         <bvr-form-field
           class="field"
@@ -50,16 +40,11 @@
           <input
             formControlName="apartmentNumber"
             type="text" />
-          <ng-container *ngIf="showErrors('apartmentNumber')">
-            <small
-              *ngIf="
-                editEmployeeForm
-                  .get(['addressInfo', 'apartmentNumber'])
-                  ?.hasError('required')
-              "
-              >This field is required.</small
-            >
-          </ng-container>
+          <bvr-error
+            class="error"
+            [control]="
+              editEmployeeForm.get(['addressInfo', 'apartmentNumber'])
+            "></bvr-error>
         </bvr-form-field>
       </div>
     </div>
@@ -71,16 +56,9 @@
         <input
           formControlName="city"
           type="text" />
-        <ng-container *ngIf="showErrors('city')">
-          <small
-            *ngIf="
-              editEmployeeForm
-                .get(['addressInfo', 'city'])
-                ?.hasError('required')
-            "
-            >This field is required.</small
-          >
-        </ng-container>
+        <bvr-error
+          class="error"
+          [control]="editEmployeeForm.get(['addressInfo', 'city'])"></bvr-error>
       </bvr-form-field>
       <bvr-form-field
         class="field"
@@ -89,16 +67,11 @@
         <input
           formControlName="postalCode"
           type="text" />
-        <ng-container *ngIf="showErrors('postalCode')">
-          <small
-            *ngIf="
-              editEmployeeForm
-                .get(['addressInfo', 'postalCode'])
-                ?.hasError('required')
-            "
-            >This field is required.</small
-          >
-        </ng-container>
+        <bvr-error
+          class="error"
+          [control]="
+            editEmployeeForm.get(['addressInfo', 'postalCode'])
+          "></bvr-error>
       </bvr-form-field>
     </div>
     <bvr-form-field
@@ -109,16 +82,11 @@
         formControlName="country"
         name="country"
         [options]="countries"></bvr-dropdown-list>
-      <ng-container *ngIf="showErrors('country')">
-        <small
-          *ngIf="
-            editEmployeeForm
-              .get(['addressInfo', 'country'])
-              ?.hasError('required')
-          "
-          >This field is required.</small
-        >
-      </ng-container>
+      <bvr-error
+        class="error"
+        [control]="
+          editEmployeeForm.get(['addressInfo', 'country'])
+        "></bvr-error>
     </bvr-form-field>
     <div class="row">
       <bvr-form-field
@@ -128,16 +96,11 @@
         <input
           formControlName="phoneNumber"
           type="tel" />
-        <ng-container *ngIf="showErrors('phoneNumber')">
-          <small
-            *ngIf="
-              editEmployeeForm
-                .get(['addressInfo', 'phoneNumber'])
-                ?.hasError('required')
-            "
-            >This field is required.</small
-          >
-        </ng-container>
+        <bvr-error
+          class="error"
+          [control]="
+            editEmployeeForm.get(['addressInfo', 'phoneNumber'])
+          "></bvr-error>
       </bvr-form-field>
       <bvr-form-field
         class="field"
@@ -146,16 +109,11 @@
         <input
           formControlName="privateEmail"
           type="email" />
-        <ng-container *ngIf="showErrors('privateEmail')">
-          <small
-            *ngIf="
-              editEmployeeForm
-                .get(['addressInfo', 'privateEmail'])
-                ?.hasError('required')
-            "
-            >This field is required.</small
-          >
-        </ng-container>
+        <bvr-error
+          class="error"
+          [control]="
+            editEmployeeForm.get(['addressInfo', 'privateEmail'])
+          "></bvr-error>
       </bvr-form-field>
     </div>
   </div>

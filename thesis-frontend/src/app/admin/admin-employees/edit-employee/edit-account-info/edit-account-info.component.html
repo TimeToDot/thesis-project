@@ -11,14 +11,9 @@
       <input
         formControlName="email"
         type="email" />
-      <ng-container *ngIf="showErrors('email')">
-        <small
-          *ngIf="
-            editEmployeeForm.get(['accountInfo', 'email'])?.hasError('required')
-          "
-          >This field is required.</small
-        >
-      </ng-container>
+      <bvr-error
+        class="error"
+        [control]="editEmployeeForm.get(['accountInfo', 'email'])"></bvr-error>
     </bvr-form-field>
 
     <bvr-edit-password></bvr-edit-password>

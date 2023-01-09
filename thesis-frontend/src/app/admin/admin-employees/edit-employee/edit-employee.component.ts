@@ -31,6 +31,8 @@ import { EditEmploymentInfoComponent } from './edit-employment-info/edit-employm
 import { EditAccountInfoComponent } from './edit-account-info/edit-account-info.component';
 import { tabAnimation } from '../../../shared/animations/tab.animation';
 import { EmployeesService } from '../../services/employees.service';
+import { Regex } from '../../../shared/helpers/regex.helper';
+import { CustomValidators } from '../../../shared/helpers/custom-validators.helper';
 
 @Component({
   selector: 'bvr-edit-employee',
@@ -95,27 +97,48 @@ export class EditEmployeeComponent {
   createForm(): void {
     this.editEmployeeForm = this.fb.group({
       personalInfo: this.fb.group({
-        firstName: ['', [Validators.required]],
-        lastName: ['', [Validators.required]],
-        middleName: ['', []],
+        firstName: ['', [Validators.required, Validators.pattern(Regex.ALPHA)]],
+        lastName: ['', [Validators.required, Validators.pattern(Regex.ALPHA)]],
+        middleName: ['', [Validators.pattern(Regex.ALPHA)]],
         sex: ['', [Validators.required]],
         birthDate: [
           formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en'),
           [Validators.required],
         ],
-        birthPlace: ['', [Validators.required]],
-        idCardNumber: ['', [Validators.required]],
-        pesel: ['', []],
+        birthPlace: [
+          '',
+          [Validators.required, Validators.pattern(Regex.ALPHA)],
+        ],
+        idCardNumber: [
+          '',
+          [Validators.required, Validators.pattern(Regex.ALPHANUMERIC)],
+        ],
+        pesel: ['', [Validators.pattern(Regex.PESEL)]],
       }),
       addressInfo: this.fb.group({
-        street: ['', [Validators.required]],
-        houseNumber: ['', [Validators.required]],
-        apartmentNumber: ['', []],
-        city: ['', [Validators.required]],
-        postalCode: ['', [Validators.required]],
+        street: [
+          '',
+          [Validators.required, Validators.pattern(Regex.ALPHANUMERIC)],
+        ],
+        houseNumber: [
+          '',
+          [Validators.required, Validators.pattern(Regex.ALPHANUMERIC)],
+        ],
+        apartmentNumber: ['', [Validators.pattern(Regex.ALPHANUMERIC)]],
+        city: ['', [Validators.required, Validators.pattern(Regex.ALPHA)]],
+        postalCode: [
+          '',
+          [Validators.required, Validators.pattern(Regex.ALPHANUMERIC)],
+        ],
         country: ['', [Validators.required]],
-        phoneNumber: ['', [Validators.required]],
-        privateEmail: ['', [Validators.required]],
+        phoneNumber: [
+          '',
+          [Validators.required, Validators.pattern(Regex.PHONE)],
+        ],
+        privateEmail: [
+          '',
+          [Validators.required, Validators.pattern(Regex.EMAIL)],
+        ],
       }),
       employmentInfo: this.fb.group({
         position: ['', [Validators.required]],
@@ -124,13 +147,30 @@ export class EditEmployeeComponent {
           [Validators.required],
         ],
         contractType: ['', [Validators.required]],
-        workingTime: ['', [Validators.required]],
-        wage: ['', [Validators.required]],
-        payday: ['', [Validators.required]],
-        accountNumber: ['', [Validators.required]],
+        workingTime: [
+          '',
+          [
+            Validators.required,
+            CustomValidators.minValue(0),
+            CustomValidators.maxValue(168),
+          ],
+        ],
+        wage: ['', [Validators.required, CustomValidators.minValue(0)]],
+        payday: [
+          '',
+          [
+            Validators.required,
+            CustomValidators.minValue(1),
+            CustomValidators.maxValue(31),
+          ],
+        ],
+        accountNumber: [
+          '',
+          [Validators.required, Validators.pattern(Regex.ALPHANUMERIC)],
+        ],
       }),
       accountInfo: this.fb.group({
-        email: ['', [Validators.required]],
+        email: ['', [Validators.required, Validators.pattern(Regex.EMAIL)]],
       }),
     });
   }

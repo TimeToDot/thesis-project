@@ -85,10 +85,11 @@
         class="field"
         label="Payday"
         [required]="isRequired('payday')">
-        <input
+        <bvr-input-number
+          [decimalPlaces]="0"
+          [digits]="2"
           formControlName="payday"
-          placeholder="Day"
-          type="number" />
+          placeholder="Day"></bvr-input-number>
         <bvr-error
           class="error"
           [control]="

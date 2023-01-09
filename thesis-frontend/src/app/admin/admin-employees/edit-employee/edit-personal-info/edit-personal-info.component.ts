@@ -6,6 +6,7 @@ import { ValidationService } from '../../../../shared/services/validation.servic
 import { DropdownListComponent } from '../../../../shared/components/dropdown-list/dropdown-list.component';
 import { DropdownOption } from '../../../../shared/models/dropdown-option.model';
 import { DatePickerComponent } from '../../../../shared/components/date-picker/date-picker.component';
+import { ErrorComponent } from '../../../../shared/components/error/error.component';
 
 @Component({
   selector: 'bvr-edit-personal-info',
@@ -14,6 +15,7 @@ import { DatePickerComponent } from '../../../../shared/components/date-picker/d
     CommonModule,
     DatePickerComponent,
     DropdownListComponent,
+    ErrorComponent,
     FormFieldComponent,
     ReactiveFormsModule,
   ],
