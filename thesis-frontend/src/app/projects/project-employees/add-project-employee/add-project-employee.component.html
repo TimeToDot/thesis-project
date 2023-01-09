@@ -51,7 +51,7 @@
             <bvr-form-field
               class="disabled left-field position"
               label="Position">
-              <span>{{ employee.position }}</span>
+              <span>{{ employee.position.name }}</span>
             </bvr-form-field>
             <bvr-form-field
               class="disabled left-field email"
@@ -66,19 +66,15 @@
           class="left-field"
           label="Working Time"
           [required]="isRequired('workingTime')">
-          <input
+          <bvr-input-number
+            [decimalPlaces]="0"
+            [digits]="3"
             formControlName="workingTime"
-            type="number" />
-          <ng-container *ngIf="showErrors('workingTime')">
-            <small
-              *ngIf="
-                addProjectEmployeeForm
-                  .get(['workingTime'])
-                  ?.hasError('required')
-              "
-              >This field is required.</small
-            >
-          </ng-container>
+            placeholder="Working Time"
+            suffix="h"></bvr-input-number>
+          <bvr-error
+            class="error"
+            [control]="addProjectEmployeeForm.get(['workingTime'])"></bvr-error>
         </bvr-form-field>
         <bvr-form-field
           class="field"
@@ -86,25 +82,23 @@
           [ngClass]="{ disabled: isDisabled('salaryModifier') }"
           [required]="isRequired('salaryModifier')">
           <div class="row">
-            <input
+            <bvr-input-number
+              [decimalPlaces]="0"
+              [digits]="3"
+              [isDisabled]="isDisabled('salaryModifier')"
               formControlName="salaryModifier"
-              placeholder="0"
-              type="number" />
+              placeholder="Modifier"
+              suffix="%"></bvr-input-number>
             <bvr-switch
               (valueChange)="
                 enableField('salaryModifier', $event)
               "></bvr-switch>
           </div>
-          <ng-container *ngIf="showErrors('salaryModifier')">
-            <small
-              *ngIf="
-                addProjectEmployeeForm
-                  .get(['salaryModifier'])
-                  ?.hasError('required')
-              "
-              >This field is required.</small
-            >
-          </ng-container>
+          <bvr-error
+            class="error"
+            [control]="
+              addProjectEmployeeForm.get(['salaryModifier'])
+            "></bvr-error>
         </bvr-form-field>
       </div>
     </div>

@@ -29,6 +29,7 @@
           <bvr-input-number
             [decimalPlaces]="0"
             [digits]="3"
+            [isDisabled]="isDisabled('overtimeModifier')"
             formControlName="overtimeModifier"
             placeholder="Overtime"
             suffix="%"></bvr-input-number>
@@ -52,6 +53,7 @@
           <bvr-input-number
             [decimalPlaces]="0"
             [digits]="3"
+            [isDisabled]="isDisabled('bonusModifier')"
             formControlName="bonusModifier"
             placeholder="Bonus"
             suffix="%"></bvr-input-number>
@@ -73,6 +75,7 @@
           <bvr-input-number
             [decimalPlaces]="0"
             [digits]="3"
+            [isDisabled]="isDisabled('nightModifier')"
             formControlName="nightModifier"
             placeholder="Night"
             suffix="%"></bvr-input-number>
@@ -94,6 +97,7 @@
           <bvr-input-number
             [decimalPlaces]="0"
             [digits]="3"
+            [isDisabled]="isDisabled('holidayModifier')"
             formControlName="holidayModifier"
             placeholder="Holiday"
             suffix="%"></bvr-input-number>

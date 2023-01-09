@@ -68,33 +68,43 @@
         [ngModel]="projectEmployee.employee.contractType.name"
         type="text" />
     </bvr-form-field>
-    <div class="row">
+    <div
+      class="row"
+      [formGroup]="editProjectEmployeeForm">
       <bvr-form-field
         *ngIf="editProjectEmployeeForm"
         class="left-field"
-        [formGroup]="editProjectEmployeeForm"
         label="Working Time"
         [required]="isRequired('workingTime')">
         <bvr-input-number
           formControlName="workingTime"
           placeholder="0"
           suffix="h"></bvr-input-number>
-        <ng-container *ngIf="showErrors('workingTime')">
-          <small
-            *ngIf="
-              editProjectEmployeeForm.get('workingTime')?.hasError('required')
-            "
-            >This field is required.</small
-          >
-        </ng-container>
+        <bvr-error
+          class="error"
+          [control]="editProjectEmployeeForm.get(['workingTime'])"></bvr-error>
       </bvr-form-field>
       <bvr-form-field
-        class="disabled field"
-        label="Wage">
-        <input
-          disabled
-          [ngModel]="projectEmployee.employee.wage"
-          type="text" />
+        class="field"
+        label="Salary Modifier"
+        [ngClass]="{ disabled: isDisabled('salaryModifier') }"
+        [required]="isRequired('salaryModifier')">
+        <div class="row">
+          <bvr-input-number
+            [decimalPlaces]="0"
+            [digits]="3"
+            formControlName="salaryModifier"
+            [isDisabled]="isDisabled('salaryModifier')"
+            placeholder="Modifier"
+            suffix="%"></bvr-input-number>
+          <bvr-switch
+            (valueChange)="enableField('salaryModifier', $event)"></bvr-switch>
+        </div>
+        <bvr-error
+          class="error"
+          [control]="
+            editProjectEmployeeForm.get(['salaryModifier'])
+          "></bvr-error>
       </bvr-form-field>
     </div>
   </div>

@@ -20,6 +20,9 @@ import { ToastComponent } from '../../../shared/components/toast/toast.component
 import { SwitchComponent } from '../../../shared/components/switch/switch.component';
 import { DropdownSearchEmployeeComponent } from '../../../shared/components/dropdown-search-employee/dropdown-search-employee.component';
 import { Account } from '../../../shared/models/account.model';
+import { CustomValidators } from '../../../shared/helpers/custom-validators.helper';
+import { ErrorComponent } from '../../../shared/components/error/error.component';
+import { InputNumberComponent } from '../../../shared/components/input-number/input-number.component';
 
 @Component({
   selector: 'bvr-add-project-employee',
@@ -28,7 +31,9 @@ import { Account } from '../../../shared/models/account.model';
     ButtonComponent,
     CommonModule,
     DropdownSearchEmployeeComponent,
+    ErrorComponent,
     FormFieldComponent,
+    InputNumberComponent,
     ModalComponent,
     ReactiveFormsModule,
     SwitchComponent,
@@ -65,8 +70,18 @@ export class AddProjectEmployeeComponent implements OnInit {
   createForm(): void {
     this.addProjectEmployeeForm = this.fb.group({
       id: ['', [Validators.required]],
-      workingTime: ['', [Validators.required]],
-      salaryModifier: [{ value: '', disabled: true }],
+      workingTime: [
+        '',
+        [
+          Validators.required,
+          CustomValidators.minValue(0),
+          CustomValidators.maxValue(168),
+        ],
+      ],
+      salaryModifier: [
+        { value: 100, disabled: true },
+        [CustomValidators.minValue(0), CustomValidators.maxValue(500)],
+      ],
     });
   }
 
