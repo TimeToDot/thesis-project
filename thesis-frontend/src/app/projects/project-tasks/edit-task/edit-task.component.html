@@ -17,22 +17,17 @@
       <input
         formControlName="name"
         type="text" />
-      <ng-container *ngIf="showErrors('name')">
-        <small *ngIf="editProjectTaskForm.get('name')?.hasError('required')"
-          >This field is required.</small
-        >
-      </ng-container>
+      <bvr-error
+        class="error"
+        [control]="editProjectTaskForm.get(['name'])"></bvr-error>
     </bvr-form-field>
     <bvr-form-field
       label="Task Description"
       [required]="isRequired('description')">
       <textarea formControlName="description"></textarea>
-      <ng-container *ngIf="showErrors('description')">
-        <small
-          *ngIf="editProjectTaskForm.get('description')?.hasError('required')"
-          >This field is required.</small
-        >
-      </ng-container>
+      <bvr-error
+        class="error"
+        [control]="editProjectTaskForm.get(['description'])"></bvr-error>
     </bvr-form-field>
   </div>
 </div>

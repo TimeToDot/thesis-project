@@ -17,6 +17,8 @@ import { ToastState } from '../../../shared/enum/toast-state';
 import { ToastComponent } from '../../../shared/components/toast/toast.component';
 import { first, Subject } from 'rxjs';
 import { ValidationService } from '../../../shared/services/validation.service';
+import { ErrorComponent } from '../../../shared/components/error/error.component';
+import { Regex } from '../../../shared/helpers/regex.helper';
 
 @Component({
   selector: 'bvr-edit-task',
@@ -24,6 +26,7 @@ import { ValidationService } from '../../../shared/services/validation.service';
   imports: [
     ButtonComponent,
     CommonModule,
+    ErrorComponent,
     FormFieldComponent,
     ModalComponent,
     ReactiveFormsModule,
@@ -68,7 +71,7 @@ export class EditTaskComponent {
 
   createForm(): void {
     this.editProjectTaskForm = this.fb.group({
-      name: ['', [Validators.required]],
+      name: ['', [Validators.required, Validators.pattern(Regex.ALPHANUMERIC)]],
       description: ['', [Validators.required]],
     });
   }
