@@ -1,0 +1,15 @@
+.not-found {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+
+  img {
+    margin-right: 15 * $grid-base;
+  }
+
+  .not-found-button {
+    padding: 3 * $grid-base 20 * $grid-base;
+  }
+}

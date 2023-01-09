@@ -16,7 +16,7 @@ import { AddNewTaskComponent } from './tracker/add-new-task/add-new-task.compone
 import { RequestApprovalComponent } from './tracker/request-approval/request-approval.component';
 import { TasksListComponent } from './tracker/tasks-list/tasks-list.component';
 import { TrackerComponent } from './tracker/tracker.component';
-import { NotFoundComponent } from './utils/not-found/not-found.component';
+import { NotFoundComponent } from './shared/components/not-found/not-found.component';
 
 export const appRoutes: Routes = [
   {
