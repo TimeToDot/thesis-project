@@ -21,6 +21,7 @@ import { ToastComponent } from '../../../shared/components/toast/toast.component
 import { ToastState } from '../../../shared/enum/toast-state';
 import { ToastService } from '../../../shared/services/toast.service';
 import { tabAnimation } from '../../../shared/animations/tab.animation';
+import { Regex } from '../../../shared/helpers/regex.helper';
 
 @Component({
   selector: 'bvr-edit-admin-settings',
@@ -81,23 +82,38 @@ export class EditAdminSettingsComponent implements OnInit {
         defaultPage: [''],
       }),
       companyInfo: this.fb.group({
-        companyName: ['', [Validators.required]],
-        regon: ['', [Validators.required]],
-        nip: ['', [Validators.required]],
-        krs: ['', [Validators.required]],
-        logo: ['', [Validators.required]],
+        companyName: [
+          '',
+          [Validators.required, Validators.pattern(Regex.ALPHANUMERIC)],
+        ],
+        regon: ['', [Validators.required, Validators.pattern(Regex.REGON)]],
+        nip: ['', [Validators.required, Validators.pattern(Regex.NIP)]],
+        krs: ['', [Validators.required, Validators.pattern(Regex.NIP)]],
+        logo: [''],
         description: [''],
       }),
       contactInfo: this.fb.group({
-        street: ['', [Validators.required]],
-        houseNumber: ['', [Validators.required]],
-        apartmentNumber: [''],
-        city: ['', [Validators.required]],
-        postalCode: ['', [Validators.required]],
+        street: [
+          '',
+          [Validators.required, Validators.pattern(Regex.ALPHANUMERIC)],
+        ],
+        houseNumber: [
+          '',
+          [Validators.required, Validators.pattern(Regex.ALPHANUMERIC)],
+        ],
+        apartmentNumber: ['', [Validators.pattern(Regex.ALPHANUMERIC)]],
+        city: ['', [Validators.required, Validators.pattern(Regex.ALPHA)]],
+        postalCode: [
+          '',
+          [Validators.required, Validators.pattern(Regex.ALPHANUMERIC)],
+        ],
         country: ['', [Validators.required]],
-        phoneNumber: ['', [Validators.required]],
-        email: ['', [Validators.required]],
-        website: ['', [Validators.required]],
+        phoneNumber: [
+          '',
+          [Validators.required, Validators.pattern(Regex.PHONE)],
+        ],
+        email: ['', [Validators.required, Validators.pattern(Regex.EMAIL)]],
+        website: ['', [Validators.required, Validators.pattern(Regex.WEBSITE)]],
       }),
     });
   }

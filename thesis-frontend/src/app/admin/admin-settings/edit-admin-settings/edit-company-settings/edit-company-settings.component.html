@@ -12,34 +12,26 @@
         <input
           formControlName="companyName"
           type="text" />
-        <ng-container *ngIf="showErrors('companyName')">
-          <small
-            *ngIf="
-              editGlobalSettingsForm
-                .get(['companyInfo', 'companyName'])
-                ?.hasError('required')
-            "
-            >This field is required.</small
-          >
-        </ng-container>
+        <bvr-error
+          class="error"
+          [control]="
+            editGlobalSettingsForm.get(['companyInfo', 'companyName'])
+          "></bvr-error>
       </bvr-form-field>
       <bvr-form-field
         class="field"
         label="REGON"
         [required]="isRequired('regon')">
-        <input
+        <bvr-input-number
+          [decimalPlaces]="0"
+          [digits]="14"
           formControlName="regon"
-          type="text" />
-        <ng-container *ngIf="showErrors('regon')">
-          <small
-            *ngIf="
-              editGlobalSettingsForm
-                .get(['companyInfo', 'regon'])
-                ?.hasError('required')
-            "
-            >This field is required.</small
-          >
-        </ng-container>
+          placeholder="REGON"></bvr-input-number>
+        <bvr-error
+          class="error"
+          [control]="
+            editGlobalSettingsForm.get(['companyInfo', 'regon'])
+          "></bvr-error>
       </bvr-form-field>
     </div>
     <div class="row">
@@ -47,37 +39,31 @@
         class="left-field"
         label="NIP"
         [required]="isRequired('nip')">
-        <input
+        <bvr-input-number
+          [decimalPlaces]="0"
+          [digits]="10"
           formControlName="nip"
-          type="text" />
-        <ng-container *ngIf="showErrors('nip')">
-          <small
-            *ngIf="
-              editGlobalSettingsForm
-                .get(['companyInfo', 'nip'])
-                ?.hasError('required')
-            "
-            >This field is required.</small
-          >
-        </ng-container>
+          placeholder="NIP"></bvr-input-number>
+        <bvr-error
+          class="error"
+          [control]="
+            editGlobalSettingsForm.get(['companyInfo', 'nip'])
+          "></bvr-error>
       </bvr-form-field>
       <bvr-form-field
         class="field"
         label="KRS"
         [required]="isRequired('krs')">
-        <input
+        <bvr-input-number
+          [decimalPlaces]="0"
+          [digits]="10"
           formControlName="krs"
-          type="text" />
-        <ng-container *ngIf="showErrors('krs')">
-          <small
-            *ngIf="
-              editGlobalSettingsForm
-                .get(['companyInfo', 'krs'])
-                ?.hasError('required')
-            "
-            >This field is required.</small
-          >
-        </ng-container>
+          placeholder="KRS"></bvr-input-number>
+        <bvr-error
+          class="error"
+          [control]="
+            editGlobalSettingsForm.get(['companyInfo', 'krs'])
+          "></bvr-error>
       </bvr-form-field>
     </div>
     <div class="row">
@@ -86,32 +72,22 @@
         label="Logo"
         [required]="isRequired('logo')">
         <bvr-file-upload formControlName="logo"></bvr-file-upload>
-        <ng-container *ngIf="showErrors('logo')">
-          <small
-            *ngIf="
-              editGlobalSettingsForm
-                .get(['companyInfo', 'logo'])
-                ?.hasError('required')
-            "
-            >This field is required.</small
-          >
-        </ng-container>
+        <bvr-error
+          class="error"
+          [control]="
+            editGlobalSettingsForm.get(['companyInfo', 'logo'])
+          "></bvr-error>
       </bvr-form-field>
       <bvr-form-field
         class="field"
         label="Description"
         [required]="isRequired('description')">
         <textarea formControlName="description"></textarea>
-        <ng-container *ngIf="showErrors('description')">
-          <small
-            *ngIf="
-              editGlobalSettingsForm
-                .get(['companyInfo', 'description'])
-                ?.hasError('required')
-            "
-            >This field is required.</small
-          >
-        </ng-container>
+        <bvr-error
+          class="error"
+          [control]="
+            editGlobalSettingsForm.get(['companyInfo', 'description'])
+          "></bvr-error>
       </bvr-form-field>
     </div>
   </div>
