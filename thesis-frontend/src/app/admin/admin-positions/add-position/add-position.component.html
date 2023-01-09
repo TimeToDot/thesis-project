@@ -21,11 +21,9 @@
           formControlName="name"
           placeholder="Position Name"
           type="text" />
-        <ng-container *ngIf="showErrors('name')">
-          <small *ngIf="addPositionForm.get('name')?.hasError('required')"
-            >This field is required.</small
-          >
-        </ng-container>
+        <bvr-error
+          class="error"
+          [control]="addPositionForm.get(['name'])"></bvr-error>
       </bvr-form-field>
       <bvr-form-field
         label="Description"
@@ -34,12 +32,9 @@
           formControlName="description"
           placeholder="Example position description"
           type="text" />
-        <ng-container *ngIf="showErrors('description')">
-          <small
-            *ngIf="addPositionForm.get('description')?.hasError('required')"
-            >This field is required.</small
-          >
-        </ng-container>
+        <bvr-error
+          class="error"
+          [control]="addPositionForm.get(['description'])"></bvr-error>
       </bvr-form-field>
     </div>
     <div class="form-buttons">

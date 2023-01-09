@@ -17,6 +17,8 @@ import { Position } from '../../models/position.model';
 import { PositionsService } from '../../services/positions.service';
 import { first, Subject } from 'rxjs';
 import { ValidationService } from '../../../shared/services/validation.service';
+import { ErrorComponent } from '../../../shared/components/error/error.component';
+import { Regex } from '../../../shared/helpers/regex.helper';
 
 @Component({
   selector: 'bvr-edit-position',
@@ -24,6 +26,7 @@ import { ValidationService } from '../../../shared/services/validation.service';
   imports: [
     ButtonComponent,
     CommonModule,
+    ErrorComponent,
     FormFieldComponent,
     ModalComponent,
     ReactiveFormsModule,
@@ -60,7 +63,7 @@ export class EditPositionComponent implements OnInit {
 
   createForm(): void {
     this.editPositionForm = this.fb.group({
-      name: ['', [Validators.required]],
+      name: ['', [Validators.required, Validators.pattern(Regex.ALPHANUMERIC)]],
       description: ['', [Validators.required]],
     });
   }
