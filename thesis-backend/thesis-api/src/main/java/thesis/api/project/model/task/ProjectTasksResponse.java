@@ -1,18 +1,13 @@
-package thesis.api.position.model;
+package thesis.api.project.model.task;
 
-import lombok.Builder;
 import thesis.domain.paging.Paging;
 import thesis.domain.paging.Sorting;
 
 import java.util.List;
 
-
-
-@Builder
-public record PositionsResponse(
-        List<PositionResponse> positions,
+public record ProjectTasksResponse (
+        List<ProjectTaskResponse> tasks,
         Paging paging,
         Sorting sorting
 ){
-
 }

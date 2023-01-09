@@ -14,11 +14,11 @@ import thesis.data.account.model.AccountDetails;
 import thesis.data.account.model.StatusType;
 import thesis.data.position.PositionRepository;
 import thesis.data.position.model.Position;
-import thesis.data.project.ProjectAccountRoleRepository;
+import thesis.data.project.ProjectAccountRepository;
 import thesis.data.project.ProjectDetailsRepository;
 import thesis.data.project.ProjectRepository;
 import thesis.data.project.model.Project;
-import thesis.data.project.model.ProjectAccountRole;
+import thesis.data.project.model.ProjectAccount;
 import thesis.data.project.model.ProjectDetails;
 import thesis.data.role.RoleRepository;
 import thesis.data.role.model.Role;
@@ -49,7 +49,7 @@ public class InitDataTest {
     private PositionRepository positionRepository;
 
     @Autowired
-    private ProjectAccountRoleRepository projectAccountRoleRepository;
+    private ProjectAccountRepository projectAccountRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -68,20 +68,20 @@ public class InitDataTest {
         var projectUserRole = roleRepository.findByName(RoleType.ROLE_PROJECT_USER).orElseThrow();
 
         projects.forEach(project -> {
-            var projectAccountRoleForAdmin = ProjectAccountRole.builder()
+            var projectAccountRoleForAdmin = ProjectAccount.builder()
                     .project(project)
                     .account(accounts.get(0))
                     .role(projectAdminRole)
                     .build();
 
-            var projectAccountRoleForMod = ProjectAccountRole.builder()
+            var projectAccountRoleForMod = ProjectAccount.builder()
                     .project(project)
                     .account(accounts.get(1))
                     .role(projectModRole)
                     .build();
 
 
-            var projectAccountRoleForUser = ProjectAccountRole.builder()
+            var projectAccountRoleForUser = ProjectAccount.builder()
                     .project(project)
                     .account(accounts.get(2))
                     .role(projectUserRole)
@@ -89,7 +89,7 @@ public class InitDataTest {
 
             var list = List.of(projectAccountRoleForAdmin, projectAccountRoleForMod, projectAccountRoleForUser);
 
-            projectAccountRoleRepository.saveAll(list);
+            projectAccountRepository.saveAll(list);
 
             list.forEach(projectAccountRole -> Assert.assertNotNull(projectAccountRole.getId()));
         });

@@ -3,7 +3,13 @@ package thesis.api.project;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import thesis.api.ThesisController;
-import thesis.api.project.model.*;
+import thesis.api.project.model.employee.ProjectEmployeeResponse;
+import thesis.api.project.model.employee.ProjectEmployeeUpdatePayload;
+import thesis.api.project.model.employee.ProjectEmployeesResponse;
+import thesis.api.project.model.task.ProjectTaskCreatePayload;
+import thesis.api.project.model.task.ProjectTaskResponse;
+import thesis.api.project.model.task.ProjectTaskUpdatePayload;
+import thesis.api.project.model.task.ProjectTasksResponse;
 import thesis.domain.paging.PagingSettings;
 
 import javax.validation.constraints.NotNull;
@@ -69,16 +75,20 @@ public class ProjectController extends ThesisController {
     @PostMapping("/employee")
     public ResponseEntity<ProjectEmployeeResponse> addProjectEmployee(
             @RequestHeader @NotNull UUID employeeId,
-            @RequestHeader @NotNull UUID projectId
+            @RequestHeader @NotNull UUID projectId,
+            @RequestBody ProjectEmployeeUpdatePayload payload
     ){
+        // TODO: 28/12/2022 stworzyc payload
         return null;
     }
 
     @PutMapping("/employee")
     public ResponseEntity<ProjectEmployeeResponse> updateProjectEmployee(
             @RequestHeader @NotNull UUID employeeId,
-            @RequestHeader @NotNull UUID projectId
+            @RequestHeader @NotNull UUID projectId,
+            @RequestBody ProjectEmployeeUpdatePayload payload
     ){
+        // TODO: 28/12/2022 stworzyc payload
         return null;
     }
 
@@ -89,6 +99,17 @@ public class ProjectController extends ThesisController {
             @RequestBody PagingSettings settings,
             @RequestParam(value="active", required = false, defaultValue = "true") Boolean active
             ){
+        // TODO: 28/12/2022
+        return null;
+    }
+
+    @GetMapping("/approvals")
+    public ResponseEntity<ProjectEmployeesResponse> getProjectApprovals(
+            @RequestHeader @NotNull UUID employeeId,
+            @RequestHeader @NotNull UUID projectId,
+            @RequestBody PagingSettings settings,
+            @RequestParam(value="active", required = false, defaultValue = "true") Boolean active
+    ){
         // TODO: 28/12/2022
         return null;
     }
