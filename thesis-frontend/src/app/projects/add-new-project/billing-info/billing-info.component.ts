@@ -14,6 +14,8 @@ import { ToastService } from '../../../shared/services/toast.service';
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
 import { ToastComponent } from '../../../shared/components/toast/toast.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ErrorComponent } from '../../../shared/components/error/error.component';
+import { InputNumberComponent } from '../../../shared/components/input-number/input-number.component';
 
 @Component({
   selector: 'bvr-billing-info',
@@ -22,7 +24,9 @@ import { ActivatedRoute, Router } from '@angular/router';
     ButtonComponent,
     CommonModule,
     DropdownListComponent,
+    ErrorComponent,
     FormFieldComponent,
+    InputNumberComponent,
     ModalComponent,
     ReactiveFormsModule,
     SwitchComponent,

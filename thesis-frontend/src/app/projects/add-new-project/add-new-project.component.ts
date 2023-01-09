@@ -12,6 +12,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { Regex } from '../../shared/helpers/regex.helper';
+import { CustomValidators } from '../../shared/helpers/custom-validators.helper';
 
 @Component({
   selector: 'bvr-add-new-project',
@@ -46,17 +48,32 @@ export class AddNewProjectComponent implements OnInit {
   createForm(): void {
     this.addProjectForm = this.fb.group({
       generalInfo: this.fb.group({
-        name: ['', [Validators.required]],
+        name: [
+          '',
+          [Validators.required, Validators.pattern(Regex.ALPHANUMERIC)],
+        ],
         image: [null, [Validators.required]],
         description: [''],
       }),
       moderator: ['', [Validators.required]],
       billingInfo: this.fb.group({
         billingPeriod: ['', [Validators.required]],
-        overtimeModifier: [{ value: '', disabled: true }],
-        bonusModifier: [{ value: '', disabled: true }],
-        nightModifier: [{ value: '', disabled: true }],
-        holidayModifier: [{ value: '', disabled: true }],
+        overtimeModifier: [
+          { value: 100, disabled: true },
+          [CustomValidators.minValue(0), CustomValidators.maxValue(500)],
+        ],
+        bonusModifier: [
+          { value: 100, disabled: true },
+          [CustomValidators.minValue(0), CustomValidators.maxValue(500)],
+        ],
+        nightModifier: [
+          { value: 100, disabled: true },
+          [CustomValidators.minValue(0), CustomValidators.maxValue(500)],
+        ],
+        holidayModifier: [
+          { value: 100, disabled: true },
+          [CustomValidators.minValue(0), CustomValidators.maxValue(500)],
+        ],
       }),
     });
   }

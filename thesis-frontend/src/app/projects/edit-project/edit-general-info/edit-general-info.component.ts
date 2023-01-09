@@ -4,12 +4,14 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ValidationService } from '../../../shared/services/validation.service';
 import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
 import { FileUploadComponent } from '../../../shared/components/file-upload/file-upload.component';
+import { ErrorComponent } from '../../../shared/components/error/error.component';
 
 @Component({
   selector: 'bvr-edit-general-info',
   standalone: true,
   imports: [
     CommonModule,
+    ErrorComponent,
     FileUploadComponent,
     FormFieldComponent,
     ReactiveFormsModule,

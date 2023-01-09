@@ -11,14 +11,9 @@
         formControlName="name"
         placeholder="Project Name"
         type="text" />
-      <ng-container *ngIf="showErrors('name')">
-        <small
-          *ngIf="
-            editProjectForm.get(['generalInfo', 'name'])?.hasError('required')
-          "
-          >This field is required.</small
-        >
-      </ng-container>
+      <bvr-error
+        class="error"
+        [control]="editProjectForm.get(['generalInfo', 'name'])"></bvr-error>
     </bvr-form-field>
     <div class="row">
       <bvr-form-field
@@ -26,23 +21,20 @@
         label="Logo"
         [required]="isRequired('image')">
         <bvr-file-upload formControlName="image"></bvr-file-upload>
-        <ng-container *ngIf="showErrors('image')">
-          <small *ngIf="editProjectForm.get('image')?.hasError('required')"
-            >This field is required.</small
-          >
-        </ng-container>
+        <bvr-error
+          class="error"
+          [control]="editProjectForm.get(['generalInfo', 'image'])"></bvr-error>
       </bvr-form-field>
       <bvr-form-field
         class="field"
         label="Description"
         [required]="isRequired('description')">
         <textarea formControlName="description"></textarea>
-        <ng-container *ngIf="showErrors('description')">
-          <small
-            *ngIf="editProjectForm.get('description')?.hasError('required')"
-            >This field is required.</small
-          >
-        </ng-container>
+        <bvr-error
+          class="error"
+          [control]="
+            editProjectForm.get(['generalInfo', 'description'])
+          "></bvr-error>
       </bvr-form-field>
     </div>
   </div>

@@ -8,6 +8,7 @@ import { FormFieldComponent } from '../../../shared/components/form-field/form-f
 import { ValidationService } from '../../../shared/services/validation.service';
 import { DropdownSearchEmployeeComponent } from '../../../shared/components/dropdown-search-employee/dropdown-search-employee.component';
 import { Account } from '../../../shared/models/account.model';
+import { ErrorComponent } from '../../../shared/components/error/error.component';
 
 @Component({
   selector: 'bvr-edit-moderator-info',
@@ -15,6 +16,7 @@ import { Account } from '../../../shared/models/account.model';
   imports: [
     CommonModule,
     DropdownSearchEmployeeComponent,
+    ErrorComponent,
     FormFieldComponent,
     ReactiveFormsModule,
   ],

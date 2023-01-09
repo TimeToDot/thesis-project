@@ -12,11 +12,9 @@
         formControlName="moderator"
         name="moderator"
         [options]="employees"></bvr-dropdown-search-employee>
-      <ng-container *ngIf="showErrors('moderator')">
-        <small *ngIf="addProjectForm.get(['moderator'])?.hasError('required')"
-          >This field is required.</small
-        >
-      </ng-container>
+      <bvr-error
+        class="error"
+        [control]="addProjectForm.get(['moderator'])"></bvr-error>
     </bvr-form-field>
   </div>
 
@@ -55,7 +53,7 @@
           <bvr-form-field
             class="disabled left-field position"
             label="Position">
-            <span>{{ employee.position }}</span>
+            <span>{{ employee.position.name }}</span>
           </bvr-form-field>
           <bvr-form-field
             class="disabled left-field email"

@@ -12,16 +12,11 @@
         formControlName="billingPeriod"
         name="Billing Period"
         [options]="billingPeriods"></bvr-dropdown-list>
-      <ng-container *ngIf="showErrors('billingPeriod')">
-        <small
-          *ngIf="
-            addProjectForm
-              .get(['billingInfo', 'billingPeriod'])
-              ?.hasError('required')
-          "
-          >This field is required.</small
-        >
-      </ng-container>
+      <bvr-error
+        class="error"
+        [control]="
+          addProjectForm.get(['billingInfo', 'billingPeriod'])
+        "></bvr-error>
     </bvr-form-field>
     <div class="form-header">{{ 'Salary Modifiers' | uppercase }}</div>
     <div class="modifiers">
@@ -31,25 +26,22 @@
         [ngClass]="{ disabled: isDisabled('overtimeModifier') }"
         [required]="isRequired('overtimeModifier')">
         <div class="row">
-          <input
+          <bvr-input-number
+            [decimalPlaces]="0"
+            [digits]="3"
             formControlName="overtimeModifier"
-            placeholder="0"
-            type="number" />
+            placeholder="Overtime"
+            suffix="%"></bvr-input-number>
           <bvr-switch
             (valueChange)="
               enableField('overtimeModifier', $event)
             "></bvr-switch>
         </div>
-        <ng-container *ngIf="showErrors('overtimeModifier')">
-          <small
-            *ngIf="
-              addProjectForm
-                .get(['billingInfo', 'overtimeModifier'])
-                ?.hasError('required')
-            "
-            >This field is required.</small
-          >
-        </ng-container>
+        <bvr-error
+          class="error"
+          [control]="
+            addProjectForm.get(['billingInfo', 'overtimeModifier'])
+          "></bvr-error>
       </bvr-form-field>
       <bvr-form-field
         class="left-field"
@@ -57,23 +49,20 @@
         [ngClass]="{ disabled: isDisabled('bonusModifier') }"
         [required]="isRequired('bonusModifier')">
         <div class="row">
-          <input
+          <bvr-input-number
+            [decimalPlaces]="0"
+            [digits]="3"
             formControlName="bonusModifier"
-            placeholder="0"
-            type="number" />
+            placeholder="Bonus"
+            suffix="%"></bvr-input-number>
           <bvr-switch
             (valueChange)="enableField('bonusModifier', $event)"></bvr-switch>
         </div>
-        <ng-container *ngIf="showErrors('bonusModifier')">
-          <small
-            *ngIf="
-              addProjectForm
-                .get(['billingInfo', 'bonusModifier'])
-                ?.hasError('required')
-            "
-            >This field is required.</small
-          >
-        </ng-container>
+        <bvr-error
+          class="error"
+          [control]="
+            addProjectForm.get(['billingInfo', 'bonusModifier'])
+          "></bvr-error>
       </bvr-form-field>
       <bvr-form-field
         class="field"
@@ -81,23 +70,20 @@
         [ngClass]="{ disabled: isDisabled('nightModifier') }"
         [required]="isRequired('nightModifier')">
         <div class="row">
-          <input
+          <bvr-input-number
+            [decimalPlaces]="0"
+            [digits]="3"
             formControlName="nightModifier"
-            placeholder="0"
-            type="number" />
+            placeholder="Night"
+            suffix="%"></bvr-input-number>
           <bvr-switch
             (valueChange)="enableField('nightModifier', $event)"></bvr-switch>
         </div>
-        <ng-container *ngIf="showErrors('nightModifier')">
-          <small
-            *ngIf="
-              addProjectForm
-                .get(['billingInfo', 'nightModifier'])
-                ?.hasError('required')
-            "
-            >This field is required.</small
-          >
-        </ng-container>
+        <bvr-error
+          class="error"
+          [control]="
+            addProjectForm.get(['billingInfo', 'nightModifier'])
+          "></bvr-error>
       </bvr-form-field>
       <bvr-form-field
         class="field"
@@ -105,23 +91,20 @@
         [ngClass]="{ disabled: isDisabled('holidayModifier') }"
         [required]="isRequired('holidayModifier')">
         <div class="row">
-          <input
+          <bvr-input-number
+            [decimalPlaces]="0"
+            [digits]="3"
             formControlName="holidayModifier"
-            placeholder="0"
-            type="number" />
+            placeholder="Holiday"
+            suffix="%"></bvr-input-number>
           <bvr-switch
             (valueChange)="enableField('holidayModifier', $event)"></bvr-switch>
         </div>
-        <ng-container *ngIf="showErrors('holidayModifier')">
-          <small
-            *ngIf="
-              addProjectForm
-                .get(['billingInfo', 'holidayModifier'])
-                ?.hasError('required')
-            "
-            >This field is required.</small
-          >
-        </ng-container>
+        <bvr-error
+          class="error"
+          [control]="
+            addProjectForm.get(['billingInfo', 'holidayModifier'])
+          "></bvr-error>
       </bvr-form-field>
     </div>
   </div>

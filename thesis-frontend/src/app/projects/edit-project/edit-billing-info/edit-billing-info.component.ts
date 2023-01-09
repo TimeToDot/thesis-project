@@ -8,6 +8,8 @@ import { first } from 'rxjs';
 import { BillingPeriodsService } from '../../services/billing-periods.service';
 import { DropdownOption } from '../../../shared/models/dropdown-option.model';
 import { DropdownListComponent } from '../../../shared/components/dropdown-list/dropdown-list.component';
+import { ErrorComponent } from '../../../shared/components/error/error.component';
+import { InputNumberComponent } from '../../../shared/components/input-number/input-number.component';
 
 @Component({
   selector: 'bvr-edit-billing-info',
@@ -15,7 +17,9 @@ import { DropdownListComponent } from '../../../shared/components/dropdown-list/
   imports: [
     CommonModule,
     DropdownListComponent,
+    ErrorComponent,
     FormFieldComponent,
+    InputNumberComponent,
     ReactiveFormsModule,
     SwitchComponent,
   ],

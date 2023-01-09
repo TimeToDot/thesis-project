@@ -12,6 +12,7 @@ import { ToastService } from '../../../shared/services/toast.service';
 import { ToastComponent } from '../../../shared/components/toast/toast.component';
 import { DropdownSearchEmployeeComponent } from '../../../shared/components/dropdown-search-employee/dropdown-search-employee.component';
 import { Account } from '../../../shared/models/account.model';
+import { ErrorComponent } from '../../../shared/components/error/error.component';
 
 @Component({
   selector: 'bvr-moderator-info',
@@ -20,6 +21,7 @@ import { Account } from '../../../shared/models/account.model';
     ButtonComponent,
     CommonModule,
     DropdownSearchEmployeeComponent,
+    ErrorComponent,
     FormFieldComponent,
     ReactiveFormsModule,
     ToastComponent,

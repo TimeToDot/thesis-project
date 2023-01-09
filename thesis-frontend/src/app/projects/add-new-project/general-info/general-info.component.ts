@@ -8,6 +8,7 @@ import { ToastService } from '../../../shared/services/toast.service';
 import { ValidationService } from '../../../shared/services/validation.service';
 import { ToastComponent } from '../../../shared/components/toast/toast.component';
 import { FileUploadComponent } from '../../../shared/components/file-upload/file-upload.component';
+import { ErrorComponent } from '../../../shared/components/error/error.component';
 
 @Component({
   selector: 'bvr-general-info',
@@ -15,6 +16,7 @@ import { FileUploadComponent } from '../../../shared/components/file-upload/file
   imports: [
     ButtonComponent,
     CommonModule,
+    ErrorComponent,
     FileUploadComponent,
     FormFieldComponent,
     ReactiveFormsModule,
