@@ -14,6 +14,7 @@ import thesis.api.ThesisController;
 import thesis.api.employee.mapper.EmployeeMapper;
 import thesis.api.employee.mapper.EmployeeProjectMapper;
 import thesis.api.employee.mapper.EmployeeProjectsMapper;
+import thesis.api.employee.mapper.EmployeeTasksMapper;
 import thesis.api.employee.model.*;
 import thesis.api.employee.model.calendar.EmployeeCalendarResponse;
 import thesis.api.employee.model.project.EmployeeProjectsResponse;
@@ -39,8 +40,7 @@ public class EmployeeController extends ThesisController {
     private final EmployeeService employeeService;
 
     private final EmployeeMapper employeeMapper;
-    private final EmployeeProjectMapper employeeProjectMapper;
-
+    private final EmployeeTasksMapper employeeTasksMapper;
     private final EmployeeProjectsMapper employeeProjectsMapper;
 
     @Operation(summary = "Gets employee by ID")
@@ -119,10 +119,9 @@ public class EmployeeController extends ThesisController {
             @RequestBody EmployeeTasksRequest request){
 
         var tasksDto = employeeService.getEmployeeTasks(employeeId, request.startDate(), request.endDate());
+        var tasksResponse = employeeTasksMapper.map(tasksDto);
 
-        // TODO: 28/12/2022
-
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(tasksResponse);
     }
 
     @GetMapping("/task/{taskId}")
