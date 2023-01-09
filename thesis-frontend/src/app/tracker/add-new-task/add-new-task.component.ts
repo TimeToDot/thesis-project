@@ -11,7 +11,6 @@ import {
 } from '@angular/forms';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { FormFieldComponent } from '../../shared/components/form-field/form-field.component';
-import { ProjectsService } from '../../shared/services/projects.service';
 import { ProjectTasksService } from '../../projects/services/project-tasks.service';
 import { DatePickerComponent } from '../../shared/components/date-picker/date-picker.component';
 import { TimePickerComponent } from '../../shared/components/time-picker/time-picker.component';
@@ -29,6 +28,8 @@ import { EmployeeTask } from '../../shared/models/employee-task.model';
 import { ValidationService } from '../../shared/services/validation.service';
 import { AuthService } from '../../shared/services/auth.service';
 import { EmployeesService } from '../../admin/services/employees.service';
+import { ErrorComponent } from '../../shared/components/error/error.component';
+import { CustomValidators } from '../../shared/helpers/custom-validators.helper';
 
 @Component({
   selector: 'bvr-add-new-task',
@@ -38,6 +39,7 @@ import { EmployeesService } from '../../admin/services/employees.service';
     CommonModule,
     DatePickerComponent,
     DropdownListComponent,
+    ErrorComponent,
     FormFieldComponent,
     ModalComponent,
     ReactiveFormsModule,
@@ -97,36 +99,18 @@ export class AddNewTaskComponent implements OnInit {
         project: [null, [Validators.required]],
         task: [{ value: null, disabled: true }, [Validators.required]],
       },
-      { validators: [this.dateRangeValidator(), this.timeRangeValidator()] }
+      {
+        validators: [
+          CustomValidators.dateRangeValidator('startDate', 'endDate'),
+          CustomValidators.timeRangeValidator(
+            'startDate',
+            'startTime',
+            'endDate',
+            'endTime'
+          ),
+        ],
+      }
     );
-  }
-
-  dateRangeValidator(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      const startDate = control.get('startDate')?.value;
-      const endDate = control.get('endDate')?.value;
-      if (startDate && endDate) {
-        const isRangeValid = dayjs(startDate).isAfter(dayjs(endDate));
-        return !isRangeValid ? null : { dateRange: true };
-      }
-      return null;
-    };
-  }
-
-  timeRangeValidator(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      const startDate = control.get('startDate')?.value;
-      const startTime = control.get('startTime')?.value;
-      const endDate = control.get('endDate')?.value;
-      const endTime = control.get('endTime')?.value;
-      if (startDate && startTime && endDate && endTime) {
-        const isRangeValid = dayjs(`${startDate} ${startTime}`).isAfter(
-          dayjs(`${endDate} ${endTime}`)
-        );
-        return !isRangeValid ? null : { timeRange: true };
-      }
-      return null;
-    };
   }
 
   roundToMinutes(minutes: number): string {

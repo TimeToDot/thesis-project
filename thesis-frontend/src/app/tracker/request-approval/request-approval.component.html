@@ -20,29 +20,21 @@
             label="Start date"
             [required]="isRequired('startDate')">
             <bvr-date-picker formControlName="startDate"></bvr-date-picker>
-            <ng-container *ngIf="showErrors('startDate')">
-              <small
-                *ngIf="
-                  requestApprovalForm.get('startDate')?.hasError('required')
-                "
-                >This field is required.</small
-              >
-            </ng-container>
+            <bvr-error
+              class="error"
+              [control]="requestApprovalForm.get(['startDate'])"></bvr-error>
+            <bvr-error
+              class="error"
+              [control]="requestApprovalForm"></bvr-error>
           </bvr-form-field>
 
           <bvr-form-field
             label="End date"
             [required]="isRequired('endDate')">
             <bvr-date-picker formControlName="endDate"></bvr-date-picker>
-            <ng-container *ngIf="showErrors() || showErrors('endDate')">
-              <small
-                *ngIf="requestApprovalForm.get('endDate')?.hasError('required')"
-                >This field is required.</small
-              >
-              <small *ngIf="requestApprovalForm?.hasError('dateRange')"
-                >The date is wrong.</small
-              >
-            </ng-container>
+            <bvr-error
+              class="error"
+              [control]="requestApprovalForm.get(['endDate'])"></bvr-error>
           </bvr-form-field>
         </div>
       </form>

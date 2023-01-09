@@ -21,6 +21,9 @@ export class ErrorComponent {
     password: (params: any) =>
       `Password must be at least 8 characters long, must include lower and upper case characters and at least one number and symbol`,
     passwordMatching: (params: any) => `Passwords don't match`,
+    dateRange: (params: any) => `Start date cannot be later than end date`,
+    timeRange: (params: any) =>
+      `Start time and date cannot be later than end time and date`,
     pattern: (params: any) => `Invalid value`,
   };
 

@@ -24,6 +24,8 @@ import { first, Subject } from 'rxjs';
 import { ValidationService } from '../../shared/services/validation.service';
 import { EmployeesService } from '../../admin/services/employees.service';
 import { AuthService } from '../../shared/services/auth.service';
+import { CustomValidators } from '../../shared/helpers/custom-validators.helper';
+import { ErrorComponent } from '../../shared/components/error/error.component';
 
 @Component({
   selector: 'bvr-request-approval',
@@ -32,6 +34,7 @@ import { AuthService } from '../../shared/services/auth.service';
     ButtonComponent,
     CommonModule,
     DatePickerComponent,
+    ErrorComponent,
     FormFieldComponent,
     FormsModule,
     ModalComponent,
@@ -78,20 +81,12 @@ export class RequestApprovalComponent implements OnInit {
           [Validators.required],
         ],
       },
-      { validators: [this.dateRangeValidator()] }
-    );
-  }
-
-  dateRangeValidator(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      const startDate = control.get('startDate')?.value;
-      const endDate = control.get('endDate')?.value;
-      if (startDate && endDate) {
-        const isRangeValid = dayjs(startDate).isAfter(dayjs(endDate));
-        return !isRangeValid ? null : { dateRange: true };
+      {
+        validators: [
+          CustomValidators.dateRangeValidator('startDate', 'endDate'),
+        ],
       }
-      return null;
-    };
+    );
   }
 
   getProjectsToApprove(): void {
