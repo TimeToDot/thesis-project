@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule, formatDate, Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { ActivatedRoute, Router, RouterLinkWithHref } from '@angular/router';
 import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
 import {
+  AbstractControl,
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
@@ -13,12 +14,11 @@ import { ToastState } from '../../../shared/enum/toast-state';
 import { ToastService } from '../../../shared/services/toast.service';
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
 import { ToastComponent } from '../../../shared/components/toast/toast.component';
-import { ValidationService } from '../../../shared/services/validation.service';
 import { first, Subject } from 'rxjs';
 import { ErrorComponent } from '../../../shared/components/error/error.component';
 import { Regex } from '../../../shared/helpers/regex.helper';
 import { PositionsService } from '../../services/positions.service';
-import { Position } from '../../models/position.model';
+import { PositionDTO } from '../../models/position-dto.model';
 
 @Component({
   selector: 'bvr-add-position',
@@ -37,6 +37,7 @@ import { Position } from '../../models/position.model';
 })
 export class AddPositionComponent implements OnInit {
   addPositionForm!: FormGroup;
+  controls!: any;
   isAddModalOpen: boolean = false;
   isCancelModalOpen: boolean = false;
   isFromGuard: boolean = false;
@@ -50,12 +51,12 @@ export class AddPositionComponent implements OnInit {
     private positionsService: PositionsService,
     private route: ActivatedRoute,
     private router: Router,
-    private toastService: ToastService,
-    private validationService: ValidationService
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
     this.createForm();
+    this.getFormControls();
   }
 
   createForm(): void {
@@ -65,9 +66,16 @@ export class AddPositionComponent implements OnInit {
     });
   }
 
+  getFormControls(): void {
+    this.controls = {
+      name: this.addPositionForm.get(['name']),
+      description: this.addPositionForm.get(['description']),
+    };
+  }
+
   openAddModal(): void {
     if (this.addPositionForm.valid) {
-      const name = this.addPositionForm.get('name')?.value;
+      const name = this.controls.name?.value;
       this.isAddModalOpen = true;
       this.modalDescription = `Are you sure you want to add ${name}?`;
     } else {
@@ -95,14 +103,10 @@ export class AddPositionComponent implements OnInit {
     }
   }
 
-  getPositionData(): Position {
+  getPositionData(): PositionDTO {
     return {
-      id: '',
       name: this.addPositionForm.value.name,
       description: this.addPositionForm.value.description,
-      count: 0,
-      creationDate: formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en'),
-      active: true,
     };
   }
 
@@ -132,13 +136,7 @@ export class AddPositionComponent implements OnInit {
     this.redirectSubject.next(value);
   }
 
-  isRequired(name: string): boolean {
-    return this.validationService.isRequired(this.addPositionForm, [name]);
-  }
-
-  showErrors(name?: string): boolean {
-    return name
-      ? this.validationService.showErrors(this.addPositionForm, [name])
-      : this.validationService.showErrors(this.addPositionForm, []);
+  isRequired(control: AbstractControl | null): boolean {
+    return control && control?.hasValidator(Validators.required) ? true : false;
   }
 }

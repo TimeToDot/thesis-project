@@ -596,8 +596,8 @@
       "id": "1",
       "name": "Frontend Developer",
       "description": "Frontend Developer",
-      "creationDate": "2022-01-20",
       "count": 1,
+      "creationDate": "2022-01-20",
       "active": true
     },
     {
@@ -625,6 +625,33 @@
       "count": 0,
       "creationDate": "2023-01-10",
       "active": false
+    },
+    {
+      "id": "JVGYZCG",
+      "name": "Driver",
+      "description": "Jeździ autem",
+      "count": 0,
+      "creationDate": "2023-01-10",
+      "active": false,
+      "archiveDate": "2023-01-10"
+    },
+    {
+      "id": "uPN3Iir",
+      "name": "test",
+      "description": "test",
+      "count": 0,
+      "creationDate": "2023-01-10",
+      "active": false,
+      "archiveDate": "2023-01-10"
+    },
+    {
+      "id": "eiCST6s",
+      "name": "qwe",
+      "description": "qwe",
+      "count": 0,
+      "creationDate": "2023-01-10",
+      "active": false,
+      "archiveDate": "2023-01-10"
     }
   ],
   "billing-periods": [

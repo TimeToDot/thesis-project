@@ -16,25 +16,25 @@
       [formGroup]="addPositionForm">
       <bvr-form-field
         label="Name"
-        [required]="isRequired('name')">
+        [required]="isRequired(controls.name)">
         <input
           formControlName="name"
           placeholder="Position Name"
           type="text" />
         <bvr-error
           class="error"
-          [control]="addPositionForm.get(['name'])"></bvr-error>
+          [control]="controls.name"></bvr-error>
       </bvr-form-field>
       <bvr-form-field
         label="Description"
-        [required]="isRequired('description')">
+        [required]="isRequired(controls.description)">
         <input
           formControlName="description"
           placeholder="Example position description"
           type="text" />
         <bvr-error
           class="error"
-          [control]="addPositionForm.get(['description'])"></bvr-error>
+          [control]="controls.description"></bvr-error>
       </bvr-form-field>
     </div>
     <div class="form-buttons">
