@@ -15,6 +15,19 @@ export class PositionsService {
     return this.http.get<Position>(`${this.url}/${id}`);
   }
 
+  addPosition(position: Position): Observable<Position> {
+    return this.http.post<Position>(this.url, position);
+  }
+
+  updatePosition(position: Position): Observable<Position> {
+    return this.http.put<Position>(`${this.url}/${position.id}`, position);
+  }
+
+  archivePosition(position: Position): Observable<Position> {
+    position.active = false;
+    return this.http.put<Position>(`${this.url}/${position.id}`, position);
+  }
+
   getPositions(): Observable<Position[]> {
     return this.http.get<Position[]>(`${this.url}?active=true`);
   }

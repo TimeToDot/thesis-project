@@ -126,29 +126,55 @@ export class EditPositionComponent implements OnInit {
   save(value: boolean): void {
     this.disableGuard(true);
     if (value) {
-      new Promise((resolve, _) => {
-        this.location.back();
-        resolve('done');
-      }).then(() => {
-        setTimeout(
-          () =>
-            this.toastService.showToast(ToastState.Success, 'Position edited'),
-          200
-        );
-        setTimeout(() => this.toastService.dismissToast(), 3200);
-      });
+      this.positionsService
+        .updatePosition(this.getPositionData())
+        .pipe(first())
+        .subscribe(() => {
+          this.redirectBack();
+        });
     }
   }
 
-  archive(): void {
-    this.disableGuard(true);
-    this.router.navigate(['../..'], { relativeTo: this.route }).then(() => {
+  getPositionData(): Position {
+    return {
+      id: this.position.id,
+      name: this.editPositionForm.value.name,
+      description: this.editPositionForm.value.description,
+      count: this.position.count,
+      creationDate: this.position.creationDate,
+      active: this.position.active,
+    };
+  }
+
+  redirectBack(): void {
+    new Promise((resolve, _) => {
+      this.location.back();
+      resolve('done');
+    }).then(() => {
       setTimeout(
-        () => this.toastService.showToast(ToastState.Info, 'Position archived'),
+        () =>
+          this.toastService.showToast(ToastState.Success, 'Position edited'),
         200
       );
       setTimeout(() => this.toastService.dismissToast(), 3200);
     });
+  }
+
+  archive(): void {
+    this.disableGuard(true);
+    this.positionsService
+      .archivePosition(this.position)
+      .pipe(first())
+      .subscribe(() => {
+        this.router.navigate(['../..'], { relativeTo: this.route }).then(() => {
+          setTimeout(
+            () =>
+              this.toastService.showToast(ToastState.Info, 'Position archived'),
+            200
+          );
+          setTimeout(() => this.toastService.dismissToast(), 3200);
+        });
+      });
   }
 
   disableGuard(value: boolean): void {

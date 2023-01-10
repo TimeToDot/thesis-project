@@ -8,10 +8,7 @@
       "image": "assets/icons/icon14.png",
       "position": "Frontend Developer",
       "employmentDate": "2021-08-15",
-      "contractType": {
-        "id": "4",
-        "name": "B2B"
-      },
+      "contractType": { "id": "4", "name": "B2B" },
       "wage": 45,
       "workingTime": 40,
       "active": true
@@ -24,10 +21,7 @@
       "image": "assets/icons/icon4.png",
       "position": "Product Designer",
       "employmentDate": "2022-07-01",
-      "contractType": {
-        "id": "4",
-        "name": "B2B"
-      },
+      "contractType": { "id": "4", "name": "B2B" },
       "wage": 45,
       "workingTime": 40,
       "active": true
@@ -40,10 +34,7 @@
       "image": "assets/icons/icon8.png",
       "position": "Product Designer",
       "employmentDate": "2022-07-01",
-      "contractType": {
-        "id": "4",
-        "name": "B2B"
-      },
+      "contractType": { "id": "4", "name": "B2B" },
       "wage": 45,
       "workingTime": 40,
       "active": true
@@ -56,10 +47,7 @@
       "image": "assets/icons/icon7.png",
       "position": "Product Designer",
       "employmentDate": "2022-07-01",
-      "contractType": {
-        "id": "4",
-        "name": "B2B"
-      },
+      "contractType": { "id": "4", "name": "B2B" },
       "wage": 45,
       "workingTime": 40,
       "exitDate": "2022-09-01",
@@ -73,10 +61,7 @@
       "image": "assets/icons/icon19.png",
       "position": "Product Designer",
       "employmentDate": "2022-07-01",
-      "contractType": {
-        "id": "4",
-        "name": "B2B"
-      },
+      "contractType": { "id": "4", "name": "B2B" },
       "wage": 45,
       "workingTime": 40,
       "active": true
@@ -89,10 +74,7 @@
       "image": "assets/icons/icon3.png",
       "position": "Product Designer",
       "employmentDate": "2022-07-01",
-      "contractType": {
-        "id": "4",
-        "name": "B2B"
-      },
+      "contractType": { "id": "4", "name": "B2B" },
       "wage": 45,
       "workingTime": 40,
       "exitDate": "2022-09-01",
@@ -106,10 +88,7 @@
       "image": "assets/icons/icon13.png",
       "position": "Product Designer",
       "employmentDate": "2022-07-01",
-      "contractType": {
-        "id": "4",
-        "name": "B2B"
-      },
+      "contractType": { "id": "4", "name": "B2B" },
       "wage": 45,
       "workingTime": 40,
       "exitDate": "2022-09-01",
@@ -123,10 +102,7 @@
       "image": "assets/icons/icon18.png",
       "position": "Product Designer",
       "employmentDate": "2022-07-01",
-      "contractType": {
-        "id": "4",
-        "name": "B2B"
-      },
+      "contractType": { "id": "4", "name": "B2B" },
       "wage": 45,
       "workingTime": 40,
       "active": true
@@ -139,10 +115,7 @@
       "image": "assets/icons/icon16.png",
       "position": "Product Designer",
       "employmentDate": "2022-07-01",
-      "contractType": {
-        "id": "4",
-        "name": "B2B"
-      },
+      "contractType": { "id": "4", "name": "B2B" },
       "wage": 45,
       "workingTime": 40,
       "active": true
@@ -154,20 +127,14 @@
       "firstName": "Robert",
       "middleName": "Karol",
       "lastName": "Skrzypczak",
-      "sex": {
-        "id": "1",
-        "name": "Male"
-      },
+      "sex": { "id": "1", "name": "Male" },
       "birthDate": "1999-03-12",
       "birthPlace": "Kraków",
       "idCardNumber": "CCC675432",
       "email": "robert.skrzypczak@gmail.com",
       "image": "assets/icons/icon14.png",
       "pesel": 12312312312,
-      "contractType": {
-        "id": "4",
-        "name": "B2B"
-      },
+      "contractType": { "id": "4", "name": "B2B" },
       "wage": 35,
       "payday": 1,
       "position": {
@@ -205,10 +172,7 @@
       "pesel": 12312312312,
       "birthPlace": "Kraków",
       "idCardNumber": "CCC675432",
-      "contractType": {
-        "id": "4",
-        "name": "B2B"
-      },
+      "contractType": { "id": "4", "name": "B2B" },
       "wage": 35,
       "payday": 1,
       "position": {
@@ -224,10 +188,7 @@
       "workingTime": 40,
       "active": true,
       "password": "abc",
-      "sex": {
-        "id": "2",
-        "name": "Female"
-      },
+      "sex": { "id": "2", "name": "Female" },
       "birthDate": "1999-03-12",
       "phoneNumber": "777-777-777",
       "privateEmail": "iwaaaaaaaan@gmail.com",
@@ -252,10 +213,7 @@
       "pesel": 12312312312,
       "birthPlace": "Kraków",
       "idCardNumber": "CCC675432",
-      "contractType": {
-        "id": "4",
-        "name": "B2B"
-      },
+      "contractType": { "id": "4", "name": "B2B" },
       "wage": 35,
       "payday": 1,
       "position": {
@@ -271,10 +229,7 @@
       "workingTime": 40,
       "active": true,
       "password": "abc",
-      "sex": {
-        "id": "2",
-        "name": "Female"
-      },
+      "sex": { "id": "2", "name": "Female" },
       "birthDate": "1999-03-12",
       "phoneNumber": "777-777-777",
       "privateEmail": "asia@gmail.com",
@@ -299,10 +254,7 @@
       "birthPlace": "Kraków",
       "idCardNumber": "CCC675432",
       "pesel": 12312312312,
-      "contractType": {
-        "id": "4",
-        "name": "B2B"
-      },
+      "contractType": { "id": "4", "name": "B2B" },
       "wage": 35,
       "payday": 1,
       "position": {
@@ -319,10 +271,7 @@
       "exitDate": "2022-09-01",
       "active": false,
       "password": "abc",
-      "sex": {
-        "id": "2",
-        "name": "Female"
-      },
+      "sex": { "id": "2", "name": "Female" },
       "birthDate": "1999-03-12",
       "phoneNumber": "777-777-777",
       "privateEmail": "nowczi@gmail.com",
@@ -347,10 +296,7 @@
       "birthPlace": "Kraków",
       "idCardNumber": "CCC675432",
       "pesel": 12312312312,
-      "contractType": {
-        "id": "4",
-        "name": "B2B"
-      },
+      "contractType": { "id": "4", "name": "B2B" },
       "wage": 35,
       "payday": 1,
       "position": {
@@ -366,10 +312,7 @@
       "workingTime": 40,
       "active": true,
       "password": "abc",
-      "sex": {
-        "id": "1",
-        "name": "Male"
-      },
+      "sex": { "id": "1", "name": "Male" },
       "birthDate": "1999-03-12",
       "phoneNumber": "777-777-777",
       "privateEmail": "szymon@gmail.com",
@@ -394,10 +337,7 @@
       "birthPlace": "Kraków",
       "idCardNumber": "CCC675432",
       "pesel": 12312312312,
-      "contractType": {
-        "id": "4",
-        "name": "B2B"
-      },
+      "contractType": { "id": "4", "name": "B2B" },
       "wage": 35,
       "payday": 1,
       "position": {
@@ -413,10 +353,7 @@
       "exitDate": "2022-09-01",
       "active": false,
       "password": "abc",
-      "sex": {
-        "id": "2",
-        "name": "Female"
-      },
+      "sex": { "id": "2", "name": "Female" },
       "birthDate": "1999-03-12",
       "phoneNumber": "777-777-777",
       "privateEmail": "marthaaa@gmail.com",
@@ -441,10 +378,7 @@
       "birthPlace": "Kraków",
       "idCardNumber": "CCC675432",
       "pesel": 12312312312,
-      "contractType": {
-        "id": "4",
-        "name": "B2B"
-      },
+      "contractType": { "id": "4", "name": "B2B" },
       "wage": 35,
       "payday": 1,
       "position": {
@@ -460,10 +394,7 @@
       "exitDate": "2022-09-01",
       "active": false,
       "password": "abc",
-      "sex": {
-        "id": "1",
-        "name": "Male"
-      },
+      "sex": { "id": "1", "name": "Male" },
       "birthDate": "1999-03-12",
       "phoneNumber": "777-777-777",
       "privateEmail": "kowalski@gmail.com",
@@ -488,10 +419,7 @@
       "birthPlace": "Kraków",
       "idCardNumber": "CCC675432",
       "pesel": 12312312312,
-      "contractType": {
-        "id": "4",
-        "name": "B2B"
-      },
+      "contractType": { "id": "4", "name": "B2B" },
       "wage": 35,
       "payday": 1,
       "position": {
@@ -507,10 +435,7 @@
       "workingTime": 40,
       "active": true,
       "password": "abc",
-      "sex": {
-        "id": "1",
-        "name": "Male"
-      },
+      "sex": { "id": "1", "name": "Male" },
       "birthDate": "1999-03-12",
       "phoneNumber": "777-777-777",
       "privateEmail": "zielu@gmail.com",
@@ -535,10 +460,7 @@
       "birthPlace": "Kraków",
       "idCardNumber": "CCC675432",
       "pesel": 12312312312,
-      "contractType": {
-        "id": "4",
-        "name": "B2B"
-      },
+      "contractType": { "id": "4", "name": "B2B" },
       "wage": 35,
       "payday": 1,
       "position": {
@@ -554,10 +476,7 @@
       "workingTime": 40,
       "active": true,
       "password": "abc",
-      "sex": {
-        "id": "1",
-        "name": "Male"
-      },
+      "sex": { "id": "1", "name": "Male" },
       "birthDate": "1999-03-12",
       "phoneNumber": "777-777-777",
       "privateEmail": "kowal-@gmail.com",
@@ -574,22 +493,10 @@
     }
   ],
   "contract-types": [
-    {
-      "id": "1",
-      "name": "Employment contract"
-    },
-    {
-      "id": "2",
-      "name": "Commission contract"
-    },
-    {
-      "id": "3",
-      "name": "Specific-task contract"
-    },
-    {
-      "id": "4",
-      "name": "B2B"
-    }
+    { "id": "1", "name": "Employment contract" },
+    { "id": "2", "name": "Commission contract" },
+    { "id": "3", "name": "Specific-task contract" },
+    { "id": "4", "name": "B2B" }
   ],
   "positions": [
     {
@@ -617,33 +524,13 @@
       "count": 1,
       "archiveDate": "2022-10-10",
       "active": false
-    },
-    {
-      "id": "IY-rUUh",
-      "name": "Lifeguard",
-      "description": "Lifeguarding Life",
-      "count": 0,
-      "creationDate": "2023-01-10",
-      "active": false
     }
   ],
   "billing-periods": [
-    {
-      "id": "1",
-      "name": "Week"
-    },
-    {
-      "id": "2",
-      "name": "2 Weeks"
-    },
-    {
-      "id": "3",
-      "name": "Month"
-    },
-    {
-      "id": "4",
-      "name": "Season"
-    }
+    { "id": "1", "name": "Week" },
+    { "id": "2", "name": "2 Weeks" },
+    { "id": "3", "name": "Month" },
+    { "id": "4", "name": "Season" }
   ],
   "project-approvals": [
     {
@@ -659,10 +546,7 @@
           "image": "assets/icons/icon14.png",
           "position": "Frontend Developer",
           "employmentDate": "2021-08-15",
-          "contractType": {
-            "id": "4",
-            "name": "B2B"
-          },
+          "contractType": { "id": "4", "name": "B2B" },
           "wage": 45,
           "workingTime": 40,
           "active": true
@@ -687,10 +571,7 @@
           "image": "assets/icons/icon4.png",
           "position": "Product Designer",
           "employmentDate": "2022-07-01",
-          "contractType": {
-            "id": "4",
-            "name": "B2B"
-          },
+          "contractType": { "id": "4", "name": "B2B" },
           "wage": 45,
           "workingTime": 40,
           "active": true
@@ -715,10 +596,7 @@
           "image": "assets/icons/icon8.png",
           "position": "Product Designer",
           "employmentDate": "2022-07-01",
-          "contractType": {
-            "id": "4",
-            "name": "B2B"
-          },
+          "contractType": { "id": "4", "name": "B2B" },
           "wage": 45,
           "workingTime": 40,
           "active": true
@@ -744,10 +622,7 @@
           "image": "assets/icons/icon7.png",
           "position": "Product Designer",
           "employmentDate": "2022-07-01",
-          "contractType": {
-            "id": "4",
-            "name": "B2B"
-          },
+          "contractType": { "id": "4", "name": "B2B" },
           "wage": 45,
           "workingTime": 40,
           "exitDate": "2022-09-01",
@@ -773,10 +648,7 @@
         "image": "assets/icons/icon14.png",
         "position": "Frontend Developer",
         "employmentDate": "2021-08-15",
-        "contractType": {
-          "id": "4",
-          "name": "B2B"
-        },
+        "contractType": { "id": "4", "name": "B2B" },
         "wage": 45,
         "workingTime": 40,
         "active": true
@@ -795,10 +667,7 @@
         "image": "assets/icons/icon4.png",
         "position": "Product Designer",
         "employmentDate": "2022-07-01",
-        "contractType": {
-          "id": "4",
-          "name": "B2B"
-        },
+        "contractType": { "id": "4", "name": "B2B" },
         "wage": 45,
         "workingTime": 40,
         "active": true
@@ -817,10 +686,7 @@
         "image": "assets/icons/icon8.png",
         "position": "Product Designer",
         "employmentDate": "2022-07-01",
-        "contractType": {
-          "id": "4",
-          "name": "B2B"
-        },
+        "contractType": { "id": "4", "name": "B2B" },
         "wage": 45,
         "workingTime": 40,
         "active": true
@@ -840,10 +706,7 @@
         "image": "assets/icons/icon7.png",
         "position": "Product Designer",
         "employmentDate": "2022-07-01",
-        "contractType": {
-          "id": "4",
-          "name": "B2B"
-        },
+        "contractType": { "id": "4", "name": "B2B" },
         "wage": 45,
         "workingTime": 40,
         "exitDate": "2022-09-01",
@@ -919,18 +782,12 @@
           "image": "assets/icons/icon14.png",
           "position": "Frontend Developer",
           "employmentDate": "2021-08-15",
-          "contractType": {
-            "id": "4",
-            "name": "B2B"
-          },
+          "contractType": { "id": "4", "name": "B2B" },
           "wage": 45,
           "workingTime": 40,
           "active": true
         },
-        "billingPeriod": {
-          "id": "3",
-          "name": "Month"
-        },
+        "billingPeriod": { "id": "3", "name": "Month" },
         "employeesCount": 50,
         "creationDate": "2021-03-11",
         "active": true
@@ -965,18 +822,12 @@
           "image": "assets/icons/icon14.png",
           "position": "Frontend Developer",
           "employmentDate": "2021-08-15",
-          "contractType": {
-            "id": "4",
-            "name": "B2B"
-          },
+          "contractType": { "id": "4", "name": "B2B" },
           "wage": 45,
           "workingTime": 40,
           "active": true
         },
-        "billingPeriod": {
-          "id": "3",
-          "name": "Month"
-        },
+        "billingPeriod": { "id": "3", "name": "Month" },
         "employeesCount": 50,
         "creationDate": "2021-03-11",
         "active": true
@@ -1011,18 +862,12 @@
           "image": "assets/icons/icon14.png",
           "position": "Frontend Developer",
           "employmentDate": "2021-08-15",
-          "contractType": {
-            "id": "4",
-            "name": "B2B"
-          },
+          "contractType": { "id": "4", "name": "B2B" },
           "wage": 45,
           "workingTime": 40,
           "active": true
         },
-        "billingPeriod": {
-          "id": "3",
-          "name": "Month"
-        },
+        "billingPeriod": { "id": "3", "name": "Month" },
         "employeesCount": 50,
         "creationDate": "2021-03-11",
         "active": true
@@ -1052,18 +897,12 @@
         "image": "assets/icons/icon14.png",
         "position": "Frontend Developer",
         "employmentDate": "2021-08-15",
-        "contractType": {
-          "id": "4",
-          "name": "B2B"
-        },
+        "contractType": { "id": "4", "name": "B2B" },
         "wage": 45,
         "workingTime": 40,
         "active": true
       },
-      "billingPeriod": {
-        "id": "3",
-        "name": "Month"
-      },
+      "billingPeriod": { "id": "3", "name": "Month" },
       "employeesCount": 50,
       "creationDate": "2021-03-11",
       "active": true
@@ -1081,18 +920,12 @@
         "image": "assets/icons/icon14.png",
         "position": "Frontend Developer",
         "employmentDate": "2021-08-15",
-        "contractType": {
-          "id": "4",
-          "name": "B2B"
-        },
+        "contractType": { "id": "4", "name": "B2B" },
         "wage": 45,
         "workingTime": 40,
         "active": true
       },
-      "billingPeriod": {
-        "id": "3",
-        "name": "Month"
-      },
+      "billingPeriod": { "id": "3", "name": "Month" },
       "employeesCount": 50,
       "creationDate": "2021-03-11",
       "active": true
@@ -1110,18 +943,12 @@
         "image": "assets/icons/icon14.png",
         "position": "Frontend Developer",
         "employmentDate": "2021-08-15",
-        "contractType": {
-          "id": "4",
-          "name": "B2B"
-        },
+        "contractType": { "id": "4", "name": "B2B" },
         "wage": 45,
         "workingTime": 40,
         "active": true
       },
-      "billingPeriod": {
-        "id": "3",
-        "name": "Month"
-      },
+      "billingPeriod": { "id": "3", "name": "Month" },
       "employeesCount": 50,
       "creationDate": "2021-03-11",
       "active": true
@@ -1139,18 +966,12 @@
         "image": "assets/icons/icon14.png",
         "position": "Frontend Developer",
         "employmentDate": "2021-08-15",
-        "contractType": {
-          "id": "4",
-          "name": "B2B"
-        },
+        "contractType": { "id": "4", "name": "B2B" },
         "wage": 45,
         "workingTime": 40,
         "active": true
       },
-      "billingPeriod": {
-        "id": "3",
-        "name": "Month"
-      },
+      "billingPeriod": { "id": "3", "name": "Month" },
       "employeesCount": 50,
       "creationDate": "2021-03-11",
       "active": false
@@ -1168,18 +989,12 @@
         "image": "assets/icons/icon14.png",
         "position": "Frontend Developer",
         "employmentDate": "2021-08-15",
-        "contractType": {
-          "id": "4",
-          "name": "B2B"
-        },
+        "contractType": { "id": "4", "name": "B2B" },
         "wage": 45,
         "workingTime": 40,
         "active": true
       },
-      "billingPeriod": {
-        "id": "3",
-        "name": "Month"
-      },
+      "billingPeriod": { "id": "3", "name": "Month" },
       "employeesCount": 50,
       "creationDate": "2021-03-11",
       "active": false
@@ -1201,18 +1016,12 @@
           "image": "assets/icons/icon14.png",
           "position": "Frontend Developer",
           "employmentDate": "2021-08-15",
-          "contractType": {
-            "id": "4",
-            "name": "B2B"
-          },
+          "contractType": { "id": "4", "name": "B2B" },
           "wage": 45,
           "workingTime": 40,
           "active": true
         },
-        "billingPeriod": {
-          "id": "3",
-          "name": "Month"
-        },
+        "billingPeriod": { "id": "3", "name": "Month" },
         "employeesCount": 50,
         "creationDate": "2021-03-11",
         "active": true
@@ -1236,18 +1045,12 @@
           "image": "assets/icons/icon14.png",
           "position": "Frontend Developer",
           "employmentDate": "2021-08-15",
-          "contractType": {
-            "id": "4",
-            "name": "B2B"
-          },
+          "contractType": { "id": "4", "name": "B2B" },
           "wage": 45,
           "workingTime": 40,
           "active": true
         },
-        "billingPeriod": {
-          "id": "3",
-          "name": "Month"
-        },
+        "billingPeriod": { "id": "3", "name": "Month" },
         "employeesCount": 50,
         "creationDate": "2021-03-11",
         "active": true
@@ -1271,18 +1074,12 @@
           "image": "assets/icons/icon14.png",
           "position": "Frontend Developer",
           "employmentDate": "2021-08-15",
-          "contractType": {
-            "id": "4",
-            "name": "B2B"
-          },
+          "contractType": { "id": "4", "name": "B2B" },
           "wage": 45,
           "workingTime": 40,
           "active": true
         },
-        "billingPeriod": {
-          "id": "3",
-          "name": "Month"
-        },
+        "billingPeriod": { "id": "3", "name": "Month" },
         "employeesCount": 50,
         "creationDate": "2021-03-11",
         "active": true
@@ -1307,18 +1104,12 @@
           "image": "assets/icons/icon14.png",
           "position": "Frontend Developer",
           "employmentDate": "2021-08-15",
-          "contractType": {
-            "id": "4",
-            "name": "B2B"
-          },
+          "contractType": { "id": "4", "name": "B2B" },
           "wage": 45,
           "workingTime": 40,
           "active": true
         },
-        "billingPeriod": {
-          "id": "3",
-          "name": "Month"
-        },
+        "billingPeriod": { "id": "3", "name": "Month" },
         "employeesCount": 50,
         "creationDate": "2021-03-11",
         "active": true
@@ -1340,18 +1131,12 @@
           "image": "assets/icons/icon14.png",
           "position": "Frontend Developer",
           "employmentDate": "2021-08-15",
-          "contractType": {
-            "id": "4",
-            "name": "B2B"
-          },
+          "contractType": { "id": "4", "name": "B2B" },
           "wage": 45,
           "workingTime": 40,
           "active": true
         },
-        "billingPeriod": {
-          "id": "3",
-          "name": "Month"
-        },
+        "billingPeriod": { "id": "3", "name": "Month" },
         "employeesCount": 50,
         "creationDate": "2021-03-11",
         "active": true
@@ -1373,18 +1158,12 @@
           "image": "assets/icons/icon14.png",
           "position": "Frontend Developer",
           "employmentDate": "2021-08-15",
-          "contractType": {
-            "id": "4",
-            "name": "B2B"
-          },
+          "contractType": { "id": "4", "name": "B2B" },
           "wage": 45,
           "workingTime": 40,
           "active": true
         },
-        "billingPeriod": {
-          "id": "3",
-          "name": "Month"
-        },
+        "billingPeriod": { "id": "3", "name": "Month" },
         "employeesCount": 50,
         "creationDate": "2021-03-11",
         "active": true
@@ -1407,18 +1186,12 @@
           "image": "assets/icons/icon14.png",
           "position": "Frontend Developer",
           "employmentDate": "2021-08-15",
-          "contractType": {
-            "id": "4",
-            "name": "B2B"
-          },
+          "contractType": { "id": "4", "name": "B2B" },
           "wage": 45,
           "workingTime": 40,
           "active": true
         },
-        "billingPeriod": {
-          "id": "3",
-          "name": "Month"
-        },
+        "billingPeriod": { "id": "3", "name": "Month" },
         "employeesCount": 50,
         "creationDate": "2021-03-11",
         "active": false
@@ -1441,18 +1214,12 @@
           "image": "assets/icons/icon14.png",
           "position": "Frontend Developer",
           "employmentDate": "2021-08-15",
-          "contractType": {
-            "id": "4",
-            "name": "B2B"
-          },
+          "contractType": { "id": "4", "name": "B2B" },
           "wage": 45,
           "workingTime": 40,
           "active": true
         },
-        "billingPeriod": {
-          "id": "3",
-          "name": "Month"
-        },
+        "billingPeriod": { "id": "3", "name": "Month" },
         "employeesCount": 50,
         "creationDate": "2021-03-11",
         "active": false
@@ -1466,10 +1233,7 @@
     "requireConfirmationOnTaskSubmission": true,
     "showDashboards": true,
     "showProjects": true,
-    "defaultPage": {
-      "id": "1",
-      "name": "Dashboard"
-    },
+    "defaultPage": { "id": "1", "name": "Dashboard" },
     "companyName": "Amazon",
     "regon": "000000000",
     "nip": "0000000000",

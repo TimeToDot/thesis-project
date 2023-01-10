@@ -66,12 +66,18 @@ export class ViewPositionComponent implements OnInit {
   }
 
   archive(): void {
-    this.router.navigate(['..'], { relativeTo: this.route }).then(() => {
-      setTimeout(
-        () => this.toastService.showToast(ToastState.Info, 'Position archived'),
-        200
-      );
-      setTimeout(() => this.toastService.dismissToast(), 3200);
-    });
+    this.positionsService
+      .archivePosition(this.position)
+      .pipe(first())
+      .subscribe(() => {
+        this.router.navigate(['..'], { relativeTo: this.route }).then(() => {
+          setTimeout(
+            () =>
+              this.toastService.showToast(ToastState.Info, 'Position archived'),
+            200
+          );
+          setTimeout(() => this.toastService.dismissToast(), 3200);
+        });
+      });
   }
 }
