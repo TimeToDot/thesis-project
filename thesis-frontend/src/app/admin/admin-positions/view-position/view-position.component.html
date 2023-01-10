@@ -5,7 +5,9 @@
       <h2>Position</h2>
     </div>
   </div>
-  <div class="card-content view-form">
+  <div
+    *ngIf="position"
+    class="card-content view-form">
     <div class="header">
       <div class="title">
         <h4>{{ position.name }}</h4>

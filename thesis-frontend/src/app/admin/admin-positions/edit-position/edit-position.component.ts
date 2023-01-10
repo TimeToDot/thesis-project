@@ -6,6 +6,7 @@ import { FormFieldComponent } from '../../../shared/components/form-field/form-f
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
 import { ToastComponent } from '../../../shared/components/toast/toast.component';
 import {
+  AbstractControl,
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
@@ -16,7 +17,6 @@ import { ToastState } from '../../../shared/enum/toast-state';
 import { Position } from '../../models/position.model';
 import { PositionsService } from '../../services/positions.service';
 import { first, Subject } from 'rxjs';
-import { ValidationService } from '../../../shared/services/validation.service';
 import { ErrorComponent } from '../../../shared/components/error/error.component';
 import { Regex } from '../../../shared/helpers/regex.helper';
 
@@ -36,6 +36,7 @@ import { Regex } from '../../../shared/helpers/regex.helper';
   templateUrl: './edit-position.component.html',
 })
 export class EditPositionComponent implements OnInit {
+  controls!: any;
   editPositionForm!: FormGroup;
   isArchiveModalOpen: boolean = false;
   isCancelModalOpen: boolean = false;
@@ -52,12 +53,12 @@ export class EditPositionComponent implements OnInit {
     private positionsService: PositionsService,
     private route: ActivatedRoute,
     private router: Router,
-    private toastService: ToastService,
-    private validationService: ValidationService
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
     this.createForm();
+    this.getFormControls();
     this.getPosition();
   }
 
@@ -66,6 +67,13 @@ export class EditPositionComponent implements OnInit {
       name: ['', [Validators.required, Validators.pattern(Regex.ALPHANUMERIC)]],
       description: ['', [Validators.required]],
     });
+  }
+
+  getFormControls(): void {
+    this.controls = {
+      name: this.editPositionForm.get(['name']),
+      description: this.editPositionForm.get(['description']),
+    };
   }
 
   getPosition(): void {
@@ -91,7 +99,7 @@ export class EditPositionComponent implements OnInit {
 
   openArchiveModal(): void {
     this.isArchiveModalOpen = true;
-    const positionName = this.editPositionForm.get(['name'])?.value;
+    const positionName = this.controls.name?.value;
     this.modalDescription = `Are you sure you want to archive position ${positionName}? This action cannot be undone.`;
   }
 
@@ -182,13 +190,7 @@ export class EditPositionComponent implements OnInit {
     this.redirectSubject.next(value);
   }
 
-  isRequired(name: string): boolean {
-    return this.validationService.isRequired(this.editPositionForm, [name]);
-  }
-
-  showErrors(name?: string): boolean {
-    return name
-      ? this.validationService.showErrors(this.editPositionForm, [name])
-      : this.validationService.showErrors(this.editPositionForm, []);
+  isRequired(control: AbstractControl | null): boolean {
+    return control && control?.hasValidator(Validators.required) ? true : false;
   }
 }

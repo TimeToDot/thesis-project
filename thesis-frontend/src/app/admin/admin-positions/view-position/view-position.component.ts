@@ -27,15 +27,7 @@ import { first } from 'rxjs';
 export class ViewPositionComponent implements OnInit {
   isArchiveModalOpen: boolean = false;
   modalDescription: string = '';
-  position: Position = {
-    id: '',
-    name: '',
-    description: '',
-    creationDate: '',
-    count: 0,
-    archiveDate: '',
-    active: true,
-  };
+  position!: Position;
 
   constructor(
     private positionsService: PositionsService,

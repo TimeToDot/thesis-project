@@ -24,21 +24,21 @@
       [formGroup]="editPositionForm">
       <bvr-form-field
         label="Position Name"
-        [required]="isRequired('name')">
+        [required]="isRequired(controls.name)">
         <input
           formControlName="name"
           type="text" />
         <bvr-error
           class="error"
-          [control]="editPositionForm.get(['name'])"></bvr-error>
+          [control]="controls.name"></bvr-error>
       </bvr-form-field>
       <bvr-form-field
         label="Position Description"
-        [required]="isRequired('description')">
+        [required]="isRequired(controls.description)">
         <textarea formControlName="description"></textarea>
         <bvr-error
           class="error"
-          [control]="editPositionForm.get(['description'])"></bvr-error>
+          [control]="controls.description"></bvr-error>
       </bvr-form-field>
     </div>
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule, Location } from '@angular/common';
+import { CommonModule, formatDate, Location } from '@angular/common';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { ActivatedRoute, Router, RouterLinkWithHref } from '@angular/router';
 import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
@@ -18,7 +18,7 @@ import { first, Subject } from 'rxjs';
 import { ErrorComponent } from '../../../shared/components/error/error.component';
 import { Regex } from '../../../shared/helpers/regex.helper';
 import { PositionsService } from '../../services/positions.service';
-import { PositionDTO } from '../../models/position-dto.model';
+import { Position } from '../../models/position.model';
 
 @Component({
   selector: 'bvr-add-position',
@@ -103,10 +103,14 @@ export class AddPositionComponent implements OnInit {
     }
   }
 
-  getPositionData(): PositionDTO {
+  getPositionData(): Position {
     return {
+      id: '',
       name: this.addPositionForm.value.name,
       description: this.addPositionForm.value.description,
+      count: 0,
+      creationDate: formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en'),
+      active: true,
     };
   }
 
