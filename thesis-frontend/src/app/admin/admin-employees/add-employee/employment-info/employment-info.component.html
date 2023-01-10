@@ -10,48 +10,42 @@
       <bvr-form-field
         class="left-field"
         label="Position"
-        [required]="isRequired('position')">
+        [required]="isRequired(controls.position)">
         <bvr-dropdown-list
           formControlName="position"
           name="position"
           [options]="positions"></bvr-dropdown-list>
         <bvr-error
           class="error"
-          [control]="
-            addEmployeeForm.get(['employmentInfo', 'position'])
-          "></bvr-error>
+          [control]="controls.position"></bvr-error>
       </bvr-form-field>
       <bvr-form-field
         class="field"
         label="Hire Date"
-        [required]="isRequired('employmentDate')">
+        [required]="isRequired(controls.employmentDate)">
         <bvr-date-picker formControlName="employmentDate"></bvr-date-picker>
         <bvr-error
           class="error"
-          [control]="
-            addEmployeeForm.get(['employmentInfo', 'employmentDate'])
-          "></bvr-error>
+          [control]="controls.employmentDate"></bvr-error>
       </bvr-form-field>
     </div>
     <div class="row">
       <bvr-form-field
         class="left-field"
         label="Contract Type"
-        [required]="isRequired('contractType')">
+        [required]="isRequired(controls.contractType)">
         <bvr-dropdown-list
           formControlName="contractType"
           name="contract type"
           [options]="contractTypes"></bvr-dropdown-list>
         <bvr-error
           class="error"
-          [control]="
-            addEmployeeForm.get(['employmentInfo', 'contractType'])
-          "></bvr-error>
+          [control]="controls.contractType"></bvr-error>
       </bvr-form-field>
       <bvr-form-field
         class="field"
         label="Working Time"
-        [required]="isRequired('workingTime')">
+        [required]="isRequired(controls.workingTime)">
         <bvr-input-number
           [decimalPlaces]="0"
           [digits]="3"
@@ -60,16 +54,14 @@
           suffix="h"></bvr-input-number>
         <bvr-error
           class="error"
-          [control]="
-            addEmployeeForm.get(['employmentInfo', 'workingTime'])
-          "></bvr-error>
+          [control]="controls.workingTime"></bvr-error>
       </bvr-form-field>
     </div>
     <div class="row">
       <bvr-form-field
         class="left-field"
         label="Rate"
-        [required]="isRequired('wage')">
+        [required]="isRequired(controls.wage)">
         <bvr-input-number
           [digits]="4"
           formControlName="wage"
@@ -77,14 +69,12 @@
           suffix="PLN"></bvr-input-number>
         <bvr-error
           class="error"
-          [control]="
-            addEmployeeForm.get(['employmentInfo', 'wage'])
-          "></bvr-error>
+          [control]="controls.wage"></bvr-error>
       </bvr-form-field>
       <bvr-form-field
         class="field"
         label="Payday"
-        [required]="isRequired('payday')">
+        [required]="isRequired(controls.payday)">
         <bvr-input-number
           [decimalPlaces]="0"
           [digits]="2"
@@ -92,23 +82,19 @@
           placeholder="Day"></bvr-input-number>
         <bvr-error
           class="error"
-          [control]="
-            addEmployeeForm.get(['employmentInfo', 'payday'])
-          "></bvr-error>
+          [control]="controls.payday"></bvr-error>
       </bvr-form-field>
     </div>
     <bvr-form-field
       label="Account number"
-      [required]="isRequired('accountNumber')">
+      [required]="isRequired(controls.accountNumber)">
       <input
         formControlName="accountNumber"
         placeholder="00 0000 0000 0000 0000 0000"
         type="text" />
       <bvr-error
         class="error"
-        [control]="
-          addEmployeeForm.get(['employmentInfo', 'accountNumber'])
-        "></bvr-error>
+        [control]="controls.accountNumber"></bvr-error>
     </bvr-form-field>
   </div>
 </div>

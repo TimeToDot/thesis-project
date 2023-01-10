@@ -48,41 +48,41 @@
         (@tabs.start)="toggleFormButtons(false)"
         (@tabs.done)="toggleFormButtons(true)"
         class="steps">
-        <ng-container *ngIf="step === 1">
-          <bvr-personal-info
-            class="outlet"
-            [addEmployeeForm]="addEmployeeForm"
-            [enableFormButtons]="enableFormButtons"
-            (nextStepChange)="nextStep()"
-            (openCancelModal)="openCancelModal($event)"></bvr-personal-info>
-        </ng-container>
-        <ng-container *ngIf="step === 2">
-          <bvr-address-info
-            class="outlet"
-            [addEmployeeForm]="addEmployeeForm"
-            [enableFormButtons]="enableFormButtons"
-            (nextStepChange)="nextStep()"
-            (openCancelModal)="openCancelModal($event)"
-            (previousStepChange)="previousStep()"></bvr-address-info>
-        </ng-container>
-        <ng-container *ngIf="step === 3">
-          <bvr-employment-info
-            class="outlet"
-            [addEmployeeForm]="addEmployeeForm"
-            [enableFormButtons]="enableFormButtons"
-            (nextStepChange)="nextStep()"
-            (openCancelModal)="openCancelModal($event)"
-            (previousStepChange)="previousStep()"></bvr-employment-info>
-        </ng-container>
-        <ng-container *ngIf="step === 4">
-          <bvr-account-info
-            class="outlet"
-            [addEmployeeForm]="addEmployeeForm"
-            (disableGuard)="disableGuard($event)"
-            [enableFormButtons]="enableFormButtons"
-            (openCancelModal)="openCancelModal($event)"
-            (previousStepChange)="previousStep()"></bvr-account-info>
-        </ng-container>
+        <bvr-personal-info
+          *ngIf="step === 1"
+          class="outlet"
+          [addEmployeeForm]="addEmployeeForm"
+          [controls]="controls"
+          [enableFormButtons]="enableFormButtons"
+          (nextStepChange)="nextStep()"
+          (openCancelModal)="openCancelModal($event)"></bvr-personal-info>
+        <bvr-address-info
+          *ngIf="step === 2"
+          class="outlet"
+          [addEmployeeForm]="addEmployeeForm"
+          [controls]="controls"
+          [enableFormButtons]="enableFormButtons"
+          (nextStepChange)="nextStep()"
+          (openCancelModal)="openCancelModal($event)"
+          (previousStepChange)="previousStep()"></bvr-address-info>
+        <bvr-employment-info
+          *ngIf="step === 3"
+          class="outlet"
+          [addEmployeeForm]="addEmployeeForm"
+          [controls]="controls"
+          [enableFormButtons]="enableFormButtons"
+          (nextStepChange)="nextStep()"
+          (openCancelModal)="openCancelModal($event)"
+          (previousStepChange)="previousStep()"></bvr-employment-info>
+        <bvr-account-info
+          *ngIf="step === 4"
+          class="outlet"
+          [addEmployeeForm]="addEmployeeForm"
+          [controls]="controls"
+          (disableGuard)="disableGuard($event)"
+          [enableFormButtons]="enableFormButtons"
+          (openCancelModal)="openCancelModal($event)"
+          (previousStepChange)="previousStep()"></bvr-account-info>
       </form>
     </div>
   </div>

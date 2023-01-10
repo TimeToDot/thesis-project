@@ -18,6 +18,27 @@ export class EmployeesService {
     return this.http.get<Account>(`${this.url}/${id}`);
   }
 
+  addEmployee(employee: Account): Observable<Employee> {
+    const newEmp: Employee = {
+      id: employee.id,
+      firstName: employee.firstName,
+      lastName: employee.lastName,
+      email: employee.email,
+      image: employee.image,
+      position: employee.position.name,
+      employmentDate: employee.employmentDate,
+      workingTime: Number(employee.workingTime),
+      wage: Number(employee.wage),
+      contractType: employee.contractType,
+      active: Boolean(employee.active),
+    };
+    return this.http.post<Employee>(this.url, newEmp);
+  }
+
+  addAccount(employee: Account): Observable<Account> {
+    return this.http.post<Account>('http://localhost:3000/accounts', employee);
+  }
+
   getEmployees(): Observable<Employee[]> {
     return this.http.get<Employee[]>(`${this.url}?active=true`);
   }

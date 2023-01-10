@@ -8,44 +8,40 @@
     <div class="form-header">{{ 'Account Info' | uppercase }}</div>
     <bvr-form-field
       label="Email"
-      [required]="isRequired('email')">
+      [required]="isRequired(controls.email)">
       <input
         formControlName="email"
         placeholder="email.example@mail.com"
         type="email" />
       <bvr-error
         class="error"
-        [control]="addEmployeeForm.get(['accountInfo', 'email'])"></bvr-error>
+        [control]="controls.email"></bvr-error>
     </bvr-form-field>
     <bvr-form-field
       label="Password"
-      [required]="isRequired('password')">
+      [required]="isRequired(controls.password)">
       <input
         formControlName="password"
         placeholder="*********"
         type="password" />
       <bvr-error
         class="error"
-        [control]="
-          addEmployeeForm.get(['accountInfo', 'password'])
-        "></bvr-error>
+        [control]="controls.password"></bvr-error>
     </bvr-form-field>
     <bvr-form-field
       label="Repeat Password"
-      [required]="isRequired('repeatPassword')">
+      [required]="isRequired(controls.repeatPassword)">
       <input
         formControlName="repeatPassword"
         placeholder="*********"
         type="password" />
       <bvr-error
         class="error"
-        [control]="
-          addEmployeeForm.get(['accountInfo', 'repeatPassword'])
-        "></bvr-error>
+        [control]="controls.repeatPassword"></bvr-error>
     </bvr-form-field>
     <bvr-error
       class="error"
-      [control]="addEmployeeForm.get(['accountInfo'])"></bvr-error>
+      [control]="controls.accountInfo"></bvr-error>
   </div>
 </div>
 <div

@@ -146,6 +146,22 @@
       "wage": 45,
       "workingTime": 40,
       "active": true
+    },
+    {
+      "id": "EtHlpmT",
+      "firstName": "asd",
+      "lastName": "as",
+      "email": "as@as.cs",
+      "image": "",
+      "position": "Product Designer",
+      "employmentDate": "2023-01-11",
+      "workingTime": 2,
+      "wage": 2,
+      "contractType": {
+        "id": "1",
+        "name": "Employment contract"
+      },
+      "active": true
     }
   ],
   "accounts": [
@@ -571,6 +587,53 @@
         "id": "175"
       },
       "accountNumber": "90 0023 0231 2145 3443 2133 2300"
+    },
+    {
+      "id": "EtHlpmT",
+      "firstName": "asd",
+      "middleName": "s",
+      "lastName": "as",
+      "sex": {
+        "id": "1",
+        "name": "Male"
+      },
+      "birthDate": "2023-01-11",
+      "birthPlace": "s",
+      "idCardNumber": "s",
+      "pesel": "22222222222",
+      "street": "22",
+      "houseNumber": "2",
+      "apartmentNumber": "2",
+      "city": "as",
+      "postalCode": "2",
+      "country": {
+        "name": "🇦🇸 American Samoa",
+        "id": "3"
+      },
+      "phoneNumber": "2",
+      "privateEmail": "as@as.as",
+      "position": {
+        "id": "2",
+        "name": "Product Designer",
+        "description": "Product Designer",
+        "creationDate": "2022-01-20",
+        "count": 1,
+        "archiveDate": "2022-10-10",
+        "active": true
+      },
+      "employmentDate": "2023-01-11",
+      "contractType": {
+        "id": "1",
+        "name": "Employment contract"
+      },
+      "workingTime": "2",
+      "wage": "2",
+      "payday": "2",
+      "accountNumber": "2",
+      "email": "as@as.cs",
+      "password": "zaq1@WSX",
+      "image": "",
+      "active": true
     }
   ],
   "contract-types": [
@@ -634,32 +697,6 @@
       "creationDate": "2023-01-10",
       "active": false,
       "archiveDate": "2023-01-10"
-    },
-    {
-      "id": "uPN3Iir",
-      "name": "test",
-      "description": "test",
-      "count": 0,
-      "creationDate": "2023-01-10",
-      "active": false,
-      "archiveDate": "2023-01-10"
-    },
-    {
-      "id": "eiCST6s",
-      "name": "qwe",
-      "description": "qwe",
-      "count": 0,
-      "creationDate": "2023-01-10",
-      "active": false,
-      "archiveDate": "2023-01-10"
-    },
-    {
-      "id": "7YDnHh8",
-      "name": "zxc",
-      "description": "asd",
-      "count": 0,
-      "creationDate": "2023-01-10",
-      "active": true
     }
   ],
   "billing-periods": [

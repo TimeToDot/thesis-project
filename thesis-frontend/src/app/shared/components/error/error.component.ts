@@ -14,8 +14,8 @@ export class ErrorComponent {
   errorsList: string[] = [];
   errorMessages: { [name: string]: (param: any) => string } = {
     required: (params: any) => `This field is required`,
-    min: (params: any) => `Value is too short`,
-    max: (params: any) => `Value is too long`,
+    minlength: (params: any) => `Value is too short`,
+    maxlength: (params: any) => `Value is too long`,
     minValue: (params: any) => `Minimum value is ${params}`,
     maxValue: (params: any) => `Maximum value is ${params}`,
     password: (params: any) =>

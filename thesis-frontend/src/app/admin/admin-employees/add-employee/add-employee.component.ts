@@ -36,6 +36,7 @@ import { CustomValidators } from '../../../shared/helpers/custom-validators.help
 })
 export class AddEmployeeComponent implements OnInit {
   addEmployeeForm!: FormGroup;
+  controls: any = {};
   enableFormButtons: boolean = true;
   isCancelModalOpen: boolean = false;
   isFromGuard: boolean = false;
@@ -48,6 +49,7 @@ export class AddEmployeeComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm();
+    this.getFormControls();
   }
 
   createForm(): void {
@@ -69,7 +71,10 @@ export class AddEmployeeComponent implements OnInit {
           '',
           [Validators.required, Validators.pattern(Regex.ALPHANUMERIC)],
         ],
-        pesel: ['', [Validators.pattern(Regex.PESEL)]],
+        pesel: [
+          '',
+          [Validators.pattern(Regex.NUMERIC), Validators.minLength(11)],
+        ],
       }),
       addressInfo: this.fb.group({
         street: [
@@ -143,6 +148,17 @@ export class AddEmployeeComponent implements OnInit {
           ],
         }
       ),
+    });
+  }
+
+  getFormControls(): void {
+    Object.keys(this.addEmployeeForm.controls).forEach(group => {
+      this.controls[group] = this.addEmployeeForm.get([group]);
+      Object.keys(
+        (this.addEmployeeForm.get(group) as FormGroup<any>).controls
+      ).forEach(field => {
+        this.controls[field] = this.addEmployeeForm.get([group, field]);
+      });
     });
   }
 
