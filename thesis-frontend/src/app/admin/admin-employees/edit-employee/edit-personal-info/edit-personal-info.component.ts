@@ -1,12 +1,17 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  AbstractControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { FormFieldComponent } from '../../../../shared/components/form-field/form-field.component';
-import { ValidationService } from '../../../../shared/services/validation.service';
 import { DropdownListComponent } from '../../../../shared/components/dropdown-list/dropdown-list.component';
 import { DropdownOption } from '../../../../shared/models/dropdown-option.model';
 import { DatePickerComponent } from '../../../../shared/components/date-picker/date-picker.component';
 import { ErrorComponent } from '../../../../shared/components/error/error.component';
+import { InputNumberComponent } from '../../../../shared/components/input-number/input-number.component';
 
 @Component({
   selector: 'bvr-edit-personal-info',
@@ -17,11 +22,13 @@ import { ErrorComponent } from '../../../../shared/components/error/error.compon
     DropdownListComponent,
     ErrorComponent,
     FormFieldComponent,
+    InputNumberComponent,
     ReactiveFormsModule,
   ],
   templateUrl: './edit-personal-info.component.html',
 })
 export class EditPersonalInfoComponent {
+  @Input() controls: any;
   @Input() editEmployeeForm!: FormGroup;
 
   sexes: DropdownOption[] = [
@@ -30,21 +37,7 @@ export class EditPersonalInfoComponent {
     { id: '3', name: 'Other' },
   ];
 
-  constructor(private validationService: ValidationService) {}
-
-  isRequired(name: string): boolean {
-    return this.validationService.isRequired(this.editEmployeeForm, [
-      'personalInfo',
-      name,
-    ]);
-  }
-
-  showErrors(name?: string): boolean {
-    return name
-      ? this.validationService.showErrors(this.editEmployeeForm, [
-          'personalInfo',
-          name,
-        ])
-      : this.validationService.showErrors(this.editEmployeeForm, []);
+  isRequired(control: AbstractControl | null): boolean {
+    return control && control?.hasValidator(Validators.required) ? true : false;
   }
 }

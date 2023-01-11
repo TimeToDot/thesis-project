@@ -9,115 +9,103 @@
       <bvr-form-field
         class="left-field"
         label="First Name"
-        [required]="isRequired('firstName')">
+        [required]="isRequired(controls.firstName)">
         <input
           formControlName="firstName"
           placeholder="First Name"
           type="text" />
         <bvr-error
           class="error"
-          [control]="
-            editEmployeeForm.get(['personalInfo', 'firstName'])
-          "></bvr-error>
+          [control]="controls.firstName"></bvr-error>
       </bvr-form-field>
       <bvr-form-field
         class="field"
         label="Last Name"
-        [required]="isRequired('lastName')">
+        [required]="isRequired(controls.lastName)">
         <input
           formControlName="lastName"
           placeholder="Last Name"
           type="text" />
         <bvr-error
           class="error"
-          [control]="
-            editEmployeeForm.get(['personalInfo', 'lastName'])
-          "></bvr-error>
+          [control]="controls.lastName"></bvr-error>
       </bvr-form-field>
     </div>
     <div class="row">
       <bvr-form-field
         class="left-field"
         label="Middle Name"
-        [required]="isRequired('middleName')">
+        [required]="isRequired(controls.middleName)">
         <input
           formControlName="middleName"
           placeholder="Middle Name"
           type="text" />
         <bvr-error
           class="error"
-          [control]="
-            editEmployeeForm.get(['personalInfo', 'middleName'])
-          "></bvr-error>
+          [control]="controls.middleName"></bvr-error>
       </bvr-form-field>
       <bvr-form-field
         class="field"
         label="Sex"
-        [required]="isRequired('sex')">
+        [required]="isRequired(controls.sex)">
         <bvr-dropdown-list
           formControlName="sex"
           name="sex"
           [options]="sexes"></bvr-dropdown-list>
         <bvr-error
           class="error"
-          [control]="editEmployeeForm.get(['personalInfo', 'sex'])"></bvr-error>
+          [control]="controls.sex"></bvr-error>
       </bvr-form-field>
     </div>
     <div class="row">
       <bvr-form-field
         class="left-field"
         label="Date Of Birth"
-        [required]="isRequired('birthDate')">
+        [required]="isRequired(controls.birthDate)">
         <bvr-date-picker formControlName="birthDate"></bvr-date-picker>
         <bvr-error
           class="error"
-          [control]="
-            editEmployeeForm.get(['personalInfo', 'birthDate'])
-          "></bvr-error>
+          [control]="controls.birthDate"></bvr-error>
       </bvr-form-field>
       <bvr-form-field
         class="field"
         label="Place Of Birth"
-        [required]="isRequired('birthPlace')">
+        [required]="isRequired(controls.birthPlace)">
         <input
           formControlName="birthPlace"
           placeholder="Place Of Birth"
           type="text" />
         <bvr-error
           class="error"
-          [control]="
-            editEmployeeForm.get(['personalInfo', 'birthPlace'])
-          "></bvr-error>
+          [control]="controls.birthPlace"></bvr-error>
       </bvr-form-field>
     </div>
     <div class="row">
       <bvr-form-field
         class="left-field"
         label="ID Card Number"
-        [required]="isRequired('idCardNumber')">
+        [required]="isRequired(controls.idCardNumber)">
         <input
           formControlName="idCardNumber"
           placeholder="ABC 000000"
           type="text" />
         <bvr-error
           class="error"
-          [control]="
-            editEmployeeForm.get(['personalInfo', 'idCardNumber'])
-          "></bvr-error>
+          [control]="controls.idCardNumber"></bvr-error>
       </bvr-form-field>
       <bvr-form-field
         class="field"
         label="PESEL"
         placeholder="00000000000"
-        [required]="isRequired('pesel')">
-        <input
+        [required]="isRequired(controls.pesel)">
+        <bvr-input-number
+          [decimalPlaces]="0"
+          [digits]="11"
           formControlName="pesel"
-          type="text" />
+          placeholder="00000000000"></bvr-input-number>
         <bvr-error
           class="error"
-          [control]="
-            editEmployeeForm.get(['personalInfo', 'pesel'])
-          "></bvr-error>
+          [control]="controls.pesel"></bvr-error>
       </bvr-form-field>
     </div>
   </div>

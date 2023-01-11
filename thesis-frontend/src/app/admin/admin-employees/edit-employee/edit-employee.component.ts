@@ -19,7 +19,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { DatePickerComponent } from '../../../shared/components/date-picker/date-picker.component';
-import { PositionsService } from '../../services/positions.service';
 import { Position } from '../../models/position.model';
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
 import { ToastComponent } from '../../../shared/components/toast/toast.component';
@@ -56,6 +55,7 @@ import { CustomValidators } from '../../../shared/helpers/custom-validators.help
   animations: [tabAnimation],
 })
 export class EditEmployeeComponent {
+  controls: any = {};
   employee!: Account;
   editEmployeeForm!: FormGroup;
   enableFormButtons: boolean = true;
@@ -75,7 +75,6 @@ export class EditEmployeeComponent {
     private employeesService: EmployeesService,
     private fb: FormBuilder,
     private location: Location,
-    private positionsService: PositionsService,
     private route: ActivatedRoute,
     private router: Router,
     private toastService: ToastService
@@ -84,9 +83,9 @@ export class EditEmployeeComponent {
   ngOnInit(): void {
     this.getCurrentTab();
     this.createForm();
+    this.getFormControls();
     this.getNavbarOptions();
     this.getEmployee();
-    this.getPositions();
   }
 
   getCurrentTab(): void {
@@ -113,7 +112,10 @@ export class EditEmployeeComponent {
           '',
           [Validators.required, Validators.pattern(Regex.ALPHANUMERIC)],
         ],
-        pesel: ['', [Validators.pattern(Regex.PESEL)]],
+        pesel: [
+          '',
+          [Validators.pattern(Regex.NUMERIC), Validators.minLength(11)],
+        ],
       }),
       addressInfo: this.fb.group({
         street: [
@@ -175,6 +177,17 @@ export class EditEmployeeComponent {
     });
   }
 
+  getFormControls(): void {
+    Object.keys(this.editEmployeeForm.controls).forEach(group => {
+      this.controls[group] = this.editEmployeeForm.get([group]);
+      Object.keys(
+        (this.editEmployeeForm.get(group) as FormGroup<any>).controls
+      ).forEach(field => {
+        this.controls[field] = this.editEmployeeForm.get([group, field]);
+      });
+    });
+  }
+
   getNavbarOptions(): void {
     this.navbarOptions.push({ name: 'Personal', path: 'personal-info' });
     this.navbarOptions.push({ name: 'Address', path: 'address-info' });
@@ -193,13 +206,6 @@ export class EditEmployeeComponent {
           this.updateFormFields();
         });
     }
-  }
-
-  getPositions(): void {
-    this.positionsService
-      .getPositions()
-      .pipe(first())
-      .subscribe(positions => (this.positions = positions));
   }
 
   updateTabIndex(index: number): void {
@@ -265,18 +271,65 @@ export class EditEmployeeComponent {
   save(value: boolean): void {
     this.disableGuard(true);
     if (value) {
-      new Promise((resolve, _) => {
-        this.location.back();
-        resolve('done');
-      }).then(() => {
-        setTimeout(
-          () =>
-            this.toastService.showToast(ToastState.Success, 'Employee edited'),
-          200
-        );
-        setTimeout(() => this.toastService.dismissToast(), 3200);
-      });
+      this.employeesService
+        .updateAccount(this.getEmployeeData())
+        .pipe(first())
+        .subscribe(employee => {
+          this.employeesService
+            .updateEmployee(employee)
+            .pipe(first())
+            .subscribe(() => {
+              this.redirectAfterSave();
+            });
+        });
     }
+  }
+
+  getEmployeeData(): Account {
+    return {
+      id: this.employee.id,
+      firstName: this.controls.firstName?.value,
+      middleName: this.controls.middleName?.value,
+      lastName: this.controls.lastName?.value,
+      sex: this.controls.sex?.value,
+      birthDate: this.controls.birthDate?.value,
+      birthPlace: this.controls.birthPlace?.value,
+      idCardNumber: this.controls.idCardNumber?.value,
+      pesel: this.controls.pesel?.value,
+      street: this.controls.street?.value,
+      houseNumber: this.controls.houseNumber?.value,
+      apartmentNumber: this.controls.apartmentNumber?.value,
+      city: this.controls.city?.value,
+      postalCode: this.controls.postalCode?.value,
+      country: this.controls.country?.value,
+      phoneNumber: this.controls.phoneNumber?.value,
+      privateEmail: this.controls.privateEmail?.value,
+      position: this.controls.position?.value,
+      employmentDate: this.controls.employmentDate?.value,
+      contractType: this.controls.contractType?.value,
+      workingTime: this.controls.workingTime?.value,
+      wage: this.controls.wage?.value,
+      payday: this.controls.payday?.value,
+      accountNumber: this.controls.accountNumber?.value,
+      email: this.controls.email?.value,
+      password: this.controls.password?.value,
+      image: this.employee.image,
+      active: this.employee.active,
+    };
+  }
+
+  redirectAfterSave(): void {
+    new Promise((resolve, _) => {
+      this.location.back();
+      resolve('done');
+    }).then(() => {
+      setTimeout(
+        () =>
+          this.toastService.showToast(ToastState.Success, 'Employee edited'),
+        200
+      );
+      setTimeout(() => this.toastService.dismissToast(), 3200);
+    });
   }
 
   disableGuard(value: boolean): void {

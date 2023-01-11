@@ -7,13 +7,13 @@
     <div class="form-header">{{ 'Account Info' | uppercase }}</div>
     <bvr-form-field
       label="Email"
-      [required]="isRequired('email')">
+      [required]="isRequired(controls.email)">
       <input
         formControlName="email"
         type="email" />
       <bvr-error
         class="error"
-        [control]="editEmployeeForm.get(['accountInfo', 'email'])"></bvr-error>
+        [control]="controls.email"></bvr-error>
     </bvr-form-field>
 
     <bvr-edit-password></bvr-edit-password>

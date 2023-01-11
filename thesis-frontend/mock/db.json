@@ -149,7 +149,7 @@
     },
     {
       "id": "EtHlpmT",
-      "firstName": "asd",
+      "firstName": "Jan Andrzej",
       "lastName": "as",
       "email": "as@as.cs",
       "image": "",
@@ -160,6 +160,22 @@
       "contractType": {
         "id": "1",
         "name": "Employment contract"
+      },
+      "active": true
+    },
+    {
+      "id": "GBL5Hfj",
+      "firstName": "dsf",
+      "lastName": "fdf",
+      "email": "aa@aa.aa",
+      "image": "",
+      "position": "Product Designer",
+      "employmentDate": "2023-01-11",
+      "workingTime": 2,
+      "wage": 2,
+      "contractType": {
+        "id": "2",
+        "name": "Commission contract"
       },
       "active": true
     }
@@ -590,7 +606,7 @@
     },
     {
       "id": "EtHlpmT",
-      "firstName": "asd",
+      "firstName": "Jan Andrzej",
       "middleName": "s",
       "lastName": "as",
       "sex": {
@@ -631,6 +647,52 @@
       "payday": "2",
       "accountNumber": "2",
       "email": "as@as.cs",
+      "image": "",
+      "active": true
+    },
+    {
+      "id": "GBL5Hfj",
+      "firstName": "dsf",
+      "middleName": "df",
+      "lastName": "fdf",
+      "sex": {
+        "id": "3",
+        "name": "Other"
+      },
+      "birthDate": "2023-01-11",
+      "birthPlace": "df",
+      "idCardNumber": "df",
+      "pesel": "32232323232",
+      "street": "3",
+      "houseNumber": "3",
+      "apartmentNumber": "3",
+      "city": "as",
+      "postalCode": "3",
+      "country": {
+        "name": "🇦🇱 Albania",
+        "id": "1"
+      },
+      "phoneNumber": "32",
+      "privateEmail": "aa@aa.aa",
+      "position": {
+        "id": "2",
+        "name": "Product Designer",
+        "description": "Product Designer",
+        "creationDate": "2022-01-20",
+        "count": 1,
+        "archiveDate": "2022-10-10",
+        "active": true
+      },
+      "employmentDate": "2023-01-11",
+      "contractType": {
+        "id": "2",
+        "name": "Commission contract"
+      },
+      "workingTime": "2",
+      "wage": "2",
+      "payday": "2",
+      "accountNumber": "2",
+      "email": "aa@aa.aa",
       "password": "zaq1@WSX",
       "image": "",
       "active": true
