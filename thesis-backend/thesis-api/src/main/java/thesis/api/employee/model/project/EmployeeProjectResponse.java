@@ -1,4 +1,4 @@
-package thesis.api.employee.model;
+package thesis.api.employee.model.project;
 
 import java.util.UUID;
 

@@ -1,9 +1,9 @@
-package thesis.api.employee.model;
+package thesis.domain.task.model;
 
 import java.util.Date;
 import java.util.UUID;
 
-public record Task(
+public record TaskFormDto(
         UUID id,
         String name,
         String description,

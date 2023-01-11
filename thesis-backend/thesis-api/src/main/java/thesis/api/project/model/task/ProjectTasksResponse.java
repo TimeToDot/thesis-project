@@ -1,4 +1,4 @@
-package thesis.api.project.model;
+package thesis.api.project.model.task;
 
 import thesis.domain.paging.Paging;
 import thesis.domain.paging.Sorting;

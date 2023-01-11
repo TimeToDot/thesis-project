@@ -8,7 +8,7 @@ import org.hibernate.Hibernate;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import thesis.data.position.model.Position;
-import thesis.data.project.model.ProjectAccountRole;
+import thesis.data.project.model.ProjectAccount;
 import thesis.data.role.model.Role;
 import thesis.data.task.model.Task;
 
@@ -68,7 +68,7 @@ public class  Account {
 
     @OneToMany(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @ToString.Exclude
-    private List<ProjectAccountRole> projectAccountRoles;
+    private List<ProjectAccount> projectAccounts;
 
     @Override
     public boolean equals(Object o) {

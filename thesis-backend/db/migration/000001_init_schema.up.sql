@@ -22,6 +22,18 @@ CREATE TABLE "account_details" (
                                    "created_at" timestamp DEFAULT 'now()'
 );
 
+CREATE TABLE "account_project" (
+
+                                   "id" uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+                                   "account_id" uuid NOT NULL,
+                                   "project_id" uuid NOT NULL,
+                                   "role_id" uuid NOT NULL,
+                                   "workingTime" INTEGER,
+                                   "joinDate" timestamp NOT NULL,
+                                   "exitDate" timestamp NOT NULL,
+                                   "status" varchar NOT NULL,
+);
+
 CREATE TABLE "position" (
                         "id" uuid DEFAULT gen_random_uuid() PRIMARY KEY,
                         "name" varchar,
@@ -69,13 +81,6 @@ CREATE TABLE "project_details" (
                                    "project_id" uuid NOT NULL,
                                    "options" varchar NOT NULL,
                                    "created_at" timestamp DEFAULT 'now()'
-);
-
-CREATE TABLE "project_account_role" (
-                                "id" uuid DEFAULT gen_random_uuid() PRIMARY KEY,
-                                "project_id" uuid NOT NULL,
-                                "account_id" uuid NOT NULL,
-                                "role_id" uuid NOT NULL
 );
 
 CREATE TABLE "task_form" (
@@ -146,11 +151,11 @@ ALTER TABLE "project" ADD FOREIGN KEY ("owner_id") REFERENCES "account" ("id");
 
 ALTER TABLE "project_details" ADD FOREIGN KEY ("project_id") REFERENCES "project" ("id");
 
-ALTER TABLE "project_account_role" ADD FOREIGN KEY ("project_id") REFERENCES "project"("id");
+ALTER TABLE "account_project" ADD FOREIGN KEY ("project_id") REFERENCES "project"("id");
 
-ALTER TABLE "project_account_role" ADD FOREIGN KEY ("account_id") REFERENCES "account"("id");
+ALTER TABLE "account_project" ADD FOREIGN KEY ("account_id") REFERENCES "account"("id");
 
-ALTER TABLE "project_account_role" ADD FOREIGN KEY ("role_id") REFERENCES "role"("id");
+ALTER TABLE "account_project" ADD FOREIGN KEY ("role_id") REFERENCES "role"("id");
 
 ALTER TABLE "task_form" ADD FOREIGN KEY ("id_project") REFERENCES "project" ("id");
 

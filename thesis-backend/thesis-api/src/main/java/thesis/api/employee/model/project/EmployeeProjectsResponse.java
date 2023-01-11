@@ -1,4 +1,4 @@
-package thesis.api.employee.model;
+package thesis.api.employee.model.project;
 
 import lombok.Builder;
 import thesis.domain.paging.Paging;
@@ -8,7 +8,7 @@ import java.util.List;
 
 @Builder
 public record EmployeeProjectsResponse(
-        List<EmployeeProjectResponse> employeeProjectResponses,
+        List<EmployeeProjectResponse> projects,
         Paging paging,
         Sorting sorting
 ) {

@@ -1,4 +1,4 @@
-package thesis.api.employee.model;
+package thesis.api.employee.model.task;
 
 public enum TaskStatus {
     PENDING,

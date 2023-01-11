@@ -1,4 +1,4 @@
-package thesis.api.project.model;
+package thesis.api.project.model.task;
 
 import java.util.Date;
 import java.util.UUID;

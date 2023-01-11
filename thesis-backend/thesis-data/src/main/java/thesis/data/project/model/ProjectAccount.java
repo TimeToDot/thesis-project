@@ -9,6 +9,7 @@ import thesis.data.account.model.Account;
 import thesis.data.role.model.Role;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.UUID;
 
 @Getter
@@ -17,8 +18,8 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @SuperBuilder
 @Entity
-@Table(name = "project_account_role")
-public class ProjectAccountRole {
+@Table(name = "account_project")
+public class ProjectAccount {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -36,5 +37,16 @@ public class ProjectAccountRole {
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
+
+    private Integer workingTime;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date joinDate;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date exitDate;
+
+    @Enumerated(EnumType.STRING)
+    private ProjectAccountStatus status;
 
 }

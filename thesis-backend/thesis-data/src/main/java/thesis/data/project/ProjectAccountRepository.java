@@ -4,13 +4,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
-import thesis.data.project.model.ProjectAccountRole;
+import thesis.data.project.model.ProjectAccount;
 
 import java.util.Optional;
 import java.util.UUID;
 
-public interface ProjectAccountRoleRepository extends JpaRepository<ProjectAccountRole, UUID> {
+public interface ProjectAccountRepository extends JpaRepository<ProjectAccount, UUID> {
 
     @Transactional
-    Optional<Page<ProjectAccountRole>> findAllByAccount_Id(UUID id, Pageable pageable);
+    Optional<Page<ProjectAccount>> findAllByAccount_Id(UUID id, Pageable pageable);
 }

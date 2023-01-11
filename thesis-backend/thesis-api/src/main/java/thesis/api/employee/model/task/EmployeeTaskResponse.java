@@ -1,5 +1,6 @@
-package thesis.api.employee.model;
+package thesis.api.employee.model.task;
 
+import thesis.api.employee.model.project.EmployeeProjectResponse;
 import thesis.data.task.model.TaskStatus;
 
 import java.time.LocalDateTime;
@@ -13,7 +14,7 @@ public record EmployeeTaskResponse(
         LocalDateTime startTime,
         LocalDateTime endTime,
         EmployeeProjectResponse employeeProjectResponse,
-        Task task,
+        TaskResponse task,
         TaskStatus status
 ){
 
