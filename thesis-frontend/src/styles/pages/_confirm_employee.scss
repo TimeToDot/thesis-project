@@ -31,6 +31,8 @@
     height: 37.5 * $grid-base;
     justify-content: center;
     margin-right: 11 * $grid-base;
+    max-height: 37.5 * $grid-base;
+    min-width: 37.5 * $grid-base;
     width: 37.5 * $grid-base;
   }
 }

@@ -1,10 +1,14 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule, formatDate } from '@angular/common';
+import {
+  AbstractControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
 import { DropdownListComponent } from '../../../shared/components/dropdown-list/dropdown-list.component';
-import { ValidationService } from '../../../shared/services/validation.service';
 import { BillingPeriodsService } from '../../services/billing-periods.service';
 import { first } from 'rxjs';
 import { DropdownOption } from '../../../shared/models/dropdown-option.model';
@@ -16,6 +20,8 @@ import { ToastComponent } from '../../../shared/components/toast/toast.component
 import { ActivatedRoute, Router } from '@angular/router';
 import { ErrorComponent } from '../../../shared/components/error/error.component';
 import { InputNumberComponent } from '../../../shared/components/input-number/input-number.component';
+import { Project } from '../../models/project.model';
+import { ProjectsService } from '../../../shared/services/projects.service';
 
 @Component({
   selector: 'bvr-billing-info',
@@ -36,6 +42,7 @@ import { InputNumberComponent } from '../../../shared/components/input-number/in
 })
 export class BillingInfoComponent implements OnInit {
   @Input() addProjectForm!: FormGroup;
+  @Input() controls: any;
   @Input() enableFormButtons: boolean = false;
 
   @Output() disableGuard: EventEmitter<boolean> = new EventEmitter();
@@ -48,10 +55,10 @@ export class BillingInfoComponent implements OnInit {
 
   constructor(
     private billingPeriodsService: BillingPeriodsService,
+    private projectsService: ProjectsService,
     private route: ActivatedRoute,
     private router: Router,
-    private toastService: ToastService,
-    private validationService: ValidationService
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -67,10 +74,7 @@ export class BillingInfoComponent implements OnInit {
 
   openAddModal(): void {
     if (this.addProjectForm.valid) {
-      const projectName = this.addProjectForm.get([
-        'generalInfo',
-        'projectName',
-      ])?.value;
+      const projectName = this.controls.name.value;
       this.isAddModalOpen = true;
       this.modalDescription = `Are you sure you want to add ${projectName} to the Projects List?`;
     } else {
@@ -83,40 +87,56 @@ export class BillingInfoComponent implements OnInit {
   add(value: boolean): void {
     this.disableGuard.emit(true);
     if (value) {
-      this.router.navigate(['..'], { relativeTo: this.route }).then(() => {
-        setTimeout(
-          () =>
-            this.toastService.showToast(ToastState.Success, 'Project added'),
-          200
-        );
-        setTimeout(() => this.toastService.dismissToast(), 3200);
-      });
+      this.projectsService
+        .addProject(this.getProjectData())
+        .pipe(first())
+        .subscribe(() => {
+          this.redirectAfterAddition();
+        });
     }
   }
 
-  enableField(name: string, value: boolean): void {
-    value
-      ? this.addProjectForm.get(['billingInfo', name])?.enable()
-      : this.addProjectForm.get(['billingInfo', name])?.disable();
+  getProjectData(): Project {
+    return {
+      id: '',
+      name: this.controls.name?.value,
+      image: this.controls.image?.value,
+      description: this.controls.description?.value,
+      moderator: this.controls.moderator?.value,
+      employeesCount: this.controls.employeesCount?.value,
+      creationDate: formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en'),
+      billingPeriod: this.controls.billingPeriod?.value,
+      overtimeModifier: this.controls.overtimeModifier.disabled
+        ? this.controls.overtimeModifier?.value
+        : '',
+      bonusModifier: this.controls.bonusModifier?.disabled
+        ? this.controls.bonusModifier?.value
+        : '',
+      nightModifier: this.controls.nightModifier?.disabled
+        ? this.controls.nightModifier?.value
+        : '',
+      holidayModifier: this.controls.holidayModifier?.disabled
+        ? this.controls.holidayModifier?.value
+        : '',
+      active: true,
+    };
   }
 
-  isDisabled(name: string): boolean {
-    return !!this.addProjectForm.get(['billingInfo', name])?.disabled;
+  redirectAfterAddition(): void {
+    this.router.navigate(['..'], { relativeTo: this.route }).then(() => {
+      setTimeout(
+        () => this.toastService.showToast(ToastState.Success, 'Project added'),
+        200
+      );
+      setTimeout(() => this.toastService.dismissToast(), 3200);
+    });
   }
 
-  isRequired(name: string): boolean {
-    return this.validationService.isRequired(this.addProjectForm, [
-      'billingInfo',
-      name,
-    ]);
+  enableField(control: AbstractControl | null, value: boolean): void {
+    value ? control?.enable() : control?.disable();
   }
 
-  showErrors(name?: string): boolean {
-    return name
-      ? this.validationService.showErrors(this.addProjectForm, [
-          'billingInfo',
-          name,
-        ])
-      : this.validationService.showErrors(this.addProjectForm, []);
+  isRequired(control: AbstractControl | null): boolean {
+    return control && control?.hasValidator(Validators.required) ? true : false;
   }
 }

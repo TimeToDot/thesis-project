@@ -1318,6 +1318,28 @@
       "employeesCount": 50,
       "creationDate": "2021-03-11",
       "active": false
+    },
+    {
+      "id": "OFB4Ru0",
+      "name": "asd",
+      "image": {
+        "name": "nope-no.gif",
+        "src": {
+          "changingThisBreaksApplicationSecurity": "blob:http://localhost:4200/96e711f6-50bf-4560-84fb-7c22f54e7d92"
+        }
+      },
+      "description": "asd",
+      "moderator": "1",
+      "creationDate": "2023-01-11",
+      "billingPeriod": {
+        "id": "2",
+        "name": "2 Weeks"
+      },
+      "overtimeModifier": 100,
+      "bonusModifier": "",
+      "nightModifier": 100,
+      "holidayModifier": 100,
+      "active": true
     }
   ],
   "approvals": [
@@ -1622,5 +1644,41 @@
     "phoneNumber": "000-000-000",
     "email": "company.mail@mail.com",
     "website": "company.com"
-  }
+  },
+  "permissions": {
+    "canAddEmployee": true,
+    "canAddProject": true,
+    "canAdminEmployees": true,
+    "canAdminSettings": true,
+    "canAdminPositions": true
+  },
+  "project-permissions": [
+    {
+      "id": "1",
+      "canReadProject": true,
+      "canManageTasks": true,
+      "canManageProjectEmployees": true,
+      "canManageApprovals": true,
+      "canAdminProjects": true,
+      "canAddProjectEmployee": true
+    },
+    {
+      "id": "2",
+      "canReadProject": true,
+      "canManageTasks": false,
+      "canManageProjectEmployees": true,
+      "canManageApprovals": false,
+      "canAdminProjects": true,
+      "canAddProjectEmployee": true
+    },
+    {
+      "id": "3",
+      "canReadProject": true,
+      "canManageTasks": true,
+      "canManageProjectEmployees": false,
+      "canManageApprovals": true,
+      "canAdminProjects": true,
+      "canAddProjectEmployee": false
+    }
+  ]
 }

@@ -8,35 +8,33 @@
     <div class="form-header">{{ 'General' | uppercase }}</div>
     <bvr-form-field
       label="Project Name"
-      [required]="isRequired('name')">
+      [required]="isRequired(controls.name)">
       <input
         formControlName="name"
         placeholder="Project Name"
         type="text" />
       <bvr-error
         class="error"
-        [control]="addProjectForm.get(['generalInfo', 'name'])"></bvr-error>
+        [control]="controls.name"></bvr-error>
     </bvr-form-field>
     <div class="row">
       <bvr-form-field
         class="left-field"
         label="Logo"
-        [required]="isRequired('image')">
+        [required]="isRequired(controls.image)">
         <bvr-file-upload formControlName="image"></bvr-file-upload>
         <bvr-error
           class="error"
-          [control]="addProjectForm.get(['generalInfo', 'image'])"></bvr-error>
+          [control]="controls.image"></bvr-error>
       </bvr-form-field>
       <bvr-form-field
         class="field"
         label="Description"
-        [required]="isRequired('description')">
+        [required]="isRequired(controls.description)">
         <textarea formControlName="description"></textarea>
         <bvr-error
           class="error"
-          [control]="
-            addProjectForm.get(['generalInfo', 'description'])
-          "></bvr-error>
+          [control]="controls.description"></bvr-error>
       </bvr-form-field>
     </div>
   </div>

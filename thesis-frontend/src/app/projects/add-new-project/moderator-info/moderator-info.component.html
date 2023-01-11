@@ -2,11 +2,13 @@
   *ngIf="addProjectForm"
   class="view-form"
   [formGroup]="addProjectForm">
-  <div class="form">
+  <div
+    class="form"
+    formGroupName="moderatorInfo">
     <div class="form-header">{{ 'Moderator' | uppercase }}</div>
     <bvr-form-field
       label="Moderator"
-      [required]="isRequired('moderator')">
+      [required]="isRequired(controls.moderator)">
       <bvr-dropdown-search-employee
         *ngIf="employees.length"
         formControlName="moderator"
@@ -14,14 +16,12 @@
         [options]="employees"></bvr-dropdown-search-employee>
       <bvr-error
         class="error"
-        [control]="addProjectForm.get(['moderator'])"></bvr-error>
+        [control]="controls.moderator"></bvr-error>
     </bvr-form-field>
-  </div>
 
-  <div
-    *ngIf="employee"
-    class="form">
-    <div class="confirm-employee">
+    <div
+      *ngIf="employee"
+      class="confirm-employee">
       <img
         *ngIf="employee.image"
         class="picture"

@@ -1,12 +1,16 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  AbstractControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
 import { EmployeesService } from '../../../admin/services/employees.service';
 import { first } from 'rxjs';
 import { Employee } from '../../../shared/models/employee.model';
-import { ValidationService } from '../../../shared/services/validation.service';
 import { ToastState } from '../../../shared/enum/toast-state';
 import { ToastService } from '../../../shared/services/toast.service';
 import { ToastComponent } from '../../../shared/components/toast/toast.component';
@@ -30,6 +34,7 @@ import { ErrorComponent } from '../../../shared/components/error/error.component
 })
 export class ModeratorInfoComponent implements OnInit {
   @Input() addProjectForm!: FormGroup;
+  @Input() controls: any;
   @Input() enableFormButtons: boolean = false;
 
   @Output() nextStepChange: EventEmitter<void> = new EventEmitter();
@@ -41,8 +46,7 @@ export class ModeratorInfoComponent implements OnInit {
 
   constructor(
     private employeesService: EmployeesService,
-    private toastService: ToastService,
-    private validationService: ValidationService
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -60,13 +64,13 @@ export class ModeratorInfoComponent implements OnInit {
   }
 
   observeIdSelection(): void {
-    this.addProjectForm.get(['moderator'])?.valueChanges.subscribe(() => {
+    this.controls.moderator?.valueChanges.subscribe(() => {
       this.getEmployee();
     });
   }
 
   getEmployee(): void {
-    const employeeId = this.addProjectForm.get(['moderator'])?.value;
+    const employeeId = this.controls.moderator?.value;
     this.employeesService
       .getEmployee(employeeId)
       .pipe(first())
@@ -74,20 +78,16 @@ export class ModeratorInfoComponent implements OnInit {
   }
 
   nextStep(): void {
-    if (this.addProjectForm.get('moderator')?.valid) {
+    if (this.controls.moderatorInfo?.valid) {
       this.nextStepChange.emit();
     } else {
-      this.addProjectForm.get('moderator')?.markAllAsTouched();
+      this.controls.moderatorInfo?.markAllAsTouched();
       this.toastService.showToast(ToastState.Error, 'Form invalid');
       setTimeout(() => this.toastService.dismissToast(), 3000);
     }
   }
 
-  isRequired(name: string): boolean {
-    return this.validationService.isRequired(this.addProjectForm, [name]);
-  }
-
-  showErrors(name: string): boolean {
-    return this.validationService.showErrors(this.addProjectForm, [name]);
+  isRequired(control: AbstractControl | null): boolean {
+    return control && control?.hasValidator(Validators.required) ? true : false;
   }
 }

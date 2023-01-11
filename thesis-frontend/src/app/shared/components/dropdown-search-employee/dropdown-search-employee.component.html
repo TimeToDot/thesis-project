@@ -56,12 +56,12 @@
           *ngIf="option.image"
           class="picture"
           [src]="option.image" />
-        <span
+        <div
           *ngIf="!option.image"
           class="picture">
           {{ option.firstName[0] }}{{ option.lastName[0] }}
-        </span>
-        <span>{{ option.firstName }} {{ option.lastName }}</span>
+        </div>
+        <div>{{ option.firstName }} {{ option.lastName }}</div>
       </div>
       <div class="email">{{ option.email }}</div>
     </div>

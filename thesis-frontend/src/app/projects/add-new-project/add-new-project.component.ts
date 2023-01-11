@@ -31,6 +31,7 @@ import { CustomValidators } from '../../shared/helpers/custom-validators.helper'
 })
 export class AddNewProjectComponent implements OnInit {
   addProjectForm!: FormGroup;
+  controls: any = {};
   enableFormButtons: boolean = true;
   isCancelModalOpen: boolean = false;
   isFromGuard: boolean = false;
@@ -43,6 +44,7 @@ export class AddNewProjectComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm();
+    this.getFormControls();
   }
 
   createForm(): void {
@@ -55,7 +57,9 @@ export class AddNewProjectComponent implements OnInit {
         image: [null, [Validators.required]],
         description: [''],
       }),
-      moderator: ['', [Validators.required]],
+      moderatorInfo: this.fb.group({
+        moderator: ['', [Validators.required]],
+      }),
       billingInfo: this.fb.group({
         billingPeriod: ['', [Validators.required]],
         overtimeModifier: [
@@ -75,6 +79,17 @@ export class AddNewProjectComponent implements OnInit {
           [CustomValidators.minValue(0), CustomValidators.maxValue(500)],
         ],
       }),
+    });
+  }
+
+  getFormControls(): void {
+    Object.keys(this.addProjectForm.controls).forEach(group => {
+      this.controls[group] = this.addProjectForm.get([group]);
+      Object.keys(
+        (this.addProjectForm.get(group) as FormGroup<any>).controls
+      ).forEach(field => {
+        this.controls[field] = this.addProjectForm.get([group, field]);
+      });
     });
   }
 
