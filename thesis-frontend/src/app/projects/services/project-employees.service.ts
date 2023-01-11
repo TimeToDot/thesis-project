@@ -27,6 +27,15 @@ export class ProjectEmployeesService {
     );
   }
 
+  updateProjectEmployee(
+    employee: ProjectEmployee
+  ): Observable<ProjectEmployee> {
+    return this.http.put<ProjectEmployee>(
+      `${this.url}/${employee.projectId}/employees/${employee.id}`,
+      employee
+    );
+  }
+
   getProjectEmployees(projectId: string): Observable<ProjectEmployee[]> {
     return this.http.get<ProjectEmployee[]>(
       `${this.url}/${projectId}/employees?active=true`

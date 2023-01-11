@@ -11,7 +11,7 @@
   "/projects/:projectId/tasks/:taskId": "/project-tasks/:taskId?projectId=:projectId",
   "/projects/:projectId/approvals\\?active=:active": "/project-approvals?projectId=:projectId&projectEmployee.active=:active",
   "/projects/:projectId/approvals/:approvalId": "/project-approvals/:approvalId?projectId=:projectId",
-  "/projects/:projectId/employees": "/project-employees",
   "/projects/:projectId/employees\\?active=:active": "/project-employees?projectId=:projectId&active=:active",
-  "/projects/:projectId/employees/:employeeId": "/project-employees/:employeeId?projectId=:projectId"
+  "/projects/:projectId/employees/:employeeId": "/project-employees/:employeeId?projectId=:projectId",
+  "/projects/:projectId/employees": "/project-employees"
 }

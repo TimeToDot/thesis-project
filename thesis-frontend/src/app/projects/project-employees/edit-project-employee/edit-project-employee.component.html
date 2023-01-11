@@ -75,7 +75,7 @@
         *ngIf="editProjectEmployeeForm"
         class="left-field"
         label="Working Time"
-        [required]="isRequired('workingTime')">
+        [required]="isRequired(controls.workingTime)">
         <bvr-input-number
           formControlName="workingTime"
           placeholder="0"
@@ -87,24 +87,24 @@
       <bvr-form-field
         class="field"
         label="Salary Modifier"
-        [ngClass]="{ disabled: isDisabled('salaryModifier') }"
-        [required]="isRequired('salaryModifier')">
+        [ngClass]="{ disabled: controls.salaryModifier.disabled }"
+        [required]="isRequired(controls.salaryModifier)">
         <div class="row">
           <bvr-input-number
             [decimalPlaces]="0"
             [digits]="3"
             formControlName="salaryModifier"
-            [isDisabled]="isDisabled('salaryModifier')"
+            [isDisabled]="controls.salaryModifier.disabled"
             placeholder="Modifier"
             suffix="%"></bvr-input-number>
           <bvr-switch
-            (valueChange)="enableField('salaryModifier', $event)"></bvr-switch>
+            (valueChange)="
+              enableField(controls.salaryModifier, $event)
+            "></bvr-switch>
         </div>
         <bvr-error
           class="error"
-          [control]="
-            editProjectEmployeeForm.get(['salaryModifier'])
-          "></bvr-error>
+          [control]="controls.salaryModifier"></bvr-error>
       </bvr-form-field>
     </div>
   </div>

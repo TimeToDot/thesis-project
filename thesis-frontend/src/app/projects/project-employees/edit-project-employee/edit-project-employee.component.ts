@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule, Location } from '@angular/common';
+import { CommonModule, formatDate, Location } from '@angular/common';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
 import {
+  AbstractControl,
   FormBuilder,
   FormGroup,
   FormsModule,
@@ -18,7 +19,6 @@ import { ToastService } from '../../../shared/services/toast.service';
 import { ToastState } from '../../../shared/enum/toast-state';
 import { ToastComponent } from '../../../shared/components/toast/toast.component';
 import { first, Subject } from 'rxjs';
-import { ValidationService } from '../../../shared/services/validation.service';
 import { InputNumberComponent } from '../../../shared/components/input-number/input-number.component';
 import { SwitchComponent } from '../../../shared/components/switch/switch.component';
 import { ErrorComponent } from '../../../shared/components/error/error.component';
@@ -49,6 +49,7 @@ export class EditProjectEmployeeComponent implements OnInit {
     { id: '3', name: 'Specific-task contract' },
     { id: '4', name: 'B2B' },
   ];
+  controls: any = {};
   editProjectEmployeeForm!: FormGroup;
   isArchiveModalOpen: boolean = false;
   isCancelModalOpen: boolean = false;
@@ -65,12 +66,12 @@ export class EditProjectEmployeeComponent implements OnInit {
     private projectEmployeesService: ProjectEmployeesService,
     private route: ActivatedRoute,
     private router: Router,
-    private toastService: ToastService,
-    private validationService: ValidationService
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
     this.createForm();
+    this.getFormControls();
     this.getProjectEmployee();
   }
 
@@ -88,6 +89,12 @@ export class EditProjectEmployeeComponent implements OnInit {
         { value: 100, disabled: true },
         [CustomValidators.minValue(0), CustomValidators.maxValue(500)],
       ],
+    });
+  }
+
+  getFormControls(): void {
+    Object.keys(this.editProjectEmployeeForm.controls).forEach(control => {
+      this.controls[control] = this.editProjectEmployeeForm.get([control]);
     });
   }
 
@@ -160,28 +167,39 @@ export class EditProjectEmployeeComponent implements OnInit {
   save(value: boolean): void {
     this.disableGuard(true);
     if (value) {
-      new Promise((resolve, _) => {
-        this.location.back();
-        resolve('done');
-      }).then(() => {
-        setTimeout(
-          () =>
-            this.toastService.showToast(ToastState.Success, 'Employee edited'),
-          200
-        );
-        setTimeout(() => this.toastService.dismissToast(), 3200);
-      });
+      this.projectEmployeesService
+        .updateProjectEmployee(this.getProjectEmployeeData())
+        .pipe(first())
+        .subscribe(() => {
+          new Promise((resolve, _) => {
+            this.location.back();
+            resolve('done');
+          }).then(() => {
+            setTimeout(
+              () =>
+                this.toastService.showToast(
+                  ToastState.Success,
+                  'Employee edited'
+                ),
+              200
+            );
+            setTimeout(() => this.toastService.dismissToast(), 3200);
+          });
+        });
     }
   }
 
-  isDisabled(name: string): boolean {
-    return !!this.editProjectEmployeeForm.get([name])?.disabled;
-  }
-
-  enableField(name: string, value: boolean): void {
-    value
-      ? this.editProjectEmployeeForm.get([name])?.enable()
-      : this.editProjectEmployeeForm.get([name])?.disable();
+  getProjectEmployeeData(): ProjectEmployee {
+    const projectId = this.route.parent?.snapshot.paramMap.get('id') as string;
+    return {
+      id: this.projectEmployee.id,
+      projectId: projectId,
+      employee: this.projectEmployee.employee,
+      workingTime: this.controls.workingTime?.value,
+      salaryModifier: this.controls.salaryModifier?.value,
+      joinDate: formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en'),
+      active: true,
+    };
   }
 
   disableGuard(value: boolean): void {
@@ -189,15 +207,11 @@ export class EditProjectEmployeeComponent implements OnInit {
     this.redirectSubject.next(value);
   }
 
-  isRequired(name: string): boolean {
-    return this.validationService.isRequired(this.editProjectEmployeeForm, [
-      name,
-    ]);
+  enableField(control: AbstractControl | null, value: boolean): void {
+    value ? control?.enable() : control?.disable();
   }
 
-  showErrors(name: string): boolean {
-    return this.validationService.showErrors(this.editProjectEmployeeForm, [
-      name,
-    ]);
+  isRequired(control: AbstractControl): boolean {
+    return control?.hasValidator(Validators.required) ? true : false;
   }
 }
