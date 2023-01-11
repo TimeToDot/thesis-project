@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -57,6 +58,33 @@ export class EmployeesService {
   }
 
   updateAccount(employee: Account): Observable<Account> {
+    return this.http.put<Account>(
+      `http://localhost:3000/accounts/${employee.id}`,
+      employee
+    );
+  }
+
+  archiveEmployee(employee: Account): Observable<Employee> {
+    const newEmp: Employee = {
+      id: employee.id,
+      firstName: employee.firstName,
+      lastName: employee.lastName,
+      email: employee.email,
+      image: employee.image,
+      position: employee.position.name,
+      employmentDate: employee.employmentDate,
+      workingTime: Number(employee.workingTime),
+      wage: Number(employee.wage),
+      contractType: employee.contractType,
+      exitDate: formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en'),
+      active: false,
+    };
+    return this.http.put<Employee>(`${this.url}post/${newEmp.id}`, newEmp);
+  }
+
+  archiveAccount(employee: Account): Observable<Account> {
+    employee.active = false;
+    employee.exitDate = formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en');
     return this.http.put<Account>(
       `http://localhost:3000/accounts/${employee.id}`,
       employee

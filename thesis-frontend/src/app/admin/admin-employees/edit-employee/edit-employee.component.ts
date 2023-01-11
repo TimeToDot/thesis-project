@@ -248,13 +248,29 @@ export class EditEmployeeComponent {
 
   archive(): void {
     this.disableGuard(true);
-    this.router.navigate(['../..'], { relativeTo: this.route }).then(() => {
-      setTimeout(
-        () => this.toastService.showToast(ToastState.Info, 'Employee archived'),
-        200
-      );
-      setTimeout(() => this.toastService.dismissToast(), 3200);
-    });
+    this.employeesService
+      .archiveAccount(this.getEmployeeData())
+      .pipe(first())
+      .subscribe(employee => {
+        this.employeesService
+          .archiveEmployee(employee)
+          .pipe(first())
+          .subscribe(() => {
+            this.router
+              .navigate(['../..'], { relativeTo: this.route })
+              .then(() => {
+                setTimeout(
+                  () =>
+                    this.toastService.showToast(
+                      ToastState.Info,
+                      'Employee archived'
+                    ),
+                  200
+                );
+                setTimeout(() => this.toastService.dismissToast(), 3200);
+              });
+          });
+      });
   }
 
   cancel(value: boolean): void {

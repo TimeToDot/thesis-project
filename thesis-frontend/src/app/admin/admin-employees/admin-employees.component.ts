@@ -41,6 +41,7 @@ export class AdminEmployeesComponent implements OnInit {
     'hireDate',
     'exitDate',
   ];
+  idToArchive: string = '';
   isArchiveModalOpen: boolean = false;
   modalDescription: string = '';
   query: string = '';
@@ -54,10 +55,7 @@ export class AdminEmployeesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.employeesService
-      .getEmployees()
-      .pipe(first())
-      .subscribe(employees => (this.dataSource = employees));
+    this.getEmployees();
   }
 
   editEmployee(event: Event, row: Employee): void {
@@ -68,6 +66,7 @@ export class AdminEmployeesComponent implements OnInit {
   openArchiveModal(event: Event, row: Employee): void {
     event.stopPropagation();
     this.isArchiveModalOpen = true;
+    this.idToArchive = row.id;
     this.modalDescription = `Are you sure you want to archive ${row.firstName} ${row.lastName}? This action cannot be undone.`;
   }
 
@@ -76,21 +75,44 @@ export class AdminEmployeesComponent implements OnInit {
   }
 
   showActiveTable(value: boolean): void {
-    if (value) {
-      this.employeesService
-        .getEmployees()
-        .pipe(first())
-        .subscribe(employees => (this.dataSource = employees));
-    } else {
-      this.employeesService
-        .getArchivedEmployees()
-        .pipe(first())
-        .subscribe(archivedEmployees => (this.dataSource = archivedEmployees));
-    }
+    value ? this.getEmployees() : this.getArchivedEmployees();
+  }
+
+  getEmployees(): void {
+    this.employeesService
+      .getEmployees()
+      .pipe(first())
+      .subscribe(employees => (this.dataSource = employees));
+  }
+
+  getArchivedEmployees(): void {
+    this.employeesService
+      .getArchivedEmployees()
+      .pipe(first())
+      .subscribe(archivedEmployees => (this.dataSource = archivedEmployees));
   }
 
   archive(): void {
-    this.toastService.showToast(ToastState.Info, 'Employee archived');
-    setTimeout(() => this.toastService.dismissToast(), 3000);
+    this.employeesService
+      .getEmployee(this.idToArchive)
+      .pipe(first())
+      .subscribe(employee => {
+        this.employeesService
+          .archiveAccount(employee)
+          .pipe(first())
+          .subscribe(employee => {
+            this.employeesService
+              .archiveEmployee(employee)
+              .pipe(first())
+              .subscribe(() => {
+                this.toastService.showToast(
+                  ToastState.Info,
+                  'Employee archived'
+                );
+                setTimeout(() => this.toastService.dismissToast(), 3000);
+                this.getEmployees();
+              });
+          });
+      });
   }
 }

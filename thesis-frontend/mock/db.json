@@ -149,7 +149,7 @@
     },
     {
       "id": "EtHlpmT",
-      "firstName": "Jan Andrzej",
+      "firstName": "Andrzejss",
       "lastName": "as",
       "email": "as@as.cs",
       "image": "",
@@ -177,7 +177,8 @@
         "id": "2",
         "name": "Commission contract"
       },
-      "active": true
+      "exitDate": "2023-01-11",
+      "active": false
     }
   ],
   "accounts": [
@@ -606,7 +607,7 @@
     },
     {
       "id": "EtHlpmT",
-      "firstName": "Jan Andrzej",
+      "firstName": "Andrzejss",
       "middleName": "s",
       "lastName": "as",
       "sex": {
@@ -693,9 +694,9 @@
       "payday": "2",
       "accountNumber": "2",
       "email": "aa@aa.aa",
-      "password": "zaq1@WSX",
       "image": "",
-      "active": true
+      "active": false,
+      "exitDate": "2023-01-11"
     }
   ],
   "contract-types": [
