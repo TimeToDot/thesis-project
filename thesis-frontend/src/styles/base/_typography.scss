@@ -44,7 +44,8 @@ h4 {
 button,
 button div,
 .radio label,
-th {
+th,
+.dashboard-row .table-name {
   font-size: $font-normal;
   font-weight: $font-semibold;
   line-height: 6 * $grid-base;

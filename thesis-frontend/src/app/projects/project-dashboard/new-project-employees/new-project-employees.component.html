@@ -1,0 +1,35 @@
+<div class="table-header">
+  <div class="table-name">New employees</div>
+  <bvr-button
+    label="Show All"
+    [routerLink]="['../employees']"
+    styleClass="button-text"></bvr-button>
+</div>
+<div
+  *ngFor="let projectEmployee of projectEmployees"
+  class="table-row">
+  <img
+    *ngIf="projectEmployee.employee.image"
+    class="task-image"
+    [src]="projectEmployee.employee.image" />
+  <span
+    *ngIf="!projectEmployee.employee.image"
+    class="picture">
+    {{ projectEmployee.employee.firstName[0]
+    }}{{ projectEmployee.employee.lastName[0] }}
+  </span>
+  <div class="row-data">
+    <label>
+      {{ projectEmployee.employee.firstName }}
+      {{ projectEmployee.employee.lastName }}</label
+    >
+    <div class="details">
+      <div class="details">
+        <small> {{ projectEmployee.employee.position }}</small>
+      </div>
+      <small class="dates">
+        {{ projectEmployee.employee.employmentDate | date: 'dd/MM/yyyy' }}
+      </small>
+    </div>
+  </div>
+</div>

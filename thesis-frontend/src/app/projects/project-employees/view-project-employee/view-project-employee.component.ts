@@ -27,27 +27,7 @@ import { first } from 'rxjs';
 export class ViewProjectEmployeeComponent implements OnInit {
   isArchiveModalOpen: boolean = false;
   modalDescription: string = '';
-  projectEmployee: ProjectEmployee = {
-    id: '',
-    employee: {
-      id: '',
-      firstName: '',
-      lastName: '',
-      email: '',
-      image: '',
-      position: '',
-      employmentDate: '',
-      contractType: { id: '', name: '' },
-      wage: 0,
-      workingTime: 0,
-      exitDate: '',
-      active: false,
-    },
-    workingTime: 0,
-    joinDate: '',
-    exitDate: '',
-    active: false,
-  };
+  projectEmployee!: ProjectEmployee;
 
   constructor(
     private projectEmployeeService: ProjectEmployeesService,
@@ -61,10 +41,11 @@ export class ViewProjectEmployeeComponent implements OnInit {
   }
 
   getEmployee(): void {
+    const projectId = this.route.parent?.snapshot.paramMap.get('id');
     const employeeId = this.route.snapshot.paramMap.get('id');
-    if (employeeId) {
+    if (projectId && employeeId) {
       this.projectEmployeeService
-        .getProjectEmployee(employeeId)
+        .getProjectEmployee(projectId, employeeId)
         .pipe(first())
         .subscribe(projectEmployee => (this.projectEmployee = projectEmployee));
     }

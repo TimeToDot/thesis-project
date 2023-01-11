@@ -1,11 +1,13 @@
-<div class="card">
+<div
+  *ngIf="project"
+  class="card">
   <div class="header">
     <div class="title">
       <bvr-button
         (click)="openCancelModal(false)"
         icon="arrow_back"
         styleClass="button-icon back"></bvr-button>
-      <h2 class="name">Project</h2>
+      <h2>{{ project.name }}</h2>
     </div>
     <bvr-tabs
       [hasRouting]="false"
@@ -13,21 +15,10 @@
       [selectedIndex]="tabIndex"
       (selectedIndexChange)="updateTabIndex($event)"></bvr-tabs>
   </div>
-  <div class="card-content view-project">
+  <div class="card-content view-form">
     <div class="header">
-      <div class="name">
-        <img
-          *ngIf="project.image"
-          class="picture"
-          [src]="project.image" />
-        <span
-          *ngIf="!project.image"
-          class="picture">
-          {{ project.name[0] }}
-        </span>
-        <h4>
-          {{ project.name }}
-        </h4>
+      <div class="title">
+        <h4>Edit Project</h4>
       </div>
       <bvr-button
         (click)="openArchiveModal()"
@@ -38,15 +29,18 @@
       [@tabs]="tabIndex"
       (@tabs.start)="toggleFormButtons(false)"
       (@tabs.done)="toggleFormButtons(true)"
-      class="view-project-content">
+      class="view-form-content">
       <bvr-edit-general-info
         *ngIf="tabIndex === 0"
+        [controls]="controls"
         [editProjectForm]="editProjectForm"></bvr-edit-general-info>
       <bvr-edit-moderator-info
         *ngIf="tabIndex === 1"
+        [controls]="controls"
         [editProjectForm]="editProjectForm"></bvr-edit-moderator-info>
       <bvr-edit-billing-info
         *ngIf="tabIndex === 2"
+        [controls]="controls"
         [editProjectForm]="editProjectForm"></bvr-edit-billing-info>
     </div>
     <div

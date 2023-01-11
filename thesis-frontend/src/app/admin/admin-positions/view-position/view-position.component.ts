@@ -27,15 +27,7 @@ import { first } from 'rxjs';
 export class ViewPositionComponent implements OnInit {
   isArchiveModalOpen: boolean = false;
   modalDescription: string = '';
-  position: Position = {
-    id: '',
-    name: '',
-    description: '',
-    creationDate: '',
-    count: 0,
-    archiveDate: '',
-    active: true,
-  };
+  position!: Position;
 
   constructor(
     private positionsService: PositionsService,
@@ -66,12 +58,18 @@ export class ViewPositionComponent implements OnInit {
   }
 
   archive(): void {
-    this.router.navigate(['..'], { relativeTo: this.route }).then(() => {
-      setTimeout(
-        () => this.toastService.showToast(ToastState.Info, 'Position archived'),
-        200
-      );
-      setTimeout(() => this.toastService.dismissToast(), 3200);
-    });
+    this.positionsService
+      .archivePosition(this.position)
+      .pipe(first())
+      .subscribe(() => {
+        this.router.navigate(['..'], { relativeTo: this.route }).then(() => {
+          setTimeout(
+            () =>
+              this.toastService.showToast(ToastState.Info, 'Position archived'),
+            200
+          );
+          setTimeout(() => this.toastService.dismissToast(), 3200);
+        });
+      });
   }
 }

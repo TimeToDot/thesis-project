@@ -2,8 +2,7 @@
   <div class="header">
     <div class="title">
       <span class="material-icons-outlined">groups</span>
-      <h2 class="name">Employees</h2>
-      <h4 class="count">({{ dataSource.length }})</h4>
+      <h2>Employees</h2>
     </div>
   </div>
 
@@ -114,7 +113,8 @@
         <ng-container cdkColumnDef="actions">
           <th
             cdk-header-cell
-            *cdkHeaderCellDef>
+            *cdkHeaderCellDef
+            class="actions">
             Actions
           </th>
           <td

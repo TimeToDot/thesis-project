@@ -4,6 +4,7 @@ import { Status } from '../enum/status.enum';
 
 export interface EmployeeTask {
   id: string;
+  employeeId: string;
   startDate: string;
   endDate: string;
   startTime: string;

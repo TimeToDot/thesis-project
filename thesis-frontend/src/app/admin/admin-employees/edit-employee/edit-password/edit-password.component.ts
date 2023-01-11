@@ -13,6 +13,8 @@ import { ModalComponent } from '../../../../shared/components/modal/modal.compon
 import { ToastState } from '../../../../shared/enum/toast-state';
 import { ToastService } from '../../../../shared/services/toast.service';
 import { ToastComponent } from '../../../../shared/components/toast/toast.component';
+import { ErrorComponent } from '../../../../shared/components/error/error.component';
+import { CustomValidators } from '../../../../shared/helpers/custom-validators.helper';
 
 @Component({
   selector: 'bvr-edit-password',
@@ -20,6 +22,7 @@ import { ToastComponent } from '../../../../shared/components/toast/toast.compon
   imports: [
     ButtonComponent,
     CommonModule,
+    ErrorComponent,
     FormFieldComponent,
     ModalComponent,
     ReactiveFormsModule,
@@ -44,10 +47,23 @@ export class EditPasswordComponent {
   }
 
   createForm(): void {
-    this.editPasswordForm = this.fb.group({
-      password: ['', [Validators.required]],
-      repeatPassword: ['', [Validators.required]],
-    });
+    this.editPasswordForm = this.fb.group(
+      {
+        password: ['', [Validators.required, CustomValidators.password()]],
+        repeatPassword: [
+          '',
+          [Validators.required, CustomValidators.password()],
+        ],
+      },
+      {
+        validators: [
+          CustomValidators.passwordMatchingValidator(
+            'password',
+            'repeatPassword'
+          ),
+        ],
+      }
+    );
   }
 
   openConfirmModal(): void {
@@ -65,6 +81,10 @@ export class EditPasswordComponent {
     this.toggleAccordion();
     this.toastService.showToast(ToastState.Success, 'Password updated');
     setTimeout(() => this.toastService.dismissToast(), 3000);
+  }
+
+  isRequired(name: string): boolean {
+    return this.validationService.isRequired(this.editPasswordForm, [name]);
   }
 
   showErrors(name?: string): boolean {

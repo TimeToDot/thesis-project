@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
@@ -12,7 +13,7 @@ describe('LoginGuard', () => {
   let router: Router;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({ imports: [HttpClientTestingModule] });
     authService = TestBed.inject(AuthService);
     guard = TestBed.inject(LoginGuard);
     router = TestBed.inject(Router);

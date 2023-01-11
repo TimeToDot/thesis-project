@@ -1,6 +1,8 @@
-<div class="project-employee">
+<div
+  *ngIf="projectEmployee"
+  class="view-form">
   <div class="header">
-    <div class="name">
+    <div class="title">
       <img
         *ngIf="projectEmployee.employee.image"
         class="picture"

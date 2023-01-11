@@ -25,7 +25,15 @@
   }
 
   .form {
+    flex: 1;
     padding: 2 * $grid-base 3 * $grid-base 0;
+  }
+
+  .form-buttons {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
   }
 
   .form-field {

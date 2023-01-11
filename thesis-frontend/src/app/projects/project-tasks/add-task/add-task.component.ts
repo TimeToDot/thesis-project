@@ -16,6 +16,7 @@ import { ToastComponent } from '../../../shared/components/toast/toast.component
 import { ValidationService } from '../../../shared/services/validation.service';
 import { Subject } from 'rxjs';
 import { ErrorComponent } from '../../../shared/components/error/error.component';
+import { Regex } from '../../../shared/helpers/regex.helper';
 
 @Component({
   selector: 'bvr-add-task',
@@ -56,7 +57,7 @@ export class AddTaskComponent {
 
   createForm(): void {
     this.addProjectTaskForm = this.fb.group({
-      name: ['', [Validators.required]],
+      name: ['', [Validators.required, Validators.pattern(Regex.ALPHANUMERIC)]],
       description: ['', [Validators.required]],
     });
   }

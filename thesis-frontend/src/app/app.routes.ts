@@ -1,7 +1,13 @@
 import { Routes } from '@angular/router';
+import { ViewAccountInfoComponent } from './admin/admin-employees/view-employee/view-account-info/view-account-info.component';
+import { ViewAddressInfoComponent } from './admin/admin-employees/view-employee/view-address-info/view-address-info.component';
+import { ViewEmploymentInfoComponent } from './admin/admin-employees/view-employee/view-employment-info/view-employment-info.component';
+import { ViewPersonalInfoComponent } from './admin/admin-employees/view-employee/view-personal-info/view-personal-info.component';
+import { ViewProjectsInfoComponent } from './admin/admin-employees/view-employee/view-projects-info/view-projects-info.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LayoutComponent } from './layout/layout.component';
 import { LoginComponent } from './login/login.component';
+import { EditPhotoComponent } from './profile/edit-photo/edit-photo.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { LoginGuard } from './shared/guards/login.guard';
@@ -10,7 +16,7 @@ import { AddNewTaskComponent } from './tracker/add-new-task/add-new-task.compone
 import { RequestApprovalComponent } from './tracker/request-approval/request-approval.component';
 import { TasksListComponent } from './tracker/tasks-list/tasks-list.component';
 import { TrackerComponent } from './tracker/tracker.component';
-import { NotFoundComponent } from './utils/not-found/not-found.component';
+import { NotFoundComponent } from './shared/components/not-found/not-found.component';
 
 export const appRoutes: Routes = [
   {
@@ -63,7 +69,43 @@ export const appRoutes: Routes = [
         loadChildren: () =>
           import('./admin/admin.routes').then(mod => mod.adminRoutes),
       },
-      { path: 'profile', component: ProfileComponent },
+      {
+        path: 'profile',
+        component: ProfileComponent,
+        children: [
+          {
+            path: 'personal-info',
+            component: ViewPersonalInfoComponent,
+            data: { tabs: 1 },
+          },
+          {
+            path: 'address-info',
+            component: ViewAddressInfoComponent,
+            data: { tabs: 2 },
+          },
+          {
+            path: 'employment-info',
+            component: ViewEmploymentInfoComponent,
+            data: { tabs: 3 },
+          },
+          {
+            path: 'account-info',
+            component: ViewAccountInfoComponent,
+            data: { tabs: 4 },
+          },
+          {
+            path: 'projects-info',
+            component: ViewProjectsInfoComponent,
+            data: { tabs: 5 },
+          },
+          { path: '', redirectTo: 'personal-info', pathMatch: 'full' },
+        ],
+      },
+      {
+        path: 'profile/edit',
+        component: EditPhotoComponent,
+        canDeactivate: [UnsavedChangesGuard],
+      },
       { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
     ],
   },

@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  justify-content: space-between;
   padding: 0 3 * $grid-base;
   width: 72 * $grid-base;
 }
@@ -16,9 +15,8 @@
 
 .sidenav-menu {
   display: flex;
+  flex: 1;
   flex-direction: column;
-  justify-content: space-between;
-  // margin: 0 3 * $grid-base;
 
   .group-header {
     align-items: flex-end;

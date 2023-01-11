@@ -1,16 +1,21 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  AbstractControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { FormFieldComponent } from '../../../../shared/components/form-field/form-field.component';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { ToastComponent } from '../../../../shared/components/toast/toast.component';
 import { ToastService } from '../../../../shared/services/toast.service';
-import { ValidationService } from '../../../../shared/services/validation.service';
 import { ToastState } from '../../../../shared/enum/toast-state';
 import { CountriesService } from '../../../services/countries.service';
 import { first } from 'rxjs';
 import { DropdownListComponent } from '../../../../shared/components/dropdown-list/dropdown-list.component';
 import { DropdownOption } from '../../../../shared/models/dropdown-option.model';
+import { ErrorComponent } from '../../../../shared/components/error/error.component';
 
 @Component({
   selector: 'bvr-address-info',
@@ -19,6 +24,7 @@ import { DropdownOption } from '../../../../shared/models/dropdown-option.model'
     ButtonComponent,
     CommonModule,
     DropdownListComponent,
+    ErrorComponent,
     FormFieldComponent,
     ReactiveFormsModule,
     ToastComponent,
@@ -27,6 +33,7 @@ import { DropdownOption } from '../../../../shared/models/dropdown-option.model'
 })
 export class AddressInfoComponent implements OnInit {
   @Input() addEmployeeForm!: FormGroup;
+  @Input() controls: any;
   @Input() enableFormButtons: boolean = false;
 
   @Output() nextStepChange: EventEmitter<void> = new EventEmitter();
@@ -37,8 +44,7 @@ export class AddressInfoComponent implements OnInit {
 
   constructor(
     private countriesService: CountriesService,
-    private toastService: ToastService,
-    private validationService: ValidationService
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -55,28 +61,16 @@ export class AddressInfoComponent implements OnInit {
   }
 
   nextStep(): void {
-    if (this.addEmployeeForm.get('addressInfo')?.valid) {
+    if (this.controls.addressInfo?.valid) {
       this.nextStepChange.emit();
     } else {
-      this.addEmployeeForm.get('addressInfo')?.markAllAsTouched();
+      this.controls.addressInfo?.markAllAsTouched();
       this.toastService.showToast(ToastState.Error, 'Form invalid');
       setTimeout(() => this.toastService.dismissToast(), 3000);
     }
   }
 
-  isRequired(name: string): boolean {
-    return this.validationService.isRequired(this.addEmployeeForm, [
-      'addressInfo',
-      name,
-    ]);
-  }
-
-  showErrors(name?: string): boolean {
-    return name
-      ? this.validationService.showErrors(this.addEmployeeForm, [
-          'addressInfo',
-          name,
-        ])
-      : this.validationService.showErrors(this.addEmployeeForm, []);
+  isRequired(control: AbstractControl | null): boolean {
+    return control && control?.hasValidator(Validators.required) ? true : false;
   }
 }

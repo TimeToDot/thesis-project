@@ -7,18 +7,13 @@
     <div class="form-header">{{ 'Account Info' | uppercase }}</div>
     <bvr-form-field
       label="Email"
-      [required]="isRequired('email')">
+      [required]="isRequired(controls.email)">
       <input
         formControlName="email"
         type="email" />
-      <ng-container *ngIf="showErrors('email')">
-        <small
-          *ngIf="
-            editEmployeeForm.get(['accountInfo', 'email'])?.hasError('required')
-          "
-          >This field is required.</small
-        >
-      </ng-container>
+      <bvr-error
+        class="error"
+        [control]="controls.email"></bvr-error>
     </bvr-form-field>
 
     <bvr-edit-password></bvr-edit-password>

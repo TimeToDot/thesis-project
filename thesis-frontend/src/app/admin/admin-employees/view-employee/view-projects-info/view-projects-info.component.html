@@ -1,0 +1,41 @@
+<div
+  *ngIf="employeeProjects"
+  class="form">
+  <div class="form-header">{{ 'Projects Info' | uppercase }}</div>
+
+  <div
+    *ngFor="let employeeProject of employeeProjects"
+    class="row archived">
+    <bvr-form-field
+      class="left-field"
+      label="Project Name">
+      <div class="project-info">
+        <img
+          *ngIf="employeeProject.project.image"
+          class="picture"
+          [ngClass]="{ archived: !employeeProject.project.active }"
+          [src]="employeeProject.project.image" />
+        <div
+          *ngIf="!employeeProject.project.image"
+          class="picture">
+          {{ employeeProject.project.name[0] }}
+        </div>
+        <div>{{ employeeProject.project.name }}</div>
+      </div>
+    </bvr-form-field>
+
+    <div class="financial-info">
+      <bvr-form-field
+        class="left-field"
+        label="Join Date">
+        <span>{{ employeeProject.joinDate }}</span>
+      </bvr-form-field>
+      <bvr-form-field
+        *ngIf="employeeProject.exitDate"
+        class="field"
+        label="Exit Date">
+        <span>{{ employeeProject.exitDate }}</span>
+      </bvr-form-field>
+    </div>
+  </div>
+</div>

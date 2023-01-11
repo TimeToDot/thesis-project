@@ -6,6 +6,7 @@ import { FormFieldComponent } from '../../../shared/components/form-field/form-f
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
 import { ToastComponent } from '../../../shared/components/toast/toast.component';
 import {
+  AbstractControl,
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
@@ -16,7 +17,8 @@ import { ToastState } from '../../../shared/enum/toast-state';
 import { Position } from '../../models/position.model';
 import { PositionsService } from '../../services/positions.service';
 import { first, Subject } from 'rxjs';
-import { ValidationService } from '../../../shared/services/validation.service';
+import { ErrorComponent } from '../../../shared/components/error/error.component';
+import { Regex } from '../../../shared/helpers/regex.helper';
 
 @Component({
   selector: 'bvr-edit-position',
@@ -24,6 +26,7 @@ import { ValidationService } from '../../../shared/services/validation.service';
   imports: [
     ButtonComponent,
     CommonModule,
+    ErrorComponent,
     FormFieldComponent,
     ModalComponent,
     ReactiveFormsModule,
@@ -33,6 +36,7 @@ import { ValidationService } from '../../../shared/services/validation.service';
   templateUrl: './edit-position.component.html',
 })
 export class EditPositionComponent implements OnInit {
+  controls!: any;
   editPositionForm!: FormGroup;
   isArchiveModalOpen: boolean = false;
   isCancelModalOpen: boolean = false;
@@ -40,15 +44,7 @@ export class EditPositionComponent implements OnInit {
   isGuardDisabled: boolean = false;
   isSaveModalOpen: boolean = false;
   modalDescription: string = '';
-  position: Position = {
-    id: '',
-    name: '',
-    description: '',
-    creationDate: '',
-    count: 0,
-    archiveDate: '',
-    active: true,
-  };
+  position!: Position;
   redirectSubject: Subject<boolean> = new Subject<boolean>();
 
   constructor(
@@ -57,20 +53,27 @@ export class EditPositionComponent implements OnInit {
     private positionsService: PositionsService,
     private route: ActivatedRoute,
     private router: Router,
-    private toastService: ToastService,
-    private validationService: ValidationService
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
     this.createForm();
+    this.getFormControls();
     this.getPosition();
   }
 
   createForm(): void {
     this.editPositionForm = this.fb.group({
-      name: ['', [Validators.required]],
+      name: ['', [Validators.required, Validators.pattern(Regex.ALPHANUMERIC)]],
       description: ['', [Validators.required]],
     });
+  }
+
+  getFormControls(): void {
+    this.controls = {
+      name: this.editPositionForm.get(['name']),
+      description: this.editPositionForm.get(['description']),
+    };
   }
 
   getPosition(): void {
@@ -96,7 +99,7 @@ export class EditPositionComponent implements OnInit {
 
   openArchiveModal(): void {
     this.isArchiveModalOpen = true;
-    const positionName = this.editPositionForm.get(['name'])?.value;
+    const positionName = this.controls.name?.value;
     this.modalDescription = `Are you sure you want to archive position ${positionName}? This action cannot be undone.`;
   }
 
@@ -131,29 +134,55 @@ export class EditPositionComponent implements OnInit {
   save(value: boolean): void {
     this.disableGuard(true);
     if (value) {
-      new Promise((resolve, _) => {
-        this.location.back();
-        resolve('done');
-      }).then(() => {
-        setTimeout(
-          () =>
-            this.toastService.showToast(ToastState.Success, 'Position edited'),
-          200
-        );
-        setTimeout(() => this.toastService.dismissToast(), 3200);
-      });
+      this.positionsService
+        .updatePosition(this.getPositionData())
+        .pipe(first())
+        .subscribe(() => {
+          this.redirectBack();
+        });
     }
   }
 
-  archive(): void {
-    this.disableGuard(true);
-    this.router.navigate(['../..'], { relativeTo: this.route }).then(() => {
+  getPositionData(): Position {
+    return {
+      id: this.position.id,
+      name: this.editPositionForm.value.name,
+      description: this.editPositionForm.value.description,
+      count: this.position.count,
+      creationDate: this.position.creationDate,
+      active: this.position.active,
+    };
+  }
+
+  redirectBack(): void {
+    new Promise((resolve, _) => {
+      this.location.back();
+      resolve('done');
+    }).then(() => {
       setTimeout(
-        () => this.toastService.showToast(ToastState.Info, 'Position archived'),
+        () =>
+          this.toastService.showToast(ToastState.Success, 'Position edited'),
         200
       );
       setTimeout(() => this.toastService.dismissToast(), 3200);
     });
+  }
+
+  archive(): void {
+    this.disableGuard(true);
+    this.positionsService
+      .archivePosition(this.position)
+      .pipe(first())
+      .subscribe(() => {
+        this.router.navigate(['../..'], { relativeTo: this.route }).then(() => {
+          setTimeout(
+            () =>
+              this.toastService.showToast(ToastState.Info, 'Position archived'),
+            200
+          );
+          setTimeout(() => this.toastService.dismissToast(), 3200);
+        });
+      });
   }
 
   disableGuard(value: boolean): void {
@@ -161,13 +190,7 @@ export class EditPositionComponent implements OnInit {
     this.redirectSubject.next(value);
   }
 
-  isRequired(name: string): boolean {
-    return this.validationService.isRequired(this.editPositionForm, [name]);
-  }
-
-  showErrors(name?: string): boolean {
-    return name
-      ? this.validationService.showErrors(this.editPositionForm, [name])
-      : this.validationService.showErrors(this.editPositionForm, []);
+  isRequired(control: AbstractControl | null): boolean {
+    return control && control?.hasValidator(Validators.required) ? true : false;
   }
 }

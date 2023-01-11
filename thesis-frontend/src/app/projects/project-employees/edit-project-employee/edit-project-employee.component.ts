@@ -20,6 +20,9 @@ import { ToastComponent } from '../../../shared/components/toast/toast.component
 import { first, Subject } from 'rxjs';
 import { ValidationService } from '../../../shared/services/validation.service';
 import { InputNumberComponent } from '../../../shared/components/input-number/input-number.component';
+import { SwitchComponent } from '../../../shared/components/switch/switch.component';
+import { ErrorComponent } from '../../../shared/components/error/error.component';
+import { CustomValidators } from '../../../shared/helpers/custom-validators.helper';
 
 @Component({
   selector: 'bvr-edit-project-employee',
@@ -28,11 +31,13 @@ import { InputNumberComponent } from '../../../shared/components/input-number/in
     ButtonComponent,
     CommonModule,
     DropdownListComponent,
+    ErrorComponent,
     FormFieldComponent,
     FormsModule,
     InputNumberComponent,
     ModalComponent,
     ReactiveFormsModule,
+    SwitchComponent,
     ToastComponent,
   ],
   templateUrl: './edit-project-employee.component.html',
@@ -51,27 +56,7 @@ export class EditProjectEmployeeComponent implements OnInit {
   isGuardDisabled: boolean = false;
   isSaveModalOpen: boolean = false;
   modalDescription: string = '';
-  projectEmployee: ProjectEmployee = {
-    id: '',
-    employee: {
-      id: '',
-      firstName: '',
-      lastName: '',
-      email: '',
-      image: '',
-      position: '',
-      employmentDate: '',
-      contractType: { id: '', name: '' },
-      wage: 0,
-      workingTime: 0,
-      exitDate: '',
-      active: false,
-    },
-    workingTime: 0,
-    joinDate: '',
-    exitDate: '',
-    active: false,
-  };
+  projectEmployee!: ProjectEmployee;
   redirectSubject: Subject<boolean> = new Subject<boolean>();
 
   constructor(
@@ -91,15 +76,27 @@ export class EditProjectEmployeeComponent implements OnInit {
 
   createForm(): void {
     this.editProjectEmployeeForm = this.fb.group({
-      workingTime: ['', [Validators.required]],
+      workingTime: [
+        '',
+        [
+          Validators.required,
+          CustomValidators.minValue(0),
+          CustomValidators.maxValue(168),
+        ],
+      ],
+      salaryModifier: [
+        { value: 100, disabled: true },
+        [CustomValidators.minValue(0), CustomValidators.maxValue(500)],
+      ],
     });
   }
 
   getProjectEmployee(): void {
+    const projectId = this.route.parent?.snapshot.paramMap.get('id');
     const projectEmployeeId = this.route.snapshot.paramMap.get('id');
-    if (projectEmployeeId) {
+    if (projectId && projectEmployeeId) {
       this.projectEmployeesService
-        .getProjectEmployee(projectEmployeeId)
+        .getProjectEmployee(projectId, projectEmployeeId)
         .pipe(first())
         .subscribe(projectEmployee => {
           this.projectEmployee = projectEmployee;
@@ -175,6 +172,16 @@ export class EditProjectEmployeeComponent implements OnInit {
         setTimeout(() => this.toastService.dismissToast(), 3200);
       });
     }
+  }
+
+  isDisabled(name: string): boolean {
+    return !!this.editProjectEmployeeForm.get([name])?.disabled;
+  }
+
+  enableField(name: string, value: boolean): void {
+    value
+      ? this.editProjectEmployeeForm.get([name])?.enable()
+      : this.editProjectEmployeeForm.get([name])?.disable();
   }
 
   disableGuard(value: boolean): void {

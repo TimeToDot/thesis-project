@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EditBillingInfoComponent } from './edit-billing-info.component';
@@ -8,9 +9,8 @@ describe('EditBillingInfoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ EditBillingInfoComponent ]
-    })
-    .compileComponents();
+      imports: [EditBillingInfoComponent, HttpClientTestingModule],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(EditBillingInfoComponent);
     component = fixture.componentInstance;

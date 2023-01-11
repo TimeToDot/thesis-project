@@ -8,6 +8,7 @@ import { EmployeesService } from '../../admin/services/employees.service';
 import { Employee } from '../../shared/models/employee.model';
 import { first } from 'rxjs';
 import { ModalComponent } from '../../shared/components/modal/modal.component';
+import { Account } from '../../shared/models/account.model';
 
 @Component({
   selector: 'bvr-sidenav',
@@ -24,19 +25,7 @@ import { ModalComponent } from '../../shared/components/modal/modal.component';
 export class SidenavComponent implements OnInit {
   @Output() openLogoutModal: EventEmitter<void> = new EventEmitter();
 
-  currentEmployee: Employee = {
-    id: '',
-    firstName: '',
-    lastName: '',
-    email: '',
-    image: '',
-    position: '',
-    employmentDate: '',
-    contractType: { id: '', name: '' },
-    wage: 0,
-    workingTime: 0,
-    active: false,
-  };
+  currentEmployee!: Account;
   navMenuGroups: LinkGroup[] = [];
 
   constructor(

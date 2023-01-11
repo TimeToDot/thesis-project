@@ -29,10 +29,10 @@ export class DropdownSearchEmployeeComponent implements ControlValueAccessor {
   image: string = '';
   query: string = '';
   selectEnabled: boolean = false;
-  selectedOption!: string;
+  selectedOption!: Employee;
   touched: boolean = false;
 
-  selectOption(option: string): void {
+  selectOption(option: Employee): void {
     this.markAsTouched();
     this.selectedOption = option;
     this.onChange(this.selectedOption);
@@ -42,7 +42,7 @@ export class DropdownSearchEmployeeComponent implements ControlValueAccessor {
 
   updateQuery(): void {
     const option = this.options.find(
-      element => element.id === this.selectedOption
+      element => element.id === this.selectedOption.id
     );
     if (option) {
       this.query = `${option.firstName} ${option.lastName}`;
@@ -57,12 +57,12 @@ export class DropdownSearchEmployeeComponent implements ControlValueAccessor {
     }
   }
 
-  writeValue(selectedOption: string): void {
+  writeValue(selectedOption: Employee): void {
     this.selectedOption = selectedOption;
     this.updateQuery();
   }
 
-  onChange = (selectedOptionId: string) => {};
+  onChange = (selectedOption: Employee) => {};
 
   registerOnChange(onChange: any): void {
     this.onChange = onChange;

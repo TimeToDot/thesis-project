@@ -1,0 +1,1684 @@
+{
+  "employees": [
+    {
+      "id": "0",
+      "firstName": "Robert",
+      "lastName": "Skrzypczak",
+      "email": "robert.skrzypczak@gmail.com",
+      "image": "assets/icons/icon14.png",
+      "position": "Frontend Developer",
+      "employmentDate": "2021-08-15",
+      "contractType": {
+        "id": "4",
+        "name": "B2B"
+      },
+      "wage": 45,
+      "workingTime": 40,
+      "active": true
+    },
+    {
+      "id": "1",
+      "firstName": "Beata",
+      "lastName": "Iwan",
+      "email": "beata.iwan@gmail.com",
+      "image": "assets/icons/icon4.png",
+      "position": "Product Designer",
+      "employmentDate": "2022-07-01",
+      "contractType": {
+        "id": "4",
+        "name": "B2B"
+      },
+      "wage": 45,
+      "workingTime": 40,
+      "active": true
+    },
+    {
+      "id": "2",
+      "firstName": "Joanna",
+      "lastName": "Malawska",
+      "email": "joanna.malawska@gmail.com",
+      "image": "assets/icons/icon8.png",
+      "position": "Product Designer",
+      "employmentDate": "2022-07-01",
+      "contractType": {
+        "id": "4",
+        "name": "B2B"
+      },
+      "wage": 45,
+      "workingTime": 40,
+      "active": true
+    },
+    {
+      "id": "3",
+      "firstName": "Anna",
+      "lastName": "Nowak",
+      "email": "anna.nowak@gmail.com",
+      "image": "assets/icons/icon7.png",
+      "position": "Product Designer",
+      "employmentDate": "2022-07-01",
+      "contractType": {
+        "id": "4",
+        "name": "B2B"
+      },
+      "wage": 45,
+      "workingTime": 40,
+      "exitDate": "2022-09-01",
+      "active": false
+    },
+    {
+      "id": "4",
+      "firstName": "Paweł",
+      "lastName": "Szymański",
+      "email": "pawel.szymanski@gmail.com",
+      "image": "assets/icons/icon19.png",
+      "position": "Product Designer",
+      "employmentDate": "2022-07-01",
+      "contractType": {
+        "id": "4",
+        "name": "B2B"
+      },
+      "wage": 45,
+      "workingTime": 40,
+      "active": true
+    },
+    {
+      "id": "5",
+      "firstName": "Maria",
+      "lastName": "Wiśniewska",
+      "email": "maria.wisniewska@gmail.com",
+      "image": "assets/icons/icon3.png",
+      "position": "Product Designer",
+      "employmentDate": "2022-07-01",
+      "contractType": {
+        "id": "4",
+        "name": "B2B"
+      },
+      "wage": 45,
+      "workingTime": 40,
+      "exitDate": "2022-09-01",
+      "active": false
+    },
+    {
+      "id": "6",
+      "firstName": "Jan",
+      "email": "jan.kowalski@gmail.com",
+      "lastName": "Kowalski",
+      "image": "assets/icons/icon13.png",
+      "position": "Product Designer",
+      "employmentDate": "2022-07-01",
+      "contractType": {
+        "id": "4",
+        "name": "B2B"
+      },
+      "wage": 45,
+      "workingTime": 40,
+      "exitDate": "2022-09-01",
+      "active": false
+    },
+    {
+      "id": "7",
+      "firstName": "Emil",
+      "lastName": "Zieliński",
+      "email": "emil.zielinski@gmail.com",
+      "image": "assets/icons/icon18.png",
+      "position": "Product Designer",
+      "employmentDate": "2022-07-01",
+      "contractType": {
+        "id": "4",
+        "name": "B2B"
+      },
+      "wage": 45,
+      "workingTime": 40,
+      "active": true
+    },
+    {
+      "id": "8",
+      "firstName": "Krystian",
+      "lastName": "Kowalczyk",
+      "email": "krystian.kowalczyk@gmail.com",
+      "image": "assets/icons/icon16.png",
+      "position": "Product Designer",
+      "employmentDate": "2022-07-01",
+      "contractType": {
+        "id": "4",
+        "name": "B2B"
+      },
+      "wage": 45,
+      "workingTime": 40,
+      "active": true
+    },
+    {
+      "id": "EtHlpmT",
+      "firstName": "Andrzejss",
+      "lastName": "as",
+      "email": "as@as.cs",
+      "image": "",
+      "position": "Product Designer",
+      "employmentDate": "2023-01-11",
+      "workingTime": 2,
+      "wage": 2,
+      "contractType": {
+        "id": "1",
+        "name": "Employment contract"
+      },
+      "active": true
+    },
+    {
+      "id": "GBL5Hfj",
+      "firstName": "dsf",
+      "lastName": "fdf",
+      "email": "aa@aa.aa",
+      "image": "",
+      "position": "Product Designer",
+      "employmentDate": "2023-01-11",
+      "workingTime": 2,
+      "wage": 2,
+      "contractType": {
+        "id": "2",
+        "name": "Commission contract"
+      },
+      "exitDate": "2023-01-11",
+      "active": false
+    }
+  ],
+  "accounts": [
+    {
+      "id": "0",
+      "firstName": "Robert",
+      "middleName": "Karol",
+      "lastName": "Skrzypczak",
+      "sex": {
+        "id": "1",
+        "name": "Male"
+      },
+      "birthDate": "1999-03-12",
+      "birthPlace": "Kraków",
+      "idCardNumber": "CCC675432",
+      "email": "robert.skrzypczak@gmail.com",
+      "image": "assets/icons/icon14.png",
+      "pesel": 12312312312,
+      "contractType": {
+        "id": "4",
+        "name": "B2B"
+      },
+      "wage": 35,
+      "payday": 1,
+      "position": {
+        "id": "1",
+        "name": "Frontend Developer",
+        "description": "Frontend Developer",
+        "creationDate": "2022-01-20",
+        "count": 1,
+        "active": true
+      },
+      "employmentDate": "2021-08-15",
+      "workingTime": 40,
+      "active": true,
+      "password": "abc",
+      "phoneNumber": "777-777-777",
+      "privateEmail": "bob@gmail.com",
+      "street": "Nowowiejska",
+      "houseNumber": "17",
+      "apartmentNumber": "43",
+      "city": "Warszawa",
+      "postalCode": "35-323",
+      "country": {
+        "name": "🇵🇱 Poland",
+        "id": "175"
+      },
+      "accountNumber": "90 0023 0231 2145 3443 2133 2300"
+    },
+    {
+      "id": "1",
+      "firstName": "Beata",
+      "middleName": "",
+      "lastName": "Iwan",
+      "email": "beata.iwan@gmail.com",
+      "image": "assets/icons/icon4.png",
+      "pesel": 12312312312,
+      "birthPlace": "Kraków",
+      "idCardNumber": "CCC675432",
+      "contractType": {
+        "id": "4",
+        "name": "B2B"
+      },
+      "wage": 35,
+      "payday": 1,
+      "position": {
+        "id": "2",
+        "name": "Product Designer",
+        "description": "Product Designer",
+        "creationDate": "2022-01-20",
+        "count": 1,
+        "archiveDate": "2022-10-10",
+        "active": true
+      },
+      "employmentDate": "2022-07-01",
+      "workingTime": 40,
+      "active": true,
+      "password": "abc",
+      "sex": {
+        "id": "2",
+        "name": "Female"
+      },
+      "birthDate": "1999-03-12",
+      "phoneNumber": "777-777-777",
+      "privateEmail": "iwaaaaaaaan@gmail.com",
+      "street": "Nowowiejska",
+      "houseNumber": "17",
+      "apartmentNumber": "43",
+      "city": "Warszawa",
+      "postalCode": "35-323",
+      "country": {
+        "name": "🇵🇱 Poland",
+        "id": "175"
+      },
+      "accountNumber": "90 0023 0231 2145 3443 2133 2300"
+    },
+    {
+      "id": "2",
+      "firstName": "Joanna",
+      "middleName": "",
+      "lastName": "Malawska",
+      "email": "joanna.malawska@gmail.com",
+      "image": "assets/icons/icon8.png",
+      "pesel": 12312312312,
+      "birthPlace": "Kraków",
+      "idCardNumber": "CCC675432",
+      "contractType": {
+        "id": "4",
+        "name": "B2B"
+      },
+      "wage": 35,
+      "payday": 1,
+      "position": {
+        "id": "2",
+        "name": "Product Designer",
+        "description": "Product Designer",
+        "creationDate": "2022-01-20",
+        "count": 1,
+        "archiveDate": "2022-10-10",
+        "active": true
+      },
+      "employmentDate": "2022-07-01",
+      "workingTime": 40,
+      "active": true,
+      "password": "abc",
+      "sex": {
+        "id": "2",
+        "name": "Female"
+      },
+      "birthDate": "1999-03-12",
+      "phoneNumber": "777-777-777",
+      "privateEmail": "asia@gmail.com",
+      "street": "Nowowiejska",
+      "houseNumber": "17",
+      "apartmentNumber": "43",
+      "city": "Warszawa",
+      "postalCode": "35-323",
+      "country": {
+        "name": "🇵🇱 Poland",
+        "id": "175"
+      },
+      "accountNumber": "90 0023 0231 2145 3443 2133 2300"
+    },
+    {
+      "id": "3",
+      "firstName": "Anna",
+      "middleName": "",
+      "lastName": "Nowak",
+      "email": "anna.nowak@gmail.com",
+      "image": "assets/icons/icon7.png",
+      "birthPlace": "Kraków",
+      "idCardNumber": "CCC675432",
+      "pesel": 12312312312,
+      "contractType": {
+        "id": "4",
+        "name": "B2B"
+      },
+      "wage": 35,
+      "payday": 1,
+      "position": {
+        "id": "2",
+        "name": "Product Designer",
+        "description": "Product Designer",
+        "creationDate": "2022-01-20",
+        "count": 1,
+        "archiveDate": "2022-10-10",
+        "active": true
+      },
+      "employmentDate": "2022-07-01",
+      "workingTime": 40,
+      "exitDate": "2022-09-01",
+      "active": false,
+      "password": "abc",
+      "sex": {
+        "id": "2",
+        "name": "Female"
+      },
+      "birthDate": "1999-03-12",
+      "phoneNumber": "777-777-777",
+      "privateEmail": "nowczi@gmail.com",
+      "street": "Nowowiejska",
+      "houseNumber": "17",
+      "apartmentNumber": "43",
+      "city": "Warszawa",
+      "postalCode": "35-323",
+      "country": {
+        "name": "🇵🇱 Poland",
+        "id": "175"
+      },
+      "accountNumber": "90 0023 0231 2145 3443 2133 2300"
+    },
+    {
+      "id": "4",
+      "firstName": "Paweł",
+      "middleName": "",
+      "lastName": "Szymański",
+      "email": "pawel.szymanski@gmail.com",
+      "image": "assets/icons/icon19.png",
+      "birthPlace": "Kraków",
+      "idCardNumber": "CCC675432",
+      "pesel": 12312312312,
+      "contractType": {
+        "id": "4",
+        "name": "B2B"
+      },
+      "wage": 35,
+      "payday": 1,
+      "position": {
+        "id": "2",
+        "name": "Product Designer",
+        "description": "Product Designer",
+        "creationDate": "2022-01-20",
+        "count": 1,
+        "archiveDate": "2022-10-10",
+        "active": true
+      },
+      "employmentDate": "2022-07-01",
+      "workingTime": 40,
+      "active": true,
+      "password": "abc",
+      "sex": {
+        "id": "1",
+        "name": "Male"
+      },
+      "birthDate": "1999-03-12",
+      "phoneNumber": "777-777-777",
+      "privateEmail": "szymon@gmail.com",
+      "street": "Nowowiejska",
+      "houseNumber": "17",
+      "apartmentNumber": "43",
+      "city": "Warszawa",
+      "postalCode": "35-323",
+      "country": {
+        "name": "🇵🇱 Poland",
+        "id": "175"
+      },
+      "accountNumber": "90 0023 0231 2145 3443 2133 2300"
+    },
+    {
+      "id": "5",
+      "firstName": "Maria",
+      "middleName": "",
+      "lastName": "Wiśniewska",
+      "email": "maria.wisniewska@gmail.com",
+      "image": "assets/icons/icon3.png",
+      "birthPlace": "Kraków",
+      "idCardNumber": "CCC675432",
+      "pesel": 12312312312,
+      "contractType": {
+        "id": "4",
+        "name": "B2B"
+      },
+      "wage": 35,
+      "payday": 1,
+      "position": {
+        "id": "1",
+        "name": "Frontend Developer",
+        "description": "Frontend Developer",
+        "creationDate": "2022-01-20",
+        "count": 1,
+        "active": true
+      },
+      "employmentDate": "2022-07-01",
+      "workingTime": 40,
+      "exitDate": "2022-09-01",
+      "active": false,
+      "password": "abc",
+      "sex": {
+        "id": "2",
+        "name": "Female"
+      },
+      "birthDate": "1999-03-12",
+      "phoneNumber": "777-777-777",
+      "privateEmail": "marthaaa@gmail.com",
+      "street": "Nowowiejska",
+      "houseNumber": "17",
+      "apartmentNumber": "43",
+      "city": "Warszawa",
+      "postalCode": "35-323",
+      "country": {
+        "name": "🇵🇱 Poland",
+        "id": "175"
+      },
+      "accountNumber": "90 0023 0231 2145 3443 2133 2300"
+    },
+    {
+      "id": "6",
+      "firstName": "Jan",
+      "middleName": "",
+      "email": "jan.kowalski@gmail.com",
+      "lastName": "Kowalski",
+      "image": "assets/icons/icon13.png",
+      "birthPlace": "Kraków",
+      "idCardNumber": "CCC675432",
+      "pesel": 12312312312,
+      "contractType": {
+        "id": "4",
+        "name": "B2B"
+      },
+      "wage": 35,
+      "payday": 1,
+      "position": {
+        "id": "1",
+        "name": "Frontend Developer",
+        "description": "Frontend Developer",
+        "creationDate": "2022-01-20",
+        "count": 1,
+        "active": true
+      },
+      "employmentDate": "2022-07-01",
+      "workingTime": 40,
+      "exitDate": "2022-09-01",
+      "active": false,
+      "password": "abc",
+      "sex": {
+        "id": "1",
+        "name": "Male"
+      },
+      "birthDate": "1999-03-12",
+      "phoneNumber": "777-777-777",
+      "privateEmail": "kowalski@gmail.com",
+      "street": "Nowowiejska",
+      "houseNumber": "17",
+      "apartmentNumber": "43",
+      "city": "Warszawa",
+      "postalCode": "35-323",
+      "country": {
+        "name": "🇵🇱 Poland",
+        "id": "175"
+      },
+      "accountNumber": "90 0023 0231 2145 3443 2133 2300"
+    },
+    {
+      "id": "7",
+      "firstName": "Emil",
+      "middleName": "",
+      "lastName": "Zieliński",
+      "email": "emil.zielinski@gmail.com",
+      "image": "assets/icons/icon18.png",
+      "birthPlace": "Kraków",
+      "idCardNumber": "CCC675432",
+      "pesel": 12312312312,
+      "contractType": {
+        "id": "4",
+        "name": "B2B"
+      },
+      "wage": 35,
+      "payday": 1,
+      "position": {
+        "id": "2",
+        "name": "Product Designer",
+        "description": "Product Designer",
+        "creationDate": "2022-01-20",
+        "count": 1,
+        "archiveDate": "2022-10-10",
+        "active": true
+      },
+      "employmentDate": "2022-07-01",
+      "workingTime": 40,
+      "active": true,
+      "password": "abc",
+      "sex": {
+        "id": "1",
+        "name": "Male"
+      },
+      "birthDate": "1999-03-12",
+      "phoneNumber": "777-777-777",
+      "privateEmail": "zielu@gmail.com",
+      "street": "Nowowiejska",
+      "houseNumber": "17",
+      "apartmentNumber": "43",
+      "city": "Warszawa",
+      "postalCode": "35-323",
+      "country": {
+        "name": "🇵🇱 Poland",
+        "id": "175"
+      },
+      "accountNumber": "90 0023 0231 2145 3443 2133 2300"
+    },
+    {
+      "id": "8",
+      "firstName": "Krystian",
+      "middleName": "",
+      "lastName": "Kowalczyk",
+      "email": "krystian.kowalczyk@gmail.com",
+      "image": "assets/icons/icon16.png",
+      "birthPlace": "Kraków",
+      "idCardNumber": "CCC675432",
+      "pesel": 12312312312,
+      "contractType": {
+        "id": "4",
+        "name": "B2B"
+      },
+      "wage": 35,
+      "payday": 1,
+      "position": {
+        "id": "2",
+        "name": "Product Designer",
+        "description": "Product Designer",
+        "creationDate": "2022-01-20",
+        "count": 1,
+        "archiveDate": "2022-10-10",
+        "active": true
+      },
+      "employmentDate": "2022-07-01",
+      "workingTime": 40,
+      "active": true,
+      "password": "abc",
+      "sex": {
+        "id": "1",
+        "name": "Male"
+      },
+      "birthDate": "1999-03-12",
+      "phoneNumber": "777-777-777",
+      "privateEmail": "kowal-@gmail.com",
+      "street": "Nowowiejska",
+      "houseNumber": "17",
+      "apartmentNumber": "43",
+      "city": "Warszawa",
+      "postalCode": "35-323",
+      "country": {
+        "name": "🇵🇱 Poland",
+        "id": "175"
+      },
+      "accountNumber": "90 0023 0231 2145 3443 2133 2300"
+    },
+    {
+      "id": "EtHlpmT",
+      "firstName": "Andrzejss",
+      "middleName": "s",
+      "lastName": "as",
+      "sex": {
+        "id": "1",
+        "name": "Male"
+      },
+      "birthDate": "2023-01-11",
+      "birthPlace": "s",
+      "idCardNumber": "s",
+      "pesel": "22222222222",
+      "street": "22",
+      "houseNumber": "2",
+      "apartmentNumber": "2",
+      "city": "as",
+      "postalCode": "2",
+      "country": {
+        "name": "🇦🇸 American Samoa",
+        "id": "3"
+      },
+      "phoneNumber": "2",
+      "privateEmail": "as@as.as",
+      "position": {
+        "id": "2",
+        "name": "Product Designer",
+        "description": "Product Designer",
+        "creationDate": "2022-01-20",
+        "count": 1,
+        "archiveDate": "2022-10-10",
+        "active": true
+      },
+      "employmentDate": "2023-01-11",
+      "contractType": {
+        "id": "1",
+        "name": "Employment contract"
+      },
+      "workingTime": "2",
+      "wage": "2",
+      "payday": "2",
+      "accountNumber": "2",
+      "email": "as@as.cs",
+      "image": "",
+      "active": true
+    },
+    {
+      "id": "GBL5Hfj",
+      "firstName": "dsf",
+      "middleName": "df",
+      "lastName": "fdf",
+      "sex": {
+        "id": "3",
+        "name": "Other"
+      },
+      "birthDate": "2023-01-11",
+      "birthPlace": "df",
+      "idCardNumber": "df",
+      "pesel": "32232323232",
+      "street": "3",
+      "houseNumber": "3",
+      "apartmentNumber": "3",
+      "city": "as",
+      "postalCode": "3",
+      "country": {
+        "name": "🇦🇱 Albania",
+        "id": "1"
+      },
+      "phoneNumber": "32",
+      "privateEmail": "aa@aa.aa",
+      "position": {
+        "id": "2",
+        "name": "Product Designer",
+        "description": "Product Designer",
+        "creationDate": "2022-01-20",
+        "count": 1,
+        "archiveDate": "2022-10-10",
+        "active": true
+      },
+      "employmentDate": "2023-01-11",
+      "contractType": {
+        "id": "2",
+        "name": "Commission contract"
+      },
+      "workingTime": "2",
+      "wage": "2",
+      "payday": "2",
+      "accountNumber": "2",
+      "email": "aa@aa.aa",
+      "image": "",
+      "active": false,
+      "exitDate": "2023-01-11"
+    }
+  ],
+  "contract-types": [
+    {
+      "id": "1",
+      "name": "Employment contract"
+    },
+    {
+      "id": "2",
+      "name": "Commission contract"
+    },
+    {
+      "id": "3",
+      "name": "Specific-task contract"
+    },
+    {
+      "id": "4",
+      "name": "B2B"
+    }
+  ],
+  "positions": [
+    {
+      "id": "1",
+      "name": "Frontend Developer",
+      "description": "Frontend Developer",
+      "count": 1,
+      "creationDate": "2022-01-20",
+      "active": true
+    },
+    {
+      "id": "2",
+      "name": "Product Designer",
+      "description": "Product Designer",
+      "creationDate": "2022-01-20",
+      "count": 1,
+      "archiveDate": "2022-10-10",
+      "active": true
+    },
+    {
+      "id": "3",
+      "name": "Backend Developer",
+      "description": "Backend Developer",
+      "creationDate": "2022-01-20",
+      "count": 1,
+      "archiveDate": "2022-10-10",
+      "active": false
+    },
+    {
+      "id": "IY-rUUh",
+      "name": "Lifeguard",
+      "description": "Lifeguarding Life",
+      "count": 0,
+      "creationDate": "2023-01-10",
+      "active": false
+    },
+    {
+      "id": "JVGYZCG",
+      "name": "Driver",
+      "description": "Jeździ autem",
+      "count": 0,
+      "creationDate": "2023-01-10",
+      "active": false,
+      "archiveDate": "2023-01-10"
+    }
+  ],
+  "billing-periods": [
+    {
+      "id": "1",
+      "name": "Week"
+    },
+    {
+      "id": "2",
+      "name": "2 Weeks"
+    },
+    {
+      "id": "3",
+      "name": "Month"
+    },
+    {
+      "id": "4",
+      "name": "Season"
+    }
+  ],
+  "project-approvals": [
+    {
+      "id": "0",
+      "projectId": "1",
+      "projectEmployee": {
+        "id": "0",
+        "employee": {
+          "id": "0",
+          "firstName": "Robert",
+          "lastName": "Skrzypczak",
+          "email": "robert.skrzypczak@gmail.com",
+          "image": "assets/icons/icon14.png",
+          "position": "Frontend Developer",
+          "employmentDate": "2021-08-15",
+          "contractType": {
+            "id": "4",
+            "name": "B2B"
+          },
+          "wage": 45,
+          "workingTime": 40,
+          "active": true
+        },
+        "workingTime": 40,
+        "joinDate": "2021-09-10",
+        "active": true
+      },
+      "status": "pending",
+      "lastRequest": "2021-09-15"
+    },
+    {
+      "id": "1",
+      "projectId": "1",
+      "projectEmployee": {
+        "id": "1",
+        "employee": {
+          "id": "1",
+          "firstName": "Beata",
+          "lastName": "Iwan",
+          "email": "beata.iwan@gmail.com",
+          "image": "assets/icons/icon4.png",
+          "position": "Product Designer",
+          "employmentDate": "2022-07-01",
+          "contractType": {
+            "id": "4",
+            "name": "B2B"
+          },
+          "wage": 45,
+          "workingTime": 40,
+          "active": true
+        },
+        "workingTime": 40,
+        "joinDate": "2021-09-10",
+        "active": true
+      },
+      "status": "rejected",
+      "lastRequest": "2022-07-01"
+    },
+    {
+      "id": "2",
+      "projectId": "1",
+      "projectEmployee": {
+        "id": "3",
+        "employee": {
+          "id": "2",
+          "firstName": "Joanna",
+          "lastName": "Malawska",
+          "email": "joanna.malawska@gmail.com",
+          "image": "assets/icons/icon8.png",
+          "position": "Product Designer",
+          "employmentDate": "2022-07-01",
+          "contractType": {
+            "id": "4",
+            "name": "B2B"
+          },
+          "wage": 45,
+          "workingTime": 40,
+          "active": true
+        },
+        "workingTime": 40,
+        "joinDate": "2021-09-10",
+        "exitDate": "2022-04-23",
+        "active": false
+      },
+      "status": "approved",
+      "lastRequest": "2022-07-01"
+    },
+    {
+      "id": "3",
+      "projectId": "1",
+      "projectEmployee": {
+        "id": "4",
+        "employee": {
+          "id": "3",
+          "firstName": "Anna",
+          "lastName": "Nowak",
+          "email": "anna.nowak@gmail.com",
+          "image": "assets/icons/icon7.png",
+          "position": "Product Designer",
+          "employmentDate": "2022-07-01",
+          "contractType": {
+            "id": "4",
+            "name": "B2B"
+          },
+          "wage": 45,
+          "workingTime": 40,
+          "exitDate": "2022-09-01",
+          "active": false
+        },
+        "workingTime": 40,
+        "joinDate": "2021-09-10",
+        "exitDate": "2022-04-23",
+        "active": false
+      },
+      "status": "approved",
+      "lastRequest": "2022-07-01"
+    }
+  ],
+  "project-employees": [
+    {
+      "id": "0",
+      "employee": {
+        "id": "0",
+        "firstName": "Robert",
+        "lastName": "Skrzypczak",
+        "email": "robert.skrzypczak@gmail.com",
+        "image": "assets/icons/icon14.png",
+        "position": "Frontend Developer",
+        "employmentDate": "2021-08-15",
+        "contractType": {
+          "id": "4",
+          "name": "B2B"
+        },
+        "wage": 45,
+        "workingTime": 40,
+        "active": true
+      },
+      "workingTime": 40,
+      "joinDate": "2021-09-10",
+      "active": true
+    },
+    {
+      "id": "1",
+      "employee": {
+        "id": "1",
+        "firstName": "Beata",
+        "lastName": "Iwan",
+        "email": "beata.iwan@gmail.com",
+        "image": "assets/icons/icon4.png",
+        "position": "Product Designer",
+        "employmentDate": "2022-07-01",
+        "contractType": {
+          "id": "4",
+          "name": "B2B"
+        },
+        "wage": 45,
+        "workingTime": 40,
+        "active": true
+      },
+      "workingTime": 40,
+      "joinDate": "2021-09-10",
+      "active": true
+    },
+    {
+      "id": "3",
+      "employee": {
+        "id": "2",
+        "firstName": "Joanna",
+        "lastName": "Malawska",
+        "email": "joanna.malawska@gmail.com",
+        "image": "assets/icons/icon8.png",
+        "position": "Product Designer",
+        "employmentDate": "2022-07-01",
+        "contractType": {
+          "id": "4",
+          "name": "B2B"
+        },
+        "wage": 45,
+        "workingTime": 40,
+        "active": true
+      },
+      "workingTime": 40,
+      "joinDate": "2021-09-10",
+      "exitDate": "2022-04-23",
+      "active": false
+    },
+    {
+      "id": "4",
+      "employee": {
+        "id": "3",
+        "firstName": "Anna",
+        "lastName": "Nowak",
+        "email": "anna.nowak@gmail.com",
+        "image": "assets/icons/icon7.png",
+        "position": "Product Designer",
+        "employmentDate": "2022-07-01",
+        "contractType": {
+          "id": "4",
+          "name": "B2B"
+        },
+        "wage": 45,
+        "workingTime": 40,
+        "exitDate": "2022-09-01",
+        "active": false
+      },
+      "workingTime": 40,
+      "joinDate": "2021-09-10",
+      "exitDate": "2022-04-23",
+      "active": false
+    }
+  ],
+  "project-tasks": [
+    {
+      "id": "1",
+      "name": "Task A",
+      "projectId": "1",
+      "description": "test",
+      "creationDate": "2022-07-22",
+      "active": true
+    },
+    {
+      "id": "2",
+      "name": "Task B",
+      "projectId": "2",
+      "description": "test",
+      "creationDate": "2022-08-15",
+      "active": true
+    },
+    {
+      "id": "3",
+      "name": "Task C",
+      "projectId": "1",
+      "description": "test",
+      "creationDate": "2022-04-31",
+      "archiveDate": "2022-06-03",
+      "active": false
+    },
+    {
+      "id": "4",
+      "name": "Task D",
+      "projectId": "2",
+      "description": "test",
+      "creationDate": "2022-02-04",
+      "active": true
+    },
+    {
+      "id": "5",
+      "name": "Task E",
+      "projectId": "3",
+      "description": "test",
+      "creationDate": "2022-01-12",
+      "active": true
+    }
+  ],
+  "employee-tasks": [
+    {
+      "id": "1",
+      "employeeId": "1",
+      "startDate": "2022-11-21",
+      "endDate": "2012-11-21",
+      "startTime": "12:00",
+      "endTime": "15:00",
+      "project": {
+        "id": "2",
+        "name": "IKEA",
+        "description": "Test description",
+        "image": "assets/companies/company2.png",
+        "moderator": {
+          "id": "0",
+          "firstName": "Robert",
+          "lastName": "Skrzypczak",
+          "email": "robert.skrzypczak@gmail.com",
+          "image": "assets/icons/icon14.png",
+          "position": "Frontend Developer",
+          "employmentDate": "2021-08-15",
+          "contractType": {
+            "id": "4",
+            "name": "B2B"
+          },
+          "wage": 45,
+          "workingTime": 40,
+          "active": true
+        },
+        "billingPeriod": {
+          "id": "3",
+          "name": "Month"
+        },
+        "employeesCount": 50,
+        "creationDate": "2021-03-11",
+        "active": true
+      },
+      "task": {
+        "id": "2",
+        "name": "Task B",
+        "projectId": "2",
+        "description": "test",
+        "creationDate": "2022-08-15",
+        "active": true
+      },
+      "status": "pending"
+    },
+    {
+      "id": "2",
+      "employeeId": "1",
+      "startDate": "2022-12-21",
+      "endDate": "2022-12-21",
+      "startTime": "12:00",
+      "endTime": "15:00",
+      "project": {
+        "id": "1",
+        "name": "Volkswagen",
+        "description": "Test description",
+        "image": "assets/companies/company1.png",
+        "moderator": {
+          "id": "0",
+          "firstName": "Robert",
+          "lastName": "Skrzypczak",
+          "email": "robert.skrzypczak@gmail.com",
+          "image": "assets/icons/icon14.png",
+          "position": "Frontend Developer",
+          "employmentDate": "2021-08-15",
+          "contractType": {
+            "id": "4",
+            "name": "B2B"
+          },
+          "wage": 45,
+          "workingTime": 40,
+          "active": true
+        },
+        "billingPeriod": {
+          "id": "3",
+          "name": "Month"
+        },
+        "employeesCount": 50,
+        "creationDate": "2021-03-11",
+        "active": true
+      },
+      "task": {
+        "id": "1",
+        "name": "Task A",
+        "projectId": "1",
+        "description": "test",
+        "creationDate": "2022-07-22",
+        "active": true
+      },
+      "status": "approved"
+    },
+    {
+      "id": "3",
+      "employeeId": "1",
+      "startDate": "2022-12-21",
+      "endDate": "2022-12-21",
+      "startTime": "12:00",
+      "endTime": "15:00",
+      "project": {
+        "id": "1",
+        "name": "Volkswagen",
+        "description": "Test description",
+        "image": "assets/companies/company1.png",
+        "moderator": {
+          "id": "0",
+          "firstName": "Robert",
+          "lastName": "Skrzypczak",
+          "email": "robert.skrzypczak@gmail.com",
+          "image": "assets/icons/icon14.png",
+          "position": "Frontend Developer",
+          "employmentDate": "2021-08-15",
+          "contractType": {
+            "id": "4",
+            "name": "B2B"
+          },
+          "wage": 45,
+          "workingTime": 40,
+          "active": true
+        },
+        "billingPeriod": {
+          "id": "3",
+          "name": "Month"
+        },
+        "employeesCount": 50,
+        "creationDate": "2021-03-11",
+        "active": true
+      },
+      "task": {
+        "id": "1",
+        "name": "Task A",
+        "projectId": "1",
+        "description": "test",
+        "creationDate": "2022-07-22",
+        "active": true
+      },
+      "status": "rejected"
+    }
+  ],
+  "projects": [
+    {
+      "id": "1",
+      "name": "Volkswagen",
+      "description": "Test description",
+      "image": "assets/companies/company1.png",
+      "moderator": {
+        "id": "0",
+        "firstName": "Robert",
+        "lastName": "Skrzypczak",
+        "email": "robert.skrzypczak@gmail.com",
+        "image": "assets/icons/icon14.png",
+        "position": "Frontend Developer",
+        "employmentDate": "2021-08-15",
+        "contractType": {
+          "id": "4",
+          "name": "B2B"
+        },
+        "wage": 45,
+        "workingTime": 40,
+        "active": true
+      },
+      "billingPeriod": {
+        "id": "3",
+        "name": "Month"
+      },
+      "employeesCount": 50,
+      "creationDate": "2021-03-11",
+      "active": true
+    },
+    {
+      "id": "2",
+      "name": "IKEA",
+      "image": "assets/companies/company2.png",
+      "description": "Test description",
+      "moderator": {
+        "id": "4",
+        "firstName": "Paweł",
+        "lastName": "Szymański",
+        "email": "pawel.szymanski@gmail.com",
+        "image": "assets/icons/icon19.png",
+        "position": "Product Designer",
+        "employmentDate": "2022-07-01",
+        "contractType": {
+          "id": "4",
+          "name": "B2B"
+        },
+        "wage": 45,
+        "workingTime": 40,
+        "active": true
+      },
+      "creationDate": "2021-03-11",
+      "billingPeriod": {
+        "id": "3",
+        "name": "Month"
+      },
+      "overtimeModifier": "123",
+      "active": true
+    },
+    {
+      "id": "3",
+      "name": "Starbucks",
+      "description": "Test description",
+      "image": "assets/companies/company3.png",
+      "moderator": {
+        "id": "0",
+        "firstName": "Robert",
+        "lastName": "Skrzypczak",
+        "email": "robert.skrzypczak@gmail.com",
+        "image": "assets/icons/icon14.png",
+        "position": "Frontend Developer",
+        "employmentDate": "2021-08-15",
+        "contractType": {
+          "id": "4",
+          "name": "B2B"
+        },
+        "wage": 45,
+        "workingTime": 40,
+        "active": true
+      },
+      "billingPeriod": {
+        "id": "3",
+        "name": "Month"
+      },
+      "employeesCount": 50,
+      "creationDate": "2021-03-11",
+      "active": true
+    },
+    {
+      "id": "4",
+      "name": "McDonald's",
+      "description": "Test description",
+      "image": "assets/companies/company4.png",
+      "moderator": {
+        "id": "0",
+        "firstName": "Robert",
+        "lastName": "Skrzypczak",
+        "email": "robert.skrzypczak@gmail.com",
+        "image": "assets/icons/icon14.png",
+        "position": "Frontend Developer",
+        "employmentDate": "2021-08-15",
+        "contractType": {
+          "id": "4",
+          "name": "B2B"
+        },
+        "wage": 45,
+        "workingTime": 40,
+        "active": true
+      },
+      "billingPeriod": {
+        "id": "3",
+        "name": "Month"
+      },
+      "employeesCount": 50,
+      "creationDate": "2021-03-11",
+      "active": false
+    },
+    {
+      "id": "5",
+      "name": "Jeep",
+      "description": "Test description",
+      "image": "assets/companies/company5.png",
+      "moderator": {
+        "id": "0",
+        "firstName": "Robert",
+        "lastName": "Skrzypczak",
+        "email": "robert.skrzypczak@gmail.com",
+        "image": "assets/icons/icon14.png",
+        "position": "Frontend Developer",
+        "employmentDate": "2021-08-15",
+        "contractType": {
+          "id": "4",
+          "name": "B2B"
+        },
+        "wage": 45,
+        "workingTime": 40,
+        "active": true
+      },
+      "billingPeriod": {
+        "id": "3",
+        "name": "Month"
+      },
+      "employeesCount": 50,
+      "creationDate": "2021-03-11",
+      "active": false
+    },
+    {
+      "id": "OFB4Ru0",
+      "name": "asd",
+      "image": {
+        "name": "nope-no.gif",
+        "src": {
+          "changingThisBreaksApplicationSecurity": "blob:http://localhost:4200/96e711f6-50bf-4560-84fb-7c22f54e7d92"
+        }
+      },
+      "description": "asd",
+      "moderator": "1",
+      "creationDate": "2023-01-11",
+      "billingPeriod": {
+        "id": "2",
+        "name": "2 Weeks"
+      },
+      "overtimeModifier": 100,
+      "bonusModifier": "",
+      "nightModifier": 100,
+      "holidayModifier": 100,
+      "active": true
+    }
+  ],
+  "approvals": [
+    {
+      "approve": false,
+      "project": {
+        "id": "1",
+        "name": "Volkswagen",
+        "description": "Test description",
+        "image": "assets/companies/company1.png",
+        "moderator": {
+          "id": "0",
+          "firstName": "Robert",
+          "lastName": "Skrzypczak",
+          "email": "robert.skrzypczak@gmail.com",
+          "image": "assets/icons/icon14.png",
+          "position": "Frontend Developer",
+          "employmentDate": "2021-08-15",
+          "contractType": {
+            "id": "4",
+            "name": "B2B"
+          },
+          "wage": 45,
+          "workingTime": 40,
+          "active": true
+        },
+        "billingPeriod": {
+          "id": "3",
+          "name": "Month"
+        },
+        "employeesCount": 50,
+        "creationDate": "2021-03-11",
+        "active": true
+      },
+      "taskCount": 63,
+      "status": "pending",
+      "updateDate": "2022-10-11"
+    },
+    {
+      "approve": false,
+      "project": {
+        "id": "2",
+        "name": "IKEA",
+        "description": "Test description",
+        "image": "assets/companies/company2.png",
+        "moderator": {
+          "id": "0",
+          "firstName": "Robert",
+          "lastName": "Skrzypczak",
+          "email": "robert.skrzypczak@gmail.com",
+          "image": "assets/icons/icon14.png",
+          "position": "Frontend Developer",
+          "employmentDate": "2021-08-15",
+          "contractType": {
+            "id": "4",
+            "name": "B2B"
+          },
+          "wage": 45,
+          "workingTime": 40,
+          "active": true
+        },
+        "billingPeriod": {
+          "id": "3",
+          "name": "Month"
+        },
+        "employeesCount": 50,
+        "creationDate": "2021-03-11",
+        "active": true
+      },
+      "taskCount": 123,
+      "status": "pending",
+      "updateDate": "2022-10-11"
+    },
+    {
+      "approve": false,
+      "project": {
+        "id": "3",
+        "name": "Starbucks",
+        "description": "Test description",
+        "image": "assets/companies/company3.png",
+        "moderator": {
+          "id": "0",
+          "firstName": "Robert",
+          "lastName": "Skrzypczak",
+          "email": "robert.skrzypczak@gmail.com",
+          "image": "assets/icons/icon14.png",
+          "position": "Frontend Developer",
+          "employmentDate": "2021-08-15",
+          "contractType": {
+            "id": "4",
+            "name": "B2B"
+          },
+          "wage": 45,
+          "workingTime": 40,
+          "active": true
+        },
+        "billingPeriod": {
+          "id": "3",
+          "name": "Month"
+        },
+        "employeesCount": 50,
+        "creationDate": "2021-03-11",
+        "active": true
+      },
+      "taskCount": 49,
+      "status": "pending",
+      "updateDate": "2022-10-11"
+    }
+  ],
+  "employee-projects": [
+    {
+      "project": {
+        "id": "1",
+        "name": "Volkswagen",
+        "description": "Test description",
+        "image": "assets/companies/company1.png",
+        "moderator": {
+          "id": "0",
+          "firstName": "Robert",
+          "lastName": "Skrzypczak",
+          "email": "robert.skrzypczak@gmail.com",
+          "image": "assets/icons/icon14.png",
+          "position": "Frontend Developer",
+          "employmentDate": "2021-08-15",
+          "contractType": {
+            "id": "4",
+            "name": "B2B"
+          },
+          "wage": 45,
+          "workingTime": 40,
+          "active": true
+        },
+        "billingPeriod": {
+          "id": "3",
+          "name": "Month"
+        },
+        "employeesCount": 50,
+        "creationDate": "2021-03-11",
+        "active": true
+      },
+      "employeeId": "1",
+      "joinDate": "2021-09-10"
+    },
+    {
+      "project": {
+        "id": "2",
+        "name": "IKEA",
+        "description": "Test description",
+        "image": "assets/companies/company2.png",
+        "moderator": {
+          "id": "0",
+          "firstName": "Robert",
+          "lastName": "Skrzypczak",
+          "email": "robert.skrzypczak@gmail.com",
+          "image": "assets/icons/icon14.png",
+          "position": "Frontend Developer",
+          "employmentDate": "2021-08-15",
+          "contractType": {
+            "id": "4",
+            "name": "B2B"
+          },
+          "wage": 45,
+          "workingTime": 40,
+          "active": true
+        },
+        "billingPeriod": {
+          "id": "3",
+          "name": "Month"
+        },
+        "employeesCount": 50,
+        "creationDate": "2021-03-11",
+        "active": true
+      },
+      "employeeId": "1",
+      "joinDate": "2021-09-10"
+    },
+    {
+      "project": {
+        "id": "3",
+        "name": "Starbucks",
+        "description": "Test description",
+        "image": "assets/companies/company3.png",
+        "moderator": {
+          "id": "0",
+          "firstName": "Robert",
+          "lastName": "Skrzypczak",
+          "email": "robert.skrzypczak@gmail.com",
+          "image": "assets/icons/icon14.png",
+          "position": "Frontend Developer",
+          "employmentDate": "2021-08-15",
+          "contractType": {
+            "id": "4",
+            "name": "B2B"
+          },
+          "wage": 45,
+          "workingTime": 40,
+          "active": true
+        },
+        "billingPeriod": {
+          "id": "3",
+          "name": "Month"
+        },
+        "employeesCount": 50,
+        "creationDate": "2021-03-11",
+        "active": true
+      },
+      "employeeId": "1",
+      "joinDate": "2021-09-10",
+      "exitDate": "2022-11-17"
+    },
+    {
+      "project": {
+        "id": "4",
+        "name": "McDonald's",
+        "description": "Test description",
+        "image": "assets/companies/company4.png",
+        "moderator": {
+          "id": "0",
+          "firstName": "Robert",
+          "lastName": "Skrzypczak",
+          "email": "robert.skrzypczak@gmail.com",
+          "image": "assets/icons/icon14.png",
+          "position": "Frontend Developer",
+          "employmentDate": "2021-08-15",
+          "contractType": {
+            "id": "4",
+            "name": "B2B"
+          },
+          "wage": 45,
+          "workingTime": 40,
+          "active": true
+        },
+        "billingPeriod": {
+          "id": "3",
+          "name": "Month"
+        },
+        "employeesCount": 50,
+        "creationDate": "2021-03-11",
+        "active": false
+      },
+      "employeeId": "1",
+      "joinDate": "2021-09-10",
+      "exitDate": "2022-11-17"
+    },
+    {
+      "project": {
+        "id": "5",
+        "name": "Jeep",
+        "description": "Test description",
+        "image": "assets/companies/company5.png",
+        "moderator": {
+          "id": "0",
+          "firstName": "Robert",
+          "lastName": "Skrzypczak",
+          "email": "robert.skrzypczak@gmail.com",
+          "image": "assets/icons/icon14.png",
+          "position": "Frontend Developer",
+          "employmentDate": "2021-08-15",
+          "contractType": {
+            "id": "4",
+            "name": "B2B"
+          },
+          "wage": 45,
+          "workingTime": 40,
+          "active": true
+        },
+        "billingPeriod": {
+          "id": "3",
+          "name": "Month"
+        },
+        "employeesCount": 50,
+        "creationDate": "2021-03-11",
+        "active": false
+      },
+      "employeeId": "1",
+      "joinDate": "2021-09-10",
+      "exitDate": "2022-11-17"
+    }
+  ],
+  "global-settings": {
+    "requireConfirmationOnTaskSubmission": true,
+    "showDashboards": true,
+    "showProjects": true,
+    "defaultPage": {
+      "id": "1",
+      "name": "Dashboard"
+    },
+    "companyName": "Amazement",
+    "regon": "000000000",
+    "nip": "0000000000",
+    "krs": "0000000000",
+    "description": "Example project description",
+    "street": "Podchorążych",
+    "houseNumber": "2",
+    "apartmentNumber": "1",
+    "city": "Kraków",
+    "postalCode": "30-048",
+    "country": {
+      "name": "🇵🇱 Poland",
+      "id": "175"
+    },
+    "phoneNumber": "000-000-000",
+    "email": "company.mail@mail.com",
+    "website": "company.com"
+  },
+  "permissions": {
+    "canAddEmployee": true,
+    "canAddProject": true,
+    "canAdminEmployees": true,
+    "canAdminSettings": true,
+    "canAdminPositions": true
+  },
+  "project-permissions": [
+    {
+      "id": "1",
+      "canReadProject": true,
+      "canManageTasks": true,
+      "canManageProjectEmployees": true,
+      "canManageApprovals": true,
+      "canAdminProjects": true,
+      "canAddProjectEmployee": true
+    },
+    {
+      "id": "2",
+      "canReadProject": true,
+      "canManageTasks": false,
+      "canManageProjectEmployees": true,
+      "canManageApprovals": false,
+      "canAdminProjects": true,
+      "canAddProjectEmployee": true
+    },
+    {
+      "id": "3",
+      "canReadProject": true,
+      "canManageTasks": true,
+      "canManageProjectEmployees": false,
+      "canManageApprovals": true,
+      "canAdminProjects": true,
+      "canAddProjectEmployee": false
+    }
+  ]
+}

@@ -40,6 +40,7 @@ export class AdminPositionsComponent implements OnInit {
     'count',
     'archiveDate',
   ];
+  idToArchive: string = '';
   isArchiveModalOpen: boolean = false;
   modalDescription: string = '';
   query: string = '';
@@ -59,17 +60,21 @@ export class AdminPositionsComponent implements OnInit {
   }
 
   showActiveTable(value: boolean): void {
-    if (value) {
-      this.positionsService
-        .getPositions()
-        .pipe(first())
-        .subscribe(positions => (this.dataSource = positions));
-    } else {
-      this.positionsService
-        .getArchivedPositions()
-        .pipe(first())
-        .subscribe(archivedPositions => (this.dataSource = archivedPositions));
-    }
+    value ? this.getPositions() : this.getArchivedPositions();
+  }
+
+  getPositions(): void {
+    this.positionsService
+      .getPositions()
+      .pipe(first())
+      .subscribe(positions => (this.dataSource = positions));
+  }
+
+  getArchivedPositions(): void {
+    this.positionsService
+      .getArchivedPositions()
+      .pipe(first())
+      .subscribe(archivedPositions => (this.dataSource = archivedPositions));
   }
 
   editPosition(event: Event, row: Position): void {
@@ -79,6 +84,7 @@ export class AdminPositionsComponent implements OnInit {
 
   openArchiveModal(event: Event, row: Position): void {
     event.stopPropagation();
+    this.idToArchive = row.id;
     this.isArchiveModalOpen = true;
     this.modalDescription = `Are you sure you want to archive ${row.name}? This action cannot be undone.`;
   }
@@ -88,7 +94,18 @@ export class AdminPositionsComponent implements OnInit {
   }
 
   archive(): void {
-    this.toastService.showToast(ToastState.Info, 'Position archived');
-    setTimeout(() => this.toastService.dismissToast(), 3000);
+    this.positionsService
+      .getPosition(this.idToArchive)
+      .pipe(first())
+      .subscribe(position => {
+        this.positionsService
+          .archivePosition(position)
+          .pipe(first())
+          .subscribe(() => {
+            this.toastService.showToast(ToastState.Info, 'Position archived');
+            setTimeout(() => this.toastService.dismissToast(), 3000);
+            this.getPositions();
+          });
+      });
   }
 }

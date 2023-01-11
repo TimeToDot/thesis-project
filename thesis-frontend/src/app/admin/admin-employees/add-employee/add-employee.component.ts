@@ -2,9 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule, formatDate, Location } from '@angular/common';
 import { PersonalInfoComponent } from './personal-info/personal-info.component';
 import {
+  AbstractControl,
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
+  ValidationErrors,
+  ValidatorFn,
   Validators,
 } from '@angular/forms';
 import { AccountInfoComponent } from './account-info/account-info.component';
@@ -13,6 +16,8 @@ import { EmploymentInfoComponent } from './employment-info/employment-info.compo
 import { tabAnimation } from '../../../shared/animations/tab.animation';
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
 import { Subject } from 'rxjs';
+import { Regex } from '../../../shared/helpers/regex.helper';
+import { CustomValidators } from '../../../shared/helpers/custom-validators.helper';
 
 @Component({
   selector: 'bvr-add-employee',
@@ -31,6 +36,7 @@ import { Subject } from 'rxjs';
 })
 export class AddEmployeeComponent implements OnInit {
   addEmployeeForm!: FormGroup;
+  controls: any = {};
   enableFormButtons: boolean = true;
   isCancelModalOpen: boolean = false;
   isFromGuard: boolean = false;
@@ -43,32 +49,57 @@ export class AddEmployeeComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm();
+    this.getFormControls();
   }
 
   createForm(): void {
     this.addEmployeeForm = this.fb.group({
       personalInfo: this.fb.group({
-        firstName: ['', [Validators.required]],
-        lastName: ['', [Validators.required]],
-        middleName: [''],
+        firstName: ['', [Validators.required, Validators.pattern(Regex.ALPHA)]],
+        lastName: ['', [Validators.required, Validators.pattern(Regex.ALPHA)]],
+        middleName: ['', [Validators.pattern(Regex.ALPHA)]],
         sex: ['', [Validators.required]],
         birthDate: [
           formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en'),
           [Validators.required],
         ],
-        birthPlace: ['', [Validators.required]],
-        idCardNumber: ['', [Validators.required]],
-        pesel: [''],
+        birthPlace: [
+          '',
+          [Validators.required, Validators.pattern(Regex.ALPHA)],
+        ],
+        idCardNumber: [
+          '',
+          [Validators.required, Validators.pattern(Regex.ALPHANUMERIC)],
+        ],
+        pesel: [
+          '',
+          [Validators.pattern(Regex.NUMERIC), Validators.minLength(11)],
+        ],
       }),
       addressInfo: this.fb.group({
-        street: ['', [Validators.required]],
-        houseNumber: ['', [Validators.required]],
-        apartmentNumber: ['', []],
-        city: ['', [Validators.required]],
-        postalCode: ['', [Validators.required]],
+        street: [
+          '',
+          [Validators.required, Validators.pattern(Regex.ALPHANUMERIC)],
+        ],
+        houseNumber: [
+          '',
+          [Validators.required, Validators.pattern(Regex.ALPHANUMERIC)],
+        ],
+        apartmentNumber: ['', [Validators.pattern(Regex.ALPHANUMERIC)]],
+        city: ['', [Validators.required, Validators.pattern(Regex.ALPHA)]],
+        postalCode: [
+          '',
+          [Validators.required, Validators.pattern(Regex.ALPHANUMERIC)],
+        ],
         country: ['', [Validators.required]],
-        phoneNumber: ['', [Validators.required]],
-        privateEmail: ['', [Validators.required]],
+        phoneNumber: [
+          '',
+          [Validators.required, Validators.pattern(Regex.PHONE)],
+        ],
+        privateEmail: [
+          '',
+          [Validators.required, Validators.pattern(Regex.EMAIL)],
+        ],
       }),
       employmentInfo: this.fb.group({
         position: ['', [Validators.required]],
@@ -77,16 +108,57 @@ export class AddEmployeeComponent implements OnInit {
           [Validators.required],
         ],
         contractType: ['', [Validators.required]],
-        workingTime: ['', [Validators.required]],
-        wage: ['', [Validators.required]],
-        payday: ['', [Validators.required]],
-        accountNumber: ['', [Validators.required]],
+        workingTime: [
+          '',
+          [
+            Validators.required,
+            CustomValidators.minValue(0),
+            CustomValidators.maxValue(168),
+          ],
+        ],
+        wage: ['', [Validators.required, CustomValidators.minValue(0)]],
+        payday: [
+          '',
+          [
+            Validators.required,
+            CustomValidators.minValue(1),
+            CustomValidators.maxValue(31),
+          ],
+        ],
+        accountNumber: [
+          '',
+          [Validators.required, Validators.pattern(Regex.ALPHANUMERIC)],
+        ],
       }),
-      accountInfo: this.fb.group({
-        email: ['', [Validators.required]],
-        password: ['', [Validators.required]],
-        repeatPassword: ['', [Validators.required]],
-      }),
+      accountInfo: this.fb.group(
+        {
+          email: ['', [Validators.required, Validators.pattern(Regex.EMAIL)]],
+          password: ['', [Validators.required, CustomValidators.password()]],
+          repeatPassword: [
+            '',
+            [Validators.required, CustomValidators.password()],
+          ],
+        },
+        {
+          validators: [
+            CustomValidators.passwordMatchingValidator(
+              'password',
+              'repeatPassword'
+            ),
+          ],
+        }
+      ),
+    });
+  }
+
+  getFormControls(): void {
+    Object.keys(this.addEmployeeForm.controls).forEach(group => {
+      this.controls[group] = this.addEmployeeForm.get([group]);
+      Object.keys(
+        (this.addEmployeeForm.get(group) as FormGroup<any>).controls
+      ).forEach(field => {
+        this.controls[field] = this.addEmployeeForm.get([group, field]);
+      });
     });
   }
 
