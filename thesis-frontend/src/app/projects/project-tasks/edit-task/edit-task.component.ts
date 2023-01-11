@@ -4,6 +4,7 @@ import { ButtonComponent } from '../../../shared/components/button/button.compon
 import { ActivatedRoute, Router, RouterLinkWithHref } from '@angular/router';
 import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
 import {
+  AbstractControl,
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
@@ -36,6 +37,7 @@ import { Regex } from '../../../shared/helpers/regex.helper';
   templateUrl: './edit-task.component.html',
 })
 export class EditTaskComponent {
+  controls: any = {};
   editProjectTaskForm!: FormGroup;
   isArchiveModalOpen: boolean = false;
   isCancelModalOpen: boolean = false;
@@ -60,12 +62,12 @@ export class EditTaskComponent {
     private projectTasksService: ProjectTasksService,
     private route: ActivatedRoute,
     private router: Router,
-    private toastService: ToastService,
-    private validationService: ValidationService
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
     this.createForm();
+    this.getFormControls();
     this.getTask();
   }
 
@@ -73,6 +75,12 @@ export class EditTaskComponent {
     this.editProjectTaskForm = this.fb.group({
       name: ['', [Validators.required, Validators.pattern(Regex.ALPHANUMERIC)]],
       description: ['', [Validators.required]],
+    });
+  }
+
+  getFormControls(): void {
+    Object.keys(this.editProjectTaskForm.controls).forEach(control => {
+      this.controls[control] = this.editProjectTaskForm.get([control]);
     });
   }
 
@@ -100,7 +108,7 @@ export class EditTaskComponent {
 
   openArchiveModal(): void {
     this.isArchiveModalOpen = true;
-    const taskName = this.editProjectTaskForm.get(['name'])?.value;
+    const taskName = this.controls.name?.value;
     this.modalDescription = `Are you sure you want to archive task ${taskName}? This action cannot be undone.`;
   }
 
@@ -146,17 +154,34 @@ export class EditTaskComponent {
   save(value: boolean): void {
     this.disableGuard(true);
     if (value) {
-      new Promise((resolve, _) => {
-        this.location.back();
-        resolve('done');
-      }).then(() => {
-        setTimeout(
-          () => this.toastService.showToast(ToastState.Success, 'Task edited'),
-          200
-        );
-        setTimeout(() => this.toastService.dismissToast(), 3200);
-      });
+      this.projectTasksService
+        .updateProjectTask(this.getProjectTaskData())
+        .pipe(first())
+        .subscribe(() => {
+          new Promise((resolve, _) => {
+            this.location.back();
+            resolve('done');
+          }).then(() => {
+            setTimeout(
+              () =>
+                this.toastService.showToast(ToastState.Success, 'Task edited'),
+              200
+            );
+            setTimeout(() => this.toastService.dismissToast(), 3200);
+          });
+        });
     }
+  }
+
+  getProjectTaskData(): ProjectTask {
+    return {
+      id: this.task.id,
+      name: this.controls.name?.value,
+      description: this.controls.description?.value,
+      creationDate: this.task.creationDate,
+      projectId: this.task.projectId,
+      active: this.task.active,
+    };
   }
 
   disableGuard(value: boolean): void {
@@ -164,11 +189,7 @@ export class EditTaskComponent {
     this.redirectSubject.next(value);
   }
 
-  isRequired(name: string): boolean {
-    return this.validationService.isRequired(this.editProjectTaskForm, [name]);
-  }
-
-  showErrors(name: string): boolean {
-    return this.validationService.showErrors(this.editProjectTaskForm, [name]);
+  isRequired(control: AbstractControl): boolean {
+    return control?.hasValidator(Validators.required) ? true : false;
   }
 }

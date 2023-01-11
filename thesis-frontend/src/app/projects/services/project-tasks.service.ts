@@ -17,11 +17,18 @@ export class ProjectTasksService {
     );
   }
 
-  addProjectTask(
-    projectId: string,
-    task: ProjectTask
-  ): Observable<ProjectTask> {
-    return this.http.post<ProjectTask>(`${this.url}/${projectId}/tasks`, task);
+  addProjectTask(task: ProjectTask): Observable<ProjectTask> {
+    return this.http.post<ProjectTask>(
+      `${this.url}/${task.projectId}/tasks`,
+      task
+    );
+  }
+
+  updateProjectTask(task: ProjectTask): Observable<ProjectTask> {
+    return this.http.put<ProjectTask>(
+      `${this.url}/${task.projectId}/tasks/${task.id}`,
+      task
+    );
   }
 
   getProjectTasks(projectId: string): Observable<ProjectTask[]> {

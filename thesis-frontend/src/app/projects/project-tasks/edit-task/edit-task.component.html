@@ -13,21 +13,21 @@
     [formGroup]="editProjectTaskForm">
     <bvr-form-field
       label="Task Name"
-      [required]="isRequired('name')">
+      [required]="isRequired(controls.name)">
       <input
         formControlName="name"
         type="text" />
       <bvr-error
         class="error"
-        [control]="editProjectTaskForm.get(['name'])"></bvr-error>
+        [control]="controls.name"></bvr-error>
     </bvr-form-field>
     <bvr-form-field
       label="Task Description"
-      [required]="isRequired('description')">
+      [required]="isRequired(controls.description)">
       <textarea formControlName="description"></textarea>
       <bvr-error
         class="error"
-        [control]="editProjectTaskForm.get(['description'])"></bvr-error>
+        [control]="controls.description"></bvr-error>
     </bvr-form-field>
   </div>
 </div>

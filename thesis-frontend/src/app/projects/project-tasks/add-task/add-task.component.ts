@@ -92,10 +92,9 @@ export class AddTaskComponent {
 
   add(value: boolean): void {
     this.disableGuard(true);
-    const projectId = this.route.parent?.snapshot.paramMap.get('id') as string;
-    if (value && projectId) {
+    if (value) {
       this.projectTasksService
-        .addProjectTask(projectId, this.getProjectTaskData(projectId))
+        .addProjectTask(this.getProjectTaskData())
         .pipe(first())
         .subscribe(() => {
           this.router.navigate(['..'], { relativeTo: this.route }).then(() => {
@@ -110,7 +109,8 @@ export class AddTaskComponent {
     }
   }
 
-  getProjectTaskData(projectId: string): ProjectTask {
+  getProjectTaskData(): ProjectTask {
+    const projectId = this.route.parent?.snapshot.paramMap.get('id') as string;
     return {
       id: '',
       name: this.controls.name?.value,
