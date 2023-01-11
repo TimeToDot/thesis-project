@@ -1605,11 +1605,10 @@
       "id": "1",
       "name": "Dashboard"
     },
-    "companyName": "Amazon",
+    "companyName": "Amazement",
     "regon": "000000000",
     "nip": "0000000000",
     "krs": "0000000000",
-    "image": "assets/companies/company5.png",
     "description": "Example project description",
     "street": "Podchorążych",
     "houseNumber": "2",

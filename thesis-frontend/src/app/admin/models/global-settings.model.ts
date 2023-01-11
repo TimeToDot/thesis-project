@@ -1,20 +1,22 @@
+import { DropdownOption } from '../../shared/models/dropdown-option.model';
+
 export interface GlobalSettings {
   requireConfirmationOnTaskSubmission: boolean;
   showDashboards: boolean;
   showProjects: boolean;
-  defaultPage: { id: string; name: string };
+  defaultPage: DropdownOption;
   companyName: string;
   regon: string;
   nip: string;
   krs: string;
-  image: string;
+  image?: string;
   description?: string;
   street: string;
   houseNumber: string;
   apartmentNumber?: string;
   city: string;
   postalCode: string;
-  country: { id: string; name: string };
+  country: DropdownOption;
   phoneNumber: string;
   email: string;
   website: string;

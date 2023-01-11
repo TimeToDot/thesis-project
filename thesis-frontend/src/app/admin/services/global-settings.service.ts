@@ -14,4 +14,10 @@ export class GlobalSettingsService {
   getGlobalSettings(): Observable<GlobalSettings> {
     return this.http.get<GlobalSettings>(this.url);
   }
+
+  updateGlobalSettings(
+    globalSettings: GlobalSettings
+  ): Observable<GlobalSettings> {
+    return this.http.put<GlobalSettings>(this.url, globalSettings);
+  }
 }

@@ -41,6 +41,7 @@ import { Regex } from '../../../shared/helpers/regex.helper';
   animations: [tabAnimation],
 })
 export class EditAdminSettingsComponent implements OnInit {
+  controls: any = {};
   editGlobalSettingsForm!: FormGroup;
   enableFormButtons: boolean = true;
   globalSettings!: GlobalSettings;
@@ -64,6 +65,7 @@ export class EditAdminSettingsComponent implements OnInit {
   ngOnInit(): void {
     this.getCurrentTab();
     this.createForm();
+    this.getFormControls();
     this.getNavbarOptions();
     this.getGlobalSettings();
   }
@@ -115,6 +117,17 @@ export class EditAdminSettingsComponent implements OnInit {
         email: ['', [Validators.required, Validators.pattern(Regex.EMAIL)]],
         website: ['', [Validators.required, Validators.pattern(Regex.WEBSITE)]],
       }),
+    });
+  }
+
+  getFormControls(): void {
+    Object.keys(this.editGlobalSettingsForm.controls).forEach(group => {
+      this.controls[group] = this.editGlobalSettingsForm.get([group]);
+      Object.keys(
+        (this.editGlobalSettingsForm.get(group) as FormGroup<any>).controls
+      ).forEach(field => {
+        this.controls[field] = this.editGlobalSettingsForm.get([group, field]);
+      });
     });
   }
 
@@ -181,21 +194,51 @@ export class EditAdminSettingsComponent implements OnInit {
   save(value: boolean): void {
     this.disableGuard(true);
     if (value) {
-      new Promise((resolve, _) => {
-        this.location.back();
-        resolve('done');
-      }).then(() => {
-        setTimeout(
-          () =>
-            this.toastService.showToast(
-              ToastState.Success,
-              'Global settings edited'
-            ),
-          200
-        );
-        setTimeout(() => this.toastService.dismissToast(), 3200);
-      });
+      this.globalSettingsService
+        .updateGlobalSettings(this.getGlobalSettingsData())
+        .pipe(first())
+        .subscribe(() => {
+          new Promise((resolve, _) => {
+            this.location.back();
+            resolve('done');
+          }).then(() => {
+            setTimeout(
+              () =>
+                this.toastService.showToast(
+                  ToastState.Success,
+                  'Global settings edited'
+                ),
+              200
+            );
+            setTimeout(() => this.toastService.dismissToast(), 3200);
+          });
+        });
     }
+  }
+
+  getGlobalSettingsData(): GlobalSettings {
+    return {
+      requireConfirmationOnTaskSubmission:
+        this.controls.requireConfirmationOnTaskSubmission?.value,
+      showDashboards: this.controls.showDashboards?.value,
+      showProjects: this.controls.showProjects?.value,
+      defaultPage: this.controls.defaultPage?.value,
+      companyName: this.controls.companyName?.value,
+      regon: this.controls.regon?.value,
+      nip: this.controls.nip?.value,
+      krs: this.controls.krs?.value,
+      image: this.controls.image?.value,
+      description: this.controls.description?.value,
+      street: this.controls.street?.value,
+      houseNumber: this.controls.houseNumber?.value,
+      apartmentNumber: this.controls.apartmentNumber?.value,
+      city: this.controls.city?.value,
+      postalCode: this.controls.postalCode?.value,
+      country: this.controls.country?.value,
+      phoneNumber: this.controls.phoneNumber?.value,
+      email: this.controls.email?.value,
+      website: this.controls.website?.value,
+    };
   }
 
   disableGuard(value: boolean): void {

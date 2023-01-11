@@ -29,16 +29,19 @@
       class="view-form-content">
       <bvr-edit-general-settings
         *ngIf="tabIndex === 0"
+        [controls]="controls"
         [editGlobalSettingsForm]="
           editGlobalSettingsForm
         "></bvr-edit-general-settings>
       <bvr-edit-company-settings
         *ngIf="tabIndex === 1"
+        [controls]="controls"
         [editGlobalSettingsForm]="
           editGlobalSettingsForm
         "></bvr-edit-company-settings>
       <bvr-edit-contact-settings
         *ngIf="tabIndex === 2"
+        [controls]="controls"
         [editGlobalSettingsForm]="
           editGlobalSettingsForm
         "></bvr-edit-contact-settings>

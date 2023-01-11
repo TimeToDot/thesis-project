@@ -1,8 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  AbstractControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { FormFieldComponent } from '../../../../shared/components/form-field/form-field.component';
-import { ValidationService } from '../../../../shared/services/validation.service';
 import { DropdownListComponent } from '../../../../shared/components/dropdown-list/dropdown-list.component';
 import { CountriesService } from '../../../services/countries.service';
 import { first } from 'rxjs';
@@ -22,14 +26,12 @@ import { ErrorComponent } from '../../../../shared/components/error/error.compon
   templateUrl: './edit-contact-settings.component.html',
 })
 export class EditContactSettingsComponent implements OnInit {
+  @Input() controls: any;
   @Input() editGlobalSettingsForm!: FormGroup;
 
   countries: DropdownOption[] = [];
 
-  constructor(
-    private countriesService: CountriesService,
-    private validationService: ValidationService
-  ) {}
+  constructor(private countriesService: CountriesService) {}
 
   ngOnInit(): void {
     this.getCountries();
@@ -43,20 +45,7 @@ export class EditContactSettingsComponent implements OnInit {
         this.countries = countries;
       });
   }
-
-  isRequired(name: string): boolean {
-    return this.validationService.isRequired(this.editGlobalSettingsForm, [
-      'contactInfo',
-      name,
-    ]);
-  }
-
-  showErrors(name?: string): boolean {
-    return name
-      ? this.validationService.showErrors(this.editGlobalSettingsForm, [
-          'contactInfo',
-          name,
-        ])
-      : this.validationService.showErrors(this.editGlobalSettingsForm, []);
+  isRequired(control: AbstractControl | null): boolean {
+    return control && control?.hasValidator(Validators.required) ? true : false;
   }
 }

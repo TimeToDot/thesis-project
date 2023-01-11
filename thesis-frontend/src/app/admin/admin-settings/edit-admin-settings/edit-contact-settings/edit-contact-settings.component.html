@@ -9,42 +9,36 @@
       <bvr-form-field
         class="left-field"
         label="Street"
-        [required]="isRequired('street')">
+        [required]="isRequired(controls.street)">
         <input
           formControlName="street"
           type="text" />
         <bvr-error
           class="error"
-          [control]="
-            editGlobalSettingsForm.get(['contactInfo', 'street'])
-          "></bvr-error>
+          [control]="controls.street"></bvr-error>
       </bvr-form-field>
       <div class="house-info">
         <bvr-form-field
           class="left-field"
           label="House Number"
-          [required]="isRequired('houseNumber')">
+          [required]="isRequired(controls.houseNumber)">
           <input
             formControlName="houseNumber"
             type="text" />
           <bvr-error
             class="error"
-            [control]="
-              editGlobalSettingsForm.get(['contactInfo', 'houseNumber'])
-            "></bvr-error>
+            [control]="controls.houseNumber"></bvr-error>
         </bvr-form-field>
         <bvr-form-field
           class="field"
           label="Apartment Number"
-          [required]="isRequired('apartmentNumber')">
+          [required]="isRequired(controls.apartmentNumber)">
           <input
             formControlName="apartmentNumber"
             type="text" />
           <bvr-error
             class="error"
-            [control]="
-              editGlobalSettingsForm.get(['contactInfo', 'apartmentNumber'])
-            "></bvr-error>
+            [control]="controls.apartmentNumber"></bvr-error>
         </bvr-form-field>
       </div>
     </div>
@@ -52,83 +46,71 @@
       <bvr-form-field
         class="left-field"
         label="City"
-        [required]="isRequired('city')">
+        [required]="isRequired(controls.city)">
         <input
           formControlName="city"
           type="text" />
         <bvr-error
           class="error"
-          [control]="
-            editGlobalSettingsForm.get(['contactInfo', 'city'])
-          "></bvr-error>
+          [control]="controls.city"></bvr-error>
       </bvr-form-field>
       <bvr-form-field
         class="field"
         label="Postal Code"
-        [required]="isRequired('postalCode')">
+        [required]="isRequired(controls.postalCode)">
         <input
           formControlName="postalCode"
           type="text" />
         <bvr-error
           class="error"
-          [control]="
-            editGlobalSettingsForm.get(['contactInfo', 'postalCode'])
-          "></bvr-error>
+          [control]="controls.postalCode"></bvr-error>
       </bvr-form-field>
     </div>
     <bvr-form-field
       class="field"
       label="Country"
-      [required]="isRequired('country')">
+      [required]="isRequired(controls.country)">
       <bvr-dropdown-list
         formControlName="country"
         name="country"
         [options]="countries"></bvr-dropdown-list>
       <bvr-error
         class="error"
-        [control]="
-          editGlobalSettingsForm.get(['contactInfo', 'country'])
-        "></bvr-error>
+        [control]="controls.country"></bvr-error>
     </bvr-form-field>
     <div class="row">
       <bvr-form-field
         class="left-field"
         label="Phone Number"
-        [required]="isRequired('phoneNumber')">
+        [required]="isRequired(controls.phoneNumber)">
         <input
           formControlName="phoneNumber"
           type="tel" />
         <bvr-error
           class="error"
-          [control]="
-            editGlobalSettingsForm.get(['contactInfo', 'phoneNumber'])
-          "></bvr-error>
+          [control]="controls.phoneNumber"></bvr-error>
       </bvr-form-field>
       <bvr-form-field
         class="field"
         label="Email"
-        [required]="isRequired('email')">
+        [required]="isRequired(controls.email)">
         <input
           formControlName="email"
           type="email" />
         <bvr-error
           class="error"
-          [control]="
-            editGlobalSettingsForm.get(['contactInfo', 'email'])
-          "></bvr-error>
+          [control]="controls.email"></bvr-error>
       </bvr-form-field>
     </div>
     <bvr-form-field
       label="Website"
-      [required]="isRequired('website')">
+      [required]="isRequired(controls.website)">
       <input
         formControlName="website"
         type="text" />
       <bvr-error
         class="error"
-        [control]="
-          editGlobalSettingsForm.get(['contactInfo', 'website'])
-        "></bvr-error>
+        [control]="controls.website"></bvr-error>
     </bvr-form-field>
   </div>
 </div>

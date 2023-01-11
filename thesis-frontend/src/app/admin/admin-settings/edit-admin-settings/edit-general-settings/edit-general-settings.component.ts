@@ -19,6 +19,7 @@ import { DropdownListComponent } from '../../../../shared/components/dropdown-li
   templateUrl: './edit-general-settings.component.html',
 })
 export class EditGeneralSettingsComponent {
+  @Input() controls: any;
   @Input() editGlobalSettingsForm!: FormGroup;
 
   options: DropdownOption[] = [
