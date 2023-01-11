@@ -20,6 +20,13 @@ export class ProjectEmployeesService {
     );
   }
 
+  addProjectEmployee(employee: ProjectEmployee): Observable<ProjectEmployee> {
+    return this.http.post<ProjectEmployee>(
+      `${this.url}/${employee.projectId}/employees`,
+      employee
+    );
+  }
+
   getProjectEmployees(projectId: string): Observable<ProjectEmployee[]> {
     return this.http.get<ProjectEmployee[]>(
       `${this.url}/${projectId}/employees?active=true`

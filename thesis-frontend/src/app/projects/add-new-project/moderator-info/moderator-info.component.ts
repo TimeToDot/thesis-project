@@ -70,7 +70,7 @@ export class ModeratorInfoComponent implements OnInit {
   }
 
   getEmployee(): void {
-    const employeeId = this.controls.moderator?.value;
+    const employeeId = this.controls.moderator?.value.id;
     this.employeesService
       .getEmployee(employeeId)
       .pipe(first())

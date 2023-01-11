@@ -916,6 +916,7 @@
         "workingTime": 40,
         "active": true
       },
+      "projectId": "1",
       "workingTime": 40,
       "joinDate": "2021-09-10",
       "active": true
@@ -938,6 +939,7 @@
         "workingTime": 40,
         "active": true
       },
+      "projectId": "1",
       "workingTime": 40,
       "joinDate": "2021-09-10",
       "active": true
@@ -960,6 +962,7 @@
         "workingTime": 40,
         "active": true
       },
+      "projectId": "1",
       "workingTime": 40,
       "joinDate": "2021-09-10",
       "exitDate": "2022-04-23",
@@ -984,10 +987,35 @@
         "exitDate": "2022-09-01",
         "active": false
       },
+      "projectId": "1",
       "workingTime": 40,
       "joinDate": "2021-09-10",
       "exitDate": "2022-04-23",
       "active": false
+    },
+    {
+      "id": "L5zbvFy",
+      "projectId": "1",
+      "employee": {
+        "id": "4",
+        "firstName": "Paweł",
+        "lastName": "Szymański",
+        "email": "pawel.szymanski@gmail.com",
+        "image": "assets/icons/icon19.png",
+        "position": "Product Designer",
+        "employmentDate": "2022-07-01",
+        "workingTime": 40,
+        "wage": 35,
+        "contractType": {
+          "id": "4",
+          "name": "B2B"
+        },
+        "active": true
+      },
+      "workingTime": "22",
+      "salaryModifier": 100,
+      "joinDate": "2023-01-11",
+      "active": true
     }
   ],
   "project-tasks": [

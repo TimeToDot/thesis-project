@@ -10,7 +10,7 @@
   <div class="form">
     <bvr-form-field
       label="Employee"
-      [required]="isRequired('id')">
+      [required]="isRequired(controls.id)">
       <bvr-dropdown-search-employee
         *ngIf="employees.length"
         formControlName="id"
@@ -65,7 +65,7 @@
         <bvr-form-field
           class="left-field"
           label="Working Time"
-          [required]="isRequired('workingTime')">
+          [required]="isRequired(controls.workingTime)">
           <bvr-input-number
             [decimalPlaces]="0"
             [digits]="3"
@@ -74,31 +74,29 @@
             suffix="h"></bvr-input-number>
           <bvr-error
             class="error"
-            [control]="addProjectEmployeeForm.get(['workingTime'])"></bvr-error>
+            [control]="controls.workingTime"></bvr-error>
         </bvr-form-field>
         <bvr-form-field
           class="field"
           label="Salary Modifier"
-          [ngClass]="{ disabled: isDisabled('salaryModifier') }"
-          [required]="isRequired('salaryModifier')">
+          [ngClass]="{ disabled: controls.salaryModifier.disabled }"
+          [required]="isRequired(controls.salaryModifier)">
           <div class="row">
             <bvr-input-number
               [decimalPlaces]="0"
               [digits]="3"
-              [isDisabled]="isDisabled('salaryModifier')"
+              [isDisabled]="controls.salaryModifier.disabled"
               formControlName="salaryModifier"
               placeholder="Modifier"
               suffix="%"></bvr-input-number>
             <bvr-switch
               (valueChange)="
-                enableField('salaryModifier', $event)
+                enableField(controls.salaryModifier, $event)
               "></bvr-switch>
           </div>
           <bvr-error
             class="error"
-            [control]="
-              addProjectEmployeeForm.get(['salaryModifier'])
-            "></bvr-error>
+            [control]="controls.salaryModifier"></bvr-error>
         </bvr-form-field>
       </div>
     </div>

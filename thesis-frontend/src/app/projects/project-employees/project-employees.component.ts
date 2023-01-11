@@ -74,7 +74,7 @@ export class ProjectEmployeesComponent implements OnInit {
   }
 
   showActiveTable(value: boolean): void {
-    value ? this.getProjectEmployees : this.getArchivedProjectEmployees();
+    value ? this.getProjectEmployees() : this.getArchivedProjectEmployees();
   }
 
   getProjectEmployees(): void {

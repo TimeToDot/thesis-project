@@ -58,6 +58,7 @@
   background-color: $color-white;
   position: absolute;
   width: 100%;
+  z-index: 1;
 
   .row {
     align-items: center;
