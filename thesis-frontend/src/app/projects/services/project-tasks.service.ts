@@ -17,6 +17,13 @@ export class ProjectTasksService {
     );
   }
 
+  addProjectTask(
+    projectId: string,
+    task: ProjectTask
+  ): Observable<ProjectTask> {
+    return this.http.post<ProjectTask>(`${this.url}/${projectId}/tasks`, task);
+  }
+
   getProjectTasks(projectId: string): Observable<ProjectTask[]> {
     return this.http.get<ProjectTask[]>(
       `${this.url}/${projectId}/tasks?active=true`

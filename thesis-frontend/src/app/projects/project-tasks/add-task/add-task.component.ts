@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { CommonModule, Location } from '@angular/common';
+import { CommonModule, formatDate, Location } from '@angular/common';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { ActivatedRoute, Router, RouterLinkWithHref } from '@angular/router';
 import {
+  AbstractControl,
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
@@ -13,10 +14,11 @@ import { ModalComponent } from '../../../shared/components/modal/modal.component
 import { ToastService } from '../../../shared/services/toast.service';
 import { ToastState } from '../../../shared/enum/toast-state';
 import { ToastComponent } from '../../../shared/components/toast/toast.component';
-import { ValidationService } from '../../../shared/services/validation.service';
-import { Subject } from 'rxjs';
+import { first, Subject } from 'rxjs';
 import { ErrorComponent } from '../../../shared/components/error/error.component';
 import { Regex } from '../../../shared/helpers/regex.helper';
+import { ProjectTask } from '../../models/project-task.model';
+import { ProjectTasksService } from '../../services/project-tasks.service';
 
 @Component({
   selector: 'bvr-add-task',
@@ -35,6 +37,7 @@ import { Regex } from '../../../shared/helpers/regex.helper';
 })
 export class AddTaskComponent {
   addProjectTaskForm!: FormGroup;
+  controls: any = {};
   isAddModalOpen: boolean = false;
   isCancelModalOpen: boolean = false;
   isFromGuard: boolean = false;
@@ -45,14 +48,15 @@ export class AddTaskComponent {
   constructor(
     private fb: FormBuilder,
     private location: Location,
+    private projectTasksService: ProjectTasksService,
     private route: ActivatedRoute,
     private router: Router,
-    private toastService: ToastService,
-    private validationService: ValidationService
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
     this.createForm();
+    this.getFormControls();
   }
 
   createForm(): void {
@@ -62,10 +66,16 @@ export class AddTaskComponent {
     });
   }
 
+  getFormControls(): void {
+    Object.keys(this.addProjectTaskForm.controls).forEach(control => {
+      this.controls[control] = this.addProjectTaskForm.get([control]);
+    });
+  }
+
   openAddModal(): void {
     if (this.addProjectTaskForm.valid) {
       this.isAddModalOpen = true;
-      const taskName = this.addProjectTaskForm.get(['name'])?.value;
+      const taskName = this.controls.name?.value;
       this.modalDescription = `Do you want to add ${taskName} to the Project X?`;
     } else {
       this.addProjectTaskForm.markAllAsTouched();
@@ -82,15 +92,33 @@ export class AddTaskComponent {
 
   add(value: boolean): void {
     this.disableGuard(true);
-    if (value) {
-      this.router.navigate(['..'], { relativeTo: this.route }).then(() => {
-        setTimeout(
-          () => this.toastService.showToast(ToastState.Success, 'Task added'),
-          200
-        );
-        setTimeout(() => this.toastService.dismissToast(), 3200);
-      });
+    const projectId = this.route.parent?.snapshot.paramMap.get('id') as string;
+    if (value && projectId) {
+      this.projectTasksService
+        .addProjectTask(projectId, this.getProjectTaskData(projectId))
+        .pipe(first())
+        .subscribe(() => {
+          this.router.navigate(['..'], { relativeTo: this.route }).then(() => {
+            setTimeout(
+              () =>
+                this.toastService.showToast(ToastState.Success, 'Task added'),
+              200
+            );
+            setTimeout(() => this.toastService.dismissToast(), 3200);
+          });
+        });
     }
+  }
+
+  getProjectTaskData(projectId: string): ProjectTask {
+    return {
+      id: '',
+      name: this.controls.name?.value,
+      description: this.controls.description?.value,
+      creationDate: formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en'),
+      projectId: projectId,
+      active: true,
+    };
   }
 
   cancel(value: boolean): void {
@@ -109,11 +137,7 @@ export class AddTaskComponent {
     this.redirectSubject.next(value);
   }
 
-  isRequired(name: string): boolean {
-    return this.validationService.isRequired(this.addProjectTaskForm, [name]);
-  }
-
-  showErrors(name: string): boolean {
-    return this.validationService.showErrors(this.addProjectTaskForm, [name]);
+  isRequired(control: AbstractControl): boolean {
+    return control?.hasValidator(Validators.required) ? true : false;
   }
 }
