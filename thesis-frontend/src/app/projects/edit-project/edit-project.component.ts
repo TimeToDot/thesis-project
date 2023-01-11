@@ -48,6 +48,7 @@ import { CustomValidators } from '../../shared/helpers/custom-validators.helper'
   animations: [tabAnimation],
 })
 export class EditProjectComponent implements OnInit {
+  controls: any = {};
   editProjectForm!: FormGroup;
   enableFormButtons: boolean = true;
   isArchiveModalOpen: boolean = false;
@@ -75,6 +76,7 @@ export class EditProjectComponent implements OnInit {
     this.getCurrentTab();
     this.getNavbarOptions();
     this.createForm();
+    this.getFormControls();
     this.getProject();
   }
 
@@ -99,7 +101,9 @@ export class EditProjectComponent implements OnInit {
         image: [null, [Validators.required]],
         description: [''],
       }),
-      moderator: ['', [Validators.required]],
+      moderatorInfo: this.fb.group({
+        moderator: ['', [Validators.required]],
+      }),
       billingInfo: this.fb.group({
         billingPeriod: ['', [Validators.required]],
         overtimeModifier: [
@@ -119,6 +123,17 @@ export class EditProjectComponent implements OnInit {
           [CustomValidators.minValue(0), CustomValidators.maxValue(500)],
         ],
       }),
+    });
+  }
+
+  getFormControls(): void {
+    Object.keys(this.editProjectForm.controls).forEach(group => {
+      this.controls[group] = this.editProjectForm.get([group]);
+      Object.keys(
+        (this.editProjectForm.get(group) as FormGroup<any>).controls
+      ).forEach(field => {
+        this.controls[field] = this.editProjectForm.get([group, field]);
+      });
     });
   }
 
@@ -147,9 +162,6 @@ export class EditProjectComponent implements OnInit {
         });
       }
     });
-    this.editProjectForm
-      .get(['moderator'])
-      ?.setValue(this.project.moderator.id);
   }
 
   updateTabIndex(index: number): void {
@@ -207,18 +219,44 @@ export class EditProjectComponent implements OnInit {
   save(value: boolean): void {
     this.disableGuard(true);
     if (value) {
-      new Promise((resolve, _) => {
-        this.location.back();
-        resolve('done');
-      }).then(() => {
-        setTimeout(
-          () =>
-            this.toastService.showToast(ToastState.Success, 'Project edited'),
-          200
-        );
-        setTimeout(() => this.toastService.dismissToast(), 3200);
-      });
+      this.projectsService
+        .updateProject(this.getProjectData())
+        .pipe(first())
+        .subscribe(() => {
+          this.redirectAfterEdit();
+        });
     }
+  }
+
+  getProjectData(): Project {
+    return {
+      id: this.project.id,
+      name: this.controls.name?.value,
+      image: this.controls.image?.value,
+      description: this.controls.description?.value,
+      moderator: this.controls.moderator?.value,
+      employeesCount: this.controls.employeesCount?.value,
+      creationDate: this.project.creationDate,
+      billingPeriod: this.controls.billingPeriod?.value,
+      overtimeModifier: this.controls.overtimeModifier?.value,
+      bonusModifier: this.controls.bonusModifier?.value,
+      nightModifier: this.controls.nightModifier?.value,
+      holidayModifier: this.controls.holidayModifier?.value,
+      active: true,
+    };
+  }
+
+  redirectAfterEdit(): void {
+    new Promise((resolve, _) => {
+      this.location.back();
+      resolve('done');
+    }).then(() => {
+      setTimeout(
+        () => this.toastService.showToast(ToastState.Success, 'Project edited'),
+        200
+      );
+      setTimeout(() => this.toastService.dismissToast(), 3200);
+    });
   }
 
   disableGuard(value: boolean): void {

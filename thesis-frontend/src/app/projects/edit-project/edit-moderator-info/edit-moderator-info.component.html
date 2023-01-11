@@ -5,7 +5,8 @@
   <div class="form-header">{{ 'Moderator' | uppercase }}</div>
   <bvr-form-field
     label="Moderator"
-    [required]="isRequired('moderator')">
+    formGroupName="moderatorInfo"
+    [required]="isRequired(controls.moderator)">
     <bvr-dropdown-search-employee
       *ngIf="employees.length"
       formControlName="moderator"
@@ -13,7 +14,7 @@
       [options]="employees"></bvr-dropdown-search-employee>
     <bvr-error
       class="error"
-      [control]="editProjectForm.get(['moderator'])"></bvr-error>
+      [control]="controls.moderator"></bvr-error>
   </bvr-form-field>
 
   <div *ngIf="employee">

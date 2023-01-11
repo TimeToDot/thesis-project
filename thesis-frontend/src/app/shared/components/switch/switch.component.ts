@@ -21,20 +21,20 @@ import {
 })
 export class SwitchComponent implements ControlValueAccessor {
   @Input() disabled: boolean = false;
-  @Input() selected: boolean = false;
+  @Input() value: boolean = false;
   @Output() valueChange: EventEmitter<boolean> = new EventEmitter();
 
   change(value: boolean): void {
-    this.selected = value;
-    this.valueChange.emit(this.selected);
-    this.onChange(this.selected);
+    this.value = value;
+    this.valueChange.emit(this.value);
+    this.onChange(this.value);
   }
 
-  writeValue(selected: boolean) {
-    this.selected = selected;
+  writeValue(value: boolean) {
+    this.value = value;
   }
 
-  onChange = (selected: boolean) => {};
+  onChange = (value: boolean) => {};
 
   registerOnChange(onChange: any) {
     this.onChange = onChange;

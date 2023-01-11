@@ -5,108 +5,104 @@
   <div formGroupName="billingInfo">
     <bvr-form-field
       label="Billing Period"
-      [required]="isRequired('billingPeriod')">
+      [required]="isRequired(controls.billingPeriod)">
       <bvr-dropdown-list
         formControlName="billingPeriod"
         name="Billing Period"
         [options]="billingPeriods"></bvr-dropdown-list>
       <bvr-error
         class="error"
-        [control]="
-          editProjectForm.get(['billingInfo', 'billingPeriod'])
-        "></bvr-error>
+        [control]="controls.billingPeriod"></bvr-error>
     </bvr-form-field>
     <div class="form-header">{{ 'Salary Modifiers' | uppercase }}</div>
     <div class="modifiers">
       <bvr-form-field
         class="left-field"
         label="Overtime"
-        [ngClass]="{ disabled: isDisabled('overtimeModifier') }"
-        [required]="isRequired('overtimeModifier')">
+        [ngClass]="{ disabled: controls.overtimeModifier.disabled }"
+        [required]="isRequired(controls.overtimeModifier)">
         <div class="row">
           <bvr-input-number
             [decimalPlaces]="0"
             [digits]="3"
-            [isDisabled]="isDisabled('overtimeModifier')"
+            [isDisabled]="controls.overtimeModifier.disabled"
             formControlName="overtimeModifier"
             placeholder="Overtime"
             suffix="%"></bvr-input-number>
           <bvr-switch
             (valueChange)="
-              enableField('overtimeModifier', $event)
+              enableField(controls.overtimeModifier, $event)
             "></bvr-switch>
         </div>
         <bvr-error
           class="error"
-          [control]="
-            editProjectForm.get(['billingInfo', 'overtimeModifier'])
-          "></bvr-error>
+          [control]="controls.overtimeModifier"></bvr-error>
       </bvr-form-field>
       <bvr-form-field
         class="left-field"
         label="Bonus Modifier"
-        [ngClass]="{ disabled: isDisabled('bonusModifier') }"
-        [required]="isRequired('bonusModifier')">
+        [ngClass]="{ disabled: controls.bonusModifier.disabled }"
+        [required]="isRequired(controls.bonusModifier)">
         <div class="row">
           <bvr-input-number
             [decimalPlaces]="0"
             [digits]="3"
-            [isDisabled]="isDisabled('bonusModifier')"
+            [isDisabled]="controls.bonusModifier.disabled"
             formControlName="bonusModifier"
             placeholder="Bonus"
             suffix="%"></bvr-input-number>
           <bvr-switch
-            (valueChange)="enableField('bonusModifier', $event)"></bvr-switch>
+            (valueChange)="
+              enableField(controls.bonusModifier, $event)
+            "></bvr-switch>
         </div>
         <bvr-error
           class="error"
-          [control]="
-            editProjectForm.get(['billingInfo', 'bonusModifier'])
-          "></bvr-error>
+          [control]="controls.bonusModifier"></bvr-error>
       </bvr-form-field>
       <bvr-form-field
         class="field"
         label="Night Modifier"
-        [ngClass]="{ disabled: isDisabled('nightModifier') }"
-        [required]="isRequired('nightModifier')">
+        [ngClass]="{ disabled: controls.nightModifier.disabled }"
+        [required]="isRequired(controls.nightModifier)">
         <div class="row">
           <bvr-input-number
             [decimalPlaces]="0"
             [digits]="3"
-            [isDisabled]="isDisabled('nightModifier')"
+            [isDisabled]="controls.nightModifier.disabled"
             formControlName="nightModifier"
             placeholder="Night"
             suffix="%"></bvr-input-number>
           <bvr-switch
-            (valueChange)="enableField('nightModifier', $event)"></bvr-switch>
+            (valueChange)="
+              enableField(controls.nightModifier, $event)
+            "></bvr-switch>
         </div>
         <bvr-error
           class="error"
-          [control]="
-            editProjectForm.get(['billingInfo', 'nightModifier'])
-          "></bvr-error>
+          [control]="controls.nightModifier"></bvr-error>
       </bvr-form-field>
       <bvr-form-field
         class="field"
         label="Holiday Modifier"
-        [ngClass]="{ disabled: isDisabled('holidayModifier') }"
-        [required]="isRequired('holidayModifier')">
+        [ngClass]="{ disabled: controls.holidayModifier.disabled }"
+        [required]="isRequired(controls.holidayModifier)">
         <div class="row">
           <bvr-input-number
             [decimalPlaces]="0"
             [digits]="3"
-            [isDisabled]="isDisabled('holidayModifier')"
+            [isDisabled]="controls.holidayModifier.disabled"
             formControlName="holidayModifier"
             placeholder="Holiday"
             suffix="%"></bvr-input-number>
           <bvr-switch
-            (valueChange)="enableField('holidayModifier', $event)"></bvr-switch>
+            (valueChange)="
+              enableField(controls.holidayModifier, $event)
+            "></bvr-switch>
         </div>
         <bvr-error
           class="error"
-          [control]="
-            editProjectForm.get(['billingInfo', 'holidayModifier'])
-          "></bvr-error>
+          [control]="controls.holidayModifier"></bvr-error>
       </bvr-form-field>
     </div>
   </div>

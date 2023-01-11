@@ -19,6 +19,10 @@ export class ProjectsService {
     return this.http.post<Project>(this.url, project);
   }
 
+  updateProject(project: Project): Observable<Project> {
+    return this.http.put<Project>(`${this.url}/${project.id}`, project);
+  }
+
   getProjects(): Observable<Project[]> {
     return this.http.get<Project[]>(`${this.url}?active=true`);
   }

@@ -1206,16 +1206,16 @@
     {
       "id": "2",
       "name": "IKEA",
-      "description": "Test description",
       "image": "assets/companies/company2.png",
+      "description": "Test description",
       "moderator": {
-        "id": "0",
-        "firstName": "Robert",
-        "lastName": "Skrzypczak",
-        "email": "robert.skrzypczak@gmail.com",
-        "image": "assets/icons/icon14.png",
-        "position": "Frontend Developer",
-        "employmentDate": "2021-08-15",
+        "id": "4",
+        "firstName": "Paweł",
+        "lastName": "Szymański",
+        "email": "pawel.szymanski@gmail.com",
+        "image": "assets/icons/icon19.png",
+        "position": "Product Designer",
+        "employmentDate": "2022-07-01",
         "contractType": {
           "id": "4",
           "name": "B2B"
@@ -1224,12 +1224,12 @@
         "workingTime": 40,
         "active": true
       },
+      "creationDate": "2021-03-11",
       "billingPeriod": {
         "id": "3",
         "name": "Month"
       },
-      "employeesCount": 50,
-      "creationDate": "2021-03-11",
+      "overtimeModifier": "123",
       "active": true
     },
     {

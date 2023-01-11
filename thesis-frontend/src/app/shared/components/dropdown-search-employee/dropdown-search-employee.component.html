@@ -49,8 +49,8 @@
     <div
       *ngFor="let option of options"
       class="row"
-      [ngClass]="{ selected: option.id === selectedOption }"
-      (click)="selectOption(option.id)">
+      [ngClass]="{ selected: option.id === selectedOption.id }"
+      (click)="selectOption(option)">
       <div class="name">
         <img
           *ngIf="option.image"

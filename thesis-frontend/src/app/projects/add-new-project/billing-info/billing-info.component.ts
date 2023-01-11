@@ -106,18 +106,10 @@ export class BillingInfoComponent implements OnInit {
       employeesCount: this.controls.employeesCount?.value,
       creationDate: formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en'),
       billingPeriod: this.controls.billingPeriod?.value,
-      overtimeModifier: this.controls.overtimeModifier.disabled
-        ? this.controls.overtimeModifier?.value
-        : '',
-      bonusModifier: this.controls.bonusModifier?.disabled
-        ? this.controls.bonusModifier?.value
-        : '',
-      nightModifier: this.controls.nightModifier?.disabled
-        ? this.controls.nightModifier?.value
-        : '',
-      holidayModifier: this.controls.holidayModifier?.disabled
-        ? this.controls.holidayModifier?.value
-        : '',
+      overtimeModifier: this.controls.overtimeModifier?.value,
+      bonusModifier: this.controls.bonusModifier?.value,
+      nightModifier: this.controls.nightModifier?.value,
+      holidayModifier: this.controls.holidayModifier?.value,
       active: true,
     };
   }

@@ -32,12 +32,15 @@
       class="view-form-content">
       <bvr-edit-general-info
         *ngIf="tabIndex === 0"
+        [controls]="controls"
         [editProjectForm]="editProjectForm"></bvr-edit-general-info>
       <bvr-edit-moderator-info
         *ngIf="tabIndex === 1"
+        [controls]="controls"
         [editProjectForm]="editProjectForm"></bvr-edit-moderator-info>
       <bvr-edit-billing-info
         *ngIf="tabIndex === 2"
+        [controls]="controls"
         [editProjectForm]="editProjectForm"></bvr-edit-billing-info>
     </div>
     <div
