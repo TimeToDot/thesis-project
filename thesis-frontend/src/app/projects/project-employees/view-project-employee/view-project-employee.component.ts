@@ -56,13 +56,21 @@ export class ViewProjectEmployeeComponent implements OnInit {
     this.modalDescription = `Are you sure you want to archive ${this.projectEmployee.employee.firstName} ${this.projectEmployee.employee.lastName}? This action cannot be undone.`;
   }
 
-  archive(): void {
-    this.router.navigate(['..'], { relativeTo: this.route }).then(() => {
-      setTimeout(
-        () => this.toastService.showToast(ToastState.Info, 'Task archived'),
-        200
-      );
-      setTimeout(() => this.toastService.dismissToast(), 3200);
-    });
+  archive(value: boolean): void {
+    if (value) {
+      this.projectEmployeeService
+        .archiveProjectEmployee(this.projectEmployee)
+        .pipe(first())
+        .subscribe(() => {
+          this.router.navigate(['..'], { relativeTo: this.route }).then(() => {
+            setTimeout(
+              () =>
+                this.toastService.showToast(ToastState.Info, 'Task archived'),
+              200
+            );
+            setTimeout(() => this.toastService.dismissToast(), 3200);
+          });
+        });
+    }
   }
 }

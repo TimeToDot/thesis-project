@@ -129,15 +129,25 @@ export class EditTaskComponent {
     }
   }
 
-  archive(): void {
+  archive(value: boolean): void {
     this.disableGuard(true);
-    this.router.navigate(['../..'], { relativeTo: this.route }).then(() => {
-      setTimeout(
-        () => this.toastService.showToast(ToastState.Info, 'Task archived'),
-        200
-      );
-      setTimeout(() => this.toastService.dismissToast(), 3200);
-    });
+    if (value) {
+      this.projectTasksService
+        .archiveProjectTask(this.getProjectTaskData())
+        .pipe(first())
+        .subscribe(() => {
+          this.router
+            .navigate(['../..'], { relativeTo: this.route })
+            .then(() => {
+              setTimeout(
+                () =>
+                  this.toastService.showToast(ToastState.Info, 'Task archived'),
+                200
+              );
+              setTimeout(() => this.toastService.dismissToast(), 3200);
+            });
+        });
+    }
   }
 
   cancel(value: boolean): void {

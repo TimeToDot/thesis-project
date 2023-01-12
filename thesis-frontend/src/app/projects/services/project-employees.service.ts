@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -30,6 +31,17 @@ export class ProjectEmployeesService {
   updateProjectEmployee(
     employee: ProjectEmployee
   ): Observable<ProjectEmployee> {
+    return this.http.put<ProjectEmployee>(
+      `${this.url}/${employee.projectId}/employees/${employee.id}`,
+      employee
+    );
+  }
+
+  archiveProjectEmployee(
+    employee: ProjectEmployee
+  ): Observable<ProjectEmployee> {
+    employee.active = false;
+    employee.exitDate = formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en');
     return this.http.put<ProjectEmployee>(
       `${this.url}/${employee.projectId}/employees/${employee.id}`,
       employee

@@ -42,6 +42,7 @@ export class ProjectEmployeesComponent implements OnInit {
     'joinDate',
     'exitDate',
   ];
+  idToArchive: string = '';
   isArchiveModalOpen: boolean = false;
   modalDescription: string = '';
   query: string = '';
@@ -66,6 +67,7 @@ export class ProjectEmployeesComponent implements OnInit {
   openArchiveModal(event: Event, row: ProjectEmployee): void {
     event.stopPropagation();
     this.isArchiveModalOpen = true;
+    this.idToArchive = row.id;
     this.modalDescription = `Are you sure you want to archive ${row.employee.firstName} ${row.employee.lastName}? This action cannot be undone.`;
   }
 
@@ -101,8 +103,22 @@ export class ProjectEmployeesComponent implements OnInit {
     }
   }
 
-  archive(): void {
-    this.toastService.showToast(ToastState.Info, 'Employee archived');
-    setTimeout(() => this.toastService.dismissToast(), 3000);
+  archive(value: boolean): void {
+    const projectId = this.route.parent?.snapshot.paramMap.get('id');
+    if (value && projectId) {
+      this.projectEmployeesService
+        .getProjectEmployee(projectId, this.idToArchive)
+        .pipe(first())
+        .subscribe(employee => {
+          this.projectEmployeesService
+            .archiveProjectEmployee(employee)
+            .pipe(first())
+            .subscribe(() => {
+              this.getProjectEmployees();
+              this.toastService.showToast(ToastState.Info, 'Employee archived');
+              setTimeout(() => this.toastService.dismissToast(), 3000);
+            });
+        });
+    }
   }
 }

@@ -168,21 +168,28 @@ export class EditPositionComponent implements OnInit {
     });
   }
 
-  archive(): void {
+  archive(value: boolean): void {
     this.disableGuard(true);
-    this.positionsService
-      .archivePosition(this.position)
-      .pipe(first())
-      .subscribe(() => {
-        this.router.navigate(['../..'], { relativeTo: this.route }).then(() => {
-          setTimeout(
-            () =>
-              this.toastService.showToast(ToastState.Info, 'Position archived'),
-            200
-          );
-          setTimeout(() => this.toastService.dismissToast(), 3200);
+    if (value) {
+      this.positionsService
+        .archivePosition(this.position)
+        .pipe(first())
+        .subscribe(() => {
+          this.router
+            .navigate(['../..'], { relativeTo: this.route })
+            .then(() => {
+              setTimeout(
+                () =>
+                  this.toastService.showToast(
+                    ToastState.Info,
+                    'Position archived'
+                  ),
+                200
+              );
+              setTimeout(() => this.toastService.dismissToast(), 3200);
+            });
         });
-      });
+    }
   }
 
   disableGuard(value: boolean): void {

@@ -142,15 +142,28 @@ export class EditProjectEmployeeComponent implements OnInit {
     }
   }
 
-  archive(): void {
+  archive(value: boolean): void {
     this.disableGuard(true);
-    this.router.navigate(['../..'], { relativeTo: this.route }).then(() => {
-      setTimeout(
-        () => this.toastService.showToast(ToastState.Info, 'Employee archived'),
-        200
-      );
-      setTimeout(() => this.toastService.dismissToast(), 3200);
-    });
+    if (value) {
+      this.projectEmployeesService
+        .archiveProjectEmployee(this.getProjectEmployeeData())
+        .pipe(first())
+        .subscribe(() => {
+          this.router
+            .navigate(['../..'], { relativeTo: this.route })
+            .then(() => {
+              setTimeout(
+                () =>
+                  this.toastService.showToast(
+                    ToastState.Info,
+                    'Employee archived'
+                  ),
+                200
+              );
+              setTimeout(() => this.toastService.dismissToast(), 3200);
+            });
+        });
+    }
   }
 
   cancel(value: boolean): void {
@@ -190,10 +203,9 @@ export class EditProjectEmployeeComponent implements OnInit {
   }
 
   getProjectEmployeeData(): ProjectEmployee {
-    const projectId = this.route.parent?.snapshot.paramMap.get('id') as string;
     return {
       id: this.projectEmployee.id,
-      projectId: projectId,
+      projectId: this.projectEmployee.projectId,
       employee: this.projectEmployee.employee,
       workingTime: this.controls.workingTime?.value,
       salaryModifier: this.controls.salaryModifier?.value,

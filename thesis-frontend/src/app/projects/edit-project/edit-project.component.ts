@@ -194,15 +194,26 @@ export class EditProjectComponent implements OnInit {
     }
   }
 
-  archive(): void {
+  archive(value: boolean): void {
     this.disableGuard(true);
-    this.router.navigate(['/projects']).then(() => {
-      setTimeout(
-        () => this.toastService.showToast(ToastState.Info, 'Project archived'),
-        200
-      );
-      setTimeout(() => this.toastService.dismissToast(), 3200);
-    });
+    if (value) {
+      this.projectsService
+        .archiveProject(this.getProjectData())
+        .pipe(first())
+        .subscribe(() => {
+          this.router.navigate(['/projects']).then(() => {
+            setTimeout(
+              () =>
+                this.toastService.showToast(
+                  ToastState.Info,
+                  'Project archived'
+                ),
+              200
+            );
+            setTimeout(() => this.toastService.dismissToast(), 3200);
+          });
+        });
+    }
   }
 
   cancel(value: boolean): void {

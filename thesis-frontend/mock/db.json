@@ -213,7 +213,7 @@
       },
       "employmentDate": "2021-08-15",
       "workingTime": 40,
-      "active": true,
+      "active": false,
       "password": "abc",
       "phoneNumber": "777-777-777",
       "privateEmail": "bob@gmail.com",
@@ -226,7 +226,8 @@
         "name": "🇵🇱 Poland",
         "id": "175"
       },
-      "accountNumber": "90 0023 0231 2145 3443 2133 2300"
+      "accountNumber": "90 0023 0231 2145 3443 2133 2300",
+      "exitDate": "2023-01-12"
     },
     {
       "id": "1",

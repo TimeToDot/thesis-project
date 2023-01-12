@@ -93,19 +93,21 @@ export class AdminPositionsComponent implements OnInit {
     this.router.navigate([row.id], { relativeTo: this.route });
   }
 
-  archive(): void {
-    this.positionsService
-      .getPosition(this.idToArchive)
-      .pipe(first())
-      .subscribe(position => {
-        this.positionsService
-          .archivePosition(position)
-          .pipe(first())
-          .subscribe(() => {
-            this.toastService.showToast(ToastState.Info, 'Position archived');
-            setTimeout(() => this.toastService.dismissToast(), 3000);
-            this.getPositions();
-          });
-      });
+  archive(value: boolean): void {
+    if (value) {
+      this.positionsService
+        .getPosition(this.idToArchive)
+        .pipe(first())
+        .subscribe(position => {
+          this.positionsService
+            .archivePosition(position)
+            .pipe(first())
+            .subscribe(() => {
+              this.toastService.showToast(ToastState.Info, 'Position archived');
+              setTimeout(() => this.toastService.dismissToast(), 3000);
+              this.getPositions();
+            });
+        });
+    }
   }
 }

@@ -41,6 +41,7 @@ export class ProjectTasksComponent implements OnInit {
     'creationDate',
     'archiveDate',
   ];
+  idToArchive: string = '';
   isArchiveModalOpen: boolean = false;
   query: string = '';
   showActive: boolean = true;
@@ -53,28 +54,31 @@ export class ProjectTasksComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.projectTasksService
-      .getProjectTasks('1')
-      .pipe(first())
-      .subscribe(projectTasks => (this.dataSource = projectTasks));
+    this.getProjectTasks();
   }
 
   showActiveTable(value: boolean): void {
-    value ? this.getProjectTasks('1') : this.getArchivedProjectTasks('1');
+    value ? this.getProjectTasks() : this.getArchivedProjectTasks();
   }
 
-  getProjectTasks(index: string): void {
-    this.projectTasksService
-      .getProjectTasks(index)
-      .pipe(first())
-      .subscribe(projectTasks => (this.dataSource = projectTasks));
+  getProjectTasks(): void {
+    const projectId = this.route.parent?.snapshot.paramMap.get('id');
+    if (projectId) {
+      this.projectTasksService
+        .getProjectTasks(projectId)
+        .pipe(first())
+        .subscribe(projectTasks => (this.dataSource = projectTasks));
+    }
   }
 
-  getArchivedProjectTasks(index: string): void {
-    this.projectTasksService
-      .getArchivedProjectTasks(index)
-      .pipe(first())
-      .subscribe(projectTasks => (this.dataSource = projectTasks));
+  getArchivedProjectTasks(): void {
+    const projectId = this.route.parent?.snapshot.paramMap.get('id');
+    if (projectId) {
+      this.projectTasksService
+        .getArchivedProjectTasks(projectId)
+        .pipe(first())
+        .subscribe(projectTasks => (this.dataSource = projectTasks));
+    }
   }
 
   editTask(event: Event, row: ProjectTask): void {
@@ -89,11 +93,26 @@ export class ProjectTasksComponent implements OnInit {
   openArchiveModal(event: Event, row: ProjectTask): void {
     event.stopPropagation();
     this.isArchiveModalOpen = true;
+    this.idToArchive = row.id;
     this.archiveDescription = `Are you sure you want to archive task ${row.name}? This action cannot be undone.`;
   }
 
-  archive(): void {
-    this.toastService.showToast(ToastState.Info, 'Task archived');
-    setTimeout(() => this.toastService.dismissToast(), 3000);
+  archive(value: boolean): void {
+    const projectId = this.route.parent?.snapshot.paramMap.get('id');
+    if (value && projectId) {
+      this.projectTasksService
+        .getProjectTask(projectId, this.idToArchive)
+        .pipe(first())
+        .subscribe(task => {
+          this.projectTasksService
+            .archiveProjectTask(task)
+            .pipe(first())
+            .subscribe(() => {
+              this.getProjectTasks();
+              this.toastService.showToast(ToastState.Info, 'Task archived');
+              setTimeout(() => this.toastService.dismissToast(), 3000);
+            });
+        });
+    }
   }
 }
