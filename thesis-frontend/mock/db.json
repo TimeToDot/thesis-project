@@ -1080,58 +1080,12 @@
   ],
   "employee-tasks": [
     {
-      "id": "1",
+      "id": "PNG2iVZ",
       "employeeId": "1",
-      "startDate": "2022-11-21",
-      "endDate": "2012-11-21",
-      "startTime": "9:00",
-      "endTime": "11:00",
-      "project": {
-        "id": "2",
-        "name": "IKEA",
-        "description": "Test description",
-        "image": "assets/companies/company2.png",
-        "moderator": {
-          "id": "0",
-          "firstName": "Robert",
-          "lastName": "Skrzypczak",
-          "email": "robert.skrzypczak@gmail.com",
-          "image": "assets/icons/icon14.png",
-          "position": "Frontend Developer",
-          "employmentDate": "2021-08-15",
-          "contractType": {
-            "id": "4",
-            "name": "B2B"
-          },
-          "wage": 45,
-          "workingTime": 40,
-          "active": true
-        },
-        "billingPeriod": {
-          "id": "3",
-          "name": "Month"
-        },
-        "employeesCount": 50,
-        "creationDate": "2021-03-11",
-        "active": true
-      },
-      "task": {
-        "id": "2",
-        "name": "Task B",
-        "projectId": "2",
-        "description": "test",
-        "creationDate": "2022-08-15",
-        "active": true
-      },
-      "status": "pending"
-    },
-    {
-      "id": "2",
-      "employeeId": "1",
-      "startDate": "2022-12-21",
-      "endDate": "2022-12-21",
-      "startTime": "11:00",
-      "endTime": "14:00",
+      "startDate": "2022-12-30",
+      "endDate": "2022-12-30",
+      "startTime": "09:00",
+      "endTime": "17:00",
       "project": {
         "id": "1",
         "name": "Volkswagen",
@@ -1172,11 +1126,11 @@
       "status": "approved"
     },
     {
-      "id": "3",
+      "id": "-5ICY2j",
       "employeeId": "1",
-      "startDate": "2022-12-21",
-      "endDate": "2022-12-21",
-      "startTime": "14:00",
+      "startDate": "2023-01-02",
+      "endDate": "2023-01-02",
+      "startTime": "09:00",
       "endTime": "17:00",
       "project": {
         "id": "1",
@@ -1215,7 +1169,329 @@
         "creationDate": "2022-07-22",
         "active": true
       },
+      "status": "approved"
+    },
+    {
+      "id": "qMRvMkE",
+      "employeeId": "1",
+      "startDate": "2023-01-03",
+      "endDate": "2023-01-03",
+      "startTime": "09:00",
+      "endTime": "17:00",
+      "project": {
+        "id": "1",
+        "name": "Volkswagen",
+        "description": "Test description",
+        "image": "assets/companies/company1.png",
+        "moderator": {
+          "id": "0",
+          "firstName": "Robert",
+          "lastName": "Skrzypczak",
+          "email": "robert.skrzypczak@gmail.com",
+          "image": "assets/icons/icon14.png",
+          "position": "Frontend Developer",
+          "employmentDate": "2021-08-15",
+          "contractType": {
+            "id": "4",
+            "name": "B2B"
+          },
+          "wage": 45,
+          "workingTime": 40,
+          "active": true
+        },
+        "billingPeriod": {
+          "id": "3",
+          "name": "Month"
+        },
+        "employeesCount": 50,
+        "creationDate": "2021-03-11",
+        "active": true
+      },
+      "task": {
+        "id": "1",
+        "name": "Task A",
+        "projectId": "1",
+        "description": "test",
+        "creationDate": "2022-07-22",
+        "active": true
+      },
+      "status": "approved"
+    },
+    {
+      "id": "tn6F4YD",
+      "employeeId": "1",
+      "startDate": "2023-01-04",
+      "endDate": "2023-01-04",
+      "startTime": "09:00",
+      "endTime": "17:00",
+      "project": {
+        "id": "1",
+        "name": "Volkswagen",
+        "description": "Test description",
+        "image": "assets/companies/company1.png",
+        "moderator": {
+          "id": "0",
+          "firstName": "Robert",
+          "lastName": "Skrzypczak",
+          "email": "robert.skrzypczak@gmail.com",
+          "image": "assets/icons/icon14.png",
+          "position": "Frontend Developer",
+          "employmentDate": "2021-08-15",
+          "contractType": {
+            "id": "4",
+            "name": "B2B"
+          },
+          "wage": 45,
+          "workingTime": 40,
+          "active": true
+        },
+        "billingPeriod": {
+          "id": "3",
+          "name": "Month"
+        },
+        "employeesCount": 50,
+        "creationDate": "2021-03-11",
+        "active": true
+      },
+      "task": {
+        "id": "1",
+        "name": "Task A",
+        "projectId": "1",
+        "description": "test",
+        "creationDate": "2022-07-22",
+        "active": true
+      },
+      "status": "approved"
+    },
+    {
+      "id": "SOKYxWx",
+      "employeeId": "1",
+      "startDate": "2023-01-05",
+      "endDate": "2023-01-05",
+      "startTime": "09:00",
+      "endTime": "17:00",
+      "project": {
+        "id": "1",
+        "name": "Volkswagen",
+        "description": "Test description",
+        "image": "assets/companies/company1.png",
+        "moderator": {
+          "id": "0",
+          "firstName": "Robert",
+          "lastName": "Skrzypczak",
+          "email": "robert.skrzypczak@gmail.com",
+          "image": "assets/icons/icon14.png",
+          "position": "Frontend Developer",
+          "employmentDate": "2021-08-15",
+          "contractType": {
+            "id": "4",
+            "name": "B2B"
+          },
+          "wage": 45,
+          "workingTime": 40,
+          "active": true
+        },
+        "billingPeriod": {
+          "id": "3",
+          "name": "Month"
+        },
+        "employeesCount": 50,
+        "creationDate": "2021-03-11",
+        "active": true
+      },
+      "task": {
+        "id": "1",
+        "name": "Task A",
+        "projectId": "1",
+        "description": "test",
+        "creationDate": "2022-07-22",
+        "active": true
+      },
+      "status": "approved"
+    },
+    {
+      "id": "L8Z5Cr6",
+      "employeeId": "1",
+      "startDate": "2023-01-09",
+      "endDate": "2023-01-09",
+      "startTime": "09:00",
+      "endTime": "17:00",
+      "project": {
+        "id": "2",
+        "name": "IKEA",
+        "description": "Test description",
+        "image": "assets/companies/company2.png",
+        "moderator": {
+          "id": "0",
+          "firstName": "Robert",
+          "lastName": "Skrzypczak",
+          "email": "robert.skrzypczak@gmail.com",
+          "image": "assets/icons/icon14.png",
+          "position": "Frontend Developer",
+          "employmentDate": "2021-08-15",
+          "contractType": {
+            "id": "4",
+            "name": "B2B"
+          },
+          "wage": 45,
+          "workingTime": 40,
+          "active": true
+        },
+        "billingPeriod": {
+          "id": "3",
+          "name": "Month"
+        },
+        "employeesCount": 50,
+        "creationDate": "2021-03-11",
+        "active": true
+      },
+      "task": {
+        "id": "2",
+        "name": "Task B",
+        "projectId": "2",
+        "description": "test",
+        "creationDate": "2022-08-15",
+        "active": true
+      },
       "status": "rejected"
+    },
+    {
+      "id": "zk5IqWw",
+      "employeeId": "1",
+      "startDate": "2023-01-10",
+      "endDate": "2023-01-10",
+      "startTime": "09:00",
+      "endTime": "17:00",
+      "project": {
+        "id": "2",
+        "name": "IKEA",
+        "description": "Test description",
+        "image": "assets/companies/company2.png",
+        "moderator": {
+          "id": "0",
+          "firstName": "Robert",
+          "lastName": "Skrzypczak",
+          "email": "robert.skrzypczak@gmail.com",
+          "image": "assets/icons/icon14.png",
+          "position": "Frontend Developer",
+          "employmentDate": "2021-08-15",
+          "contractType": {
+            "id": "4",
+            "name": "B2B"
+          },
+          "wage": 45,
+          "workingTime": 40,
+          "active": true
+        },
+        "billingPeriod": {
+          "id": "3",
+          "name": "Month"
+        },
+        "employeesCount": 50,
+        "creationDate": "2021-03-11",
+        "active": true
+      },
+      "task": {
+        "id": "2",
+        "name": "Task B",
+        "projectId": "2",
+        "description": "test",
+        "creationDate": "2022-08-15",
+        "active": true
+      },
+      "status": "pending"
+    },
+    {
+      "id": "b-bAecV",
+      "employeeId": "1",
+      "startDate": "2023-01-11",
+      "endDate": "2023-01-11",
+      "startTime": "09:00",
+      "endTime": "17:00",
+      "project": {
+        "id": "2",
+        "name": "IKEA",
+        "description": "Test description",
+        "image": "assets/companies/company2.png",
+        "moderator": {
+          "id": "0",
+          "firstName": "Robert",
+          "lastName": "Skrzypczak",
+          "email": "robert.skrzypczak@gmail.com",
+          "image": "assets/icons/icon14.png",
+          "position": "Frontend Developer",
+          "employmentDate": "2021-08-15",
+          "contractType": {
+            "id": "4",
+            "name": "B2B"
+          },
+          "wage": 45,
+          "workingTime": 40,
+          "active": true
+        },
+        "billingPeriod": {
+          "id": "3",
+          "name": "Month"
+        },
+        "employeesCount": 50,
+        "creationDate": "2021-03-11",
+        "active": true
+      },
+      "task": {
+        "id": "2",
+        "name": "Task B",
+        "projectId": "2",
+        "description": "test",
+        "creationDate": "2022-08-15",
+        "active": true
+      },
+      "status": "pending"
+    },
+    {
+      "id": "W8onmYB",
+      "employeeId": "1",
+      "startDate": "2023-01-12",
+      "endDate": "2023-01-12",
+      "startTime": "09:00",
+      "endTime": "17:00",
+      "project": {
+        "id": "3",
+        "name": "Starbucks",
+        "description": "Test description",
+        "image": "assets/companies/company3.png",
+        "moderator": {
+          "id": "0",
+          "firstName": "Robert",
+          "lastName": "Skrzypczak",
+          "email": "robert.skrzypczak@gmail.com",
+          "image": "assets/icons/icon14.png",
+          "position": "Frontend Developer",
+          "employmentDate": "2021-08-15",
+          "contractType": {
+            "id": "4",
+            "name": "B2B"
+          },
+          "wage": 45,
+          "workingTime": 40,
+          "active": true
+        },
+        "billingPeriod": {
+          "id": "3",
+          "name": "Month"
+        },
+        "employeesCount": 50,
+        "creationDate": "2021-03-11",
+        "active": true
+      },
+      "task": {
+        "id": "5",
+        "name": "Task E",
+        "projectId": "3",
+        "description": "test",
+        "creationDate": "2022-01-12",
+        "active": true
+      },
+      "status": "logged"
     }
   ],
   "projects": [
@@ -1727,14 +2003,41 @@
     }
   ],
   "calendar-tasks": [
-    { "date": "2022-12-30", "status": "approved" },
-    { "date": "2023-01-02", "status": "approved" },
-    { "date": "2023-01-03", "status": "approved" },
-    { "date": "2023-01-04", "status": "approved" },
-    { "date": "2023-01-05", "status": "approved" },
-    { "date": "2023-01-09", "status": "rejected" },
-    { "date": "2023-01-10", "status": "pending" },
-    { "date": "2023-01-11", "status": "pending" },
-    { "date": "2023-01-12", "status": "logged" }
+    {
+      "date": "2022-12-30",
+      "status": "approved"
+    },
+    {
+      "date": "2023-01-02",
+      "status": "approved"
+    },
+    {
+      "date": "2023-01-03",
+      "status": "approved"
+    },
+    {
+      "date": "2023-01-04",
+      "status": "approved"
+    },
+    {
+      "date": "2023-01-05",
+      "status": "approved"
+    },
+    {
+      "date": "2023-01-09",
+      "status": "rejected"
+    },
+    {
+      "date": "2023-01-10",
+      "status": "pending"
+    },
+    {
+      "date": "2023-01-11",
+      "status": "pending"
+    },
+    {
+      "date": "2023-01-12",
+      "status": "logged"
+    }
   ]
 }

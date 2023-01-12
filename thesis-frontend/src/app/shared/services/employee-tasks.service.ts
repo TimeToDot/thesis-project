@@ -21,6 +21,16 @@ export class EmployeeTasksService {
     );
   }
 
+  addEmployeeTask(
+    employeeId: string,
+    task: EmployeeTask
+  ): Observable<EmployeeTask> {
+    return this.http.post<EmployeeTask>(
+      `${this.url}/${employeeId}/tasks`,
+      task
+    );
+  }
+
   getEmployeeTasks(employeeId: string): Observable<EmployeeTask[]> {
     return this.http.get<EmployeeTask[]>(`${this.url}/${employeeId}/tasks`);
   }

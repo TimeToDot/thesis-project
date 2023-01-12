@@ -46,15 +46,7 @@ export class EditTaskComponent {
   isSaveModalOpen: boolean = false;
   modalDescription: string = '';
   redirectSubject: Subject<boolean> = new Subject<boolean>();
-  task: ProjectTask = {
-    id: '',
-    name: '',
-    projectId: '',
-    description: '',
-    creationDate: '',
-    archiveDate: '',
-    active: true,
-  };
+  task!: ProjectTask;
 
   constructor(
     private fb: FormBuilder,
