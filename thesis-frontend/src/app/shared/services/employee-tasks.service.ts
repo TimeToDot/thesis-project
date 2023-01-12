@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -31,8 +32,18 @@ export class EmployeeTasksService {
     );
   }
 
-  getEmployeeTasks(employeeId: string): Observable<EmployeeTask[]> {
+  getEmployeeLastTasks(employeeId: string): Observable<EmployeeTask[]> {
     return this.http.get<EmployeeTask[]>(`${this.url}/${employeeId}/tasks`);
+  }
+
+  getEmployeeTasks(
+    employeeId: string,
+    date: string
+  ): Observable<EmployeeTask[]> {
+    date = formatDate(date, 'yyyy-MM-dd', 'en');
+    return this.http.get<EmployeeTask[]>(
+      `${this.url}/${employeeId}/tasks?date=${date}`
+    );
   }
 
   getEmployeeCalendar(employeeId: string): Observable<Day[]> {

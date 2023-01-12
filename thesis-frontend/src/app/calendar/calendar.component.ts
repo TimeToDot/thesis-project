@@ -1,9 +1,10 @@
 import { CommonModule, formatDate } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import * as dayjs from 'dayjs';
 import { Observable } from 'rxjs';
 import { ButtonComponent } from '../shared/components/button/button.component';
 import { Status } from '../shared/enum/status.enum';
+import { CalendarService } from '../shared/services/calendar.service';
 import { Day } from './models/day.model';
 import { MonthPipe } from './pipes/month.pipe';
 
@@ -15,6 +16,8 @@ import { MonthPipe } from './pipes/month.pipe';
 })
 export class CalendarComponent implements OnInit {
   @Input() employeeCalendar: Observable<Day[]> = new Observable<Day[]>();
+
+  @Output() currentDayChange: EventEmitter<string> = new EventEmitter<string>();
 
   currentMonth!: number;
   currentYear!: number;
@@ -28,7 +31,7 @@ export class CalendarComponent implements OnInit {
 
   private readonly sundayOffset: number = 1;
 
-  constructor() {}
+  constructor(private calendarService: CalendarService) {}
 
   ngOnInit(): void {
     this.currentDay = dayjs().date(dayjs().date()).format('MM/DD/YYYY');
@@ -123,6 +126,7 @@ export class CalendarComponent implements OnInit {
   selectDay(day: Day): void {
     if (!day.disabled) {
       this.currentDay = day.date;
+      this.calendarService.updateCurrentDay(this.currentDay);
     }
   }
 

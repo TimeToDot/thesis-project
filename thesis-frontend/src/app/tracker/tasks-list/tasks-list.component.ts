@@ -11,6 +11,7 @@ import { ToastService } from '../../shared/services/toast.service';
 import { ToastState } from '../../shared/enum/toast-state';
 import { first } from 'rxjs';
 import { AuthService } from '../../shared/services/auth.service';
+import { CalendarService } from '../../shared/services/calendar.service';
 
 @Component({
   selector: 'bvr-tasks-list',
@@ -31,6 +32,7 @@ export class TasksListComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
+    private calendarService: CalendarService,
     private employeeTasksService: EmployeeTasksService,
     private route: ActivatedRoute,
     private router: Router,
@@ -45,17 +47,20 @@ export class TasksListComponent implements OnInit {
   getEmployeeTasks(): void {
     const employeeId = this.authService.getLoggedEmployeeId();
     if (employeeId) {
-      this.employeeTasksService
-        .getEmployeeTasks(employeeId)
-        .pipe(first())
-        .subscribe(employeeTasks => {
-          this.employeeTasks = employeeTasks;
-          this.getEmployeeProjectTasks();
-        });
+      this.calendarService.currentDay.subscribe(date => {
+        this.employeeTasksService
+          .getEmployeeTasks(employeeId, date)
+          .pipe(first())
+          .subscribe(employeeTasks => {
+            this.employeeTasks = employeeTasks;
+            this.getEmployeeProjectTasks();
+          });
+      });
     }
   }
 
   getEmployeeProjectTasks(): void {
+    this.employeeProjectTasks = [];
     this.employeeTasks.forEach(employeeTask => {
       const index = this.findProjectIndex(employeeTask.project.id);
       if (index !== -1) {

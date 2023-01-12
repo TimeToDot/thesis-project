@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, formatDate } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   NavigationStart,

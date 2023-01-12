@@ -28,7 +28,7 @@ export class LastTasksComponent implements OnInit {
     const employeeId = this.authService.getLoggedEmployeeId();
     if (employeeId) {
       this.employeeTasksService
-        .getEmployeeTasks(employeeId)
+        .getEmployeeLastTasks(employeeId)
         .pipe(first())
         .subscribe(employeeTasks => {
           this.employeeTasks = employeeTasks;

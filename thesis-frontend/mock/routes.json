@@ -3,6 +3,7 @@
   "/employeespost/:id": "/employees/:id",
   "/employees/:employeeId/calendar": "/calendar-tasks",
   "/employees/:employeeId/tasks": "/employee-tasks?employeeId=:employeeId",
+  "/employees/:employeeId/tasks\\?date=:date": "/employee-tasks?employeeId=:employeeId&startDate=:date",
   "/employees/:employeeId/tasks/:taskId": "/employee-tasks/:taskId?employeeId=:employeeId",
   "/employees/:employeeId/approve": "/approvals",
   "/employees/:employeeId/projects\\?active=:active": "/employee-projects?employeeId=:employeeId&project.active=:active",
