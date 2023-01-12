@@ -1,6 +1,7 @@
-import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { CommonModule, formatDate } from '@angular/common';
+import { Component, Input, OnInit } from '@angular/core';
 import * as dayjs from 'dayjs';
+import { Observable } from 'rxjs';
 import { ButtonComponent } from '../shared/components/button/button.component';
 import { Status } from '../shared/enum/status.enum';
 import { Day } from './models/day.model';
@@ -13,6 +14,8 @@ import { MonthPipe } from './pipes/month.pipe';
   imports: [ButtonComponent, CommonModule, MonthPipe],
 })
 export class CalendarComponent implements OnInit {
+  @Input() employeeCalendar: Observable<Day[]> = new Observable<Day[]>();
+
   currentMonth!: number;
   currentYear!: number;
   currentDay!: string;
@@ -51,6 +54,7 @@ export class CalendarComponent implements OnInit {
     this.getGridStartDay();
     this.getGridEndDay();
     this.getMonthGrid();
+    this.observeCalendarUpdates();
   }
 
   getGridStartDay(): void {
@@ -86,6 +90,22 @@ export class CalendarComponent implements OnInit {
       }
       this.monthGrid.push(week);
     }
+  }
+
+  observeCalendarUpdates(): void {
+    this.employeeCalendar.subscribe(calendar => {
+      calendar.forEach(day => {
+        for (let i = 0; i < this.monthGrid.length; ++i) {
+          const monthDay = this.monthGrid[i].find(
+            monthDay =>
+              monthDay.date === formatDate(day.date, 'MM/dd/YYYY', 'en')
+          );
+          if (monthDay) {
+            monthDay.status = day.status;
+          }
+        }
+      });
+    });
   }
 
   previousMonth(): void {

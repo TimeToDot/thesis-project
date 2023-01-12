@@ -1,6 +1,7 @@
 {
   "/employees/:id": "/accounts/:id",
   "/employeespost/:id": "/employees/:id",
+  "/employees/:employeeId/calendar": "/calendar-tasks",
   "/employees/:employeeId/tasks": "/employee-tasks?employeeId=:employeeId",
   "/employees/:employeeId/tasks/:taskId": "/employee-tasks/:taskId?employeeId=:employeeId",
   "/employees/:employeeId/approve": "/approvals",

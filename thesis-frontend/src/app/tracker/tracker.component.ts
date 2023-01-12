@@ -1,17 +1,19 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
-  ActivatedRoute,
   NavigationStart,
   Router,
   RouterLinkWithHref,
   RouterOutlet,
 } from '@angular/router';
-import { filter, Subscription } from 'rxjs';
+import { BehaviorSubject, filter, first, Subscription } from 'rxjs';
 import { CalendarComponent } from '../calendar/calendar.component';
+import { Day } from '../calendar/models/day.model';
 import { ButtonComponent } from '../shared/components/button/button.component';
 import { TabsComponent } from '../shared/components/tabs/tabs.component';
 import { LinkOption } from '../shared/models/link-option.model';
+import { AuthService } from '../shared/services/auth.service';
+import { EmployeeTasksService } from '../shared/services/employee-tasks.service';
 
 @Component({
   selector: 'bvr-tracker',
@@ -27,6 +29,7 @@ import { LinkOption } from '../shared/models/link-option.model';
   ],
 })
 export class TrackerComponent implements OnInit, OnDestroy {
+  $employeeCalendar: BehaviorSubject<Day[]> = new BehaviorSubject<Day[]>([]);
   navbarOptions: LinkOption[] = [
     { name: 'Tasks List', path: 'tasks-list' },
     { name: 'Add New Task', path: 'add-new-task' },
@@ -35,19 +38,20 @@ export class TrackerComponent implements OnInit, OnDestroy {
 
   private routerSubscription!: Subscription;
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private employeeTasksService: EmployeeTasksService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.observeTabNameChange();
+    this.getEmployeeCalendar();
     this.handleNavbarNameUpdate(this.router.url);
   }
 
   ngOnDestroy(): void {
     this.routerSubscription.unsubscribe();
-  }
-
-  showTaskList(value: boolean): void {
-    this.taskListVisible = value;
   }
 
   observeTabNameChange(): void {
@@ -56,6 +60,16 @@ export class TrackerComponent implements OnInit, OnDestroy {
       .subscribe(event => {
         const e = event as NavigationStart;
         this.handleNavbarNameUpdate(e.url);
+      });
+  }
+
+  getEmployeeCalendar(): void {
+    const employeeId = this.authService.getLoggedEmployeeId();
+    this.employeeTasksService
+      .getEmployeeCalendar(employeeId)
+      .pipe(first())
+      .subscribe(calendar => {
+        this.$employeeCalendar.next(calendar);
       });
   }
 
@@ -79,5 +93,9 @@ export class TrackerComponent implements OnInit, OnDestroy {
       option => option.name !== nameToReplace
     );
     this.navbarOptions.push({ name: name, path: path });
+  }
+
+  showTaskList(value: boolean): void {
+    this.taskListVisible = value;
   }
 }

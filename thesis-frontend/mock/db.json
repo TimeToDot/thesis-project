@@ -1084,8 +1084,8 @@
       "employeeId": "1",
       "startDate": "2022-11-21",
       "endDate": "2012-11-21",
-      "startTime": "12:00",
-      "endTime": "15:00",
+      "startTime": "9:00",
+      "endTime": "11:00",
       "project": {
         "id": "2",
         "name": "IKEA",
@@ -1130,8 +1130,8 @@
       "employeeId": "1",
       "startDate": "2022-12-21",
       "endDate": "2022-12-21",
-      "startTime": "12:00",
-      "endTime": "15:00",
+      "startTime": "11:00",
+      "endTime": "14:00",
       "project": {
         "id": "1",
         "name": "Volkswagen",
@@ -1176,8 +1176,8 @@
       "employeeId": "1",
       "startDate": "2022-12-21",
       "endDate": "2022-12-21",
-      "startTime": "12:00",
-      "endTime": "15:00",
+      "startTime": "14:00",
+      "endTime": "17:00",
       "project": {
         "id": "1",
         "name": "Volkswagen",
@@ -1725,5 +1725,16 @@
       "canAdminProjects": true,
       "canAddProjectEmployee": false
     }
+  ],
+  "calendar-tasks": [
+    { "date": "2022-12-30", "status": "approved" },
+    { "date": "2023-01-02", "status": "approved" },
+    { "date": "2023-01-03", "status": "approved" },
+    { "date": "2023-01-04", "status": "approved" },
+    { "date": "2023-01-05", "status": "approved" },
+    { "date": "2023-01-09", "status": "rejected" },
+    { "date": "2023-01-10", "status": "pending" },
+    { "date": "2023-01-11", "status": "pending" },
+    { "date": "2023-01-12", "status": "logged" }
   ]
 }

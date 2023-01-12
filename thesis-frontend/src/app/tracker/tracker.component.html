@@ -10,7 +10,8 @@
       [routerLink]="['request-approval']"></bvr-button>
   </div>
   <div class="tracker">
-    <bvr-calendar></bvr-calendar>
+    <bvr-calendar
+      [employeeCalendar]="$employeeCalendar.asObservable()"></bvr-calendar>
     <div class="tracker-right-side">
       <bvr-tabs
         class="tracker-tabs"
