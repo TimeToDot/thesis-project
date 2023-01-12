@@ -11,8 +11,8 @@ public record EmployeeTaskResponse(
         UUID id,
         Date startDate,
         Date endDate,
-        LocalDateTime startTime,
-        LocalDateTime endTime,
+/*        LocalDateTime startTime,
+        LocalDateTime endTime,*/
         EmployeeProjectResponse employeeProjectResponse,
         TaskResponse task,
         TaskStatus status

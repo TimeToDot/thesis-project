@@ -11,10 +11,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import thesis.api.ThesisController;
-import thesis.api.employee.mapper.EmployeeMapper;
-import thesis.api.employee.mapper.EmployeeProjectMapper;
-import thesis.api.employee.mapper.EmployeeProjectsMapper;
-import thesis.api.employee.mapper.EmployeeTasksMapper;
+import thesis.api.employee.mapper.*;
 import thesis.api.employee.model.*;
 import thesis.api.employee.model.calendar.EmployeeCalendarResponse;
 import thesis.api.employee.model.project.EmployeeProjectsResponse;
@@ -41,7 +38,10 @@ public class EmployeeController extends ThesisController {
 
     private final EmployeeMapper employeeMapper;
     private final EmployeeTasksMapper employeeTasksMapper;
+    private final EmployeeTaskMapper employeeTaskMapper;
     private final EmployeeProjectsMapper employeeProjectsMapper;
+    private final EmployeeTaskCreatePayloadMapper employeeTaskCreatePayloadMapper;
+    private final EmployeeTaskUpdatePayloadMapper employeeTaskUpdatePayloadMapper;
 
     @Operation(summary = "Gets employee by ID")
     @ApiResponses(value = {
@@ -125,34 +125,39 @@ public class EmployeeController extends ThesisController {
     }
 
     @GetMapping("/task/{taskId}")
-    public ResponseEntity<EmployeeTasksResponse> getEmployeeTask(
+    public ResponseEntity<EmployeeTaskResponse> getEmployeeTask(
             @RequestHeader @NotNull UUID employeeId,
             @RequestHeader @NotNull UUID projectId,
             @PathVariable UUID taskId){
 
-        // TODO: 28/12/2022
+        var taskDto = employeeService.getEmployeeTask(employeeId, taskId);
+        var taskResponse = employeeTaskMapper.map(taskDto);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(taskResponse);
     }
 
     @PostMapping("/task")
-    public ResponseEntity<EmployeeTaskResponse> addEmployeeTask( // TODO: 28/12/2022 zmienic response na uuid po testach
+    public ResponseEntity<UUID> addEmployeeTask(
                                                                  @RequestHeader @NotNull UUID employeeId,
                                                                  @RequestHeader @NotNull UUID projectId,
                                                                  @RequestBody EmployeeTaskCreatePayload payload
     ){
-        // TODO: 28/12/2022
-       return null;
+        var employeeTaskCreateDto = employeeTaskCreatePayloadMapper.map(payload);
+        var response = employeeService.createEmployeeTask(employeeId, employeeTaskCreateDto);
+
+        return ResponseEntity.ok(response);
     }
 
     @PutMapping("/task")
-    public ResponseEntity<EmployeeTaskResponse> updateEmployeeTask( // TODO: 28/12/2022 zmienic response na uuid po testach
+    public ResponseEntity<UUID> updateEmployeeTask( // TODO: 28/12/2022 zmienic response na uuid po testach
             @RequestHeader @NotNull UUID employeeId,
             @RequestHeader @NotNull UUID projectId,
             @RequestBody EmployeeTaskUpdatePayload payload
     ){
-        // TODO: 28/12/2022
-        return null;
+        var employeeTaskUpdateDTO = employeeTaskUpdatePayloadMapper.map(payload);
+        var response = employeeService.updateEmployeeTask(employeeId, employeeTaskUpdateDTO);
+
+        return ResponseEntity.ok(response);
     }
 
 

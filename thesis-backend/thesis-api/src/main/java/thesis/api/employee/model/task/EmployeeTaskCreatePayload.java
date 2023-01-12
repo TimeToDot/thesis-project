@@ -7,14 +7,10 @@ import java.util.Date;
 import java.util.UUID;
 
 public record EmployeeTaskCreatePayload(
-        @DateTimeFormat(pattern = "YYYY-MM-DD")
+        @DateTimeFormat(pattern = "YYYY-MM-DD-HH-mm")
         Date startDate,
-        @DateTimeFormat(pattern = "YYYY-MM-DD")
+        @DateTimeFormat(pattern = "YYYY-MM-DD-HH-mm")
         Date endDate,
-        @DateTimeFormat(pattern = "HH-mm")
-        LocalDateTime startTime,
-        @DateTimeFormat(pattern = "HH-mm")
-        LocalDateTime endTime,
         UUID projectId,
         UUID taskId
 ) {

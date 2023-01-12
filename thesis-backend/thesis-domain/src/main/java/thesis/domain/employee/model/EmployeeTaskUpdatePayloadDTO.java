@@ -1,13 +1,12 @@
-package thesis.api.employee.model.task;
+package thesis.domain.employee.model;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import thesis.domain.task.model.TaskStatusDTO;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 
-public record EmployeeTaskUpdatePayload(
+public record EmployeeTaskUpdatePayloadDTO(
         UUID id,
         @DateTimeFormat(pattern = "YYYY-MM-DD")
         Date startDate,
@@ -19,6 +18,6 @@ public record EmployeeTaskUpdatePayload(
         LocalDateTime endTime,*/
         UUID projectId,
         UUID taskId,
-        TaskStatus status
+        TaskStatusDTO status
 ) {
 }

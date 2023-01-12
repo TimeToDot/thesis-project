@@ -8,7 +8,9 @@ import thesis.data.account.AccountRepository;
 import thesis.data.project.ProjectAccountRepository;
 import thesis.data.project.ProjectRepository;
 import thesis.data.project.model.ProjectAccount;
+import thesis.data.task.TaskFormRepository;
 import thesis.data.task.TaskRepository;
+import thesis.data.task.model.Task;
 import thesis.data.task.model.TaskStatus;
 import thesis.domain.employee.mapper.EmployeeTaskDTOMapper;
 import thesis.domain.employee.mapper.EmployeeTasksDTOMapper;
@@ -38,10 +40,12 @@ public class EmployeeService {
     private final ProjectRepository projectRepository;
 
     private final TaskRepository taskRepository;
+    private final TaskFormRepository taskFormRepository;
     private final EmployeeDTOMapper employeeDTOMapper;
     private final EmployeeProjectDTOMapper employeeProjectDTOMapper;
     private final TaskFormDTOMapper taskFormDTOMapper;
     private final EmployeeTasksDTOMapper employeeTasksDTOMapper;
+    private final EmployeeTaskDTOMapper employeeTaskDTOMapper;
 
     public EmployeeDTO getEmployee(UUID id) {
         var account = accountRepository.findById(id).orElseThrow();
@@ -130,6 +134,46 @@ public class EmployeeService {
         var tasks = taskRepository.findByAccountIdAndDateFromStartingWithAndDateToEndingWith(employeeId, startDate, endDate).orElseThrow();
 
         return employeeTasksDTOMapper.map(tasks);
+    }
+
+    public EmployeeTaskDTO getEmployeeTask(UUID employeeId, UUID taskId){
+        var task = taskRepository.findById(taskId).orElseThrow();
+
+        return employeeTaskDTOMapper.map(task);
+    }
+
+    public UUID createEmployeeTask(UUID employeeId, EmployeeTaskCreatePayloadDTO payloadDTO){
+        var account = accountRepository.findById(employeeId).orElseThrow();
+        var taskForm = taskFormRepository.findById(payloadDTO.taskId()).orElseThrow();
+
+        var task = Task.builder()
+                .account(account)
+                .form(taskForm)
+                .createdAt(new Date())
+                .dateFrom(payloadDTO.startDate())
+                .dateTo(payloadDTO.endDate())
+                .status(TaskStatus.LOGGED)
+                .build();
+
+        taskRepository.save(task);
+
+        return task.getId();
+    }
+
+    public UUID updateEmployeeTask(UUID employeeId, EmployeeTaskUpdatePayloadDTO payloadDTO){
+        var account = accountRepository.findById(employeeId).orElseThrow();
+        var project = projectRepository.findById(payloadDTO.projectId()).orElseThrow();
+        var taskForm = taskFormRepository.findById(payloadDTO.taskId()).orElseThrow();
+
+        var task = taskRepository.findById(payloadDTO.id()).orElseThrow();
+
+        task.setDateFrom(payloadDTO.startDate());
+        task.setDateTo(payloadDTO.endDate());
+        task.setForm(taskForm);
+
+        taskRepository.save(task);
+
+        return task.getId();
     }
 
 
