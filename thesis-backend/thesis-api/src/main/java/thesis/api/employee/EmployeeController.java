@@ -42,6 +42,7 @@ public class EmployeeController extends ThesisController {
     private final EmployeeProjectsMapper employeeProjectsMapper;
     private final EmployeeTaskCreatePayloadMapper employeeTaskCreatePayloadMapper;
     private final EmployeeTaskUpdatePayloadMapper employeeTaskUpdatePayloadMapper;
+    private final CalendarMapper calendarMapper;
 
     @Operation(summary = "Gets employee by ID")
     @ApiResponses(value = {
@@ -149,7 +150,7 @@ public class EmployeeController extends ThesisController {
     }
 
     @PutMapping("/task")
-    public ResponseEntity<UUID> updateEmployeeTask( // TODO: 28/12/2022 zmienic response na uuid po testach
+    public ResponseEntity<UUID> updateEmployeeTask(
             @RequestHeader @NotNull UUID employeeId,
             @RequestHeader @NotNull UUID projectId,
             @RequestBody EmployeeTaskUpdatePayload payload
@@ -166,8 +167,11 @@ public class EmployeeController extends ThesisController {
     public ResponseEntity<EmployeeCalendarResponse> getEmployeeCalendar(
             @RequestHeader @NotNull UUID employeeId,
             @RequestBody @DateTimeFormat(pattern = "MM-yyyy") Date date){
-        // TODO: 26/12/2022
-        return  null;
+
+        var calendarDTO = employeeService.getCalendar(employeeId, date);
+        var calendarResponse = calendarMapper.map(calendarDTO);
+
+        return  ResponseEntity.ok(calendarResponse);
     }
 
 

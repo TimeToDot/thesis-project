@@ -1,8 +1,10 @@
 package thesis.domain.employee;
 
 import lombok.AllArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import thesis.data.account.AccountDetailsRepository;
 import thesis.data.account.AccountRepository;
 import thesis.data.project.ProjectAccountRepository;
@@ -19,9 +21,11 @@ import thesis.domain.paging.PagingSettings;
 import thesis.domain.employee.mapper.EmployeeDTOMapper;
 import thesis.domain.employee.mapper.EmployeeProjectDTOMapper;
 import thesis.domain.task.mapper.TaskFormDTOMapper;
+import thesis.domain.task.model.TaskStatusDTO;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -46,6 +50,8 @@ public class EmployeeService {
     private final TaskFormDTOMapper taskFormDTOMapper;
     private final EmployeeTasksDTOMapper employeeTasksDTOMapper;
     private final EmployeeTaskDTOMapper employeeTaskDTOMapper;
+
+    private final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
     public EmployeeDTO getEmployee(UUID id) {
         var account = accountRepository.findById(id).orElseThrow();
@@ -109,6 +115,7 @@ public class EmployeeService {
 
     }
 
+    @Transactional
     public void sendProjectsToApprove(UUID accountId, List<UUID> projectIds, Date startDate, Date endDate) {
         var tasks = taskRepository
                 .findByAccountIdAndStatusAndDateFromStartingWithAAndDateToEndingWith(
@@ -133,16 +140,17 @@ public class EmployeeService {
     public EmployeeTasksDTO getEmployeeTasks(UUID employeeId, Date startDate, Date endDate) {
         var tasks = taskRepository.findByAccountIdAndDateFromStartingWithAndDateToEndingWith(employeeId, startDate, endDate).orElseThrow();
 
-        return employeeTasksDTOMapper.map(tasks);
+        return EmployeeTasksDTO.builder().tasks(employeeTasksDTOMapper.map(tasks)).build();
     }
 
-    public EmployeeTaskDTO getEmployeeTask(UUID employeeId, UUID taskId){
+    public EmployeeTaskDTO getEmployeeTask(UUID employeeId, UUID taskId) {
         var task = taskRepository.findById(taskId).orElseThrow();
 
         return employeeTaskDTOMapper.map(task);
     }
 
-    public UUID createEmployeeTask(UUID employeeId, EmployeeTaskCreatePayloadDTO payloadDTO){
+    @Transactional
+    public UUID createEmployeeTask(UUID employeeId, EmployeeTaskCreatePayloadDTO payloadDTO) {
         var account = accountRepository.findById(employeeId).orElseThrow();
         var taskForm = taskFormRepository.findById(payloadDTO.taskId()).orElseThrow();
 
@@ -160,7 +168,8 @@ public class EmployeeService {
         return task.getId();
     }
 
-    public UUID updateEmployeeTask(UUID employeeId, EmployeeTaskUpdatePayloadDTO payloadDTO){
+    @Transactional
+    public UUID updateEmployeeTask(UUID employeeId, EmployeeTaskUpdatePayloadDTO payloadDTO) {
         var account = accountRepository.findById(employeeId).orElseThrow();
         var project = projectRepository.findById(payloadDTO.projectId()).orElseThrow();
         var taskForm = taskFormRepository.findById(payloadDTO.taskId()).orElseThrow();
@@ -176,6 +185,85 @@ public class EmployeeService {
         return task.getId();
     }
 
+    public CalendarDTO getCalendar(UUID employeeId, Date date) {
+        var account = accountRepository.findById(employeeId).orElseThrow();
+        var listOfDate = getFirstAndLastDayOfMonth(date);
+        var tasks = taskRepository.findByAccountIdAndDateFromStartingWithAndDateToEndingWith(account.getId(), listOfDate.get(0), listOfDate.get(1)).orElseThrow();
+
+        return new CalendarDTO(getCalendarTaskDTOList(tasks));
+    }
+
+    public List<CalendarTaskDTO> getCalendarTaskDTOList(List<Task> tasks) {
+        var groupedTasks = tasks.stream()
+                .collect(
+                        Collectors.groupingBy(
+                                task -> getSimplyDate(task.getDateFrom()),
+                                Collectors.groupingBy(
+                                        Task::getStatus,
+                                        Collectors.counting()
+                                )
+                        )
+                );
+
+        return groupedTasks
+                .entrySet()
+                .stream()
+                .map(
+                        dateMapEntry -> new CalendarTaskDTO(
+                                dateMapEntry.getKey(),
+                                getStatus(dateMapEntry.getValue())
+                        )
+                ).toList();
+    }
+
+    private TaskStatusDTO getStatus(Map<TaskStatus, Long> tasks) {
+
+        if (tasks.get(TaskStatus.PENDING) != null && tasks.get(TaskStatus.PENDING)  > 0) {
+            return TaskStatusDTO.PENDING;
+        } else if (tasks.get(TaskStatus.REJECTED) != null && tasks.get(TaskStatus.REJECTED) > 0) {
+            return TaskStatusDTO.REJECTED;
+        } else if (tasks.get(TaskStatus.LOGGED) != null && tasks.get(TaskStatus.LOGGED) > 0) {
+            return TaskStatusDTO.LOGGED;
+        } else if (tasks.get(TaskStatus.APPROVED) != null && tasks.get(TaskStatus.APPROVED) > 0) {
+            return TaskStatusDTO.APPROVED;
+        }
+        return TaskStatusDTO.NONE;
+    }
+
+    public List<Date> getFirstAndLastDayOfMonth(Date date) {
+        LocalDate currentDate = Instant.ofEpochMilli(date.getTime())
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
+        YearMonth yearMonth = YearMonth.of(currentDate.getYear(), currentDate.getMonth());
+
+        var firstDay = Date
+                .from(yearMonth
+                        .atDay(1)
+                        .atStartOfDay(ZoneId.systemDefault())
+                        .toInstant()
+                );
+        var lastDay = Date
+                .from(yearMonth
+                        .atEndOfMonth()
+                        .atStartOfDay(ZoneId.systemDefault())
+                        .toInstant()
+                );
+
+        return List.of(
+                firstDay,
+                lastDay
+        );
+
+    }
+
+    private Date getSimplyDate(Date date) {
+        try {
+            var result = format.parse(format.format(date));
+            return result;
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     private LocalDateTime convertToLocalDateTime(Date dateToConvert) {
         return dateToConvert.toInstant()

@@ -1,10 +1,11 @@
 package thesis.domain.employee.mapper;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import thesis.data.task.model.Task;
+import thesis.domain.employee.model.EmployeeTaskDTO;
 import thesis.domain.employee.model.EmployeeTasksDTO;
 import thesis.domain.mapper.MapStructConfig;
-import thesis.domain.task.mapper.TaskFormDTOMapper;
 
 import java.util.List;
 
@@ -14,5 +15,6 @@ import java.util.List;
 )
 public interface EmployeeTasksDTOMapper {
 
-    EmployeeTasksDTO map(List<Task> task);
+
+    List<EmployeeTaskDTO> map(List<Task> task);
 }
