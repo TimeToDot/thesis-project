@@ -246,31 +246,33 @@ export class EditEmployeeComponent {
     }
   }
 
-  archive(): void {
+  archive(value: boolean): void {
     this.disableGuard(true);
-    this.employeesService
-      .archiveAccount(this.getEmployeeData())
-      .pipe(first())
-      .subscribe(employee => {
-        this.employeesService
-          .archiveEmployee(employee)
-          .pipe(first())
-          .subscribe(() => {
-            this.router
-              .navigate(['../..'], { relativeTo: this.route })
-              .then(() => {
-                setTimeout(
-                  () =>
-                    this.toastService.showToast(
-                      ToastState.Info,
-                      'Employee archived'
-                    ),
-                  200
-                );
-                setTimeout(() => this.toastService.dismissToast(), 3200);
-              });
-          });
-      });
+    if (value) {
+      this.employeesService
+        .archiveAccount(this.getEmployeeData())
+        .pipe(first())
+        .subscribe(employee => {
+          this.employeesService
+            .archiveEmployee(employee)
+            .pipe(first())
+            .subscribe(() => {
+              this.router
+                .navigate(['../..'], { relativeTo: this.route })
+                .then(() => {
+                  setTimeout(
+                    () =>
+                      this.toastService.showToast(
+                        ToastState.Info,
+                        'Employee archived'
+                      ),
+                    200
+                  );
+                  setTimeout(() => this.toastService.dismissToast(), 3200);
+                });
+            });
+        });
+    }
   }
 
   cancel(value: boolean): void {

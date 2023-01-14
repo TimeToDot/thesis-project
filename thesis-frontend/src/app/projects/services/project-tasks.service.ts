@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -14,6 +15,29 @@ export class ProjectTasksService {
   getProjectTask(projectId: string, taskId: string): Observable<ProjectTask> {
     return this.http.get<ProjectTask>(
       `${this.url}/${projectId}/tasks/${taskId}`
+    );
+  }
+
+  addProjectTask(task: ProjectTask): Observable<ProjectTask> {
+    return this.http.post<ProjectTask>(
+      `${this.url}/${task.projectId}/tasks`,
+      task
+    );
+  }
+
+  updateProjectTask(task: ProjectTask): Observable<ProjectTask> {
+    return this.http.put<ProjectTask>(
+      `${this.url}/${task.projectId}/tasks/${task.id}`,
+      task
+    );
+  }
+
+  archiveProjectTask(task: ProjectTask): Observable<ProjectTask> {
+    task.active = false;
+    task.archiveDate = formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en');
+    return this.http.put<ProjectTask>(
+      `${this.url}/${task.projectId}/tasks/${task.id}`,
+      task
     );
   }
 

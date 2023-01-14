@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
@@ -20,6 +21,12 @@ export class ProjectsService {
   }
 
   updateProject(project: Project): Observable<Project> {
+    return this.http.put<Project>(`${this.url}/${project.id}`, project);
+  }
+
+  archiveProject(project: Project): Observable<Project> {
+    project.active = false;
+    project.archiveDate = formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en');
     return this.http.put<Project>(`${this.url}/${project.id}`, project);
   }
 

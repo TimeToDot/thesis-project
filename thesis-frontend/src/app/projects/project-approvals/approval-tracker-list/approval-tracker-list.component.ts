@@ -7,6 +7,7 @@ import { EmployeeProjectTask } from '../../../shared/models/employee-project-tas
 import { EmployeeTasksService } from '../../../shared/services/employee-tasks.service';
 import { first, Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { CalendarService } from '../../../shared/services/calendar.service';
 
 @Component({
   selector: 'bvr-approval-tracker-list',
@@ -22,6 +23,7 @@ export class ApprovalTrackerListComponent {
   employeeProjectTasks: EmployeeProjectTask[] = [];
 
   constructor(
+    private calendarService: CalendarService,
     private employeeTasksService: EmployeeTasksService,
     private route: ActivatedRoute
   ) {}
@@ -41,13 +43,15 @@ export class ApprovalTrackerListComponent {
   getEmployeeTasks(): void {
     const employeeId = this.route.snapshot.paramMap.get('id');
     if (employeeId) {
-      this.employeeTasksService
-        .getEmployeeTasks(employeeId)
-        .pipe(first())
-        .subscribe(employeeTasks => {
-          this.employeeTasks = employeeTasks;
-          this.getEmployeeProjectTasks();
-        });
+      this.calendarService.currentDay.subscribe(date => {
+        this.employeeTasksService
+          .getEmployeeTasks(employeeId, date)
+          .pipe(first())
+          .subscribe(employeeTasks => {
+            this.employeeTasks = employeeTasks;
+            this.getEmployeeProjectTasks();
+          });
+      });
     }
   }
 

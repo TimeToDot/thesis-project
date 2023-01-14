@@ -70,7 +70,7 @@ export class ModeratorInfoComponent implements OnInit {
   }
 
   getEmployee(): void {
-    const employeeId = this.controls.moderator?.value;
+    const employeeId = this.controls.moderator?.value.id;
     this.employeesService
       .getEmployee(employeeId)
       .pipe(first())
@@ -87,7 +87,7 @@ export class ModeratorInfoComponent implements OnInit {
     }
   }
 
-  isRequired(control: AbstractControl | null): boolean {
-    return control && control?.hasValidator(Validators.required) ? true : false;
+  isRequired(control: AbstractControl): boolean {
+    return control?.hasValidator(Validators.required) ? true : false;
   }
 }

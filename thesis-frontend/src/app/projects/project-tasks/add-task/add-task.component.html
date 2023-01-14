@@ -10,23 +10,23 @@
     <bvr-form-field
       label="Task Name"
       placeholder="Task Name"
-      [required]="isRequired('name')">
+      [required]="isRequired(controls.name)">
       <input
         formControlName="name"
         type="text" />
       <bvr-error
         class="error"
-        [control]="addProjectTaskForm.get(['name'])"></bvr-error>
+        [control]="controls.name"></bvr-error>
     </bvr-form-field>
     <bvr-form-field
       label="Task Description"
-      [required]="isRequired('description')">
+      [required]="isRequired(controls.description)">
       <textarea
         formControlName="description"
         placeholder="Example task description"></textarea>
       <bvr-error
         class="error"
-        [control]="addProjectTaskForm.controls['description']"></bvr-error>
+        [control]="controls.description"></bvr-error>
     </bvr-form-field>
   </div>
 </div>

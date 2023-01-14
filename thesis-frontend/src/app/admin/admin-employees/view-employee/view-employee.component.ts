@@ -84,30 +84,32 @@ export class ViewEmployeeComponent {
     this.modalDescription = `Are you sure you want to archive ${this.employee.firstName} ${this.employee.lastName}? This action cannot be undone.`;
   }
 
-  archive(): void {
-    this.employeesService
-      .archiveAccount(this.employee)
-      .pipe(first())
-      .subscribe(employee => {
-        this.employeesService
-          .archiveEmployee(employee)
-          .pipe(first())
-          .subscribe(() => {
-            this.router
-              .navigate(['..'], { relativeTo: this.route })
-              .then(() => {
-                setTimeout(
-                  () =>
-                    this.toastService.showToast(
-                      ToastState.Info,
-                      'Employee archived'
-                    ),
-                  200
-                );
-                setTimeout(() => this.toastService.dismissToast(), 3200);
-              });
-          });
-      });
+  archive(value: boolean): void {
+    if (value) {
+      this.employeesService
+        .archiveAccount(this.employee)
+        .pipe(first())
+        .subscribe(employee => {
+          this.employeesService
+            .archiveEmployee(employee)
+            .pipe(first())
+            .subscribe(() => {
+              this.router
+                .navigate(['..'], { relativeTo: this.route })
+                .then(() => {
+                  setTimeout(
+                    () =>
+                      this.toastService.showToast(
+                        ToastState.Info,
+                        'Employee archived'
+                      ),
+                    200
+                  );
+                  setTimeout(() => this.toastService.dismissToast(), 3200);
+                });
+            });
+        });
+    }
   }
 
   disableGuard(value: boolean): void {

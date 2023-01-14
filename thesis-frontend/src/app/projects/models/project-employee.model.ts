@@ -5,6 +5,7 @@ export interface ProjectEmployee {
   projectId: string;
   employee: Employee;
   workingTime: number;
+  salaryModifier?: number;
   joinDate: string;
   exitDate?: string;
   active: boolean;

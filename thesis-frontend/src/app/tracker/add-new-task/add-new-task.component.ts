@@ -30,6 +30,7 @@ import { AuthService } from '../../shared/services/auth.service';
 import { EmployeesService } from '../../admin/services/employees.service';
 import { ErrorComponent } from '../../shared/components/error/error.component';
 import { CustomValidators } from '../../shared/helpers/custom-validators.helper';
+import { Status } from '../../shared/enum/status.enum';
 
 @Component({
   selector: 'bvr-add-new-task',
@@ -50,6 +51,7 @@ import { CustomValidators } from '../../shared/helpers/custom-validators.helper'
 })
 export class AddNewTaskComponent implements OnInit {
   addTaskForm!: FormGroup;
+  controls: any = {};
   hasTaskToSave: boolean = false;
   isAddModalOpen: boolean = false;
   isCancelModalOpen: boolean = false;
@@ -78,6 +80,7 @@ export class AddNewTaskComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm();
+    this.getFormControls();
     this.getEmployeeProjects();
     this.observeProjectChange();
     this.getTask();
@@ -111,6 +114,12 @@ export class AddNewTaskComponent implements OnInit {
         ],
       }
     );
+  }
+
+  getFormControls(): void {
+    Object.keys(this.addTaskForm.controls).forEach(control => {
+      this.controls[control] = this.addTaskForm.get([control]);
+    });
   }
 
   roundToMinutes(minutes: number): string {
@@ -210,9 +219,29 @@ export class AddNewTaskComponent implements OnInit {
 
   add(value: boolean): void {
     if (value) {
-      this.toastService.showToast(ToastState.Success, 'Task added');
-      setTimeout(() => this.toastService.dismissToast(), 3000);
+      const employeeId = this.authService.getLoggedEmployeeId();
+      this.employeeTasksService
+        .addEmployeeTask(employeeId, this.getTaskData(employeeId))
+        .pipe(first())
+        .subscribe(() => {
+          this.toastService.showToast(ToastState.Success, 'Task added');
+          setTimeout(() => this.toastService.dismissToast(), 3000);
+        });
     }
+  }
+
+  getTaskData(employeeId: string): EmployeeTask {
+    return {
+      id: '',
+      employeeId: employeeId,
+      startDate: this.controls.startDate?.value,
+      endDate: this.controls.endDate?.value,
+      startTime: this.controls.startTime?.value,
+      endTime: this.controls.endTime?.value,
+      project: this.controls.project?.value,
+      task: this.controls.task?.value,
+      status: Status.Logged,
+    };
   }
 
   cancel(value: boolean): void {

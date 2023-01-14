@@ -92,27 +92,29 @@ export class AdminEmployeesComponent implements OnInit {
       .subscribe(archivedEmployees => (this.dataSource = archivedEmployees));
   }
 
-  archive(): void {
-    this.employeesService
-      .getEmployee(this.idToArchive)
-      .pipe(first())
-      .subscribe(employee => {
-        this.employeesService
-          .archiveAccount(employee)
-          .pipe(first())
-          .subscribe(employee => {
-            this.employeesService
-              .archiveEmployee(employee)
-              .pipe(first())
-              .subscribe(() => {
-                this.toastService.showToast(
-                  ToastState.Info,
-                  'Employee archived'
-                );
-                setTimeout(() => this.toastService.dismissToast(), 3000);
-                this.getEmployees();
-              });
-          });
-      });
+  archive(value: boolean): void {
+    if (value) {
+      this.employeesService
+        .getEmployee(this.idToArchive)
+        .pipe(first())
+        .subscribe(employee => {
+          this.employeesService
+            .archiveAccount(employee)
+            .pipe(first())
+            .subscribe(employee => {
+              this.employeesService
+                .archiveEmployee(employee)
+                .pipe(first())
+                .subscribe(() => {
+                  this.toastService.showToast(
+                    ToastState.Info,
+                    'Employee archived'
+                  );
+                  setTimeout(() => this.toastService.dismissToast(), 3000);
+                  this.getEmployees();
+                });
+            });
+        });
+    }
   }
 }

@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CalendarComponent } from '../calendar/calendar.component';
@@ -10,7 +11,11 @@ describe('TrackerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CalendarComponent, RouterTestingModule],
+      imports: [
+        CalendarComponent,
+        HttpClientTestingModule,
+        RouterTestingModule,
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(TrackerComponent);

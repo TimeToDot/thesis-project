@@ -4,7 +4,7 @@ import { ButtonComponent } from '../../../shared/components/button/button.compon
 import { CalendarComponent } from '../../../calendar/calendar.component';
 import { ApprovalTrackerListComponent } from '../approval-tracker-list/approval-tracker-list.component';
 import { TasksToRejectService } from '../../../shared/services/tasks-to-reject.service';
-import { first, Subject, Subscription } from 'rxjs';
+import { BehaviorSubject, first, Subject, Subscription } from 'rxjs';
 import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
 import { ProjectEmployeesService } from '../../services/project-employees.service';
 import { Employee } from '../../../shared/models/employee.model';
@@ -16,6 +16,8 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ProjectEmployee } from '../../models/project-employee.model';
 import { ProjectApprovalsService } from '../../services/project-approvals.service';
 import { DropdownSearchEmployeeComponent } from '../../../shared/components/dropdown-search-employee/dropdown-search-employee.component';
+import { EmployeeTasksService } from '../../../shared/services/employee-tasks.service';
+import { Day } from '../../../calendar/models/day.model';
 
 @Component({
   selector: 'bvr-approval-tracker',
@@ -33,6 +35,7 @@ import { DropdownSearchEmployeeComponent } from '../../../shared/components/drop
   templateUrl: './approval-tracker.component.html',
 })
 export class ApprovalTrackerComponent implements OnInit, OnDestroy {
+  $employeeCalendar: BehaviorSubject<Day[]> = new BehaviorSubject<Day[]>([]);
   approveTasksForm!: FormGroup;
   employees: Employee[] = [];
   isActive: boolean = true;
@@ -48,8 +51,9 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
   private tasksToRejectSubscribtion: Subscription = new Subscription();
 
   constructor(
-    private projectApprovalsService: ProjectApprovalsService,
+    private employeeTasksService: EmployeeTasksService,
     private fb: FormBuilder,
+    private projectApprovalsService: ProjectApprovalsService,
     private projectEmployeesService: ProjectEmployeesService,
     private route: ActivatedRoute,
     private router: Router,
@@ -86,6 +90,7 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
         .subscribe(projectApproval => {
           this.projectEmployee = projectApproval.projectEmployee;
           this.updateFormFields();
+          this.getEmployeeCalendar(this.projectEmployee.id);
           this.projectEmployee.active
             ? this.getProjectEmployees()
             : this.getArchivedProjectEmployees();
@@ -95,10 +100,17 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
 
   updateFormFields(): void {
     Object.keys(this.approveTasksForm.controls).forEach(field => {
-      this.approveTasksForm
-        .get(field)
-        ?.setValue(this.projectEmployee.employee[field as keyof Employee]);
+      this.approveTasksForm.get(field)?.setValue(this.projectEmployee.employee);
     });
+  }
+
+  getEmployeeCalendar(employeeId: string): void {
+    this.employeeTasksService
+      .getEmployeeCalendar(employeeId)
+      .pipe(first())
+      .subscribe(calendar => {
+        this.$employeeCalendar.next(calendar);
+      });
   }
 
   getProjectEmployees(): void {

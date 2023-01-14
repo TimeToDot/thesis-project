@@ -1,8 +1,10 @@
-import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { CommonModule, formatDate } from '@angular/common';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import * as dayjs from 'dayjs';
+import { Observable } from 'rxjs';
 import { ButtonComponent } from '../shared/components/button/button.component';
 import { Status } from '../shared/enum/status.enum';
+import { CalendarService } from '../shared/services/calendar.service';
 import { Day } from './models/day.model';
 import { MonthPipe } from './pipes/month.pipe';
 
@@ -13,6 +15,10 @@ import { MonthPipe } from './pipes/month.pipe';
   imports: [ButtonComponent, CommonModule, MonthPipe],
 })
 export class CalendarComponent implements OnInit {
+  @Input() employeeCalendar: Observable<Day[]> = new Observable<Day[]>();
+
+  @Output() currentDayChange: EventEmitter<string> = new EventEmitter<string>();
+
   currentMonth!: number;
   currentYear!: number;
   currentDay!: string;
@@ -25,7 +31,7 @@ export class CalendarComponent implements OnInit {
 
   private readonly sundayOffset: number = 1;
 
-  constructor() {}
+  constructor(private calendarService: CalendarService) {}
 
   ngOnInit(): void {
     this.currentDay = dayjs().date(dayjs().date()).format('MM/DD/YYYY');
@@ -51,6 +57,7 @@ export class CalendarComponent implements OnInit {
     this.getGridStartDay();
     this.getGridEndDay();
     this.getMonthGrid();
+    this.observeCalendarUpdates();
   }
 
   getGridStartDay(): void {
@@ -88,6 +95,22 @@ export class CalendarComponent implements OnInit {
     }
   }
 
+  observeCalendarUpdates(): void {
+    this.employeeCalendar.subscribe(calendar => {
+      calendar.forEach(day => {
+        for (let i = 0; i < this.monthGrid.length; ++i) {
+          const monthDay = this.monthGrid[i].find(
+            monthDay =>
+              monthDay.date === formatDate(day.date, 'MM/dd/YYYY', 'en')
+          );
+          if (monthDay) {
+            monthDay.status = day.status;
+          }
+        }
+      });
+    });
+  }
+
   previousMonth(): void {
     --this.currentMonth;
     this.currentYear = dayjs().month(this.currentMonth).year();
@@ -103,6 +126,7 @@ export class CalendarComponent implements OnInit {
   selectDay(day: Day): void {
     if (!day.disabled) {
       this.currentDay = day.date;
+      this.calendarService.updateCurrentDay(this.currentDay);
     }
   }
 

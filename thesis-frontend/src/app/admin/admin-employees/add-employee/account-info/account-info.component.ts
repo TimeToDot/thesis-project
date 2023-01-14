@@ -125,7 +125,7 @@ export class AccountInfoComponent {
     });
   }
 
-  isRequired(control: AbstractControl | null): boolean {
-    return control && control?.hasValidator(Validators.required) ? true : false;
+  isRequired(control: AbstractControl): boolean {
+    return control?.hasValidator(Validators.required) ? true : false;
   }
 }
