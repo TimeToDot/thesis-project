@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import thesis.data.account.AccountDetailsRepository;
 import thesis.data.account.AccountRepository;
+import thesis.data.account.model.Account;
+import thesis.data.account.model.StatusType;
 import thesis.data.project.AccountProjectRepository;
 import thesis.data.project.ProjectRepository;
 import thesis.data.project.model.AccountProject;
@@ -14,12 +16,12 @@ import thesis.data.task.TaskFormRepository;
 import thesis.data.task.TaskRepository;
 import thesis.data.task.model.Task;
 import thesis.data.task.model.TaskStatus;
+import thesis.domain.employee.mapper.EmployeeDTOMapper;
+import thesis.domain.employee.mapper.EmployeeProjectDTOMapper;
 import thesis.domain.employee.mapper.EmployeeTaskDTOMapper;
 import thesis.domain.employee.mapper.EmployeeTasksDTOMapper;
 import thesis.domain.employee.model.*;
 import thesis.domain.paging.PagingSettings;
-import thesis.domain.employee.mapper.EmployeeDTOMapper;
-import thesis.domain.employee.mapper.EmployeeProjectDTOMapper;
 import thesis.domain.task.mapper.TaskFormDTOMapper;
 import thesis.domain.task.model.TaskStatusDTO;
 
@@ -56,6 +58,25 @@ public class EmployeeService {
         var account = accountRepository.findById(id).orElseThrow();
         var details = accountDetailsRepository.findByAccount(account).orElseThrow();
         return employeeDTOMapper.map(details);
+    }
+
+    public EmployeesDTO getEmployees(PagingSettings settings, Boolean active) {
+        var status = active ? StatusType.ENABLE : StatusType.EXPIRED;
+
+        var employees = accountRepository.findAllByStatus(status, settings.getPageable());
+        var paging = getPaging(settings, employees);
+        var sorting = getSorting(settings);
+
+        return EmployeesDTO.builder()
+                .employees(
+                        employees
+                                .map(Account::getDetails)
+                                .map(employeeDTOMapper::map)
+                                .toList()
+                )
+                .paging(paging)
+                .sorting(sorting)
+                .build();
     }
 
     public EmployeeProjectsDTO getEmployeeProjects(UUID id, PagingSettings pagingSettings) {
@@ -106,7 +127,7 @@ public class EmployeeService {
                             .count(uuidListEntry.getValue().size())
                             .build();
                 })
-                .collect(Collectors.toList());
+                .toList();
 
         return EmployeeProjectsToApproveDTO.builder()
                 .projects(employeeProjects)
@@ -137,7 +158,7 @@ public class EmployeeService {
     }
 
     public EmployeeTasksDTO getEmployeeTasks(UUID employeeId, Date startDate, Date endDate, PagingSettings settings) {
-        if (settings == null){
+        if (settings == null) {
             settings = new PagingSettings();
         }
 
@@ -206,8 +227,8 @@ public class EmployeeService {
         var tasks = taskRepository.findByAccountIdAndDateFromBetween(account.getId(), listOfDate.get(0), listOfDate.get(1), settings.getPageable()).orElseThrow();
         var taskList = new ArrayList<>(tasks.stream().toList());
 
-        while (tasks.getTotalPages() > page){
-            page +=1;
+        while (tasks.getTotalPages() > page) {
+            page += 1;
             settings = PagingSettings.builder().page(page).size(size).build();
             tasks = taskRepository.findByAccountIdAndDateFromBetween(account.getId(), listOfDate.get(0), listOfDate.get(1), settings.getPageable()).orElseThrow();
             taskList.addAll(tasks.stream().toList());
@@ -242,7 +263,7 @@ public class EmployeeService {
 
     private TaskStatusDTO getStatus(Map<TaskStatus, Long> tasks) {
 
-        if (tasks.get(TaskStatus.REJECTED) != null && tasks.get(TaskStatus.REJECTED)  > 0) {
+        if (tasks.get(TaskStatus.REJECTED) != null && tasks.get(TaskStatus.REJECTED) > 0) {
             return TaskStatusDTO.REJECTED;
         } else if (tasks.get(TaskStatus.PENDING) != null && tasks.get(TaskStatus.PENDING) > 0) {
             return TaskStatusDTO.PENDING;
