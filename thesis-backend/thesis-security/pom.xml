@@ -12,17 +12,17 @@
   <artifactId>thesis-security</artifactId>
 
   <dependencies>
-    <!-- TacoCloud dependencies -->
+    <!-- thesis dependencies -->
     <dependency>
       <groupId>pl.thesis</groupId>
       <artifactId>thesis-data</artifactId>
       <version>${thesis.version}</version>
     </dependency>
-    <dependency>
+<!--    <dependency>
       <groupId>pl.thesis</groupId>
       <artifactId>thesis-domain</artifactId>
       <version>${thesis.version}</version>
-    </dependency>
+    </dependency>-->
 
     <!-- Necessary Boot starters -->
     <dependency>
@@ -39,6 +39,11 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-validation</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.mapstruct</groupId>
+      <artifactId>mapstruct</artifactId>
     </dependency>
 
     <dependency>
@@ -59,6 +64,11 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
     </dependency>
 
   </dependencies>

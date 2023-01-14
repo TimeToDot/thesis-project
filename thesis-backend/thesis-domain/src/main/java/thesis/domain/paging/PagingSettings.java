@@ -1,7 +1,10 @@
 package thesis.domain.paging;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -13,15 +16,17 @@ import javax.validation.constraints.NotNull;
 @Slf4j
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class PagingSettings {
 
     @Valid
     @NotNull
-    private Integer page = 0;
+    private Integer page = 1;
 
     @Valid
     @NotNull
-    private Integer size = 2;
+    private Integer size = 10;
 
     @Valid
     private String direction = "dsc";
@@ -29,6 +34,7 @@ public class PagingSettings {
     @Valid
     private String key = "";
 
+    @JsonIgnore
     public Sort buildSort() {
         switch (direction) {
             case "dsc":
@@ -41,9 +47,10 @@ public class PagingSettings {
         }
     }
 
+    @JsonIgnore
     public Pageable getPageable(){
         if (key == null || key.isEmpty()){
-            return PageRequest.of(page, size);
+            return PageRequest.of(page - 1, size);
         }
         return PageRequest.of(page, size, buildSort());
     }
