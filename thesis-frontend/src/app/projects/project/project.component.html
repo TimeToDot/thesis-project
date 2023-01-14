@@ -1,0 +1,17 @@
+<div class="card">
+  <div class="header">
+    <div class="title">
+      <bvr-button
+        icon="arrow_back"
+        [routerLink]="['/projects']"
+        styleClass="button-icon back"></bvr-button>
+      <h2 class="name">Project</h2>
+    </div>
+    <bvr-tabs [navbarOptions]="navbarOptions"></bvr-tabs>
+  </div>
+  <div
+    [@tabs]="getRouteAnimationData()"
+    class="card-content">
+    <router-outlet class="router-outlet"></router-outlet>
+  </div>
+</div>

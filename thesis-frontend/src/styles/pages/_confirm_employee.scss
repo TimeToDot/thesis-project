@@ -1,0 +1,59 @@
+.add-new-employee {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.add-project-employee {
+  flex: 1;
+  padding: 8 * $grid-base 31 * $grid-base;
+
+  .row {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+  }
+
+  .disabled {
+    label,
+    input::placeholder {
+      color: $color-disabled;
+    }
+  }
+}
+
+.confirm-employee {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+
+  .employee-details {
+    width: 100%;
+
+    .email {
+      flex: 2;
+    }
+
+    .position {
+      flex: 1;
+    }
+  }
+
+  .personal-info {
+    align-items: flex-end;
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 8 * $grid-base;
+    width: 100%;
+  }
+
+  .picture {
+    align-items: center;
+    background: $color-disabled;
+    display: flex;
+    height: 37.5 * $grid-base;
+    justify-content: center;
+    margin-right: 11 * $grid-base;
+    width: 37.5 * $grid-base;
+  }
+}

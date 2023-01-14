@@ -1,0 +1,46 @@
+.tracker {
+  box-shadow: $shadow-default;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 4 * $grid-base;
+  padding: 6 * $grid-base;
+  width: 100%;
+}
+
+.tracker-right-side {
+  display: flex;
+  flex-direction: column;
+  margin-left: 6 * $grid-base;
+  width: 100%;
+
+  .tabs {
+    border-bottom: 0.25 * $grid-base $color-divider solid;
+    justify-content: space-evenly;
+    margin-bottom: 4 * $grid-base;
+    padding-bottom: $grid-base;
+
+    .tab {
+      width: 100%;
+    }
+  }
+
+  .form {
+    padding: 2 * $grid-base 3 * $grid-base 0;
+  }
+
+  .form-field {
+    margin: 0 3 * $grid-base 3 * $grid-base;
+  }
+}
+
+@media screen and (max-width: 1400px) {
+  .tracker {
+    align-items: center;
+    flex-direction: column-reverse;
+  }
+
+  .tracker-right-side {
+    margin: 0;
+    padding-bottom: 9 * $grid-base;
+  }
+}
