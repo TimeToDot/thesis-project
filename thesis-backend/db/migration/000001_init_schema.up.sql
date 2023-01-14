@@ -28,10 +28,10 @@ CREATE TABLE "account_project" (
                                    "account_id" uuid NOT NULL,
                                    "project_id" uuid NOT NULL,
                                    "role_id" uuid NOT NULL,
-                                   "workingTime" INTEGER,
-                                   "joinDate" timestamp NOT NULL,
-                                   "exitDate" timestamp NOT NULL,
-                                   "status" varchar NOT NULL,
+                                   "working_time" INTEGER,
+                                   "join_date" timestamp NOT NULL,
+                                   "exit_date" timestamp,
+                                   "status" varchar NOT NULL
 );
 
 CREATE TABLE "position" (
@@ -106,7 +106,7 @@ CREATE TABLE "task" (
                         "date_from" timestamp NOT NULL,
                         "date_to" timestamp NOT NULL,
                         "name" varchar,
-                        "event_status" varchar NOT NULL
+                        "status" varchar NOT NULL
 );
 
 CREATE TABLE "account_message" (

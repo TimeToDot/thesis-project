@@ -13,7 +13,7 @@ public record EmployeeTaskResponse(
         Date endDate,
 /*        LocalDateTime startTime,
         LocalDateTime endTime,*/
-        EmployeeProjectResponse employeeProjectResponse,
+        EmployeeProjectResponse project,
         TaskResponse task,
         TaskStatus status
 ){

@@ -19,7 +19,7 @@ import java.util.UUID;
 @SuperBuilder
 @Entity
 @Table(name = "account_project")
-public class ProjectAccount {
+public class AccountProject {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

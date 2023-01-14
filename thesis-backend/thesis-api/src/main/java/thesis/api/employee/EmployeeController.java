@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import thesis.api.ThesisController;
 import thesis.api.employee.mapper.*;
 import thesis.api.employee.model.*;
+import thesis.api.employee.model.calendar.EmployeeCalendarRequest;
 import thesis.api.employee.model.calendar.EmployeeCalendarResponse;
 import thesis.api.employee.model.project.EmployeeProjectsResponse;
 import thesis.api.employee.model.project.EmployeeProjectsToApprovePayload;
@@ -23,6 +24,7 @@ import thesis.domain.paging.PagingSettings;
 import thesis.domain.employee.EmployeeService;
 import thesis.security.services.model.UserDetailsDefault;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
@@ -55,7 +57,7 @@ public class EmployeeController extends ThesisController {
     })
     @GetMapping
     @PreAuthorize("hasAuthority(" + CAN_READ + ")")
-    public ResponseEntity<EmployeeResponse> getEmployee(@PathVariable UUID id){
+    public ResponseEntity<EmployeeResponse> getEmployee(@PathVariable UUID id) {
 
         var employeeDTO = employeeService.getEmployee(id);
         var employee = employeeMapper.map(employeeDTO);
@@ -77,9 +79,9 @@ public class EmployeeController extends ThesisController {
     public ResponseEntity<EmployeeProjectsResponse> getEmployeeProjects(
             @RequestHeader UUID employeeId,
             @RequestBody PagingSettings pagingSettings
-            ){
+    ) {
 
-        if (!verifyEmployeeId(employeeId)){
+        if (!verifyEmployeeId(employeeId)) {
             log.error("oo prosze: {}", employeeId);
             return ResponseEntity.badRequest().build();
         }
@@ -96,7 +98,7 @@ public class EmployeeController extends ThesisController {
     public ResponseEntity<EmployeeProjectsToApproveResponse> getProjectsToApprove(
             @RequestHeader UUID employeeId,
             @RequestBody EmployeeProjectsToApproveRequest request
-    ){
+    ) {
         var toApproveDto = employeeService.getEmployeeProjectsToApprove(employeeId, request.startDate(), request.endDate());
 
         return ResponseEntity.ok(employeeProjectsMapper.toApproveMap(toApproveDto));
@@ -107,7 +109,7 @@ public class EmployeeController extends ThesisController {
     public ResponseEntity<List<UUID>> sendProjectsToApprove(
             @RequestHeader UUID employeeId,
             @RequestBody EmployeeProjectsToApprovePayload payload
-    ){
+    ) {
 
         employeeService.sendProjectsToApprove(employeeId, payload.projectIds(), payload.startDate(), payload.endDate());
 
@@ -117,9 +119,9 @@ public class EmployeeController extends ThesisController {
     @GetMapping("/tasks")
     public ResponseEntity<EmployeeTasksResponse> getEmployeeTasks(
             @RequestHeader @NotNull UUID employeeId,
-            @RequestBody EmployeeTasksRequest request){
+            @RequestBody @Valid EmployeeTasksRequest request) {
 
-        var tasksDto = employeeService.getEmployeeTasks(employeeId, request.startDate(), request.endDate());
+        var tasksDto = employeeService.getEmployeeTasks(employeeId, request.startDate(), request.endDate(), request.settings());
         var tasksResponse = employeeTasksMapper.map(tasksDto);
 
         return ResponseEntity.ok(tasksResponse);
@@ -128,8 +130,7 @@ public class EmployeeController extends ThesisController {
     @GetMapping("/task/{taskId}")
     public ResponseEntity<EmployeeTaskResponse> getEmployeeTask(
             @RequestHeader @NotNull UUID employeeId,
-            @RequestHeader @NotNull UUID projectId,
-            @PathVariable UUID taskId){
+            @PathVariable UUID taskId) {
 
         var taskDto = employeeService.getEmployeeTask(employeeId, taskId);
         var taskResponse = employeeTaskMapper.map(taskDto);
@@ -139,10 +140,10 @@ public class EmployeeController extends ThesisController {
 
     @PostMapping("/task")
     public ResponseEntity<UUID> addEmployeeTask(
-                                                                 @RequestHeader @NotNull UUID employeeId,
-                                                                 @RequestHeader @NotNull UUID projectId,
-                                                                 @RequestBody EmployeeTaskCreatePayload payload
-    ){
+            @RequestHeader @NotNull UUID employeeId,
+            //@RequestHeader @NotNull UUID projectId, todo
+            @RequestBody EmployeeTaskCreatePayload payload
+    ) {
         var employeeTaskCreateDto = employeeTaskCreatePayloadMapper.map(payload);
         var response = employeeService.createEmployeeTask(employeeId, employeeTaskCreateDto);
 
@@ -152,9 +153,9 @@ public class EmployeeController extends ThesisController {
     @PutMapping("/task")
     public ResponseEntity<UUID> updateEmployeeTask(
             @RequestHeader @NotNull UUID employeeId,
-            @RequestHeader @NotNull UUID projectId,
+            //@RequestHeader @NotNull UUID projectId, todo
             @RequestBody EmployeeTaskUpdatePayload payload
-    ){
+    ) {
         var employeeTaskUpdateDTO = employeeTaskUpdatePayloadMapper.map(payload);
         var response = employeeService.updateEmployeeTask(employeeId, employeeTaskUpdateDTO);
 
@@ -162,23 +163,19 @@ public class EmployeeController extends ThesisController {
     }
 
 
-
     @GetMapping("/calendar")
     public ResponseEntity<EmployeeCalendarResponse> getEmployeeCalendar(
             @RequestHeader @NotNull UUID employeeId,
-            @RequestBody @DateTimeFormat(pattern = "MM-yyyy") Date date){
+            @RequestBody EmployeeCalendarRequest request) {
 
-        var calendarDTO = employeeService.getCalendar(employeeId, date);
+        var calendarDTO = employeeService.getCalendar(employeeId, request.date());
         var calendarResponse = calendarMapper.map(calendarDTO);
 
-        return  ResponseEntity.ok(calendarResponse);
+        return ResponseEntity.ok(calendarResponse);
     }
 
 
-
-
-
-    private boolean verifyEmployeeId(UUID id){
+    private boolean verifyEmployeeId(UUID id) {
 
         UserDetailsDefault principal = (UserDetailsDefault) SecurityContextHolder
                 .getContext()

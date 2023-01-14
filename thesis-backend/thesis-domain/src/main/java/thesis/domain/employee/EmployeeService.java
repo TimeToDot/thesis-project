@@ -1,15 +1,15 @@
 package thesis.domain.employee;
 
 import lombok.AllArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import thesis.data.account.AccountDetailsRepository;
 import thesis.data.account.AccountRepository;
-import thesis.data.project.ProjectAccountRepository;
+import thesis.data.project.AccountProjectRepository;
 import thesis.data.project.ProjectRepository;
-import thesis.data.project.model.ProjectAccount;
+import thesis.data.project.model.AccountProject;
 import thesis.data.task.TaskFormRepository;
 import thesis.data.task.TaskRepository;
 import thesis.data.task.model.Task;
@@ -40,7 +40,7 @@ public class EmployeeService {
 
     private final AccountRepository accountRepository;
     private final AccountDetailsRepository accountDetailsRepository;
-    private final ProjectAccountRepository projectAccountRepository;
+    private final AccountProjectRepository accountProjectRepository;
     private final ProjectRepository projectRepository;
 
     private final TaskRepository taskRepository;
@@ -51,7 +51,7 @@ public class EmployeeService {
     private final EmployeeTasksDTOMapper employeeTasksDTOMapper;
     private final EmployeeTaskDTOMapper employeeTaskDTOMapper;
 
-    private final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+    private final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'");
 
     public EmployeeDTO getEmployee(UUID id) {
         var account = accountRepository.findById(id).orElseThrow();
@@ -68,9 +68,9 @@ public class EmployeeService {
                 .findById(id)
                 .orElseThrow();
 
-        var projects = projectAccountRepository.findAllByAccount_Id(account.getId(), pagingSettings.getPageable())
+        var projects = accountProjectRepository.findAllByAccount_Id(account.getId(), pagingSettings.getPageable())
                 .orElseThrow()
-                .map(ProjectAccount::getProject);
+                .map(AccountProject::getProject);
 
         var paging = getPaging(pagingSettings, projects);
         var sorting = getSorting(pagingSettings);
@@ -88,7 +88,7 @@ public class EmployeeService {
                 .orElseThrow();
 
         var tasks = taskRepository
-                .findByAccountIdAndStatusAndDateFromStartingWithAAndDateToEndingWith(
+                .findByAccountIdAndStatusAndDateFromBetween(
                         account.getId(),
                         TaskStatus.PENDING,
                         startDate,
@@ -118,7 +118,7 @@ public class EmployeeService {
     @Transactional
     public void sendProjectsToApprove(UUID accountId, List<UUID> projectIds, Date startDate, Date endDate) {
         var tasks = taskRepository
-                .findByAccountIdAndStatusAndDateFromStartingWithAAndDateToEndingWith(
+                .findByAccountIdAndStatusAndDateFromBetween(
                         accountId,
                         TaskStatus.PENDING,
                         startDate,
@@ -137,10 +137,22 @@ public class EmployeeService {
 
     }
 
-    public EmployeeTasksDTO getEmployeeTasks(UUID employeeId, Date startDate, Date endDate) {
-        var tasks = taskRepository.findByAccountIdAndDateFromStartingWithAndDateToEndingWith(employeeId, startDate, endDate).orElseThrow();
+    public EmployeeTasksDTO getEmployeeTasks(UUID employeeId, Date startDate, Date endDate, PagingSettings settings) {
+        if (settings == null){
+            settings = new PagingSettings();
+        }
 
-        return EmployeeTasksDTO.builder().tasks(employeeTasksDTOMapper.map(tasks)).build();
+        var tasks = taskRepository.findByAccountIdAndDateFromBetween(employeeId, startDate, endDate, settings.getPageable()).orElseThrow();
+
+        var paging = getPaging(settings, tasks);
+
+        var sorting = getSorting(settings);
+
+        return EmployeeTasksDTO.builder()
+                .tasks(employeeTasksDTOMapper.map(tasks.stream().toList()))
+                .paging(paging)
+                .sorting(sorting)
+                .build();
     }
 
     public EmployeeTaskDTO getEmployeeTask(UUID employeeId, UUID taskId) {
@@ -179,6 +191,7 @@ public class EmployeeService {
         task.setDateFrom(payloadDTO.startDate());
         task.setDateTo(payloadDTO.endDate());
         task.setForm(taskForm);
+        task.setStatus(TaskStatus.valueOf(payloadDTO.status().name()));
 
         taskRepository.save(task);
 
@@ -188,9 +201,21 @@ public class EmployeeService {
     public CalendarDTO getCalendar(UUID employeeId, Date date) {
         var account = accountRepository.findById(employeeId).orElseThrow();
         var listOfDate = getFirstAndLastDayOfMonth(date);
-        var tasks = taskRepository.findByAccountIdAndDateFromStartingWithAndDateToEndingWith(account.getId(), listOfDate.get(0), listOfDate.get(1)).orElseThrow();
+        var size = 100;
+        var page = 1;
+        var settings = PagingSettings.builder().page(page).size(size).build();
+        var tasks = taskRepository.findByAccountIdAndDateFromBetween(account.getId(), listOfDate.get(0), listOfDate.get(1), settings.getPageable()).orElseThrow();
+        var taskList = new ArrayList<>(tasks.stream().toList());
 
-        return new CalendarDTO(getCalendarTaskDTOList(tasks));
+        while (tasks.getTotalPages() > page){
+            page +=1;
+            settings = PagingSettings.builder().page(page).size(size).build();
+            tasks = taskRepository.findByAccountIdAndDateFromBetween(account.getId(), listOfDate.get(0), listOfDate.get(1), settings.getPageable()).orElseThrow();
+            taskList.addAll(tasks.stream().toList());
+        }
+
+
+        return new CalendarDTO(getCalendarTaskDTOList(taskList));
     }
 
     public List<CalendarTaskDTO> getCalendarTaskDTOList(List<Task> tasks) {
@@ -218,10 +243,10 @@ public class EmployeeService {
 
     private TaskStatusDTO getStatus(Map<TaskStatus, Long> tasks) {
 
-        if (tasks.get(TaskStatus.PENDING) != null && tasks.get(TaskStatus.PENDING)  > 0) {
-            return TaskStatusDTO.PENDING;
-        } else if (tasks.get(TaskStatus.REJECTED) != null && tasks.get(TaskStatus.REJECTED) > 0) {
+        if (tasks.get(TaskStatus.REJECTED) != null && tasks.get(TaskStatus.REJECTED)  > 0) {
             return TaskStatusDTO.REJECTED;
+        } else if (tasks.get(TaskStatus.PENDING) != null && tasks.get(TaskStatus.PENDING) > 0) {
+            return TaskStatusDTO.PENDING;
         } else if (tasks.get(TaskStatus.LOGGED) != null && tasks.get(TaskStatus.LOGGED) > 0) {
             return TaskStatusDTO.LOGGED;
         } else if (tasks.get(TaskStatus.APPROVED) != null && tasks.get(TaskStatus.APPROVED) > 0) {
@@ -258,8 +283,8 @@ public class EmployeeService {
 
     private Date getSimplyDate(Date date) {
         try {
-            var result = format.parse(format.format(date));
-            return result;
+            format.setTimeZone(TimeZone.getTimeZone("UTC"));
+            return DateUtils.truncate(format.parse(format.format(date)), Calendar.DATE);
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
