@@ -2,13 +2,14 @@ package thesis;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.transaction.annotation.Transactional;
 import thesis.data.account.AccountDetailsRepository;
 import thesis.data.account.AccountRepository;
 import thesis.data.account.model.Account;
@@ -38,14 +39,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ThesisApplication.class)
-public class InitDataTest {
+public class InitDataIntegrationTest {
 
     @Autowired
     private AccountRepository accountRepository;
@@ -171,9 +171,9 @@ public class InitDataTest {
         var positionManager = positionRepository.findByName("MANAGER_II").orElseThrow(AssertionError::new);
         var positionEmployee = positionRepository.findByName("EMPLOYEE_I").orElseThrow(AssertionError::new);
 
-        var admin = createAccount("admin", "admin", "siema@email.com", adminRole, null);
-        var mod = createAccount("moderator", "moderator", "siema@email.com", userRole, positionManager);
-        var user = createAccount("user", "user", "siema@email.com", userRole, positionEmployee);
+        var admin = createAccount("admin", "admin", "admin@email.com", adminRole, null);
+        var mod = createAccount("moderator", "moderator", "mod@email.com", userRole, positionManager);
+        var user = createAccount("user", "user", "user@email.com", userRole, positionEmployee);
 
         accountRepository.save(admin);
         Assert.assertNotNull(admin.getId());
@@ -235,10 +235,10 @@ public class InitDataTest {
         return Account.builder()
                 .login(login)
                 .pass(passwordEncoder.encode(pass))
-                .email("siema." +login +"@email.com")
+                .email(email)
                 .roles(List.of(role))
                 .status(StatusType.ENABLE)
-                .positions(position == null ? null : List.of(position))
+                .position(position)
                 .build();
     }
 

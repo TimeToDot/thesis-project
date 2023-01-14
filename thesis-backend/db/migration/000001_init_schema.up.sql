@@ -41,12 +41,6 @@ CREATE TABLE "position" (
                         "status" varchar
 );
 
-CREATE TABLE "position_account" (
-                                "id" uuid DEFAULT gen_random_uuid() PRIMARY KEY,
-                                "position_id" uuid NOT NULL,
-                                "account_id" uuid NOT NULL
-);
-
 CREATE TABLE "account_role" (
                                 "id" uuid DEFAULT gen_random_uuid() PRIMARY KEY,
                                 "account_id" uuid NOT NULL,
@@ -138,10 +132,6 @@ ALTER TABLE "account_details" ADD FOREIGN KEY ("account_id") REFERENCES "account
 ALTER TABLE "account_role" ADD FOREIGN KEY ("account_id") REFERENCES "account" ("id");
 
 ALTER TABLE "account_role" ADD FOREIGN KEY ("role_id") REFERENCES "role" ("id");
-
-ALTER TABLE "position_account" ADD FOREIGN KEY ("account_id") REFERENCES "account" ("id");
-
-ALTER TABLE "position_account" ADD FOREIGN KEY ("position_id") REFERENCES "position" ("id");
 
 ALTER TABLE "role_privilege" ADD FOREIGN KEY ("role_id") REFERENCES "role" ("id");
 

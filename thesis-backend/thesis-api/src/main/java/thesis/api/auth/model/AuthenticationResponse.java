@@ -1,4 +1,4 @@
-package thesis.security.payload;
+package thesis.api.auth.model;
 
 import lombok.Builder;
 

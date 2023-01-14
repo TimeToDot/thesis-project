@@ -35,7 +35,6 @@ import static thesis.domain.paging.PagingHelper.getSorting;
 
 @AllArgsConstructor
 @Service
-
 public class EmployeeService {
 
     private final AccountRepository accountRepository;

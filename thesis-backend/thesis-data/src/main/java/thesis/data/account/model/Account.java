@@ -49,9 +49,10 @@ public class  Account {
     @ToString.Exclude
     private AccountDetails details;
 
-    @ManyToMany(mappedBy = "accounts", fetch = FetchType.LAZY)
+    @ManyToOne
+    @JoinColumn(name = "position_id")
     @ToString.Exclude
-    private List<Position> positions;
+    private Position position;
 
     @ManyToMany
     @LazyCollection(LazyCollectionOption.FALSE)
