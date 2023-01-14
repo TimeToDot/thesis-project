@@ -1,0 +1,6 @@
+/thesis-backend.iml
+thesis-api/target
+thesis-data/target
+thesis-domain/target
+thesis-security/target
+thesis-server/target
