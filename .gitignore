@@ -45,6 +45,9 @@ Thumbs.db
 # Compiled class file
 *.class
 
+#folders
+thesis-backend/thesis-data/target/*
+
 # Log file
 *.log
 
