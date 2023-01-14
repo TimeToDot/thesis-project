@@ -57,13 +57,24 @@ public class EmployeeController extends ThesisController {
     })
     @GetMapping
     @PreAuthorize("hasAuthority(" + CAN_READ + ")")
-    public ResponseEntity<EmployeeResponse> getEmployee(@PathVariable UUID id) {
+    public ResponseEntity<EmployeeResponse> getEmployee(@RequestHeader UUID employeeId) {
 
-        var employeeDTO = employeeService.getEmployee(id);
+        var employeeDTO = employeeService.getEmployee(employeeId);
         var employee = employeeMapper.map(employeeDTO);
 
         return ResponseEntity.ok(employee);
     }
+
+    @PutMapping
+    @PreAuthorize("hasAuthority(" + CAN_READ + ")")
+    public ResponseEntity<UUID> updateEmployee(
+            @RequestHeader UUID employeeId,
+            @RequestBody EmployeeUpdatePayload payload
+    ) {
+        return ResponseEntity.ok().build();
+    }
+
+
 
     @Operation(summary = "Gets employee projects by ID")
     @ApiResponses(value = {
