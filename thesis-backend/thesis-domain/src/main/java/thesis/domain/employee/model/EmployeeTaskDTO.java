@@ -13,8 +13,8 @@ public record EmployeeTaskDTO(
         UUID id,
         Date startDate,
         Date endDate,
-        LocalDateTime startTime,
-        LocalDateTime endTime,
+/*        LocalDateTime startTime,
+        LocalDateTime endTime,*/
         EmployeeProjectDTO project,
         TaskFormDto task,
         TaskStatus status

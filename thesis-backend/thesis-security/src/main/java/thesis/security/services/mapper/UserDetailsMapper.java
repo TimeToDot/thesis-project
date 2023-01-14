@@ -34,7 +34,7 @@ public interface UserDetailsMapper {
                     .forEach(privilege -> authorities.add(new SimpleGrantedAuthority(privilege.getName().name())));
                 });
 
-        account.getProjectAccounts().forEach(projectAccountRole -> {
+        account.getAccountProjects().forEach(projectAccountRole -> {
             var projectId = projectAccountRole.getProject().getId();
 
             projectAccountRole.getRole().getPrivileges().forEach(privilege -> {

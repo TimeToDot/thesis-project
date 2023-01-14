@@ -14,6 +14,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @SuperBuilder
 @Getter
+@Setter
 @Entity
 public class Position {
 
@@ -22,12 +23,7 @@ public class Position {
     @Column(name = "id", nullable = false)
     private UUID id;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @ToString.Exclude
-    @JoinTable(
-            name = "position_account",
-            joinColumns = @JoinColumn(name = "account_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "position_id", referencedColumnName = "id"))
+    @OneToMany(mappedBy = "position", fetch = FetchType.EAGER, cascade= {CascadeType.PERSIST})
     private List<Account> accounts;
 
     private String name;

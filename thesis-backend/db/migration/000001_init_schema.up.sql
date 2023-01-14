@@ -28,10 +28,10 @@ CREATE TABLE "account_project" (
                                    "account_id" uuid NOT NULL,
                                    "project_id" uuid NOT NULL,
                                    "role_id" uuid NOT NULL,
-                                   "workingTime" INTEGER,
-                                   "joinDate" timestamp NOT NULL,
-                                   "exitDate" timestamp NOT NULL,
-                                   "status" varchar NOT NULL,
+                                   "working_time" INTEGER,
+                                   "join_date" timestamp NOT NULL,
+                                   "exit_date" timestamp,
+                                   "status" varchar NOT NULL
 );
 
 CREATE TABLE "position" (
@@ -39,12 +39,6 @@ CREATE TABLE "position" (
                         "name" varchar,
                         "description" varchar,
                         "status" varchar
-);
-
-CREATE TABLE "position_account" (
-                                "id" uuid DEFAULT gen_random_uuid() PRIMARY KEY,
-                                "position_id" uuid NOT NULL,
-                                "account_id" uuid NOT NULL
 );
 
 CREATE TABLE "account_role" (
@@ -106,7 +100,7 @@ CREATE TABLE "task" (
                         "date_from" timestamp NOT NULL,
                         "date_to" timestamp NOT NULL,
                         "name" varchar,
-                        "event_status" varchar NOT NULL
+                        "status" varchar NOT NULL
 );
 
 CREATE TABLE "account_message" (
@@ -138,10 +132,6 @@ ALTER TABLE "account_details" ADD FOREIGN KEY ("account_id") REFERENCES "account
 ALTER TABLE "account_role" ADD FOREIGN KEY ("account_id") REFERENCES "account" ("id");
 
 ALTER TABLE "account_role" ADD FOREIGN KEY ("role_id") REFERENCES "role" ("id");
-
-ALTER TABLE "position_account" ADD FOREIGN KEY ("account_id") REFERENCES "account" ("id");
-
-ALTER TABLE "position_account" ADD FOREIGN KEY ("position_id") REFERENCES "position" ("id");
 
 ALTER TABLE "role_privilege" ADD FOREIGN KEY ("role_id") REFERENCES "role" ("id");
 

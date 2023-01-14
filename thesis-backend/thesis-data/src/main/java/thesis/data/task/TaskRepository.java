@@ -2,6 +2,7 @@ package thesis.data.task;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,8 +21,11 @@ public interface TaskRepository extends JpaRepository<Task, UUID> {
     Optional<Task> findByName(String name);
 
     @Transactional
-    Optional<List<Task>> findByAccountIdAndStatusAndDateFromStartingWithAAndDateToEndingWith(UUID id, TaskStatus status, Date startDate, Date endDate);
+    Optional<List<Task>> findByAccountIdAndStatusAndDateFromBetween(UUID id, TaskStatus status, Date startDate, Date endDate);
+
+/*    @Transactional
+    Optional<List<Task>> findByAccountIdAndDateFromBetween(UUID id, Date startDate, Date endDate);*/
 
     @Transactional
-    Optional<List<Task>> findByAccountIdAndDateFromStartingWithAndDateToEndingWith(UUID id, Date startDate, Date endDate);
+    Optional<Page<Task>> findByAccountIdAndDateFromBetween(UUID id, Date startDate, Date endDate, Pageable pageable);
 }

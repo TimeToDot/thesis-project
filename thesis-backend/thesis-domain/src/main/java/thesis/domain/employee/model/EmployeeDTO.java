@@ -3,6 +3,7 @@ package thesis.domain.employee.model;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.List;
+import java.util.UUID;
 
 @Schema(description = "Information about account.")
 public record EmployeeDTO(
@@ -10,7 +11,8 @@ public record EmployeeDTO(
         String lastName,
         String email,
         String password,
-        List<String> positionIds,
+
+        UUID positionId,
         String employmentDate,
         String image,
         String sex,

@@ -27,17 +27,17 @@ public interface EmployeeTaskDTOMapper {
     @Mapping(target = "id", source = "id")
     @Mapping(target = "startDate", source = "dateFrom")
     @Mapping(target = "endDate", source = "dateTo")
-    @Mapping(target = "startTime", expression = "java(convertToLocalDateTime(dateFrom))")
-    @Mapping(target = "endTime", expression = "java(convertToLocalDateTime(dateTo))")
+/*    @Mapping(target = "startTime", expression = "java(convertToLocalDateTime(dateFrom))")
+    @Mapping(target = "endTime", expression = "java(convertToLocalDateTime(dateTo))")*/
     @Mapping(target = "project", source = "form.project")
     @Mapping(target = "task", source = "form")
     @Mapping(target = "status", source = "status")
     EmployeeTaskDTO map(Task task);
 
-    default LocalDateTime convertToLocalDateTime(Date date){
+/*    default LocalDateTime convertToLocalDateTime(Date date){
         return date.toInstant()
                 .atZone(ZoneId.systemDefault())
                 .toLocalDateTime();
-    }
+    }*/
 
 }
