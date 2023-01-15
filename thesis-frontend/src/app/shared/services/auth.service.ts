@@ -1,17 +1,28 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { first, Observable, of, tap } from 'rxjs';
-import { EmployeesService } from '../../admin/services/employees.service';
+import { first, map, Observable, tap } from 'rxjs';
+import { LoginData } from '../models/login-data.model';
+import { PermissionsService } from './permissions.service';
+import { TokenService } from './token.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private isLoggedIn: boolean = false;
-  private loggedEmployeeId: string = '';
+  private url: string = 'http://localhost:8080/thesis/api/authentication';
+
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+  };
 
   redirectUrl: string | null = null;
 
-  constructor(private employeesService: EmployeesService) {
+  constructor(
+    private http: HttpClient,
+    private permissionsService: PermissionsService,
+    private tokenService: TokenService
+  ) {
     this.readFromLocalStorage();
   }
 
@@ -20,43 +31,32 @@ export class AuthService {
   }
 
   getLoggedEmployeeId(): string {
-    return this.loggedEmployeeId;
+    return this.tokenService.getToken() as string;
   }
 
   readFromLocalStorage(): void {
-    const isLogged = localStorage.getItem('isLoggedIn');
-    if (isLogged) {
-      this.isLoggedIn = JSON.parse(isLogged);
-    }
-    const employeeId = localStorage.getItem('employeeId');
-    if (employeeId) {
-      this.loggedEmployeeId = JSON.parse(employeeId);
+    const token = this.tokenService.getToken();
+    if (token) {
+      this.isLoggedIn = true;
     }
   }
 
-  login(): Observable<boolean> {
-    return of(true).pipe(
-      tap(() => {
-        this.isLoggedIn = true;
-        localStorage.setItem('isLoggedIn', JSON.stringify(this.isLoggedIn));
-        this.employeesService
-          .getEmployee('1')
-          .pipe(first())
-          .subscribe(employee => {
-            this.loggedEmployeeId = employee.id;
-            localStorage.setItem(
-              'employeeId',
-              JSON.stringify(this.loggedEmployeeId)
-            );
-          });
-      })
-    );
+  login(loginData: LoginData): Observable<boolean> {
+    return this.http
+      .post<any>(`${this.url}/login`, loginData, this.httpOptions)
+      .pipe(
+        first(),
+        tap(data => {
+          this.tokenService.saveToken(data.id);
+          this.isLoggedIn = true;
+          this.permissionsService.setEmployeePermissions(data);
+        }),
+        map(() => true)
+      );
   }
 
   logout(): void {
     this.isLoggedIn = false;
-    this.loggedEmployeeId = '';
-    localStorage.setItem('isLoggedIn', JSON.stringify(this.isLoggedIn));
-    localStorage.setItem('employeeId', JSON.stringify(this.loggedEmployeeId));
+    this.tokenService.signOut();
   }
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Permissions } from '../models/permissions.model';
 import { ProjectPermissions } from '../../projects/models/project-permissions.model';
+import { LoginResponse } from '../models/login-response.model';
 
 @Injectable({
   providedIn: 'root',
@@ -53,5 +54,9 @@ export class PermissionsService {
     return this._permissions.projects.find(
       project => project.id === index
     ) as ProjectPermissions;
+  }
+
+  setEmployeePermissions(loginData: LoginResponse): void {
+    console.log(loginData);
   }
 }
