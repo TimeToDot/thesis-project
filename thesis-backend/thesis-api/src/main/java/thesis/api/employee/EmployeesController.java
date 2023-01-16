@@ -28,9 +28,12 @@ public class EmployeesController extends ThesisController {
     public ResponseEntity<EmployeesResponse> getEmployees(
             @RequestHeader UUID employeeId,
             @RequestParam(value="active", required = false, defaultValue = "true") Boolean active,
-            @RequestParam(required = false) PagingSettings settings
+            @RequestParam(value="active", required = false) Integer page,
+            @RequestParam(value="active", required = false) Integer size,
+            @RequestParam(value="active", required = false) String direction,
+            @RequestParam(value="active", required = false) String key
     ) {
-        if (settings == null) settings = new PagingSettings();
+        var settings = initPagingSettings(page, size, key, direction);
 
         var dto = employeeService.getEmployees(settings, active);
         var response = employeesMapper.map(dto);

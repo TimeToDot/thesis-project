@@ -1,6 +1,8 @@
 package thesis.api;
 
 
+import thesis.domain.paging.PagingSettings;
+
 public abstract class ThesisController {
     //project
     //modification
@@ -17,4 +19,15 @@ public abstract class ThesisController {
     protected final String CAN_CREATE_USERS = "CAN_CREATE_USERS";
     protected final String CAN_ADMIN_SETTINGS = "CAN_ADMIN_SETTINGS";
     protected final String CAN_ADMIN_POSITIONS = "CAN_ADMIN_POSITIONS";
+
+    protected PagingSettings initPagingSettings(Integer page, Integer size, String key, String direction){
+        var settings = new PagingSettings();
+
+        if (page != null) settings.setPage(page);
+        if (size != null) settings.setSize(size);
+        if (key != null) settings.setKey(key);
+        if (direction != null) settings.setDirection(direction);
+
+        return settings;
+    }
 }

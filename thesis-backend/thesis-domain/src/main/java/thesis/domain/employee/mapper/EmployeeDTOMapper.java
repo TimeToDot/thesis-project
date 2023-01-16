@@ -4,7 +4,11 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 import thesis.data.account.model.AccountDetails;
+import thesis.data.account.model.BillingPeriod;
+import thesis.data.account.model.ContractType;
 import thesis.data.account.model.StatusType;
+import thesis.domain.employee.model.BillingPeriodDTO;
+import thesis.domain.employee.model.ContractTypeDTO;
 import thesis.domain.employee.model.EmployeeDTO;
 import thesis.domain.mapper.MapStructConfig;
 
@@ -31,7 +35,8 @@ public interface EmployeeDTOMapper {
     @Mapping(target = "positionId", source = "account.position.id")
     @Mapping(target = "employmentDate", source = "employmentDate")
     @Mapping(target = "exitDate", source = "exitDate")
-    @Mapping(target = "contractType", source = "contractType")
+    @Mapping(target = "contractType", expression = "java(getContractType(details.getContractType()))")
+    @Mapping(target = "billingPeriod", expression = "java(getBillingPeriod(details.getBillingPeriod()))")
     @Mapping(target = "workingTime", source = "workingTime")
     @Mapping(target = "wage", source = "wage")
     @Mapping(target = "payday", source = "payday")
@@ -45,6 +50,14 @@ public interface EmployeeDTOMapper {
 
     default boolean isActive(StatusType type){
         return type.compareTo(StatusType.ENABLE) == 0;
+    }
+
+    default ContractTypeDTO getContractType(ContractType type){
+        return ContractTypeDTO.valueOf(type.label);
+    }
+
+    default BillingPeriodDTO getBillingPeriod(BillingPeriod period){
+        return BillingPeriodDTO.valueOf(period.label);
     }
 
 }

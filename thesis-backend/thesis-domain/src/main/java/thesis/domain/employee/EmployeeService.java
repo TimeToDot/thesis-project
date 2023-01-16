@@ -238,7 +238,6 @@ public class EmployeeService {
         }
 
         var taskForm = taskFormRepository.findById(payloadDTO.taskId()).orElseThrow();
-
         var task = taskRepository.findById(payloadDTO.id()).orElseThrow();
 
         task.setDateFrom(payloadDTO.startDate());

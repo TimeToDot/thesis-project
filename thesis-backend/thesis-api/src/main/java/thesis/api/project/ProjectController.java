@@ -10,10 +10,7 @@ import thesis.domain.project.ProjectService;
 import thesis.domain.project.model.employee.ProjectEmployeeDTO;
 import thesis.domain.project.model.employee.ProjectEmployeeUpdatePayloadDTO;
 import thesis.domain.project.model.employee.ProjectEmployeesDTO;
-import thesis.domain.project.model.task.ProjectTaskCreatePayloadDTO;
-import thesis.domain.project.model.task.ProjectTaskDTO;
-import thesis.domain.project.model.task.ProjectTaskUpdatePayloadDTO;
-import thesis.domain.project.model.task.ProjectTasksDTO;
+import thesis.domain.project.model.task.*;
 import thesis.domain.paging.PagingSettings;
 
 import javax.validation.constraints.NotNull;
@@ -29,7 +26,7 @@ public class ProjectController extends ThesisController {
 
     @PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#projectId, 'CAR_READ')")
     @GetMapping("/task/{taskId}")
-    public ResponseEntity<ProjectTaskDTO> getProjectTask(
+    public ResponseEntity<ProjectTaskDetailsDTO> getProjectTask(
             @RequestHeader @NotNull UUID employeeId,
             @RequestHeader @NotNull UUID projectId,
             @PathVariable UUID taskId){
@@ -41,7 +38,7 @@ public class ProjectController extends ThesisController {
 
     @PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#projectId, 'CAN_MANAGE_TASKS')")
     @PutMapping("/task")
-    public ResponseEntity<ProjectTaskDTO> updateProjectTask(
+    public ResponseEntity<ProjectTaskDetailsDTO> updateProjectTask(
             @RequestHeader @NotNull UUID employeeId,
             @RequestHeader @NotNull UUID projectId,
             @RequestBody ProjectTaskUpdatePayloadDTO payload){
@@ -53,7 +50,7 @@ public class ProjectController extends ThesisController {
 
     @PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#projectId, 'CAN_MANAGE_TASKS')")
     @PostMapping("/task")
-    public ResponseEntity<ProjectTaskDTO> addProjectTask(
+    public ResponseEntity<ProjectTaskDetailsDTO> addProjectTask(
             @RequestHeader @NotNull UUID employeeId,
             @RequestHeader @NotNull UUID projectId,
             @RequestBody ProjectTaskCreatePayloadDTO payload
@@ -65,13 +62,30 @@ public class ProjectController extends ThesisController {
 
     @PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#projectId, 'CAN_READ')")
     @GetMapping("/tasks")
-    public ResponseEntity<ProjectTasksDTO> getProjectTasks(
+    public ResponseEntity<ProjectTasksDetailsDTO> getProjectTasks(
             @RequestHeader @NotNull UUID employeeId,
             @RequestHeader @NotNull UUID projectId,
+            @RequestParam(value="active", required = false) Integer page,
+            @RequestParam(value="active", required = false) Integer size,
+            @RequestParam(value="active", required = false) String direction,
+            @RequestParam(value="active", required = false) String key,
+            @RequestParam(value="active", required = false, defaultValue = "true") Boolean active){
+        var settings = initPagingSettings(page, size, key, direction);
+        var response = projectService.getAdvancedProjectTasks(projectId, active, settings);
+        return ResponseEntity.ok(response);
+
+    }
+
+    @PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#projectId, 'CAN_READ')")
+    @GetMapping("{id}/tasks")
+    public ResponseEntity<ProjectTasksDTO> getProjectTasksByEmployee(
+            @RequestHeader @NotNull UUID employeeId,
+            @RequestHeader @NotNull UUID projectId,
+            @PathVariable UUID id,
             @RequestParam(value="active", required = false, defaultValue = "true") Boolean active){
 
-        // TODO: 28/12/2022
-        return null;
+        var response = projectService.getProjectTasks(id, active);
+        return ResponseEntity.ok(response);
 
     }
 
@@ -112,9 +126,13 @@ public class ProjectController extends ThesisController {
     public ResponseEntity<ProjectEmployeesDTO> getProjectEmployees(
             @RequestHeader @NotNull UUID employeeId,
             @RequestHeader @NotNull UUID projectId,
-            @RequestBody PagingSettings settings,
+            @RequestParam(value="active", required = false) Integer page,
+            @RequestParam(value="active", required = false) Integer size,
+            @RequestParam(value="active", required = false) String direction,
+            @RequestParam(value="active", required = false) String key,
             @RequestParam(value="active", required = false, defaultValue = "true") Boolean active
             ){
+        var settings = initPagingSettings(page, size, direction, key);
         // TODO: 28/12/2022
         return null;
     }
@@ -124,9 +142,13 @@ public class ProjectController extends ThesisController {
     public ResponseEntity<ProjectEmployeesDTO> getProjectApprovals(
             @RequestHeader @NotNull UUID employeeId,
             @RequestHeader @NotNull UUID projectId,
-            @RequestBody PagingSettings settings,
+            @RequestParam(value="active", required = false) Integer page,
+            @RequestParam(value="active", required = false) Integer size,
+            @RequestParam(value="active", required = false) String direction,
+            @RequestParam(value="active", required = false) String key,
             @RequestParam(value="active", required = false, defaultValue = "true") Boolean active
     ){
+        var settings = initPagingSettings(page, size, direction, key);
         // TODO: 28/12/2022
         return null;
     }

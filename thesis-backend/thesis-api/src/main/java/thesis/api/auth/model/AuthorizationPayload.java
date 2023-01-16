@@ -2,6 +2,8 @@ package thesis.api.auth.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
+import thesis.domain.employee.model.BillingPeriodDTO;
+import thesis.domain.employee.model.ContractTypeDTO;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -84,8 +86,9 @@ public class AuthorizationPayload {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date employmentDate;
 
-    @NotBlank
-    private String contractType;
+    private ContractTypeDTO contractType;
+
+    private BillingPeriodDTO billingPeriod;
 
     @NotNull
     private Integer workingTime;
