@@ -10,7 +10,6 @@ import thesis.domain.position.model.PositionCreatePayloadDTO;
 import thesis.domain.position.model.PositionResponseDTO;
 import thesis.domain.position.model.PositionUpdatePayloadDTO;
 
-import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -24,7 +23,7 @@ public class PositionController extends ThesisController {
     @GetMapping("/{positionId}")
     public ResponseEntity<PositionResponseDTO> getPosition(
             @RequestHeader UUID employeeId,
-            @RequestHeader UUID projectId,
+            @RequestHeader(required = false) UUID projectId,
             @PathVariable UUID positionId
 
     ){
@@ -37,7 +36,7 @@ public class PositionController extends ThesisController {
     @PostMapping
     public ResponseEntity<UUID> addPosition(
             @RequestHeader UUID employeeId,
-            @RequestHeader UUID projectId,
+            @RequestHeader(required = false) UUID projectId,
             @RequestBody PositionCreatePayloadDTO payloadDTO){
         var response = positionService.addPosition(payloadDTO);
 
@@ -49,7 +48,7 @@ public class PositionController extends ThesisController {
     @PutMapping
     public ResponseEntity<UUID> updatePosition(
             @RequestHeader UUID employeeId,
-            @RequestHeader UUID projectId,
+            @RequestHeader(required = false) UUID projectId,
             @RequestBody PositionUpdatePayloadDTO payloadDTO
     ){
         var response = positionService.updatePosition(payloadDTO);

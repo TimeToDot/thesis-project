@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import thesis.api.ThesisController;
-import thesis.domain.paging.PagingSettings;
 import thesis.domain.position.PositionService;
 import thesis.domain.position.model.PositionsResponseDTO;
 
@@ -22,7 +21,7 @@ public class PositionsController extends ThesisController {
     @GetMapping
     public ResponseEntity<PositionsResponseDTO> getPositions(
             @RequestHeader UUID employeeId,
-            @RequestHeader UUID projectId,
+            @RequestHeader(required = false) UUID projectId,
             @RequestParam(value="active", required = false, defaultValue = "true") Boolean active,
             @RequestParam(value="page", required = false) Integer page,
             @RequestParam(value="size", required = false) Integer size,

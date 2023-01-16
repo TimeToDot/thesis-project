@@ -9,7 +9,6 @@ import thesis.api.ThesisController;
 import thesis.api.employee.mapper.EmployeesMapper;
 import thesis.api.employee.model.EmployeesResponse;
 import thesis.domain.employee.EmployeeService;
-import thesis.domain.paging.PagingSettings;
 
 import java.util.UUID;
 
@@ -27,6 +26,7 @@ public class EmployeesController extends ThesisController {
     @GetMapping
     public ResponseEntity<EmployeesResponse> getEmployees(
             @RequestHeader UUID employeeId,
+            @RequestHeader(required = false) UUID projectId,
             @RequestParam(value="active", required = false, defaultValue = "true") Boolean active,
             @RequestParam(value="page", required = false) Integer page,
             @RequestParam(value="size", required = false) Integer size,

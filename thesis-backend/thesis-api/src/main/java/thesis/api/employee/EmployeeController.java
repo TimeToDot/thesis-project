@@ -58,7 +58,10 @@ public class EmployeeController extends ThesisController {
     })
     @GetMapping
     @PreAuthorize("hasAuthority('CAN_READ')")
-    public ResponseEntity<EmployeeResponse> getEmployee(@RequestHeader UUID employeeId) {
+    public ResponseEntity<EmployeeResponse> getEmployee(
+            @RequestHeader UUID employeeId,
+            @RequestHeader(required = false) UUID projectId
+    ) {
 
         var employeeDTO = employeeService.getEmployee(employeeId);
         var employee = employeeMapper.map(employeeDTO);
@@ -70,7 +73,7 @@ public class EmployeeController extends ThesisController {
     @PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#projectId, 'CAN_MANAGE_PROJECT_USERS')")
     public ResponseEntity<EmployeeResponse> getEmployeeByProject(
             @RequestHeader UUID employeeId,
-            @RequestHeader UUID projectId,
+            @RequestHeader(required = false) UUID projectId,
             @PathVariable UUID id
     ) {
 
@@ -84,7 +87,7 @@ public class EmployeeController extends ThesisController {
     @PreAuthorize("hasAuthority('CAN_READ')")
     public ResponseEntity<Map<Integer, String>> getContractTypes(
             @RequestHeader UUID employeeId,
-            @RequestHeader UUID projectId
+            @RequestHeader(required = false) UUID projectId
     ) {
         var response = Arrays.stream(ContractTypeDTO.values())
                 .collect(Collectors.toMap(Enum::ordinal, contractTypeDTO -> contractTypeDTO.label));
@@ -96,7 +99,7 @@ public class EmployeeController extends ThesisController {
     @PreAuthorize("hasAuthority('CAN_READ')")
     public ResponseEntity<Map<Integer, String>> getBillingPeriod(
             @RequestHeader UUID employeeId,
-            @RequestHeader UUID projectId
+            @RequestHeader(required = false) UUID projectId
     ) {
         var response = Arrays.stream(BillingPeriodDTO.values())
                 .collect(Collectors.toMap(Enum::ordinal, contractTypeDTO -> contractTypeDTO.label));
@@ -108,7 +111,7 @@ public class EmployeeController extends ThesisController {
     @PreAuthorize("hasAuthority('CAN_READ')")
     public ResponseEntity<UUID> updateEmployee(
             @RequestHeader UUID employeeId,
-            @RequestHeader UUID projectId,
+            @RequestHeader(required = false) UUID projectId,
             @RequestBody EmployeeUpdatePayloadDTO payload
     ) {
         var response = employeeService.updateEmployee(employeeId, payload);
@@ -120,7 +123,7 @@ public class EmployeeController extends ThesisController {
     @PreAuthorize("hasAuthority('CAN_READ')")
     public ResponseEntity<UUID> updatePasswordEmployee(
             @RequestHeader UUID employeeId,
-            @RequestHeader UUID projectId,
+            @RequestHeader(required = false) UUID projectId,
             @RequestBody PasswordUpdatePayloadDTO payload
     ) {
         var response = employeeService.updateEmployeePassword(employeeId, payload);
@@ -141,7 +144,7 @@ public class EmployeeController extends ThesisController {
     @PreAuthorize("hasAuthority('CAN_READ')")
     public ResponseEntity<EmployeeProjectsResponse> getEmployeeProjects(
             @RequestHeader UUID employeeId,
-            @RequestHeader UUID projectId,
+            @RequestHeader(required = false) UUID projectId,
             @RequestParam(value="page", required = false) Integer page,
             @RequestParam(value="size", required = false) Integer size,
             @RequestParam(value="direction", required = false) String direction,
@@ -166,9 +169,9 @@ public class EmployeeController extends ThesisController {
     @PreAuthorize("hasAuthority('CAN_READ')")
     public ResponseEntity<EmployeeProjectsToApproveResponse> getProjectsToApprove(
             @RequestHeader UUID employeeId,
-            @RequestHeader UUID projectId,
-            @RequestParam Date startDate,
-            @RequestParam Date endDate
+            @RequestHeader(required = false) UUID projectId,
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") Date startDate,
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") Date endDate
     ) {
         var toApproveDto = employeeService.getEmployeeProjectsToApprove(employeeId, startDate, endDate);
 
@@ -179,7 +182,7 @@ public class EmployeeController extends ThesisController {
     @PreAuthorize("hasAuthority('CAN_READ')")
     public ResponseEntity<List<UUID>> sendProjectsToApprove(
             @RequestHeader UUID employeeId,
-            @RequestHeader UUID projectId,
+            @RequestHeader(required = false) UUID projectId,
             @RequestBody EmployeeProjectsToApprovePayload payload
     ) {
 
@@ -192,7 +195,7 @@ public class EmployeeController extends ThesisController {
     @GetMapping("/tasks")
     public ResponseEntity<EmployeeTasksResponse> getEmployeeTasks(
             @RequestHeader @NotNull UUID employeeId,
-            @RequestHeader UUID projectId,
+            @RequestHeader(required = false) UUID projectId,
             @RequestParam @NotNull Date startDate,
             @RequestParam@NotNull Date endDate,
             @RequestParam(value="page", required = false) Integer page,
@@ -212,7 +215,7 @@ public class EmployeeController extends ThesisController {
     @GetMapping("/task/{taskId}")
     public ResponseEntity<EmployeeTaskResponse> getTask(
             @RequestHeader @NotNull UUID employeeId,
-            @RequestHeader UUID projectId,
+            @RequestHeader(required = false) UUID projectId,
             @PathVariable UUID taskId) {
 
         var taskDto = employeeService.getTask(employeeId, taskId);
@@ -225,7 +228,7 @@ public class EmployeeController extends ThesisController {
     @GetMapping("{id}/task/{taskId}")
     public ResponseEntity<EmployeeTaskResponse> getEmployeeTask(
             @RequestHeader @NotNull UUID employeeId,
-            @RequestHeader @NotNull UUID projectId,
+            @RequestHeader(required = false) @NotNull UUID projectId,
             @PathVariable UUID taskId,
             @PathVariable UUID id) {
 
@@ -239,7 +242,7 @@ public class EmployeeController extends ThesisController {
     @PostMapping("/task")
     public ResponseEntity<UUID> addTask(
             @RequestHeader @NotNull UUID employeeId,
-            @RequestHeader UUID projectId,
+            @RequestHeader(required = false) UUID projectId,
             @RequestBody EmployeeTaskCreatePayload payload
     ) {
         var employeeTaskCreateDto = employeeTaskCreatePayloadMapper.map(payload);
@@ -251,7 +254,7 @@ public class EmployeeController extends ThesisController {
     @PutMapping("/task")
     public ResponseEntity<UUID> updateTask(
             @RequestHeader @NotNull UUID employeeId,
-            @RequestHeader UUID projectId,
+            @RequestHeader(required = false) UUID projectId,
             @RequestBody EmployeeTaskUpdatePayload payload
     ) {
         var employeeTaskUpdateDTO = employeeTaskUpdatePayloadMapper.map(payload);
@@ -279,7 +282,7 @@ public class EmployeeController extends ThesisController {
     @GetMapping("/calendar")
     public ResponseEntity<EmployeeCalendarResponse> getCalendar(
             @RequestHeader @NotNull UUID employeeId,
-            @RequestHeader UUID projectId,
+            @RequestHeader(required = false) UUID projectId,
             @RequestParam @DateTimeFormat(pattern="MM-yyyy") Date date) {
 
         var calendarDTO = employeeService.getCalendar(employeeId, date);
@@ -293,7 +296,7 @@ public class EmployeeController extends ThesisController {
     @GetMapping("/{id}/calendar")
     public ResponseEntity<EmployeeCalendarResponse> getEmployeeCalendar(
             @RequestHeader @NotNull UUID employeeId,
-            @RequestHeader @NotNull UUID projectId,
+            @RequestHeader(required = false) @NotNull UUID projectId,
             @RequestParam @DateTimeFormat(pattern="MM-yyyy") Date date,
             @PathVariable UUID id) {
 
