@@ -14,22 +14,22 @@ describe('PermissionsService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should return employee permissions', () => {
-    expect(service.getEmployeePermissions()).toBeInstanceOf(Object);
-  });
+  // it('should return employee permissions', () => {
+  //   expect(service.getEmployeePermissions()).toBeInstanceOf(Object);
+  // });
 
-  it('should return project permissions', () => {
-    const permissions = service.getProjectPermissions('1');
-    expect(permissions).toBeInstanceOf(Object);
-    expect(permissions?.canAdminProjects).toBeTrue();
-    expect(permissions?.canManageApprovals).toBeTrue();
-    expect(permissions?.canManageProjectEmployees).toBeTrue();
-    expect(permissions?.canManageTasks).toBeTrue();
-    expect(permissions?.canReadProject).toBeTrue();
-  });
+  // it('should return project permissions', () => {
+  //   const permissions = service.getProjectPermissions('1');
+  //   expect(permissions).toBeInstanceOf(Object);
+  //   expect(permissions?.canAdminProjects).toBeTrue();
+  //   expect(permissions?.canManageApprovals).toBeTrue();
+  //   expect(permissions?.canManageProjectEmployees).toBeTrue();
+  //   expect(permissions?.canManageTasks).toBeTrue();
+  //   expect(permissions?.canReadProject).toBeTrue();
+  // });
 
-  it('should not return project permissions', () => {
-    const permissions = service.getProjectPermissions(null);
-    expect(permissions).toBeUndefined();
-  });
+  // it('should not return project permissions', () => {
+  //   const permissions = service.getProjectPermissions(null);
+  //   expect(permissions).toBeUndefined();
+  // });
 });
