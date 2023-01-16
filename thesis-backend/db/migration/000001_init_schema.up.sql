@@ -91,6 +91,7 @@ CREATE TABLE "project_details" (
                                    "id" uuid DEFAULT gen_random_uuid() PRIMARY KEY,
                                    "project_id" uuid NOT NULL,
                                    "options" varchar NOT NULL,
+                                   "image_path" varchar,
                                    "created_at" timestamp DEFAULT 'now()'
 );
 
@@ -99,6 +100,7 @@ CREATE TABLE "task_form" (
                              "name" varchar NOT NULL,
                              "description" varchar,
                              "id_project" uuid NOT NULL,
+                             "archive_date" timestamp,
                              "created_at" timestamp DEFAULT 'now()'
 );
 

@@ -1,10 +1,10 @@
-package thesis.api.project.model.employee;
+package thesis.domain.project.model.employee;
 
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 
-public record ProjectEmployee (
+public record EmployeeDTO(
     UUID employeeId,
     String firstName,
     String lastName,

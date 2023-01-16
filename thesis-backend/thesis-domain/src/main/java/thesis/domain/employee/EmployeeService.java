@@ -19,10 +19,7 @@ import thesis.data.task.TaskFormRepository;
 import thesis.data.task.TaskRepository;
 import thesis.data.task.model.Task;
 import thesis.data.task.model.TaskStatus;
-import thesis.domain.employee.mapper.EmployeeDTOMapper;
-import thesis.domain.employee.mapper.EmployeeProjectDTOMapper;
-import thesis.domain.employee.mapper.EmployeeTaskDTOMapper;
-import thesis.domain.employee.mapper.EmployeeTasksDTOMapper;
+import thesis.domain.employee.mapper.*;
 import thesis.domain.employee.model.*;
 import thesis.domain.paging.PagingSettings;
 import thesis.domain.task.mapper.TaskFormDTOMapper;
@@ -51,6 +48,7 @@ public class EmployeeService {
     private final TaskFormRepository taskFormRepository;
     private final EmployeeDTOMapper employeeDTOMapper;
     private final EmployeeProjectDTOMapper employeeProjectDTOMapper;
+    private final EmployeeProjectDetailsDTOMapper employeeProjectDetailsDTOMapper;
     private final TaskFormDTOMapper taskFormDTOMapper;
     private final EmployeeTasksDTOMapper employeeTasksDTOMapper;
     private final EmployeeTaskDTOMapper employeeTaskDTOMapper;
@@ -115,19 +113,14 @@ public class EmployeeService {
             throw new UsernameNotFoundException("employee not found"); // TODO: 17/12/2022  exception handling
         }
 
-        var account = accountRepository
-                .findById(id)
-                .orElseThrow();
+        var account = accountRepository.findById(id).orElseThrow();
+        var accountProjects = accountProjectRepository.findAllByAccount_Id(account.getId(), pagingSettings.getPageable()).orElseThrow();
 
-        var projects = accountProjectRepository.findAllByAccount_Id(account.getId(), pagingSettings.getPageable())
-                .orElseThrow()
-                .map(AccountProject::getProject);
-
-        var paging = getPaging(pagingSettings, projects);
+        var paging = getPaging(pagingSettings, accountProjects);
         var sorting = getSorting(pagingSettings);
 
         return EmployeeProjectsDTO.builder()
-                .employeeProjectDTOList(projects.map(employeeProjectDTOMapper::map).toList())
+                .employeeProjectDTOList(accountProjects.map(employeeProjectDetailsDTOMapper::map).toList())
                 .paging(paging)
                 .sorting(sorting)
                 .build();

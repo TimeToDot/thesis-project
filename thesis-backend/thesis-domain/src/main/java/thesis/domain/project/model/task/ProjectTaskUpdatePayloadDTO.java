@@ -1,8 +1,8 @@
-package thesis.api.project.model.task;
+package thesis.domain.project.model.task;
 
 import java.util.UUID;
 
-public record ProjectTaskUpdatePayload(
+public record ProjectTaskUpdatePayloadDTO(
         UUID id,
         String name,
         String description,
