@@ -100,18 +100,18 @@ public class EmployeeController extends ThesisController {
     @PreAuthorize("hasAuthority('CAN_READ')")
     public ResponseEntity<EmployeeProjectsResponse> getEmployeeProjects(
             @RequestHeader UUID employeeId,
-            @RequestParam(required = false) PagingSettings pagingSettings
+            @RequestParam(required = false) PagingSettings settings
     ) {
-        if (pagingSettings == null) pagingSettings = new PagingSettings();
+        if (settings == null) settings = new PagingSettings();
 
         if (!verifyEmployeeId(employeeId)) {
             log.error("oo prosze: {}", employeeId);
             return ResponseEntity.badRequest().build();
         }
 
-        log.info("controller: employeeId: {}, page: {}, size: {}", employeeId, pagingSettings.getPage(), pagingSettings.getSize());
+        log.info("controller: employeeId: {}, page: {}, size: {}", employeeId, settings.getPage(), settings.getSize());
 
-        var employeeProjectsDTO = employeeService.getEmployeeProjects(employeeId, pagingSettings);
+        var employeeProjectsDTO = employeeService.getEmployeeProjects(employeeId, settings);
         var employeeProjectsResponse = employeeProjectsMapper.map(employeeProjectsDTO);
 
         return ResponseEntity.ok(employeeProjectsResponse);

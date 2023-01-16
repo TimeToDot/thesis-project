@@ -23,13 +23,15 @@ public class EmployeesController extends ThesisController {
 
     private final EmployeesMapper employeesMapper;
 
-    @PreAuthorize("hasAuthority(" + CAN_READ + ")")
+    @PreAuthorize("hasAuthority('CAN_READ')")
     @GetMapping
     public ResponseEntity<EmployeesResponse> getEmployees(
             @RequestHeader UUID employeeId,
-            @RequestParam PagingSettings settings,
-            @RequestParam(value="active", required = false, defaultValue = "true") Boolean active
-    ){
+            @RequestParam(value="active", required = false, defaultValue = "true") Boolean active,
+            @RequestParam(required = false) PagingSettings settings
+    ) {
+        if (settings == null) settings = new PagingSettings();
+
         var dto = employeeService.getEmployees(settings, active);
         var response = employeesMapper.map(dto);
 
