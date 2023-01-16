@@ -28,10 +28,10 @@ public class EmployeesController extends ThesisController {
     public ResponseEntity<EmployeesResponse> getEmployees(
             @RequestHeader UUID employeeId,
             @RequestParam(value="active", required = false, defaultValue = "true") Boolean active,
-            @RequestParam(value="active", required = false) Integer page,
-            @RequestParam(value="active", required = false) Integer size,
-            @RequestParam(value="active", required = false) String direction,
-            @RequestParam(value="active", required = false) String key
+            @RequestParam(value="page", required = false) Integer page,
+            @RequestParam(value="size", required = false) Integer size,
+            @RequestParam(value="direction", required = false) String direction,
+            @RequestParam(value="key", required = false) String key
     ) {
         var settings = initPagingSettings(page, size, key, direction);
 

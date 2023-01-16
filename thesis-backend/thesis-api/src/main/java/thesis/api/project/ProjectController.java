@@ -65,10 +65,10 @@ public class ProjectController extends ThesisController {
     public ResponseEntity<ProjectTasksDetailsDTO> getProjectTasks(
             @RequestHeader @NotNull UUID employeeId,
             @RequestHeader @NotNull UUID projectId,
-            @RequestParam(value="active", required = false) Integer page,
-            @RequestParam(value="active", required = false) Integer size,
-            @RequestParam(value="active", required = false) String direction,
-            @RequestParam(value="active", required = false) String key,
+            @RequestParam(value="page", required = false) Integer page,
+            @RequestParam(value="size", required = false) Integer size,
+            @RequestParam(value="direction", required = false) String direction,
+            @RequestParam(value="key", required = false) String key,
             @RequestParam(value="active", required = false, defaultValue = "true") Boolean active){
         var settings = initPagingSettings(page, size, key, direction);
         var response = projectService.getAdvancedProjectTasks(projectId, active, settings);
@@ -126,10 +126,10 @@ public class ProjectController extends ThesisController {
     public ResponseEntity<ProjectEmployeesDTO> getProjectEmployees(
             @RequestHeader @NotNull UUID employeeId,
             @RequestHeader @NotNull UUID projectId,
-            @RequestParam(value="active", required = false) Integer page,
-            @RequestParam(value="active", required = false) Integer size,
-            @RequestParam(value="active", required = false) String direction,
-            @RequestParam(value="active", required = false) String key,
+            @RequestParam(value="page", required = false) Integer page,
+            @RequestParam(value="size", required = false) Integer size,
+            @RequestParam(value="direction", required = false) String direction,
+            @RequestParam(value="key", required = false) String key,
             @RequestParam(value="active", required = false, defaultValue = "true") Boolean active
             ){
         var settings = initPagingSettings(page, size, direction, key);
@@ -142,10 +142,10 @@ public class ProjectController extends ThesisController {
     public ResponseEntity<ProjectEmployeesDTO> getProjectApprovals(
             @RequestHeader @NotNull UUID employeeId,
             @RequestHeader @NotNull UUID projectId,
-            @RequestParam(value="active", required = false) Integer page,
-            @RequestParam(value="active", required = false) Integer size,
-            @RequestParam(value="active", required = false) String direction,
-            @RequestParam(value="active", required = false) String key,
+            @RequestParam(value="page", required = false) Integer page,
+            @RequestParam(value="size", required = false) Integer size,
+            @RequestParam(value="direction", required = false) String direction,
+            @RequestParam(value="key", required = false) String key,
             @RequestParam(value="active", required = false, defaultValue = "true") Boolean active
     ){
         var settings = initPagingSettings(page, size, direction, key);

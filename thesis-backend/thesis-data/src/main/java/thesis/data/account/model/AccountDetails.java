@@ -82,11 +82,9 @@ public class AccountDetails {
 
     private String imagePath;
 
-    @Enumerated(EnumType.STRING)
-    private ContractType contractType;
+    private String contractType;
 
-    @Enumerated(EnumType.STRING)
-    private BillingPeriod billingPeriod;
+    private String billingPeriod;
 
     private Integer workingTime;
 

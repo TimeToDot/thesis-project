@@ -29,7 +29,7 @@ public interface AuthMapper {
             return null;
         }
 
-        return ContractTypeSecurity.valueOf(type.label);
+        return ContractTypeSecurity.fromValue(type.label);
     }
 
     default BillingPeriodSecurity getBillingPeriod(BillingPeriodDTO period){
@@ -37,6 +37,6 @@ public interface AuthMapper {
             return null;
         }
 
-        return BillingPeriodSecurity.valueOf(period.label);
+        return BillingPeriodSecurity.fromValue(period.label);
     }
 }

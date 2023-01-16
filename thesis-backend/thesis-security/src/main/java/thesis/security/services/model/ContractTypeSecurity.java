@@ -1,5 +1,7 @@
 package thesis.security.services.model;
 
+import java.util.Arrays;
+
 public enum ContractTypeSecurity {
 
     EMPLOYMENT_CONTRACT("Employment contract"),
@@ -11,5 +13,11 @@ public enum ContractTypeSecurity {
 
     private ContractTypeSecurity(String label) {
         this.label = label;
+    }
+
+    public static ContractTypeSecurity fromValue(String value){
+        var contractTypes = ContractTypeSecurity.values();
+
+        return Arrays.stream(contractTypes).filter(contractTypeDTO -> contractTypeDTO.label.equals(value)).findFirst().orElseThrow();
     }
 }

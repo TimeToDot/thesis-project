@@ -25,7 +25,7 @@ public interface EmployeeMapper {
             return null;
         }
 
-        return ContractTypeDTO.valueOf(type.label);
+        return ContractTypeDTO.fromValue(type.label);
     }
 
     default BillingPeriodDTO getBillingPeriod(BillingPeriodDTO period){
@@ -33,6 +33,6 @@ public interface EmployeeMapper {
             return null;
         }
 
-        return BillingPeriodDTO.valueOf(period.label);
+        return BillingPeriodDTO.fromValue(period.label);
     }
 }

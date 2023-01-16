@@ -52,20 +52,20 @@ public interface EmployeeDTOMapper {
         return type.compareTo(StatusType.ENABLE) == 0;
     }
 
-    default ContractTypeDTO getContractType(ContractType type){
+    default ContractTypeDTO getContractType(String type){
         if (type == null){
             return null;
         }
 
-        return ContractTypeDTO.valueOf(type.label);
+        return ContractTypeDTO.fromValue(type);
     }
 
-    default BillingPeriodDTO getBillingPeriod(BillingPeriod period){
+    default BillingPeriodDTO getBillingPeriod(String period){
         if (period == null){
             return null;
         }
 
-        return BillingPeriodDTO.valueOf(period.label);
+        return BillingPeriodDTO.fromValue(period);
     }
 
 }

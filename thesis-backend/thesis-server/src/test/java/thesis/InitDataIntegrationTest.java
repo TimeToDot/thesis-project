@@ -253,8 +253,8 @@ public class InitDataIntegrationTest {
                 .surname("Domyśliciel")
                 .name("Domyslaw-" + account.getLogin())
                 .city("Domyslice" + account.getLogin())
-                .contractType(ContractType.COMMISSION_CONTRACT)
-                .billingPeriod(BillingPeriod.SEASON)
+                .contractType(ContractType.COMMISSION_CONTRACT.label)
+                .billingPeriod(BillingPeriod.SEASON.label)
                 .build();
 
     }

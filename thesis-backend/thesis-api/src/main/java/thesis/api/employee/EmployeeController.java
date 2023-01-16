@@ -142,10 +142,10 @@ public class EmployeeController extends ThesisController {
     public ResponseEntity<EmployeeProjectsResponse> getEmployeeProjects(
             @RequestHeader UUID employeeId,
             @RequestHeader UUID projectId,
-            @RequestParam(value="active", required = false) Integer page,
-            @RequestParam(value="active", required = false) Integer size,
-            @RequestParam(value="active", required = false) String direction,
-            @RequestParam(value="active", required = false) String key
+            @RequestParam(value="page", required = false) Integer page,
+            @RequestParam(value="size", required = false) Integer size,
+            @RequestParam(value="direction", required = false) String direction,
+            @RequestParam(value="key", required = false) String key
     ) {
         var settings = initPagingSettings(page, size, key, direction);
 
@@ -195,10 +195,11 @@ public class EmployeeController extends ThesisController {
             @RequestHeader UUID projectId,
             @RequestParam @NotNull Date startDate,
             @RequestParam@NotNull Date endDate,
-            @RequestParam(value="active", required = false) Integer page,
-            @RequestParam(value="active", required = false) Integer size,
-            @RequestParam(value="active", required = false) String direction,
-            @RequestParam(value="active", required = false) String key) {
+            @RequestParam(value="page", required = false) Integer page,
+            @RequestParam(value="size", required = false) Integer size,
+            @RequestParam(value="direction", required = false) String direction,
+            @RequestParam(value="key", required = false) String key
+    ) {
 
         var settings = initPagingSettings(page, size, key, direction);
         var tasksDto = employeeService.getEmployeeTasks(employeeId, startDate, endDate, settings);
