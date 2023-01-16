@@ -89,6 +89,7 @@ public class SecurityConfiguration {
     configuration.addAllowedOriginPattern("*");
     configuration.setAllowedHeaders(Collections.singletonList("*"));
     configuration.setAllowedMethods(Collections.singletonList("*"));
+    configuration.addExposedHeader("Cookie");
 
     final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
     source.registerCorsConfiguration("/**", configuration);
