@@ -10,6 +10,7 @@ import thesis.data.account.AccountDetailsRepository;
 import thesis.data.account.AccountRepository;
 import thesis.data.account.model.Account;
 import thesis.data.account.model.AccountDetails;
+import thesis.data.account.model.ContractType;
 import thesis.data.account.model.StatusType;
 import thesis.data.position.PositionRepository;
 import thesis.data.position.model.Position;
@@ -130,7 +131,7 @@ public class AuthService {
                 .birthPlace(authorizationDTO.birthPlace())
                 .idCardNumber(authorizationDTO.idCardNumber())
                 .employmentDate(authorizationDTO.employmentDate())
-                .contractType(authorizationDTO.contractType())
+                .contractType(ContractType.valueOf(authorizationDTO.contractType().label))
                 .wage(authorizationDTO.wage())
                 .workingTime(authorizationDTO.workingTime())
                 .payday(authorizationDTO.payday())
