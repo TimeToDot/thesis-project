@@ -67,7 +67,7 @@ public class EmployeeService {
     }
 
     public EmployeesDTO getEmployees(PagingSettings settings, Boolean active) {
-        var status = active ? StatusType.ENABLE : StatusType.EXPIRED;
+        var status = Boolean.TRUE.equals(active) ? StatusType.ENABLE : StatusType.EXPIRED;
 
         var employees = accountRepository.findAllByStatus(status, settings.getPageable());
         var paging = getPaging(settings, employees);
@@ -206,14 +206,18 @@ public class EmployeeService {
                 .build();
     }
 
-    public EmployeeTaskDTO getEmployeeTask(UUID employeeId, UUID taskId) {
+    public EmployeeTaskDTO getTask(UUID employeeId, UUID taskId) {
         var task = taskRepository.findById(taskId).orElseThrow();
+
+        if (task.getAccount().getId().compareTo(employeeId) != 0){
+            throw new RuntimeException("Task doesnt belong to employee with this id");
+        }
 
         return employeeTaskDTOMapper.map(task);
     }
 
     @Transactional
-    public UUID createEmployeeTask(UUID employeeId, EmployeeTaskCreatePayloadDTO payloadDTO) {
+    public UUID createTask(UUID employeeId, EmployeeTaskCreatePayloadDTO payloadDTO) {
         var account = accountRepository.findById(employeeId).orElseThrow();
         var taskForm = taskFormRepository.findById(payloadDTO.taskId()).orElseThrow();
 
@@ -232,9 +236,14 @@ public class EmployeeService {
     }
 
     @Transactional
-    public UUID updateEmployeeTask(UUID employeeId, EmployeeTaskUpdatePayloadDTO payloadDTO) {
+    public UUID updateTask(UUID employeeId, EmployeeTaskUpdatePayloadDTO payloadDTO) {
         var account = accountRepository.findById(employeeId).orElseThrow();
         var project = projectRepository.findById(payloadDTO.projectId()).orElseThrow();
+
+        if(project.getAccountProjects().stream().map(AccountProject::getAccount).noneMatch(account1 -> account1.getId().compareTo(account.getId()) == 0)) {
+            throw new RuntimeException("employee doesnt exist in this project");
+        }
+
         var taskForm = taskFormRepository.findById(payloadDTO.taskId()).orElseThrow();
 
         var task = taskRepository.findById(payloadDTO.id()).orElseThrow();
@@ -262,6 +271,27 @@ public class EmployeeService {
             page += 1;
             settings = PagingSettings.builder().page(page).size(size).build();
             tasks = taskRepository.findByAccountIdAndDateFromBetween(account.getId(), listOfDate.get(0), listOfDate.get(1), settings.getPageable()).orElseThrow();
+            taskList.addAll(tasks.stream().toList());
+        }
+
+
+        return new CalendarDTO(getCalendarTaskDTOList(taskList));
+    }
+
+    public CalendarDTO getEmployeeCalendar(UUID employeeId, UUID projectId, Date date) {
+        var account = accountRepository.findById(employeeId).orElseThrow();
+        var project = projectRepository.findById(projectId).orElseThrow();
+        var listOfDate = getFirstAndLastDayOfMonth(date);
+        var size = 100;
+        var page = 1;
+        var settings = PagingSettings.builder().page(page).size(size).build();
+        var tasks = taskRepository.findByAccountIdAndForm_ProjectIdAndDateFromBetween(account.getId(), project.getId(), listOfDate.get(0), listOfDate.get(1), settings.getPageable()).orElseThrow();
+        var taskList = new ArrayList<>(tasks.stream().toList());
+
+        while (tasks.getTotalPages() > page) {
+            page += 1;
+            settings = PagingSettings.builder().page(page).size(size).build();
+            tasks = taskRepository.findByAccountIdAndForm_ProjectIdAndDateFromBetween(account.getId(), project.getId(), listOfDate.get(0), listOfDate.get(1), settings.getPageable()).orElseThrow();
             taskList.addAll(tasks.stream().toList());
         }
 
@@ -348,72 +378,28 @@ public class EmployeeService {
     }
 
     private void setAccountDetailsFields(EmployeeUpdatePayloadDTO payloadDTO, AccountDetails accountDetails) {
-        if (payloadDTO.firstName() != null) {
-            accountDetails.setName(payloadDTO.firstName());
-        }
-        if (payloadDTO.lastName() != null) {
-            accountDetails.setSurname(payloadDTO.lastName());
-        }
-        if (payloadDTO.middleName() != null) {
-            accountDetails.setMiddleName(payloadDTO.middleName());
-        }
-        if (payloadDTO.sex() != null) {
-            accountDetails.setSex(payloadDTO.sex());
-        }
-        if (payloadDTO.birthDate() != null) {
-            accountDetails.setBirthDate(payloadDTO.birthDate());
-        }
-        if (payloadDTO.birthPlace() != null) {
-            accountDetails.setBirthPlace(payloadDTO.birthPlace());
-        }
-        if (payloadDTO.employmentDate() != null) {
-            accountDetails.setEmploymentDate(payloadDTO.employmentDate());
-        }
-        if (payloadDTO.exitDate() != null) {
-            accountDetails.setExitDate(payloadDTO.exitDate());
-        }
-        if (payloadDTO.apartmentNumber() != null) {
-            accountDetails.setApartmentNumber(payloadDTO.apartmentNumber());
-        }
-        if (payloadDTO.houseNumber() != null) {
-            accountDetails.setHouseNumber(payloadDTO.houseNumber());
-        }
-        if (payloadDTO.street() != null) {
-            accountDetails.setStreet(payloadDTO.street());
-        }
-        if (payloadDTO.city() != null) {
-            accountDetails.setCity(payloadDTO.city());
-        }
-        if (payloadDTO.postalCode() != null) {
-            accountDetails.setPostalCode(payloadDTO.postalCode());
-        }
-        if (payloadDTO.country() != null) {
-            accountDetails.setCountry(payloadDTO.country());
-        }
-        if (payloadDTO.pesel() != null) {
-            accountDetails.setPesel(payloadDTO.pesel());
-        }
-        if (payloadDTO.accountNumber() != null) {
-            accountDetails.setTaxNumber(payloadDTO.accountNumber());
-        }
-        if (payloadDTO.idCardNumber() != null) {
-            accountDetails.setIdCardNumber(payloadDTO.idCardNumber());
-        }
-        if (payloadDTO.phoneNumber() != null) {
-            accountDetails.setPhoneNumber(payloadDTO.phoneNumber());
-        }
-        if (payloadDTO.privateEmail() != null) {
-            accountDetails.setPrivateEmail(payloadDTO.privateEmail());
-        }
-        if (payloadDTO.workingTime() != null) {
-            accountDetails.setWorkingTime(payloadDTO.workingTime());
-        }
-        if (payloadDTO.wage() != null) {
-            accountDetails.setWage(payloadDTO.wage());
-        }
-        if (payloadDTO.payday() != null) {
-            accountDetails.setPayday(payloadDTO.payday());
-        }
+        if (payloadDTO.firstName() != null) accountDetails.setName(payloadDTO.firstName());
+        if (payloadDTO.lastName() != null) accountDetails.setSurname(payloadDTO.lastName());
+        if (payloadDTO.middleName() != null) accountDetails.setMiddleName(payloadDTO.middleName());
+        if (payloadDTO.sex() != null) accountDetails.setSex(payloadDTO.sex());
+        if (payloadDTO.birthDate() != null) accountDetails.setBirthDate(payloadDTO.birthDate());
+        if (payloadDTO.birthPlace() != null) accountDetails.setBirthPlace(payloadDTO.birthPlace());
+        if (payloadDTO.employmentDate() != null) accountDetails.setEmploymentDate(payloadDTO.employmentDate());
+        if (payloadDTO.exitDate() != null) accountDetails.setExitDate(payloadDTO.exitDate());
+        if (payloadDTO.apartmentNumber() != null) accountDetails.setApartmentNumber(payloadDTO.apartmentNumber());
+        if (payloadDTO.houseNumber() != null) accountDetails.setHouseNumber(payloadDTO.houseNumber());
+        if (payloadDTO.street() != null) accountDetails.setStreet(payloadDTO.street());
+        if (payloadDTO.city() != null) accountDetails.setCity(payloadDTO.city());
+        if (payloadDTO.postalCode() != null) accountDetails.setPostalCode(payloadDTO.postalCode());
+        if (payloadDTO.country() != null) accountDetails.setCountry(payloadDTO.country());
+        if (payloadDTO.pesel() != null) accountDetails.setPesel(payloadDTO.pesel());
+        if (payloadDTO.accountNumber() != null) accountDetails.setTaxNumber(payloadDTO.accountNumber());
+        if (payloadDTO.idCardNumber() != null) accountDetails.setIdCardNumber(payloadDTO.idCardNumber());
+        if (payloadDTO.phoneNumber() != null) accountDetails.setPhoneNumber(payloadDTO.phoneNumber());
+        if (payloadDTO.privateEmail() != null) accountDetails.setPrivateEmail(payloadDTO.privateEmail());
+        if (payloadDTO.workingTime() != null) accountDetails.setWorkingTime(payloadDTO.workingTime());
+        if (payloadDTO.wage() != null) accountDetails.setWage(payloadDTO.wage());
+        if (payloadDTO.payday() != null) accountDetails.setPayday(payloadDTO.payday());
     }
 
     private void setAccountFields(EmployeeUpdatePayloadDTO payloadDTO, Account account) {

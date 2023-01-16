@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import thesis.api.ThesisController;
 import thesis.api.employee.mapper.*;
 import thesis.api.employee.model.*;
-import thesis.api.employee.model.calendar.EmployeeCalendarRequest;
 import thesis.api.employee.model.calendar.EmployeeCalendarResponse;
 import thesis.api.employee.model.project.EmployeeProjectsResponse;
 import thesis.api.employee.model.project.EmployeeProjectsToApprovePayload;
@@ -27,6 +27,7 @@ import thesis.security.services.model.UserDetailsDefault;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -154,11 +155,25 @@ public class EmployeeController extends ThesisController {
 
     @PreAuthorize("hasAuthority('CAN_READ')")
     @GetMapping("/task/{taskId}")
-    public ResponseEntity<EmployeeTaskResponse> getEmployeeTask(
+    public ResponseEntity<EmployeeTaskResponse> getTask(
             @RequestHeader @NotNull UUID employeeId,
             @PathVariable UUID taskId) {
 
-        var taskDto = employeeService.getEmployeeTask(employeeId, taskId);
+        var taskDto = employeeService.getTask(employeeId, taskId);
+        var taskResponse = employeeTaskMapper.map(taskDto);
+
+        return ResponseEntity.ok(taskResponse);
+    }
+
+    @PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#projectId, 'CAN_MANAGE_TASKS')")
+    @GetMapping("{id}/task/{taskId}")
+    public ResponseEntity<EmployeeTaskResponse> getEmployeeTask(
+            @RequestHeader @NotNull UUID employeeId,
+            @RequestHeader @NotNull UUID projectId,
+            @PathVariable UUID taskId,
+            @PathVariable UUID id) {
+
+        var taskDto = employeeService.getTask(id, taskId);
         var taskResponse = employeeTaskMapper.map(taskDto);
 
         return ResponseEntity.ok(taskResponse);
@@ -166,26 +181,36 @@ public class EmployeeController extends ThesisController {
 
     @PreAuthorize("hasAuthority('CAN_READ')")
     @PostMapping("/task")
-    public ResponseEntity<UUID> addEmployeeTask(
+    public ResponseEntity<UUID> addTask(
             @RequestHeader @NotNull UUID employeeId,
-            //@RequestHeader @NotNull UUID projectId, todo
             @RequestBody EmployeeTaskCreatePayload payload
     ) {
         var employeeTaskCreateDto = employeeTaskCreatePayloadMapper.map(payload);
-        var response = employeeService.createEmployeeTask(employeeId, employeeTaskCreateDto);
+        var response = employeeService.createTask(employeeId, employeeTaskCreateDto);
 
         return ResponseEntity.ok(response);
     }
 
-    @PreAuthorize("hasAuthority('CAN_READ')")
     @PutMapping("/task")
-    public ResponseEntity<UUID> updateEmployeeTask(
+    public ResponseEntity<UUID> updateTask(
             @RequestHeader @NotNull UUID employeeId,
-            //@RequestHeader @NotNull UUID projectId, todo
             @RequestBody EmployeeTaskUpdatePayload payload
     ) {
         var employeeTaskUpdateDTO = employeeTaskUpdatePayloadMapper.map(payload);
-        var response = employeeService.updateEmployeeTask(employeeId, employeeTaskUpdateDTO);
+        var response = employeeService.updateTask(employeeId, employeeTaskUpdateDTO);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#payload.projectId(), 'CAN_MANAGE_TASKS')")
+    @PutMapping("{id}/task")
+    public ResponseEntity<UUID> updateEmployeeTask(
+            @RequestHeader @NotNull UUID employeeId,
+            @RequestBody EmployeeTaskUpdatePayload payload,
+            @PathVariable UUID id
+    ) {
+        var employeeTaskUpdateDTO = employeeTaskUpdatePayloadMapper.map(payload);
+        var response = employeeService.updateTask(id, employeeTaskUpdateDTO);
 
         return ResponseEntity.ok(response);
     }
@@ -193,11 +218,26 @@ public class EmployeeController extends ThesisController {
 
     @PreAuthorize("hasAuthority('CAN_READ')")
     @GetMapping("/calendar")
+    public ResponseEntity<EmployeeCalendarResponse> getCalendar(
+            @RequestHeader @NotNull UUID employeeId,
+            @RequestParam @DateTimeFormat(pattern="MM-yyyy") Date date) {
+
+        var calendarDTO = employeeService.getCalendar(employeeId, date);
+        var calendarResponse = calendarMapper.map(calendarDTO);
+
+        return ResponseEntity.ok(calendarResponse);
+    }
+
+
+    @PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#projectId, 'CAN_MANAGE_TASKS')")
+    @GetMapping("/{id}/calendar")
     public ResponseEntity<EmployeeCalendarResponse> getEmployeeCalendar(
             @RequestHeader @NotNull UUID employeeId,
-            @RequestBody EmployeeCalendarRequest request) {
+            @RequestHeader @NotNull UUID projectId,
+            @RequestParam @DateTimeFormat(pattern="MM-yyyy") Date date,
+            @PathVariable UUID id) {
 
-        var calendarDTO = employeeService.getCalendar(employeeId, request.date());
+        var calendarDTO = employeeService.getEmployeeCalendar(id, projectId, date);
         var calendarResponse = calendarMapper.map(calendarDTO);
 
         return ResponseEntity.ok(calendarResponse);

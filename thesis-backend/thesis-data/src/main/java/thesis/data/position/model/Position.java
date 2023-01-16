@@ -6,6 +6,7 @@ import org.hibernate.Hibernate;
 import thesis.data.account.model.Account;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -23,7 +24,7 @@ public class Position {
     @Column(name = "id", nullable = false)
     private UUID id;
 
-    @OneToMany(mappedBy = "position", fetch = FetchType.EAGER, cascade= {CascadeType.PERSIST})
+    @OneToMany(mappedBy = "position", fetch = FetchType.EAGER, cascade= {CascadeType.ALL})
     private List<Account> accounts;
 
     private String name;
@@ -33,6 +34,10 @@ public class Position {
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
     private PositionType status;
+
+    private Date creationDate;
+
+    private Date archiveDate;
 
     @Override
     public boolean equals(Object o) {

@@ -1,30 +1,55 @@
 package thesis.api.position;
 
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import thesis.api.ThesisController;
-import thesis.api.position.model.PositionResponse;
+import thesis.domain.position.PositionService;
+import thesis.domain.position.model.PositionCreatePayloadDTO;
+import thesis.domain.position.model.PositionResponseDTO;
+import thesis.domain.position.model.PositionUpdatePayloadDTO;
 
+import java.util.UUID;
+
+@AllArgsConstructor
 @RestController
 @RequestMapping("/api/position")
 public class PositionController extends ThesisController {
-    
-    @GetMapping
-    public ResponseEntity<PositionResponse> getPosition(){
-        // TODO: 30/12/2022
-        return null;
+
+    private final PositionService positionService;
+
+    @PreAuthorize("hasAuthority('CAN_READ')")
+    @GetMapping("/{positionId}")
+    public ResponseEntity<PositionResponseDTO> getPosition(
+            @RequestHeader UUID employeeId,
+            @PathVariable UUID positionId
+
+    ){
+        var response = positionService.getPosition(positionId);
+
+        return ResponseEntity.ok(response);
     }
 
+    @PreAuthorize("hasAuthority('CAN_ADMIN_POSITIONS')")
     @PostMapping
-    public ResponseEntity<PositionResponse> addPosition(){
-        // TODO: 30/12/2022
-        return null;
+    public ResponseEntity<UUID> addPosition(
+            @RequestHeader UUID employeeId,
+            @RequestBody PositionCreatePayloadDTO payloadDTO){
+        var response = positionService.addPosition(payloadDTO);
+
+        return ResponseEntity.ok(response);
     }
 
 
+    @PreAuthorize("hasAuthority('CAN_ADMIN_POSITIONS')")
     @PutMapping
-    public ResponseEntity<PositionResponse> updatePosition(){
-        // TODO: 30/12/2022
-        return null;
+    public ResponseEntity<UUID> updatePosition(
+            @RequestHeader UUID employeeId,
+            @RequestBody PositionUpdatePayloadDTO payloadDTO
+    ){
+        var response = positionService.updatePosition(payloadDTO);
+
+        return ResponseEntity.ok(response);
     }
 }

@@ -42,62 +42,62 @@ public class AuthorizationPayload {
 
     @NotBlank
     @JsonFormat(pattern = "yyyy-MM-dd")
-    String birthDate;
+    private Date birthDate;
 
     @NotBlank
-    String birthPlace;
+    private String birthPlace;
 
     @NotBlank
-    String idCardNumber;
+    private String idCardNumber;
 
     @NotBlank
-    String pesel;
+    private String pesel;
 
     @NotBlank
-    String street;
+    private String street;
 
     @NotBlank
-    String houseNumber;
+    private String houseNumber;
 
     @NotBlank
-    String apartmentNumber;
+    private String apartmentNumber;
 
     @NotBlank
-    String city;
+    private String city;
 
     @NotBlank
-    String postalCode;
+    private String postalCode;
 
     @NotBlank
-    String country;
+    private String country;
 
     @NotBlank
-    String phoneNumber;
+    private String phoneNumber;
 
     @NotBlank
     @Email
-    String privateEmail;
+    private String privateEmail;
 
     @NotNull
-    UUID positionId;
+    private UUID positionId;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
-    Date employmentDate;
+    private Date employmentDate;
 
     @NotBlank
-    String contractType;
+    private String contractType;
 
     @NotNull
-    Integer workingTime;
+    private Integer workingTime;
 
     @NotNull
-    Integer wage;
+    private Integer wage;
 
     @NotNull
-    Integer payday;
+    private Integer payday;
 
     @NotNull
-    String accountNumber;
+    private String accountNumber;
 
-    String imagePath;
+    private String imagePath;
 }

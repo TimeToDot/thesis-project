@@ -53,6 +53,8 @@ CREATE TABLE "position" (
                         "id" uuid DEFAULT gen_random_uuid() PRIMARY KEY,
                         "name" varchar,
                         "description" varchar,
+                        "creation_date" timestamp NOT NULL,
+                        "archive_date" timestamp,
                         "status" varchar
 );
 

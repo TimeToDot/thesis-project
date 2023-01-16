@@ -51,7 +51,7 @@ INSERT INTO role_privilege(role_id, privilege_id) select role.id, privilege.id f
 
 
 /*position*/
-INSERT INTO position(name, description, status) VALUES ('EMPLOYEE_I', 'fresh worker', 'ACTIVE');
-INSERT INTO position(name, description, status) VALUES ('EMPLOYEE_II', 'fresh worker', 'ACTIVE');
-INSERT INTO position(name, description, status) VALUES ('MANAGER_I', 'fresh worker', 'ACTIVE');
-INSERT INTO position(name, description, status) VALUES ('MANAGER_II', 'fresh worker', 'ACTIVE');
+INSERT INTO position(name, description, status, creation_date) VALUES ('EMPLOYEE_I', 'fresh worker', 'ACTIVE', '2022-12-20 13:02:52.281964');
+INSERT INTO position(name, description, status, creation_date) VALUES ('EMPLOYEE_II', 'fresh worker', 'ACTIVE', '2022-12-20 13:02:52.281964');
+INSERT INTO position(name, description, status, creation_date) VALUES ('MANAGER_I', 'fresh worker', 'ACTIVE', '2022-12-20 13:02:52.281964');
+INSERT INTO position(name, description, status, creation_date) VALUES ('MANAGER_II', 'fresh worker', 'ACTIVE', '2022-12-20 13:02:52.281964');
