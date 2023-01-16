@@ -53,10 +53,18 @@ public interface EmployeeDTOMapper {
     }
 
     default ContractTypeDTO getContractType(ContractType type){
+        if (type == null){
+            return null;
+        }
+
         return ContractTypeDTO.valueOf(type.label);
     }
 
     default BillingPeriodDTO getBillingPeriod(BillingPeriod period){
+        if (period == null){
+            return null;
+        }
+
         return BillingPeriodDTO.valueOf(period.label);
     }
 

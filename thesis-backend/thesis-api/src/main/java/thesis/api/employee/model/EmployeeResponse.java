@@ -1,5 +1,9 @@
 package thesis.api.employee.model;
 
+import thesis.data.account.model.BillingPeriod;
+import thesis.domain.employee.model.BillingPeriodDTO;
+import thesis.domain.employee.model.ContractTypeDTO;
+
 import java.util.Date;
 import java.util.UUID;
 
@@ -29,7 +33,8 @@ public record EmployeeResponse(
         String country,
         String privateEmail,
         String accountNumber,
-        String contractType,
+        ContractTypeDTO contractType,
+        BillingPeriodDTO billingPeriod,
         Integer workingTime,
         Integer wage,
         Integer payday,

@@ -12,9 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
 import thesis.data.account.AccountDetailsRepository;
 import thesis.data.account.AccountRepository;
-import thesis.data.account.model.Account;
-import thesis.data.account.model.AccountDetails;
-import thesis.data.account.model.StatusType;
+import thesis.data.account.model.*;
 import thesis.data.position.PositionRepository;
 import thesis.data.position.model.Position;
 import thesis.data.project.AccountProjectRepository;
@@ -255,6 +253,8 @@ public class InitDataIntegrationTest {
                 .surname("Domyśliciel")
                 .name("Domyslaw-" + account.getLogin())
                 .city("Domyslice" + account.getLogin())
+                .contractType(ContractType.COMMISSION_CONTRACT)
+                .billingPeriod(BillingPeriod.SEASON)
                 .build();
 
     }

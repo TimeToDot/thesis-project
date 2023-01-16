@@ -25,10 +25,18 @@ public interface AuthMapper {
     AuthorizationDTO mapToAuthorizationDTO(AuthorizationPayload authorizationPayload);
 
     default ContractTypeSecurity getContractType(ContractTypeDTO type){
+        if (type == null){
+            return null;
+        }
+
         return ContractTypeSecurity.valueOf(type.label);
     }
 
     default BillingPeriodSecurity getBillingPeriod(BillingPeriodDTO period){
+        if (period == null){
+            return null;
+        }
+
         return BillingPeriodSecurity.valueOf(period.label);
     }
 }
