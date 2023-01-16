@@ -5,7 +5,7 @@ import lombok.Getter;
 import javax.validation.constraints.NotBlank;
 
 @Getter
-public class AuthenticationRequest {
+public class AuthenticationPayload {
     @NotBlank
     private String username;
 

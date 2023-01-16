@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Getter
-public class AuthorizationRequest {
+public class AuthorizationPayload {
 
     @NotBlank
     @Size(min = 3, max = 20)
@@ -31,6 +31,8 @@ public class AuthorizationRequest {
 
     @NotBlank
     private String firstName;
+
+    private String middleName;
 
     @NotBlank
     private String lastName;
@@ -97,4 +99,5 @@ public class AuthorizationRequest {
     @NotNull
     String accountNumber;
 
+    String imagePath;
 }

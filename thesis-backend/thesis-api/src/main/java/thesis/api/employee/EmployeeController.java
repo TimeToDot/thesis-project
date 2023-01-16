@@ -100,13 +100,15 @@ public class EmployeeController extends ThesisController {
     @PreAuthorize("hasAuthority('CAN_READ')")
     public ResponseEntity<EmployeeProjectsResponse> getEmployeeProjects(
             @RequestHeader UUID employeeId,
-            @RequestBody PagingSettings pagingSettings
+            @RequestParam(required = false) PagingSettings pagingSettings
     ) {
+        if (pagingSettings == null) pagingSettings = new PagingSettings();
 
         if (!verifyEmployeeId(employeeId)) {
             log.error("oo prosze: {}", employeeId);
             return ResponseEntity.badRequest().build();
         }
+
         log.info("controller: employeeId: {}, page: {}, size: {}", employeeId, pagingSettings.getPage(), pagingSettings.getSize());
 
         var employeeProjectsDTO = employeeService.getEmployeeProjects(employeeId, pagingSettings);
@@ -119,7 +121,7 @@ public class EmployeeController extends ThesisController {
     @PreAuthorize("hasAuthority('CAN_READ')")
     public ResponseEntity<EmployeeProjectsToApproveResponse> getProjectsToApprove(
             @RequestHeader UUID employeeId,
-            @RequestBody EmployeeProjectsToApproveRequest request
+            @RequestParam EmployeeProjectsToApproveRequest request
     ) {
         var toApproveDto = employeeService.getEmployeeProjectsToApprove(employeeId, request.startDate(), request.endDate());
 
@@ -142,7 +144,7 @@ public class EmployeeController extends ThesisController {
     @GetMapping("/tasks")
     public ResponseEntity<EmployeeTasksResponse> getEmployeeTasks(
             @RequestHeader @NotNull UUID employeeId,
-            @RequestBody @Valid EmployeeTasksRequest request) {
+            @RequestParam @Valid EmployeeTasksRequest request) {
 
         var tasksDto = employeeService.getEmployeeTasks(employeeId, request.startDate(), request.endDate(), request.settings());
         var tasksResponse = employeeTasksMapper.map(tasksDto);

@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import thesis.api.auth.mapper.AuthMapper;
-import thesis.api.auth.model.AuthorizationRequest;
+import thesis.api.auth.model.AuthorizationPayload;
 import thesis.data.account.AccountRepository;
 import thesis.security.services.AuthService;
 
@@ -40,15 +40,15 @@ public class AuthorizationController {
             @ApiResponse(responseCode = "500", description = "Internal Server Error",
                     content = @Content) })
     @PostMapping
-    public ResponseEntity<UUID> registerUser(@Valid @RequestBody AuthorizationRequest authorizationRequest) {
+    public ResponseEntity<UUID> registerUser(@Valid @RequestBody AuthorizationPayload authorizationPayload) {
 
-        if (Boolean.TRUE.equals(authService.isAccountExist(authorizationRequest.getLogin()))) {
+        if (Boolean.TRUE.equals(authService.isAccountExist(authorizationPayload.getLogin()))) {
             return ResponseEntity.badRequest().build();
         }
-        if (Boolean.TRUE.equals(authService.isEmailExist(authorizationRequest.getEmail()))) {
+        if (Boolean.TRUE.equals(authService.isEmailExist(authorizationPayload.getEmail()))) {
             return ResponseEntity.badRequest().build();
         }
-        var dto = authMapper.mapToAuthorizationDTO(authorizationRequest);
+        var dto = authMapper.mapToAuthorizationDTO(authorizationPayload);
 
         var response = authService.addUser(dto);
 
