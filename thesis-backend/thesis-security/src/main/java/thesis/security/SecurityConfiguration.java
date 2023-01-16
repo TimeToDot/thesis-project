@@ -86,7 +86,7 @@ public class SecurityConfiguration {
     CorsConfiguration configuration = new CorsConfiguration();
 
     configuration.setAllowCredentials(Boolean.TRUE);
-    configuration.setAllowedOriginPatterns(Collections.singletonList("*"));
+    configuration.addAllowedOriginPattern("*");
     configuration.setAllowedHeaders(Collections.singletonList("*"));
     configuration.setAllowedMethods(Collections.singletonList("*"));
 
