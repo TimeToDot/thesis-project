@@ -4,7 +4,7 @@ import { ButtonComponent } from '../../../shared/components/button/button.compon
 import { CalendarComponent } from '../../../calendar/calendar.component';
 import { ApprovalTrackerListComponent } from '../approval-tracker-list/approval-tracker-list.component';
 import { TasksToRejectService } from '../../../shared/services/tasks-to-reject.service';
-import { first, Subject, Subscription } from 'rxjs';
+import { BehaviorSubject, first, Subject, Subscription } from 'rxjs';
 import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
 import { ProjectEmployeesService } from '../../services/project-employees.service';
 import { Employee } from '../../../shared/models/employee.model';
@@ -16,6 +16,8 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ProjectEmployee } from '../../models/project-employee.model';
 import { ProjectApprovalsService } from '../../services/project-approvals.service';
 import { DropdownSearchEmployeeComponent } from '../../../shared/components/dropdown-search-employee/dropdown-search-employee.component';
+import { EmployeeTasksService } from '../../../shared/services/employee-tasks.service';
+import { Day } from '../../../calendar/models/day.model';
 
 @Component({
   selector: 'bvr-approval-tracker',
@@ -33,6 +35,7 @@ import { DropdownSearchEmployeeComponent } from '../../../shared/components/drop
   templateUrl: './approval-tracker.component.html',
 })
 export class ApprovalTrackerComponent implements OnInit, OnDestroy {
+  $employeeCalendar: BehaviorSubject<Day[]> = new BehaviorSubject<Day[]>([]);
   approveTasksForm!: FormGroup;
   employees: Employee[] = [];
   isActive: boolean = true;
@@ -41,34 +44,16 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
   isGuardDisabled: boolean = false;
   isResetModalOpen: boolean = false;
   modalDescription: string = '';
-  projectEmployee: ProjectEmployee = {
-    id: '',
-    employee: {
-      id: '',
-      firstName: '',
-      lastName: '',
-      email: '',
-      image: '',
-      position: '',
-      employmentDate: '',
-      contractType: { id: '', name: '' },
-      wage: 0,
-      workingTime: 0,
-      exitDate: '',
-      active: false,
-    },
-    workingTime: 0,
-    joinDate: '',
-    exitDate: '',
-    active: false,
-  };
+  projectEmployee!: ProjectEmployee;
   redirectSubject: Subject<boolean> = new Subject<boolean>();
+  refreshTaskList: Subject<void> = new Subject<void>();
 
   private tasksToRejectSubscribtion: Subscription = new Subscription();
 
   constructor(
-    private ProjectApprovalsService: ProjectApprovalsService,
+    private employeeTasksService: EmployeeTasksService,
     private fb: FormBuilder,
+    private projectApprovalsService: ProjectApprovalsService,
     private projectEmployeesService: ProjectEmployeesService,
     private route: ActivatedRoute,
     private router: Router,
@@ -96,14 +81,16 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
   }
 
   getProjectEmployee(): void {
+    const projectId = this.route.parent?.snapshot.paramMap.get('id');
     const projectApprovalId = this.route.snapshot.paramMap.get('id');
-    if (projectApprovalId) {
-      this.ProjectApprovalsService.getProjectApproval(projectApprovalId)
+    if (projectId && projectApprovalId) {
+      this.projectApprovalsService
+        .getProjectApproval(projectId, projectApprovalId)
         .pipe(first())
         .subscribe(projectApproval => {
           this.projectEmployee = projectApproval.projectEmployee;
           this.updateFormFields();
-          console.log(this.projectEmployee);
+          this.getEmployeeCalendar(this.projectEmployee.id);
           this.projectEmployee.active
             ? this.getProjectEmployees()
             : this.getArchivedProjectEmployees();
@@ -113,41 +100,56 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
 
   updateFormFields(): void {
     Object.keys(this.approveTasksForm.controls).forEach(field => {
-      this.approveTasksForm
-        .get(field)
-        ?.setValue(this.projectEmployee.employee[field as keyof Employee]);
+      this.approveTasksForm.get(field)?.setValue(this.projectEmployee.employee);
     });
   }
 
-  getProjectEmployees(): void {
-    this.projectEmployeesService
-      .getProjectEmployees()
+  getEmployeeCalendar(employeeId: string): void {
+    this.employeeTasksService
+      .getEmployeeCalendar(employeeId)
       .pipe(first())
-      .subscribe(projectEmployees => {
-        this.employees = projectEmployees.map(
-          projectEmployee => projectEmployee.employee
-        );
-        this.isActive = true;
-        this.observeIdSelection();
+      .subscribe(calendar => {
+        this.$employeeCalendar.next(calendar);
       });
   }
 
+  getProjectEmployees(): void {
+    const projectId = this.route.parent?.snapshot.paramMap.get('id');
+    if (projectId) {
+      this.projectEmployeesService
+        .getProjectEmployees(projectId)
+        .pipe(first())
+        .subscribe(projectEmployees => {
+          this.employees = projectEmployees.map(
+            projectEmployee => projectEmployee.employee
+          );
+          this.isActive = true;
+          this.observeIdSelection();
+        });
+    }
+  }
+
   getArchivedProjectEmployees(): void {
-    this.projectEmployeesService
-      .getArchivedProjectEmployees()
-      .pipe(first())
-      .subscribe(archivedProjectEmployees => {
-        this.employees = archivedProjectEmployees.map(
-          projectEmployee => projectEmployee.employee
-        );
-        this.isActive = false;
-        this.observeIdSelection();
-      });
+    const projectId = this.route.parent?.snapshot.paramMap.get('id');
+    if (projectId) {
+      this.projectEmployeesService
+        .getArchivedProjectEmployees(projectId)
+        .pipe(first())
+        .subscribe(archivedProjectEmployees => {
+          this.employees = archivedProjectEmployees.map(
+            projectEmployee => projectEmployee.employee
+          );
+          this.isActive = false;
+          this.observeIdSelection();
+        });
+    }
   }
 
   observeIdSelection(): void {
     this.approveTasksForm.get(['id'])?.valueChanges.subscribe(value => {
-      this.router.navigate([`../${value}`], { relativeTo: this.route });
+      this.router
+        .navigate([`../${value}`], { relativeTo: this.route })
+        .then(() => this.refreshTaskList.next());
     });
   }
 

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule, Location } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { first, Subject } from 'rxjs';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import {
@@ -10,7 +10,6 @@ import {
   RouterOutlet,
 } from '@angular/router';
 import { Account } from '../../../shared/models/account.model';
-import { AccountsService } from '../../services/accounts.service';
 import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
 import { ToastService } from '../../../shared/services/toast.service';
@@ -19,6 +18,7 @@ import { ToastComponent } from '../../../shared/components/toast/toast.component
 import { TabsComponent } from '../../../shared/components/tabs/tabs.component';
 import { LinkOption } from '../../../shared/models/link-option.model';
 import { tabAnimation } from '../../../shared/animations/tab.animation';
+import { EmployeesService } from '../../services/employees.service';
 
 @Component({
   selector: 'bvr-view-employee',
@@ -37,48 +37,9 @@ import { tabAnimation } from '../../../shared/animations/tab.animation';
   animations: [tabAnimation],
 })
 export class ViewEmployeeComponent {
-  account: Account = {
-    id: '',
-    firstName: '',
-    middleName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    position: {
-      id: '',
-      name: '',
-      description: '',
-      creationDate: '',
-      count: 0,
-      archiveDate: '',
-      active: true,
-    },
-    employmentDate: '',
-    workingTime: 0,
-    exitDate: '',
-    image: '',
-    sex: { id: '', name: '' },
-    birthPlace: '',
-    idCardNumber: '',
-    pesel: 0,
-    contractType: { id: '', name: '' },
-    wage: 0,
-    payday: 0,
-    birthDate: '',
-    phoneNumber: '',
-    privateEmail: '',
-    street: '',
-    houseNumber: '',
-    apartmentNumber: '',
-    city: '',
-    postalCode: '',
-    country: { id: '', name: '' },
-    accountNumber: '',
-    active: true,
-  };
+  employee!: Account;
   enableFormButtons: boolean = true;
   isArchiveModalOpen: boolean = false;
-  isCancelModalOpen: boolean = false;
   isFromGuard: boolean = false;
   isGuardDisabled: boolean = false;
   modalDescription: string = '';
@@ -86,27 +47,26 @@ export class ViewEmployeeComponent {
   redirectSubject: Subject<boolean> = new Subject<boolean>();
 
   constructor(
-    private accountsService: AccountsService,
     private contexts: ChildrenOutletContexts,
-    private location: Location,
+    private employeesService: EmployeesService,
     private route: ActivatedRoute,
     private router: Router,
     private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
-    this.getAccount();
+    this.getEmployee();
     this.getNavbarOptions();
   }
 
-  getAccount(): void {
-    const accountId = this.route.snapshot.paramMap.get('id');
-    if (accountId) {
-      this.accountsService
-        .getAccount(accountId)
+  getEmployee(): void {
+    const employeeId = this.route.snapshot.paramMap.get('id');
+    if (employeeId) {
+      this.employeesService
+        .getEmployee(employeeId)
         .pipe(first())
-        .subscribe(account => {
-          this.account = account;
+        .subscribe(employee => {
+          this.employee = employee;
         });
     }
   }
@@ -116,37 +76,32 @@ export class ViewEmployeeComponent {
     this.navbarOptions.push({ name: 'Address', path: 'address-info' });
     this.navbarOptions.push({ name: 'Employment', path: 'employment-info' });
     this.navbarOptions.push({ name: 'Account', path: 'account-info' });
+    this.navbarOptions.push({ name: 'Projects', path: 'projects-info' });
   }
 
   openArchiveModal(): void {
     this.isArchiveModalOpen = true;
-    this.modalDescription = `Are you sure you want to archive ${this.account.firstName} ${this.account.lastName}? This action cannot be undone.`;
+    this.modalDescription = `Are you sure you want to archive ${this.employee.firstName} ${this.employee.lastName}? This action cannot be undone.`;
   }
 
-  openCancelModal(fromGuard: boolean): void {
-    this.isCancelModalOpen = true;
-    this.isFromGuard = fromGuard;
-    this.modalDescription = `Are you sure you want to leave? You will lose your unsaved changes if you continue.`;
-  }
-
-  archive(): void {
-    this.router.navigate(['..'], { relativeTo: this.route }).then(() => {
-      setTimeout(
-        () => this.toastService.showToast(ToastState.Info, 'Employee archived'),
-        200
-      );
-      setTimeout(() => this.toastService.dismissToast(), 3200);
-    });
-  }
-
-  cancel(value: boolean): void {
-    if (this.isFromGuard) {
-      this.redirectSubject.next(value);
-    } else {
-      this.disableGuard(value);
-      if (value) {
-        this.location.back();
-      }
+  archive(value: boolean): void {
+    if (value) {
+      this.employeesService
+        .archiveEmployee(this.employee)
+        .pipe(first())
+        .subscribe(() => {
+          this.router.navigate(['..'], { relativeTo: this.route }).then(() => {
+            setTimeout(
+              () =>
+                this.toastService.showToast(
+                  ToastState.Info,
+                  'Employee archived'
+                ),
+              200
+            );
+            setTimeout(() => this.toastService.dismissToast(), 3200);
+          });
+        });
     }
   }
 
@@ -156,7 +111,7 @@ export class ViewEmployeeComponent {
   }
 
   onOutletLoaded(component: any): void {
-    component.account = this.account;
+    component.employee = this.employee;
   }
 
   getRouteAnimationData() {

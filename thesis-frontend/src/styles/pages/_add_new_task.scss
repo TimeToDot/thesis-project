@@ -1,0 +1,30 @@
+.dates {
+  display: flex;
+
+  .date {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+}
+
+.add-task-form-buttons {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 21.5 * $grid-base;
+
+  .button-icon {
+    margin-left: 3 * $grid-base;
+  }
+
+  .form-button {
+    margin: 0 2 * $grid-base;
+  }
+}
+
+@media screen and (max-width: 1400px) {
+  .add-task-form-buttons .form-button {
+    margin: 6 * $grid-base 2 * $grid-base 0;
+  }
+}

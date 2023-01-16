@@ -5,7 +5,9 @@ import { ToastComponent } from '../../../shared/components/toast/toast.component
 import { EmployeeTask } from '../../../shared/models/employee-task.model';
 import { EmployeeProjectTask } from '../../../shared/models/employee-project-task.model';
 import { EmployeeTasksService } from '../../../shared/services/employee-tasks.service';
-import { first } from 'rxjs';
+import { first, Observable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { CalendarService } from '../../../shared/services/calendar.service';
 
 @Component({
   selector: 'bvr-approval-tracker-list',
@@ -15,26 +17,46 @@ import { first } from 'rxjs';
 })
 export class ApprovalTrackerListComponent {
   @Input() isActive: boolean = true;
+  @Input() refreshTaskList: Observable<void> = new Observable();
 
   employeeTasks: EmployeeTask[] = [];
   employeeProjectTasks: EmployeeProjectTask[] = [];
 
-  constructor(private employeeTasksService: EmployeeTasksService) {}
+  constructor(
+    private calendarService: CalendarService,
+    private employeeTasksService: EmployeeTasksService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
+    this.observeTaskListRefresh();
     this.getEmployeeTasks();
-    this.getEmployeeProjectTasks();
     this.sortByProjectName();
   }
 
+  observeTaskListRefresh(): void {
+    this.refreshTaskList.subscribe(() => {
+      this.getEmployeeTasks();
+    });
+  }
+
   getEmployeeTasks(): void {
-    this.employeeTasksService
-      .getEmployeeTasks()
-      .pipe(first())
-      .subscribe(employeeTasks => (this.employeeTasks = employeeTasks));
+    const employeeId = this.route.snapshot.paramMap.get('id');
+    if (employeeId) {
+      this.calendarService.currentDay.subscribe(date => {
+        this.employeeTasksService
+          .getEmployeeTasks(employeeId, date)
+          .pipe(first())
+          .subscribe(employeeTasks => {
+            this.employeeTasks = employeeTasks;
+            this.getEmployeeProjectTasks();
+          });
+      });
+    }
   }
 
   getEmployeeProjectTasks(): void {
+    this.employeeProjectTasks = [];
     this.employeeTasks.forEach(employeeTask => {
       const index = this.findProjectIndex(employeeTask.project.id);
       if (index !== -1) {

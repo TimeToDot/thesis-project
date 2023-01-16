@@ -5,9 +5,10 @@ import { ButtonComponent } from '../../shared/components/button/button.component
 import { CommonModule } from '@angular/common';
 import { LinkGroup } from '../../shared/models/link-group.model';
 import { EmployeesService } from '../../admin/services/employees.service';
-import { Employee } from '../../shared/models/employee.model';
 import { first } from 'rxjs';
 import { ModalComponent } from '../../shared/components/modal/modal.component';
+import { Account } from '../../shared/models/account.model';
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'bvr-sidenav',
@@ -24,29 +25,18 @@ import { ModalComponent } from '../../shared/components/modal/modal.component';
 export class SidenavComponent implements OnInit {
   @Output() openLogoutModal: EventEmitter<void> = new EventEmitter();
 
-  currentEmployee: Employee = {
-    id: '',
-    firstName: '',
-    lastName: '',
-    email: '',
-    image: '',
-    position: '',
-    employmentDate: '',
-    contractType: { id: '', name: '' },
-    wage: 0,
-    workingTime: 0,
-    active: false,
-  };
+  currentEmployee!: Account;
   navMenuGroups: LinkGroup[] = [];
 
   constructor(
+    private authService: AuthService,
     private employeesService: EmployeesService,
     private permissionsService: PermissionsService
   ) {}
 
   ngOnInit(): void {
     this.employeesService
-      .getEmployee('1')
+      .getEmployee(this.authService.getLoggedEmployeeId())
       .pipe(first())
       .subscribe(employee => (this.currentEmployee = employee));
     this.getNavMenuOptions();

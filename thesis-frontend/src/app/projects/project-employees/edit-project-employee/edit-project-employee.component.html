@@ -1,6 +1,8 @@
-<div class="project-employee">
+<div
+  *ngIf="projectEmployee"
+  class="view-form">
   <div class="header">
-    <div class="name">
+    <div class="title">
       <img
         *ngIf="projectEmployee.employee.image"
         class="picture"
@@ -66,33 +68,43 @@
         [ngModel]="projectEmployee.employee.contractType.name"
         type="text" />
     </bvr-form-field>
-    <div class="row">
+    <div
+      class="row"
+      [formGroup]="editProjectEmployeeForm">
       <bvr-form-field
         *ngIf="editProjectEmployeeForm"
         class="left-field"
-        [formGroup]="editProjectEmployeeForm"
         label="Working Time"
-        [required]="isRequired('workingTime')">
+        [required]="isRequired(controls.workingTime)">
         <bvr-input-number
           formControlName="workingTime"
           placeholder="0"
           suffix="h"></bvr-input-number>
-        <ng-container *ngIf="showErrors('workingTime')">
-          <small
-            *ngIf="
-              editProjectEmployeeForm.get('workingTime')?.hasError('required')
-            "
-            >This field is required.</small
-          >
-        </ng-container>
+        <bvr-error
+          class="error"
+          [control]="editProjectEmployeeForm.get(['workingTime'])"></bvr-error>
       </bvr-form-field>
       <bvr-form-field
-        class="disabled field"
-        label="Wage">
-        <input
-          disabled
-          [ngModel]="projectEmployee.employee.wage"
-          type="text" />
+        class="field"
+        label="Salary Modifier"
+        [ngClass]="{ disabled: controls.salaryModifier.disabled }"
+        [required]="isRequired(controls.salaryModifier)">
+        <div class="row">
+          <bvr-input-number
+            [decimalPlaces]="0"
+            [digits]="3"
+            formControlName="salaryModifier"
+            [isDisabled]="controls.salaryModifier.disabled"
+            placeholder="Modifier"
+            suffix="%"></bvr-input-number>
+          <bvr-switch
+            (valueChange)="
+              enableField(controls.salaryModifier, $event)
+            "></bvr-switch>
+        </div>
+        <bvr-error
+          class="error"
+          [control]="controls.salaryModifier"></bvr-error>
       </bvr-form-field>
     </div>
   </div>
@@ -109,7 +121,7 @@
 </div>
 
 <bvr-modal
-  (confirm)="archive()"
+  (confirm)="archive($event)"
   confirmLabel="archive"
   [description]="modalDescription"
   [title]="'Archive employee'"

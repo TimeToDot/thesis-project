@@ -1,51 +1,53 @@
-<div class="form">
+<div
+  *ngIf="employee"
+  class="form">
   <div class="form-header">{{ 'Personal Info' | uppercase }}</div>
   <div class="row">
     <bvr-form-field
       class="left-field"
       label="First Name">
-      <span>{{ account.firstName }}</span>
+      <span>{{ employee.firstName }}</span>
     </bvr-form-field>
     <bvr-form-field
       class="field"
       label="Last Name">
-      <span>{{ account.lastName }}</span>
+      <span>{{ employee.lastName }}</span>
     </bvr-form-field>
   </div>
   <div class="row">
     <bvr-form-field
       class="left-field"
       label="Middle Name">
-      <span>{{ account.middleName }}</span>
+      <span>{{ employee.middleName }}</span>
     </bvr-form-field>
     <bvr-form-field
       class="field"
       label="Sex">
-      <span>{{ account.sex.name }}</span>
+      <span>{{ employee.sex.name }}</span>
     </bvr-form-field>
   </div>
   <div class="row">
     <bvr-form-field
       class="left-field"
       label="Date Of Birth">
-      <span>{{ account.birthDate | date: 'dd/MM/yyyy' }}</span>
+      <span>{{ employee.birthDate | date: 'dd/MM/yyyy' }}</span>
     </bvr-form-field>
     <bvr-form-field
       class="field"
       label="Place Of Birth">
-      <span>{{ account.birthPlace }}</span>
+      <span>{{ employee.birthPlace }}</span>
     </bvr-form-field>
   </div>
   <div class="row">
     <bvr-form-field
       class="left-field"
       label="ID Card Number">
-      <span>{{ account.idCardNumber }}</span>
+      <span>{{ employee.idCardNumber }}</span>
     </bvr-form-field>
     <bvr-form-field
       class="field"
       label="PESEL">
-      <span>{{ account.pesel }}</span>
+      <span>{{ employee.pesel }}</span>
     </bvr-form-field>
   </div>
 </div>

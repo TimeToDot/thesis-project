@@ -1,0 +1,51 @@
+<div
+  *ngIf="project"
+  class="description">
+  <div class="description-header">
+    <h3>{{ project.name }}</h3>
+    <div class="description-header">
+      <img
+        *ngIf="project.image"
+        class="description-image"
+        [ngClass]="{ archived: !project.active }"
+        [src]="project.image" />
+      <span
+        *ngIf="!project.image"
+        class="description-image">
+        {{ project.name[0] }}
+      </span>
+      <bvr-button
+        *ngIf="projectPermissions && projectPermissions.canAdminProjects"
+        icon="edit"
+        [routerLink]="['../edit']"
+        styleClass="button-icon"></bvr-button>
+    </div>
+  </div>
+  <div class="description-details">
+    <span class="material-icons-outlined">groups</span>
+    <div>{{ project.employeesCount }} employees</div>
+  </div>
+  <div class="description-details">
+    <span class="material-icons-outlined">calendar_month</span>
+    <div>{{ project.creationDate | date: 'dd/MM/yyyy' }}</div>
+  </div>
+  <div class="description-details">
+    <img
+      *ngIf="project.moderator.image"
+      class="description-moderator"
+      [src]="project.moderator.image" />
+    <span
+      *ngIf="!project.moderator.image"
+      class="description-moderator">
+      {{ project.moderator.firstName[0] }}
+      {{ project.moderator.lastName[0] }}
+    </span>
+    <div>
+      {{ project.moderator.firstName }}
+      {{ project.moderator.lastName }} - Moderator
+    </div>
+  </div>
+  <div class="description-details">
+    <label>{{ project.description }}</label>
+  </div>
+</div>

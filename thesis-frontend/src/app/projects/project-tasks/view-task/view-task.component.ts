@@ -49,12 +49,16 @@ export class ViewTaskComponent implements OnInit {
   }
 
   getTask(): void {
+    const projectId = this.route.parent?.snapshot.paramMap.get('id');
     const taskId = this.route.snapshot.paramMap.get('id');
-    if (taskId) {
+    if (projectId && taskId) {
       this.projectTasksService
-        .getProjectTask(taskId)
+        .getProjectTask(projectId, taskId)
         .pipe(first())
-        .subscribe(projectTask => (this.task = projectTask));
+        .subscribe(projectTask => {
+          console.log(projectTask);
+          this.task = projectTask;
+        });
     }
   }
 
@@ -63,13 +67,21 @@ export class ViewTaskComponent implements OnInit {
     this.modalDescription = `Are you sure you want to archive task ${this.task.name}? This action cannot be undone.`;
   }
 
-  archive(): void {
-    this.router.navigate(['..'], { relativeTo: this.route }).then(() => {
-      setTimeout(
-        () => this.toastService.showToast(ToastState.Info, 'Task archived'),
-        200
-      );
-      setTimeout(() => this.toastService.dismissToast(), 3200);
-    });
+  archive(value: boolean): void {
+    if (value) {
+      this.projectTasksService
+        .archiveProjectTask(this.task)
+        .pipe(first())
+        .subscribe(() => {
+          this.router.navigate(['..'], { relativeTo: this.route }).then(() => {
+            setTimeout(
+              () =>
+                this.toastService.showToast(ToastState.Info, 'Task archived'),
+              200
+            );
+            setTimeout(() => this.toastService.dismissToast(), 3200);
+          });
+        });
+    }
   }
 }

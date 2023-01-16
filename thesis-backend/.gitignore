@@ -2,14 +2,15 @@
 # Compiled class file
 *.class
 
+# Package Files #
 
 # Log file
 *.log
 
 # Package Files #
 
-/thesis-backend/thesis-api/target/
-/thesis-backend/thesis-data/target/
-/thesis-backend/thesis-domain/target/
-/thesis-backend/thesis-security/target/
-/thesis-backend/thesis-server/target/
+/thesis-api/target/
+/thesis-data/target/
+/thesis-domain/target/
+/thesis-security/target/
+/thesis-server/target/

@@ -1,14 +1,9 @@
-@import './add_employee';
-@import './add_position';
-@import './add_project';
+@import './add_new_task';
 @import './approval_tracker';
 @import './confirm_employee';
+@import './dashboard';
 @import './edit_password';
-@import './project_employees';
 @import './project_approvals';
-@import './project_tasks';
+@import './project_dashboard';
 @import './projects';
 @import './select_wage';
-@import './view_employee';
-@import './view_position';
-@import './view_project';

@@ -1,6 +1,6 @@
-<div class="project-task">
+<div class="view-form">
   <div class="header">
-    <div class="name">
+    <div class="title">
       <h4>Edit Task</h4>
     </div>
     <bvr-button
@@ -13,26 +13,21 @@
     [formGroup]="editProjectTaskForm">
     <bvr-form-field
       label="Task Name"
-      [required]="isRequired('name')">
+      [required]="isRequired(controls.name)">
       <input
         formControlName="name"
         type="text" />
-      <ng-container *ngIf="showErrors('name')">
-        <small *ngIf="editProjectTaskForm.get('name')?.hasError('required')"
-          >This field is required.</small
-        >
-      </ng-container>
+      <bvr-error
+        class="error"
+        [control]="controls.name"></bvr-error>
     </bvr-form-field>
     <bvr-form-field
       label="Task Description"
-      [required]="isRequired('description')">
+      [required]="isRequired(controls.description)">
       <textarea formControlName="description"></textarea>
-      <ng-container *ngIf="showErrors('description')">
-        <small
-          *ngIf="editProjectTaskForm.get('description')?.hasError('required')"
-          >This field is required.</small
-        >
-      </ng-container>
+      <bvr-error
+        class="error"
+        [control]="controls.description"></bvr-error>
     </bvr-form-field>
   </div>
 </div>
@@ -49,7 +44,7 @@
 </div>
 
 <bvr-modal
-  (confirm)="archive()"
+  (confirm)="archive($event)"
   confirmLabel="Archive"
   [description]="modalDescription"
   [title]="'Archive task'"

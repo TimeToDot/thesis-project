@@ -2,12 +2,14 @@
   <div class="header">
     <div class="title">
       <span class="material-icons-outlined">work_outline</span>
-      <h2 class="name">Position</h2>
+      <h2>Position</h2>
     </div>
   </div>
-  <div class="card-content view-position">
+  <div
+    *ngIf="position"
+    class="card-content view-form">
     <div class="header">
-      <div class="name">
+      <div class="title">
         <h4>{{ position.name }}</h4>
         <h4
           *ngIf="!position.active"
@@ -27,7 +29,7 @@
       </div>
     </div>
     <div class="form">
-      <div class="dates">
+      <div class="row">
         <bvr-form-field
           class="left-field"
           label="Creation Date">
@@ -36,26 +38,27 @@
         <bvr-form-field
           class="field"
           *ngIf="!position.active"
-          class="disabled field"
+          class="field"
           label="Archive Date">
           <span>{{ position.archiveDate | date: 'dd/MM/yyyy' }}</span>
         </bvr-form-field>
         <bvr-form-field
           class="field"
           *ngIf="position.active"
-          class="disabled field"
+          class="field"
           label="Count">
           <span>{{ position.count }}</span>
         </bvr-form-field>
       </div>
       <bvr-form-field
-        class="field description"
+        class="field"
         label="Description">
         <span>{{ position.description }}</span>
       </bvr-form-field>
     </div>
     <div class="form-buttons">
       <bvr-button
+        class="form-button"
         label="Cancel"
         [routerLink]="['..']"
         styleClass="button-text"></bvr-button>
@@ -64,7 +67,7 @@
 </div>
 
 <bvr-modal
-  (confirm)="archive()"
+  (confirm)="archive($event)"
   confirmLabel="archive"
   [description]="modalDescription"
   [title]="'Archive position'"

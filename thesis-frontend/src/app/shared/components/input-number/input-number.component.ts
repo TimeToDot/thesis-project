@@ -22,6 +22,7 @@ import {
 export class InputNumberComponent implements ControlValueAccessor, OnInit {
   @Input() decimalPlaces: number = 2;
   @Input() digits: number = 2;
+  @Input() isDisabled: boolean = false;
   @Input() placeholder: string = '';
   @Input() suffix: string = '';
 

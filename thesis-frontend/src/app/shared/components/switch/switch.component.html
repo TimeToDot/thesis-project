@@ -1,7 +1,10 @@
-<label class="switch">
+<label
+  class="switch"
+  [class.disabled]="disabled">
   <input
     type="checkbox"
-    [ngModel]="selected"
-    (ngModelChange)="onChange($event)" />
+    [disabled]="disabled"
+    [ngModel]="value"
+    (ngModelChange)="change($event)" />
   <div class="slider"></div>
 </label>

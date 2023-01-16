@@ -2,7 +2,7 @@
   <div class="header">
     <div class="title">
       <span class="material-icons-outlined">schedule</span>
-      <h2 class="name">Tracker</h2>
+      <h2>Tracker</h2>
     </div>
     <bvr-button
       class="add-new-button"
@@ -10,14 +10,13 @@
       [routerLink]="['request-approval']"></bvr-button>
   </div>
   <div class="tracker">
-    <bvr-calendar></bvr-calendar>
+    <bvr-calendar
+      [employeeCalendar]="$employeeCalendar.asObservable()"></bvr-calendar>
     <div class="tracker-right-side">
       <bvr-tabs
         class="tracker-tabs"
         [navbarOptions]="navbarOptions"></bvr-tabs>
-      <div>
-        <router-outlet></router-outlet>
-      </div>
+      <router-outlet class="router-outlet"></router-outlet>
     </div>
   </div>
 </div>

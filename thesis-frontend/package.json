@@ -8,7 +8,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test:headless": "ng test --watch=false --browsers=ChromeHeadless",
-    "format": "npx prettier \"src/**/*.{ts,html,scss}\" --write"
+    "format": "npx prettier \"src/**/*.{ts,html,scss}\" --write",
+    "mock:server": "json-server --watch mock/db.json --routes mock/routes.json"
   },
   "lint-staged": {
     "src/**/*.{ts,scss,html}": [
@@ -32,6 +33,7 @@
     "@angular/platform-browser": "^15.0.0",
     "@angular/platform-browser-dynamic": "^15.0.0",
     "@angular/router": "^15.0.0",
+    "chart.js": "^4.1.2",
     "dayjs": "^1.11.6",
     "material-icons": "^1.12.2",
     "rxjs": "~7.5.0",
@@ -45,6 +47,7 @@
     "@types/jasmine": "~4.0.0",
     "husky": "^8.0.2",
     "jasmine-core": "~4.3.0",
+    "json-server": "^0.17.1",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage": "~2.2.0",

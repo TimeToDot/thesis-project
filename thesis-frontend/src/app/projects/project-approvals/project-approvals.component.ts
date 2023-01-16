@@ -2,7 +2,7 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLinkWithHref } from '@angular/router';
+import { ActivatedRoute, RouterLinkWithHref } from '@angular/router';
 import { first } from 'rxjs';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { ToastComponent } from '../../shared/components/toast/toast.component';
@@ -39,24 +39,33 @@ export class ProjectApprovalsComponent implements OnInit {
   query: string = '';
   showActive: boolean = true;
 
-  constructor(private projectApprovalsService: ProjectApprovalsService) {}
+  constructor(
+    private projectApprovalsService: ProjectApprovalsService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.getProjectApprovals();
   }
 
   getProjectApprovals(): void {
-    this.projectApprovalsService
-      .getProjectApprovals()
-      .pipe(first())
-      .subscribe(projectApprovals => (this.dataSource = projectApprovals));
+    const projectId = this.route.parent?.snapshot.paramMap.get('id');
+    if (projectId) {
+      this.projectApprovalsService
+        .getProjectApprovals(projectId)
+        .pipe(first())
+        .subscribe(projectApprovals => (this.dataSource = projectApprovals));
+    }
   }
 
   getArchivedProjectApprovals(): void {
-    this.projectApprovalsService
-      .getArchivedProjectApprovals()
-      .pipe(first())
-      .subscribe(projectApprovals => (this.dataSource = projectApprovals));
+    const projectId = this.route.parent?.snapshot.paramMap.get('id');
+    if (projectId) {
+      this.projectApprovalsService
+        .getArchivedProjectApprovals(projectId)
+        .pipe(first())
+        .subscribe(projectApprovals => (this.dataSource = projectApprovals));
+    }
   }
 
   showActiveTable(value: boolean): void {

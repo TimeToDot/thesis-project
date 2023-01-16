@@ -2,8 +2,7 @@
   <div class="header">
     <div class="title">
       <span class="material-icons-outlined">work_outline</span>
-      <h2 class="name">Positions</h2>
-      <h4 class="count">({{ dataSource.length }})</h4>
+      <h2>Positions</h2>
     </div>
   </div>
 
@@ -91,7 +90,8 @@
         <ng-container cdkColumnDef="actions">
           <th
             cdk-header-cell
-            *cdkHeaderCellDef>
+            *cdkHeaderCellDef
+            class="actions">
             Actions
           </th>
           <td
@@ -185,7 +185,7 @@
 </div>
 
 <bvr-modal
-  (confirm)="archive()"
+  (confirm)="archive($event)"
   confirmLabel="archive"
   [description]="modalDescription"
   [title]="'Archive position'"

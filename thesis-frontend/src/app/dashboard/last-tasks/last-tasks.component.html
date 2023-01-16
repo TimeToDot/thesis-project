@@ -1,0 +1,35 @@
+<div class="table-header">
+  <div class="table-name">Last tasks</div>
+  <bvr-button
+    label="Show All"
+    [routerLink]="['/tracker', 'tasks-list']"
+    styleClass="button-text"></bvr-button>
+</div>
+<div
+  *ngFor="let task of employeeTasks"
+  class="table-row">
+  <img
+    *ngIf="task.project.image"
+    class="task-image"
+    [src]="task.project.image" />
+  <span
+    *ngIf="!task.project.image"
+    class="picture">
+    {{ task.project.name[0] }}
+  </span>
+  <div class="row-data">
+    <label>{{ task.task.name }}</label>
+    <div class="details">
+      <div class="details">
+        <div
+          class="status"
+          [class]="task.status"></div>
+        <small> {{ task.status | titlecase }}</small>
+      </div>
+      <small class="dates">
+        {{ task.startTime }}-{{ task.endTime }},
+        {{ task.startDate | date: 'dd/MM/yyyy' }}
+      </small>
+    </div>
+  </div>
+</div>

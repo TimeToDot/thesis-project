@@ -1,5 +1,6 @@
 <div class="input-number">
   <input
+    [disabled]="isDisabled"
     [placeholder]="placeholder"
     (keydown)="onKeyDown($event)"
     [ngModel]="value"

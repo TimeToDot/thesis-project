@@ -1,38 +1,74 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { RouterLinkWithHref } from '@angular/router';
+import {
+  ChildrenOutletContexts,
+  RouterLinkWithHref,
+  RouterOutlet,
+} from '@angular/router';
 import { first } from 'rxjs';
 import { EmployeesService } from '../admin/services/employees.service';
+import { tabAnimation } from '../shared/animations/tab.animation';
 import { ButtonComponent } from '../shared/components/button/button.component';
-import { Employee } from '../shared/models/employee.model';
+import { TabsComponent } from '../shared/components/tabs/tabs.component';
+import { ToastComponent } from '../shared/components/toast/toast.component';
+import { Account } from '../shared/models/account.model';
+import { LinkOption } from '../shared/models/link-option.model';
+import { AuthService } from '../shared/services/auth.service';
 
 @Component({
   selector: 'bvr-profile',
   templateUrl: './profile.component.html',
   standalone: true,
-  imports: [ButtonComponent, CommonModule, RouterLinkWithHref],
+  imports: [
+    ButtonComponent,
+    CommonModule,
+    RouterLinkWithHref,
+    RouterOutlet,
+    TabsComponent,
+    ToastComponent,
+  ],
+  animations: [tabAnimation],
 })
 export class ProfileComponent implements OnInit {
-  currentEmployee: Employee = {
-    id: '',
-    firstName: '',
-    lastName: '',
-    email: '',
-    image: '',
-    position: '',
-    employmentDate: '',
-    contractType: { id: '', name: '' },
-    wage: 0,
-    workingTime: 0,
-    active: false,
-  };
+  employee!: Account;
+  navbarOptions: LinkOption[] = [];
 
-  constructor(private employeesService: EmployeesService) {}
+  constructor(
+    private authService: AuthService,
+    private contexts: ChildrenOutletContexts,
+    private employeesService: EmployeesService
+  ) {}
 
   ngOnInit(): void {
-    this.employeesService
-      .getEmployee('1')
-      .pipe(first())
-      .subscribe(employee => (this.currentEmployee = employee));
+    this.getEmployee();
+    this.getNavbarOptions();
+  }
+
+  getEmployee(): void {
+    const employeeId = this.authService.getLoggedEmployeeId();
+    if (employeeId) {
+      this.employeesService
+        .getEmployee(employeeId)
+        .pipe(first())
+        .subscribe(employee => {
+          this.employee = employee;
+        });
+    }
+  }
+
+  getNavbarOptions(): void {
+    this.navbarOptions.push({ name: 'Personal', path: 'personal-info' });
+    this.navbarOptions.push({ name: 'Address', path: 'address-info' });
+    this.navbarOptions.push({ name: 'Employment', path: 'employment-info' });
+    this.navbarOptions.push({ name: 'Account', path: 'account-info' });
+    this.navbarOptions.push({ name: 'Projects', path: 'projects-info' });
+  }
+
+  onOutletLoaded(component: any): void {
+    component.employee = this.employee;
+  }
+
+  getRouteAnimationData() {
+    return this.contexts.getContext('primary')?.route?.snapshot.data['tabs'];
   }
 }

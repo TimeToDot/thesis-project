@@ -30,6 +30,15 @@
     }
   }
 
+  .row {
+    display: flex;
+    flex-direction: row;
+
+    input {
+      width: 100%;
+    }
+  }
+
   label {
     color: $color-text-secondary;
     font-size: $font-small;
@@ -70,6 +79,10 @@
 
   input[type='number'] {
     -moz-appearance: textfield;
+  }
+
+  > .file-preview {
+    margin: 3 * $grid-base;
   }
 }
 

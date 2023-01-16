@@ -1,0 +1,50 @@
+<div class="card">
+  <div class="header">
+    <div class="title">
+      <span class="material-icons-outlined">person</span>
+      <h2>User Profile</h2>
+    </div>
+  </div>
+  <div
+    class="card-content view-form"
+    [formGroup]="editPhotoForm">
+    <div class="form">
+      <div class="form-header">{{ 'Edit Photo' | uppercase }}</div>
+      <bvr-form-field class="left-field">
+        <bvr-file-upload
+          formControlName="image"
+          label="Upload New"></bvr-file-upload>
+        <ng-container *ngIf="showErrors('image')">
+          <small *ngIf="editPhotoForm.get('image')?.hasError('required')"
+            >This field is required.</small
+          >
+        </ng-container>
+      </bvr-form-field>
+    </div>
+
+    <div class="form-buttons">
+      <bvr-button
+        class="form-button"
+        (click)="openCancelModal(false)"
+        label="Cancel"
+        styleClass="button-text"></bvr-button>
+      <bvr-button
+        class="form-button"
+        (click)="openSaveModal()"
+        label="Save"></bvr-button>
+    </div>
+  </div>
+</div>
+
+<bvr-modal
+  (confirm)="cancel($event)"
+  confirmLabel="Leave"
+  [description]="modalDescription"
+  [title]="'Leave'"
+  [(visible)]="isCancelModalOpen"></bvr-modal>
+<bvr-modal
+  (confirm)="save($event)"
+  confirmLabel="Save"
+  [description]="modalDescription"
+  [title]="'Save changes'"
+  [(visible)]="isSaveModalOpen"></bvr-modal>

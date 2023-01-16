@@ -7,7 +7,6 @@ import {
   ChildrenOutletContexts,
   Router,
 } from '@angular/router';
-import { AccountsService } from '../../services/accounts.service';
 import { first, Subject } from 'rxjs';
 import { ToastState } from '../../../shared/enum/toast-state';
 import { ToastService } from '../../../shared/services/toast.service';
@@ -20,7 +19,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { DatePickerComponent } from '../../../shared/components/date-picker/date-picker.component';
-import { PositionsService } from '../../services/positions.service';
 import { Position } from '../../models/position.model';
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
 import { ToastComponent } from '../../../shared/components/toast/toast.component';
@@ -31,6 +29,9 @@ import { EditAddressInfoComponent } from './edit-address-info/edit-address-info.
 import { EditEmploymentInfoComponent } from './edit-employment-info/edit-employment-info.component';
 import { EditAccountInfoComponent } from './edit-account-info/edit-account-info.component';
 import { tabAnimation } from '../../../shared/animations/tab.animation';
+import { EmployeesService } from '../../services/employees.service';
+import { Regex } from '../../../shared/helpers/regex.helper';
+import { CustomValidators } from '../../../shared/helpers/custom-validators.helper';
 
 @Component({
   selector: 'bvr-edit-employee',
@@ -54,45 +55,8 @@ import { tabAnimation } from '../../../shared/animations/tab.animation';
   animations: [tabAnimation],
 })
 export class EditEmployeeComponent {
-  account: Account = {
-    id: '',
-    firstName: '',
-    middleName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    position: {
-      id: '',
-      name: '',
-      description: '',
-      creationDate: '',
-      count: 0,
-      archiveDate: '',
-      active: true,
-    },
-    employmentDate: '',
-    workingTime: 0,
-    exitDate: '',
-    image: '',
-    sex: { id: '', name: '' },
-    birthPlace: '',
-    idCardNumber: '',
-    pesel: 0,
-    contractType: { id: '', name: '' },
-    wage: 0,
-    payday: 0,
-    birthDate: '',
-    phoneNumber: '',
-    privateEmail: '',
-    street: '',
-    houseNumber: '',
-    apartmentNumber: '',
-    city: '',
-    postalCode: '',
-    country: { id: '', name: '' },
-    accountNumber: '',
-    active: true,
-  };
+  controls: any = {};
+  employee!: Account;
   editEmployeeForm!: FormGroup;
   enableFormButtons: boolean = true;
   isArchiveModalOpen: boolean = false;
@@ -107,11 +71,10 @@ export class EditEmployeeComponent {
   tabIndex: number = 0;
 
   constructor(
-    private accountsService: AccountsService,
     private contexts: ChildrenOutletContexts,
+    private employeesService: EmployeesService,
     private fb: FormBuilder,
     private location: Location,
-    private positionsService: PositionsService,
     private route: ActivatedRoute,
     private router: Router,
     private toastService: ToastService
@@ -120,9 +83,9 @@ export class EditEmployeeComponent {
   ngOnInit(): void {
     this.getCurrentTab();
     this.createForm();
+    this.getFormControls();
     this.getNavbarOptions();
-    this.getAccount();
-    this.getPositions();
+    this.getEmployee();
   }
 
   getCurrentTab(): void {
@@ -133,27 +96,51 @@ export class EditEmployeeComponent {
   createForm(): void {
     this.editEmployeeForm = this.fb.group({
       personalInfo: this.fb.group({
-        firstName: ['', [Validators.required]],
-        lastName: ['', [Validators.required]],
-        middleName: ['', []],
+        firstName: ['', [Validators.required, Validators.pattern(Regex.ALPHA)]],
+        lastName: ['', [Validators.required, Validators.pattern(Regex.ALPHA)]],
+        middleName: ['', [Validators.pattern(Regex.ALPHA)]],
         sex: ['', [Validators.required]],
         birthDate: [
           formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en'),
           [Validators.required],
         ],
-        birthPlace: ['', [Validators.required]],
-        idCardNumber: ['', [Validators.required]],
-        pesel: ['', []],
+        birthPlace: [
+          '',
+          [Validators.required, Validators.pattern(Regex.ALPHA)],
+        ],
+        idCardNumber: [
+          '',
+          [Validators.required, Validators.pattern(Regex.ALPHANUMERIC)],
+        ],
+        pesel: [
+          '',
+          [Validators.pattern(Regex.NUMERIC), Validators.minLength(11)],
+        ],
       }),
       addressInfo: this.fb.group({
-        street: ['', [Validators.required]],
-        houseNumber: ['', [Validators.required]],
-        apartmentNumber: ['', []],
-        city: ['', [Validators.required]],
-        postalCode: ['', [Validators.required]],
+        street: [
+          '',
+          [Validators.required, Validators.pattern(Regex.ALPHANUMERIC)],
+        ],
+        houseNumber: [
+          '',
+          [Validators.required, Validators.pattern(Regex.ALPHANUMERIC)],
+        ],
+        apartmentNumber: ['', [Validators.pattern(Regex.ALPHANUMERIC)]],
+        city: ['', [Validators.required, Validators.pattern(Regex.ALPHA)]],
+        postalCode: [
+          '',
+          [Validators.required, Validators.pattern(Regex.ALPHANUMERIC)],
+        ],
         country: ['', [Validators.required]],
-        phoneNumber: ['', [Validators.required]],
-        privateEmail: ['', [Validators.required]],
+        phoneNumber: [
+          '',
+          [Validators.required, Validators.pattern(Regex.PHONE)],
+        ],
+        privateEmail: [
+          '',
+          [Validators.required, Validators.pattern(Regex.EMAIL)],
+        ],
       }),
       employmentInfo: this.fb.group({
         position: ['', [Validators.required]],
@@ -162,14 +149,42 @@ export class EditEmployeeComponent {
           [Validators.required],
         ],
         contractType: ['', [Validators.required]],
-        workingTime: ['', [Validators.required]],
-        wage: ['', [Validators.required]],
-        payday: ['', [Validators.required]],
-        accountNumber: ['', [Validators.required]],
+        workingTime: [
+          '',
+          [
+            Validators.required,
+            CustomValidators.minValue(0),
+            CustomValidators.maxValue(168),
+          ],
+        ],
+        wage: ['', [Validators.required, CustomValidators.minValue(0)]],
+        payday: [
+          '',
+          [
+            Validators.required,
+            CustomValidators.minValue(1),
+            CustomValidators.maxValue(31),
+          ],
+        ],
+        accountNumber: [
+          '',
+          [Validators.required, Validators.pattern(Regex.ALPHANUMERIC)],
+        ],
       }),
       accountInfo: this.fb.group({
-        email: ['', [Validators.required]],
+        email: ['', [Validators.required, Validators.pattern(Regex.EMAIL)]],
       }),
+    });
+  }
+
+  getFormControls(): void {
+    Object.keys(this.editEmployeeForm.controls).forEach(group => {
+      this.controls[group] = this.editEmployeeForm.get([group]);
+      Object.keys(
+        (this.editEmployeeForm.get(group) as FormGroup<any>).controls
+      ).forEach(field => {
+        this.controls[field] = this.editEmployeeForm.get([group, field]);
+      });
     });
   }
 
@@ -180,24 +195,17 @@ export class EditEmployeeComponent {
     this.navbarOptions.push({ name: 'Account', path: 'account-info' });
   }
 
-  getAccount(): void {
-    const accountId = this.route.snapshot.paramMap.get('id');
-    if (accountId) {
-      this.accountsService
-        .getAccount(accountId)
+  getEmployee(): void {
+    const employeeId = this.route.snapshot.paramMap.get('id');
+    if (employeeId) {
+      this.employeesService
+        .getEmployee(employeeId)
         .pipe(first())
-        .subscribe(account => {
-          this.account = account;
+        .subscribe(employee => {
+          this.employee = employee;
           this.updateFormFields();
         });
     }
-  }
-
-  getPositions(): void {
-    this.positionsService
-      .getPositions()
-      .pipe(first())
-      .subscribe(positions => (this.positions = positions));
   }
 
   updateTabIndex(index: number): void {
@@ -211,14 +219,14 @@ export class EditEmployeeComponent {
       ).forEach(field => {
         this.editEmployeeForm
           .get([group, field])
-          ?.setValue(this.account[field as keyof Account]);
+          ?.setValue(this.employee[field as keyof Account]);
       });
     });
   }
 
   openArchiveModal(): void {
     this.isArchiveModalOpen = true;
-    this.modalDescription = `Are you sure you want to archive ${this.account.firstName} ${this.account.lastName}? This action cannot be undone.`;
+    this.modalDescription = `Are you sure you want to archive ${this.employee.firstName} ${this.employee.lastName}? This action cannot be undone.`;
   }
 
   openCancelModal(fromGuard: boolean): void {
@@ -238,15 +246,28 @@ export class EditEmployeeComponent {
     }
   }
 
-  archive(): void {
+  archive(value: boolean): void {
     this.disableGuard(true);
-    this.router.navigate(['../..'], { relativeTo: this.route }).then(() => {
-      setTimeout(
-        () => this.toastService.showToast(ToastState.Info, 'Employee archived'),
-        200
-      );
-      setTimeout(() => this.toastService.dismissToast(), 3200);
-    });
+    if (value) {
+      this.employeesService
+        .archiveEmployee(this.getEmployeeData())
+        .pipe(first())
+        .subscribe(() => {
+          this.router
+            .navigate(['../..'], { relativeTo: this.route })
+            .then(() => {
+              setTimeout(
+                () =>
+                  this.toastService.showToast(
+                    ToastState.Info,
+                    'Employee archived'
+                  ),
+                200
+              );
+              setTimeout(() => this.toastService.dismissToast(), 3200);
+            });
+        });
+    }
   }
 
   cancel(value: boolean): void {
@@ -263,18 +284,60 @@ export class EditEmployeeComponent {
   save(value: boolean): void {
     this.disableGuard(true);
     if (value) {
-      new Promise((resolve, _) => {
-        this.location.back();
-        resolve('done');
-      }).then(() => {
-        setTimeout(
-          () =>
-            this.toastService.showToast(ToastState.Success, 'Employee edited'),
-          200
-        );
-        setTimeout(() => this.toastService.dismissToast(), 3200);
-      });
+      this.employeesService
+        .updateEmployee(this.getEmployeeData())
+        .pipe(first())
+        .subscribe(() => {
+          this.redirectAfterSave();
+        });
     }
+  }
+
+  getEmployeeData(): Account {
+    return {
+      id: this.employee.id,
+      firstName: this.controls.firstName?.value,
+      middleName: this.controls.middleName?.value,
+      lastName: this.controls.lastName?.value,
+      sex: this.controls.sex?.value,
+      birthDate: this.controls.birthDate?.value,
+      birthPlace: this.controls.birthPlace?.value,
+      idCardNumber: this.controls.idCardNumber?.value,
+      pesel: this.controls.pesel?.value,
+      street: this.controls.street?.value,
+      houseNumber: this.controls.houseNumber?.value,
+      apartmentNumber: this.controls.apartmentNumber?.value,
+      city: this.controls.city?.value,
+      postalCode: this.controls.postalCode?.value,
+      country: this.controls.country?.value,
+      phoneNumber: this.controls.phoneNumber?.value,
+      privateEmail: this.controls.privateEmail?.value,
+      position: this.controls.position?.value,
+      employmentDate: this.controls.employmentDate?.value,
+      contractType: this.controls.contractType?.value,
+      workingTime: this.controls.workingTime?.value,
+      wage: this.controls.wage?.value,
+      payday: this.controls.payday?.value,
+      accountNumber: this.controls.accountNumber?.value,
+      email: this.controls.email?.value,
+      password: this.controls.password?.value,
+      image: this.employee.image,
+      active: this.employee.active,
+    };
+  }
+
+  redirectAfterSave(): void {
+    new Promise((resolve, _) => {
+      this.location.back();
+      resolve('done');
+    }).then(() => {
+      setTimeout(
+        () =>
+          this.toastService.showToast(ToastState.Success, 'Employee edited'),
+        200
+      );
+      setTimeout(() => this.toastService.dismissToast(), 3200);
+    });
   }
 
   disableGuard(value: boolean): void {
