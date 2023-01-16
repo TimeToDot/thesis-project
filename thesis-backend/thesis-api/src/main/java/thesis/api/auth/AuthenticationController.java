@@ -32,6 +32,7 @@ public class AuthenticationController {
 
     private final AuthMapper authMapper;
 
+    //@CrossOrigin(origins = "*", allowCredentials = "true")
     @PostMapping(
             value = "/login",
             produces = MediaType.APPLICATION_JSON_VALUE,
@@ -50,7 +51,7 @@ public class AuthenticationController {
         var response = authMapper.map(dto);
 
         return ResponseEntity.ok()
-                .header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
+                .header(HttpHeaders.COOKIE, jwtCookie.toString())
                 .body(response);
     }
 
@@ -59,7 +60,7 @@ public class AuthenticationController {
     )
     public ResponseEntity<String> logoutUser() {
         ResponseCookie cookie = jwtUtils.getCleanJwtCookie();
-        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, cookie.toString())
+        return ResponseEntity.ok().header(HttpHeaders.COOKIE, cookie.toString())
                 .body("You've been signed out!");
     }
 }
