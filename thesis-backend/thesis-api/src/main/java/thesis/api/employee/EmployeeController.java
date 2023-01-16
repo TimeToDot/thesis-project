@@ -5,7 +5,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,13 +19,14 @@ import thesis.api.employee.model.project.EmployeeProjectsToApprovePayload;
 import thesis.api.employee.model.project.EmployeeProjectsToApproveRequest;
 import thesis.api.employee.model.project.EmployeeProjectsToApproveResponse;
 import thesis.api.employee.model.task.*;
+import thesis.domain.employee.model.EmployeeUpdatePayloadDTO;
+import thesis.domain.employee.model.PasswordUpdatePayloadDTO;
 import thesis.domain.paging.PagingSettings;
 import thesis.domain.employee.EmployeeService;
 import thesis.security.services.model.UserDetailsDefault;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -69,12 +69,23 @@ public class EmployeeController extends ThesisController {
     @PreAuthorize("hasAuthority(" + CAN_READ + ")")
     public ResponseEntity<UUID> updateEmployee(
             @RequestHeader UUID employeeId,
-            @RequestBody EmployeeUpdatePayload payload
+            @RequestBody EmployeeUpdatePayloadDTO payload
     ) {
-        return ResponseEntity.ok().build();
+        var response = employeeService.updateEmployee(employeeId, payload);
+
+        return ResponseEntity.ok(response);
     }
 
+    @PutMapping("/password")
+    @PreAuthorize("hasAuthority(" + CAN_READ + ")")
+    public ResponseEntity<UUID> updatePasswordEmployee(
+            @RequestHeader UUID employeeId,
+            @RequestBody PasswordUpdatePayloadDTO payload
+    ) {
+        var response = employeeService.updateEmployeePassword(employeeId, payload);
 
+        return ResponseEntity.ok(response);
+    }
 
     @Operation(summary = "Gets employee projects by ID")
     @ApiResponses(value = {

@@ -1,4 +1,4 @@
-package thesis.api.employee.model;
+package thesis.domain.employee.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -7,18 +7,19 @@ import javax.validation.constraints.NotBlank;
 import java.util.Date;
 import java.util.UUID;
 
-public record EmployeeUpdatePayload(
+public record EmployeeUpdatePayloadDTO(
 
         @NotBlank
         @Email
         String email,
 
         String firstName,
+        String middleName,
         String lastName,
         String sex,
 
         @JsonFormat(pattern = "yyyy-MM-dd")
-        String birthDate,
+        Date birthDate,
         String birthPlace,
         String idCardNumber,
         String pesel,
@@ -29,15 +30,19 @@ public record EmployeeUpdatePayload(
         String postalCode,
         String country,
         String phoneNumber,
+        @Email
+        String privateEmail,
         UUID positionId,
 
         @JsonFormat(pattern = "yyyy-MM-dd")
         Date employmentDate,
+        @JsonFormat(pattern = "yyyy-MM-dd")
+        Date exitDate,
         String contractType,
         Integer workingTime,
         Integer wage,
         Integer payday,
-        String accountNumber
-
+        String accountNumber,
+        Boolean active
 ) {
 }

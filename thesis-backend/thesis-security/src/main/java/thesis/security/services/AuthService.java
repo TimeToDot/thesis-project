@@ -76,25 +76,23 @@ public class AuthService {
         var strRoles = authorizationDTO.roles();
         List<Role> roles = new ArrayList<>();
 
+
         if (strRoles == null) {
             throw new RuntimeException("Error: Roles are empty!");
         } else {
             var eRoles = strRoles.stream().map(RoleType::valueOf).toList();
 
             for (RoleType role : eRoles) {
-                switch (role) {
-                    case ROLE_GLOBAL_ADMIN -> {
-                        Role adminRole = roleRepository
-                                .findByName(RoleType.ROLE_GLOBAL_ADMIN)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(adminRole);
-                    }
-                    case ROLE_GLOBAL_USER -> {
-                        Role modRole = roleRepository
-                                .findByName(RoleType.ROLE_GLOBAL_USER)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(modRole);
-                    }
+                if (role == RoleType.ROLE_GLOBAL_ADMIN) {
+                    Role adminRole = roleRepository
+                            .findByName(RoleType.ROLE_GLOBAL_ADMIN)
+                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                    roles.add(adminRole);
+                } else if (role == RoleType.ROLE_GLOBAL_USER) {
+                    Role modRole = roleRepository
+                            .findByName(RoleType.ROLE_GLOBAL_USER)
+                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                    roles.add(modRole);
                 }
             }
         }

@@ -1,30 +1,38 @@
 package thesis.api.employee.model;
 
-import javax.validation.constraints.NotNull;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
 public record EmployeeResponse(
 
-        @NotNull
+        UUID id,
         String firstName,
-        @NotNull
         String lastName,
-        @NotNull
+        String middleName,
         String email,
-        @NotNull
         String password,
+        String idCardNumber,
+        String pesel,
+        String sex,
         UUID positionId,
         Date employmentDate,
+        Date exitDate,
         String imagePath,
-        String sex,
         String birthDate,
+        String birthPlace,
         String phoneNumber,
         String city,
         String street,
+        String houseNumber,
+        String apartmentNumber,
         String postalCode,
         String country,
-        String accountNumber
+        String privateEmail,
+        String accountNumber,
+        String contractType,
+        Integer workingTime,
+        Integer wage,
+        Integer payday,
+        Boolean active
 ) {
 }
