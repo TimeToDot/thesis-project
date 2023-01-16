@@ -1,9 +1,9 @@
-package thesis.api.project.model.employee;
+package thesis.domain.project.model.employee;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public record ProjectEmployeeCreatePayload(
+public record ProjectEmployeeUpdatePayloadDTO(
         UUID projectEmployeeId,
         String contractType,
         LocalDateTime workingTime,

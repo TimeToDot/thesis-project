@@ -8,7 +8,7 @@ import java.util.List;
 
 @Builder
 public record EmployeeProjectsResponse(
-        List<EmployeeProjectResponse> projects,
+        List<EmployeeProjectDetailsResponse> projects,
         Paging paging,
         Sorting sorting
 ) {

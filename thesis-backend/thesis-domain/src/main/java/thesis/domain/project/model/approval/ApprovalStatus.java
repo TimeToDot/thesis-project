@@ -1,4 +1,4 @@
-package thesis.api.project.model.approval;
+package thesis.domain.project.model.approval;
 
 public enum ApprovalStatus {
     PENDING,

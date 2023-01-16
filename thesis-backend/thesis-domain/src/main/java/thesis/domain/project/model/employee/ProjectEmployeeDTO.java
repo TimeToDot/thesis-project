@@ -1,12 +1,12 @@
-package thesis.api.project.model.employee;
+package thesis.domain.project.model.employee;
 
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 
-public record ProjectEmployeeResponse(
+public record ProjectEmployeeDTO(
         UUID projectEmployeeId,
-        ProjectEmployee employee,
+        EmployeeDTO employee,
         String contractType,
         LocalDateTime workingTime,
         Long wage,

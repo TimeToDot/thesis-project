@@ -5,14 +5,16 @@ import java.util.List;
 import java.util.UUID;
 
 public record AuthorizationDTO(
+
         String login,
         String email,
         List<String> roles,
         String password,
         String firstName,
+        String middleName,
         String lastName,
         String sex,
-        String birthDate,
+        Date birthDate,
         String birthPlace,
         String idCardNumber,
         String pesel,
@@ -30,6 +32,7 @@ public record AuthorizationDTO(
         Integer workingTime,
         Integer wage,
         Integer payday,
-        String accountNumber
+        String accountNumber,
+        String imagePath
 ) {
 }

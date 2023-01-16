@@ -1,12 +1,11 @@
-package thesis.api.project.model.task;
+package thesis.domain.position.model;
 
 import java.util.UUID;
 
-public record ProjectTaskUpdatePayload(
+public record PositionUpdatePayloadDTO(
         UUID id,
         String name,
         String description,
         Boolean active
 ) {
-
 }

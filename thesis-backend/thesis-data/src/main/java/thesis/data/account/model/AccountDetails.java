@@ -69,10 +69,13 @@ public class AccountDetails {
 
     private String privateEmail;
 
+    @Temporal(TemporalType.TIMESTAMP)
     private Date employmentDate;
 
+    @Temporal(TemporalType.TIMESTAMP)
     private Date exitDate;
 
+    @Temporal(TemporalType.TIMESTAMP)
     private Date birthDate;
 
     private String birthPlace;

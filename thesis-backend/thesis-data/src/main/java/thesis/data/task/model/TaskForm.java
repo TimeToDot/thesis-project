@@ -34,6 +34,9 @@ public class TaskForm {
   @Temporal(TemporalType.TIMESTAMP)
   private Date createdAt;
 
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date archiveDate;
+
   @ManyToOne
   @JoinColumn(name = "id_project")
   private Project project;

@@ -28,6 +28,8 @@ public class ProjectDetails {
 
   private String options;
 
+  private String imagePath;
+
   @Temporal(TemporalType.TIMESTAMP)
   private Date createdAt;
 

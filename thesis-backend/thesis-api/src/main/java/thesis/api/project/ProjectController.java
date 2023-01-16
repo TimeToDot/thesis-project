@@ -1,59 +1,71 @@
 package thesis.api.project;
 
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import thesis.api.ThesisController;
-import thesis.api.project.model.employee.ProjectEmployeeResponse;
-import thesis.api.project.model.employee.ProjectEmployeeUpdatePayload;
-import thesis.api.project.model.employee.ProjectEmployeesResponse;
-import thesis.api.project.model.task.ProjectTaskCreatePayload;
-import thesis.api.project.model.task.ProjectTaskResponse;
-import thesis.api.project.model.task.ProjectTaskUpdatePayload;
-import thesis.api.project.model.task.ProjectTasksResponse;
+import thesis.domain.project.ProjectService;
+import thesis.domain.project.model.employee.ProjectEmployeeDTO;
+import thesis.domain.project.model.employee.ProjectEmployeeUpdatePayloadDTO;
+import thesis.domain.project.model.employee.ProjectEmployeesDTO;
+import thesis.domain.project.model.task.ProjectTaskCreatePayloadDTO;
+import thesis.domain.project.model.task.ProjectTaskDTO;
+import thesis.domain.project.model.task.ProjectTaskUpdatePayloadDTO;
+import thesis.domain.project.model.task.ProjectTasksDTO;
 import thesis.domain.paging.PagingSettings;
 
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
+@Slf4j
+@AllArgsConstructor
 @RestController
 @RequestMapping("/api/project")
 public class ProjectController extends ThesisController {
 
+    private final ProjectService projectService;
+
+    @PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#projectId, 'CAR_READ')")
     @GetMapping("/task/{taskId}")
-    public ResponseEntity<ProjectTaskResponse> getProjectTask(
+    public ResponseEntity<ProjectTaskDTO> getProjectTask(
             @RequestHeader @NotNull UUID employeeId,
             @RequestHeader @NotNull UUID projectId,
             @PathVariable UUID taskId){
 
-        // TODO: 28/12/2022
-        return null;
+        var response = projectService.getProjectTask(projectId, taskId);
+        return ResponseEntity.ok(response);
 
     }
 
+    @PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#projectId, 'CAN_MANAGE_TASKS')")
     @PutMapping("/task")
-    public ResponseEntity<ProjectTaskResponse> updateProjectTask(
+    public ResponseEntity<ProjectTaskDTO> updateProjectTask(
             @RequestHeader @NotNull UUID employeeId,
             @RequestHeader @NotNull UUID projectId,
-            @RequestBody ProjectTaskUpdatePayload payload){
+            @RequestBody ProjectTaskUpdatePayloadDTO payload){
 
         // TODO: 28/12/2022
         return null;
 
     }
 
+    @PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#projectId, 'CAN_MANAGE_TASKS')")
     @PostMapping("/task")
-    public ResponseEntity<ProjectTaskResponse> addProjectTask(
+    public ResponseEntity<ProjectTaskDTO> addProjectTask(
             @RequestHeader @NotNull UUID employeeId,
             @RequestHeader @NotNull UUID projectId,
-            @RequestBody ProjectTaskCreatePayload payload
+            @RequestBody ProjectTaskCreatePayloadDTO payload
             ){
 
         // TODO: 28/12/2022
         return null;
     }
 
+    @PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#projectId, 'CAN_READ')")
     @GetMapping("/tasks")
-    public ResponseEntity<ProjectTasksResponse> getProjectTasks(
+    public ResponseEntity<ProjectTasksDTO> getProjectTasks(
             @RequestHeader @NotNull UUID employeeId,
             @RequestHeader @NotNull UUID projectId,
             @RequestParam(value="active", required = false, defaultValue = "true") Boolean active){
@@ -63,8 +75,9 @@ public class ProjectController extends ThesisController {
 
     }
 
+    @PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#projectId, 'CAN_MANAGE_PROJECT_USERS')")
     @GetMapping("/employee")
-    public ResponseEntity<ProjectEmployeeResponse> getProjectEmployee(
+    public ResponseEntity<ProjectEmployeeDTO> getProjectEmployee(
             @RequestHeader @NotNull UUID employeeId,
             @RequestHeader @NotNull UUID projectId
     ){
@@ -72,28 +85,31 @@ public class ProjectController extends ThesisController {
         return null;
     }
 
+    @PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#projectId, 'CAN_MANAGE_PROJECT_USERS')")
     @PostMapping("/employee")
-    public ResponseEntity<ProjectEmployeeResponse> addProjectEmployee(
+    public ResponseEntity<ProjectEmployeeDTO> addProjectEmployee(
             @RequestHeader @NotNull UUID employeeId,
             @RequestHeader @NotNull UUID projectId,
-            @RequestBody ProjectEmployeeUpdatePayload payload
+            @RequestBody ProjectEmployeeUpdatePayloadDTO payload
     ){
         // TODO: 28/12/2022 stworzyc payload
         return null;
     }
 
+    @PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#projectId, 'CAN_MANAGE_PROJECT_USERS')")
     @PutMapping("/employee")
-    public ResponseEntity<ProjectEmployeeResponse> updateProjectEmployee(
+    public ResponseEntity<ProjectEmployeeDTO> updateProjectEmployee(
             @RequestHeader @NotNull UUID employeeId,
             @RequestHeader @NotNull UUID projectId,
-            @RequestBody ProjectEmployeeUpdatePayload payload
+            @RequestBody ProjectEmployeeUpdatePayloadDTO payload
     ){
         // TODO: 28/12/2022 stworzyc payload
         return null;
     }
 
+    @PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#projectId, 'CAN_MANAGE_PROJECT_USERS')")
     @GetMapping("/employees")
-    public ResponseEntity<ProjectEmployeesResponse> getProjectEmployees(
+    public ResponseEntity<ProjectEmployeesDTO> getProjectEmployees(
             @RequestHeader @NotNull UUID employeeId,
             @RequestHeader @NotNull UUID projectId,
             @RequestBody PagingSettings settings,
@@ -103,8 +119,9 @@ public class ProjectController extends ThesisController {
         return null;
     }
 
+    @PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#projectId, 'CAN_MANAGE_PROJECT_USERS')")
     @GetMapping("/approvals")
-    public ResponseEntity<ProjectEmployeesResponse> getProjectApprovals(
+    public ResponseEntity<ProjectEmployeesDTO> getProjectApprovals(
             @RequestHeader @NotNull UUID employeeId,
             @RequestHeader @NotNull UUID projectId,
             @RequestBody PagingSettings settings,

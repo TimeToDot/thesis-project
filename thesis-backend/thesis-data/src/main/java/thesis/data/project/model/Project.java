@@ -37,7 +37,7 @@ public class Project {
   @ToString.Exclude
   private ProjectDetails details;
 
-  @OneToMany(mappedBy = "project", fetch = FetchType.LAZY)
+  @OneToMany(mappedBy = "project", fetch = FetchType.EAGER)
   @ToString.Exclude
   private List<AccountProject> accountProjects;
 

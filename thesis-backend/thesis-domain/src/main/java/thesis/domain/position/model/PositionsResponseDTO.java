@@ -1,4 +1,4 @@
-package thesis.api.position.model;
+package thesis.domain.position.model;
 
 import lombok.Builder;
 import thesis.domain.paging.Paging;
@@ -9,8 +9,8 @@ import java.util.List;
 
 
 @Builder
-public record PositionsResponse(
-        List<PositionResponse> positions,
+public record PositionsResponseDTO(
+        List<PositionResponseDTO> positions,
         Paging paging,
         Sorting sorting
 ){

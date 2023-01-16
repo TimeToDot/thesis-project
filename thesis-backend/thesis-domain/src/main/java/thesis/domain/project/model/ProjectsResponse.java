@@ -1,4 +1,4 @@
-package thesis.api.project.model;
+package thesis.domain.project.model;
 
 import java.util.List;
 
