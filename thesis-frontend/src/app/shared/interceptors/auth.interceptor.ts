@@ -17,9 +17,12 @@ export const authInterceptor: HttpInterceptorFn = (
   let authReq = request;
   const tokenService = inject(TokenService);
   const token = tokenService.getToken();
-  if (token) {
+  const employeeId = tokenService.getEmployee();
+  if (token && employeeId) {
     authReq = request.clone({
-      headers: request.headers.set(TOKEN_HEADER_KEY, `Bearer ${token}`),
+      headers: request.headers
+        .set(TOKEN_HEADER_KEY, `thesis=${token}`)
+        .set('employeeId', employeeId),
       withCredentials: true,
     });
   }
