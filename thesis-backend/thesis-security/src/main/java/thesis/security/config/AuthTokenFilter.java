@@ -2,11 +2,11 @@ package thesis.security.config;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 import thesis.security.services.UserDetailsServiceDefault;
 
@@ -31,7 +31,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
             log.info("doFilter");
             var jwt = parseJwt(request);
 
-            if (StringUtils.isNotEmpty(jwt) && jwtUtils.validateJwtToken(jwt)){
+            if (jwt != null && !jwt.isEmpty() && jwtUtils.validateJwtToken(jwt)){
                 var login = jwtUtils.getLoginFromJwtToken(jwt);
                 var userDetails = userDetailsService.loadUserByUsername(login);
                 var authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
@@ -48,6 +48,14 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     }
 
     private String parseJwt(HttpServletRequest request) {
-        return jwtUtils.getJwtFromCookies(request);
+        String headerAuth = request.getHeader("Authorization");
+
+        if (StringUtils.hasText(headerAuth) && headerAuth.startsWith("thesis=")) {
+            return headerAuth.substring(7);
+        }
+
+        return null;
     }
+
+
 }

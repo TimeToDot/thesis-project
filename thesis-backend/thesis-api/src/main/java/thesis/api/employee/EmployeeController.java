@@ -56,7 +56,7 @@ public class EmployeeController extends ThesisController {
             @ApiResponse(responseCode = "500", description = "Internal server error")
     })
     @GetMapping
-    @PreAuthorize("hasAuthority(" + CAN_READ + ")")
+    @PreAuthorize("hasAuthority('CAN_READ')")
     public ResponseEntity<EmployeeResponse> getEmployee(@RequestHeader UUID employeeId) {
 
         var employeeDTO = employeeService.getEmployee(employeeId);
@@ -66,7 +66,7 @@ public class EmployeeController extends ThesisController {
     }
 
     @PutMapping
-    @PreAuthorize("hasAuthority(" + CAN_READ + ")")
+    @PreAuthorize("hasAuthority('CAN_READ')")
     public ResponseEntity<UUID> updateEmployee(
             @RequestHeader UUID employeeId,
             @RequestBody EmployeeUpdatePayloadDTO payload
@@ -77,7 +77,7 @@ public class EmployeeController extends ThesisController {
     }
 
     @PutMapping("/password")
-    @PreAuthorize("hasAuthority(" + CAN_READ + ")")
+    @PreAuthorize("hasAuthority('CAN_READ')")
     public ResponseEntity<UUID> updatePasswordEmployee(
             @RequestHeader UUID employeeId,
             @RequestBody PasswordUpdatePayloadDTO payload
@@ -138,6 +138,7 @@ public class EmployeeController extends ThesisController {
         return ResponseEntity.ok(payload.projectIds());
     }
 
+    @PreAuthorize("hasAuthority('CAN_READ')")
     @GetMapping("/tasks")
     public ResponseEntity<EmployeeTasksResponse> getEmployeeTasks(
             @RequestHeader @NotNull UUID employeeId,
@@ -149,6 +150,7 @@ public class EmployeeController extends ThesisController {
         return ResponseEntity.ok(tasksResponse);
     }
 
+    @PreAuthorize("hasAuthority('CAN_READ')")
     @GetMapping("/task/{taskId}")
     public ResponseEntity<EmployeeTaskResponse> getEmployeeTask(
             @RequestHeader @NotNull UUID employeeId,
@@ -160,6 +162,7 @@ public class EmployeeController extends ThesisController {
         return ResponseEntity.ok(taskResponse);
     }
 
+    @PreAuthorize("hasAuthority('CAN_READ')")
     @PostMapping("/task")
     public ResponseEntity<UUID> addEmployeeTask(
             @RequestHeader @NotNull UUID employeeId,
@@ -172,6 +175,7 @@ public class EmployeeController extends ThesisController {
         return ResponseEntity.ok(response);
     }
 
+    @PreAuthorize("hasAuthority('CAN_READ')")
     @PutMapping("/task")
     public ResponseEntity<UUID> updateEmployeeTask(
             @RequestHeader @NotNull UUID employeeId,
@@ -185,6 +189,7 @@ public class EmployeeController extends ThesisController {
     }
 
 
+    @PreAuthorize("hasAuthority('CAN_READ')")
     @GetMapping("/calendar")
     public ResponseEntity<EmployeeCalendarResponse> getEmployeeCalendar(
             @RequestHeader @NotNull UUID employeeId,
