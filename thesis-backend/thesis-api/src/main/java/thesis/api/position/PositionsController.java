@@ -22,10 +22,14 @@ public class PositionsController extends ThesisController {
     @GetMapping
     public ResponseEntity<PositionsResponseDTO> getPositions(
             @RequestHeader UUID employeeId,
+            @RequestHeader UUID projectId,
             @RequestParam(value="active", required = false, defaultValue = "true") Boolean active,
-            @RequestParam(required = false) PagingSettings settings
+            @RequestParam(value="active", required = false) Integer page,
+            @RequestParam(value="active", required = false) Integer size,
+            @RequestParam(value="active", required = false) String direction,
+            @RequestParam(value="active", required = false) String key
     ){
-        if (settings == null) settings = new PagingSettings();
+        var settings = initPagingSettings(page, size, key, direction);
 
         var response = positionService.getPositions(settings, active);
 
