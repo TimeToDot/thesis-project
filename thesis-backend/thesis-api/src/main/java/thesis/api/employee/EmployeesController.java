@@ -27,7 +27,7 @@ public class EmployeesController extends ThesisController {
     @GetMapping
     public ResponseEntity<EmployeesResponse> getEmployees(
             @RequestHeader UUID employeeId,
-            @RequestBody PagingSettings settings,
+            @RequestParam PagingSettings settings,
             @RequestParam(value="active", required = false, defaultValue = "true") Boolean active
     ){
         var dto = employeeService.getEmployees(settings, active);

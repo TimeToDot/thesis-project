@@ -11,7 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import thesis.api.auth.mapper.AuthMapper;
-import thesis.api.auth.model.AuthenticationRequest;
+import thesis.api.auth.model.AuthenticationPayload;
 import thesis.api.auth.model.AuthenticationResponse;
 import thesis.security.services.AuthService;
 import thesis.security.config.JwtUtils;
@@ -37,9 +37,9 @@ public class AuthenticationController {
             produces = MediaType.APPLICATION_JSON_VALUE,
             consumes = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<AuthenticationResponse> authenticateUser(@Valid @RequestBody AuthenticationRequest authenticationRequest) {
+    public ResponseEntity<AuthenticationResponse> authenticateUser(@Valid @RequestBody AuthenticationPayload authenticationPayload) {
 
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword()));
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationPayload.getUsername(), authenticationPayload.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         var userDetails = (UserDetailsDefault) authentication.getPrincipal();
