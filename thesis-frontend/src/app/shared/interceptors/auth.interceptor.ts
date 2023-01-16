@@ -14,13 +14,13 @@ export const authInterceptor: HttpInterceptorFn = (
   request: HttpRequest<unknown>,
   next: HttpHandlerFn
 ): Observable<HttpEvent<unknown>> => {
-  console.log(request);
   let authReq = request;
   const tokenService = inject(TokenService);
   const token = tokenService.getToken();
   if (token) {
     authReq = request.clone({
       headers: request.headers.set(TOKEN_HEADER_KEY, `Bearer ${token}`),
+      withCredentials: true,
     });
   }
   return next(authReq);

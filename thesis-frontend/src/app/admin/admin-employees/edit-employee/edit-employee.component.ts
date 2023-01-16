@@ -250,26 +250,21 @@ export class EditEmployeeComponent {
     this.disableGuard(true);
     if (value) {
       this.employeesService
-        .archiveAccount(this.getEmployeeData())
+        .archiveEmployee(this.getEmployeeData())
         .pipe(first())
-        .subscribe(employee => {
-          this.employeesService
-            .archiveEmployee(employee)
-            .pipe(first())
-            .subscribe(() => {
-              this.router
-                .navigate(['../..'], { relativeTo: this.route })
-                .then(() => {
-                  setTimeout(
-                    () =>
-                      this.toastService.showToast(
-                        ToastState.Info,
-                        'Employee archived'
-                      ),
-                    200
-                  );
-                  setTimeout(() => this.toastService.dismissToast(), 3200);
-                });
+        .subscribe(() => {
+          this.router
+            .navigate(['../..'], { relativeTo: this.route })
+            .then(() => {
+              setTimeout(
+                () =>
+                  this.toastService.showToast(
+                    ToastState.Info,
+                    'Employee archived'
+                  ),
+                200
+              );
+              setTimeout(() => this.toastService.dismissToast(), 3200);
             });
         });
     }
@@ -290,15 +285,10 @@ export class EditEmployeeComponent {
     this.disableGuard(true);
     if (value) {
       this.employeesService
-        .updateAccount(this.getEmployeeData())
+        .updateEmployee(this.getEmployeeData())
         .pipe(first())
-        .subscribe(employee => {
-          this.employeesService
-            .updateEmployee(employee)
-            .pipe(first())
-            .subscribe(() => {
-              this.redirectAfterSave();
-            });
+        .subscribe(() => {
+          this.redirectAfterSave();
         });
     }
   }

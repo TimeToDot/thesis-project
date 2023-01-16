@@ -11,84 +11,24 @@ import { Approval } from '../../tracker/models/approval.model';
   providedIn: 'root',
 })
 export class EmployeesService {
-  private url: string = 'http://localhost:3000/employees';
+  private url: string = 'http://localhost:8080/thesis/api';
 
   constructor(private http: HttpClient) {}
 
   getEmployee(id: string): Observable<Account> {
-    return this.http.get<Account>(`${this.url}/${id}`);
+    return this.http.get<Account>(`${this.url}/employee/${id}`);
   }
 
-  addEmployee(employee: Account): Observable<Employee> {
-    const newEmp: Employee = {
-      id: employee.id,
-      firstName: employee.firstName,
-      lastName: employee.lastName,
-      email: employee.email,
-      image: employee.image,
-      position: employee.position.name,
-      employmentDate: employee.employmentDate,
-      workingTime: Number(employee.workingTime),
-      wage: Number(employee.wage),
-      contractType: employee.contractType,
-      active: Boolean(employee.active),
-    };
-    return this.http.post<Employee>(this.url, newEmp);
+  addEmployee(employee: Account): Observable<Account> {
+    return this.http.post<Account>(this.url, employee);
   }
 
-  addAccount(employee: Account): Observable<Account> {
-    return this.http.post<Account>('http://localhost:3000/accounts', employee);
+  updateEmployee(employee: Account): Observable<Account> {
+    return this.http.put<Account>(`${this.url}/${employee.id}`, employee);
   }
 
-  updateEmployee(employee: Account): Observable<Employee> {
-    const newEmp: Employee = {
-      id: employee.id,
-      firstName: employee.firstName,
-      lastName: employee.lastName,
-      email: employee.email,
-      image: employee.image,
-      position: employee.position.name,
-      employmentDate: employee.employmentDate,
-      workingTime: Number(employee.workingTime),
-      wage: Number(employee.wage),
-      contractType: employee.contractType,
-      active: Boolean(employee.active),
-    };
-    return this.http.put<Employee>(`${this.url}post/${newEmp.id}`, newEmp);
-  }
-
-  updateAccount(employee: Account): Observable<Account> {
-    return this.http.put<Account>(
-      `http://localhost:3000/accounts/${employee.id}`,
-      employee
-    );
-  }
-
-  archiveEmployee(employee: Account): Observable<Employee> {
-    const newEmp: Employee = {
-      id: employee.id,
-      firstName: employee.firstName,
-      lastName: employee.lastName,
-      email: employee.email,
-      image: employee.image,
-      position: employee.position.name,
-      employmentDate: employee.employmentDate,
-      workingTime: Number(employee.workingTime),
-      wage: Number(employee.wage),
-      contractType: employee.contractType,
-      exitDate: formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en'),
-      active: false,
-    };
-    return this.http.put<Employee>(`${this.url}post/${newEmp.id}`, newEmp);
-  }
-
-  archiveAccount(employee: Account): Observable<Account> {
-    employee.active = false;
-    employee.exitDate = formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en');
-    return this.http.put<Account>(
-      `http://localhost:3000/accounts/${employee.id}`,
-      employee
-    );
+  archiveEmployee(employee: Account): Observable<Account> {
+    return this.http.put<Account>(`${this.url}/${employee.id}`, employee);
   }
 
   getEmployees(): Observable<Employee[]> {
