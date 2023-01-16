@@ -64,9 +64,8 @@ export class TrackerComponent implements OnInit, OnDestroy {
   }
 
   getEmployeeCalendar(): void {
-    const employeeId = this.authService.getLoggedEmployeeId();
     this.employeeTasksService
-      .getEmployeeCalendar(employeeId)
+      .getEmployeeCalendar()
       .pipe(first())
       .subscribe(calendar => {
         this.$employeeCalendar.next(calendar);
