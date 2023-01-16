@@ -12,6 +12,7 @@ export class TokenService {
 
   signOut(): void {
     this.cookieService.delete(this.TOKEN_KEY);
+    window.localStorage.clear();
   }
 
   saveToken(token: string): void {

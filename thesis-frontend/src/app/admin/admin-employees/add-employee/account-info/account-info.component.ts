@@ -68,6 +68,7 @@ export class AccountInfoComponent {
   add(value: boolean): void {
     this.disableGuard.emit(true);
     if (value) {
+      console.log(this.getEmployeeData());
       this.employeesService
         .addEmployee(this.getEmployeeData())
         .pipe(first())
@@ -83,7 +84,7 @@ export class AccountInfoComponent {
       firstName: this.controls.firstName?.value,
       middleName: this.controls.middleName?.value,
       lastName: this.controls.lastName?.value,
-      sex: this.controls.sex?.value,
+      sex: this.controls.sex?.value.name,
       birthDate: this.controls.birthDate?.value,
       birthPlace: this.controls.birthPlace?.value,
       idCardNumber: this.controls.idCardNumber?.value,
@@ -93,12 +94,12 @@ export class AccountInfoComponent {
       apartmentNumber: this.controls.apartmentNumber?.value,
       city: this.controls.city?.value,
       postalCode: this.controls.postalCode?.value,
-      country: this.controls.country?.value,
+      country: this.controls.country?.value.name,
       phoneNumber: this.controls.phoneNumber?.value,
       privateEmail: this.controls.privateEmail?.value,
-      position: this.controls.position?.value,
+      position: this.controls.position?.value.id,
       employmentDate: this.controls.employmentDate?.value,
-      contractType: this.controls.contractType?.value,
+      contractType: this.controls.contractType?.value.id,
       workingTime: this.controls.workingTime?.value,
       wage: this.controls.wage?.value,
       payday: this.controls.payday?.value,
