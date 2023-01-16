@@ -2,6 +2,7 @@ package thesis.data.account.model;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.Hibernate;
@@ -22,6 +23,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @SuperBuilder
 @Getter
+@Setter
 @Entity
 @Table(
         name = "account",

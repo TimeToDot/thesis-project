@@ -3,12 +3,15 @@ package thesis.domain.employee;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import thesis.data.account.AccountDetailsRepository;
 import thesis.data.account.AccountRepository;
 import thesis.data.account.model.Account;
+import thesis.data.account.model.AccountDetails;
 import thesis.data.account.model.StatusType;
+import thesis.data.position.PositionRepository;
 import thesis.data.project.AccountProjectRepository;
 import thesis.data.project.ProjectRepository;
 import thesis.data.project.model.AccountProject;
@@ -51,6 +54,9 @@ public class EmployeeService {
     private final TaskFormDTOMapper taskFormDTOMapper;
     private final EmployeeTasksDTOMapper employeeTasksDTOMapper;
     private final EmployeeTaskDTOMapper employeeTaskDTOMapper;
+    private final PositionRepository positionRepository;
+
+    private final PasswordEncoder passwordEncoder;
 
     private final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'");
 
@@ -77,6 +83,31 @@ public class EmployeeService {
                 .paging(paging)
                 .sorting(sorting)
                 .build();
+    }
+
+    @Transactional
+    public UUID updateEmployee(UUID employeeId, EmployeeUpdatePayloadDTO payloadDTO){
+        var account = accountRepository.findById(employeeId).orElseThrow();
+        var accountDetails = accountDetailsRepository.findByAccount(account).orElseThrow();
+
+        setAccountFields(payloadDTO, account);
+        setAccountDetailsFields(payloadDTO, accountDetails);
+
+        accountRepository.save(account);
+        accountDetailsRepository.save(accountDetails);
+
+        return account.getId();
+    }
+
+    @Transactional
+    public UUID updateEmployeePassword(UUID employeeId, PasswordUpdatePayloadDTO payloadDTO){
+        var account = accountRepository.findById(employeeId).orElseThrow();
+
+        account.setPass(passwordEncoder.encode(payloadDTO.password()));
+
+        accountRepository.save(account);
+
+        return account.getId();
     }
 
     public EmployeeProjectsDTO getEmployeeProjects(UUID id, PagingSettings pagingSettings) {
@@ -314,5 +345,90 @@ public class EmployeeService {
         return dateToConvert.toInstant()
                 .atZone(ZoneId.systemDefault())
                 .toLocalDateTime();
+    }
+
+    private void setAccountDetailsFields(EmployeeUpdatePayloadDTO payloadDTO, AccountDetails accountDetails) {
+        if (payloadDTO.firstName() != null) {
+            accountDetails.setName(payloadDTO.firstName());
+        }
+        if (payloadDTO.lastName() != null) {
+            accountDetails.setSurname(payloadDTO.lastName());
+        }
+        if (payloadDTO.middleName() != null) {
+            accountDetails.setMiddleName(payloadDTO.middleName());
+        }
+        if (payloadDTO.sex() != null) {
+            accountDetails.setSex(payloadDTO.sex());
+        }
+        if (payloadDTO.birthDate() != null) {
+            accountDetails.setBirthDate(payloadDTO.birthDate());
+        }
+        if (payloadDTO.birthPlace() != null) {
+            accountDetails.setBirthPlace(payloadDTO.birthPlace());
+        }
+        if (payloadDTO.employmentDate() != null) {
+            accountDetails.setEmploymentDate(payloadDTO.employmentDate());
+        }
+        if (payloadDTO.exitDate() != null) {
+            accountDetails.setExitDate(payloadDTO.exitDate());
+        }
+        if (payloadDTO.apartmentNumber() != null) {
+            accountDetails.setApartmentNumber(payloadDTO.apartmentNumber());
+        }
+        if (payloadDTO.houseNumber() != null) {
+            accountDetails.setHouseNumber(payloadDTO.houseNumber());
+        }
+        if (payloadDTO.street() != null) {
+            accountDetails.setStreet(payloadDTO.street());
+        }
+        if (payloadDTO.city() != null) {
+            accountDetails.setCity(payloadDTO.city());
+        }
+        if (payloadDTO.postalCode() != null) {
+            accountDetails.setPostalCode(payloadDTO.postalCode());
+        }
+        if (payloadDTO.country() != null) {
+            accountDetails.setCountry(payloadDTO.country());
+        }
+        if (payloadDTO.pesel() != null) {
+            accountDetails.setPesel(payloadDTO.pesel());
+        }
+        if (payloadDTO.accountNumber() != null) {
+            accountDetails.setTaxNumber(payloadDTO.accountNumber());
+        }
+        if (payloadDTO.idCardNumber() != null) {
+            accountDetails.setIdCardNumber(payloadDTO.idCardNumber());
+        }
+        if (payloadDTO.phoneNumber() != null) {
+            accountDetails.setPhoneNumber(payloadDTO.phoneNumber());
+        }
+        if (payloadDTO.privateEmail() != null) {
+            accountDetails.setPrivateEmail(payloadDTO.privateEmail());
+        }
+        if (payloadDTO.workingTime() != null) {
+            accountDetails.setWorkingTime(payloadDTO.workingTime());
+        }
+        if (payloadDTO.wage() != null) {
+            accountDetails.setWage(payloadDTO.wage());
+        }
+        if (payloadDTO.payday() != null) {
+            accountDetails.setPayday(payloadDTO.payday());
+        }
+    }
+
+    private void setAccountFields(EmployeeUpdatePayloadDTO payloadDTO, Account account) {
+        if(payloadDTO.active() != null){
+            if (Boolean.TRUE.equals(payloadDTO.active())) {
+                account.setStatus(StatusType.ENABLE);
+            }
+            account.setStatus(StatusType.EXPIRED);
+        }
+        if (payloadDTO.positionId() != null){
+            var position = positionRepository.findById(payloadDTO.positionId()).orElseThrow();
+            account.setPosition(position);
+        }
+        if (payloadDTO.email() != null){
+            account.setEmail(payloadDTO.email());
+        }
     }
 }

@@ -3,6 +3,7 @@ package thesis.security;
 import lombok.AllArgsConstructor;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -83,10 +84,12 @@ public class SecurityConfiguration {
   @Bean
   public CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration configuration = new CorsConfiguration();
-    configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
-    configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE","OPTIONS"));
-    configuration.setAllowCredentials(true);
-    configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type", "Set-Cookie"));
+
+    configuration.setAllowCredentials(Boolean.TRUE);
+    configuration.setAllowedOriginPatterns(Collections.singletonList("*"));
+    configuration.setAllowedHeaders(Collections.singletonList("*"));
+    configuration.setAllowedMethods(Collections.singletonList("*"));
+
     final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
     source.registerCorsConfiguration("/**", configuration);
     return source;

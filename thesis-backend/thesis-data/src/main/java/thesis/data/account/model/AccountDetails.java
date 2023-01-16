@@ -2,6 +2,7 @@ package thesis.data.account.model;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.Hibernate;
@@ -13,6 +14,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Getter
+@Setter
 @SuperBuilder
 @ToString
 @RequiredArgsConstructor
@@ -31,6 +33,8 @@ public class AccountDetails {
     @NotBlank(message = "name is required")
     private String name;
 
+    private String middleName;
+
     @NotBlank(message = "surname is required")
     private String surname;
 
@@ -46,14 +50,42 @@ public class AccountDetails {
     @NotBlank(message = "taxNumber is required")
     private String taxNumber;
 
+    private String idCardNumber;
+
     @NotBlank(message = "street is required")
     private String street;
+
+    private String houseNumber;
+
+    private String apartmentNumber;
 
     @NotBlank(message = "street is required")
     private String postalCode;
 
     @NotBlank(message = "city is required")
     private String city;
+
+    private String country;
+
+    private String privateEmail;
+
+    private Date employmentDate;
+
+    private Date exitDate;
+
+    private Date birthDate;
+
+    private String birthPlace;
+
+    private String imagePath;
+
+    private String contractType;
+
+    private Integer workingTime;
+
+    private Integer wage;
+
+    private Integer payday;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;

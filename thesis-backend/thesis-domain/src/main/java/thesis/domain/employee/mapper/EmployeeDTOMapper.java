@@ -4,35 +4,47 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 import thesis.data.account.model.AccountDetails;
-import thesis.data.position.model.Position;
+import thesis.data.account.model.StatusType;
 import thesis.domain.employee.model.EmployeeDTO;
 import thesis.domain.mapper.MapStructConfig;
-
-import java.util.List;
-import java.util.UUID;
 
 @Mapper(config = MapStructConfig.class)
 public interface EmployeeDTOMapper {
 
     EmployeeDTOMapper INSTANCE = Mappers.getMapper(EmployeeDTOMapper.class);
 
+    @Mapping(target = "id", source = "account.id")
     @Mapping(target = "firstName", source = "name")
+    @Mapping(target = "middleName", source = "middleName")
     @Mapping(target = "lastName", source = "surname")
-    @Mapping(target = "email", source = "account.email")
-    @Mapping(target = "password", source = "account.pass")
+    @Mapping(target = "sex", source = "sex")
+    @Mapping(target = "birthDate", source = "birthDate")
+    @Mapping(target = "birthPlace", source = "birthPlace")
+    @Mapping(target = "pesel", source = "pesel")
+    @Mapping(target = "street", source = "street")
+    @Mapping(target = "houseNumber", source = "houseNumber")
+    @Mapping(target = "apartmentNumber", source = "apartmentNumber")
     @Mapping(target = "city", source = "city")
     @Mapping(target = "postalCode", source = "postalCode")
-    @Mapping(target = "street", source = "street")
-    @Mapping(target = "accountNumber", source = "taxNumber")
-    @Mapping(target = "employmentDate", source = "createdAt")
+    @Mapping(target = "country", source = "country")
     @Mapping(target = "phoneNumber", source = "phoneNumber")
     @Mapping(target = "positionId", source = "account.position.id")
-    @Mapping(target = "sex", source = "sex")
+    @Mapping(target = "employmentDate", source = "employmentDate")
+    @Mapping(target = "exitDate", source = "exitDate")
+    @Mapping(target = "contractType", source = "contractType")
+    @Mapping(target = "workingTime", source = "workingTime")
+    @Mapping(target = "wage", source = "wage")
+    @Mapping(target = "payday", source = "payday")
+    @Mapping(target = "accountNumber", source = "taxNumber")
+    @Mapping(target = "email", source = "account.email")
+    @Mapping(target = "password", source = "account.pass")
+    @Mapping(target = "imagePath", source = "imagePath")
+    @Mapping(target = "active", expression = "java(isActive(details.getAccount().getStatus()))")
+
     EmployeeDTO map(AccountDetails details);
 
-    default List<String> map(List<Position> positions) {
-        return positions.stream().map(Position::getId).map(UUID::toString).toList();
+    default boolean isActive(StatusType type){
+        return type.compareTo(StatusType.ENABLE) == 0;
     }
-
 
 }
