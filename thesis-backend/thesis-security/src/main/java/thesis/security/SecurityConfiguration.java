@@ -85,10 +85,11 @@ public class SecurityConfiguration {
   public CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration configuration = new CorsConfiguration();
 
-    configuration.setAllowCredentials(Boolean.TRUE);
+    configuration.setAllowCredentials(true);
     configuration.addAllowedOriginPattern("*");
     configuration.setAllowedHeaders(Collections.singletonList("*"));
     configuration.setAllowedMethods(Collections.singletonList("*"));
+    configuration.addExposedHeader("Cookie");
 
     final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
     source.registerCorsConfiguration("/**", configuration);
