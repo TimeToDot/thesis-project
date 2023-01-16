@@ -2,6 +2,7 @@ import { formatDate } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 import { Day } from '../../calendar/models/day.model';
 import { EmployeeTask } from '../models/employee-task.model';
 
@@ -9,8 +10,6 @@ import { EmployeeTask } from '../models/employee-task.model';
   providedIn: 'root',
 })
 export class EmployeeTasksService {
-  private url: string = 'http://localhost:8080/thesis/api';
-
   constructor(private http: HttpClient) {}
 
   getEmployeeTask(
@@ -18,7 +17,7 @@ export class EmployeeTasksService {
     taskId: string
   ): Observable<EmployeeTask> {
     return this.http.get<EmployeeTask>(
-      `${this.url}/${employeeId}/tasks/${taskId}`
+      `${environment.apiUrl}/${employeeId}/tasks/${taskId}`
     );
   }
 
@@ -27,31 +26,37 @@ export class EmployeeTasksService {
     task: EmployeeTask
   ): Observable<EmployeeTask> {
     return this.http.post<EmployeeTask>(
-      `${this.url}/${employeeId}/tasks`,
+      `${environment.apiUrl}/${employeeId}/tasks`,
       task
     );
   }
 
   getEmployeeLastTasks(employeeId: string): Observable<EmployeeTask[]> {
-    return this.http.get<EmployeeTask[]>(`${this.url}/${employeeId}/tasks`);
+    return this.http.get<EmployeeTask[]>(
+      `${environment.apiUrl}/${employeeId}/tasks`
+    );
   }
 
   getEmployeeTasks(
     employeeId: string,
     date: string
   ): Observable<EmployeeTask[]> {
-    date = formatDate(date, 'yyyy-MM-dd', 'en');
+    const startDate = formatDate(date, 'yyyy-MM-dd', 'en') + 'T00:00';
+    const endDate = formatDate(date, 'yyyy-MM-dd', 'en') + 'T23:59';
     return this.http.get<EmployeeTask[]>(
-      `${this.url}/employee/tasks?date=${date}`
+      `${environment.apiUrl}/employee/tasks?startDate=${startDate}&endDate=${endDate}`
     );
   }
 
   getEmployeeCalendar(): Observable<Day[]> {
-    return this.http.get<Day[]>(`${this.url}/employee/calendar`).pipe(
-      map(value => {
-        console.log(value);
-        return value;
-      })
-    );
+    const date = formatDate(new Date(Date.now()), 'MM-yyyy', 'en');
+    return this.http
+      .get<Day[]>(`${environment.apiUrl}/employee/calendar?date=${date}`)
+      .pipe(
+        map(value => {
+          console.log(value);
+          return value;
+        })
+      );
   }
 }

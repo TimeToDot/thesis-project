@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { first, map, Observable, tap } from 'rxjs';
+import { environment } from '../../../environments/environment';
 import { LoginData } from '../models/login-data.model';
 import { LoginResponse } from '../models/login-response.model';
 import { PermissionsService } from './permissions.service';
@@ -11,7 +12,6 @@ import { TokenService } from './token.service';
 })
 export class AuthService {
   private isLoggedIn: boolean = false;
-  private url: string = 'http://localhost:8080/thesis/api/authentication';
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
@@ -45,10 +45,14 @@ export class AuthService {
 
   login(loginData: LoginData): Observable<boolean> {
     return this.http
-      .post<LoginResponse>(`${this.url}/login`, loginData, {
-        headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-        observe: 'response',
-      })
+      .post<LoginResponse>(
+        `${environment.apiUrl}/authentication/login`,
+        loginData,
+        {
+          headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+          observe: 'response',
+        }
+      )
       .pipe(
         first(),
         tap(res => {
