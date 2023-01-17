@@ -6,7 +6,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import thesis.data.account.model.Account;
 import thesis.data.account.model.StatusType;
+import thesis.data.role.model.Role;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -16,9 +18,10 @@ public interface AccountRepository extends JpaRepository<Account, UUID> {
   Optional<Account> findById(UUID id);
 
   Page<Account> findAllByStatus(StatusType status, Pageable pageable);
-  Optional<Account> findByLogin(String login);
 
-  Boolean existsByLogin(String login);
+  Page<Account> findAllByRolesInAndStatus(List<List<Role>> roles, StatusType status, Pageable pageable);
+
+  Optional<Account> findByEmail(String email);
 
   Boolean existsByEmail(String email);
 }

@@ -8,7 +8,6 @@ public record AuthorizationDTO(
 
         String login,
         String email,
-        List<String> roles,
         String password,
         String firstName,
         String middleName,

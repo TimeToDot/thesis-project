@@ -1,5 +1,7 @@
 package thesis.domain.employee.model;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 import java.util.Arrays;
 
 public enum ContractTypeDTO {
@@ -12,6 +14,11 @@ public enum ContractTypeDTO {
 
     ContractTypeDTO(String label) {
         this.label = label;
+    }
+
+    @JsonValue
+    public String getLabel(){
+        return label;
     }
 
     public static ContractTypeDTO fromValue(String value){

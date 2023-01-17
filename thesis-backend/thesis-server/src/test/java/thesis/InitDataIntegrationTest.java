@@ -17,10 +17,7 @@ import thesis.data.position.model.Position;
 import thesis.data.project.AccountProjectRepository;
 import thesis.data.project.ProjectDetailsRepository;
 import thesis.data.project.ProjectRepository;
-import thesis.data.project.model.Project;
-import thesis.data.project.model.AccountProject;
-import thesis.data.project.model.ProjectAccountStatus;
-import thesis.data.project.model.ProjectDetails;
+import thesis.data.project.model.*;
 import thesis.data.role.RoleRepository;
 import thesis.data.role.model.Role;
 import thesis.data.role.model.RoleType;
@@ -83,7 +80,7 @@ public class InitDataIntegrationTest {
 
 
     private void initData() {
-        if (accountRepository.findByLogin("admin").isPresent()){
+        if (accountRepository.findByEmail("admin@email.com").isPresent()){
             log.info("Initialization data skipped. Entities already there");
             return;
         }
@@ -165,9 +162,9 @@ public class InitDataIntegrationTest {
         var positionManager = positionRepository.findByName("MANAGER_II").orElseThrow(AssertionError::new);
         var positionEmployee = positionRepository.findByName("EMPLOYEE_I").orElseThrow(AssertionError::new);
 
-        var admin = createAccount("admin", "admin", "admin@email.com", adminRole, null);
-        var mod = createAccount("moderator", "moderator", "mod@email.com", userRole, positionManager);
-        var user = createAccount("user", "user", "user@email.com", userRole, positionEmployee);
+        var admin = createAccount("admin@email.com", "admin", "admin@email.com", adminRole, null);
+        var mod = createAccount("mod@email.com", "moderator", "mod@email.com", userRole, positionManager);
+        var user = createAccount("user@email.com", "user", "user@email.com", userRole, positionEmployee);
 
         accountRepository.save(admin);
         Assert.assertNotNull(admin.getId());
@@ -193,6 +190,7 @@ public class InitDataIntegrationTest {
         var project1 = Project.builder()
                 .name("Project1")
                 .owner(accounts.get(0))
+                .status(ProjectType.ACTIVE)
                 .build();
 
         var project2 = Project.builder()
@@ -230,16 +228,26 @@ public class InitDataIntegrationTest {
                 .holidayModifier(50)
                 .imagePath("path")
                 .overtimeModifier(20)
+                .build();
+        var projectDetails3 = ProjectDetails.builder()
+                .project(project3)
+                .createdAt(new Date())
+                .billingPeriod("a")
+                .bonusModifier(1)
+                .nightModifier(12)
+                .holidayModifier(50)
+                .imagePath("path")
+                .overtimeModifier(20)
                 .build();;
 
-        projectDetailsRepository.saveAll(List.of(projectDetails1, projectDetails2));
+        projectDetailsRepository.saveAll(List.of(projectDetails1, projectDetails2, projectDetails3));
 
         return projects;
     }
 
     private Account createAccount(String login, String pass, String email, Role role, Position position){
         return Account.builder()
-                .login(login)
+                //.login(login)
                 .pass(passwordEncoder.encode(pass))
                 .email(email)
                 .roles(List.of(role))
@@ -254,13 +262,13 @@ public class InitDataIntegrationTest {
                 .city(city)
                 .pesel(pesel)
                 .phoneNumber("123123123")
-                .street("Domyslna" + account.getLogin())
+                .street("Domyslna" + account.getEmail())
                 .postalCode("12-123")
                 .taxNumber("123123123123123123")
                 .sex("male")
                 .surname("Domyśliciel")
-                .name("Domyslaw-" + account.getLogin())
-                .city("Domyslice" + account.getLogin())
+                .name("Domyslaw-" + account.getEmail())
+                .city("Domyslice" + account.getEmail())
                 .contractType(ContractType.COMMISSION_CONTRACT.label)
                 .billingPeriod(BillingPeriod.SEASON.label)
                 .build();

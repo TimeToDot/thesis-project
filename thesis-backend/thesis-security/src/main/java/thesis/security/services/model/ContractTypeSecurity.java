@@ -1,5 +1,7 @@
 package thesis.security.services.model;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 import java.util.Arrays;
 
 public enum ContractTypeSecurity {
@@ -13,6 +15,11 @@ public enum ContractTypeSecurity {
 
     private ContractTypeSecurity(String label) {
         this.label = label;
+    }
+
+    @JsonValue
+    public String getLabel(){
+        return label;
     }
 
     public static ContractTypeSecurity fromValue(String value){

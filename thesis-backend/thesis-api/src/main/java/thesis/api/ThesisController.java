@@ -10,8 +10,8 @@ public abstract class ThesisController {
     protected final String CAN_MANAGE_TASKS = "CAN_MANAGE_TASKS";
     protected final String CAN_MANAGE_PROJECT_USERS = "CAN_MANAGE_PROJECT_USERS";
     //administration
-    protected final String CAN_READ_ADMIN = "CAN_READ_ADMIN";
-    protected final String CAN_ADMIN_PROJECTS = "CAN_ADMIN_PROJECTS";
+    protected final String CAN_READ_ADMIN = "CAN_ADMIN_READ";
+    protected final String CAN_ADMIN_PROJECT = "CAN_ADMIN_PROJECT";
 
     //global
     protected final String CAN_READ = "CAN_READ";
@@ -19,8 +19,9 @@ public abstract class ThesisController {
     protected final String CAN_CREATE_USERS = "CAN_CREATE_USERS";
     protected final String CAN_ADMIN_SETTINGS = "CAN_ADMIN_SETTINGS";
     protected final String CAN_ADMIN_POSITIONS = "CAN_ADMIN_POSITIONS";
+    protected final String CAN_ADMIN_PROJECTS = "CAN_ADMIN_PROJECTS";
 
-    protected PagingSettings initPagingSettings(Integer page, Integer size, String key, String direction){
+    protected PagingSettings initPaging(Integer page, Integer size, String key, String direction){
         var settings = new PagingSettings();
 
         if (page != null) settings.setPage(page);

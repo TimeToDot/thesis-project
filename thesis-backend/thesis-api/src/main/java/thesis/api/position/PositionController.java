@@ -37,8 +37,8 @@ public class PositionController extends ThesisController {
     public ResponseEntity<UUID> addPosition(
             @RequestHeader UUID employeeId,
             @RequestHeader(required = false) UUID projectId,
-            @RequestBody PositionCreatePayloadDTO payloadDTO){
-        var response = positionService.addPosition(payloadDTO);
+            @RequestBody PositionCreatePayloadDTO payload){
+        var response = positionService.addPosition(payload);
 
         return ResponseEntity.ok(response);
     }
@@ -49,9 +49,9 @@ public class PositionController extends ThesisController {
     public ResponseEntity<UUID> updatePosition(
             @RequestHeader UUID employeeId,
             @RequestHeader(required = false) UUID projectId,
-            @RequestBody PositionUpdatePayloadDTO payloadDTO
+            @RequestBody PositionUpdatePayloadDTO payload
     ){
-        var response = positionService.updatePosition(payloadDTO);
+        var response = positionService.updatePosition(payload);
 
         return ResponseEntity.ok(response);
     }

@@ -23,9 +23,7 @@ import java.util.UUID;
 @RestController
 public class AuthorizationController {
 
-    private final AccountRepository accountRepository;
     private final AuthService authService;
-    private final PasswordEncoder passwordEncoder;
     private final AuthMapper authMapper;
 
 
@@ -42,12 +40,10 @@ public class AuthorizationController {
     @PostMapping
     public ResponseEntity<UUID> registerUser(@Valid @RequestBody AuthorizationPayload authorizationPayload) {
 
-        if (Boolean.TRUE.equals(authService.isAccountExist(authorizationPayload.getLogin()))) {
+        if (Boolean.TRUE.equals(authService.isAccountExist(authorizationPayload.getEmail()))) {
             return ResponseEntity.badRequest().build();
         }
-        if (Boolean.TRUE.equals(authService.isEmailExist(authorizationPayload.getEmail()))) {
-            return ResponseEntity.badRequest().build();
-        }
+
         var dto = authMapper.mapToAuthorizationDTO(authorizationPayload);
 
         var response = authService.addUser(dto);

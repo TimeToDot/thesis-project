@@ -40,6 +40,8 @@ public class AccountProject {
 
     private Integer workingTime;
 
+    private Integer modifier;
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date joinDate;
 

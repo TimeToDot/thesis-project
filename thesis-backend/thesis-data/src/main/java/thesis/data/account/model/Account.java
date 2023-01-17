@@ -28,7 +28,7 @@ import java.util.UUID;
 @Table(
         name = "account",
         uniqueConstraints = {
-                @UniqueConstraint(columnNames = "login")
+                @UniqueConstraint(columnNames = "email")
         }
 )
 public class  Account {
@@ -37,7 +37,7 @@ public class  Account {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    private String login;
+    //private String login;
 
     private String email;
 
@@ -51,7 +51,7 @@ public class  Account {
     @ToString.Exclude
     private AccountDetails details;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "position_id")
     @ToString.Exclude
     private Position position;

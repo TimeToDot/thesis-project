@@ -2,6 +2,7 @@ package thesis.data.task.model;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import thesis.data.project.model.Project;
@@ -11,6 +12,7 @@ import java.util.Date;
 import java.util.UUID;
 
 @Getter
+@Setter
 @ToString
 @RequiredArgsConstructor
 @SuperBuilder
@@ -22,8 +24,7 @@ public class TaskForm {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private UUID id;
 
-  @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-  @PrimaryKeyJoinColumn
+  @OneToOne(mappedBy = "taskForm", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   @ToString.Exclude
   private TaskFormDetails details;
 

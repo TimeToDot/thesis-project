@@ -2,6 +2,7 @@ package thesis.data.task.model;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import thesis.data.project.model.Project;
@@ -10,6 +11,7 @@ import javax.persistence.*;
 import java.util.UUID;
 
 @Getter
+@Setter
 @ToString
 @RequiredArgsConstructor
 @SuperBuilder

@@ -18,11 +18,11 @@ import java.util.UUID;
 public class ProjectsController extends ThesisController {
 
     private final ProjectService projectService;
-    @PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#projectId, 'CAN_READ')")
+    @PreAuthorize("hasAuthority('CAN_ADMIN_PROJECTS')")
     @GetMapping()
     public ResponseEntity<ProjectsDTO> getProjects(
             @RequestHeader UUID employeeId,
-            @RequestHeader UUID projectId,
+            @RequestHeader(required = false) UUID projectId,
             @RequestParam(value="active", required = false, defaultValue = "true") Boolean active
     ){
 

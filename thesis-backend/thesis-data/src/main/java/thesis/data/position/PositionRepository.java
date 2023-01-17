@@ -3,6 +3,7 @@ package thesis.data.position;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import thesis.data.account.model.Account;
 import thesis.data.position.model.Position;
 import thesis.data.position.model.PositionType;
 
@@ -17,4 +18,6 @@ public interface PositionRepository extends JpaRepository<Position, UUID> {
 
     boolean existsByName(String name);
     Optional<Position> findByName(String name);
+
+    Optional<Position> findByAccounts(Account account);
 }

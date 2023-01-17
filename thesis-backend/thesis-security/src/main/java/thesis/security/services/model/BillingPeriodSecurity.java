@@ -1,5 +1,7 @@
 package thesis.security.services.model;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 import java.util.Arrays;
 
 public enum BillingPeriodSecurity {
@@ -12,6 +14,11 @@ public enum BillingPeriodSecurity {
 
     private BillingPeriodSecurity(String label) {
         this.label = label;
+    }
+
+    @JsonValue
+    public String getLabel(){
+        return label;
     }
 
     public static BillingPeriodSecurity fromValue(String value){

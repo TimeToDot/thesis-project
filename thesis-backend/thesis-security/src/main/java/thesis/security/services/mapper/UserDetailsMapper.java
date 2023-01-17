@@ -17,7 +17,7 @@ public interface UserDetailsMapper {
     UserDetailsMapper INSTANCE = Mappers.getMapper(UserDetailsMapper.class);
 
     @Mapping(target = "id", source = "id")
-    @Mapping(target = "username", source = "login")
+    @Mapping(target = "username", source = "email")
     @Mapping(target = "password", source = "pass")
     @Mapping(target = "email", source = "email")
     @Mapping(target = "authorities", expression = "java(getAuthorities(account))")

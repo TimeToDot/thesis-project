@@ -63,18 +63,14 @@ public class AuthService {
 
     }
 
-    public boolean isAccountExist(String login){
-        return accountRepository.existsByLogin(login);
+    public boolean isAccountExist(String email){
+        return accountRepository.existsByEmail( email);
     }
-
-    public boolean isEmailExist(String email){
-        return accountRepository.existsByEmail(email);
-    }
-
 
     @Transactional
     public UUID addUser(AuthorizationDTO authorizationDTO){
-        var strRoles = authorizationDTO.roles();
+        //vor better times
+        /*var strRoles = authorizationDTO.roles();
         List<Role> roles = new ArrayList<>();
 
 
@@ -96,10 +92,14 @@ public class AuthService {
                     roles.add(modRole);
                 }
             }
-        }
+        }*/
+
+        Role role = roleRepository
+                .findByName(RoleType.ROLE_GLOBAL_USER)
+                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 
         var position = positionRepository.findById(authorizationDTO.positionId()).orElseThrow();
-        var account = getAccount(authorizationDTO, roles, position);
+        var account = getAccount(authorizationDTO, List.of(role), position);
 
         accountRepository.saveAndFlush(account);
 
@@ -143,7 +143,7 @@ public class AuthService {
 
     private Account getAccount(AuthorizationDTO authorizationDTO, List<Role> roles, Position position) {
         return Account.builder()
-                .login(authorizationDTO.login())
+                //.login(authorizationDTO.login())
                 .pass(passwordEncoder.encode(authorizationDTO.password()))
                 .email(authorizationDTO.email())
                 .roles(roles)

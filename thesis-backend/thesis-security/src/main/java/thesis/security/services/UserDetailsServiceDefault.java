@@ -22,7 +22,7 @@ public class UserDetailsServiceDefault implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         Account account = accountRepository
-                .findByLogin(username)
+                .findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
 
         return userDetailsMapper.map(account);

@@ -1,6 +1,6 @@
 CREATE TABLE "account" (
                            "id" uuid DEFAULT gen_random_uuid() PRIMARY KEY,
-                           "login" varchar NOT NULL,
+                           /*"login" varchar NOT NULL,*/
                            "pass" varchar NOT NULL,
                            "status" varchar NOT NULL,
                            "email" varchar NOT NULL,
@@ -45,6 +45,7 @@ CREATE TABLE "account_project" (
                                    "project_id" uuid NOT NULL,
                                    "role_id" uuid NOT NULL,
                                    "working_time" INTEGER,
+                                   "modifier" INTEGER,
                                    "join_date" timestamp NOT NULL,
                                    "exit_date" timestamp,
                                    "status" varchar NOT NULL
@@ -137,7 +138,7 @@ CREATE TABLE "account_message" (
                                    "created_at" timestamp DEFAULT 'now()'
 );
 
-CREATE INDEX ON "account" ("login");
+/*CREATE INDEX ON "account" ("login");*/
 
 CREATE INDEX ON "account" ("email");
 

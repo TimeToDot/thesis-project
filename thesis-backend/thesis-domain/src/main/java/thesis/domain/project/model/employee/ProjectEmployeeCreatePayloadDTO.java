@@ -4,9 +4,9 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 public record ProjectEmployeeCreatePayloadDTO(
-        UUID projectEmployeeId,
-        String contractType,
-        LocalDateTime workingTime,
-        Long wage
+        UUID employeeId,
+        Integer modifier,
+        Integer workingTime,
+        RoleDTOStatus roleDTOStatus
 ) {
 }

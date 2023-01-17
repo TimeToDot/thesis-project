@@ -33,7 +33,7 @@ public class EmployeesController extends ThesisController {
             @RequestParam(value="direction", required = false) String direction,
             @RequestParam(value="key", required = false) String key
     ) {
-        var settings = initPagingSettings(page, size, key, direction);
+        var settings = initPaging(page, size, key, direction);
 
         var dto = employeeService.getEmployees(settings, active);
         var response = employeesMapper.map(dto);

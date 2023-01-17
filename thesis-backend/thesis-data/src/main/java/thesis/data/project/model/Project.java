@@ -2,6 +2,7 @@ package thesis.data.project.model;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.Hibernate;
@@ -13,6 +14,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Getter
+@Setter
 @ToString
 @RequiredArgsConstructor
 @SuperBuilder
@@ -35,8 +37,7 @@ public class Project {
   @JoinColumn(name = "owner_id")
   private Account owner;
 
-  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  @PrimaryKeyJoinColumn
+  @OneToOne(mappedBy = "project", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   @ToString.Exclude
   private ProjectDetails details;
 

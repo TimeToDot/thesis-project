@@ -2,44 +2,41 @@ package thesis.domain.project;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import thesis.data.account.AccountRepository;
 import thesis.data.account.model.Account;
 import thesis.data.account.model.StatusType;
+import thesis.data.position.PositionRepository;
 import thesis.data.project.AccountProjectRepository;
+import thesis.data.project.ProjectDetailsRepository;
 import thesis.data.project.ProjectRepository;
-import thesis.data.project.model.AccountProject;
-import thesis.data.project.model.Project;
-import thesis.data.project.model.ProjectAccountStatus;
-import thesis.data.project.model.ProjectType;
+import thesis.data.project.model.*;
+import thesis.data.role.RoleRepository;
+import thesis.data.role.model.Role;
+import thesis.data.role.model.RoleType;
+import thesis.data.task.TaskFormDetailsRepository;
 import thesis.data.task.TaskFormRepository;
 import thesis.data.task.TaskRepository;
 import thesis.data.task.model.TaskForm;
+import thesis.data.task.model.TaskFormDetails;
 import thesis.data.task.model.TaskFormType;
-import thesis.data.task.model.TaskStatus;
 import thesis.domain.employee.EmployeeService;
 import thesis.domain.employee.model.CalendarTaskDTO;
 import thesis.domain.employee.model.ContractTypeDTO;
-import thesis.domain.paging.PagingHelper;
 import thesis.domain.paging.PagingSettings;
+import thesis.domain.project.model.ProjectCreatePayloadDTO;
 import thesis.domain.project.model.ProjectDTO;
+import thesis.domain.project.model.ProjectUpdatePayloadDTO;
 import thesis.domain.project.model.ProjectsDTO;
 import thesis.domain.project.model.approval.ApprovalStatus;
 import thesis.domain.project.model.approval.ProjectApprovalDTO;
 import thesis.domain.project.model.approval.ProjectApprovalsDTO;
-import thesis.domain.project.model.employee.EmployeeDTO;
-import thesis.domain.project.model.employee.ProjectEmployeeDTO;
-import thesis.domain.project.model.employee.ProjectEmployeesDTO;
-import thesis.domain.project.model.task.ProjectTaskDTO;
-import thesis.domain.project.model.task.ProjectTaskDetailsDTO;
-import thesis.domain.project.model.task.ProjectTasksDTO;
-import thesis.domain.project.model.task.ProjectTasksDetailsDTO;
+import thesis.domain.project.model.employee.*;
+import thesis.domain.project.model.task.*;
 import thesis.domain.task.model.TaskStatusDTO;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static thesis.domain.paging.PagingHelper.*;
 
@@ -49,19 +46,82 @@ import static thesis.domain.paging.PagingHelper.*;
 public class ProjectService {
 
     private final ProjectRepository projectRepository;
+    private final ProjectDetailsRepository projectDetailsRepository;
     private final AccountRepository accountRepository;
     private final AccountProjectRepository accountProjectRepository;
     private final TaskFormRepository taskFormRepository;
+    private final TaskFormDetailsRepository taskFormDetailsRepository;
     private final TaskRepository taskRepository;
     private final EmployeeService employeeService;
+    private final RoleRepository roleRepository;
+    private final PositionRepository positionRepository;
 
     public ProjectDTO getProject(UUID projectId){
         var project = projectRepository.findById(projectId).orElseThrow();
         return getProjectDTO(project);
     }
 
+    @Transactional
+    public UUID addProject(ProjectCreatePayloadDTO payloadDTO){
+        var owner = accountRepository.findById(payloadDTO.moderatorId()).orElseThrow();
+        var project = getProject(payloadDTO, owner);
+
+        projectRepository.save(project);
+
+        var projectDetails = getProjectDetails(payloadDTO, project);
+
+        projectDetailsRepository.save(projectDetails);
+
+        var projectAdminRole = roleRepository.findByName(RoleType.ROLE_PROJECT_ADMIN).orElseThrow();
+        var projectModRole = roleRepository.findByName(RoleType.ROLE_PROJECT_MODERATOR).orElseThrow();
+        var adminList = getAdmins();
+
+        assignToProject(project, projectAdminRole, adminList);
+        assignToProject(project, projectModRole, List.of(owner));
+
+        return project.getId();
+    }
+
+    @Transactional
+    public UUID updateProject(ProjectUpdatePayloadDTO payloadDTO){
+        var project = projectRepository.findById(payloadDTO.projectId()).orElseThrow();
+        var projectDetails = projectDetailsRepository.findByProject(project).orElseThrow();
+        var newOwner = accountRepository.findById(payloadDTO.moderatorId()).orElseThrow();
+        var oldOwner = accountRepository.findById(project.getOwner().getId()).orElseThrow();
+        ProjectType status;
+
+        status = payloadDTO.active()? ProjectType.ACTIVE : ProjectType.INACTIVE;
+        boolean isPermissionChangeNeeded = project.getOwner().getId().compareTo(newOwner.getId()) != 0;
+
+        project.setOwner(newOwner);
+        project.setName(payloadDTO.name());
+        project.setDescription(payloadDTO.description());
+        project.setStatus(status);
+
+        projectRepository.save(project);
+
+        projectDetails.setBillingPeriod(payloadDTO.billingPeriod());
+        projectDetails.setBonusModifier(payloadDTO.bonusModifier());
+        projectDetails.setOvertimeModifier(payloadDTO.overtimeModifier());
+        projectDetails.setBonusModifier(payloadDTO.bonusModifier());
+        projectDetails.setHolidayModifier(payloadDTO.holidayModifier());
+        projectDetails.setNightModifier(payloadDTO.nightModifier());
+        if (status.compareTo(ProjectType.INACTIVE) == 0) projectDetails.setArchiveDate(new Date());
+
+        projectDetailsRepository.save(projectDetails);
+
+        if (isPermissionChangeNeeded){
+            changeOwners(project, newOwner, oldOwner);
+        }
+
+        return project.getId();
+    }
+
     public ProjectsDTO getProjects(Boolean active){
-        var projects = projectRepository.findAllByStatus(active ? ProjectType.ACTIVE : ProjectType.INACTIVE).orElseThrow();
+        var status = Boolean.TRUE.equals(active) ? ProjectType.ACTIVE : ProjectType.INACTIVE;
+
+        var projects = projectRepository.findAllByStatus(status).orElseThrow();
+        //paging for production needed
 
         return ProjectsDTO.builder()
                 .project(projects.stream().map(this::getProjectDTO).toList())
@@ -129,6 +189,44 @@ public class ProjectService {
                 .build();
     }
 
+    @Transactional
+    public UUID addProjectTask(UUID projectId, ProjectTaskCreatePayloadDTO payloadDTO){
+        var project = projectRepository.findById(projectId).orElseThrow();
+
+        var taskForm = TaskForm.builder()
+                .project(project)
+                .name(payloadDTO.name())
+                .description(payloadDTO.description())
+                .createdAt(new Date())
+                .build();
+
+        taskFormRepository.save(taskForm);
+
+        var taskFormDetails = TaskFormDetails.builder()
+                .taskForm(taskForm)
+                .status(TaskFormType.OPEN)
+                .build();
+
+        taskFormDetailsRepository.save(taskFormDetails);
+
+        return taskForm.getId();
+    }
+
+    @Transactional
+    public UUID updateProjectTask(UUID projectId, ProjectTaskUpdatePayloadDTO payloadDTO){
+        var project = projectRepository.findById(projectId).orElseThrow();
+        var taskForm = taskFormRepository.findById(payloadDTO.id()).orElseThrow();
+
+        taskForm.setName(payloadDTO.name());
+        taskForm.setDescription(payloadDTO.description());
+        var status = Boolean.TRUE.equals(payloadDTO.active()) ? TaskFormType.OPEN : TaskFormType.CLOSE;
+        taskForm.getDetails().setStatus(status);
+
+        taskFormRepository.save(taskForm);
+
+        return taskForm.getId();
+    }
+
     public ProjectEmployeeDTO getProjectEmployee(UUID projectId, UUID employeeId){
         var account = accountRepository.findById(employeeId).orElseThrow();
         var project = projectRepository.findById(projectId).orElseThrow();
@@ -139,9 +237,10 @@ public class ProjectService {
         return getProjectEmployeeDTO(accountProject, employeeDTO);
     }
 
+    @Transactional
     public ProjectEmployeesDTO getProjectEmployees(UUID projectId, Boolean active, PagingSettings settings){
         var project = projectRepository.findById(projectId).orElseThrow();
-        var status = active ? ProjectAccountStatus.ACTIVE : ProjectAccountStatus.INACTIVE;
+        var status = Boolean.TRUE.equals(active) ? ProjectAccountStatus.ACTIVE : ProjectAccountStatus.INACTIVE;
 
         var projectAccounts = accountProjectRepository.findAllByProjectIdAndStatus(project.getId(), status, settings.getPageable()).orElseThrow();
 
@@ -149,7 +248,9 @@ public class ProjectService {
         var sorting = getSorting(settings);
 
         var employees = projectAccounts.stream()
-                .map(accountProject -> getProjectEmployeeDTO(accountProject, getEmployeeDTO(accountProject.getAccount())))
+                .map(accountProject -> getProjectEmployeeDTO(
+                        accountProject,
+                        getEmployeeDTO(accountProject.getAccount())))
                 .toList();
 
         return ProjectEmployeesDTO.builder()
@@ -166,7 +267,8 @@ public class ProjectService {
         List<ProjectApprovalDTO> projectApprovalDTOList = new ArrayList<>();
 
         for (AccountProject accountProject : projectAccounts) {
-            addToProjectApprovalList(project, projectApprovalDTOList, accountProject);
+            var projectApprovalDTO = getProjectApprovalDTO(project, accountProject);
+            projectApprovalDTOList.add(projectApprovalDTO);
         }
 
         var paging = getPaging(settings, projectAccounts);
@@ -179,7 +281,47 @@ public class ProjectService {
                 .build();
     }
 
-    private void addToProjectApprovalList(Project project, List<ProjectApprovalDTO> projectApprovalDTOList, AccountProject accountProject) {
+    @Transactional
+    public UUID addProjectEmployee(UUID projectId, ProjectEmployeeCreatePayloadDTO payloadDTO){
+        var project = projectRepository.findById(projectId).orElseThrow();
+        var account = accountRepository.findById(payloadDTO.employeeId()).orElseThrow();
+        var roleType = RoleType.valueOf(payloadDTO.roleDTOStatus().name());
+        var role = roleRepository.findByName(roleType).orElseThrow();
+
+        var accountProject = AccountProject.builder()
+                .project(project)
+                .account(account)
+                .modifier(payloadDTO.modifier())
+                .joinDate(new Date())
+                .workingTime(payloadDTO.workingTime())
+                .status(ProjectAccountStatus.ACTIVE)
+                .role(role)
+                .build();
+
+        accountProjectRepository.save(accountProject);
+
+        return accountProject.getId();
+    }
+
+    @Transactional
+    public UUID updateProjectEmployee(UUID projectId, ProjectEmployeeUpdatePayloadDTO payloadDTO){
+        var project = projectRepository.findById(projectId).orElseThrow();
+        var accountProject = accountProjectRepository.findById(payloadDTO.projectEmployeeId()).orElseThrow();
+        var status = payloadDTO.active() ? ProjectAccountStatus.ACTIVE : ProjectAccountStatus.INACTIVE;
+        var roleType = RoleType.valueOf(payloadDTO.roleDTOStatus().name());
+        var role = roleRepository.findByName(roleType).orElseThrow();
+
+        accountProject.setStatus(status);
+        accountProject.setModifier(payloadDTO.modifier());
+        accountProject.setWorkingTime(payloadDTO.workingTime());
+        accountProject.setRole(role);
+
+        accountProjectRepository.save(accountProject);
+
+        return accountProject.getId();
+    }
+
+    private ProjectApprovalDTO getProjectApprovalDTO(Project project, AccountProject accountProject) {
         var size = 100;
         var page = 1;
         var internalSettings = PagingSettings.builder().page(page).size(size).build();
@@ -198,22 +340,20 @@ public class ProjectService {
         Date date;
         ApprovalStatus status;
 
-        if (map == null){
+        if (map.isEmpty()){
             date = null;
             status = ApprovalStatus.NONE;
         } else {
             date = map.keySet().stream().toList().get(0);
-            status = map.values().stream().toList().get(0);
+            status = ApprovalStatus.valueOf(map.values().stream().toList().get(0).name());
         }
 
-        var approval = ProjectApprovalDTO.builder()
+        return ProjectApprovalDTO.builder()
                 .projectEmployeeId(accountProject.getId())
                 .employee(getEmployeeDTO(accountProject.getAccount()))
                 .status(status)
                 .lastRequest(date)
                 .build();
-
-        projectApprovalDTOList.add(approval);
     }
 
     private Map<Date, ApprovalStatus> getStatus(List<CalendarTaskDTO> calendarTaskDTOList) {
@@ -249,16 +389,15 @@ public class ProjectService {
             return Map.of(tasks.get(tasks.size() - 1).date(), ApprovalStatus.APPROVED);
         }
 
-        return null;
+        return Collections.emptyMap();
         }
 
     private void sort(List<CalendarTaskDTO> tasks) {
-        Collections.sort(tasks,
-                (o1, o2) -> {
-                    if (o1.date() == null || o2.date() == null)
-                        return 0;
-                    return o1.date().compareTo(o2.date());
-                });
+        tasks.sort((o1, o2) -> {
+            if (o1.date() == null || o2.date() == null)
+                return 0;
+            return o1.date().compareTo(o2.date());
+        });
     }
 
     private ProjectEmployeeDTO getProjectEmployeeDTO(AccountProject accountProject, EmployeeDTO employeeDTO) {
@@ -272,14 +411,17 @@ public class ProjectService {
                 .build();
     }
 
-    private EmployeeDTO getEmployeeDTO(Account account) {
+    private EmployeeDTO getEmployeeDTO(Account accountTemp) {
+        var account = accountRepository.findById(accountTemp.getId()).orElseThrow();
+        var position = account.getPosition();
+
         return EmployeeDTO.builder()
                 .employeeId(account.getId())
                 .firstName(account.getDetails().getName())
                 .lastName(account.getDetails().getSurname())
                 .email(account.getEmail())
                 .imagePath(account.getDetails().getImagePath())
-                .position(account.getPosition().getId())
+                .position(position == null ? null : position.getId())
                 .employmentDate(account.getDetails().getEmploymentDate())
                 .contractTypeDTO(ContractTypeDTO.fromValue(account.getDetails().getContractType()))
                 .wage(account.getDetails().getWage())
@@ -307,7 +449,8 @@ public class ProjectService {
                 .build();
     }
 
-    private ProjectDTO getProjectDTO(Project project) {
+    private ProjectDTO getProjectDTO(Project projectTemp) {
+        var project = projectRepository.findById(projectTemp.getId()).orElseThrow();
         var accountsNumber = project.getAccountProjects().stream().map(AccountProject::getAccount).toList().size();
 
         return ProjectDTO.builder()
@@ -324,5 +467,80 @@ public class ProjectService {
                 .employeesCount(accountsNumber)
                 .active(project.getStatus().compareTo(ProjectType.ACTIVE) == 0)
                 .build();
+    }
+
+    private void assignToProject(Project project, Role projectRole, List<Account> adminList) {
+        adminList.forEach(account -> {
+            var adminProject = AccountProject.builder()
+                    .account(account)
+                    .project(project)
+                    .role(projectRole)
+                    .joinDate(new Date())
+                    .status(ProjectAccountStatus.ACTIVE)
+                    .build();
+
+            accountProjectRepository.save(adminProject);
+        });
+    }
+
+    private ArrayList<Account> getAdmins() {
+        var size = 100;
+        var page = 1;
+        var role = roleRepository.findByName(RoleType.ROLE_GLOBAL_ADMIN).orElseThrow();
+        var jpaRole = List.of(List.of(role));
+
+        var settings = PagingSettings.builder().page(page).size(size).build();
+        var admins = accountRepository.findAllByRolesInAndStatus(jpaRole, StatusType.ENABLE, settings.getPageable());
+        var adminList = new ArrayList<>(admins.stream().toList());
+
+        while (admins.getTotalPages() > page) {
+            page += 1;
+            settings = PagingSettings.builder().page(page).size(size).build();
+            admins = accountRepository.findAllByRolesInAndStatus(jpaRole, StatusType.ENABLE, settings.getPageable());
+            adminList.addAll(admins.stream().toList());
+        }
+
+        return adminList;
+    }
+
+    private Project getProject(ProjectCreatePayloadDTO payloadDTO, Account owner) {
+        return Project.builder()
+                .name(payloadDTO.name())
+                .description(payloadDTO.description())
+                .owner(owner)
+                .status(ProjectType.ACTIVE)
+                .build();
+    }
+
+    private ProjectDetails getProjectDetails(ProjectCreatePayloadDTO payloadDTO, Project project) {
+        return ProjectDetails.builder()
+                .project(project)
+                .createdAt(new Date())
+                .imagePath(payloadDTO.image())
+                .billingPeriod(payloadDTO.billingPeriod())
+                .overtimeModifier(payloadDTO.overtimeModifier())
+                .bonusModifier(payloadDTO.bonusModifier())
+                .holidayModifier(payloadDTO.holidayModifier())
+                .nightModifier(payloadDTO.nightModifier())
+                .build();
+    }
+
+    private void changeOwners(Project project, Account newOwner, Account oldOwner) {
+        var accountProject = accountProjectRepository.findByAccountIdAndProjectId(oldOwner.getId(), project.getId()).orElseThrow();
+        var projectModRole = roleRepository.findByName(RoleType.ROLE_PROJECT_MODERATOR).orElseThrow();
+
+        accountProject.setStatus(ProjectAccountStatus.EXPIRED_MOD);
+        // accountProjectRepository.delete(accountProject); not curently not necessary
+        accountProjectRepository.save(accountProject);
+
+        var newAccountProject = AccountProject.builder()
+                .project(project)
+                .account(newOwner)
+                .joinDate(new Date())
+                .status(ProjectAccountStatus.MOD)
+                .role(projectModRole)
+                .build();
+
+        accountProjectRepository.save(newAccountProject);
     }
 }

@@ -7,8 +7,8 @@ public enum PrivilegeType {
   CAN_MANAGE_TASKS,
   CAN_MANAGE_PROJECT_USERS,
   //administration
-  CAN_READ_ADMIN,
-  CAN_ADMIN_PROJECTS,
+  CAN_ADMIN_READ,
+  CAN_ADMIN_PROJECT,
 
   //global
   CAN_READ,
@@ -18,5 +18,7 @@ public enum PrivilegeType {
 
   CAN_ADMIN_SETTINGS,
 
-  CAN_ADMIN_POSITIONS
+  CAN_ADMIN_POSITIONS,
+
+  CAN_ADMIN_PROJECTS
 }

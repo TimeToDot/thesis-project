@@ -1,5 +1,7 @@
 package thesis.domain.employee.model;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 import java.util.Arrays;
 
 public enum BillingPeriodDTO {
@@ -13,6 +15,11 @@ public enum BillingPeriodDTO {
 
     private BillingPeriodDTO(String label) {
         this.label = label;
+    }
+
+    @JsonValue
+    public String getLabel(){
+        return label;
     }
 
     public static BillingPeriodDTO fromValue(String value){

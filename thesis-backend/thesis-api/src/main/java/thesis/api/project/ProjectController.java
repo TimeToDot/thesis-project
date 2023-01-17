@@ -7,13 +7,15 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import thesis.api.ThesisController;
 import thesis.domain.project.ProjectService;
+import thesis.domain.project.model.ProjectCreatePayloadDTO;
+import thesis.domain.project.model.ProjectUpdatePayloadDTO;
 import thesis.domain.project.model.approval.ProjectApprovalsDTO;
+import thesis.domain.project.model.employee.ProjectEmployeeCreatePayloadDTO;
 import thesis.domain.project.model.employee.ProjectEmployeeDTO;
 import thesis.domain.project.model.employee.ProjectEmployeeUpdatePayloadDTO;
 import thesis.domain.project.model.employee.ProjectEmployeesDTO;
 import thesis.domain.project.model.task.*;
 
-import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @Slf4j
@@ -27,51 +29,55 @@ public class ProjectController extends ThesisController {
     @PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#projectId, 'CAR_READ')")
     @GetMapping("/task/{taskId}")
     public ResponseEntity<ProjectTaskDetailsDTO> getProjectTask(
-            @RequestHeader @NotNull UUID employeeId,
-            @RequestHeader @NotNull UUID projectId,
-            @PathVariable UUID taskId){
-
+            @RequestHeader UUID employeeId,
+            @RequestHeader UUID projectId,
+            @PathVariable UUID taskId
+    ){
         var response = projectService.getProjectTask(projectId, taskId);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#projectId, 'CAN_MANAGE_TASKS')")
+    @PutMapping("/task")
+    public ResponseEntity<UUID> updateProjectTask(
+            @RequestHeader UUID employeeId,
+            @RequestHeader UUID projectId,
+            @RequestBody ProjectTaskUpdatePayloadDTO payload
+    ){
+        var response = projectService.updateProjectTask(projectId, payload);
+
         return ResponseEntity.ok(response);
 
     }
 
     @PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#projectId, 'CAN_MANAGE_TASKS')")
-    @PutMapping("/task")
-    public ResponseEntity<ProjectTaskDetailsDTO> updateProjectTask(
-            @RequestHeader @NotNull UUID employeeId,
-            @RequestHeader @NotNull UUID projectId,
-            @RequestBody ProjectTaskUpdatePayloadDTO payload){
-
-        // TODO: 28/12/2022
-        return null;
-
-    }
-
-    @PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#projectId, 'CAN_MANAGE_TASKS')")
     @PostMapping("/task")
-    public ResponseEntity<ProjectTaskDetailsDTO> addProjectTask(
-            @RequestHeader @NotNull UUID employeeId,
-            @RequestHeader @NotNull UUID projectId,
+    public ResponseEntity<UUID> addProjectTask(
+            @RequestHeader UUID employeeId,
+            @RequestHeader UUID projectId,
             @RequestBody ProjectTaskCreatePayloadDTO payload
-            ){
+    ){
+        var response = projectService.addProjectTask(projectId, payload);
 
-        // TODO: 28/12/2022
-        return null;
+        return ResponseEntity.ok(response);
     }
 
     @PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#projectId, 'CAN_READ')")
     @GetMapping("/tasks")
     public ResponseEntity<ProjectTasksDetailsDTO> getProjectTasks(
-            @RequestHeader @NotNull UUID employeeId,
-            @RequestHeader @NotNull UUID projectId,
+            @RequestHeader UUID employeeId,
+            @RequestHeader UUID projectId,
             @RequestParam(value="page", required = false) Integer page,
             @RequestParam(value="size", required = false) Integer size,
             @RequestParam(value="direction", required = false) String direction,
             @RequestParam(value="key", required = false) String key,
-            @RequestParam(value="active", required = false, defaultValue = "true") Boolean active){
-        var settings = initPagingSettings(page, size, key, direction);
+            @RequestParam(value="active", required = false, defaultValue = "true") Boolean active
+    ){
+        var settings = initPaging(page, size, key, direction);
+
         var response = projectService.getAdvancedProjectTasks(projectId, active, settings);
+
         return ResponseEntity.ok(response);
 
     }
@@ -79,21 +85,21 @@ public class ProjectController extends ThesisController {
     @PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#projectId, 'CAN_READ')")
     @GetMapping("{id}/tasks")
     public ResponseEntity<ProjectTasksDTO> getProjectTasksByEmployee(
-            @RequestHeader @NotNull UUID employeeId,
-            @RequestHeader @NotNull UUID projectId,
+            @RequestHeader UUID employeeId,
+            @RequestHeader UUID projectId,
             @PathVariable UUID id,
-            @RequestParam(value="active", required = false, defaultValue = "true") Boolean active){
-
+            @RequestParam(value="active", required = false, defaultValue = "true") Boolean active
+    ){
         var response = projectService.getProjectTasks(id, active);
-        return ResponseEntity.ok(response);
 
+        return ResponseEntity.ok(response);
     }
 
     @PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#projectId, 'CAN_MANAGE_PROJECT_USERS')")
     @GetMapping("/employee/{id}")
     public ResponseEntity<ProjectEmployeeDTO> getProjectEmployee(
-            @RequestHeader @NotNull UUID employeeId,
-            @RequestHeader @NotNull UUID projectId,
+            @RequestHeader UUID employeeId,
+            @RequestHeader UUID projectId,
             @PathVariable UUID id
     ){
         var response = projectService.getProjectEmployee(projectId, id);
@@ -103,39 +109,42 @@ public class ProjectController extends ThesisController {
 
     @PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#projectId, 'CAN_MANAGE_PROJECT_USERS')")
     @PostMapping("/employee")
-    public ResponseEntity<ProjectEmployeeDTO> addProjectEmployee(
-            @RequestHeader @NotNull UUID employeeId,
-            @RequestHeader @NotNull UUID projectId,
-            @RequestBody ProjectEmployeeUpdatePayloadDTO payload
+    public ResponseEntity<UUID> addProjectEmployee(
+            @RequestHeader UUID employeeId,
+            @RequestHeader UUID projectId,
+            @RequestBody ProjectEmployeeCreatePayloadDTO payload
     ){
-        // TODO: 28/12/2022 stworzyc payload
-        return null;
+        var response = projectService.addProjectEmployee(projectId, payload);
+
+        return ResponseEntity.ok(response);
     }
 
     @PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#projectId, 'CAN_MANAGE_PROJECT_USERS')")
     @PutMapping("/employee")
-    public ResponseEntity<ProjectEmployeeDTO> updateProjectEmployee(
-            @RequestHeader @NotNull UUID employeeId,
-            @RequestHeader @NotNull UUID projectId,
+    public ResponseEntity<UUID> updateProjectEmployee(
+            @RequestHeader UUID employeeId,
+            @RequestHeader UUID projectId,
             @RequestBody ProjectEmployeeUpdatePayloadDTO payload
     ){
-        // TODO: 28/12/2022 stworzyc payload
-        return null;
+
+        var response = projectService.updateProjectEmployee(projectId, payload);
+
+        return ResponseEntity.ok(response);
     }
 
     @PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#projectId, 'CAN_MANAGE_PROJECT_USERS')")
     @GetMapping("/employees")
     public ResponseEntity<ProjectEmployeesDTO> getProjectEmployees(
-            @RequestHeader @NotNull UUID employeeId,
-            @RequestHeader @NotNull UUID projectId,
+            @RequestHeader UUID employeeId,
+            @RequestHeader UUID projectId,
             @RequestParam(value="page", required = false) Integer page,
             @RequestParam(value="size", required = false) Integer size,
             @RequestParam(value="direction", required = false) String direction,
             @RequestParam(value="key", required = false) String key,
             @RequestParam(value="active", required = false, defaultValue = "true") Boolean active
-            ){
+    ){
+        var settings = initPaging(page, size, direction, key);
 
-        var settings = initPagingSettings(page, size, direction, key);
         var response = projectService.getProjectEmployees(projectId, active, settings);
 
         return ResponseEntity.ok(response);
@@ -144,19 +153,43 @@ public class ProjectController extends ThesisController {
     @PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#projectId, 'CAN_MANAGE_PROJECT_USERS')")
     @GetMapping("/approvals")
     public ResponseEntity<ProjectApprovalsDTO> getProjectApprovals(
-            @RequestHeader @NotNull UUID employeeId,
-            @RequestHeader @NotNull UUID projectId,
+            @RequestHeader UUID employeeId,
+            @RequestHeader UUID projectId,
             @RequestParam(value="page", required = false) Integer page,
             @RequestParam(value="size", required = false) Integer size,
             @RequestParam(value="direction", required = false) String direction,
             @RequestParam(value="key", required = false) String key
     ){
-
-        var settings = initPagingSettings(page, size, direction, key);
+        var settings = initPaging(page, size, direction, key);
 
         var response = projectService.getProjectApprovalEmployees(projectId, settings);
 
         return ResponseEntity.ok(response);
     }
+
+    @PreAuthorize("hasAuthority('CAN_ADMIN_PROJECTS')")
+    @PostMapping
+    public ResponseEntity<UUID> addProject(
+            @RequestHeader UUID employeeId,
+            @RequestHeader(required = false) UUID projectId,
+            @RequestBody ProjectCreatePayloadDTO payload
+    ){
+        var response = projectService.addProject(payload);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PreAuthorize("hasPermission(#projectId, 'CAN_READ_PROJECT')")
+    @PutMapping
+    public ResponseEntity<UUID> updateProject(
+            @RequestHeader UUID employeeId,
+            @RequestHeader UUID projectId,
+            @RequestBody ProjectUpdatePayloadDTO payload
+    ){
+        var response = projectService.updateProject(payload);
+
+        return ResponseEntity.ok(response);
+    }
+
 
 }

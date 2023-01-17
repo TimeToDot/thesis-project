@@ -19,6 +19,7 @@ public record EmployeeTaskUpdatePayload(
         LocalDateTime endTime,*/
         UUID projectId,
         UUID taskId,
+
         TaskStatus status
 ) {
 }

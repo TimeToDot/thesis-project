@@ -3,6 +3,7 @@ package thesis.data.project.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.Hibernate;
@@ -13,6 +14,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Getter
+@Setter
 @ToString
 @RequiredArgsConstructor
 @SuperBuilder

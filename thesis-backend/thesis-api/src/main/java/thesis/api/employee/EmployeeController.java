@@ -16,7 +16,6 @@ import thesis.api.employee.model.EmployeeResponse;
 import thesis.api.employee.model.calendar.EmployeeCalendarResponse;
 import thesis.api.employee.model.project.EmployeeProjectsResponse;
 import thesis.api.employee.model.project.EmployeeProjectsToApprovePayload;
-import thesis.api.employee.model.project.EmployeeProjectsToApproveRequest;
 import thesis.api.employee.model.project.EmployeeProjectsToApproveResponse;
 import thesis.api.employee.model.task.*;
 import thesis.domain.employee.EmployeeService;
@@ -26,7 +25,6 @@ import thesis.domain.employee.model.EmployeeUpdatePayloadDTO;
 import thesis.domain.employee.model.PasswordUpdatePayloadDTO;
 import thesis.security.services.model.UserDetailsDefault;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -70,7 +68,7 @@ public class EmployeeController extends ThesisController {
     }
 
     @GetMapping("{id}")
-    @PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#projectId, 'CAN_MANAGE_PROJECT_USERS')")
+    @PreAuthorize("hasPermission(#projectId, 'CAN_MANAGE_PROJECT_USERS')")
     public ResponseEntity<EmployeeResponse> getEmployeeByProject(
             @RequestHeader UUID employeeId,
             @RequestHeader(required = false) UUID projectId,
@@ -150,7 +148,7 @@ public class EmployeeController extends ThesisController {
             @RequestParam(value="direction", required = false) String direction,
             @RequestParam(value="key", required = false) String key
     ) {
-        var settings = initPagingSettings(page, size, key, direction);
+        var settings = initPaging(page, size, key, direction);
 
         if (!verifyEmployeeId(employeeId)) {
             log.error("oo prosze: {}", employeeId);
@@ -196,15 +194,15 @@ public class EmployeeController extends ThesisController {
     public ResponseEntity<EmployeeTasksResponse> getEmployeeTasks(
             @RequestHeader @NotNull UUID employeeId,
             @RequestHeader(required = false) UUID projectId,
-            @RequestParam @NotNull Date startDate,
-            @RequestParam@NotNull Date endDate,
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") Date startDate,
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") Date endDate,
             @RequestParam(value="page", required = false) Integer page,
             @RequestParam(value="size", required = false) Integer size,
             @RequestParam(value="direction", required = false) String direction,
             @RequestParam(value="key", required = false) String key
     ) {
 
-        var settings = initPagingSettings(page, size, key, direction);
+        var settings = initPaging(page, size, key, direction);
         var tasksDto = employeeService.getEmployeeTasks(employeeId, startDate, endDate, settings);
         var tasksResponse = employeeTasksMapper.map(tasksDto);
 

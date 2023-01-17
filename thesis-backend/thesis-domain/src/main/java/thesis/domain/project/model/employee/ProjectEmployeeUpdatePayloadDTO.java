@@ -5,8 +5,9 @@ import java.util.UUID;
 
 public record ProjectEmployeeUpdatePayloadDTO(
         UUID projectEmployeeId,
-        String contractType,
-        LocalDateTime workingTime,
-        Long wage
+        Integer modifier,
+        Integer workingTime,
+        RoleDTOStatus roleDTOStatus,
+        Boolean active
 ) {
 }
