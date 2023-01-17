@@ -26,7 +26,7 @@ public class ProjectController extends ThesisController {
 
     private final ProjectService projectService;
 
-    @PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#projectId, 'CAR_READ')")
+    @PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#projectId, 'CAN_READ_PROJECT')")
     @GetMapping("/task/{taskId}")
     public ResponseEntity<ProjectTaskDetailsDTO> getProjectTask(
             @RequestHeader UUID employeeId,

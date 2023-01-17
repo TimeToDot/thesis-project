@@ -364,28 +364,37 @@ public class ProjectService {
                 .filter(calendarTaskDTO -> calendarTaskDTO.status().compareTo(TaskStatusDTO.PENDING) == 0)
                 .toList();
         if (!tasks.isEmpty()){
-            sort(tasks);
+            if (tasks.size() > 1) {
+                sort(tasks);
+            }
             return Map.of(tasks.get(tasks.size() - 1).date(), ApprovalStatus.PENDING);
         }
         tasks = calendarTaskDTOList.stream()
                 .filter(calendarTaskDTO -> calendarTaskDTO.status().compareTo(TaskStatusDTO.REJECTED) == 0)
                 .toList();
         if (!tasks.isEmpty()){
-            sort(tasks);
+            if (tasks.size() > 1) {
+                sort(tasks);
+            }
             return Map.of(tasks.get(tasks.size() - 1).date(), ApprovalStatus.REJECTED);
         }
         tasks = calendarTaskDTOList.stream()
                 .filter(calendarTaskDTO -> calendarTaskDTO.status().compareTo(TaskStatusDTO.LOGGED) == 0)
                 .toList();
         if (!tasks.isEmpty()){
-            sort(tasks);
+            if (tasks.size() > 1) {
+                sort(tasks);
+            }
+
             return Map.of(tasks.get(tasks.size() - 1).date(), ApprovalStatus.LOGGED);
         }
         tasks = calendarTaskDTOList.stream()
                 .filter(calendarTaskDTO -> calendarTaskDTO.status().compareTo(TaskStatusDTO.APPROVED) == 0)
                 .toList();
         if (!tasks.isEmpty() && tasks.size() == calendarTaskDTOList.size()){
-            sort(tasks);
+            if (tasks.size() > 1) {
+                sort(tasks);
+            }
             return Map.of(tasks.get(tasks.size() - 1).date(), ApprovalStatus.APPROVED);
         }
 

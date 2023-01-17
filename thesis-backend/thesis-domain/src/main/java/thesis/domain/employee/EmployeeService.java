@@ -311,15 +311,16 @@ public class EmployeeService {
                                 dateMapEntry.getKey(),
                                 getStatus(dateMapEntry.getValue())
                         )
-                ).toList();
+                )
+                .toList();
     }
 
     private TaskStatusDTO getStatus(Map<TaskStatus, Long> tasks) {
 
-        if (tasks.get(TaskStatus.REJECTED) != null && tasks.get(TaskStatus.REJECTED) > 0) {
-            return TaskStatusDTO.REJECTED;
-        } else if (tasks.get(TaskStatus.PENDING) != null && tasks.get(TaskStatus.PENDING) > 0) {
+        if (tasks.get(TaskStatus.PENDING) != null && tasks.get(TaskStatus.PENDING) > 0) {
             return TaskStatusDTO.PENDING;
+        } else if (tasks.get(TaskStatus.REJECTED) != null && tasks.get(TaskStatus.REJECTED) > 0) {
+            return TaskStatusDTO.REJECTED;
         } else if (tasks.get(TaskStatus.LOGGED) != null && tasks.get(TaskStatus.LOGGED) > 0) {
             return TaskStatusDTO.LOGGED;
         } else if (tasks.get(TaskStatus.APPROVED) != null && tasks.get(TaskStatus.APPROVED) > 0) {
