@@ -8,7 +8,7 @@ public record ProjectCreatePayloadDTO(
         UUID moderatorId,
         String name,
         String description,
-        String billingPeriod,
+        BillingPeriodDTO billingPeriod,
         String image,
         Integer overtimeModifier,
         Integer bonusModifier,

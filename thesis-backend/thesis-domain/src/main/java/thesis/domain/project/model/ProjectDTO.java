@@ -2,6 +2,7 @@ package thesis.domain.project.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
+import thesis.domain.employee.model.BillingPeriodDTO;
 
 import java.util.Date;
 import java.util.UUID;
@@ -13,7 +14,7 @@ public record ProjectDTO(
         UUID id,
         String name,
         String description,
-        String billingPeriod,
+        BillingPeriodDTO billingPeriod,
         String image,
         UUID moderatorId,
         Integer employeesCount,

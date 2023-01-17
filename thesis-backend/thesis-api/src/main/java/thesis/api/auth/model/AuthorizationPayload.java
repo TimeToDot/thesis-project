@@ -1,9 +1,7 @@
 package thesis.api.auth.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import org.springframework.format.annotation.DateTimeFormat;
-import thesis.domain.employee.model.BillingPeriodDTO;
 import thesis.domain.employee.model.ContractTypeDTO;
 
 import javax.validation.constraints.Email;
@@ -11,7 +9,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -81,8 +78,6 @@ public class AuthorizationPayload {
     private Date employmentDate;
 
     private ContractTypeDTO contractType;
-
-    private BillingPeriodDTO billingPeriod;
 
     @NotNull
     private Integer workingTime;

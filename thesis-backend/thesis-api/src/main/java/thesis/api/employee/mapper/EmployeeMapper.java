@@ -4,9 +4,6 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 import thesis.api.employee.model.EmployeeResponse;
-import thesis.data.account.model.BillingPeriod;
-import thesis.data.account.model.ContractType;
-import thesis.domain.employee.model.BillingPeriodDTO;
 import thesis.domain.employee.model.ContractTypeDTO;
 import thesis.domain.employee.model.EmployeeDTO;
 import thesis.domain.mapper.MapStructConfig;
@@ -17,7 +14,7 @@ public interface EmployeeMapper {
     EmployeeMapper INSTANCE = Mappers.getMapper(EmployeeMapper.class);
 
     @Mapping(target = "contractType", expression = "java(getContractType(employeeDTO.contractType()))")
-    @Mapping(target = "billingPeriod", expression = "java(getBillingPeriod(employeeDTO.billingPeriod()))")
+    //@Mapping(target = "billingPeriod", expression = "java(getBillingPeriod(employeeDTO.billingPeriod()))")
     EmployeeResponse map(EmployeeDTO employeeDTO);
 
     default ContractTypeDTO getContractType(ContractTypeDTO type){
@@ -28,11 +25,11 @@ public interface EmployeeMapper {
         return ContractTypeDTO.fromValue(type.label);
     }
 
-    default BillingPeriodDTO getBillingPeriod(BillingPeriodDTO period){
+/*    default BillingPeriodDTO getBillingPeriod(BillingPeriodDTO period){
         if (period == null){
             return null;
         }
 
         return BillingPeriodDTO.fromValue(period.label);
-    }
+    }*/
 }

@@ -25,6 +25,7 @@ import thesis.data.task.TaskFormDetailsRepository;
 import thesis.data.task.TaskFormRepository;
 import thesis.data.task.TaskRepository;
 import thesis.data.task.model.*;
+import thesis.domain.employee.model.BillingPeriodDTO;
 import thesis.domain.paging.PagingSettings;
 
 import java.text.ParseException;
@@ -218,6 +219,7 @@ public class InitDataIntegrationTest {
                 .holidayModifier(50)
                 .imagePath("path")
                 .overtimeModifier(20)
+                .billingPeriod(BillingPeriodDTO.WEEK.label)
                 .build();
         var projectDetails2 = ProjectDetails.builder()
                 .project(project2)
@@ -228,6 +230,7 @@ public class InitDataIntegrationTest {
                 .holidayModifier(50)
                 .imagePath("path")
                 .overtimeModifier(20)
+                .billingPeriod(BillingPeriodDTO.WEEK.label)
                 .build();
         var projectDetails3 = ProjectDetails.builder()
                 .project(project3)
@@ -238,6 +241,7 @@ public class InitDataIntegrationTest {
                 .holidayModifier(50)
                 .imagePath("path")
                 .overtimeModifier(20)
+                .billingPeriod(BillingPeriodDTO.WEEK.label)
                 .build();;
 
         projectDetailsRepository.saveAll(List.of(projectDetails1, projectDetails2, projectDetails3));
@@ -270,7 +274,7 @@ public class InitDataIntegrationTest {
                 .name("Domyslaw-" + account.getEmail())
                 .city("Domyslice" + account.getEmail())
                 .contractType(ContractType.COMMISSION_CONTRACT.label)
-                .billingPeriod(BillingPeriod.SEASON.label)
+                //.billingPeriod(BillingPeriod.SEASON.label)
                 .build();
 
     }

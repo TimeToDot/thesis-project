@@ -31,7 +31,6 @@ CREATE TABLE "account_details" (
                                    "birth_place" varchar,
                                    "image_path" varchar,
                                    "contract_type" varchar,
-                                   "billing_period" varchar,
                                    "working_time" INTEGER,
                                    "wage" INTEGER,
                                    "payday" INTEGER,

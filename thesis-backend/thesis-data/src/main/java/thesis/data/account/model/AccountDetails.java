@@ -84,7 +84,7 @@ public class AccountDetails {
 
     private String contractType;
 
-    private String billingPeriod;
+    //private String billingPeriod;
 
     private Integer workingTime;
 

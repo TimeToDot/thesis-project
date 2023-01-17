@@ -28,7 +28,6 @@ public record AuthorizationDTO(
         UUID positionId,
         Date employmentDate,
         ContractTypeSecurity contractType,
-        BillingPeriodSecurity billingPeriod,
         Integer workingTime,
         Integer wage,
         Integer payday,

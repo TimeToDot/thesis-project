@@ -22,6 +22,7 @@ import thesis.data.task.model.TaskForm;
 import thesis.data.task.model.TaskFormDetails;
 import thesis.data.task.model.TaskFormType;
 import thesis.domain.employee.EmployeeService;
+import thesis.domain.employee.model.BillingPeriodDTO;
 import thesis.domain.employee.model.CalendarTaskDTO;
 import thesis.domain.employee.model.ContractTypeDTO;
 import thesis.domain.paging.PagingSettings;
@@ -100,7 +101,7 @@ public class ProjectService {
 
         projectRepository.save(project);
 
-        projectDetails.setBillingPeriod(payloadDTO.billingPeriod());
+        projectDetails.setBillingPeriod(payloadDTO.billingPeriod().label);
         projectDetails.setBonusModifier(payloadDTO.bonusModifier());
         projectDetails.setOvertimeModifier(payloadDTO.overtimeModifier());
         projectDetails.setBonusModifier(payloadDTO.bonusModifier());
@@ -461,12 +462,13 @@ public class ProjectService {
     private ProjectDTO getProjectDTO(Project projectTemp) {
         var project = projectRepository.findById(projectTemp.getId()).orElseThrow();
         var accountsNumber = project.getAccountProjects().stream().map(AccountProject::getAccount).toList().size();
+        var billingPeriod = BillingPeriodDTO.fromValue(project.getDetails().getBillingPeriod());
 
         return ProjectDTO.builder()
                 .id(project.getId())
                 .name(project.getName())
                 .description(project.getDescription())
-                .billingPeriod(project.getDetails().getBillingPeriod())
+                .billingPeriod(billingPeriod)
                 .overtimeModifier(project.getDetails().getOvertimeModifier())
                 .bonusModifier(project.getDetails().getBonusModifier())
                 .nightModifier(project.getDetails().getNightModifier())
@@ -526,7 +528,7 @@ public class ProjectService {
                 .project(project)
                 .createdAt(new Date())
                 .imagePath(payloadDTO.image())
-                .billingPeriod(payloadDTO.billingPeriod())
+                .billingPeriod(payloadDTO.billingPeriod().label)
                 .overtimeModifier(payloadDTO.overtimeModifier())
                 .bonusModifier(payloadDTO.bonusModifier())
                 .holidayModifier(payloadDTO.holidayModifier())

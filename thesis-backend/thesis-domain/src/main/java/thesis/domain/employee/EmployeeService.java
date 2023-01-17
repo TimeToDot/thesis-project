@@ -90,6 +90,7 @@ public class EmployeeService {
 
         setAccountFields(payloadDTO, account);
         setAccountDetailsFields(payloadDTO, accountDetails);
+        //var accountDetails = employeeDTOMapper.mapToDetails(payloadDTO); //check mappers fith instance
 
         accountRepository.save(account);
         accountDetailsRepository.save(accountDetails);
@@ -393,6 +394,7 @@ public class EmployeeService {
         accountDetails.setWorkingTime(payloadDTO.workingTime());
         accountDetails.setWage(payloadDTO.wage());
         accountDetails.setPayday(payloadDTO.payday());
+        accountDetails.setContractType(payloadDTO.contractType());
     }
 
     private void setAccountFields(EmployeeUpdatePayloadDTO payloadDTO, Account account) {

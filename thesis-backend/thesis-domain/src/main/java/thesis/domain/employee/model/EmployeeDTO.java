@@ -32,7 +32,7 @@ public record EmployeeDTO(
         String privateEmail,
         String accountNumber,
         ContractTypeDTO contractType,
-        BillingPeriodDTO billingPeriod,
+        //BillingPeriodDTO billingPeriod,
         Integer workingTime,
         Integer wage,
         Integer payday,

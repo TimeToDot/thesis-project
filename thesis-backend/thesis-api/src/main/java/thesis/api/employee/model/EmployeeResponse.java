@@ -1,7 +1,5 @@
 package thesis.api.employee.model;
 
-import thesis.data.account.model.BillingPeriod;
-import thesis.domain.employee.model.BillingPeriodDTO;
 import thesis.domain.employee.model.ContractTypeDTO;
 
 import java.util.Date;
@@ -34,7 +32,7 @@ public record EmployeeResponse(
         String privateEmail,
         String accountNumber,
         ContractTypeDTO contractType,
-        BillingPeriodDTO billingPeriod,
+        //BillingPeriodDTO billingPeriod,
         Integer workingTime,
         Integer wage,
         Integer payday,

@@ -1,5 +1,7 @@
 package thesis.domain.project.model;
 
+import thesis.domain.employee.model.BillingPeriodDTO;
+
 import java.util.UUID;
 
 public record ProjectUpdatePayloadDTO(
@@ -7,7 +9,7 @@ public record ProjectUpdatePayloadDTO(
         UUID moderatorId,
         String name,
         String description,
-        String billingPeriod,
+        BillingPeriodDTO billingPeriod,
         String image,
         Integer overtimeModifier,
         Integer bonusModifier,
