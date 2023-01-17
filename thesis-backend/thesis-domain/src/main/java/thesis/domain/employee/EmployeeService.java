@@ -371,28 +371,28 @@ public class EmployeeService {
     }
 
     private void setAccountDetailsFields(EmployeeUpdatePayloadDTO payloadDTO, AccountDetails accountDetails) {
-        if (payloadDTO.firstName() != null) accountDetails.setName(payloadDTO.firstName());
-        if (payloadDTO.lastName() != null) accountDetails.setSurname(payloadDTO.lastName());
-        if (payloadDTO.middleName() != null) accountDetails.setMiddleName(payloadDTO.middleName());
-        if (payloadDTO.sex() != null) accountDetails.setSex(payloadDTO.sex());
-        if (payloadDTO.birthDate() != null) accountDetails.setBirthDate(payloadDTO.birthDate());
-        if (payloadDTO.birthPlace() != null) accountDetails.setBirthPlace(payloadDTO.birthPlace());
-        if (payloadDTO.employmentDate() != null) accountDetails.setEmploymentDate(payloadDTO.employmentDate());
-        if (payloadDTO.exitDate() != null) accountDetails.setExitDate(payloadDTO.exitDate());
-        if (payloadDTO.apartmentNumber() != null) accountDetails.setApartmentNumber(payloadDTO.apartmentNumber());
-        if (payloadDTO.houseNumber() != null) accountDetails.setHouseNumber(payloadDTO.houseNumber());
-        if (payloadDTO.street() != null) accountDetails.setStreet(payloadDTO.street());
-        if (payloadDTO.city() != null) accountDetails.setCity(payloadDTO.city());
-        if (payloadDTO.postalCode() != null) accountDetails.setPostalCode(payloadDTO.postalCode());
-        if (payloadDTO.country() != null) accountDetails.setCountry(payloadDTO.country());
-        if (payloadDTO.pesel() != null) accountDetails.setPesel(payloadDTO.pesel());
-        if (payloadDTO.accountNumber() != null) accountDetails.setTaxNumber(payloadDTO.accountNumber());
-        if (payloadDTO.idCardNumber() != null) accountDetails.setIdCardNumber(payloadDTO.idCardNumber());
-        if (payloadDTO.phoneNumber() != null) accountDetails.setPhoneNumber(payloadDTO.phoneNumber());
-        if (payloadDTO.privateEmail() != null) accountDetails.setPrivateEmail(payloadDTO.privateEmail());
-        if (payloadDTO.workingTime() != null) accountDetails.setWorkingTime(payloadDTO.workingTime());
-        if (payloadDTO.wage() != null) accountDetails.setWage(payloadDTO.wage());
-        if (payloadDTO.payday() != null) accountDetails.setPayday(payloadDTO.payday());
+        accountDetails.setName(payloadDTO.firstName());
+        accountDetails.setSurname(payloadDTO.lastName());
+        accountDetails.setMiddleName(payloadDTO.middleName());
+        accountDetails.setSex(payloadDTO.sex());
+        accountDetails.setBirthDate(payloadDTO.birthDate());
+        accountDetails.setBirthPlace(payloadDTO.birthPlace());
+        accountDetails.setEmploymentDate(payloadDTO.employmentDate());
+        accountDetails.setExitDate(payloadDTO.exitDate());
+        accountDetails.setApartmentNumber(payloadDTO.apartmentNumber());
+        accountDetails.setHouseNumber(payloadDTO.houseNumber());
+        accountDetails.setStreet(payloadDTO.street());
+        accountDetails.setCity(payloadDTO.city());
+        accountDetails.setPostalCode(payloadDTO.postalCode());
+        accountDetails.setCountry(payloadDTO.country());
+        accountDetails.setPesel(payloadDTO.pesel());
+        accountDetails.setTaxNumber(payloadDTO.accountNumber());
+        accountDetails.setIdCardNumber(payloadDTO.idCardNumber());
+        accountDetails.setPhoneNumber(payloadDTO.phoneNumber());
+        accountDetails.setPrivateEmail(payloadDTO.privateEmail());
+        accountDetails.setWorkingTime(payloadDTO.workingTime());
+        accountDetails.setWage(payloadDTO.wage());
+        accountDetails.setPayday(payloadDTO.payday());
     }
 
     private void setAccountFields(EmployeeUpdatePayloadDTO payloadDTO, Account account) {
