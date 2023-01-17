@@ -82,7 +82,7 @@ public class EmployeeController extends ThesisController {
     }
 
     @GetMapping("/contractTypes")
-    @PreAuthorize("hasAuthority('CAN_READ')")
+    @PreAuthorize("hasAuthority('CAN_ADMIN_USERS')")
     public ResponseEntity<Map<Integer, String>> getContractTypes(
             @RequestHeader UUID employeeId,
             @RequestHeader(required = false) UUID projectId
@@ -94,7 +94,7 @@ public class EmployeeController extends ThesisController {
     }
 
     @GetMapping("/bellingPeriod")
-    @PreAuthorize("hasAuthority('CAN_READ')")
+    @PreAuthorize("hasAuthority('CAN_ADMIN_USERS')")
     public ResponseEntity<Map<Integer, String>> getBillingPeriod(
             @RequestHeader UUID employeeId,
             @RequestHeader(required = false) UUID projectId
@@ -113,6 +113,19 @@ public class EmployeeController extends ThesisController {
             @RequestBody EmployeeUpdatePayloadDTO payload
     ) {
         var response = employeeService.updateEmployee(employeeId, payload);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('CAN_ADMIN_USERS')")
+    public ResponseEntity<UUID> updateEmployeeById(
+            @RequestHeader UUID employeeId,
+            @RequestHeader(required = false) UUID projectId,
+            @RequestBody EmployeeUpdatePayloadDTO payload,
+            @PathVariable UUID id
+    ) {
+        var response = employeeService.updateEmployee(id, payload);
 
         return ResponseEntity.ok(response);
     }
@@ -183,7 +196,6 @@ public class EmployeeController extends ThesisController {
             @RequestHeader(required = false) UUID projectId,
             @RequestBody EmployeeProjectsToApprovePayload payload
     ) {
-
         employeeService.sendProjectsToApprove(employeeId, payload.projectIds(), payload.startDate(), payload.endDate());
 
         return ResponseEntity.ok(payload.projectIds());
@@ -201,8 +213,8 @@ public class EmployeeController extends ThesisController {
             @RequestParam(value="direction", required = false) String direction,
             @RequestParam(value="key", required = false) String key
     ) {
-
         var settings = initPaging(page, size, key, direction);
+
         var tasksDto = employeeService.getEmployeeTasks(employeeId, startDate, endDate, settings);
         var tasksResponse = employeeTasksMapper.map(tasksDto);
 

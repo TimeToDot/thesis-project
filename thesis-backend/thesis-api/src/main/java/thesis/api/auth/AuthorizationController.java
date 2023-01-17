@@ -7,8 +7,10 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import thesis.api.ThesisController;
 import thesis.api.auth.mapper.AuthMapper;
 import thesis.api.auth.model.AuthorizationPayload;
 import thesis.data.account.AccountRepository;
@@ -21,7 +23,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @RequestMapping("/api/authorization")
 @RestController
-public class AuthorizationController {
+public class AuthorizationController extends ThesisController {
 
     private final AuthService authService;
     private final AuthMapper authMapper;
@@ -37,8 +39,12 @@ public class AuthorizationController {
                     content = @Content),
             @ApiResponse(responseCode = "500", description = "Internal Server Error",
                     content = @Content) })
+    @PreAuthorize("hasAuthority('CAN_CREATE_USERS')")
     @PostMapping
-    public ResponseEntity<UUID> registerUser(@Valid @RequestBody AuthorizationPayload authorizationPayload) {
+    public ResponseEntity<UUID> registerUser(
+            @RequestHeader UUID employeeId,
+            @Valid @RequestBody AuthorizationPayload authorizationPayload
+    ) {
 
         if (Boolean.TRUE.equals(authService.isAccountExist(authorizationPayload.getEmail()))) {
             return ResponseEntity.badRequest().build();

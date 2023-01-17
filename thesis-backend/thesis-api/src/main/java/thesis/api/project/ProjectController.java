@@ -126,7 +126,6 @@ public class ProjectController extends ThesisController {
             @RequestHeader UUID projectId,
             @RequestBody ProjectEmployeeUpdatePayloadDTO payload
     ){
-
         var response = projectService.updateProjectEmployee(projectId, payload);
 
         return ResponseEntity.ok(response);
