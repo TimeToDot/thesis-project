@@ -51,7 +51,7 @@ public class  Account {
     @ToString.Exclude
     private AccountDetails details;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "position_id")
     @ToString.Exclude
     private Position position;
@@ -69,7 +69,7 @@ public class  Account {
     @ToString.Exclude
     private List<Task> tasks;
 
-    @OneToMany(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "account", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<AccountProject> accountProjects;
 

@@ -26,6 +26,7 @@ import thesis.domain.employee.model.BillingPeriodDTO;
 import thesis.domain.employee.model.CalendarTaskDTO;
 import thesis.domain.employee.model.ContractTypeDTO;
 import thesis.domain.paging.PagingSettings;
+import thesis.domain.position.PositionMapper;
 import thesis.domain.project.model.ProjectCreatePayloadDTO;
 import thesis.domain.project.model.ProjectDTO;
 import thesis.domain.project.model.ProjectUpdatePayloadDTO;
@@ -56,6 +57,7 @@ public class ProjectService {
     private final EmployeeService employeeService;
     private final RoleRepository roleRepository;
     private final PositionRepository positionRepository;
+    private final PositionMapper positionMapper;
 
     public ProjectDTO getProject(UUID projectId){
         var project = projectRepository.findById(projectId).orElseThrow();
@@ -431,7 +433,7 @@ public class ProjectService {
                 .lastName(account.getDetails().getSurname())
                 .email(account.getEmail())
                 .imagePath(account.getDetails().getImagePath())
-                .position(position == null ? null : position.getId())
+                .position(position == null ? null : positionMapper.simpleMap(position))
                 .employmentDate(account.getDetails().getEmploymentDate())
                 .contractTypeDTO(ContractTypeDTO.fromValue(account.getDetails().getContractType()))
                 .wage(account.getDetails().getWage())

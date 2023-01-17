@@ -2,6 +2,7 @@ package thesis.domain.project.model.employee;
 
 import lombok.Builder;
 import thesis.domain.employee.model.ContractTypeDTO;
+import thesis.domain.employee.model.SimplePositionDTO;
 
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -14,7 +15,7 @@ public record EmployeeDTO(
     String lastName,
     String email,
     String imagePath,
-    UUID position,
+    SimplePositionDTO position,
     Date employmentDate,
     ContractTypeDTO contractTypeDTO,
     Integer workingTime,
