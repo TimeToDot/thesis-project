@@ -1,6 +1,7 @@
 package thesis.api.employee.model;
 
 import thesis.domain.employee.model.ContractTypeDTO;
+import thesis.domain.employee.model.SimplePositionDTO;
 
 import java.util.Date;
 import java.util.UUID;
@@ -16,7 +17,7 @@ public record EmployeeResponse(
         String idCardNumber,
         String pesel,
         String sex,
-        UUID positionId,
+        SimplePositionDTO position,
         Date employmentDate,
         Date exitDate,
         String imagePath,

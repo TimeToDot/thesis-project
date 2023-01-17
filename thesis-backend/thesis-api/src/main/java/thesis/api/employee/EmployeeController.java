@@ -67,8 +67,8 @@ public class EmployeeController extends ThesisController {
         return ResponseEntity.ok(employee);
     }
 
-    @GetMapping("{id}")
-    @PreAuthorize("hasPermission(#projectId, 'CAN_MANAGE_PROJECT_USERS')")
+    @GetMapping("/{id}")
+    @PreAuthorize("hasPermission(#projectId, 'CAN_MANAGE_PROJECT_USERS') || hasAuthority('CAN_ADMIN_USERS')")
     public ResponseEntity<EmployeeResponse> getEmployeeByProject(
             @RequestHeader UUID employeeId,
             @RequestHeader(required = false) UUID projectId,
@@ -100,7 +100,7 @@ public class EmployeeController extends ThesisController {
             @RequestHeader(required = false) UUID projectId
     ) {
         var response = Arrays.stream(BillingPeriodDTO.values())
-                .collect(Collectors.toMap(Enum::ordinal, contractTypeDTO -> contractTypeDTO.label));
+                .collect(Collectors.toMap(Enum::ordinal, billingPeriodDTO -> billingPeriodDTO.label));
 
         return ResponseEntity.ok(response);
     }

@@ -5,9 +5,11 @@ import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 import thesis.data.account.model.AccountDetails;
 import thesis.data.account.model.StatusType;
+import thesis.data.position.model.Position;
 import thesis.domain.employee.model.ContractTypeDTO;
 import thesis.domain.employee.model.EmployeeDTO;
 import thesis.domain.employee.model.EmployeeUpdatePayloadDTO;
+import thesis.domain.employee.model.SimplePositionDTO;
 import thesis.domain.mapper.MapStructConfig;
 
 @Mapper(config = MapStructConfig.class)
@@ -30,7 +32,7 @@ public interface EmployeeDTOMapper {
     @Mapping(target = "postalCode", source = "postalCode")
     @Mapping(target = "country", source = "country")
     @Mapping(target = "phoneNumber", source = "phoneNumber")
-    @Mapping(target = "positionId", source = "account.position.id")
+    @Mapping(target = "position", expression = "java(getPosition(details.getAccount().getPosition()))")
     @Mapping(target = "employmentDate", source = "employmentDate")
     @Mapping(target = "exitDate", source = "exitDate")
     @Mapping(target = "contractType", expression = "java(getContractType(details.getContractType()))")
@@ -81,6 +83,16 @@ public interface EmployeeDTOMapper {
         }
 
         return ContractTypeDTO.fromValue(type);
+    }
+
+    default SimplePositionDTO getPosition(Position position){
+        if (position == null){
+            return null;
+        }
+        return SimplePositionDTO.builder()
+                .id(position.getId())
+                .name(position.getName())
+                .build();
     }
 
 /*    default BillingPeriodDTO getBillingPeriod(String period){

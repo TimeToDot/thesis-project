@@ -16,7 +16,8 @@ public record EmployeeDTO(
         String idCardNumber,
         String pesel,
         String sex,
-        UUID positionId,
+
+        SimplePositionDTO position,
         Date employmentDate,
         Date exitDate,
         String imagePath,

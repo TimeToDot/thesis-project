@@ -132,7 +132,6 @@ public class AuthService {
                 .idCardNumber(authorizationDTO.idCardNumber())
                 .employmentDate(authorizationDTO.employmentDate())
                 .contractType(authorizationDTO.contractType().label)
-                //.billingPeriod(authorizationDTO.billingPeriod().label)
                 .wage(authorizationDTO.wage())
                 .workingTime(authorizationDTO.workingTime())
                 .payday(authorizationDTO.payday())

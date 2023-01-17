@@ -51,7 +51,7 @@ public class  Account {
     @ToString.Exclude
     private AccountDetails details;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "position_id")
     @ToString.Exclude
     private Position position;
