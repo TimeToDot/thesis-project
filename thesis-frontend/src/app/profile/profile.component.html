@@ -12,12 +12,12 @@
     <div class="header">
       <div class="title">
         <img
-          *ngIf="employee.image"
+          *ngIf="employee.imagePath"
           class="picture"
           [ngClass]="{ archived: !employee.active }"
-          [src]="employee.image" />
+          [src]="employee.imagePath" />
         <span
-          *ngIf="!employee.image"
+          *ngIf="!employee.imagePath"
           class="picture">
           {{ employee.firstName[0] }}{{ employee.lastName[0] }}
         </span>

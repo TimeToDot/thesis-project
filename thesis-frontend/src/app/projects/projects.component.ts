@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterLinkWithHref } from '@angular/router';
+import { Router, RouterLinkWithHref } from '@angular/router';
 import { first } from 'rxjs';
 import { ButtonComponent } from '../shared/components/button/button.component';
 import { ToastComponent } from '../shared/components/toast/toast.component';
 import { ProjectsService } from '../shared/services/projects.service';
+import { TokenService } from '../shared/services/token.service';
 import { Project } from './models/project.model';
 
 @Component({
@@ -25,7 +26,11 @@ export class ProjectsComponent implements OnInit {
   query: string = '';
   showActive: boolean = true;
 
-  constructor(private projectsService: ProjectsService) {}
+  constructor(
+    private projectsService: ProjectsService,
+    private router: Router,
+    private tokenService: TokenService
+  ) {}
 
   ngOnInit(): void {
     this.getProjects();
@@ -39,7 +44,10 @@ export class ProjectsComponent implements OnInit {
     this.projectsService
       .getProjects()
       .pipe(first())
-      .subscribe(projects => (this.projects = projects));
+      .subscribe(projects => {
+        console.log(projects);
+        this.projects = projects;
+      });
   }
 
   getArchivedProjects(): void {
@@ -47,5 +55,10 @@ export class ProjectsComponent implements OnInit {
       .getArchivedProjects()
       .pipe(first())
       .subscribe(projects => (this.projects = projects));
+  }
+
+  openProject(projectId: string): void {
+    this.tokenService.saveProject(projectId);
+    this.router.navigate(['projects', projectId]);
   }
 }

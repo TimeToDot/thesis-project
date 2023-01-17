@@ -62,23 +62,17 @@ export class ProjectTasksComponent implements OnInit {
   }
 
   getProjectTasks(): void {
-    const projectId = this.route.parent?.snapshot.paramMap.get('id');
-    if (projectId) {
-      this.projectTasksService
-        .getProjectTasks(projectId)
-        .pipe(first())
-        .subscribe(projectTasks => (this.dataSource = projectTasks));
-    }
+    this.projectTasksService
+      .getProjectTasks()
+      .pipe(first())
+      .subscribe(projectTasks => (this.dataSource = projectTasks));
   }
 
   getArchivedProjectTasks(): void {
-    const projectId = this.route.parent?.snapshot.paramMap.get('id');
-    if (projectId) {
-      this.projectTasksService
-        .getArchivedProjectTasks(projectId)
-        .pipe(first())
-        .subscribe(projectTasks => (this.dataSource = projectTasks));
-    }
+    this.projectTasksService
+      .getArchivedProjectTasks()
+      .pipe(first())
+      .subscribe(projectTasks => (this.dataSource = projectTasks));
   }
 
   editTask(event: Event, row: ProjectTask): void {
@@ -98,10 +92,9 @@ export class ProjectTasksComponent implements OnInit {
   }
 
   archive(value: boolean): void {
-    const projectId = this.route.parent?.snapshot.paramMap.get('id');
-    if (value && projectId) {
+    if (value) {
       this.projectTasksService
-        .getProjectTask(projectId, this.idToArchive)
+        .getProjectTask(this.idToArchive)
         .pipe(first())
         .subscribe(task => {
           this.projectTasksService

@@ -8,7 +8,6 @@ import { EmployeesService } from '../../admin/services/employees.service';
 import { first } from 'rxjs';
 import { ModalComponent } from '../../shared/components/modal/modal.component';
 import { Account } from '../../shared/models/account.model';
-import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'bvr-sidenav',
@@ -29,7 +28,6 @@ export class SidenavComponent implements OnInit {
   navMenuGroups: LinkGroup[] = [];
 
   constructor(
-    private authService: AuthService,
     private employeesService: EmployeesService,
     private permissionsService: PermissionsService
   ) {}
@@ -42,7 +40,7 @@ export class SidenavComponent implements OnInit {
 
   getEmployee(): void {
     this.employeesService
-      .getEmployee(this.authService.getLoggedEmployeeId())
+      .getCurrentEmployee()
       .pipe(first())
       .subscribe(employee => (this.currentEmployee = employee));
   }

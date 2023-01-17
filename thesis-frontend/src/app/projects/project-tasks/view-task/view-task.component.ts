@@ -49,14 +49,12 @@ export class ViewTaskComponent implements OnInit {
   }
 
   getTask(): void {
-    const projectId = this.route.parent?.snapshot.paramMap.get('id');
     const taskId = this.route.snapshot.paramMap.get('id');
-    if (projectId && taskId) {
+    if (taskId) {
       this.projectTasksService
-        .getProjectTask(projectId, taskId)
+        .getProjectTask(taskId)
         .pipe(first())
         .subscribe(projectTask => {
-          console.log(projectTask);
           this.task = projectTask;
         });
     }

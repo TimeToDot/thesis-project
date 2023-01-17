@@ -18,13 +18,24 @@ export const authInterceptor: HttpInterceptorFn = (
   const tokenService = inject(TokenService);
   const token = tokenService.getToken();
   const employeeId = tokenService.getEmployee();
+  const projectId = tokenService.getProject();
   if (token && employeeId) {
-    authReq = request.clone({
-      headers: request.headers
-        .set(TOKEN_HEADER_KEY, `thesis=${token}`)
-        .set('employeeId', employeeId),
-      withCredentials: true,
-    });
+    if (projectId) {
+      authReq = request.clone({
+        headers: request.headers
+          .set(TOKEN_HEADER_KEY, `thesis=${token}`)
+          .set('employeeId', employeeId)
+          .set('projectId', projectId),
+        withCredentials: true,
+      });
+    } else {
+      authReq = request.clone({
+        headers: request.headers
+          .set(TOKEN_HEADER_KEY, `thesis=${token}`)
+          .set('employeeId', employeeId),
+        withCredentials: true,
+      });
+    }
   }
   return next(authReq);
 };

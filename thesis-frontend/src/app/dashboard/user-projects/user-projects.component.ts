@@ -1,8 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Account } from '../../shared/models/account.model';
-import { EmployeeProject } from '../../shared/models/employee-project.model';
-import { AuthService } from '../../shared/services/auth.service';
 import { EmployeesService } from '../../admin/services/employees.service';
 import { first } from 'rxjs';
 import { Project } from '../../projects/models/project.model';
@@ -19,10 +17,7 @@ export class UserProjectsComponent implements OnInit {
   employee!: Account;
   employeeProjects: Project[] = [];
 
-  constructor(
-    private authService: AuthService,
-    private employeesService: EmployeesService
-  ) {}
+  constructor(private employeesService: EmployeesService) {}
 
   ngOnInit(): void {
     this.getEmployee();
@@ -30,15 +25,12 @@ export class UserProjectsComponent implements OnInit {
   }
 
   getEmployee(): void {
-    const employeeId = this.authService.getLoggedEmployeeId();
-    if (employeeId) {
-      this.employeesService
-        .getEmployee(employeeId)
-        .pipe(first())
-        .subscribe(employee => {
-          this.employee = employee;
-        });
-    }
+    this.employeesService
+      .getCurrentEmployee()
+      .pipe(first())
+      .subscribe(employee => {
+        this.employee = employee;
+      });
   }
 
   getEmployeeProjects(): void {

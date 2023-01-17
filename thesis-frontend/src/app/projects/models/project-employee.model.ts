@@ -9,4 +9,5 @@ export interface ProjectEmployee {
   joinDate: string;
   exitDate?: string;
   active: boolean;
+  employeeId?: string;
 }
