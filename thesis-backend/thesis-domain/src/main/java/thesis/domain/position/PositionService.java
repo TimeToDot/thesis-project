@@ -51,12 +51,7 @@ public class PositionService {
 
     @Transactional
     public UUID updatePosition(PositionUpdatePayloadDTO payloadDTO) {
-        if (positionRepository.existsByName(payloadDTO.name())) {
-            throw new RuntimeException("position with name : %s already exist!".formatted(payloadDTO.name()));
-        }
-
         var position = positionRepository.findById(payloadDTO.id()).orElseThrow();
-
 
         if (Boolean.TRUE.equals(payloadDTO.active())) {
             position.setStatus(PositionType.ACTIVE);
@@ -68,13 +63,8 @@ public class PositionService {
                 throw new RuntimeException(e);
             }
         }
-
-
         position.setName(payloadDTO.name());
-
-
         position.setDescription(position.getDescription());
-
 
         positionRepository.save(position);
 
