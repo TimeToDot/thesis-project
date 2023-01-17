@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -33,10 +32,7 @@ import thesis.domain.paging.PagingSettings;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TimeZone;
+import java.util.*;
 
 
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -217,12 +213,24 @@ public class InitDataIntegrationTest {
 
         var projectDetails1 = ProjectDetails.builder()
                 .project(project1)
-                .options("Jakieś cuda na kiju;powiedzmy że oddzielamy średnikiem")
+                .createdAt(new Date())
+                .billingPeriod("a")
+                .bonusModifier(1)
+                .nightModifier(12)
+                .holidayModifier(50)
+                .imagePath("path")
+                .overtimeModifier(20)
                 .build();
         var projectDetails2 = ProjectDetails.builder()
                 .project(project2)
-                .options("Drugi projekcik i jego opcja;druga opcja")
-                .build();
+                .createdAt(new Date())
+                .billingPeriod("a")
+                .bonusModifier(1)
+                .nightModifier(12)
+                .holidayModifier(50)
+                .imagePath("path")
+                .overtimeModifier(20)
+                .build();;
 
         projectDetailsRepository.saveAll(List.of(projectDetails1, projectDetails2));
 
@@ -304,7 +312,7 @@ public class InitDataIntegrationTest {
                 "2023-01-12", List.of(TaskStatus.APPROVED, TaskStatus.APPROVED, TaskStatus.APPROVED)
         );
 
-        var temp =accountProjectRepository.findAllByAccount_Id(account.getId(), new PagingSettings().getPageable())
+        var temp =accountProjectRepository.findAllByAccountId(account.getId(), new PagingSettings().getPageable())
                 .orElseThrow();
 
         var projects = temp

@@ -7,11 +7,11 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import thesis.api.ThesisController;
 import thesis.domain.project.ProjectService;
+import thesis.domain.project.model.approval.ProjectApprovalsDTO;
 import thesis.domain.project.model.employee.ProjectEmployeeDTO;
 import thesis.domain.project.model.employee.ProjectEmployeeUpdatePayloadDTO;
 import thesis.domain.project.model.employee.ProjectEmployeesDTO;
 import thesis.domain.project.model.task.*;
-import thesis.domain.paging.PagingSettings;
 
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
@@ -90,13 +90,15 @@ public class ProjectController extends ThesisController {
     }
 
     @PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#projectId, 'CAN_MANAGE_PROJECT_USERS')")
-    @GetMapping("/employee")
+    @GetMapping("/employee/{id}")
     public ResponseEntity<ProjectEmployeeDTO> getProjectEmployee(
             @RequestHeader @NotNull UUID employeeId,
-            @RequestHeader @NotNull UUID projectId
+            @RequestHeader @NotNull UUID projectId,
+            @PathVariable UUID id
     ){
-        // TODO: 28/12/2022
-        return null;
+        var response = projectService.getProjectEmployee(projectId, id);
+
+        return ResponseEntity.ok(response);
     }
 
     @PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#projectId, 'CAN_MANAGE_PROJECT_USERS')")
@@ -132,25 +134,29 @@ public class ProjectController extends ThesisController {
             @RequestParam(value="key", required = false) String key,
             @RequestParam(value="active", required = false, defaultValue = "true") Boolean active
             ){
+
         var settings = initPagingSettings(page, size, direction, key);
-        // TODO: 28/12/2022
-        return null;
+        var response = projectService.getProjectEmployees(projectId, active, settings);
+
+        return ResponseEntity.ok(response);
     }
 
     @PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#projectId, 'CAN_MANAGE_PROJECT_USERS')")
     @GetMapping("/approvals")
-    public ResponseEntity<ProjectEmployeesDTO> getProjectApprovals(
+    public ResponseEntity<ProjectApprovalsDTO> getProjectApprovals(
             @RequestHeader @NotNull UUID employeeId,
             @RequestHeader @NotNull UUID projectId,
             @RequestParam(value="page", required = false) Integer page,
             @RequestParam(value="size", required = false) Integer size,
             @RequestParam(value="direction", required = false) String direction,
-            @RequestParam(value="key", required = false) String key,
-            @RequestParam(value="active", required = false, defaultValue = "true") Boolean active
+            @RequestParam(value="key", required = false) String key
     ){
+
         var settings = initPagingSettings(page, size, direction, key);
-        // TODO: 28/12/2022
-        return null;
+
+        var response = projectService.getProjectApprovalEmployees(projectId, settings);
+
+        return ResponseEntity.ok(response);
     }
 
 }

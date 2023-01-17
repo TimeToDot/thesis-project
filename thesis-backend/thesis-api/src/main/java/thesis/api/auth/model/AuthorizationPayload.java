@@ -2,6 +2,7 @@ package thesis.api.auth.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
+import org.springframework.format.annotation.DateTimeFormat;
 import thesis.domain.employee.model.BillingPeriodDTO;
 import thesis.domain.employee.model.ContractTypeDTO;
 
@@ -42,8 +43,7 @@ public class AuthorizationPayload {
     @NotBlank
     private String sex;
 
-    @NotBlank
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthDate;
 
     @NotBlank
@@ -83,7 +83,7 @@ public class AuthorizationPayload {
     @NotNull
     private UUID positionId;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date employmentDate;
 
     private ContractTypeDTO contractType;

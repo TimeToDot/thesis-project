@@ -28,6 +28,9 @@ public class Project {
 
   private String description;
 
+  @Enumerated(EnumType.STRING)
+  private ProjectType status;
+
   @OneToOne
   @JoinColumn(name = "owner_id")
   private Account owner;

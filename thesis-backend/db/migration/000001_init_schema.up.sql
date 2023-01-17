@@ -85,13 +85,19 @@ CREATE TABLE "project" (
                            "id" uuid DEFAULT gen_random_uuid() PRIMARY KEY,
                            "name" varchar NOT NULL,
                            "description" varchar,
-                           "owner_id" uuid NOT NULL
+                           "owner_id" uuid NOT NULL,
+                           "status" varchar
 );
 
 CREATE TABLE "project_details" (
                                    "id" uuid DEFAULT gen_random_uuid() PRIMARY KEY,
                                    "project_id" uuid NOT NULL,
-                                   "options" varchar NOT NULL,
+                                   "billing_period" varchar,
+                                   "archive_date" timestamp,
+                                   "overtime_modifier" INTEGER,
+                                   "bonus_modifier" INTEGER,
+                                   "night_modifier" INTEGER,
+                                   "holiday_modifier" INTEGER,
                                    "image_path" varchar,
                                    "created_at" timestamp DEFAULT 'now()'
 );

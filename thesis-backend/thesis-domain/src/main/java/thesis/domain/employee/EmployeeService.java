@@ -114,7 +114,7 @@ public class EmployeeService {
         }
 
         var account = accountRepository.findById(id).orElseThrow();
-        var accountProjects = accountProjectRepository.findAllByAccount_Id(account.getId(), pagingSettings.getPageable()).orElseThrow();
+        var accountProjects = accountProjectRepository.findAllByAccountId(account.getId(), pagingSettings.getPageable()).orElseThrow();
 
         var paging = getPaging(pagingSettings, accountProjects);
         var sorting = getSorting(pagingSettings);
@@ -277,13 +277,13 @@ public class EmployeeService {
         var size = 100;
         var page = 1;
         var settings = PagingSettings.builder().page(page).size(size).build();
-        var tasks = taskRepository.findByAccountIdAndForm_ProjectIdAndDateFromBetween(account.getId(), project.getId(), listOfDate.get(0), listOfDate.get(1), settings.getPageable()).orElseThrow();
+        var tasks = taskRepository.findByAccountIdAndFormProjectIdAndDateFromBetween(account.getId(), project.getId(), listOfDate.get(0), listOfDate.get(1), settings.getPageable()).orElseThrow();
         var taskList = new ArrayList<>(tasks.stream().toList());
 
         while (tasks.getTotalPages() > page) {
             page += 1;
             settings = PagingSettings.builder().page(page).size(size).build();
-            tasks = taskRepository.findByAccountIdAndForm_ProjectIdAndDateFromBetween(account.getId(), project.getId(), listOfDate.get(0), listOfDate.get(1), settings.getPageable()).orElseThrow();
+            tasks = taskRepository.findByAccountIdAndFormProjectIdAndDateFromBetween(account.getId(), project.getId(), listOfDate.get(0), listOfDate.get(1), settings.getPageable()).orElseThrow();
             taskList.addAll(tasks.stream().toList());
         }
 

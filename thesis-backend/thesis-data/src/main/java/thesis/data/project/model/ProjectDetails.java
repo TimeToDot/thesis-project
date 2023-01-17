@@ -1,5 +1,6 @@
 package thesis.data.project.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
@@ -26,7 +27,17 @@ public class ProjectDetails {
   @JoinColumn(name = "project_id")
   private Project project;
 
-  private String options;
+  private String billingPeriod;
+
+  private Date archiveDate;
+
+  private Integer overtimeModifier;
+
+  private Integer bonusModifier;
+
+  private Integer nightModifier;
+
+  private Integer holidayModifier;
 
   private String imagePath;
 

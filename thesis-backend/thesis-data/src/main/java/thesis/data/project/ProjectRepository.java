@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import thesis.data.account.model.Account;
 import thesis.data.project.model.Project;
+import thesis.data.project.model.ProjectType;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,5 +20,7 @@ import java.util.UUID;
 @Repository
 public interface ProjectRepository extends JpaRepository<Project, UUID> {
   Optional<Project> findByName(String name);
+
+  Optional<List<Project>> findAllByStatus(ProjectType status);
   List<Project> findByOwner(Account account);
 }

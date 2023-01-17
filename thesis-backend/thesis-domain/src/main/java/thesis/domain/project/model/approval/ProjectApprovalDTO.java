@@ -1,14 +1,18 @@
 package thesis.domain.project.model.approval;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Builder;
 import thesis.domain.project.model.employee.EmployeeDTO;
 
 import java.util.Date;
 import java.util.UUID;
 
+@Builder
 public record ProjectApprovalDTO(
-        UUID projectApprovalId,
+        UUID projectEmployeeId,
         EmployeeDTO employee,
         ApprovalStatus status,
+        @JsonFormat(pattern = "yyyy-MM-dd")
         Date lastRequest
 ) {
 }

@@ -26,5 +26,8 @@ public interface TaskRepository extends JpaRepository<Task, UUID> {
     Optional<Page<Task>> findByAccountIdAndDateFromBetween(UUID id, Date startDate, Date endDate, Pageable pageable);
 
     @Transactional
-    Optional<Page<Task>> findByAccountIdAndForm_ProjectIdAndDateFromBetween(UUID accountId, UUID projectId, Date startDate, Date endDate, Pageable pageable);
+    Optional<Page<Task>> findByAccountIdAndFormProjectIdAndDateFromBetween(UUID accountId, UUID projectId, Date startDate, Date endDate, Pageable pageable);
+
+    @Transactional
+    Optional<Page<Task>> findByFormProjectIdAndAccountId(UUID projectId, UUID accountId, Pageable pageable);
 }
