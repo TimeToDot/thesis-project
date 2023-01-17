@@ -60,10 +60,7 @@ public class EmployeeService {
 
     public EmployeeDTO getEmployee(UUID id) {
         var account = accountRepository.findById(id).orElseThrow();
-        var position = positionRepository.findById(account.getPosition().getId()).orElseThrow();
         var details = accountDetailsRepository.findByAccount(account).orElseThrow();
-        account.setPosition(position);
-        details.setAccount(account);
 
         return employeeDTOMapper.map(details);
     }
