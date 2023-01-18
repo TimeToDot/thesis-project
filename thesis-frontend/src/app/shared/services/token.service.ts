@@ -35,9 +35,9 @@ export class TokenService {
     window.localStorage.setItem(this.EMPLOYEE_KEY, JSON.stringify(employeeId));
   }
 
-  getEmployee(): string | null {
+  getEmployee(): string {
     const employeeId = window.localStorage.getItem(this.EMPLOYEE_KEY);
-    return employeeId ? JSON.parse(employeeId) : null;
+    return employeeId as string;
   }
 
   savePermissions(permissions: Permissions): void {
