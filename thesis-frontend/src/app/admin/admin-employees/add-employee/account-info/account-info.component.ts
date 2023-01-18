@@ -69,15 +69,10 @@ export class AccountInfoComponent {
     this.disableGuard.emit(true);
     if (value) {
       this.employeesService
-        .addAccount(this.getEmployeeData())
+        .addEmployee(this.getEmployeeData())
         .pipe(first())
-        .subscribe(employee => {
-          this.employeesService
-            .addEmployee(employee)
-            .pipe(first())
-            .subscribe(() => {
-              this.redirectAfterAddition();
-            });
+        .subscribe(() => {
+          this.redirectAfterAddition();
         });
     }
   }

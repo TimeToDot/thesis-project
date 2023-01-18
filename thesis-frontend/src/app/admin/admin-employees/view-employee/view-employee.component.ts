@@ -87,27 +87,20 @@ export class ViewEmployeeComponent {
   archive(value: boolean): void {
     if (value) {
       this.employeesService
-        .archiveAccount(this.employee)
+        .archiveEmployee(this.employee)
         .pipe(first())
-        .subscribe(employee => {
-          this.employeesService
-            .archiveEmployee(employee)
-            .pipe(first())
-            .subscribe(() => {
-              this.router
-                .navigate(['..'], { relativeTo: this.route })
-                .then(() => {
-                  setTimeout(
-                    () =>
-                      this.toastService.showToast(
-                        ToastState.Info,
-                        'Employee archived'
-                      ),
-                    200
-                  );
-                  setTimeout(() => this.toastService.dismissToast(), 3200);
-                });
-            });
+        .subscribe(() => {
+          this.router.navigate(['..'], { relativeTo: this.route }).then(() => {
+            setTimeout(
+              () =>
+                this.toastService.showToast(
+                  ToastState.Info,
+                  'Employee archived'
+                ),
+              200
+            );
+            setTimeout(() => this.toastService.dismissToast(), 3200);
+          });
         });
     }
   }
