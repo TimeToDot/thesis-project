@@ -19,10 +19,9 @@ import java.util.UUID;
 public class BillingPeriod {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer serialId;
-
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(columnDefinition = "serial")
+    private Integer id;
 
     private String name;
 }

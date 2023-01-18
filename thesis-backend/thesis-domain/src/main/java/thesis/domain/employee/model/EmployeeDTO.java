@@ -1,7 +1,9 @@
 package thesis.domain.employee.model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import thesis.data.account.model.Contract;
+import thesis.security.services.model.ContractDTO;
+import thesis.security.services.model.CountryDTO;
+import thesis.security.services.model.SexDTO;
 
 import java.util.Date;
 import java.util.UUID;
@@ -16,8 +18,7 @@ public record EmployeeDTO(
         String password,
         String idCardNumber,
         String pesel,
-        String sex,
-
+        SexDTO sex,
         SimplePositionDTO position,
         Date employmentDate,
         Date exitDate,
@@ -30,10 +31,10 @@ public record EmployeeDTO(
         String houseNumber,
         String apartmentNumber,
         String postalCode,
-        String country,
+        CountryDTO country,
         String privateEmail,
         String accountNumber,
-        Contract contractType,
+        ContractDTO contractType,
         //BillingPeriodDTO billingPeriod,
         Integer workingTime,
         Integer wage,

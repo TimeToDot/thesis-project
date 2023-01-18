@@ -87,7 +87,7 @@ public class AccountDetails {
 
     @ManyToOne
     @JoinColumn(name = "contract_type_id")
-    private Contract contractType;
+    private ContractType contractType;
 
     //private String billingPeriod;
 

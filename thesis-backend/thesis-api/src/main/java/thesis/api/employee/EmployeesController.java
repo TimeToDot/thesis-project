@@ -54,7 +54,7 @@ public class EmployeesController extends ThesisController {
 
     //@PreAuthorize("hasAuthority('CAN_READ')")
     @GetMapping
-    public ResponseEntity<EmployeesResponse> getEmployees(
+    public ResponseEntity<List<EmployeeResponse>> getEmployees(
             @RequestHeader(required = false) UUID employeeId,
             @RequestHeader(required = false) UUID projectId,
             @RequestParam(value="active", required = false, defaultValue = "true") Boolean active,
@@ -63,30 +63,17 @@ public class EmployeesController extends ThesisController {
             @RequestParam(value="direction", required = false) String direction,
             @RequestParam(value="key", required = false) String key
     ) {
-        var settings = initPaging(page, size, key, direction);
+        var settings = initPaging(1, 100, key, direction);
 
         var dto = employeeService.getEmployees(settings, active);
         var response = employeesMapper.map(dto);
 
-        return ResponseEntity.ok(response);
-    }
-
-    @GetMapping
-    //@PreAuthorize("hasAuthority('CAN_READ')")
-    public ResponseEntity<EmployeeResponse> getEmployee(
-            @RequestHeader(required = false) UUID employeeId,
-            @RequestHeader(required = false) UUID projectId
-    ) {
-
-        var employeeDTO = employeeService.getEmployee(employeeId);
-        var employee = employeeMapper.map(employeeDTO);
-
-        return ResponseEntity.ok(employee);
+        return ResponseEntity.ok(response.employees());
     }
 
     @GetMapping("/{id}")
-    //@PreAuthorize("hasPermission(#projectId, 'CAN_MANAGE_PROJECT_USERS') || hasAuthority('CAN_ADMIN_USERS')")
-    public ResponseEntity<EmployeeResponse> getEmployeeByProject(
+    //@PreAuthorize("hasAuthority('CAN_READ')")
+    public ResponseEntity<EmployeeResponse> getEmployee(
             @RequestHeader(required = false) UUID employeeId,
             @RequestHeader(required = false) UUID projectId,
             @PathVariable UUID id
@@ -98,6 +85,20 @@ public class EmployeesController extends ThesisController {
         return ResponseEntity.ok(employee);
     }
 
+/*    @GetMapping("/{id}")
+    //@PreAuthorize("hasPermission(#projectId, 'CAN_MANAGE_PROJECT_USERS') || hasAuthority('CAN_ADMIN_USERS')")
+    public ResponseEntity<EmployeeResponse> getEmployeeByProject(
+            @RequestHeader(required = false) UUID employeeId,
+            @RequestHeader(required = false) UUID projectId,
+            @PathVariable UUID id
+    ) {
+
+        var employeeDTO = employeeService.getEmployee(id);
+        var employee = employeeMapper.map(employeeDTO);
+
+        return ResponseEntity.ok(employee);
+    }*/
+
     @GetMapping("/contractTypes")
     //@PreAuthorize("hasAuthority('CAN_ADMIN_USERS')")
     public ResponseEntity<Map<Integer, String>> getContractTypes(
@@ -106,18 +107,6 @@ public class EmployeesController extends ThesisController {
     ) {
         var response = Arrays.stream(ContractTypeDTO.values())
                 .collect(Collectors.toMap(Enum::ordinal, contractTypeDTO -> contractTypeDTO.label));
-
-        return ResponseEntity.ok(response);
-    }
-
-    @GetMapping("/bellingPeriod")
-    //@PreAuthorize("hasAuthority('CAN_ADMIN_USERS')")
-    public ResponseEntity<Map<Integer, String>> getBillingPeriod(
-            @RequestHeader(required = false) UUID employeeId,
-            @RequestHeader(required = false) UUID projectId
-    ) {
-        var response = Arrays.stream(BillingPeriodDTO.values())
-                .collect(Collectors.toMap(Enum::ordinal, billingPeriodDTO -> billingPeriodDTO.label));
 
         return ResponseEntity.ok(response);
     }

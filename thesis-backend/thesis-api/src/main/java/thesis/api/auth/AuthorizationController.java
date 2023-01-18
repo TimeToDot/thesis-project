@@ -28,8 +28,6 @@ public class AuthorizationController extends ThesisController {
     private final AuthService authService;
     private final AuthMapper authMapper;
 
-
-
     @Operation(summary = "register User")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "User registered successfully!",
@@ -45,7 +43,7 @@ public class AuthorizationController extends ThesisController {
             @RequestHeader UUID employeeId,
             @Valid @RequestBody AuthorizationPayload authorizationPayload
     ) {
-
+/*
         if (Boolean.TRUE.equals(authService.isAccountExist(authorizationPayload.getEmail()))) {
             return ResponseEntity.badRequest().build();
         }
@@ -55,6 +53,8 @@ public class AuthorizationController extends ThesisController {
         var response = authService.addUser(dto);
 
 
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(response);*/
+
+        return ResponseEntity.ok().build();
     }
 }

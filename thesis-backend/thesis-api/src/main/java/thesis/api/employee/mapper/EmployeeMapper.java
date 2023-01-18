@@ -13,7 +13,7 @@ public interface EmployeeMapper {
 
     EmployeeMapper INSTANCE = Mappers.getMapper(EmployeeMapper.class);
 
-    @Mapping(target = "contractType", expression = "java(getContractType(employeeDTO.contractType()))")
+    //@Mapping(target = "contractType", expression = "java(getContractType(employeeDTO.contractType()))")
     //@Mapping(target = "billingPeriod", expression = "java(getBillingPeriod(employeeDTO.billingPeriod()))")
     EmployeeResponse map(EmployeeDTO employeeDTO);
 

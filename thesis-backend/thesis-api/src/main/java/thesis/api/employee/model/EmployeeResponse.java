@@ -1,7 +1,10 @@
 package thesis.api.employee.model;
 
+import thesis.security.services.model.ContractDTO;
 import thesis.security.services.model.ContractTypeDTO;
 import thesis.domain.employee.model.SimplePositionDTO;
+import thesis.security.services.model.CountryDTO;
+import thesis.security.services.model.SexDTO;
 
 import java.util.Date;
 import java.util.UUID;
@@ -16,7 +19,7 @@ public record EmployeeResponse(
         String password,
         String idCardNumber,
         String pesel,
-        String sex,
+        SexDTO sex,
         SimplePositionDTO position,
         Date employmentDate,
         Date exitDate,
@@ -29,10 +32,10 @@ public record EmployeeResponse(
         String houseNumber,
         String apartmentNumber,
         String postalCode,
-        String country,
+        CountryDTO country,
         String privateEmail,
         String accountNumber,
-        ContractTypeDTO contractType,
+        ContractDTO contractType,
         //BillingPeriodDTO billingPeriod,
         Integer workingTime,
         Integer wage,

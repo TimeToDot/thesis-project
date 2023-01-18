@@ -20,11 +20,9 @@ import java.util.UUID;
 public class Country {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer serialId;
-
-    @NotBlank(message = "name is required")
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(columnDefinition = "serial")
+    private Integer id;
 
     @NotBlank(message = "name is required")
     private String name;

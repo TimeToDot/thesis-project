@@ -38,23 +38,19 @@ CREATE TABLE "account_details" (
 );
 
 CREATE TABLE "sex" (
-                                   "serial_id" serial PRIMARY KEY,
-                                   "id" varchar NOT NULL,
+                                   "id" SERIAL PRIMARY KEY NOT NULL,
                                    "name" varchar NOT NULL
 );
 CREATE TABLE "contract_type" (
-                                   "serial_id" serial PRIMARY KEY,
-                                   "id" varchar NOT NULL,
+                                   "id" SERIAL PRIMARY KEY NOT NULL,
                                    "name" varchar NOT NULL
 );
 CREATE TABLE "country" (
-                                   "serial_id" serial PRIMARY KEY,
-                                   "id" varchar NOT NULL,
+                                   "id" SERIAL PRIMARY KEY NOT NULL,
                                    "name" varchar NOT NULL
 );
 CREATE TABLE "billing_period" (
-                                   "serial_id" serial PRIMARY KEY,
-                                   "id" varchar NOT NULL,
+                                   "id" SERIAL PRIMARY KEY NOT NULL,
                                    "name" varchar NOT NULL
 );
 
@@ -208,10 +204,10 @@ ALTER TABLE "account_message" ADD FOREIGN KEY ("account_to") REFERENCES "account
 
 ALTER TABLE "account" ADD FOREIGN KEY ("position_id") REFERENCES "position" ("id");
 
-ALTER TABLE "account_details" ADD FOREIGN KEY ("sex_id") REFERENCES "sex" ("serial_id");
+ALTER TABLE "account_details" ADD FOREIGN KEY ("sex_id") REFERENCES "sex" ("id");
 
-ALTER TABLE "account_details" ADD FOREIGN KEY ("country_id") REFERENCES "country" ("serial_id");
+ALTER TABLE "account_details" ADD FOREIGN KEY ("country_id") REFERENCES "country" ("id");
 
-ALTER TABLE "account_details" ADD FOREIGN KEY ("contract_type_id") REFERENCES "contract_type" ("serial_id");
+ALTER TABLE "account_details" ADD FOREIGN KEY ("contract_type_id") REFERENCES "contract_type" ("id");
 
-ALTER TABLE "project_details" ADD FOREIGN KEY ("billing_period_id") REFERENCES "billing_period" ("serial_id");
+ALTER TABLE "project_details" ADD FOREIGN KEY ("billing_period_id") REFERENCES "billing_period" ("id");

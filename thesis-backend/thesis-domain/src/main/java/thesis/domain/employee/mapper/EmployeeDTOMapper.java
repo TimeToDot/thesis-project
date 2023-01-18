@@ -35,7 +35,7 @@ public interface EmployeeDTOMapper {
     @Mapping(target = "position", expression = "java(getPosition(details.getAccount().getPosition()))")
     @Mapping(target = "employmentDate", source = "employmentDate")
     @Mapping(target = "exitDate", source = "exitDate")
-    @Mapping(target = "contractType", expression = "java(getContractType(details.getContractType()))")
+    @Mapping(target = "contractType", source = "contractType")
     //@Mapping(target = "billingPeriod", expression = "java(getBillingPeriod(details.getBillingPeriod()))")
     @Mapping(target = "workingTime", source = "workingTime")
     @Mapping(target = "wage", source = "wage")

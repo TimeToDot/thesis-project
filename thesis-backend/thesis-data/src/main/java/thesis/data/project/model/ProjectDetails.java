@@ -29,7 +29,9 @@ public class ProjectDetails {
   @JoinColumn(name = "project_id")
   private Project project;
 
-  private String billingPeriod;
+  @ManyToOne
+  @JoinColumn(name = "billing_period_id")
+  private BillingPeriod billingPeriod;
 
   private Date archiveDate;
 

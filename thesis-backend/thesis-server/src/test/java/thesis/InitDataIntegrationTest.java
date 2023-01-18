@@ -9,12 +9,12 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
-import thesis.data.account.AccountDetailsRepository;
-import thesis.data.account.AccountRepository;
+import thesis.data.account.*;
 import thesis.data.account.model.*;
 import thesis.data.position.PositionRepository;
 import thesis.data.position.model.Position;
 import thesis.data.project.AccountProjectRepository;
+import thesis.data.project.BillingPeriodRepository;
 import thesis.data.project.ProjectDetailsRepository;
 import thesis.data.project.ProjectRepository;
 import thesis.data.project.model.*;
@@ -25,7 +25,6 @@ import thesis.data.task.TaskFormDetailsRepository;
 import thesis.data.task.TaskFormRepository;
 import thesis.data.task.TaskRepository;
 import thesis.data.task.model.*;
-import thesis.domain.employee.model.BillingPeriodDTO;
 import thesis.domain.paging.PagingSettings;
 
 import java.text.ParseException;
@@ -70,6 +69,18 @@ public class InitDataIntegrationTest {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private BillingPeriodRepository billingPeriodRepository;
+
+    @Autowired
+    private SexRepository sexRepository;
+
+    @Autowired
+    private ContractTypeRepository contractTypeRepository;
+
+    @Autowired
+    private CountryRepository countryRepository;
 
     private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
@@ -210,43 +221,86 @@ public class InitDataIntegrationTest {
 
         projects.forEach(project -> Assert.assertNotNull(project.getId()));
 
+        var billingPeriods = getBillingPeriods ();
+
         var projectDetails1 = ProjectDetails.builder()
                 .project(project1)
                 .createdAt(new Date())
-                .billingPeriod("a")
                 .bonusModifier(1)
                 .nightModifier(12)
                 .holidayModifier(50)
                 .imagePath("path")
                 .overtimeModifier(20)
-                .billingPeriod(BillingPeriodDTO.WEEK.label)
+                .billingPeriod(billingPeriods.get(0))
                 .build();
         var projectDetails2 = ProjectDetails.builder()
                 .project(project2)
                 .createdAt(new Date())
-                .billingPeriod("a")
+                .billingPeriod(billingPeriods.get(0))
                 .bonusModifier(1)
                 .nightModifier(12)
                 .holidayModifier(50)
                 .imagePath("path")
                 .overtimeModifier(20)
-                .billingPeriod(BillingPeriodDTO.WEEK.label)
                 .build();
         var projectDetails3 = ProjectDetails.builder()
                 .project(project3)
                 .createdAt(new Date())
-                .billingPeriod("a")
+                .billingPeriod(billingPeriods.get(0))
                 .bonusModifier(1)
                 .nightModifier(12)
                 .holidayModifier(50)
                 .imagePath("path")
                 .overtimeModifier(20)
-                .billingPeriod(BillingPeriodDTO.WEEK.label)
                 .build();;
 
         projectDetailsRepository.saveAll(List.of(projectDetails1, projectDetails2, projectDetails3));
 
         return projects;
+    }
+
+    private List<BillingPeriod> getBillingPeriods() {
+        var list = List.of(
+                BillingPeriod.builder().name("Week").build(),
+                BillingPeriod.builder().name("2 Weeks").build(),
+                BillingPeriod.builder().name("Month").build(),
+                BillingPeriod.builder().name("Season").build()
+        );
+        billingPeriodRepository.saveAll(list);
+
+        return list;
+    }
+
+    private List<ContractType> getContracts() {
+
+        var list = List.of(
+                ContractType.builder().name("Employment contract").build(),
+                ContractType.builder().name("Commission contract").build(),
+                ContractType.builder().name("Specific-task contract").build(),
+                ContractType.builder().name("B2B").build()
+        );
+        contractTypeRepository.saveAll(list);
+
+        return list;
+    }
+
+    private List<Sex> getSexes() {
+        var list = List.of(
+                Sex.builder().name("Male").build(),
+                Sex.builder().name("Female").build()
+        );
+        sexRepository.saveAll(list);
+
+        return list;
+    }
+
+    private List<Country> getCountries() {
+        List<Country> list = List.of(
+                Country.builder().name("\uD83C\uDDF5\uD83C\uDDF1 Poland").build()
+        );
+        countryRepository.saveAll(list);
+
+        return list;
     }
 
     private Account createAccount(String login, String pass, String email, Role role, Position position){
@@ -261,6 +315,10 @@ public class InitDataIntegrationTest {
     }
 
     private AccountDetails createAccountDetails(Account account, String city, String pesel){
+        var contractTypes = getContracts();
+        var sex = getSexes();
+        var country = getCountries();
+
         return AccountDetails.builder()
                 .account(account)
                 .city(city)
@@ -269,11 +327,12 @@ public class InitDataIntegrationTest {
                 .street("Domyslna" + account.getEmail())
                 .postalCode("12-123")
                 .taxNumber("123123123123123123")
-                .sex("male")
+                .sex(sex.get(0))
+                .country(country.get(0))
                 .surname("Domyśliciel")
                 .name("Domyslaw-" + account.getEmail())
                 .city("Domyslice" + account.getEmail())
-                .contractType(ContractType.COMMISSION_CONTRACT.label)
+                .contractType(contractTypes.get(0))
                 //.billingPeriod(BillingPeriod.SEASON.label)
                 .build();
 

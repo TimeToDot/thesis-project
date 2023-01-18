@@ -7,8 +7,6 @@ import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
-import java.util.List;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -20,10 +18,9 @@ import java.util.UUID;
 public class Sex {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer serialId;
-
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(columnDefinition = "serial")
+    private Integer id;
 
     private String name;
 }

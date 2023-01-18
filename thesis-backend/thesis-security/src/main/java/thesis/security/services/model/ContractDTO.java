@@ -4,7 +4,7 @@ import lombok.Builder;
 
 @Builder
 public record ContractDTO(
-        String id,
-        ContractTypeDTO name
+        Integer id,
+        String name
 ) {
 }

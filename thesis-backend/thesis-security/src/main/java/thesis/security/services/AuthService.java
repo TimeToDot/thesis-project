@@ -37,7 +37,7 @@ public class AuthService {
     private final AccountDetailsRepository accountDetailsRepository;
     private final SexRepository sexRepository;
     private final CountryRepository countryRepository;
-    private final ContractRepository contractRepository;
+    private final ContractTypeRepository contractTypeRepository;
 
     public AuthenticationDTO authenticateUser(UserDetailsDefault userDetails) {
 
@@ -112,7 +112,7 @@ public class AuthService {
     private AccountDetails getAccountDetails(AuthorizationDTO authorizationDTO, Account account) {
         Sex sex = sexRepository.findByName(authorizationDTO.sex().name()).orElseThrow();
         Country country = countryRepository.findByName(authorizationDTO.country().name()).orElseThrow();
-        Contract contract = contractRepository.findByName(authorizationDTO.contractType().name().label).orElseThrow();
+        ContractType contractType = contractTypeRepository.findById(authorizationDTO.contractType().id()).orElseThrow();
 
         return AccountDetails.builder()
                 .account(account)
@@ -134,7 +134,7 @@ public class AuthService {
                 .birthPlace(authorizationDTO.birthPlace())
                 .idCardNumber(authorizationDTO.idCardNumber())
                 .employmentDate(authorizationDTO.employmentDate())
-                .contractType(contract)
+                .contractType(contractType)
                 .wage(authorizationDTO.wage())
                 .workingTime(authorizationDTO.workingTime())
                 .payday(authorizationDTO.payday())

@@ -1,22 +1,28 @@
 package thesis.data.account.model;
 
-import java.util.Arrays;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
-public enum ContractType {
-    EMPLOYMENT_CONTRACT("Employment contract"),
-    COMMISSION_CONTRACT("Commission contract"),
-    SPECIFIC_TASK_CONTRACT("Specific-task contract"),
-    B2B("B2B");
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
-    public final String label;
+@ToString
+@RequiredArgsConstructor
+@SuperBuilder
+@Getter
+@Setter
+@Entity
+@Table(name = "contract_type")
+public class ContractType {
 
-    private ContractType(String label) {
-        this.label = label;
-    }
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(columnDefinition = "serial")
+    private Integer id;
 
-    public static ContractType fromValue(String value){
-        var contractTypes = ContractType.values();
-
-        return Arrays.stream(contractTypes).filter(contractTypeDTO -> contractTypeDTO.label.equals(value)).findFirst().orElseThrow();
-    }
+    @NotBlank(message = "name is required")
+    private String name;
 }

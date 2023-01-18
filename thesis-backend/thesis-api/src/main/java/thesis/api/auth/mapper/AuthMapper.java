@@ -14,19 +14,19 @@ public interface AuthMapper {
 
     AuthenticationResponse map(AuthenticationDTO authenticationDTO);
 
-    @Mapping(target = "contractType", expression = "java(getContractType(authorizationPayload.getContractType()))")
+    //@Mapping(target = "contractType", expression = "java(getContractType(authorizationPayload.getContractType()))")
     AuthorizationDTO mapToAuthorizationDTO(AuthorizationTemp authorizationPayload);
 
-    default ContractDTO getContractType(ContractDTO contractDTO){
+/*    default ContractDTO getContractType(ContractDTO contractDTO){
         if (contractDTO == null){
             return null;
         }
 
         return ContractDTO.builder()
                 .id(contractDTO.id())
-                .name(ContractTypeDTO.fromValue(contractDTO.name().label))
+                .name(ContractTypeDTO.fromValue(contractDTO.name()))
                 .build();
-    }
+    }*/
 
 /*    default BillingPeriodSecurity getBillingPeriod(BillingPeriodDTO period){
         if (period == null){

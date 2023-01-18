@@ -99,10 +99,9 @@ public class EmployeeController extends ThesisController {
             @RequestHeader UUID employeeId,
             @RequestHeader(required = false) UUID projectId
     ) {
-        var response = Arrays.stream(BillingPeriodDTO.values())
-                .collect(Collectors.toMap(Enum::ordinal, billingPeriodDTO -> billingPeriodDTO.label));
+        // TODO: 18/01/2023
 
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok().build();
     }
 
     @PutMapping

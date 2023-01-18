@@ -9,6 +9,7 @@ import thesis.data.account.model.Account;
 import thesis.data.account.model.StatusType;
 import thesis.data.position.PositionRepository;
 import thesis.data.project.AccountProjectRepository;
+import thesis.data.project.BillingPeriodRepository;
 import thesis.data.project.ProjectDetailsRepository;
 import thesis.data.project.ProjectRepository;
 import thesis.data.project.model.*;
@@ -59,6 +60,7 @@ public class ProjectService {
     private final RoleRepository roleRepository;
     private final PositionRepository positionRepository;
     private final PositionMapper positionMapper;
+    private final BillingPeriodRepository billingPeriodRepository;
 
     public ProjectDTO getProject(UUID projectId){
         var project = projectRepository.findById(projectId).orElseThrow();
@@ -104,7 +106,12 @@ public class ProjectService {
 
         projectRepository.save(project);
 
-        projectDetails.setBillingPeriod(payloadDTO.billingPeriod().label);
+        projectDetails.setBillingPeriod(
+                BillingPeriod.builder()
+                        .id(payloadDTO.billingPeriod().id())
+                        .name(payloadDTO.name())
+                        .build()
+        );
         projectDetails.setBonusModifier(payloadDTO.bonusModifier());
         projectDetails.setOvertimeModifier(payloadDTO.overtimeModifier());
         projectDetails.setBonusModifier(payloadDTO.bonusModifier());
@@ -325,6 +332,14 @@ public class ProjectService {
         return accountProject.getId();
     }
 
+    public List<BillingPeriodDTO> getBillingPeriods(){
+        var billingPeriods = billingPeriodRepository.findAll();
+
+        return billingPeriods.stream()
+                .map(this::getBillingPeriodDTO)
+                .toList();
+    }
+
     private ProjectApprovalDTO getProjectApprovalDTO(Project project, AccountProject accountProject) {
         var size = 100;
         var page = 1;
@@ -439,7 +454,7 @@ public class ProjectService {
                 .contractTypeDTO(
                         ContractDTO.builder()
                                 .id(account.getDetails().getContractType().getId())
-                                .name(ContractTypeDTO.fromValue(account.getDetails().getContractType().getName()))
+                                .name(account.getDetails().getContractType().getName())
                                 .build()
                 )
                 .wage(account.getDetails().getWage())
@@ -470,13 +485,15 @@ public class ProjectService {
     private ProjectDTO getProjectDTO(Project projectTemp) {
         var project = projectRepository.findById(projectTemp.getId()).orElseThrow();
         var accountsNumber = project.getAccountProjects().stream().map(AccountProject::getAccount).toList().size();
-        var billingPeriod = BillingPeriodDTO.fromValue(project.getDetails().getBillingPeriod());
+        var billingPeriod = project.getDetails().getBillingPeriod();
 
         return ProjectDTO.builder()
                 .id(project.getId())
                 .name(project.getName())
                 .description(project.getDescription())
-                .billingPeriod(billingPeriod)
+                .billingPeriod(
+                        getBillingPeriodDTO(billingPeriod)
+                )
                 .overtimeModifier(project.getDetails().getOvertimeModifier())
                 .bonusModifier(project.getDetails().getBonusModifier())
                 .nightModifier(project.getDetails().getNightModifier())
@@ -532,15 +549,24 @@ public class ProjectService {
     }
 
     private ProjectDetails getProjectDetails(ProjectCreatePayloadDTO payloadDTO, Project project) {
+        var billingPeriod = billingPeriodRepository.findById(payloadDTO.billingPeriod().id()).orElseThrow();
+
         return ProjectDetails.builder()
                 .project(project)
                 .createdAt(new Date())
                 .imagePath(payloadDTO.image())
-                .billingPeriod(payloadDTO.billingPeriod().label)
+                .billingPeriod(billingPeriod)
                 .overtimeModifier(payloadDTO.overtimeModifier())
                 .bonusModifier(payloadDTO.bonusModifier())
                 .holidayModifier(payloadDTO.holidayModifier())
                 .nightModifier(payloadDTO.nightModifier())
+                .build();
+    }
+
+    private BillingPeriodDTO getBillingPeriodDTO(BillingPeriod billingPeriod) {
+        return BillingPeriodDTO.builder()
+                .id(billingPeriod.getId())
+                .name(billingPeriod.getName())
                 .build();
     }
 

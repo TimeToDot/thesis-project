@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import thesis.api.ThesisController;
+import thesis.domain.employee.model.BillingPeriodDTO;
 import thesis.domain.project.ProjectService;
 import thesis.domain.project.model.ProjectCreatePayloadDTO;
 import thesis.domain.project.model.ProjectUpdatePayloadDTO;
@@ -16,6 +17,7 @@ import thesis.domain.project.model.employee.ProjectEmployeeUpdatePayloadDTO;
 import thesis.domain.project.model.employee.ProjectEmployeesDTO;
 import thesis.domain.project.model.task.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @Slf4j
@@ -186,6 +188,17 @@ public class ProjectController extends ThesisController {
             @RequestBody ProjectUpdatePayloadDTO payload
     ){
         var response = projectService.updateProject(payload);
+
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/bellingPeriod")
+    //@PreAuthorize("hasAuthority('CAN_ADMIN_USERS')")
+    public ResponseEntity<List<BillingPeriodDTO>> getBillingPeriods(
+            @RequestHeader(required = false) UUID employeeId,
+            @RequestHeader(required = false) UUID projectId
+    ) {
+        var response = projectService.getBillingPeriods();
 
         return ResponseEntity.ok(response);
     }

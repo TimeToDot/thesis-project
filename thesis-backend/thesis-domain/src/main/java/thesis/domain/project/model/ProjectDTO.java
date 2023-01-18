@@ -2,6 +2,7 @@ package thesis.domain.project.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
+import thesis.data.account.model.BillingPeriodType;
 import thesis.domain.employee.model.BillingPeriodDTO;
 
 import java.util.Date;
