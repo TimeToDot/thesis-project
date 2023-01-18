@@ -37,7 +37,7 @@ export class TokenService {
 
   getEmployee(): string {
     const employeeId = window.localStorage.getItem(this.EMPLOYEE_KEY);
-    return employeeId as string;
+    return (employeeId as string)?.toString();
   }
 
   savePermissions(permissions: Permissions): void {
