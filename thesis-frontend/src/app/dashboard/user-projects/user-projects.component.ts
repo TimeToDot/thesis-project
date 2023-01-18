@@ -2,9 +2,9 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Account } from '../../shared/models/account.model';
 import { EmployeeProject } from '../../shared/models/employee-project.model';
-import { AuthService } from '../../shared/services/auth.service';
 import { EmployeesService } from '../../admin/services/employees.service';
 import { first } from 'rxjs';
+import { TokenService } from '../../shared/services/token.service';
 
 @Component({
   selector: 'bvr-user-projects',
@@ -19,8 +19,8 @@ export class UserProjectsComponent implements OnInit {
   employeeProjects: EmployeeProject[] = [];
 
   constructor(
-    private authService: AuthService,
-    private employeesService: EmployeesService
+    private employeesService: EmployeesService,
+    private tokenService: TokenService
   ) {}
 
   ngOnInit(): void {
@@ -29,26 +29,20 @@ export class UserProjectsComponent implements OnInit {
   }
 
   getEmployee(): void {
-    const employeeId = this.authService.getLoggedEmployeeId();
-    if (employeeId) {
-      this.employeesService
-        .getEmployee(employeeId)
-        .pipe(first())
-        .subscribe(employee => {
-          this.employee = employee;
-        });
-    }
+    this.employeesService
+      .getEmployee(this.tokenService.getEmployee())
+      .pipe(first())
+      .subscribe(employee => {
+        this.employee = employee;
+      });
   }
 
   getEmployeeProjects(): void {
-    const employeeId = this.authService.getLoggedEmployeeId();
-    if (employeeId) {
-      this.employeesService
-        .getActiveEmployeeProjects(employeeId)
-        .pipe(first())
-        .subscribe(employeeProjects => {
-          this.employeeProjects = employeeProjects;
-        });
-    }
+    this.employeesService
+      .getActiveEmployeeProjects(this.tokenService.getEmployee())
+      .pipe(first())
+      .subscribe(employeeProjects => {
+        this.employeeProjects = employeeProjects;
+      });
   }
 }

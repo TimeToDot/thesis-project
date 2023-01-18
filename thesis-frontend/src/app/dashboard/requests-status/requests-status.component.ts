@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { RouterLinkWithHref } from '@angular/router';
 import { Approval } from '../../tracker/models/approval.model';
-import { AuthService } from '../../shared/services/auth.service';
 import { EmployeesService } from '../../admin/services/employees.service';
 import { first } from 'rxjs';
+import { TokenService } from '../../shared/services/token.service';
 
 @Component({
   selector: 'bvr-requests-status',
@@ -17,8 +17,8 @@ export class RequestsStatusComponent implements OnInit {
   projectApprovals: Approval[] = [];
 
   constructor(
-    private authService: AuthService,
-    private employeesService: EmployeesService
+    private employeesService: EmployeesService,
+    private tokenService: TokenService
   ) {}
 
   ngOnInit(): void {
@@ -26,14 +26,11 @@ export class RequestsStatusComponent implements OnInit {
   }
 
   getProjectsApprovals(): void {
-    const employeeId = this.authService.getLoggedEmployeeId();
-    if (employeeId) {
-      this.employeesService
-        .getProjectsToApprove(employeeId)
-        .pipe(first())
-        .subscribe(projectApprovals => {
-          this.projectApprovals = projectApprovals;
-        });
-    }
+    this.employeesService
+      .getProjectsToApprove(this.tokenService.getEmployee())
+      .pipe(first())
+      .subscribe(projectApprovals => {
+        this.projectApprovals = projectApprovals;
+      });
   }
 }

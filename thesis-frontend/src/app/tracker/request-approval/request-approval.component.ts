@@ -3,13 +3,10 @@ import { CommonModule, formatDate, Location } from '@angular/common';
 import { DatePickerComponent } from '../../shared/components/date-picker/date-picker.component';
 import { FormFieldComponent } from '../../shared/components/form-field/form-field.component';
 import {
-  AbstractControl,
   FormBuilder,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
-  ValidationErrors,
-  ValidatorFn,
   Validators,
 } from '@angular/forms';
 import * as dayjs from 'dayjs';
@@ -23,9 +20,9 @@ import { ToastComponent } from '../../shared/components/toast/toast.component';
 import { first, Subject } from 'rxjs';
 import { ValidationService } from '../../shared/services/validation.service';
 import { EmployeesService } from '../../admin/services/employees.service';
-import { AuthService } from '../../shared/services/auth.service';
 import { CustomValidators } from '../../shared/helpers/custom-validators.helper';
 import { ErrorComponent } from '../../shared/components/error/error.component';
+import { TokenService } from '../../shared/services/token.service';
 
 @Component({
   selector: 'bvr-request-approval',
@@ -56,11 +53,11 @@ export class RequestApprovalComponent implements OnInit {
   requestApprovalForm!: FormGroup;
 
   constructor(
-    private authService: AuthService,
     private employeesService: EmployeesService,
     private fb: FormBuilder,
     private location: Location,
     private toastService: ToastService,
+    private tokenService: TokenService,
     private validationService: ValidationService
   ) {}
 
@@ -90,15 +87,12 @@ export class RequestApprovalComponent implements OnInit {
   }
 
   getProjectsToApprove(): void {
-    const employeeId = this.authService.getLoggedEmployeeId();
-    if (employeeId) {
-      this.employeesService
-        .getProjectsToApprove(employeeId)
-        .pipe(first())
-        .subscribe(
-          projectApprovals => (this.projectApprovals = projectApprovals)
-        );
-    }
+    this.employeesService
+      .getProjectsToApprove(this.tokenService.getEmployee())
+      .pipe(first())
+      .subscribe(
+        projectApprovals => (this.projectApprovals = projectApprovals)
+      );
   }
 
   toggleProjectsSelection(value: boolean): void {

@@ -31,6 +31,7 @@ import { EmployeesService } from '../../admin/services/employees.service';
 import { ErrorComponent } from '../../shared/components/error/error.component';
 import { CustomValidators } from '../../shared/helpers/custom-validators.helper';
 import { Status } from '../../shared/enum/status.enum';
+import { TokenService } from '../../shared/services/token.service';
 
 @Component({
   selector: 'bvr-add-new-task',
@@ -75,6 +76,7 @@ export class AddNewTaskComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private toastService: ToastService,
+    private tokenService: TokenService,
     private validationService: ValidationService
   ) {}
 
@@ -143,25 +145,21 @@ export class AddNewTaskComponent implements OnInit {
   }
 
   getEmployeeProjects(): void {
-    const employeeId = this.authService.getLoggedEmployeeId();
-    if (employeeId) {
-      this.employeesService
-        .getActiveEmployeeProjects(employeeId)
-        .pipe(first())
-        .subscribe(employeeProjects => {
-          this.projects = employeeProjects.map(
-            employeeProject => employeeProject.project
-          );
-        });
-    }
+    this.employeesService
+      .getActiveEmployeeProjects(this.tokenService.getEmployee())
+      .pipe(first())
+      .subscribe(employeeProjects => {
+        this.projects = employeeProjects.map(
+          employeeProject => employeeProject.project
+        );
+      });
   }
 
   getTask(): void {
-    const employeeId = this.authService.getLoggedEmployeeId();
     const taskId = this.route.snapshot.paramMap.get('id');
-    if (employeeId && taskId) {
+    if (taskId) {
       this.employeeTasksService
-        .getEmployeeTask(employeeId, taskId)
+        .getEmployeeTask(this.tokenService.getEmployee(), taskId)
         .pipe(first())
         .subscribe(employeeTask => {
           this.updateFormFields(employeeTask);
