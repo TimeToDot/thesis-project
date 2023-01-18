@@ -403,7 +403,9 @@ public class EmployeeService {
             if (Boolean.TRUE.equals(payloadDTO.active())) {
                 account.setStatus(StatusType.ENABLE);
             }
-            account.setStatus(StatusType.EXPIRED);
+            else {
+                account.setStatus(StatusType.EXPIRED);
+            }
         }
         if (payloadDTO.positionId() != null){
             var position = positionRepository.findById(payloadDTO.positionId()).orElseThrow();
