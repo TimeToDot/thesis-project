@@ -41,8 +41,9 @@ public class AccountDetails {
     @NotBlank(message = "pesel is required")
     private String pesel;
 
-    @NotBlank(message = "sex is required")
-    private String sex;
+    @ManyToOne
+    @JoinColumn(name = "sex_id")
+    private Sex sex;
 
     @NotBlank(message = "phonenumber is required")
     private String phoneNumber;
@@ -65,7 +66,9 @@ public class AccountDetails {
     @NotBlank(message = "city is required")
     private String city;
 
-    private String country;
+    @ManyToOne
+    @JoinColumn(name = "country_id")
+    private Country country;
 
     private String privateEmail;
 
@@ -82,7 +85,9 @@ public class AccountDetails {
 
     private String imagePath;
 
-    private String contractType;
+    @ManyToOne
+    @JoinColumn(name = "contract_type_id")
+    private Contract contractType;
 
     //private String billingPeriod;
 

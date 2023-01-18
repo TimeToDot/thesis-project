@@ -20,7 +20,7 @@ import thesis.api.employee.model.project.EmployeeProjectsToApproveResponse;
 import thesis.api.employee.model.task.*;
 import thesis.domain.employee.EmployeeService;
 import thesis.domain.employee.model.BillingPeriodDTO;
-import thesis.domain.employee.model.ContractTypeDTO;
+import thesis.security.services.model.ContractTypeDTO;
 import thesis.domain.employee.model.EmployeeUpdatePayloadDTO;
 import thesis.domain.employee.model.PasswordUpdatePayloadDTO;
 import thesis.security.services.model.UserDetailsDefault;

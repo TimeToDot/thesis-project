@@ -2,7 +2,7 @@ package thesis.api.auth.model;
 
 import lombok.Getter;
 import org.springframework.format.annotation.DateTimeFormat;
-import thesis.domain.employee.model.ContractTypeDTO;
+import thesis.security.services.model.ContractTypeDTO;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

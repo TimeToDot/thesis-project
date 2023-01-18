@@ -14,7 +14,7 @@ CREATE TABLE "account_details" (
                                    "middle_name" varchar,
                                    "surname" varchar NOT NULL,
                                    "pesel" varchar NOT NULL,
-                                   "sex" varchar NOT NULL,
+                                   "sex_id" INTEGER NOT NULL,
                                    "phone_number" varchar NOT NULL,
                                    "tax_number" varchar NOT NULL,
                                    "id_card_number" varchar,
@@ -23,18 +23,39 @@ CREATE TABLE "account_details" (
                                    "apartment_number" varchar,
                                    "postal_code" varchar NOT NULL,
                                    "city" varchar NOT NULL,
-                                   "country" varchar,
+                                   "country_id" INTEGER NOT NULL,
                                    "private_email" varchar,
                                    "employment_date" timestamp,
                                    "exit_date" timestamp,
                                    "birth_date" timestamp,
                                    "birth_place" varchar,
                                    "image_path" varchar,
-                                   "contract_type" varchar,
+                                   "contract_type_id" INTEGER NOT NULL,
                                    "working_time" INTEGER,
                                    "wage" INTEGER,
                                    "payday" INTEGER,
                                    "created_at" timestamp DEFAULT 'now()'
+);
+
+CREATE TABLE "sex" (
+                                   "serial_id" serial PRIMARY KEY,
+                                   "id" varchar NOT NULL,
+                                   "name" varchar NOT NULL
+);
+CREATE TABLE "contract_type" (
+                                   "serial_id" serial PRIMARY KEY,
+                                   "id" varchar NOT NULL,
+                                   "name" varchar NOT NULL
+);
+CREATE TABLE "country" (
+                                   "serial_id" serial PRIMARY KEY,
+                                   "id" varchar NOT NULL,
+                                   "name" varchar NOT NULL
+);
+CREATE TABLE "billing_period" (
+                                   "serial_id" serial PRIMARY KEY,
+                                   "id" varchar NOT NULL,
+                                   "name" varchar NOT NULL
 );
 
 CREATE TABLE "account_project" (
@@ -92,7 +113,7 @@ CREATE TABLE "project" (
 CREATE TABLE "project_details" (
                                    "id" uuid DEFAULT gen_random_uuid() PRIMARY KEY,
                                    "project_id" uuid NOT NULL,
-                                   "billing_period" varchar,
+                                   "billing_period_id"  INTEGER NOT NULL,
                                    "archive_date" timestamp,
                                    "overtime_modifier" INTEGER,
                                    "bonus_modifier" INTEGER,
@@ -186,3 +207,11 @@ ALTER TABLE "account_message" ADD FOREIGN KEY ("account_from") REFERENCES "accou
 ALTER TABLE "account_message" ADD FOREIGN KEY ("account_to") REFERENCES "account" ("id");
 
 ALTER TABLE "account" ADD FOREIGN KEY ("position_id") REFERENCES "position" ("id");
+
+ALTER TABLE "account_details" ADD FOREIGN KEY ("sex_id") REFERENCES "sex" ("serial_id");
+
+ALTER TABLE "account_details" ADD FOREIGN KEY ("country_id") REFERENCES "country" ("serial_id");
+
+ALTER TABLE "account_details" ADD FOREIGN KEY ("contract_type_id") REFERENCES "contract_type" ("serial_id");
+
+ALTER TABLE "project_details" ADD FOREIGN KEY ("billing_period_id") REFERENCES "billing_period" ("serial_id");

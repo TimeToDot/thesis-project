@@ -6,11 +6,11 @@ import org.mapstruct.factory.Mappers;
 import thesis.data.account.model.AccountDetails;
 import thesis.data.account.model.StatusType;
 import thesis.data.position.model.Position;
-import thesis.domain.employee.model.ContractTypeDTO;
 import thesis.domain.employee.model.EmployeeDTO;
 import thesis.domain.employee.model.EmployeeUpdatePayloadDTO;
 import thesis.domain.employee.model.SimplePositionDTO;
 import thesis.domain.mapper.MapStructConfig;
+import thesis.security.services.model.ContractTypeDTO;
 
 @Mapper(config = MapStructConfig.class)
 public interface EmployeeDTOMapper {

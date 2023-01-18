@@ -4,7 +4,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 import thesis.api.employee.model.EmployeeResponse;
-import thesis.domain.employee.model.ContractTypeDTO;
+import thesis.security.services.model.ContractTypeDTO;
 import thesis.domain.employee.model.EmployeeDTO;
 import thesis.domain.mapper.MapStructConfig;
 

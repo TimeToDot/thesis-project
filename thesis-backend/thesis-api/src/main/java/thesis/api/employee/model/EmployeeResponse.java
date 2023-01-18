@@ -1,6 +1,6 @@
 package thesis.api.employee.model;
 
-import thesis.domain.employee.model.ContractTypeDTO;
+import thesis.security.services.model.ContractTypeDTO;
 import thesis.domain.employee.model.SimplePositionDTO;
 
 import java.util.Date;

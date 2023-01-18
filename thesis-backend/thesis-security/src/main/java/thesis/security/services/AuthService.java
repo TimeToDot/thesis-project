@@ -6,12 +6,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import thesis.data.account.AccountDetailsRepository;
-import thesis.data.account.AccountRepository;
-import thesis.data.account.model.Account;
-import thesis.data.account.model.AccountDetails;
-import thesis.data.account.model.ContractType;
-import thesis.data.account.model.StatusType;
+import thesis.data.account.*;
+import thesis.data.account.model.*;
 import thesis.data.position.PositionRepository;
 import thesis.data.position.model.Position;
 import thesis.data.role.RoleRepository;
@@ -39,6 +35,9 @@ public class AuthService {
     private final PositionRepository positionRepository;
 
     private final AccountDetailsRepository accountDetailsRepository;
+    private final SexRepository sexRepository;
+    private final CountryRepository countryRepository;
+    private final ContractRepository contractRepository;
 
     public AuthenticationDTO authenticateUser(UserDetailsDefault userDetails) {
 
@@ -111,6 +110,10 @@ public class AuthService {
     }
 
     private AccountDetails getAccountDetails(AuthorizationDTO authorizationDTO, Account account) {
+        Sex sex = sexRepository.findByName(authorizationDTO.sex().name()).orElseThrow();
+        Country country = countryRepository.findByName(authorizationDTO.country().name()).orElseThrow();
+        Contract contract = contractRepository.findByName(authorizationDTO.contractType().name().label).orElseThrow();
+
         return AccountDetails.builder()
                 .account(account)
                 .name(authorizationDTO.firstName())
@@ -123,15 +126,15 @@ public class AuthService {
                 .houseNumber(authorizationDTO.houseNumber())
                 .createdAt(new Date())
                 .pesel(authorizationDTO.pesel())
-                .sex(authorizationDTO.sex())
+                .sex(sex)
                 .phoneNumber(authorizationDTO.phoneNumber())
                 .taxNumber(authorizationDTO.accountNumber())
-                .country(authorizationDTO.country())
+                .country(country)
                 .birthDate(authorizationDTO.birthDate())
                 .birthPlace(authorizationDTO.birthPlace())
                 .idCardNumber(authorizationDTO.idCardNumber())
                 .employmentDate(authorizationDTO.employmentDate())
-                .contractType(authorizationDTO.contractType().label)
+                .contractType(contract)
                 .wage(authorizationDTO.wage())
                 .workingTime(authorizationDTO.workingTime())
                 .payday(authorizationDTO.payday())

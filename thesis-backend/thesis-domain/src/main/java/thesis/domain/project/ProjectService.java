@@ -24,7 +24,6 @@ import thesis.data.task.model.TaskFormType;
 import thesis.domain.employee.EmployeeService;
 import thesis.domain.employee.model.BillingPeriodDTO;
 import thesis.domain.employee.model.CalendarTaskDTO;
-import thesis.domain.employee.model.ContractTypeDTO;
 import thesis.domain.paging.PagingSettings;
 import thesis.domain.position.PositionMapper;
 import thesis.domain.project.model.ProjectCreatePayloadDTO;
@@ -37,6 +36,8 @@ import thesis.domain.project.model.approval.ProjectApprovalsDTO;
 import thesis.domain.project.model.employee.*;
 import thesis.domain.project.model.task.*;
 import thesis.domain.task.model.TaskStatusDTO;
+import thesis.security.services.model.ContractDTO;
+import thesis.security.services.model.ContractTypeDTO;
 
 import java.util.*;
 
@@ -435,7 +436,12 @@ public class ProjectService {
                 .imagePath(account.getDetails().getImagePath())
                 .position(position == null ? null : positionMapper.simpleMap(position))
                 .employmentDate(account.getDetails().getEmploymentDate())
-                .contractTypeDTO(ContractTypeDTO.fromValue(account.getDetails().getContractType()))
+                .contractTypeDTO(
+                        ContractDTO.builder()
+                                .id(account.getDetails().getContractType().getId())
+                                .name(ContractTypeDTO.fromValue(account.getDetails().getContractType().getName()))
+                                .build()
+                )
                 .wage(account.getDetails().getWage())
                 .workingTime(account.getDetails().getWorkingTime())
                 .active(account.getStatus().compareTo(StatusType.ENABLE) == 0)

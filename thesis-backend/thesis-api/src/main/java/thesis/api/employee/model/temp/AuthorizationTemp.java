@@ -1,11 +1,13 @@
-package thesis.security.services.model;
+package thesis.api.employee.model.temp;
+
+import thesis.security.services.model.ContractDTO;
+import thesis.security.services.model.CountryDTO;
+import thesis.security.services.model.SexDTO;
 
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
-public record AuthorizationDTO(
-
+public record AuthorizationTemp(
         String email,
         String password,
         String firstName,

@@ -1,4 +1,4 @@
-package thesis.domain.employee.model;
+package thesis.security.services.model;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 

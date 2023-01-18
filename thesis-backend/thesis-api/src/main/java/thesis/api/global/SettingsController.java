@@ -11,7 +11,7 @@ import thesis.domain.project.model.task.ProjectTaskCreatePayloadDTO;
 @Slf4j
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api/global/settings")
+@RequestMapping("/api/global-settings")
 public class SettingsController extends ThesisController {
 
     private final GlobalSettings globalSettings;

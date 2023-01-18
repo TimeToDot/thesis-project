@@ -1,6 +1,7 @@
 package thesis.domain.employee.model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import thesis.data.account.model.Contract;
 
 import java.util.Date;
 import java.util.UUID;
@@ -32,7 +33,7 @@ public record EmployeeDTO(
         String country,
         String privateEmail,
         String accountNumber,
-        ContractTypeDTO contractType,
+        Contract contractType,
         //BillingPeriodDTO billingPeriod,
         Integer workingTime,
         Integer wage,
