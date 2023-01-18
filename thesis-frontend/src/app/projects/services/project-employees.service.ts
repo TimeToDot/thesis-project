@@ -2,14 +2,13 @@ import { formatDate } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 import { ProjectEmployee } from '../models/project-employee.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProjectEmployeesService {
-  private url: string = 'http://localhost:3000/projects';
-
   constructor(private http: HttpClient) {}
 
   getProjectEmployee(
@@ -17,13 +16,13 @@ export class ProjectEmployeesService {
     employeeId: string
   ): Observable<ProjectEmployee> {
     return this.http.get<ProjectEmployee>(
-      `${this.url}/${projectId}/employees/${employeeId}`
+      `${environment.apiUrl}/projects/${projectId}/employees/${employeeId}`
     );
   }
 
   addProjectEmployee(employee: ProjectEmployee): Observable<ProjectEmployee> {
     return this.http.post<ProjectEmployee>(
-      `${this.url}/${employee.projectId}/employees`,
+      `${environment.apiUrl}/projects/${employee.projectId}/employees`,
       employee
     );
   }
@@ -32,7 +31,7 @@ export class ProjectEmployeesService {
     employee: ProjectEmployee
   ): Observable<ProjectEmployee> {
     return this.http.put<ProjectEmployee>(
-      `${this.url}/${employee.projectId}/employees/${employee.id}`,
+      `${environment.apiUrl}/projects/${employee.projectId}/employees/${employee.id}`,
       employee
     );
   }
@@ -43,14 +42,14 @@ export class ProjectEmployeesService {
     employee.active = false;
     employee.exitDate = formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en');
     return this.http.put<ProjectEmployee>(
-      `${this.url}/${employee.projectId}/employees/${employee.id}`,
+      `${environment.apiUrl}/projects/${employee.projectId}/employees/${employee.id}`,
       employee
     );
   }
 
   getProjectEmployees(projectId: string): Observable<ProjectEmployee[]> {
     return this.http.get<ProjectEmployee[]>(
-      `${this.url}/${projectId}/employees?active=true`
+      `${environment.apiUrl}/projects/${projectId}/employees?active=true`
     );
   }
 
@@ -58,7 +57,7 @@ export class ProjectEmployeesService {
     projectId: string
   ): Observable<ProjectEmployee[]> {
     return this.http.get<ProjectEmployee[]>(
-      `${this.url}/${projectId}/employees?active=false`
+      `${environment.apiUrl}/projects/${projectId}/employees?active=false`
     );
   }
 }

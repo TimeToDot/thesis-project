@@ -1,14 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 import { ProjectApproval } from '../models/project-approval.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProjectApprovalsService {
-  private url: string = 'http://localhost:3000/projects';
-
   constructor(private http: HttpClient) {}
 
   getProjectApproval(
@@ -16,13 +15,13 @@ export class ProjectApprovalsService {
     approvalId: string
   ): Observable<ProjectApproval> {
     return this.http.get<ProjectApproval>(
-      `${this.url}/${projectId}/approvals/${approvalId}`
+      `${environment.apiUrl}/projects/${projectId}/approvals/${approvalId}`
     );
   }
 
   getProjectApprovals(projectId: string): Observable<ProjectApproval[]> {
     return this.http.get<ProjectApproval[]>(
-      `${this.url}/${projectId}/approvals?active=true`
+      `${environment.apiUrl}/projects/${projectId}/approvals?active=true`
     );
   }
 
@@ -30,7 +29,7 @@ export class ProjectApprovalsService {
     projectId: string
   ): Observable<ProjectApproval[]> {
     return this.http.get<ProjectApproval[]>(
-      `${this.url}/${projectId}/approvals?active=false`
+      `${environment.apiUrl}/projects/${projectId}/approvals?active=false`
     );
   }
 }

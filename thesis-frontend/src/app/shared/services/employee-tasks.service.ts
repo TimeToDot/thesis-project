@@ -2,6 +2,7 @@ import { formatDate } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 import { Day } from '../../calendar/models/day.model';
 import { EmployeeTask } from '../models/employee-task.model';
 
@@ -9,8 +10,6 @@ import { EmployeeTask } from '../models/employee-task.model';
   providedIn: 'root',
 })
 export class EmployeeTasksService {
-  private url: string = 'http://localhost:3000/employees';
-
   constructor(private http: HttpClient) {}
 
   getEmployeeTask(
@@ -18,7 +17,7 @@ export class EmployeeTasksService {
     taskId: string
   ): Observable<EmployeeTask> {
     return this.http.get<EmployeeTask>(
-      `${this.url}/${employeeId}/tasks/${taskId}`
+      `${environment.apiUrl}/employees/${employeeId}/tasks/${taskId}`
     );
   }
 
@@ -27,13 +26,15 @@ export class EmployeeTasksService {
     task: EmployeeTask
   ): Observable<EmployeeTask> {
     return this.http.post<EmployeeTask>(
-      `${this.url}/${employeeId}/tasks`,
+      `${environment.apiUrl}/employees/${employeeId}/tasks`,
       task
     );
   }
 
   getEmployeeLastTasks(employeeId: string): Observable<EmployeeTask[]> {
-    return this.http.get<EmployeeTask[]>(`${this.url}/${employeeId}/tasks`);
+    return this.http.get<EmployeeTask[]>(
+      `${environment.apiUrl}/employees/${employeeId}/tasks`
+    );
   }
 
   getEmployeeTasks(
@@ -42,11 +43,13 @@ export class EmployeeTasksService {
   ): Observable<EmployeeTask[]> {
     date = formatDate(date, 'yyyy-MM-dd', 'en');
     return this.http.get<EmployeeTask[]>(
-      `${this.url}/${employeeId}/tasks?date=${date}`
+      `${environment.apiUrl}/employees/${employeeId}/tasks?date=${date}`
     );
   }
 
   getEmployeeCalendar(employeeId: string): Observable<Day[]> {
-    return this.http.get<Day[]>(`${this.url}/${employeeId}/calendar`);
+    return this.http.get<Day[]>(
+      `${environment.apiUrl}/employees/${employeeId}/calendar`
+    );
   }
 }
