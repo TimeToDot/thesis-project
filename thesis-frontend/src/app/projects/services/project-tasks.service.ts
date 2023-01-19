@@ -34,6 +34,7 @@ export class ProjectTasksService {
   archiveProjectTask(task: ProjectTask): Observable<ProjectTask> {
     task.active = false;
     task.archiveDate = formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en');
+    console.log(task);
     return this.http.put<ProjectTask>(
       `${environment.apiUrl}/projects/${task.projectId}/tasks/${task.id}`,
       task

@@ -1,4 +1,6 @@
-<div class="view-form">
+<div
+  *ngIf="task"
+  class="view-form">
   <div class="header">
     <div class="title">
       <h4>Task: {{ task.name }}</h4>
@@ -24,17 +26,17 @@
       <bvr-form-field
         class="left-field"
         label="Creation Date">
-        <span>{{ task.creationDate }}</span>
+        <span>{{ task.creationDate | date: 'dd/MM/yyyy' }}</span>
       </bvr-form-field>
       <bvr-form-field
         *ngIf="!task.active"
         class="field"
         label="Archive Date">
-        <span>{{ task.archiveDate }}</span>
+        <span>{{ task.archiveDate | date: 'dd/MM/yyyy' }}</span>
       </bvr-form-field>
     </div>
     <bvr-form-field
-      class="field description"
+      class="field"
       label="Description">
       <span>{{ task.description }}</span>
     </bvr-form-field>

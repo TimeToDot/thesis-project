@@ -85,6 +85,7 @@ export class EditTaskComponent {
         .pipe(first())
         .subscribe(projectTask => {
           this.task = projectTask;
+          this.task.projectId = projectId;
           this.updateFormFields();
         });
     }

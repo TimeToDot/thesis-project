@@ -104,6 +104,7 @@ export class ProjectTasksComponent implements OnInit {
         .getProjectTask(projectId, this.idToArchive)
         .pipe(first())
         .subscribe(task => {
+          task.projectId = projectId;
           this.projectTasksService
             .archiveProjectTask(task)
             .pipe(first())

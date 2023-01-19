@@ -44,7 +44,7 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
   isGuardDisabled: boolean = false;
   isResetModalOpen: boolean = false;
   modalDescription: string = '';
-  projectEmployee!: ProjectEmployee;
+  employee!: Employee;
   redirectSubject: Subject<boolean> = new Subject<boolean>();
   refreshTaskList: Subject<void> = new Subject<void>();
 
@@ -88,10 +88,10 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
         .getProjectApproval(projectId, projectApprovalId)
         .pipe(first())
         .subscribe(projectApproval => {
-          this.projectEmployee = projectApproval.projectEmployee;
+          this.employee = projectApproval.employee;
           this.updateFormFields();
-          this.getEmployeeCalendar(this.projectEmployee.id);
-          this.projectEmployee.active
+          this.getEmployeeCalendar(this.employee.id);
+          this.employee.active
             ? this.getProjectEmployees()
             : this.getArchivedProjectEmployees();
         });
@@ -100,7 +100,7 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
 
   updateFormFields(): void {
     Object.keys(this.approveTasksForm.controls).forEach(field => {
-      this.approveTasksForm.get(field)?.setValue(this.projectEmployee.employee);
+      this.approveTasksForm.get(field)?.setValue(this.employee);
     });
   }
 

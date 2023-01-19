@@ -27,15 +27,7 @@ import { first } from 'rxjs';
 export class ViewTaskComponent implements OnInit {
   isArchiveModalOpen: boolean = false;
   modalDescription: string = '';
-  task: ProjectTask = {
-    id: '',
-    name: '',
-    projectId: '',
-    description: '',
-    creationDate: '',
-    archiveDate: '',
-    active: true,
-  };
+  task!: ProjectTask;
 
   constructor(
     private projectTasksService: ProjectTasksService,
@@ -56,8 +48,8 @@ export class ViewTaskComponent implements OnInit {
         .getProjectTask(projectId, taskId)
         .pipe(first())
         .subscribe(projectTask => {
-          console.log(projectTask);
           this.task = projectTask;
+          this.task.projectId = projectId;
         });
     }
   }

@@ -75,7 +75,7 @@
       <td
         cdk-cell
         *cdkCellDef="let element">
-        {{ element.creationDate }}
+        {{ element.creationDate | date: 'dd/MM/yyyy' }}
       </td>
     </ng-container>
     <ng-container cdkColumnDef="actions">
@@ -147,7 +147,7 @@
       <td
         cdk-cell
         *cdkCellDef="let element">
-        {{ element.creationDate }}
+        {{ element.creationDate | date: 'dd/MM/yyyy' }}
       </td>
     </ng-container>
     <ng-container cdkColumnDef="archiveDate">

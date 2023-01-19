@@ -7,7 +7,6 @@ import { RequestsStatusComponent } from '../../dashboard/requests-status/request
 import { TopPositionsComponent } from '../../dashboard/top-positions/top-positions.component';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { ToastComponent } from '../../shared/components/toast/toast.component';
-import { Permissions } from '../../shared/models/permissions.model';
 import { PermissionsService } from '../../shared/services/permissions.service';
 import { ProjectPermissions } from '../models/project-permissions.model';
 import { NewProjectEmployeesComponent } from './new-project-employees/new-project-employees.component';
