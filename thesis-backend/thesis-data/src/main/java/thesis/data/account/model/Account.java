@@ -51,8 +51,8 @@ public class  Account {
     @ToString.Exclude
     private AccountDetails details;
 
-    @ManyToOne
-    @JoinColumn(name = "position_id")
+    @ManyToOne()
+    @JoinColumn(name="position_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ToString.Exclude
     private Position position;
 

@@ -187,9 +187,13 @@ public class InitDataIntegrationTest {
         accountRepository.save(user);
         Assert.assertNotNull(user.getId());
 
-        var adminDetails = createAccountDetails(admin,"Krakow", "123123123123");
-        var modDetails = createAccountDetails(mod, "Limanowa", "456456456456");
-        var userDetails = createAccountDetails(user, "Przyszowa", "678678678678");
+        var contractTypes = getContracts().get(0);
+        var sex = getSexes().get(0);
+        var country = getCountries().get(0);
+
+        var adminDetails = createAccountDetails(admin,"Krakow", "123123123123", contractTypes, sex, country);
+        var modDetails = createAccountDetails(mod, "Limanowa", "456456456456", contractTypes, sex, country);
+        var userDetails = createAccountDetails(user, "Przyszowa", "678678678678", contractTypes, sex, country);
 
         accountDetailsRepository.save(adminDetails);
         accountDetailsRepository.save(modDetails);
@@ -314,10 +318,7 @@ public class InitDataIntegrationTest {
                 .build();
     }
 
-    private AccountDetails createAccountDetails(Account account, String city, String pesel){
-        var contractTypes = getContracts();
-        var sex = getSexes();
-        var country = getCountries();
+    private AccountDetails createAccountDetails(Account account, String city, String pesel, ContractType contractType, Sex sex, Country country){
 
         return AccountDetails.builder()
                 .account(account)
@@ -327,12 +328,12 @@ public class InitDataIntegrationTest {
                 .street("Domyslna" + account.getEmail())
                 .postalCode("12-123")
                 .taxNumber("123123123123123123")
-                .sex(sex.get(0))
-                .country(country.get(0))
+                .sex(sex)
+                .country(country)
                 .surname("Domyśliciel")
                 .name("Domyslaw-" + account.getEmail())
                 .city("Domyslice" + account.getEmail())
-                .contractType(contractTypes.get(0))
+                .contractType(contractType)
                 //.billingPeriod(BillingPeriod.SEASON.label)
                 .build();
 

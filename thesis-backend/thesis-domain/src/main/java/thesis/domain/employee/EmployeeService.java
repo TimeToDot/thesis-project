@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import thesis.data.account.AccountDetailsRepository;
 import thesis.data.account.AccountRepository;
+import thesis.data.account.ContractTypeRepository;
 import thesis.data.account.model.Account;
 import thesis.data.account.model.AccountDetails;
+import thesis.data.account.model.ContractType;
 import thesis.data.account.model.StatusType;
 import thesis.data.position.PositionRepository;
 import thesis.data.project.AccountProjectRepository;
@@ -24,7 +26,9 @@ import thesis.domain.employee.model.*;
 import thesis.domain.paging.PagingSettings;
 import thesis.domain.task.mapper.TaskFormDTOMapper;
 import thesis.domain.task.model.TaskStatusDTO;
+import thesis.security.services.model.ContractDTO;
 
+import javax.annotation.PostConstruct;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.*;
@@ -53,10 +57,15 @@ public class EmployeeService {
     private final EmployeeTasksDTOMapper employeeTasksDTOMapper;
     private final EmployeeTaskDTOMapper employeeTaskDTOMapper;
     private final PositionRepository positionRepository;
-
+    private final ContractTypeRepository contractTypeRepository;
     private final PasswordEncoder passwordEncoder;
 
-    private final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'");
+    private final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+
+    @PostConstruct
+    private void init(){
+        format.setTimeZone(TimeZone.getTimeZone("UTC"));
+    }
 
     public EmployeeDTO getEmployee(UUID id) {
         var account = accountRepository.findById(id).orElseThrow();
@@ -85,7 +94,7 @@ public class EmployeeService {
     }
 
     @Transactional
-    public UUID updateEmployee(UUID employeeId, EmployeeUpdatePayloadDTO payloadDTO){
+    public UUID updateEmployee(UUID employeeId, EmployeeUpdatePayloadDTO payloadDTO) throws ParseException {
         var account = accountRepository.findById(employeeId).orElseThrow();
         var accountDetails = accountDetailsRepository.findByAccount(account).orElseThrow();
 
@@ -317,6 +326,21 @@ public class EmployeeService {
                 .toList();
     }
 
+    public List<ContractDTO> getContractTypes(){
+        var contractTypes = contractTypeRepository.findAll();
+
+        return contractTypes.stream()
+                .map(this::getContractDTO)
+                .toList();
+    }
+
+    private ContractDTO getContractDTO(ContractType contractType) {
+        return ContractDTO.builder()
+                .id(contractType.getId())
+                .name(contractType.getName())
+                .build();
+    }
+
     private TaskStatusDTO getStatus(Map<TaskStatus, Long> tasks) {
 
         if (tasks.get(TaskStatus.PENDING) != null && tasks.get(TaskStatus.PENDING) > 0) {
@@ -356,10 +380,15 @@ public class EmployeeService {
         );
 
     }
+    public Date getMonth(Date date) throws ParseException {
+        var monthFormat  = new SimpleDateFormat("MM-yyyy");
+        monthFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+
+        return monthFormat.parse(monthFormat.format(date));
+    }
 
     private Date getSimplyDate(Date date) {
         try {
-            format.setTimeZone(TimeZone.getTimeZone("UTC"));
             return DateUtils.truncate(format.parse(format.format(date)), Calendar.DATE);
         } catch (ParseException e) {
             throw new RuntimeException(e);
@@ -372,15 +401,15 @@ public class EmployeeService {
                 .toLocalDateTime();
     }
 
-    private void setAccountDetailsFields(EmployeeUpdatePayloadDTO payloadDTO, AccountDetails accountDetails) {
+    private void setAccountDetailsFields(EmployeeUpdatePayloadDTO payloadDTO, AccountDetails accountDetails) throws ParseException {
         accountDetails.setName(payloadDTO.firstName());
         accountDetails.setSurname(payloadDTO.lastName());
         accountDetails.setMiddleName(payloadDTO.middleName());
         accountDetails.setSex(payloadDTO.sex());
-        accountDetails.setBirthDate(payloadDTO.birthDate());
+        accountDetails.setBirthDate(formatDate(payloadDTO.birthDate()));
         accountDetails.setBirthPlace(payloadDTO.birthPlace());
-        accountDetails.setEmploymentDate(payloadDTO.employmentDate());
-        accountDetails.setExitDate(payloadDTO.exitDate());
+        accountDetails.setEmploymentDate(formatDate(payloadDTO.employmentDate()));
+        accountDetails.setExitDate(formatDate(payloadDTO.exitDate()));
         accountDetails.setApartmentNumber(payloadDTO.apartmentNumber());
         accountDetails.setHouseNumber(payloadDTO.houseNumber());
         accountDetails.setStreet(payloadDTO.street());
@@ -396,6 +425,10 @@ public class EmployeeService {
         accountDetails.setWage(payloadDTO.wage());
         accountDetails.setPayday(payloadDTO.payday());
         accountDetails.setContractType(payloadDTO.contractType());
+    }
+
+    private Date formatDate(Date date) throws ParseException {
+        return format.parse(format.format(date));
     }
 
     private void setAccountFields(EmployeeUpdatePayloadDTO payloadDTO, Account account) {

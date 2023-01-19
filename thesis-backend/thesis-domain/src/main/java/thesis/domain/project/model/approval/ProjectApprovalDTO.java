@@ -2,6 +2,7 @@ package thesis.domain.project.model.approval;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
+import thesis.domain.employee.model.EmployeeProjectToApproveDTO;
 import thesis.domain.project.model.employee.EmployeeDTO;
 
 import java.util.Date;

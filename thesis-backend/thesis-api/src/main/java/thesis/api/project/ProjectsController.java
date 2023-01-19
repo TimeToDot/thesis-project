@@ -11,6 +11,7 @@ import thesis.domain.project.model.ProjectCreatePayloadDTO;
 import thesis.domain.project.model.ProjectDTO;
 import thesis.domain.project.model.ProjectUpdatePayloadDTO;
 import thesis.domain.project.model.ProjectsDTO;
+import thesis.domain.project.model.approval.ProjectApprovalDTO;
 import thesis.domain.project.model.approval.ProjectApprovalsDTO;
 import thesis.domain.project.model.employee.ProjectEmployeeCreatePayloadDTO;
 import thesis.domain.project.model.employee.ProjectEmployeeDTO;
@@ -61,7 +62,7 @@ public class ProjectsController extends ThesisController {
             @PathVariable UUID taskId,
             @PathVariable UUID pid
     ){
-        var response = projectService.getProjectTask(projectId, taskId);
+        var response = projectService.getProjectTask(pid, taskId);
 
         return ResponseEntity.ok(response);
     }
@@ -75,7 +76,7 @@ public class ProjectsController extends ThesisController {
             @PathVariable UUID pid,
             @PathVariable UUID taskId
     ){
-        var response = projectService.updateProjectTask(projectId, payload);
+        var response = projectService.updateProjectTask(pid, payload);
 
         return ResponseEntity.ok(response);
 
@@ -89,14 +90,14 @@ public class ProjectsController extends ThesisController {
             @RequestBody ProjectTaskCreatePayloadDTO payload,
             @PathVariable UUID pid
     ){
-        var response = projectService.addProjectTask(projectId, payload);
+        var response = projectService.addProjectTask(pid, payload);
 
         return ResponseEntity.ok(response);
     }
 
     //@PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#projectId, 'CAN_READ')")
     @GetMapping("/{pid}/tasks")
-    public ResponseEntity<ProjectTasksDetailsDTO> getProjectTasks(
+    public ResponseEntity<List<ProjectTaskDetailsDTO>> getProjectTasks(
             @RequestHeader(required = false) UUID employeeId,
             @RequestHeader(required = false) UUID projectId,
             @RequestParam(value="page", required = false) Integer page,
@@ -108,9 +109,9 @@ public class ProjectsController extends ThesisController {
     ){
         var settings = initPaging(page, size, key, direction);
 
-        var response = projectService.getAdvancedProjectTasks(projectId, active, settings);
+        var response = projectService.getAdvancedProjectTasks(pid, active, settings);
 
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(response.tasks());
 
     }
 
@@ -122,7 +123,7 @@ public class ProjectsController extends ThesisController {
             @PathVariable UUID id,
             @PathVariable UUID pid
     ){
-        var response = projectService.getProjectEmployee(projectId, id);
+        var response = projectService.getProjectEmployee(pid, id);
 
         return ResponseEntity.ok(response);
     }
@@ -135,7 +136,7 @@ public class ProjectsController extends ThesisController {
             @RequestBody ProjectEmployeeCreatePayloadDTO payload,
             @PathVariable UUID pid
     ){
-        var response = projectService.addProjectEmployee(projectId, payload);
+        var response = projectService.addProjectEmployee(pid, payload);
 
         return ResponseEntity.ok(response);
     }
@@ -149,7 +150,7 @@ public class ProjectsController extends ThesisController {
             @PathVariable UUID pid,
             @PathVariable UUID id
     ){
-        var response = projectService.updateProjectEmployee(projectId, payload);
+        var response = projectService.updateProjectEmployee(pid, payload);
 
         return ResponseEntity.ok(response);
     }
@@ -168,14 +169,14 @@ public class ProjectsController extends ThesisController {
     ){
         var settings = initPaging(page, size, direction, key);
 
-        var response = projectService.getProjectEmployees(projectId, active, settings);
+        var response = projectService.getProjectEmployees(pid, active, settings);
 
         return ResponseEntity.ok(response);
     }
 
     //@PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#projectId, 'CAN_MANAGE_PROJECT_USERS')")
     @GetMapping("/{pid}/approvals")
-    public ResponseEntity<ProjectApprovalsDTO> getProjectApprovals(
+    public ResponseEntity<List<ProjectApprovalDTO>> getProjectApprovals(
             @RequestHeader(required = false) UUID employeeId,
             @RequestHeader(required = false) UUID projectId,
             @RequestParam(value="page", required = false) Integer page,
@@ -186,9 +187,9 @@ public class ProjectsController extends ThesisController {
     ){
         var settings = initPaging(page, size, direction, key);
 
-        var response = projectService.getProjectApprovalEmployees(projectId, settings);
+        var response = projectService.getProjectApprovalEmployees(pid, settings);
 
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(response.employees());
     }
 
     //@PreAuthorize("hasAuthority('CAN_ADMIN_PROJECTS')")
@@ -211,7 +212,8 @@ public class ProjectsController extends ThesisController {
             @RequestBody ProjectUpdatePayloadDTO payload,
             @PathVariable UUID pid
     ){
-        var response = projectService.updateProject(payload);
+
+        var response = projectService.updateProject(pid, payload);
 
         return ResponseEntity.ok(response);
     }

@@ -187,9 +187,10 @@ public class ProjectController extends ThesisController {
             @RequestHeader UUID projectId,
             @RequestBody ProjectUpdatePayloadDTO payload
     ){
-        var response = projectService.updateProject(payload);
-
-        return ResponseEntity.ok(response);
+        //var response = projectService.updateProject(payload);
+        //for better times
+        //return ResponseEntity.ok(response);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/bellingPeriod")

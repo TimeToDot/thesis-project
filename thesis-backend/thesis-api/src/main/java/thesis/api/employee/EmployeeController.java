@@ -11,6 +11,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import thesis.api.ThesisController;
+import thesis.api.auth.mapper.AuthMapper;
 import thesis.api.employee.mapper.*;
 import thesis.api.employee.model.EmployeeResponse;
 import thesis.api.employee.model.calendar.EmployeeCalendarResponse;
@@ -18,14 +19,16 @@ import thesis.api.employee.model.project.EmployeeProjectsResponse;
 import thesis.api.employee.model.project.EmployeeProjectsToApprovePayload;
 import thesis.api.employee.model.project.EmployeeProjectsToApproveResponse;
 import thesis.api.employee.model.task.*;
+import thesis.api.employee.model.temp.AuthorizationTemp;
 import thesis.domain.employee.EmployeeService;
-import thesis.domain.employee.model.BillingPeriodDTO;
+import thesis.security.services.AuthService;
 import thesis.security.services.model.ContractTypeDTO;
 import thesis.domain.employee.model.EmployeeUpdatePayloadDTO;
 import thesis.domain.employee.model.PasswordUpdatePayloadDTO;
 import thesis.security.services.model.UserDetailsDefault;
 
 import javax.validation.constraints.NotNull;
+import java.text.ParseException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -44,6 +47,8 @@ public class EmployeeController extends ThesisController {
     private final EmployeeTaskCreatePayloadMapper employeeTaskCreatePayloadMapper;
     private final EmployeeTaskUpdatePayloadMapper employeeTaskUpdatePayloadMapper;
     private final CalendarMapper calendarMapper;
+    private final AuthMapper authMapper;
+    private final AuthService authService;
 
     @Operation(summary = "Gets employee by ID")
     @ApiResponses(value = {
@@ -68,9 +73,9 @@ public class EmployeeController extends ThesisController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasPermission(#projectId, 'CAN_MANAGE_PROJECT_USERS') || hasAuthority('CAN_ADMIN_USERS')")
-    public ResponseEntity<EmployeeResponse> getEmployeeByProject(
-            @RequestHeader UUID employeeId,
+    //@PreAuthorize("hasPermission(#projectId, 'CAN_MANAGE_PROJECT_USERS') || hasAuthority('CAN_ADMIN_USERS')")
+    public ResponseEntity<EmployeeResponse> getEmployeeById(
+            @RequestHeader(required = false) UUID employeeId,
             @RequestHeader(required = false) UUID projectId,
             @PathVariable UUID id
     ) {
@@ -110,7 +115,7 @@ public class EmployeeController extends ThesisController {
             @RequestHeader UUID employeeId,
             @RequestHeader(required = false) UUID projectId,
             @RequestBody EmployeeUpdatePayloadDTO payload
-    ) {
+    ) throws ParseException {
         var response = employeeService.updateEmployee(employeeId, payload);
 
         return ResponseEntity.ok(response);
@@ -123,7 +128,7 @@ public class EmployeeController extends ThesisController {
             @RequestHeader(required = false) UUID projectId,
             @RequestBody EmployeeUpdatePayloadDTO payload,
             @PathVariable UUID id
-    ) {
+    ) throws ParseException {
         var response = employeeService.updateEmployee(id, payload);
 
         return ResponseEntity.ok(response);
@@ -313,6 +318,23 @@ public class EmployeeController extends ThesisController {
         var calendarResponse = calendarMapper.map(calendarDTO);
 
         return ResponseEntity.ok(calendarResponse);
+    }
+
+    @PostMapping
+    public ResponseEntity<UUID> addEmployee(
+            @RequestHeader(required = false) UUID employeeId,
+            @RequestBody AuthorizationTemp authorizationPayload
+    ) {
+
+        if (Boolean.TRUE.equals(authService.isAccountExist(authorizationPayload.email()))) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        var dto = authMapper.mapToAuthorizationDTO(authorizationPayload);
+
+        var response = authService.addUser(dto);
+
+        return ResponseEntity.ok(response);
     }
 
 

@@ -20,7 +20,7 @@ public record EmployeeResponse(
         String idCardNumber,
         String pesel,
         SexDTO sex,
-        SimplePositionDTO position,
+        String position,
         Date employmentDate,
         Date exitDate,
         String imagePath,

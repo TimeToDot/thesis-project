@@ -11,6 +11,7 @@ import thesis.domain.position.model.PositionResponseDTO;
 import thesis.domain.position.model.PositionUpdatePayloadDTO;
 import thesis.domain.position.model.PositionsResponseDTO;
 
+import java.util.List;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -22,7 +23,7 @@ public class PositionsController extends ThesisController {
 
     @PreAuthorize("hasAuthority('CAN_READ')")
     @GetMapping
-    public ResponseEntity<PositionsResponseDTO> getPositions(
+    public ResponseEntity<List<PositionResponseDTO>> getPositions(
             @RequestHeader(required = false) UUID employeeId,
             @RequestHeader(required = false) UUID projectId,
             @RequestParam(value="active", required = false, defaultValue = "true") Boolean active,
@@ -35,7 +36,7 @@ public class PositionsController extends ThesisController {
 
         var response = positionService.getPositions(settings, active);
 
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(response.positions());
     }
 
     @PreAuthorize("hasAuthority('CAN_READ')")

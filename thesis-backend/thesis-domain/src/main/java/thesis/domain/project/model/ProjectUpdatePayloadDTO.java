@@ -5,7 +5,7 @@ import thesis.domain.employee.model.BillingPeriodDTO;
 import java.util.UUID;
 
 public record ProjectUpdatePayloadDTO(
-        UUID projectId,
+        //UUID projectId,
         UUID moderatorId,
         String name,
         String description,

@@ -12,6 +12,7 @@ import thesis.api.auth.model.AuthorizationPayload;
 import thesis.api.employee.mapper.*;
 import thesis.api.employee.model.EmployeeResponse;
 import thesis.api.employee.model.EmployeesResponse;
+import thesis.api.employee.model.calendar.CalendarTask;
 import thesis.api.employee.model.calendar.EmployeeCalendarResponse;
 import thesis.api.employee.model.project.EmployeeProjectsResponse;
 import thesis.api.employee.model.project.EmployeeProjectsToApprovePayload;
@@ -30,6 +31,7 @@ import thesis.security.services.AuthService;
 import thesis.security.services.model.UserDetailsDefault;
 
 import javax.validation.constraints.NotNull;
+import java.text.ParseException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -117,7 +119,7 @@ public class EmployeesController extends ThesisController {
             @RequestHeader(required = false) UUID employeeId,
             @RequestHeader(required = false) UUID projectId,
             @RequestBody EmployeeUpdatePayloadDTO payload
-    ) {
+    ) throws ParseException {
         var response = employeeService.updateEmployee(employeeId, payload);
 
         return ResponseEntity.ok(response);
@@ -130,7 +132,7 @@ public class EmployeesController extends ThesisController {
             @RequestHeader(required = false) UUID projectId,
             @RequestBody EmployeeUpdatePayloadDTO payload,
             @PathVariable UUID id
-    ) {
+    ) throws ParseException {
         var response = employeeService.updateEmployee(id, payload);
 
         return ResponseEntity.ok(response);
@@ -286,21 +288,26 @@ public class EmployeesController extends ThesisController {
 
 
     //@PreAuthorize("hasAuthority('CAN_READ')")
-    @GetMapping("/calendar")
-    public ResponseEntity<EmployeeCalendarResponse> getCalendar(
+    @GetMapping("/{id}/calendar")
+    public ResponseEntity<List<CalendarTask>> getCalendar(
             @RequestHeader(required = false) UUID employeeId,
             @RequestHeader(required = false) UUID projectId,
-            @RequestParam @DateTimeFormat(pattern="MM-yyyy") Date date) {
+            @RequestParam(required = false) @DateTimeFormat(pattern="MM-yyyy") Date date,
+            @PathVariable UUID id) throws ParseException {
 
-        var calendarDTO = employeeService.getCalendar(employeeId, date);
+        if (date == null){
+            date = employeeService.getMonth(new Date());
+        }
+
+        var calendarDTO = employeeService.getCalendar(id, date);
         var calendarResponse = calendarMapper.map(calendarDTO);
 
-        return ResponseEntity.ok(calendarResponse);
+        return ResponseEntity.ok(calendarResponse.tasks());
     }
 
 
     //@PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#projectId, 'CAN_MANAGE_TASKS')")
-    @GetMapping("/{id}/calendar")
+/*    @GetMapping("/{id}/calendar")
     public ResponseEntity<EmployeeCalendarResponse> getEmployeeCalendar(
             @RequestHeader(required = false) UUID employeeId,
             @RequestHeader(required = false) @NotNull UUID projectId,
@@ -311,7 +318,7 @@ public class EmployeesController extends ThesisController {
         var calendarResponse = calendarMapper.map(calendarDTO);
 
         return ResponseEntity.ok(calendarResponse);
-    }
+    }*/
 
     //@PreAuthorize("hasAuthority('CAN_CREATE_USERS')")
     @PostMapping

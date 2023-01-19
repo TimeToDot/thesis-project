@@ -1,6 +1,7 @@
 package thesis.domain.position;
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import thesis.data.position.PositionRepository;
@@ -12,9 +13,11 @@ import thesis.domain.position.model.PositionResponseDTO;
 import thesis.domain.position.model.PositionUpdatePayloadDTO;
 import thesis.domain.position.model.PositionsResponseDTO;
 
+import javax.annotation.PostConstruct;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 import java.util.UUID;
 
 import static thesis.domain.paging.PagingHelper.getPaging;
@@ -25,7 +28,12 @@ import static thesis.domain.paging.PagingHelper.getSorting;
 public class PositionService {
 
     private final PositionRepository positionRepository;
-    private final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+    private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+    @PostConstruct
+    private void init(){
+        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+    }
 
     @Transactional
     public PositionResponseDTO getPosition(UUID positionId) {
@@ -58,7 +66,7 @@ public class PositionService {
         } else {
             position.setStatus(PositionType.INACTIVE);
             try {
-                position.setArchiveDate(format.parse(format.format(new Date())));
+                position.setArchiveDate(sdf.parse(sdf.format(new Date())));
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }
@@ -83,7 +91,7 @@ public class PositionService {
         position.setStatus(PositionType.ACTIVE);
 
         try {
-            position.setCreationDate(format.parse(format.format(new Date())));
+            position.setCreationDate(sdf.parse(sdf.format(new Date())));
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }

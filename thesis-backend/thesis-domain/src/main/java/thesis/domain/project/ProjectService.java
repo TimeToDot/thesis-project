@@ -89,8 +89,8 @@ public class ProjectService {
     }
 
     @Transactional
-    public UUID updateProject(ProjectUpdatePayloadDTO payloadDTO){
-        var project = projectRepository.findById(payloadDTO.projectId()).orElseThrow();
+    public UUID updateProject(UUID id, ProjectUpdatePayloadDTO payloadDTO){
+        var project = projectRepository.findById(id).orElseThrow();
         var projectDetails = projectDetailsRepository.findByProject(project).orElseThrow();
         var newOwner = accountRepository.findById(payloadDTO.moderatorId()).orElseThrow();
         var oldOwner = accountRepository.findById(project.getOwner().getId()).orElseThrow();
@@ -159,7 +159,7 @@ public class ProjectService {
     }
 
     public ProjectTasksDetailsDTO getAdvancedProjectTasks(UUID projectId, Boolean status, PagingSettings settings){
-        var taskFormStatus = status ? TaskFormType.OPEN : TaskFormType.CLOSE;
+        var taskFormStatus = Boolean.TRUE.equals(status) ? TaskFormType.OPEN : TaskFormType.CLOSE;
 
         var taskForms = taskFormRepository.findAllByProjectIdAndDetailsStatus(projectId, taskFormStatus, settings.getPageable());
         var paging = getPaging(settings, taskForms);
@@ -177,7 +177,7 @@ public class ProjectService {
     }
 
     public ProjectTasksDTO getProjectTasks(UUID projectId, Boolean status){
-        var taskFormStatus = status ? TaskFormType.OPEN : TaskFormType.CLOSE;
+        var taskFormStatus = Boolean.TRUE.equals(status) ? TaskFormType.OPEN : TaskFormType.CLOSE;
         var size = 100;
         var page = 1;
         var settings = PagingSettings.builder().page(page).size(size).build();
@@ -452,14 +452,18 @@ public class ProjectService {
                 .position(position == null ? null : positionMapper.simpleMap(position))
                 .employmentDate(account.getDetails().getEmploymentDate())
                 .contractTypeDTO(
-                        ContractDTO.builder()
-                                .id(account.getDetails().getContractType().getId())
-                                .name(account.getDetails().getContractType().getName())
-                                .build()
+                        getContractTypeDTO(account)
                 )
                 .wage(account.getDetails().getWage())
                 .workingTime(account.getDetails().getWorkingTime())
                 .active(account.getStatus().compareTo(StatusType.ENABLE) == 0)
+                .build();
+    }
+
+    private ContractDTO getContractTypeDTO(Account account) {
+        return ContractDTO.builder()
+                .id(account.getDetails().getContractType().getId())
+                .name(account.getDetails().getContractType().getName())
                 .build();
     }
 
