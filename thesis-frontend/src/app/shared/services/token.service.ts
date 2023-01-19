@@ -32,7 +32,7 @@ export class TokenService {
 
   saveEmployee(employeeId: string): void {
     window.localStorage.removeItem(this.EMPLOYEE_KEY);
-    window.localStorage.setItem(this.EMPLOYEE_KEY, JSON.stringify(employeeId));
+    window.localStorage.setItem(this.EMPLOYEE_KEY, employeeId);
   }
 
   getEmployee(): string {
