@@ -1,7 +1,7 @@
 import { formatDate } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { ProjectEmployee } from '../models/project-employee.model';
 
@@ -31,7 +31,7 @@ export class ProjectEmployeesService {
     employee: ProjectEmployee
   ): Observable<ProjectEmployee> {
     return this.http.put<ProjectEmployee>(
-      `${environment.apiUrl}/projects/${employee.projectId}/employees/${employee.id}`,
+      `${environment.apiUrl}/projects/${employee.projectId}/employees/${employee.projectEmployeeId}`,
       employee
     );
   }
@@ -42,22 +42,26 @@ export class ProjectEmployeesService {
     employee.active = false;
     employee.exitDate = formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en');
     return this.http.put<ProjectEmployee>(
-      `${environment.apiUrl}/projects/${employee.projectId}/employees/${employee.id}`,
+      `${environment.apiUrl}/projects/${employee.projectId}/employees/${employee.projectEmployeeId}`,
       employee
     );
   }
 
   getProjectEmployees(projectId: string): Observable<ProjectEmployee[]> {
-    return this.http.get<ProjectEmployee[]>(
-      `${environment.apiUrl}/projects/${projectId}/employees?active=true`
-    );
+    return this.http
+      .get<any>(
+        `${environment.apiUrl}/projects/${projectId}/employees?active=true`
+      )
+      .pipe(map(value => value.employees));
   }
 
   getArchivedProjectEmployees(
     projectId: string
   ): Observable<ProjectEmployee[]> {
-    return this.http.get<ProjectEmployee[]>(
-      `${environment.apiUrl}/projects/${projectId}/employees?active=false`
-    );
+    return this.http
+      .get<any>(
+        `${environment.apiUrl}/projects/${projectId}/employees?active=false`
+      )
+      .pipe(map(value => value.employees));
   }
 }

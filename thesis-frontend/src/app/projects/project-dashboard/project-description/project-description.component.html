@@ -29,7 +29,9 @@
     <span class="material-icons-outlined">calendar_month</span>
     <div>{{ project.creationDate | date: 'dd/MM/yyyy' }}</div>
   </div>
-  <div class="description-details">
+  <div
+    *ngIf="project.moderator"
+    class="description-details">
     <img
       *ngIf="project.moderator.image"
       class="description-moderator"
@@ -37,8 +39,7 @@
     <span
       *ngIf="!project.moderator.image"
       class="description-moderator">
-      {{ project.moderator.firstName[0] }}
-      {{ project.moderator.lastName[0] }}
+      {{ project.moderator.firstName[0] }}{{ project.moderator.lastName[0] }}
     </span>
     <div>
       {{ project.moderator.firstName }}

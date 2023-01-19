@@ -161,7 +161,7 @@ export class AddProjectEmployeeComponent implements OnInit {
   getProjectEmployeeData(): ProjectEmployee {
     const projectId = this.route.parent?.snapshot.paramMap.get('id') as string;
     return {
-      id: '',
+      projectEmployeeId: '',
       projectId: projectId,
       employee: {
         id: this.employee.id,
@@ -169,7 +169,7 @@ export class AddProjectEmployeeComponent implements OnInit {
         lastName: this.employee.lastName,
         email: this.employee.email,
         image: this.employee.image,
-        position: this.employee.position.name,
+        position: this.employee.position ? this.employee.position.name : '',
         employmentDate: this.employee.employmentDate,
         workingTime: this.employee.workingTime,
         wage: this.employee.wage,

@@ -204,7 +204,7 @@ export class EditProjectEmployeeComponent implements OnInit {
 
   getProjectEmployeeData(): ProjectEmployee {
     return {
-      id: this.projectEmployee.id,
+      projectEmployeeId: this.projectEmployee.projectEmployeeId,
       projectId: this.projectEmployee.projectId,
       employee: this.projectEmployee.employee,
       workingTime: this.controls.workingTime?.value,

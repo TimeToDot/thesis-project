@@ -7,6 +7,7 @@ import { first } from 'rxjs';
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { PermissionsService } from '../../../shared/services/permissions.service';
 import { ProjectPermissions } from '../../models/project-permissions.model';
+import { EmployeesService } from '../../../admin/services/employees.service';
 
 @Component({
   selector: 'bvr-project-description',
@@ -19,6 +20,7 @@ export class ProjectDescriptionComponent {
   projectPermissions!: ProjectPermissions;
 
   constructor(
+    private employeesService: EmployeesService,
     private permissionsService: PermissionsService,
     private projectsService: ProjectsService,
     private route: ActivatedRoute
@@ -37,8 +39,18 @@ export class ProjectDescriptionComponent {
         .pipe(first())
         .subscribe(project => {
           this.project = project;
+          this.getProjectModerator(project.moderatorId as string);
         });
     }
+  }
+
+  getProjectModerator(employeeId: string): void {
+    this.employeesService
+      .getEmployee(employeeId)
+      .pipe(first())
+      .subscribe(employee => {
+        this.project.moderator = employee;
+      });
   }
 
   getProjectPermissions(): void {
