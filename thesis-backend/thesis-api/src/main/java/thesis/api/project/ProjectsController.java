@@ -138,7 +138,7 @@ public class ProjectsController extends ThesisController {
     }
 
     //@PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#projectId, 'CAN_MANAGE_PROJECT_USERS')")
-    @PostMapping("/{pid}/employees")
+    @PostMapping("/{pid}/employees/id")
     public ResponseEntity<UUID> addProjectEmployee(
             @RequestHeader(required = false) UUID employeeId,
             @RequestHeader(required = false) UUID projectId,
@@ -159,7 +159,7 @@ public class ProjectsController extends ThesisController {
             @PathVariable UUID pid,
             @PathVariable UUID id
     ){
-        var response = projectService.updateProjectEmployee(pid, payload);
+        var response = projectService.updateProjectEmployee(pid, id, payload);
 
         return ResponseEntity.ok(response);
     }

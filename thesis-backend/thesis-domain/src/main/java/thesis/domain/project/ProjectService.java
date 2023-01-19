@@ -239,9 +239,9 @@ public class ProjectService {
     }
 
     public ProjectEmployeeDTO getProjectEmployee(UUID projectId, UUID employeeId){
-        var account = accountRepository.findById(employeeId).orElseThrow();
         var project = projectRepository.findById(projectId).orElseThrow();
-        var accountProject = accountProjectRepository.findByAccountIdAndProjectId(account.getId(), project.getId()).orElseThrow();
+        var accountProject = accountProjectRepository.findById(employeeId).orElseThrow();
+        var account = accountRepository.findById(accountProject.getAccount().getId()).orElseThrow();
 
         var employeeDTO = getEmployeeDTO(account);
 
@@ -315,10 +315,10 @@ public class ProjectService {
     }
 
     @Transactional
-    public UUID updateProjectEmployee(UUID projectId, ProjectEmployeeUpdatePayloadDTO payloadDTO){
+    public UUID updateProjectEmployee(UUID projectId, UUID employeeProjectId, ProjectEmployeeUpdatePayloadDTO payloadDTO){
         var project = projectRepository.findById(projectId).orElseThrow();
-        var accountProject = accountProjectRepository.findById(payloadDTO.projectEmployeeId()).orElseThrow();
-        var status = payloadDTO.active() ? ProjectAccountStatus.ACTIVE : ProjectAccountStatus.INACTIVE;
+        var accountProject = accountProjectRepository.findById(employeeProjectId).orElseThrow();
+        var status = Boolean.TRUE.equals(payloadDTO.active()) ? ProjectAccountStatus.ACTIVE : ProjectAccountStatus.INACTIVE;
         var roleType = RoleType.valueOf(payloadDTO.roleDTOStatus().name());
         var role = roleRepository.findByName(roleType).orElseThrow();
 
@@ -451,7 +451,7 @@ public class ProjectService {
                 .imagePath(account.getDetails().getImagePath())
                 .position(position == null ? null : positionMapper.simpleMap(position))
                 .employmentDate(account.getDetails().getEmploymentDate())
-                .contractTypeDTO(
+                .contractType(
                         getContractTypeDTO(account)
                 )
                 .wage(account.getDetails().getWage())

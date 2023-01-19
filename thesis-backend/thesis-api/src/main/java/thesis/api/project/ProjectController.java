@@ -116,9 +116,11 @@ public class ProjectController extends ThesisController {
             @RequestHeader UUID projectId,
             @RequestBody ProjectEmployeeCreatePayloadDTO payload
     ){
+        //for better times
         var response = projectService.addProjectEmployee(projectId, payload);
 
         return ResponseEntity.ok(response);
+        //return ResponseEntity.ok().build();
     }
 
     @PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#projectId, 'CAN_MANAGE_PROJECT_USERS')")
@@ -128,9 +130,10 @@ public class ProjectController extends ThesisController {
             @RequestHeader UUID projectId,
             @RequestBody ProjectEmployeeUpdatePayloadDTO payload
     ){
-        var response = projectService.updateProjectEmployee(projectId, payload);
+/*        var response = projectService.updateProjectEmployee(projectId, payload);
 
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(response);*/
+        return ResponseEntity.ok().build();
     }
 
     @PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#projectId, 'CAN_MANAGE_PROJECT_USERS')")

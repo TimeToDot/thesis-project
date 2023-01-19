@@ -16,7 +16,7 @@ public record EmployeeDTO(
     String imagePath,
     SimplePositionDTO position,
     Date employmentDate,
-    ContractDTO contractTypeDTO,
+    ContractDTO contractType,
     Integer workingTime,
     Integer wage,
     Boolean active
