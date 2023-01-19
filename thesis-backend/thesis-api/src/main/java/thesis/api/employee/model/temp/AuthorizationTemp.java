@@ -3,6 +3,7 @@ package thesis.api.employee.model.temp;
 import thesis.security.services.model.ContractDTO;
 import thesis.security.services.model.CountryDTO;
 import thesis.security.services.model.SexDTO;
+import thesis.security.services.model.SimplePositionAuth;
 
 import java.util.Date;
 import java.util.UUID;
@@ -26,7 +27,7 @@ public record AuthorizationTemp(
         CountryDTO country,
         String phoneNumber,
         String privateEmail,
-        UUID positionId,
+        SimplePositionAuth position,
         Date employmentDate,
         ContractDTO contractType,
         Integer workingTime,

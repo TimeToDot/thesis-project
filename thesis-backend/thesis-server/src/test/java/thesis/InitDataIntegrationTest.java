@@ -212,11 +212,13 @@ public class InitDataIntegrationTest {
         var project2 = Project.builder()
                 .name("Project2")
                 .owner(accounts.get(1))
+                .status(ProjectType.ACTIVE)
                 .build();
 
         var project3 = Project.builder()
                 .name("Project3")
                 .owner(accounts.get(1))
+                .status(ProjectType.ACTIVE)
                 .build();
 
         var projects = List.of(project1, project2, project3);
@@ -300,7 +302,10 @@ public class InitDataIntegrationTest {
 
     private List<Country> getCountries() {
         List<Country> list = List.of(
-                Country.builder().name("\uD83C\uDDF5\uD83C\uDDF1 Poland").build()
+                Country.builder()
+                        .id(1234567)
+                        .name("\uD83C\uDDF5\uD83C\uDDF1 Poland")
+                        .build()
         );
         countryRepository.saveAll(list);
 

@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import thesis.data.account.model.ContractType;
 import thesis.data.account.model.Country;
 import thesis.data.account.model.Sex;
+import thesis.security.services.model.ContractDTO;
+import thesis.security.services.model.ContractTypeDTO;
+import thesis.security.services.model.SexDTO;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -19,7 +22,7 @@ public record EmployeeUpdatePayloadDTO(
         String firstName,
         String middleName,
         String lastName,
-        Sex sex,
+        SexDTO sex,
 
         @JsonFormat(pattern = "yyyy-MM-dd")
         Date birthDate,
@@ -41,7 +44,7 @@ public record EmployeeUpdatePayloadDTO(
         Date employmentDate,
         @JsonFormat(pattern = "yyyy-MM-dd")
         Date exitDate,
-        ContractType contractType,
+        ContractDTO contractType,
         Integer workingTime,
         Integer wage,
         Integer payday,

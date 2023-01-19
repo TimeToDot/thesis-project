@@ -46,7 +46,8 @@ CREATE TABLE "contract_type" (
                                    "name" varchar NOT NULL
 );
 CREATE TABLE "country" (
-                                   "id" SERIAL PRIMARY KEY NOT NULL,
+                                   "serial" SERIAL PRIMARY KEY NOT NULL,
+                                   "id" INTEGER NOT NULL,
                                    "name" varchar NOT NULL
 );
 CREATE TABLE "billing_period" (
@@ -206,7 +207,7 @@ ALTER TABLE "account" ADD FOREIGN KEY ("position_id") REFERENCES "position" ("id
 
 ALTER TABLE "account_details" ADD FOREIGN KEY ("sex_id") REFERENCES "sex" ("id");
 
-ALTER TABLE "account_details" ADD FOREIGN KEY ("country_id") REFERENCES "country" ("id");
+ALTER TABLE "account_details" ADD FOREIGN KEY ("country_id") REFERENCES "country" ("serial");
 
 ALTER TABLE "account_details" ADD FOREIGN KEY ("contract_type_id") REFERENCES "contract_type" ("id");
 

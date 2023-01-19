@@ -111,7 +111,19 @@ public class AuthService {
 
     private AccountDetails getAccountDetails(AuthorizationDTO authorizationDTO, Account account) {
         Sex sex = sexRepository.findByName(authorizationDTO.sex().name()).orElseThrow();
-        Country country = countryRepository.findByName(authorizationDTO.country().name()).orElseThrow();
+        Country country = countryRepository
+                .findByName(authorizationDTO.country().name())
+                .orElseGet(() -> {
+                    var c = Country.builder()
+                        .id(authorizationDTO.country().id())
+                        .name(authorizationDTO.country().name())
+                        .build();
+
+                    countryRepository.save(c);
+
+                    return c;
+                });
+
         ContractType contractType = contractTypeRepository.findById(authorizationDTO.contractType().id()).orElseThrow();
 
         return AccountDetails.builder()

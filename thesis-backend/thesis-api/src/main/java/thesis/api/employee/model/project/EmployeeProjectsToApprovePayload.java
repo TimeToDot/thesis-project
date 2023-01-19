@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.UUID;
 
 public record EmployeeProjectsToApprovePayload(
+
         @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
         Date startDate,
         @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")

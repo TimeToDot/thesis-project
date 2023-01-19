@@ -135,7 +135,7 @@ public class ProjectService {
         //paging for production needed
 
         return ProjectsDTO.builder()
-                .project(projects.stream().map(this::getProjectDTO).toList())
+                .projects(projects.stream().map(this::getProjectDTO).toList())
                 .build();
     }
 

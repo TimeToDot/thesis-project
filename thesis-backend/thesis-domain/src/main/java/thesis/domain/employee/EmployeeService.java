@@ -6,13 +6,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import thesis.data.account.AccountDetailsRepository;
-import thesis.data.account.AccountRepository;
-import thesis.data.account.ContractTypeRepository;
-import thesis.data.account.model.Account;
-import thesis.data.account.model.AccountDetails;
-import thesis.data.account.model.ContractType;
-import thesis.data.account.model.StatusType;
+import thesis.data.account.*;
+import thesis.data.account.model.*;
 import thesis.data.position.PositionRepository;
 import thesis.data.project.AccountProjectRepository;
 import thesis.data.project.ProjectRepository;
@@ -59,6 +54,8 @@ public class EmployeeService {
     private final PositionRepository positionRepository;
     private final ContractTypeRepository contractTypeRepository;
     private final PasswordEncoder passwordEncoder;
+    private final SexRepository sexRepository;
+    private final CountryRepository countryRepository;
 
     private final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
@@ -97,9 +94,23 @@ public class EmployeeService {
     public UUID updateEmployee(UUID employeeId, EmployeeUpdatePayloadDTO payloadDTO) throws ParseException {
         var account = accountRepository.findById(employeeId).orElseThrow();
         var accountDetails = accountDetailsRepository.findByAccount(account).orElseThrow();
+        Sex sex = sexRepository.findByName(payloadDTO.sex().name()).orElseThrow();
+        Country country = countryRepository
+                .findByName(payloadDTO.country().getName())
+                .orElseGet(() -> {
+                    var c = Country.builder()
+                            .id(payloadDTO.country().getId())
+                            .name(payloadDTO.country().getName())
+                            .build();
+
+                    countryRepository.save(c);
+
+                    return c;
+                });
+        ContractType contractType = contractTypeRepository.findByName(payloadDTO.contractType().name()).orElseThrow();
 
         setAccountFields(payloadDTO, account);
-        setAccountDetailsFields(payloadDTO, accountDetails);
+        setAccountDetailsFields(payloadDTO, accountDetails, sex, country, contractType);
         //var accountDetails = employeeDTOMapper.mapToDetails(payloadDTO); //check mappers fith instance
 
         accountRepository.save(account);
@@ -281,6 +292,13 @@ public class EmployeeService {
         return new CalendarDTO(getCalendarTaskDTOList(taskList));
     }
 
+    public UUID getEmployeeIdByProjectEmployee(UUID projectEmployeeId){
+        var accountProject = accountProjectRepository.findById(projectEmployeeId).orElseThrow();
+
+        return accountProject.getAccount().getId();
+
+    }
+
     public CalendarDTO getEmployeeCalendar(UUID employeeId, UUID projectId, Date date) {
         var account = accountRepository.findById(employeeId).orElseThrow();
         var project = projectRepository.findById(projectId).orElseThrow();
@@ -401,11 +419,11 @@ public class EmployeeService {
                 .toLocalDateTime();
     }
 
-    private void setAccountDetailsFields(EmployeeUpdatePayloadDTO payloadDTO, AccountDetails accountDetails) throws ParseException {
+    private void setAccountDetailsFields(EmployeeUpdatePayloadDTO payloadDTO, AccountDetails accountDetails, Sex sex, Country country, ContractType contractType) throws ParseException {
         accountDetails.setName(payloadDTO.firstName());
         accountDetails.setSurname(payloadDTO.lastName());
         accountDetails.setMiddleName(payloadDTO.middleName());
-        accountDetails.setSex(payloadDTO.sex());
+        accountDetails.setSex(sex);
         accountDetails.setBirthDate(formatDate(payloadDTO.birthDate()));
         accountDetails.setBirthPlace(payloadDTO.birthPlace());
         accountDetails.setEmploymentDate(formatDate(payloadDTO.employmentDate()));
@@ -415,7 +433,7 @@ public class EmployeeService {
         accountDetails.setStreet(payloadDTO.street());
         accountDetails.setCity(payloadDTO.city());
         accountDetails.setPostalCode(payloadDTO.postalCode());
-        accountDetails.setCountry(payloadDTO.country());
+        accountDetails.setCountry(country);
         accountDetails.setPesel(payloadDTO.pesel());
         accountDetails.setTaxNumber(payloadDTO.accountNumber());
         accountDetails.setIdCardNumber(payloadDTO.idCardNumber());
@@ -424,11 +442,14 @@ public class EmployeeService {
         accountDetails.setWorkingTime(payloadDTO.workingTime());
         accountDetails.setWage(payloadDTO.wage());
         accountDetails.setPayday(payloadDTO.payday());
-        accountDetails.setContractType(payloadDTO.contractType());
+        accountDetails.setContractType(contractType);
     }
 
     private Date formatDate(Date date) throws ParseException {
-        return format.parse(format.format(date));
+        if (date != null) {
+            return format.parse(format.format(date));
+        }
+        return null;
     }
 
     private void setAccountFields(EmployeeUpdatePayloadDTO payloadDTO, Account account) {

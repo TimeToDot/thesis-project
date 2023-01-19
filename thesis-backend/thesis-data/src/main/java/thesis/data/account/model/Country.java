@@ -22,6 +22,8 @@ public class Country {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(columnDefinition = "serial")
+    private Integer serial;
+
     private Integer id;
 
     @NotBlank(message = "name is required")

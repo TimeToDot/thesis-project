@@ -6,6 +6,6 @@ import java.util.List;
 
 @Builder
 public record ProjectsDTO(
-        List<ProjectDTO> project
+        List<ProjectDTO> projects
 ) {
 }

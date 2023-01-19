@@ -2,10 +2,15 @@ package thesis.api.project;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import thesis.api.ThesisController;
+import thesis.api.employee.mapper.CalendarMapper;
+import thesis.api.employee.model.calendar.CalendarTask;
+import thesis.api.employee.model.calendar.EmployeeCalendarResponse;
+import thesis.domain.employee.EmployeeService;
 import thesis.domain.project.ProjectService;
 import thesis.domain.project.model.ProjectCreatePayloadDTO;
 import thesis.domain.project.model.ProjectDTO;
@@ -19,6 +24,8 @@ import thesis.domain.project.model.employee.ProjectEmployeeUpdatePayloadDTO;
 import thesis.domain.project.model.employee.ProjectEmployeesDTO;
 import thesis.domain.project.model.task.*;
 
+import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -29,6 +36,8 @@ import java.util.UUID;
 public class ProjectsController extends ThesisController {
 
     private final ProjectService projectService;
+    private final EmployeeService employeeService;
+    private final CalendarMapper calendarMapper;
     //@PreAuthorize("hasAuthority('CAN_ADMIN_PROJECTS')")
     @GetMapping
     public ResponseEntity<List<ProjectDTO>> getProjects(
@@ -38,7 +47,7 @@ public class ProjectsController extends ThesisController {
     ){
         var response = projectService.getProjects(active);
 
-        return ResponseEntity.ok(response.project());
+        return ResponseEntity.ok(response.projects());
     }
 
     //@PreAuthorize("hasAuthority('CAN_ADMIN_PROJECTS')")
@@ -190,6 +199,23 @@ public class ProjectsController extends ThesisController {
         var response = projectService.getProjectApprovalEmployees(pid, settings);
 
         return ResponseEntity.ok(response.employees());
+    }
+
+    //@PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#projectId, 'CAN_MANAGE_TASKS')")
+    @GetMapping("/{pid}/approvals/{id}")
+    public ResponseEntity<List<CalendarTask>> getProjectEmployeeApproval(
+            @RequestHeader(required = false) UUID employeeId,
+            @RequestHeader(required = false) UUID projectId,
+            //@RequestParam(required = false) @DateTimeFormat(pattern="MM-yyyy") Date date,
+            @PathVariable UUID pid,
+            @PathVariable UUID id) throws ParseException {
+        var date = employeeService.getMonth(new Date());
+        var eId = employeeService.getEmployeeIdByProjectEmployee(id);
+
+        var calendarDTO = employeeService.getEmployeeCalendar(eId, pid, date);
+        var calendarResponse = calendarMapper.map(calendarDTO);
+
+        return ResponseEntity.ok(calendarResponse.tasks());
     }
 
     //@PreAuthorize("hasAuthority('CAN_ADMIN_PROJECTS')")

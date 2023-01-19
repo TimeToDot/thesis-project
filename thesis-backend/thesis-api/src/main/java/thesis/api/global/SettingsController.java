@@ -7,6 +7,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import thesis.api.ThesisController;
 import thesis.domain.employee.EmployeeService;
+import thesis.domain.employee.model.BillingPeriodDTO;
+import thesis.domain.project.ProjectService;
 import thesis.domain.project.model.task.ProjectTaskCreatePayloadDTO;
 import thesis.security.services.model.ContractDTO;
 import thesis.security.services.model.ContractTypeDTO;
@@ -26,6 +28,8 @@ public class SettingsController extends ThesisController {
     private final GlobalSettings globalSettings;
     private final EmployeeService employeeService;
 
+    private final ProjectService projectService;
+
     @PreAuthorize("hasAuthority('CAN_READ')")
     @GetMapping("/global-settings")
     public ResponseEntity<GlobalSettings> getGlobalSettings(){
@@ -44,13 +48,35 @@ public class SettingsController extends ThesisController {
 
     }
 
-    @GetMapping()
+    @GetMapping("/contract-types")
     //@PreAuthorize("hasAuthority('CAN_ADMIN_USERS')")
     public ResponseEntity<List<ContractDTO>> getContractTypes(
             @RequestHeader(required = false) UUID employeeId,
             @RequestHeader(required = false) UUID projectId
     ) {
         var response = employeeService.getContractTypes();
+
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("")
+    //@PreAuthorize("hasAuthority('CAN_ADMIN_USERS')")
+    public ResponseEntity<List<ContractDTO>> getContractTypesDummy(
+            @RequestHeader(required = false) UUID employeeId,
+            @RequestHeader(required = false) UUID projectId
+    ) {
+        var response = employeeService.getContractTypes();
+
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/billing-periods")
+    //@PreAuthorize("hasAuthority('CAN_ADMIN_USERS')")
+    public ResponseEntity<List<BillingPeriodDTO>> getBillingPeriods(
+            @RequestHeader(required = false) UUID employeeId,
+            @RequestHeader(required = false) UUID projectId
+    ) {
+        var response = projectService.getBillingPeriods();
 
         return ResponseEntity.ok(response);
     }

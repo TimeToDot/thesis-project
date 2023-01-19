@@ -15,6 +15,7 @@ public interface AuthMapper {
     AuthenticationResponse map(AuthenticationDTO authenticationDTO);
 
     //@Mapping(target = "contractType", expression = "java(getContractType(authorizationPayload.getContractType()))")
+    @Mapping(target = "positionId", source = "position.id")
     AuthorizationDTO mapToAuthorizationDTO(AuthorizationTemp authorizationPayload);
 
 /*    default ContractDTO getContractType(ContractDTO contractDTO){
