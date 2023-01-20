@@ -1,7 +1,8 @@
 import { formatDate } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { valueOrDefault } from 'chart.js/dist/helpers/helpers.core';
+import { map, Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Account } from '../../shared/models/account.model';
 import { EmployeeProject } from '../../shared/models/employee-project.model';
@@ -63,8 +64,8 @@ export class EmployeesService {
   }
 
   getProjectsToApprove(employeeId: string): Observable<Approval[]> {
-    return this.http.get<Approval[]>(
-      `${environment.apiUrl}/employees/${employeeId}/approve`
-    );
+    return this.http
+      .get<any>(`${environment.apiUrl}/employees/${employeeId}/approve`)
+      .pipe(map(value => value.projects));
   }
 }

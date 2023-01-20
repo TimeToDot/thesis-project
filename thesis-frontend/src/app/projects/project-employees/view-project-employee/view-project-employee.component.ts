@@ -47,7 +47,10 @@ export class ViewProjectEmployeeComponent implements OnInit {
       this.projectEmployeeService
         .getProjectEmployee(projectId, employeeId)
         .pipe(first())
-        .subscribe(projectEmployee => (this.projectEmployee = projectEmployee));
+        .subscribe(projectEmployee => {
+          this.projectEmployee = projectEmployee;
+          console.log(this.projectEmployee);
+        });
     }
   }
 
