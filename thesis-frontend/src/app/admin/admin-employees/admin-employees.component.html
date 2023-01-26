@@ -83,7 +83,7 @@
           <td
             cdk-cell
             *cdkCellDef="let element">
-            {{ element.position }}
+            {{ element.position ? element.position.name : '' }}
           </td>
         </ng-container>
         <ng-container cdkColumnDef="workingTime">
@@ -179,7 +179,7 @@
           <td
             cdk-cell
             *cdkCellDef="let element">
-            {{ element.position }}
+            {{ element.position ? element.position.name : '' }}
           </td>
         </ng-container>
         <ng-container cdkColumnDef="hireDate">

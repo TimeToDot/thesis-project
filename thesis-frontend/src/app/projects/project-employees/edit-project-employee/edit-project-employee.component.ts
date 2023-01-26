@@ -203,9 +203,10 @@ export class EditProjectEmployeeComponent implements OnInit {
   }
 
   getProjectEmployeeData(): ProjectEmployee {
+    const projectId = this.route.parent?.snapshot.paramMap.get('id');
     return {
       projectEmployeeId: this.projectEmployee.projectEmployeeId,
-      projectId: this.projectEmployee.projectId,
+      projectId: projectId ? projectId : '',
       employee: this.projectEmployee.employee,
       workingTime: this.controls.workingTime?.value,
       salaryModifier: this.controls.salaryModifier?.value,
