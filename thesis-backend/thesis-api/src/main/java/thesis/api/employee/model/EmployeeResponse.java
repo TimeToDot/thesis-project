@@ -1,5 +1,6 @@
 package thesis.api.employee.model;
 
+import thesis.domain.position.model.PositionResponseDTO;
 import thesis.security.services.model.ContractDTO;
 import thesis.security.services.model.ContractTypeDTO;
 import thesis.domain.employee.model.SimplePositionDTO;
@@ -20,7 +21,7 @@ public record EmployeeResponse(
         String idCardNumber,
         String pesel,
         SexDTO sex,
-        String position,
+        SimplePositionDTO position,
         Date employmentDate,
         Date exitDate,
         String imagePath,

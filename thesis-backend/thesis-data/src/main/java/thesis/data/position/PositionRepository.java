@@ -7,6 +7,7 @@ import thesis.data.account.model.Account;
 import thesis.data.position.model.Position;
 import thesis.data.position.model.PositionType;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -19,5 +20,5 @@ public interface PositionRepository extends JpaRepository<Position, UUID> {
     boolean existsByName(String name);
     Optional<Position> findByName(String name);
 
-    Optional<Position> findByAccounts(Account account);
+    Optional<Position> findByAccountsEquals(Account account);
 }

@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import thesis.data.account.*;
 import thesis.data.account.model.*;
 import thesis.data.position.PositionRepository;
+import thesis.data.position.model.Position;
 import thesis.data.project.AccountProjectRepository;
 import thesis.data.project.ProjectRepository;
 import thesis.data.project.model.AccountProject;
@@ -64,9 +65,13 @@ public class EmployeeService {
         format.setTimeZone(TimeZone.getTimeZone("UTC"));
     }
 
+    @Transactional
     public EmployeeDTO getEmployee(UUID id) {
         var account = accountRepository.findById(id).orElseThrow();
         var details = accountDetailsRepository.findByAccount(account).orElseThrow();
+        Position position = positionRepository.findByAccountsEquals(account).orElse(null);
+
+        details.getAccount().setPosition(position);
 
         return employeeDTOMapper.map(details);
     }
@@ -320,6 +325,8 @@ public class EmployeeService {
         return new CalendarDTO(getCalendarTaskDTOList(taskList));
     }
 
+
+
     public List<CalendarTaskDTO> getCalendarTaskDTOList(List<Task> tasks) {
         var groupedTasks = tasks.stream()
                 .collect(
@@ -461,8 +468,8 @@ public class EmployeeService {
                 account.setStatus(StatusType.EXPIRED);
             }
         }
-        if (payloadDTO.positionId() != null){
-            var position = positionRepository.findById(payloadDTO.positionId()).orElseThrow();
+        if (payloadDTO.position().id() != null){
+            var position = positionRepository.findById(payloadDTO.position().id()).orElseThrow();
             account.setPosition(position);
         }
         if (payloadDTO.email() != null){

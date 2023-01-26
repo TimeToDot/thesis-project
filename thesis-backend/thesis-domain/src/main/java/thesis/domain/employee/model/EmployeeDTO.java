@@ -19,7 +19,7 @@ public record EmployeeDTO(
         String idCardNumber,
         String pesel,
         SexDTO sex,
-        String position,
+        SimplePositionDTO position,
         Date employmentDate,
         Date exitDate,
         String imagePath,

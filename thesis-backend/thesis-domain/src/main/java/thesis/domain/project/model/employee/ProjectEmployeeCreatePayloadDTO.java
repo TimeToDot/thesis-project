@@ -6,7 +6,7 @@ import java.util.UUID;
 public record ProjectEmployeeCreatePayloadDTO(
         UUID employeeId,
         Integer modifier,
-        Integer workingTime,
-        RoleDTOStatus roleDTOStatus
+        Integer workingTime
+        //RoleDTOStatus roleDTOStatus
 ) {
 }

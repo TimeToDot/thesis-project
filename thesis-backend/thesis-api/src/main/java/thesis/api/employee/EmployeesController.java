@@ -131,7 +131,7 @@ public class EmployeesController extends ThesisController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("{id}/projects")
+    @GetMapping("/{id}/projects")
     //@PreAuthorize("hasAuthority('CAN_READ')")
     public ResponseEntity<List<EmployeeProjectDetailsResponse>> getEmployeeProjects(
             @RequestHeader(required = false) UUID employeeId,
@@ -157,7 +157,7 @@ public class EmployeesController extends ThesisController {
         return ResponseEntity.ok(employeeProjectsResponse.projects());
     }
 
-    @GetMapping("{id}/approve")
+    @GetMapping("/{id}/approve")
     //@PreAuthorize("hasAuthority('CAN_READ')")
     public ResponseEntity<EmployeeProjectsToApproveResponse> getProjectsToApprove(
             @RequestHeader(required = false) UUID employeeId,
@@ -174,7 +174,7 @@ public class EmployeesController extends ThesisController {
         return ResponseEntity.ok(employeeProjectsMapper.toApproveMap(toApproveDto));
     }
 
-    @PostMapping("{id}/approve")
+    @PostMapping("/{id}/approve")
     //@PreAuthorize("hasAuthority('CAN_READ')")
     public ResponseEntity<List<UUID>> sendProjectsToApprove(
             @RequestHeader(required = false) UUID employeeId,
@@ -193,7 +193,7 @@ public class EmployeesController extends ThesisController {
     }
 
     //@PreAuthorize("hasAuthority('CAN_READ')")
-    @GetMapping("{id}/tasks")
+    @GetMapping("/{id}/tasks")
     public ResponseEntity<List<EmployeeTaskResponse>> getEmployeeTasks(
             @RequestHeader(required = false) UUID employeeId,
             @RequestHeader(required = false) UUID projectId,
@@ -231,7 +231,7 @@ public class EmployeesController extends ThesisController {
     }
 
     //@PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#projectId, 'CAN_MANAGE_TASKS')")
-    @GetMapping("{id}/tasks/{taskId}")
+    @GetMapping("/{id}/tasks/{taskId}")
     public ResponseEntity<EmployeeTaskResponse> getEmployeeTask(
             @RequestHeader(required = false) UUID employeeId,
             @RequestHeader(required = false) UUID projectId,
@@ -270,7 +270,7 @@ public class EmployeesController extends ThesisController {
     }
 
     //@PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#payload.projectId(), 'CAN_MANAGE_TASKS')")
-    @PutMapping("{id}/task")
+    @PutMapping("/{id}/task")
     public ResponseEntity<UUID> updateEmployeeTask(
             @RequestHeader(required = false) UUID employeeId,
             @RequestHeader UUID projectId,

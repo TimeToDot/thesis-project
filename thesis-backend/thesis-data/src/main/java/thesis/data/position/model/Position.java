@@ -24,7 +24,7 @@ public class Position {
     @Column(name = "id", nullable = false)
     private UUID id;
 
-    @OneToMany(targetEntity=Account.class, mappedBy="position",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy="position",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Account> accounts;
 
     private String name;

@@ -5,7 +5,7 @@ import java.util.UUID;
 public record EmployeeProjectResponse(
         UUID id,
         String name,
-        String imagePath
+        String image
 ){
 
 }

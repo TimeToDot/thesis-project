@@ -7,7 +7,7 @@ public record ProjectEmployeeUpdatePayloadDTO(
         UUID projectEmployeeId,
         Integer modifier,
         Integer workingTime,
-        RoleDTOStatus roleDTOStatus,
+        //RoleDTOStatus roleDTOStatus,
         Boolean active
 ) {
 }

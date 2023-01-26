@@ -296,7 +296,7 @@ public class ProjectService {
     public UUID addProjectEmployee(UUID projectId, ProjectEmployeeCreatePayloadDTO payloadDTO){
         var project = projectRepository.findById(projectId).orElseThrow();
         var account = accountRepository.findById(payloadDTO.employeeId()).orElseThrow();
-        var roleType = RoleType.valueOf(payloadDTO.roleDTOStatus().name());
+        var roleType = RoleType.ROLE_PROJECT_USER;
         var role = roleRepository.findByName(roleType).orElseThrow();
 
         var accountProject = AccountProject.builder()
@@ -319,7 +319,7 @@ public class ProjectService {
         var project = projectRepository.findById(projectId).orElseThrow();
         var accountProject = accountProjectRepository.findById(employeeProjectId).orElseThrow();
         var status = Boolean.TRUE.equals(payloadDTO.active()) ? ProjectAccountStatus.ACTIVE : ProjectAccountStatus.INACTIVE;
-        var roleType = RoleType.valueOf(payloadDTO.roleDTOStatus().name());
+        var roleType = RoleType.ROLE_PROJECT_USER;
         var role = roleRepository.findByName(roleType).orElseThrow();
 
         accountProject.setStatus(status);

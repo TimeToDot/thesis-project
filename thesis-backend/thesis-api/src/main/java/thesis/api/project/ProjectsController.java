@@ -18,6 +18,7 @@ import thesis.domain.project.model.ProjectUpdatePayloadDTO;
 import thesis.domain.project.model.ProjectsDTO;
 import thesis.domain.project.model.approval.ProjectApprovalDTO;
 import thesis.domain.project.model.approval.ProjectApprovalsDTO;
+import thesis.domain.project.model.approval.ProjectCalendarDTO;
 import thesis.domain.project.model.employee.ProjectEmployeeCreatePayloadDTO;
 import thesis.domain.project.model.employee.ProjectEmployeeDTO;
 import thesis.domain.project.model.employee.ProjectEmployeeUpdatePayloadDTO;
@@ -138,7 +139,7 @@ public class ProjectsController extends ThesisController {
     }
 
     //@PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#projectId, 'CAN_MANAGE_PROJECT_USERS')")
-    @PostMapping("/{pid}/employees/id")
+    @PostMapping("/{pid}/employees")
     public ResponseEntity<UUID> addProjectEmployee(
             @RequestHeader(required = false) UUID employeeId,
             @RequestHeader(required = false) UUID projectId,
@@ -203,7 +204,7 @@ public class ProjectsController extends ThesisController {
 
     //@PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#projectId, 'CAN_MANAGE_TASKS')")
     @GetMapping("/{pid}/approvals/{id}")
-    public ResponseEntity<List<CalendarTask>> getProjectEmployeeApproval(
+    public ResponseEntity<ProjectCalendarDTO> getProjectEmployeeApproval(
             @RequestHeader(required = false) UUID employeeId,
             @RequestHeader(required = false) UUID projectId,
             //@RequestParam(required = false) @DateTimeFormat(pattern="MM-yyyy") Date date,
@@ -215,7 +216,13 @@ public class ProjectsController extends ThesisController {
         var calendarDTO = employeeService.getEmployeeCalendar(eId, pid, date);
         var calendarResponse = calendarMapper.map(calendarDTO);
 
-        return ResponseEntity.ok(calendarResponse.tasks());
+        var response = ProjectCalendarDTO.builder()
+                .employeeId(eId)
+                .projectEmployeeId(id)
+                .tasks(calendarDTO.tasks())
+                .build();
+
+        return ResponseEntity.ok(response);
     }
 
     //@PreAuthorize("hasAuthority('CAN_ADMIN_PROJECTS')")

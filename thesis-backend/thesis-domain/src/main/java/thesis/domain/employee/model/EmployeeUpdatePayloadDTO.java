@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import thesis.data.account.model.ContractType;
 import thesis.data.account.model.Country;
 import thesis.data.account.model.Sex;
+import thesis.domain.position.model.PositionResponseDTO;
 import thesis.security.services.model.ContractDTO;
 import thesis.security.services.model.ContractTypeDTO;
 import thesis.security.services.model.SexDTO;
@@ -38,7 +39,7 @@ public record EmployeeUpdatePayloadDTO(
         String phoneNumber,
         @Email
         String privateEmail,
-        UUID positionId,
+        PositionResponseDTO position,
 
         @JsonFormat(pattern = "yyyy-MM-dd")
         Date employmentDate,

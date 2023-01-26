@@ -85,11 +85,14 @@ public interface EmployeeDTOMapper {
         return ContractTypeDTO.fromValue(type);
     }
 
-    default String getPosition(Position position){
+    default SimplePositionDTO getPosition(Position position){
         if (position == null){
             return null;
         }
-        return position.getName();
+        return SimplePositionDTO.builder()
+                .id(position.getId())
+                .name(position.getName())
+                .build();
     }
 
 /*    default BillingPeriodDTO getBillingPeriod(String period){
