@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { Day } from '../../calendar/models/day.model';
 import { ProjectApproval } from '../models/project-approval.model';
 
 @Injectable({
@@ -10,11 +11,8 @@ import { ProjectApproval } from '../models/project-approval.model';
 export class ProjectApprovalsService {
   constructor(private http: HttpClient) {}
 
-  getProjectApproval(
-    projectId: string,
-    approvalId: string
-  ): Observable<ProjectApproval> {
-    return this.http.get<ProjectApproval>(
+  getProjectApproval(projectId: string, approvalId: string): Observable<Day[]> {
+    return this.http.get<any>(
       `${environment.apiUrl}/projects/${projectId}/approvals/${approvalId}`
     );
   }

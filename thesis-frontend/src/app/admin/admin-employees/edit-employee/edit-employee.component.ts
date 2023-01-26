@@ -300,7 +300,7 @@ export class EditEmployeeComponent {
       middleName: this.controls.middleName?.value,
       lastName: this.controls.lastName?.value,
       sex: this.controls.sex?.value,
-      birthDate: this.controls.birthDate?.value,
+      birthDate: formatDate(this.controls.birthDate?.value, 'yyyy-MM-dd', 'en'),
       birthPlace: this.controls.birthPlace?.value,
       idCardNumber: this.controls.idCardNumber?.value,
       pesel: this.controls.pesel?.value,
@@ -313,7 +313,11 @@ export class EditEmployeeComponent {
       phoneNumber: this.controls.phoneNumber?.value,
       privateEmail: this.controls.privateEmail?.value,
       position: this.controls.position?.value,
-      employmentDate: this.controls.employmentDate?.value,
+      employmentDate: formatDate(
+        this.controls.employmentDate?.value,
+        'yyyy-MM-dd',
+        'en'
+      ),
       contractType: this.controls.contractType?.value,
       workingTime: this.controls.workingTime?.value,
       wage: this.controls.wage?.value,

@@ -88,12 +88,15 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
         .getProjectApproval(projectId, projectApprovalId)
         .pipe(first())
         .subscribe(projectApproval => {
-          this.employee = projectApproval.employee;
-          this.updateFormFields();
-          this.getEmployeeCalendar(this.employee.id);
-          this.employee.active
-            ? this.getProjectEmployees()
-            : this.getArchivedProjectEmployees();
+          console.log(projectApproval);
+          this.$employeeCalendar.next(projectApproval);
+          this.getProjectEmployees();
+          // this.employee = projectApproval.employee;
+          // this.updateFormFields();
+          // this.getEmployeeCalendar(this.employee.id);
+          // this.employee.active
+          //   ? this.getProjectEmployees()
+          //   : this.getArchivedProjectEmployees();
         });
     }
   }
