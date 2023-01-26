@@ -76,7 +76,7 @@
           cdk-cell
           *cdkCellDef="let element">
           <div class="table-cell">
-            <span>{{ element.employee.position }}</span>
+            <span>{{ element.position ? element.position.name : '' }}</span>
           </div>
         </td>
       </ng-container>
@@ -162,7 +162,7 @@
           cdk-cell
           *cdkCellDef="let element">
           <div class="table-cell">
-            <span>{{ element.employee.position }}</span>
+            <span>{{ element.position ? element.position.name : '' }}</span>
           </div>
         </td>
       </ng-container>

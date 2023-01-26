@@ -13,11 +13,12 @@ import { ToastService } from '../../../shared/services/toast.service';
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { ProjectEmployee } from '../../models/project-employee.model';
 import { ProjectApprovalsService } from '../../services/project-approvals.service';
 import { DropdownSearchEmployeeComponent } from '../../../shared/components/dropdown-search-employee/dropdown-search-employee.component';
 import { EmployeeTasksService } from '../../../shared/services/employee-tasks.service';
 import { Day } from '../../../calendar/models/day.model';
+import { EmployeesService } from '../../../admin/services/employees.service';
+import { Account } from '../../../shared/models/account.model';
 
 @Component({
   selector: 'bvr-approval-tracker',
@@ -44,7 +45,7 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
   isGuardDisabled: boolean = false;
   isResetModalOpen: boolean = false;
   modalDescription: string = '';
-  employee!: Employee;
+  employee!: Account;
   redirectSubject: Subject<boolean> = new Subject<boolean>();
   refreshTaskList: Subject<void> = new Subject<void>();
 
@@ -52,6 +53,7 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
 
   constructor(
     private employeeTasksService: EmployeeTasksService,
+    private employeesService: EmployeesService,
     private fb: FormBuilder,
     private projectApprovalsService: ProjectApprovalsService,
     private projectEmployeesService: ProjectEmployeesService,
@@ -89,16 +91,25 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
         .pipe(first())
         .subscribe(projectApproval => {
           console.log(projectApproval);
-          this.$employeeCalendar.next(projectApproval);
           this.getProjectEmployees();
-          // this.employee = projectApproval.employee;
-          // this.updateFormFields();
-          // this.getEmployeeCalendar(this.employee.id);
-          // this.employee.active
-          //   ? this.getProjectEmployees()
-          //   : this.getArchivedProjectEmployees();
+          this.getEmployee(projectApproval.employeeId);
         });
     }
+  }
+
+  getEmployee(employeeId: string): void {
+    this.employeesService
+      .getEmployee(employeeId)
+      .pipe(first())
+      .subscribe(employee => {
+        this.employee = employee;
+        console.log(employee);
+        this.updateFormFields();
+        this.getEmployeeCalendar(this.employee.id);
+        this.employee.active
+          ? this.getProjectEmployees()
+          : this.getArchivedProjectEmployees();
+      });
   }
 
   updateFormFields(): void {
