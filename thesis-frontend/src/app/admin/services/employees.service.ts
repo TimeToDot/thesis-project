@@ -33,6 +33,12 @@ export class EmployeesService {
   archiveEmployee(employee: Account): Observable<Account> {
     employee.active = false;
     employee.exitDate = formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en');
+    employee.birthDate = formatDate(employee.birthDate, 'yyyy-MM-dd', 'en');
+    employee.employmentDate = formatDate(
+      employee.employmentDate,
+      'yyyy-MM-dd',
+      'en'
+    );
     return this.http.put<Account>(
       `${environment.apiUrl}/employees/${employee.id}`,
       employee

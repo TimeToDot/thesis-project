@@ -113,6 +113,7 @@ export class ProjectEmployeesComponent implements OnInit {
         .getProjectEmployee(projectId, this.idToArchive)
         .pipe(first())
         .subscribe(employee => {
+          employee.projectId = projectId;
           this.projectEmployeesService
             .archiveProjectEmployee(employee)
             .pipe(first())

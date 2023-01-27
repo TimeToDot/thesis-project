@@ -48,7 +48,11 @@
       <bvr-form-field
         class="left-field"
         label="Position">
-        <span>{{ projectEmployee.employee.position }}</span>
+        <span>{{
+          projectEmployee.employee.position
+            ? projectEmployee.employee.position.name
+            : ''
+        }}</span>
       </bvr-form-field>
       <bvr-form-field
         class="left-field"
