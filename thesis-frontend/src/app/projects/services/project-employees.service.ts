@@ -15,9 +15,18 @@ export class ProjectEmployeesService {
     projectId: string,
     employeeId: string
   ): Observable<ProjectEmployee> {
-    return this.http.get<ProjectEmployee>(
-      `${environment.apiUrl}/projects/${projectId}/employees/${employeeId}`
-    );
+    return this.http
+      .get<any>(
+        `${environment.apiUrl}/projects/${projectId}/employees/${employeeId}`
+      )
+      .pipe(
+        map(value => {
+          delete Object.assign(value.employee, {
+            ['id']: value.employee['employeeId'],
+          })['employeeId'];
+          return value;
+        })
+      );
   }
 
   addProjectEmployee(employee: ProjectEmployee): Observable<ProjectEmployee> {
@@ -52,7 +61,16 @@ export class ProjectEmployeesService {
       .get<any>(
         `${environment.apiUrl}/projects/${projectId}/employees?active=true`
       )
-      .pipe(map(value => value.employees));
+      .pipe(
+        map(value => {
+          value.employees.forEach((employee: any) => {
+            delete Object.assign(employee.employee, {
+              ['id']: employee.employee['employeeId'],
+            })['employeeId'];
+          });
+          return value.employees;
+        })
+      );
   }
 
   getArchivedProjectEmployees(
@@ -62,6 +80,15 @@ export class ProjectEmployeesService {
       .get<any>(
         `${environment.apiUrl}/projects/${projectId}/employees?active=false`
       )
-      .pipe(map(value => value.employees));
+      .pipe(
+        map(value => {
+          value.employees.forEach((employee: any) => {
+            delete Object.assign(employee.employee, {
+              ['id']: employee.employee['employeeId'],
+            })['employeeId'];
+          });
+          return value.employees;
+        })
+      );
   }
 }

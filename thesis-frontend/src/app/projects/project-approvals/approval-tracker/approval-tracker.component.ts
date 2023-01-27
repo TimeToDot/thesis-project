@@ -17,8 +17,7 @@ import { ProjectApprovalsService } from '../../services/project-approvals.servic
 import { DropdownSearchEmployeeComponent } from '../../../shared/components/dropdown-search-employee/dropdown-search-employee.component';
 import { EmployeeTasksService } from '../../../shared/services/employee-tasks.service';
 import { Day } from '../../../calendar/models/day.model';
-import { EmployeesService } from '../../../admin/services/employees.service';
-import { Account } from '../../../shared/models/account.model';
+import { ProjectEmployee } from '../../models/project-employee.model';
 
 @Component({
   selector: 'bvr-approval-tracker',
@@ -38,6 +37,7 @@ import { Account } from '../../../shared/models/account.model';
 export class ApprovalTrackerComponent implements OnInit, OnDestroy {
   $employeeCalendar: BehaviorSubject<Day[]> = new BehaviorSubject<Day[]>([]);
   approveTasksForm!: FormGroup;
+  employee!: Employee;
   employees: Employee[] = [];
   isActive: boolean = true;
   isConfirmModalOpen: boolean = false;
@@ -45,7 +45,7 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
   isGuardDisabled: boolean = false;
   isResetModalOpen: boolean = false;
   modalDescription: string = '';
-  employee!: Account;
+  projectEmployees: ProjectEmployee[] = [];
   redirectSubject: Subject<boolean> = new Subject<boolean>();
   refreshTaskList: Subject<void> = new Subject<void>();
 
@@ -53,7 +53,6 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
 
   constructor(
     private employeeTasksService: EmployeeTasksService,
-    private employeesService: EmployeesService,
     private fb: FormBuilder,
     private projectApprovalsService: ProjectApprovalsService,
     private projectEmployeesService: ProjectEmployeesService,
@@ -66,7 +65,7 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.observeRejectedTasks();
     this.createForm();
-    this.getProjectEmployee();
+    this.getProjectApproval();
   }
 
   observeRejectedTasks(): void {
@@ -78,11 +77,11 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
 
   createForm(): void {
     this.approveTasksForm = this.fb.group({
-      id: [''],
+      employee: [''],
     });
   }
 
-  getProjectEmployee(): void {
+  getProjectApproval(): void {
     const projectId = this.route.parent?.snapshot.paramMap.get('id');
     const projectApprovalId = this.route.snapshot.paramMap.get('id');
     if (projectId && projectApprovalId) {
@@ -90,20 +89,17 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
         .getProjectApproval(projectId, projectApprovalId)
         .pipe(first())
         .subscribe(projectApproval => {
-          console.log(projectApproval);
-          this.getProjectEmployees();
-          this.getEmployee(projectApproval.employeeId);
+          this.getProjectEmployee(projectId, projectApproval.projectEmployeeId);
         });
     }
   }
 
-  getEmployee(employeeId: string): void {
-    this.employeesService
-      .getEmployee(employeeId)
+  getProjectEmployee(projectId: string, projectEmployeeId: string): void {
+    this.projectEmployeesService
+      .getProjectEmployee(projectId, projectEmployeeId)
       .pipe(first())
-      .subscribe(employee => {
-        this.employee = employee;
-        console.log(employee);
+      .subscribe(projectEmployee => {
+        this.employee = projectEmployee.employee;
         this.updateFormFields();
         this.getEmployeeCalendar(this.employee.id);
         this.employee.active
@@ -113,9 +109,7 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
   }
 
   updateFormFields(): void {
-    Object.keys(this.approveTasksForm.controls).forEach(field => {
-      this.approveTasksForm.get(field)?.setValue(this.employee);
-    });
+    this.approveTasksForm.get('employee')?.setValue(this.employee);
   }
 
   getEmployeeCalendar(employeeId: string): void {
@@ -134,6 +128,7 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
         .getProjectEmployees(projectId)
         .pipe(first())
         .subscribe(projectEmployees => {
+          this.projectEmployees = projectEmployees;
           this.employees = projectEmployees.map(
             projectEmployee => projectEmployee.employee
           );
@@ -150,6 +145,7 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
         .getArchivedProjectEmployees(projectId)
         .pipe(first())
         .subscribe(archivedProjectEmployees => {
+          this.projectEmployees = archivedProjectEmployees;
           this.employees = archivedProjectEmployees.map(
             projectEmployee => projectEmployee.employee
           );
@@ -160,10 +156,18 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
   }
 
   observeIdSelection(): void {
-    this.approveTasksForm.get(['id'])?.valueChanges.subscribe(value => {
+    this.approveTasksForm.get(['employee'])?.valueChanges.subscribe(value => {
+      const foundEmployee = this.projectEmployees.find(
+        employee => employee.employee.id === value.id
+      );
       this.router
-        .navigate([`../${value}`], { relativeTo: this.route })
-        .then(() => this.refreshTaskList.next());
+        .navigate([`../${foundEmployee?.projectEmployeeId}`], {
+          relativeTo: this.route,
+        })
+        .then(() => {
+          this.refreshTaskList.next();
+          // this.getProjectApproval();
+        });
     });
   }
 
