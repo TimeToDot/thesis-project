@@ -23,6 +23,9 @@ import { EmployeesService } from '../../admin/services/employees.service';
 import { CustomValidators } from '../../shared/helpers/custom-validators.helper';
 import { ErrorComponent } from '../../shared/components/error/error.component';
 import { TokenService } from '../../shared/services/token.service';
+import { ProjectsToApprove } from '../models/projects-to-approve.model';
+import { EmployeeTasksService } from '../../shared/services/employee-tasks.service';
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'bvr-request-approval',
@@ -43,6 +46,7 @@ import { TokenService } from '../../shared/services/token.service';
 })
 export class RequestApprovalComponent implements OnInit {
   areAllSelected: boolean = false;
+  controls: any = {};
   isCancelModalOpen: boolean = false;
   isFromGuard: boolean = false;
   isGuardDisabled: boolean = false;
@@ -53,7 +57,9 @@ export class RequestApprovalComponent implements OnInit {
   requestApprovalForm!: FormGroup;
 
   constructor(
+    private authService: AuthService,
     private employeesService: EmployeesService,
+    private employeeTasksService: EmployeeTasksService,
     private fb: FormBuilder,
     private location: Location,
     private toastService: ToastService,
@@ -63,6 +69,7 @@ export class RequestApprovalComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm();
+    this.getFormControls();
     this.getProjectsToApprove();
   }
 
@@ -84,6 +91,12 @@ export class RequestApprovalComponent implements OnInit {
         ],
       }
     );
+  }
+
+  getFormControls(): void {
+    Object.keys(this.requestApprovalForm.controls).forEach(group => {
+      this.controls[group] = this.requestApprovalForm.get([group]);
+    });
   }
 
   getProjectsToApprove(): void {
@@ -130,20 +143,36 @@ export class RequestApprovalComponent implements OnInit {
 
   send(): void {
     this.disableGuard(true);
-    new Promise((resolve, _) => {
-      this.location.back();
-      resolve('done');
-    }).then(() => {
-      setTimeout(
-        () =>
-          this.toastService.showToast(
-            ToastState.Success,
-            'Approval request sent'
-          ),
-        200
-      );
-      setTimeout(() => this.toastService.dismissToast(), 3200);
-    });
+    const employeeId = this.authService.getLoggedEmployeeId();
+    this.employeeTasksService
+      .sendProjectsToApproval(employeeId, this.getProjectsData())
+      .pipe(first())
+      .subscribe(() => {
+        new Promise((resolve, _) => {
+          this.location.back();
+          resolve('done');
+        }).then(() => {
+          setTimeout(
+            () =>
+              this.toastService.showToast(
+                ToastState.Success,
+                'Approval request sent'
+              ),
+            200
+          );
+          setTimeout(() => this.toastService.dismissToast(), 3200);
+        });
+      });
+  }
+
+  getProjectsData(): ProjectsToApprove {
+    return {
+      startDate: this.controls.startDate.value,
+      endDate: this.controls.endDate.value,
+      projects: this.projectApprovals
+        .filter(approval => approval.approve)
+        .map(value => value.project.id),
+    };
   }
 
   disableGuard(value: boolean): void {

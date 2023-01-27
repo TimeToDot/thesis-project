@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Day } from '../../calendar/models/day.model';
+import { ProjectsToApprove } from '../../tracker/models/projects-to-approve.model';
 import { EmployeeTask } from '../models/employee-task.model';
 
 @Injectable({
@@ -69,6 +70,16 @@ export class EmployeeTasksService {
   getEmployeeCalendar(employeeId: string): Observable<Day[]> {
     return this.http.get<Day[]>(
       `${environment.apiUrl}/employees/${employeeId}/calendar`
+    );
+  }
+
+  sendProjectsToApproval(
+    employeeId: string,
+    projectsToApprove: ProjectsToApprove
+  ): Observable<ProjectsToApprove> {
+    return this.http.post<ProjectsToApprove>(
+      `${environment.apiUrl}/employees/${employeeId}/toApprove`,
+      projectsToApprove
     );
   }
 }
