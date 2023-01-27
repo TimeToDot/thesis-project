@@ -166,7 +166,6 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
         })
         .then(() => {
           this.refreshTaskList.next();
-          // this.getProjectApproval();
         });
     });
   }

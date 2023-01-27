@@ -31,6 +31,25 @@ export class EmployeeTasksService {
     );
   }
 
+  updateEmployeeTask(
+    employeeId: string,
+    task: EmployeeTask
+  ): Observable<EmployeeTask> {
+    return this.http.put<EmployeeTask>(
+      `${environment.apiUrl}/employees/${employeeId}/tasks/${task.id}`,
+      task
+    );
+  }
+
+  deleteEmployeeTask(
+    employeeId: string,
+    taskId: string
+  ): Observable<EmployeeTask> {
+    return this.http.delete<EmployeeTask>(
+      `${environment.apiUrl}/employees/${employeeId}/tasks/${taskId}`
+    );
+  }
+
   getEmployeeLastTasks(employeeId: string): Observable<EmployeeTask[]> {
     return this.http.get<EmployeeTask[]>(
       `${environment.apiUrl}/employees/${employeeId}/tasks`

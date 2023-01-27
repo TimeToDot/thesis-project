@@ -230,8 +230,9 @@ export class AddNewTaskComponent implements OnInit {
   }
 
   getTaskData(employeeId: string): EmployeeTask {
+    const taskId = this.route.snapshot.paramMap.get('id');
     return {
-      id: '',
+      id: taskId ? taskId : '',
       employeeId: employeeId,
       startDate: this.controls.startDate?.value,
       endDate: this.controls.endDate?.value,
@@ -256,15 +257,25 @@ export class AddNewTaskComponent implements OnInit {
 
   delete(): void {
     this.disableGuard(true);
-    this.router
-      .navigate(['../../tasks-list'], { relativeTo: this.route })
-      .then(() => {
-        setTimeout(
-          () => this.toastService.showToast(ToastState.Info, 'Task deleted'),
-          200
-        );
-        setTimeout(() => this.toastService.dismissToast(), 3200);
-      });
+    const employeeId = this.authService.getLoggedEmployeeId();
+    const taskId = this.route.snapshot.paramMap.get('id');
+    if (taskId) {
+      this.employeeTasksService
+        .deleteEmployeeTask(employeeId, taskId)
+        .pipe(first())
+        .subscribe(() => {
+          this.router
+            .navigate(['../../tasks-list'], { relativeTo: this.route })
+            .then(() => {
+              setTimeout(
+                () =>
+                  this.toastService.showToast(ToastState.Info, 'Task deleted'),
+                200
+              );
+              setTimeout(() => this.toastService.dismissToast(), 3200);
+            });
+        });
+    }
   }
 
   reset(): void {
@@ -275,15 +286,24 @@ export class AddNewTaskComponent implements OnInit {
   save(value: boolean): void {
     this.disableGuard(true);
     if (value) {
-      this.router
-        .navigate(['../../tasks-list'], { relativeTo: this.route })
-        .then(() => {
-          setTimeout(
-            () =>
-              this.toastService.showToast(ToastState.Success, 'Task edited'),
-            200
-          );
-          setTimeout(() => this.toastService.dismissToast(), 3200);
+      const employeeId = this.authService.getLoggedEmployeeId();
+      this.employeeTasksService
+        .updateEmployeeTask(employeeId, this.getTaskData(employeeId))
+        .pipe(first())
+        .subscribe(() => {
+          this.router
+            .navigate(['../../tasks-list'], { relativeTo: this.route })
+            .then(() => {
+              setTimeout(
+                () =>
+                  this.toastService.showToast(
+                    ToastState.Success,
+                    'Task edited'
+                  ),
+                200
+              );
+              setTimeout(() => this.toastService.dismissToast(), 3200);
+            });
         });
     }
   }
