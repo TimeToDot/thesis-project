@@ -100,9 +100,10 @@ export class BillingInfoComponent implements OnInit {
     return {
       id: '',
       name: this.controls.name?.value,
-      image: this.controls.image?.value,
+      image: '',
       description: this.controls.description?.value,
       moderator: this.controls.moderator?.value,
+      moderatorId: this.controls.moderator?.value.id,
       employeesCount: this.controls.employeesCount?.value,
       creationDate: formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en'),
       billingPeriod: this.controls.billingPeriod?.value,
