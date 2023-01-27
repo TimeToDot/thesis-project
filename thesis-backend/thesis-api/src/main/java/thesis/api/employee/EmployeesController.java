@@ -12,6 +12,7 @@ import thesis.api.employee.mapper.*;
 import thesis.api.employee.model.EmployeeResponse;
 import thesis.api.employee.model.calendar.CalendarTask;
 import thesis.api.employee.model.project.*;
+import thesis.api.employee.model.project.temp.EmployeeProjectTempResponse;
 import thesis.api.employee.model.task.EmployeeTaskCreatePayload;
 import thesis.api.employee.model.task.EmployeeTaskResponse;
 import thesis.api.employee.model.task.EmployeeTaskUpdatePayload;
@@ -133,7 +134,7 @@ public class EmployeesController extends ThesisController {
 
     @GetMapping("/{id}/projects")
     //@PreAuthorize("hasAuthority('CAN_READ')")
-    public ResponseEntity<List<EmployeeProjectDetailsResponse>> getEmployeeProjects(
+    public ResponseEntity<List<EmployeeProjectTempResponse>> getEmployeeProjects(
             @RequestHeader(required = false) UUID employeeId,
             @RequestHeader(required = false) UUID projectId,
             @RequestParam(value="page", required = false) Integer page,
@@ -144,15 +145,10 @@ public class EmployeesController extends ThesisController {
     ) {
         var settings = initPaging(page, size, key, direction);
 
-/*        if (!verifyEmployeeId(id)) {
-            log.error("oo prosze: {}", id);
-            return ResponseEntity.badRequest().build();
-        }*/
-
         log.info("controller: employeeId: {}, page: {}, size: {}", id, settings.getPage(), settings.getSize());
 
         var employeeProjectsDTO = employeeService.getEmployeeProjects(id, settings);
-        var employeeProjectsResponse = employeeProjectsMapper.map(employeeProjectsDTO);
+        var employeeProjectsResponse = employeeProjectsMapper.mapTemp(employeeProjectsDTO);
 
         return ResponseEntity.ok(employeeProjectsResponse.projects());
     }

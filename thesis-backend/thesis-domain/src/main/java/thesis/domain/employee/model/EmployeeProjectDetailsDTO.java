@@ -12,6 +12,8 @@ public record EmployeeProjectDetailsDTO(
         @JsonFormat(pattern = "yyyy-MM-dd")
         Date joinDate,
         @JsonFormat(pattern = "yyyy-MM-dd")
-        Date exitDate
+        Date exitDate,
+        UUID projectEmployeeId,
+        Boolean active
 ) {
 }
