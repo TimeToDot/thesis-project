@@ -306,20 +306,24 @@ public class ProjectService {
         var accountProject = accountProjectRepository.findById(accountProjectId).orElseThrow();
         var tasks = taskRepository.findByFormProjectIdAndAccountId(project.getId(), accountProject.getAccount().getId(), settings.getPageable()).orElseThrow();
 
+
         tasks.stream()
                 .filter(task -> !taskIds.contains(task.getId()))
                 .forEach(task -> task.setStatus(TaskStatus.APPROVED));
 
         taskRepository.saveAllAndFlush(tasks);
 
-        var tasksToReject = taskIds.stream()
-                .map(taskRepository::findById)
-                .map(Optional::orElseThrow)
-                .collect(Collectors.toList());
+        if (!taskIds.isEmpty()) {
+            var tasksToReject = taskIds.stream()
+                    .map(taskRepository::findById)
+                    .map(Optional::orElseThrow)
+                    .filter(task -> task.getStatus().compareTo(TaskStatus.PENDING) == 0)
+                    .collect(Collectors.toList());
 
-        tasksToReject.forEach(task -> task.setStatus(TaskStatus.REJECTED));
+            tasksToReject.forEach(task -> task.setStatus(TaskStatus.REJECTED));
 
-        taskRepository.saveAllAndFlush(tasksToReject);
+            taskRepository.saveAllAndFlush(tasksToReject);
+        }
     }
 
     @Transactional

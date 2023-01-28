@@ -26,6 +26,7 @@ import thesis.domain.project.model.task.ProjectTaskDetailsDTO;
 import thesis.domain.project.model.task.ProjectTaskUpdatePayloadDTO;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -207,11 +208,15 @@ public class ProjectsController extends ThesisController {
     public ResponseEntity<String> approveProjectTasks(
             @RequestHeader(required = false) UUID employeeId,
             @RequestHeader(required = false) UUID projectId,
-            @RequestBody List<UUID> tasks,
+            @RequestBody(required = false) List<UUID> tasks,
             @PathVariable UUID pid,
             @PathVariable UUID id
     ){
         var settings = initPaging();
+
+        if (tasks == null) {
+            tasks = new ArrayList<>();
+        }
 
         projectService.setProjectApprovalsEmployee(pid, id, tasks, settings);
 
@@ -272,9 +277,13 @@ public class ProjectsController extends ThesisController {
     public ResponseEntity<List<CalendarTask>> getProjectEmployeeCalendar(
             @RequestHeader(required = false) UUID employeeId,
             @RequestHeader(required = false) UUID projectId,
-            @RequestParam @DateTimeFormat(pattern="MM-yyyy") Date date,
+            @RequestParam(required = false) @DateTimeFormat(pattern="MM-yyyy") Date date,
             @PathVariable UUID pid,
-            @PathVariable UUID id) {
+            @PathVariable UUID id) throws ParseException {
+
+        if (date == null){
+            date = employeeService.getMonth(new Date());
+        }
 
         var calendarDTO = projectService.getProjectEmployeeCalendar(id, pid, date);
         var calendarResponse = calendarMapper.map(calendarDTO);
@@ -299,9 +308,9 @@ public class ProjectsController extends ThesisController {
         var settings = initPaging(page, size, key, direction);
 
         date = checkDate(date, Destiny.TASKS_START);
-        endDate = checkDate(date, Destiny.TASKS_END);
+        var endOfDay = checkDate(date, Destiny.TASKS_END);
 
-        var tasksDto = projectService.getProjectEmployeeTasks(id, pid, date, endDate, settings);
+        var tasksDto = projectService.getProjectEmployeeTasks(id, pid, date, endOfDay, settings);
         var tasksResponse = employeeTasksMapper.mapTemp(tasksDto);
 
         return ResponseEntity.ok(tasksResponse.tasks());
