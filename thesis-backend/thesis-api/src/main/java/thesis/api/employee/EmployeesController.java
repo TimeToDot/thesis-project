@@ -11,23 +11,24 @@ import thesis.api.auth.mapper.AuthMapper;
 import thesis.api.employee.mapper.*;
 import thesis.api.employee.model.EmployeeResponse;
 import thesis.api.employee.model.calendar.CalendarTask;
-import thesis.api.employee.model.project.*;
+import thesis.api.employee.model.project.EmployeeProjectsToApprovePayload;
+import thesis.api.employee.model.project.EmployeeProjectsToApproveResponse;
 import thesis.api.employee.model.project.temp.EmployeeProjectTempResponse;
-import thesis.api.employee.model.task.EmployeeTaskCreatePayload;
+import thesis.api.employee.model.project.temp.EmployeeProjectsApproveTemp;
 import thesis.api.employee.model.task.EmployeeTaskResponse;
 import thesis.api.employee.model.task.EmployeeTaskUpdatePayload;
-import thesis.api.employee.model.task.EmployeeTasksResponse;
+import thesis.api.employee.model.task.temp.EmployeeTaskTemp;
 import thesis.api.employee.model.temp.AuthorizationTemp;
 import thesis.domain.employee.EmployeeService;
-import thesis.security.services.model.ContractTypeDTO;
 import thesis.domain.employee.model.EmployeeUpdatePayloadDTO;
 import thesis.domain.employee.model.PasswordUpdatePayloadDTO;
 import thesis.security.services.AuthService;
 import thesis.security.services.model.UserDetailsDefault;
 
 import java.text.ParseException;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @RestController
@@ -43,6 +44,7 @@ public class EmployeesController extends ThesisController {
     private final EmployeeProjectsMapper employeeProjectsMapper;
     private final EmployeeTaskCreatePayloadMapper employeeTaskCreatePayloadMapper;
     private final EmployeeTaskUpdatePayloadMapper employeeTaskUpdatePayloadMapper;
+    private final EmployeeTaskDeletePayloadMapper employeeTaskDeletePayloadMapper;
     private final CalendarMapper calendarMapper;
 
     private final AuthService authService;
@@ -170,12 +172,12 @@ public class EmployeesController extends ThesisController {
         return ResponseEntity.ok(employeeProjectsMapper.toApproveMap(toApproveDto));
     }
 
-    @PostMapping("/{id}/approve")
+    @PostMapping("/{id}/toApprove")
     //@PreAuthorize("hasAuthority('CAN_READ')")
     public ResponseEntity<List<UUID>> sendProjectsToApprove(
             @RequestHeader(required = false) UUID employeeId,
             @RequestHeader(required = false) UUID projectId,
-            @RequestBody EmployeeProjectsToApprovePayload payload,
+            @RequestBody EmployeeProjectsApproveTemp payload,
             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
             @PathVariable UUID id
@@ -183,14 +185,14 @@ public class EmployeesController extends ThesisController {
         startDate = checkDate(startDate, Destiny.APPROVE_START);
         endDate = checkDate(endDate, Destiny.APPROVE_END);
 
-        employeeService.sendProjectsToApprove(id, payload.projectIds(), startDate, endDate);
+        employeeService.sendProjectsToApprove(id, payload.projects(), startDate, endDate);
 
-        return ResponseEntity.ok(payload.projectIds());
+        return ResponseEntity.ok(payload.projects());
     }
 
     //@PreAuthorize("hasAuthority('CAN_READ')")
     @GetMapping("/{id}/tasks")
-    public ResponseEntity<List<EmployeeTaskResponse>> getEmployeeTasks(
+    public ResponseEntity<List<EmployeeTaskTemp>> getEmployeeTasks(
             @RequestHeader(required = false) UUID employeeId,
             @RequestHeader(required = false) UUID projectId,
             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") Date startDate,
@@ -204,11 +206,11 @@ public class EmployeesController extends ThesisController {
     ) {
         var settings = initPaging(page, size, key, direction);
 
-        //date = checkDate(startDate, Destiny.APPROVE_START);
-        endDate = getEndOfDate(date);
+        date = checkDate(date, Destiny.TASKS_START);
+        endDate = checkDate(date, Destiny.TASKS_END);
 
         var tasksDto = employeeService.getEmployeeTasks(id, date, endDate, settings);
-        var tasksResponse = employeeTasksMapper.map(tasksDto);
+        var tasksResponse = employeeTasksMapper.mapTemp(tasksDto);
 
         return ResponseEntity.ok(tasksResponse.tasks());
     }
@@ -228,41 +230,59 @@ public class EmployeesController extends ThesisController {
 
     //@PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#projectId, 'CAN_MANAGE_TASKS')")
     @GetMapping("/{id}/tasks/{taskId}")
-    public ResponseEntity<EmployeeTaskResponse> getEmployeeTask(
+    public ResponseEntity<EmployeeTaskTemp> getEmployeeTask(
             @RequestHeader(required = false) UUID employeeId,
             @RequestHeader(required = false) UUID projectId,
             @PathVariable UUID taskId,
             @PathVariable UUID id) {
 
         var taskDto = employeeService.getTask(id, taskId);
-        var taskResponse = employeeTaskMapper.map(taskDto);
+        var taskResponse = employeeTaskMapper.mapTemp(taskDto);
 
         return ResponseEntity.ok(taskResponse);
     }
 
     //@PreAuthorize("hasAuthority('CAN_READ')")
-    @PostMapping("/task")
+    @PostMapping("/{id}/tasks")
     public ResponseEntity<UUID> addTask(
             @RequestHeader(required = false) UUID employeeId,
             @RequestHeader(required = false) UUID projectId,
-            @RequestBody EmployeeTaskCreatePayload payload
+            @RequestBody EmployeeTaskTemp payload,
+            @PathVariable UUID id
     ) {
-        var employeeTaskCreateDto = employeeTaskCreatePayloadMapper.map(payload);
-        var response = employeeService.createTask(employeeId, employeeTaskCreateDto);
+        var employeeTaskCreateDto = employeeTaskCreatePayloadMapper.mapTemp(payload);
+        var response = employeeService.createTask(id, employeeTaskCreateDto);
 
         return ResponseEntity.ok(response);
     }
 
-    @PutMapping("/task")
+    @PutMapping("/{eid}/tasks/{tid}")
     public ResponseEntity<UUID> updateTask(
             @RequestHeader(required = false) UUID employeeId,
             @RequestHeader(required = false) UUID projectId,
-            @RequestBody EmployeeTaskUpdatePayload payload
+            @RequestBody EmployeeTaskTemp payload,
+            @PathVariable UUID eid,
+            @PathVariable UUID tid
     ) {
-        var employeeTaskUpdateDTO = employeeTaskUpdatePayloadMapper.map(payload);
-        var response = employeeService.updateTask(employeeId, employeeTaskUpdateDTO);
+        var employeeTaskUpdateDTO = employeeTaskUpdatePayloadMapper.mapTemp(payload);
+        var response = employeeService.updateTask(eid, employeeTaskUpdateDTO);
 
         return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/{eid}/tasks/{tid}")
+    public ResponseEntity<UUID> deleteTask(
+            @RequestHeader(required = false) UUID employeeId,
+            @RequestHeader(required = false) UUID projectId,
+            @RequestBody EmployeeTaskTemp payload,
+            @PathVariable UUID eid,
+            @PathVariable UUID tid
+    ) {
+        var employeeTaskDeleteDTO = employeeTaskDeletePayloadMapper.mapTemp(payload);
+
+        employeeService.deleteTask(eid, employeeTaskDeleteDTO);
+
+        return ResponseEntity.ok(tid);
     }
 
     //@PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#payload.projectId(), 'CAN_MANAGE_TASKS')")

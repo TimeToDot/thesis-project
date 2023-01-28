@@ -26,7 +26,7 @@ public class PagingSettings {
 
     @Valid
     @NotNull
-    private Integer size = 10;
+    private Integer size = Integer.MAX_VALUE;
 
     @Valid
     private String direction = "dsc";

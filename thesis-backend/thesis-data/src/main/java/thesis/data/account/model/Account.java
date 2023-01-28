@@ -56,14 +56,15 @@ public class  Account {
     @ToString.Exclude
     private Position position;
 
-    @ManyToMany
+/*    @ManyToMany
     @LazyCollection(LazyCollectionOption.FALSE)
     @ToString.Exclude
     @JoinTable(
             name = "account_role",
             joinColumns = @JoinColumn(name = "account_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-    private List<Role> roles;
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))*/
+    @OneToMany(mappedBy = "account")
+    private List<AccountRole> accountRoles;
 
     @OneToMany(mappedBy = "account", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @ToString.Exclude

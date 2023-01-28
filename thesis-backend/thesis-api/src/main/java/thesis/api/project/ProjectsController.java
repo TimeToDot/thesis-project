@@ -202,6 +202,20 @@ public class ProjectsController extends ThesisController {
         return ResponseEntity.ok(response.employees());
     }
 
+    @PostMapping("/{pid}/approvals/{id}")
+    public ResponseEntity<String> approveProjectTasks(
+            @RequestHeader(required = false) UUID employeeId,
+            @RequestHeader(required = false) UUID projectId,
+            @PathVariable UUID pid,
+            @PathVariable UUID id
+    ){
+        var settings = initPaging();
+
+        projectService.setProjectApprovalsEmployee(pid, id, settings);
+
+        return ResponseEntity.ok("approved");
+    }
+
     //@PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#projectId, 'CAN_MANAGE_TASKS')")
     @GetMapping("/{pid}/approvals/{id}")
     public ResponseEntity<ProjectCalendarDTO> getProjectEmployeeApproval(

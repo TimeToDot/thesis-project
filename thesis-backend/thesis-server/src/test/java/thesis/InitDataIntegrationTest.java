@@ -42,6 +42,8 @@ public class InitDataIntegrationTest {
     private AccountRepository accountRepository;
     @Autowired
     private AccountDetailsRepository accountDetailsRepository;
+    @Autowired
+    private AccountRoleRepository accountRoleRepository;
 
     @Autowired
     private ProjectRepository projectRepository;
@@ -178,6 +180,7 @@ public class InitDataIntegrationTest {
         var mod = createAccount("mod@email.com", "moderator", "mod@email.com", userRole, positionManager);
         var user = createAccount("user@email.com", "user", "user@email.com", userRole, positionEmployee);
 
+
         accountRepository.save(admin);
         Assert.assertNotNull(admin.getId());
 
@@ -199,7 +202,14 @@ public class InitDataIntegrationTest {
         accountDetailsRepository.save(modDetails);
         accountDetailsRepository.save(userDetails);
 
-        return List.of(admin, mod, user);
+        var accounts = List.of(admin, mod, user);
+        var roles = List.of(adminRole, userRole, userRole);
+
+        var accountRoles = createAccountRoles(accounts, roles);
+
+        accountRoleRepository.saveAllAndFlush(accountRoles);
+
+        return accounts;
 
     }
     private List<Project> initProjects(List<Account> accounts){
@@ -313,11 +323,11 @@ public class InitDataIntegrationTest {
     }
 
     private Account createAccount(String login, String pass, String email, Role role, Position position){
+
         return Account.builder()
                 //.login(login)
                 .pass(passwordEncoder.encode(pass))
                 .email(email)
-                .roles(List.of(role))
                 .status(StatusType.ENABLE)
                 .position(position)
                 .build();
@@ -342,6 +352,21 @@ public class InitDataIntegrationTest {
                 //.billingPeriod(BillingPeriod.SEASON.label)
                 .build();
 
+    }
+
+    private List<AccountRole> createAccountRoles(List<Account> accounts, List<Role> roles){
+        List<AccountRole> accountRoles = new ArrayList<>();
+
+        for (int i = 0; i < accounts.size(); i++) {
+            var ar = AccountRole.builder()
+                    .account(accounts.get(i))
+                    .role(roles.get(i))
+                    .build();
+
+            accountRoles.add(ar);
+        }
+
+        return accountRoles;
     }
 
     private List<TaskForm> initTaskForms(List<Project> projects){

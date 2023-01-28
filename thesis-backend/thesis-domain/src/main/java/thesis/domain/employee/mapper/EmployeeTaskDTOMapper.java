@@ -25,6 +25,7 @@ public interface EmployeeTaskDTOMapper {
 
 
     @Mapping(target = "id", source = "id")
+    @Mapping(target = "employeeId", source = "account.id")
     @Mapping(target = "startDate", source = "dateFrom")
     @Mapping(target = "endDate", source = "dateTo")
 /*    @Mapping(target = "startTime", expression = "java(convertToLocalDateTime(dateFrom))")

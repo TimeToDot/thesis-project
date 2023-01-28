@@ -11,6 +11,9 @@ import java.util.UUID;
 @Builder
 public record EmployeeTaskDTO(
         UUID id,
+
+        UUID employeeId,
+
         Date startDate,
         Date endDate,
 /*        LocalDateTime startTime,

@@ -38,6 +38,7 @@ public class AuthService {
     private final SexRepository sexRepository;
     private final CountryRepository countryRepository;
     private final ContractTypeRepository contractTypeRepository;
+    private final AccountRoleRepository accountRoleRepository;
 
     public AuthenticationDTO authenticateUser(UserDetailsDefault userDetails) {
 
@@ -98,13 +99,18 @@ public class AuthService {
                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 
         var position = positionRepository.findById(authorizationDTO.positionId()).orElseThrow();
-        var account = getAccount(authorizationDTO, List.of(role), position);
+
+        var account = getAccount(authorizationDTO, position);
 
         accountRepository.saveAndFlush(account);
 
         var accountDetails = getAccountDetails(authorizationDTO, account);
 
         accountDetailsRepository.saveAndFlush(accountDetails);
+
+        var accountRole= getAccountRole(account, role);
+
+        accountRoleRepository.saveAndFlush(accountRole);
 
         return account.getId();
     }
@@ -144,6 +150,7 @@ public class AuthService {
                 .country(country)
                 .birthDate(authorizationDTO.birthDate())
                 .birthPlace(authorizationDTO.birthPlace())
+                .privateEmail(authorizationDTO.privateEmail())
                 .idCardNumber(authorizationDTO.idCardNumber())
                 .employmentDate(authorizationDTO.employmentDate())
                 .contractType(contractType)
@@ -155,12 +162,23 @@ public class AuthService {
                 .build();
     }
 
-    private Account getAccount(AuthorizationDTO authorizationDTO, List<Role> roles, Position position) {
+    private AccountRole getAccountRole(Account account, Role role){
+        var accountRole = AccountRole.builder()
+                .role(role)
+                .account(account)
+                .build();
+
+        return accountRole;
+
+    }
+
+    private Account getAccount(AuthorizationDTO authorizationDTO, Position position) {
+
+
         return Account.builder()
                 //.login(authorizationDTO.login())
                 .pass(passwordEncoder.encode(authorizationDTO.password()))
                 .email(authorizationDTO.email())
-                .roles(roles)
                 .position(position)
                 .status(StatusType.ENABLE)
                 .build();

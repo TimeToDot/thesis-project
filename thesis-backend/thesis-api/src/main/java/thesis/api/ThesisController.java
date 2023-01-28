@@ -29,6 +29,9 @@ public abstract class ThesisController {
 
     private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
+    protected PagingSettings initPaging(){
+        return new PagingSettings();
+    }
 
     protected PagingSettings initPaging(Integer page, Integer size, String key, String direction){
         var settings = new PagingSettings();
@@ -42,23 +45,27 @@ public abstract class ThesisController {
     }
 
     protected Date checkDate(Date date, Destiny destiny){
-        var lDate = LocalDate.now().atStartOfDay(ZoneId.systemDefault());
-        if (date == null) {
+        if (date == null || destiny.compareTo(Destiny.TASKS_END) == 0 || destiny.compareTo(Destiny.APPROVE_END) == 0) {
+            var zDate = LocalDate.now().atStartOfDay(ZoneId.systemDefault());
             switch (destiny) {
-                case APPROVE_START -> {return Date.from(lDate.minusMonths(2).toInstant());
+                case APPROVE_START -> {
+                    return Date.from(zDate.minusMonths(12).toInstant());
                 }
-                case APPROVE_END, TASKS_END -> {
-                    return Date.from(lDate.with(ChronoField.NANO_OF_DAY, LocalTime.MAX.toNanoOfDay()).toInstant());
+                case TASKS_START -> {
+                    return Date.from(zDate.toInstant());
+                }
+                case APPROVE_END -> {
+                    return Date.from(zDate.with(ChronoField.NANO_OF_DAY, LocalTime.MAX.toNanoOfDay()).toInstant());
+                }
+                case TASKS_END -> {
+                    var lDate = LocalDate.parse(sdf.format(date));
+                    var endOfDay = LocalDateTime.of(lDate, LocalTime.MAX);
+                    var zdt = ZonedDateTime.of(endOfDay, ZoneId.systemDefault());
+                    return Date.from(zdt.toInstant());
                 }
             }
         }
         return date;
-    }
-
-    protected Date getEndOfDate(Date date){
-        var lDate = LocalDate.parse(sdf.format(date));
-        var endOfDay = LocalDateTime.of(lDate, LocalTime.MAX);
-        return Date.from(endOfDay.toInstant(ZoneOffset.UTC));
     }
 
     public enum Destiny {

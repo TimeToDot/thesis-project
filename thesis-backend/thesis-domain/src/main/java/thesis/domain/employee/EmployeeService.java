@@ -161,7 +161,7 @@ public class EmployeeService {
         var tasks = taskRepository
                 .findByAccountIdAndStatusAndDateFromBetween(
                         account.getId(),
-                        TaskStatus.PENDING,
+                        TaskStatus.LOGGED,
                         startDate,
                         endDate
                 )
@@ -191,7 +191,7 @@ public class EmployeeService {
         var tasks = taskRepository
                 .findByAccountIdAndStatusAndDateFromBetween(
                         accountId,
-                        TaskStatus.PENDING,
+                        TaskStatus.LOGGED,
                         startDate,
                         endDate
                 )
@@ -200,7 +200,7 @@ public class EmployeeService {
         projectIds.forEach(projectId -> {
             tasks.stream()
                     .filter(task -> task.getForm().getProject().getId().compareTo(projectId) == 0)
-                    .forEach(task -> task.setStatus(TaskStatus.APPROVED));
+                    .forEach(task -> task.setStatus(TaskStatus.PENDING));
 
             taskRepository.saveAll(tasks);
 
@@ -275,6 +275,23 @@ public class EmployeeService {
         taskRepository.save(task);
 
         return task.getId();
+    }
+
+    @Transactional
+    public void deleteTask(UUID employeeId, EmployeeTaskDeletePayloadDTO payloadDTO) {
+        var account = accountRepository.findById(employeeId).orElseThrow();
+        var project = projectRepository.findById(payloadDTO.projectId()).orElseThrow();
+
+        if(project.getAccountProjects().stream().map(AccountProject::getAccount).noneMatch(account1 -> account1.getId().compareTo(account.getId()) == 0)) {
+            throw new RuntimeException("employee doesnt exist in this project");
+        }
+
+        var taskForm = taskFormRepository.findById(payloadDTO.taskId())
+                .orElseThrow(() -> new RuntimeException("task doesnt exist in this project"));
+
+        var task = taskRepository.findById(payloadDTO.id()).orElseThrow();
+
+        taskRepository.delete(task);
     }
 
     public CalendarDTO getCalendar(UUID employeeId, Date date) {

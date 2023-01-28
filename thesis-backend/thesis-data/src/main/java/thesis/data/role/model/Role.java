@@ -9,6 +9,7 @@ import org.hibernate.Hibernate;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import thesis.data.account.model.Account;
+import thesis.data.account.model.AccountRole;
 import thesis.data.permission.model.Privilege;
 
 import javax.persistence.*;
@@ -43,9 +44,10 @@ public class Role {
   @ToString.Exclude
   private List<Privilege> privileges;
 
-  @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
+/*  @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)*/
+  @OneToMany(mappedBy = "account")
   @ToString.Exclude
-  private List<Account> accounts;
+  private List<AccountRole> accountRoles;
 
   @Override
   public boolean equals(Object o) {

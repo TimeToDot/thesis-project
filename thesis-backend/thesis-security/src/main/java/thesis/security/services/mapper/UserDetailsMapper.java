@@ -6,6 +6,7 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import thesis.data.account.model.Account;
+import thesis.data.account.model.AccountRole;
 import thesis.security.services.model.UserDetailsDefault;
 
 import java.util.ArrayList;
@@ -25,13 +26,15 @@ public interface UserDetailsMapper {
     UserDetailsDefault map(Account account);
 
 
-    default Collection<GrantedAuthority> getAuthorities(Account account){
+    default Collection<GrantedAuthority> getAuthorities(Account account) {
 
         Collection<GrantedAuthority> authorities = new ArrayList<>();
 
-        account.getRoles().forEach(role -> {
-            role.getPrivileges()
-                    .forEach(privilege -> authorities.add(new SimpleGrantedAuthority(privilege.getName().name())));
+        account.getAccountRoles().stream()
+                .map(AccountRole::getRole)
+                .forEach(role -> {
+                    role.getPrivileges()
+                            .forEach(privilege -> authorities.add(new SimpleGrantedAuthority(privilege.getName().name())));
                 });
 
         account.getAccountProjects().forEach(projectAccountRole -> {
