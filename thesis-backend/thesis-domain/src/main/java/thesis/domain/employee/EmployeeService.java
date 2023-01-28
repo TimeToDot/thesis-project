@@ -278,18 +278,14 @@ public class EmployeeService {
     }
 
     @Transactional
-    public void deleteTask(UUID employeeId, EmployeeTaskDeletePayloadDTO payloadDTO) {
+    public void deleteTask(UUID employeeId, UUID taskId) {
         var account = accountRepository.findById(employeeId).orElseThrow();
-        var project = projectRepository.findById(payloadDTO.projectId()).orElseThrow();
 
-        if(project.getAccountProjects().stream().map(AccountProject::getAccount).noneMatch(account1 -> account1.getId().compareTo(account.getId()) == 0)) {
-            throw new RuntimeException("employee doesnt exist in this project");
+        var task = taskRepository.findById(taskId).orElseThrow();
+
+        if (!account.getTasks().contains(task)){
+            throw new RuntimeException("this task doesn't belong to user");
         }
-
-        var taskForm = taskFormRepository.findById(payloadDTO.taskId())
-                .orElseThrow(() -> new RuntimeException("task doesnt exist in this project"));
-
-        var task = taskRepository.findById(payloadDTO.id()).orElseThrow();
 
         taskRepository.delete(task);
     }

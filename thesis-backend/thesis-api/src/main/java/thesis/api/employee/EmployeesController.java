@@ -274,13 +274,10 @@ public class EmployeesController extends ThesisController {
     public ResponseEntity<UUID> deleteTask(
             @RequestHeader(required = false) UUID employeeId,
             @RequestHeader(required = false) UUID projectId,
-            @RequestBody EmployeeTaskTemp payload,
             @PathVariable UUID eid,
             @PathVariable UUID tid
     ) {
-        var employeeTaskDeleteDTO = employeeTaskDeletePayloadMapper.mapTemp(payload);
-
-        employeeService.deleteTask(eid, employeeTaskDeleteDTO);
+        employeeService.deleteTask(eid, tid);
 
         return ResponseEntity.ok(tid);
     }
