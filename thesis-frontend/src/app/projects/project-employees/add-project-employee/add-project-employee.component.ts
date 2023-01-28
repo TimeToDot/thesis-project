@@ -102,6 +102,20 @@ export class AddProjectEmployeeComponent implements OnInit {
       .subscribe(employees => {
         this.employees = employees.slice(0, 7);
         setTimeout(() => this.observeIdSelection(), 0);
+        this.getProjectEmployees();
+      });
+  }
+
+  getProjectEmployees(): void {
+    const projectId = this.route.parent?.snapshot.paramMap.get('id') as string;
+    this.projectEmployeesService
+      .getProjectEmployees(projectId)
+      .pipe(first())
+      .subscribe(projectEmployees => {
+        this.employees.filter(employee =>
+          projectEmployees.map(pe => pe.employee.id).includes(employee.id)
+        );
+        console.log(this.employees);
       });
   }
 
@@ -116,7 +130,9 @@ export class AddProjectEmployeeComponent implements OnInit {
     this.employeesService
       .getEmployee(employeeId)
       .pipe(first())
-      .subscribe(employee => (this.employee = employee));
+      .subscribe(employee => {
+        this.employee = employee;
+      });
   }
 
   openAddModal(): void {

@@ -48,8 +48,15 @@
 .task-right-side {
   align-items: center;
   display: flex;
-  overflow: hidden;
-  white-space: nowrap;
+}
+
+.task-left-side {
+  width: auto;
+}
+
+.task-right-side {
+  min-width: 58 * $grid-base;
+  width: 58 * $grid-base;
 }
 
 .task-time {

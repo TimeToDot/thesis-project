@@ -49,6 +49,7 @@ export class ApprovalTrackerListComponent {
           .pipe(first())
           .subscribe(employeeTasks => {
             this.employeeTasks = employeeTasks;
+            console.log(employeeTasks);
             this.getEmployeeProjectTasks();
           });
       });

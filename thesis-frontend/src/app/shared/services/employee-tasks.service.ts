@@ -78,7 +78,7 @@ export class EmployeeTasksService {
     projectsToApprove: ProjectsToApprove
   ): Observable<ProjectsToApprove> {
     return this.http.post<ProjectsToApprove>(
-      `${environment.apiUrl}/employees/${employeeId}/toApprove`,
+      `${environment.apiUrl}/employees/${employeeId}/toApprove?startDate=${projectsToApprove.startDate}&endDate=${projectsToApprove.endDate}`,
       projectsToApprove
     );
   }
