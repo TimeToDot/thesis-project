@@ -8,6 +8,7 @@ import { EmployeeTasksService } from '../../../shared/services/employee-tasks.se
 import { first, Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { CalendarService } from '../../../shared/services/calendar.service';
+import { ProjectEmployeesService } from '../../services/project-employees.service';
 
 @Component({
   selector: 'bvr-approval-tracker-list',
@@ -25,35 +26,47 @@ export class ApprovalTrackerListComponent {
   constructor(
     private calendarService: CalendarService,
     private employeeTasksService: EmployeeTasksService,
+    private projectEmployeesService: ProjectEmployeesService,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.observeTaskListRefresh();
-    this.getEmployeeTasks();
+    this.getProjectEmployee();
     this.sortByProjectName();
   }
 
   observeTaskListRefresh(): void {
     this.refreshTaskList.subscribe(() => {
-      this.getEmployeeTasks();
+      this.getProjectEmployee();
     });
   }
 
-  getEmployeeTasks(): void {
+  getProjectEmployee(): void {
+    const projectId = this.route.parent?.snapshot.paramMap.get('id');
     const employeeId = this.route.snapshot.paramMap.get('id');
-    if (employeeId) {
-      this.calendarService.currentDay.subscribe(date => {
-        this.employeeTasksService
-          .getEmployeeTasks(employeeId, date)
-          .pipe(first())
-          .subscribe(employeeTasks => {
-            this.employeeTasks = employeeTasks;
-            console.log(employeeTasks);
-            this.getEmployeeProjectTasks();
-          });
-      });
+    if (projectId && employeeId) {
+      this.projectEmployeesService
+        .getProjectEmployee(projectId, employeeId)
+        .pipe(first())
+        .subscribe(projectEmployee => {
+          this.getEmployeeTasks(projectEmployee.employee.id, projectId);
+        });
     }
+  }
+
+  getEmployeeTasks(employeeId: string, projectId: string): void {
+    this.calendarService.currentDay.subscribe(date => {
+      this.employeeTasksService
+        .getEmployeeTasks(employeeId, date)
+        .pipe(first())
+        .subscribe(employeeTasks => {
+          this.employeeTasks = employeeTasks.filter(
+            task => task.project.id === projectId
+          );
+          this.getEmployeeProjectTasks();
+        });
+    });
   }
 
   getEmployeeProjectTasks(): void {

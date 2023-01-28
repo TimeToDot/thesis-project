@@ -255,11 +255,11 @@ export class AddNewTaskComponent implements OnInit {
     }
   }
 
-  delete(): void {
+  delete(value: boolean): void {
     this.disableGuard(true);
     const employeeId = this.authService.getLoggedEmployeeId();
     const taskId = this.route.snapshot.paramMap.get('id');
-    if (taskId) {
+    if (taskId && value) {
       this.employeeTasksService
         .deleteEmployeeTask(employeeId, taskId)
         .pipe(first())

@@ -58,7 +58,6 @@ export class DropdownSearchEmployeeComponent implements ControlValueAccessor {
   }
 
   writeValue(selectedOption: Employee): void {
-    console.log(selectedOption, this.options);
     this.selectedOption = selectedOption;
     this.updateQuery();
   }

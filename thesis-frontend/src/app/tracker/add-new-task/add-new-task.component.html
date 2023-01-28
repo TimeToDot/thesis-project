@@ -108,7 +108,7 @@
   [title]="'Add new task'"
   [(visible)]="isAddModalOpen"></bvr-modal>
 <bvr-modal
-  (confirm)="delete()"
+  (confirm)="delete($event)"
   confirmLabel="Delete"
   [description]="modalDescription"
   [title]="'Delete task'"

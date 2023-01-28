@@ -48,6 +48,7 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
   projectEmployees: ProjectEmployee[] = [];
   redirectSubject: Subject<boolean> = new Subject<boolean>();
   refreshTaskList: Subject<void> = new Subject<void>();
+  tasksToReject: string[] = [];
 
   private tasksToRejectSubscribtion: Subscription = new Subscription();
 
@@ -71,7 +72,7 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
   observeRejectedTasks(): void {
     this.tasksToRejectSubscribtion =
       this.tasksToRejectService.tasksToReject.subscribe(tasks => {
-        console.log(tasks);
+        this.tasksToReject = tasks;
       });
   }
 
@@ -194,14 +195,28 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
 
   confirm(): void {
     this.disableGuard(true);
-    this.router.navigate(['..'], { relativeTo: this.route }).then(() => {
-      setTimeout(
-        () =>
-          this.toastService.showToast(ToastState.Success, 'Approval resolved'),
-        200
-      );
-      setTimeout(() => this.toastService.dismissToast(), 3200);
-    });
+    const projectId = this.route.parent?.snapshot.paramMap.get('id');
+    const employeeId = this.route.snapshot.paramMap.get('id');
+    if (projectId && employeeId) {
+      this.projectApprovalsService
+        .sendProjectApproval(projectId, employeeId, this.tasksToReject)
+        .pipe(first())
+        .subscribe(() => {
+          console.log('??S???');
+          this.getProjectApproval();
+          this.router.navigate(['..'], { relativeTo: this.route }).then(() => {
+            setTimeout(
+              () =>
+                this.toastService.showToast(
+                  ToastState.Success,
+                  'Approval resolved'
+                ),
+              200
+            );
+            setTimeout(() => this.toastService.dismissToast(), 3200);
+          });
+        });
+    }
   }
 
   disableGuard(value: boolean): void {

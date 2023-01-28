@@ -1,6 +1,7 @@
 .status {
   border-radius: 2 * $grid-base;
   height: 2 * $grid-base;
+  min-width: 2 * $grid-base;
   width: 2 * $grid-base;
 
   &.pending {

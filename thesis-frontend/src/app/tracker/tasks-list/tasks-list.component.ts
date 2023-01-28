@@ -97,14 +97,17 @@ export class TasksListComponent implements OnInit {
     this.router.navigate(['../edit-task', task.id], { relativeTo: this.route });
   }
 
-  delete(): void {
+  delete(value: boolean): void {
     const employeeId = this.authService.getLoggedEmployeeId();
-    this.employeeTasksService
-      .deleteEmployeeTask(employeeId, this.taskToDelete)
-      .pipe(first())
-      .subscribe(() => {
-        this.toastService.showToast(ToastState.Info, 'Task deleted');
-        setTimeout(() => this.toastService.dismissToast(), 3000);
-      });
+    if (value) {
+      this.employeeTasksService
+        .deleteEmployeeTask(employeeId, this.taskToDelete)
+        .pipe(first())
+        .subscribe(() => {
+          this.getEmployeeTasks();
+          this.toastService.showToast(ToastState.Info, 'Task deleted');
+          setTimeout(() => this.toastService.dismissToast(), 3000);
+        });
+    }
   }
 }

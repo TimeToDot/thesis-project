@@ -25,10 +25,16 @@
     >
     <div class="details">
       <div class="details">
-        <small> {{ projectEmployee.employee.position }}</small>
+        <small>
+          {{
+            projectEmployee.employee.position
+              ? projectEmployee.employee.position.name
+              : ''
+          }}</small
+        >
       </div>
       <small class="dates">
-        {{ projectEmployee.employee.employmentDate | date: 'dd/MM/yyyy' }}
+        {{ projectEmployee.employee.employmentDate | date : 'dd/MM/yyyy' }}
       </small>
     </div>
   </div>
