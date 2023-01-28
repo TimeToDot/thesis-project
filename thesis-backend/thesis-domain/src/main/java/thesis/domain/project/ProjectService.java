@@ -24,8 +24,12 @@ import thesis.data.task.model.TaskFormDetails;
 import thesis.data.task.model.TaskFormType;
 import thesis.data.task.model.TaskStatus;
 import thesis.domain.employee.EmployeeService;
+import thesis.domain.employee.mapper.EmployeeTaskDTOMapper;
+import thesis.domain.employee.mapper.EmployeeTasksDTOMapper;
 import thesis.domain.employee.model.BillingPeriodDTO;
+import thesis.domain.employee.model.CalendarDTO;
 import thesis.domain.employee.model.CalendarTaskDTO;
+import thesis.domain.employee.model.EmployeeTasksDTO;
 import thesis.domain.paging.PagingSettings;
 import thesis.domain.position.PositionMapper;
 import thesis.domain.project.model.ProjectCreatePayloadDTO;
@@ -63,6 +67,7 @@ public class ProjectService {
     private final PositionRepository positionRepository;
     private final PositionMapper positionMapper;
     private final BillingPeriodRepository billingPeriodRepository;
+    private final EmployeeTasksDTOMapper employeeTasksDTOMapper;
 
     public ProjectDTO getProject(UUID projectId){
         var project = projectRepository.findById(projectId).orElseThrow();
@@ -296,14 +301,25 @@ public class ProjectService {
     }
 
     @Transactional
-    public void setProjectApprovalsEmployee(UUID projectId, UUID accountProjectId, PagingSettings settings){
+    public void setProjectApprovalsEmployee(UUID projectId, UUID accountProjectId, List<UUID> taskIds, PagingSettings settings){
         var project = projectRepository.findById(projectId).orElseThrow();
         var accountProject = accountProjectRepository.findById(accountProjectId).orElseThrow();
         var tasks = taskRepository.findByFormProjectIdAndAccountId(project.getId(), accountProject.getAccount().getId(), settings.getPageable()).orElseThrow();
 
-        tasks.forEach(task -> task.setStatus(TaskStatus.APPROVED));
+        tasks.stream()
+                .filter(task -> !taskIds.contains(task.getId()))
+                .forEach(task -> task.setStatus(TaskStatus.APPROVED));
 
         taskRepository.saveAllAndFlush(tasks);
+
+        var tasksToReject = taskIds.stream()
+                .map(taskRepository::findById)
+                .map(Optional::orElseThrow)
+                .collect(Collectors.toList());
+
+        tasksToReject.forEach(task -> task.setStatus(TaskStatus.REJECTED));
+
+        taskRepository.saveAllAndFlush(tasksToReject);
     }
 
     @Transactional
@@ -352,6 +368,31 @@ public class ProjectService {
         return billingPeriods.stream()
                 .map(this::getBillingPeriodDTO)
                 .toList();
+    }
+
+    public CalendarDTO getProjectEmployeeCalendar(UUID projectEmployeeId, UUID projectId, Date date) {
+        var projectAccount = accountProjectRepository.findById(projectEmployeeId).orElseThrow();
+
+        return employeeService.getEmployeeCalendar(projectAccount.getAccount().getId(), projectId, date);
+    }
+
+    public EmployeeTasksDTO getProjectEmployeeTasks(UUID projectEmployeeId, UUID projectId, Date startDate, Date endDate, PagingSettings settings) {
+        if (settings == null) {
+            settings = new PagingSettings();
+        }
+        var accountProject = accountProjectRepository.findById(projectEmployeeId).orElseThrow();
+
+        var tasks = taskRepository.findByAccountIdAndFormProjectIdAndDateFromBetween(accountProject.getAccount().getId(), projectId, startDate, endDate, settings.getPageable()).orElseThrow();
+
+        var paging = getPaging(settings, tasks);
+
+        var sorting = getSorting(settings);
+
+        return EmployeeTasksDTO.builder()
+                .tasks(employeeTasksDTOMapper.map(tasks.stream().toList()))
+                .paging(paging)
+                .sorting(sorting)
+                .build();
     }
 
     private ProjectApprovalDTO getProjectApprovalDTO(Project project, AccountProject accountProject) {

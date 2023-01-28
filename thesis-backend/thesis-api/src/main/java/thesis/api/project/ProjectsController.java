@@ -4,26 +4,26 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import thesis.api.ThesisController;
 import thesis.api.employee.mapper.CalendarMapper;
+import thesis.api.employee.mapper.EmployeeTasksMapper;
 import thesis.api.employee.model.calendar.CalendarTask;
-import thesis.api.employee.model.calendar.EmployeeCalendarResponse;
+import thesis.api.employee.model.task.temp.EmployeeTaskTemp;
 import thesis.domain.employee.EmployeeService;
 import thesis.domain.project.ProjectService;
 import thesis.domain.project.model.ProjectCreatePayloadDTO;
 import thesis.domain.project.model.ProjectDTO;
 import thesis.domain.project.model.ProjectUpdatePayloadDTO;
-import thesis.domain.project.model.ProjectsDTO;
 import thesis.domain.project.model.approval.ProjectApprovalDTO;
-import thesis.domain.project.model.approval.ProjectApprovalsDTO;
 import thesis.domain.project.model.approval.ProjectCalendarDTO;
 import thesis.domain.project.model.employee.ProjectEmployeeCreatePayloadDTO;
 import thesis.domain.project.model.employee.ProjectEmployeeDTO;
 import thesis.domain.project.model.employee.ProjectEmployeeUpdatePayloadDTO;
 import thesis.domain.project.model.employee.ProjectEmployeesDTO;
-import thesis.domain.project.model.task.*;
+import thesis.domain.project.model.task.ProjectTaskCreatePayloadDTO;
+import thesis.domain.project.model.task.ProjectTaskDetailsDTO;
+import thesis.domain.project.model.task.ProjectTaskUpdatePayloadDTO;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -39,6 +39,7 @@ public class ProjectsController extends ThesisController {
     private final ProjectService projectService;
     private final EmployeeService employeeService;
     private final CalendarMapper calendarMapper;
+    private final EmployeeTasksMapper employeeTasksMapper;
     //@PreAuthorize("hasAuthority('CAN_ADMIN_PROJECTS')")
     @GetMapping
     public ResponseEntity<List<ProjectDTO>> getProjects(
@@ -206,12 +207,13 @@ public class ProjectsController extends ThesisController {
     public ResponseEntity<String> approveProjectTasks(
             @RequestHeader(required = false) UUID employeeId,
             @RequestHeader(required = false) UUID projectId,
+            @RequestBody List<UUID> tasks,
             @PathVariable UUID pid,
             @PathVariable UUID id
     ){
         var settings = initPaging();
 
-        projectService.setProjectApprovalsEmployee(pid, id, settings);
+        projectService.setProjectApprovalsEmployee(pid, id, tasks, settings);
 
         return ResponseEntity.ok("approved");
     }
@@ -263,5 +265,45 @@ public class ProjectsController extends ThesisController {
         var response = projectService.updateProject(pid, payload);
 
         return ResponseEntity.ok(response);
+    }
+
+    //@PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#projectId, 'CAN_MANAGE_TASKS')")
+    @GetMapping("/{pid}/employees/{id}/calendar")
+    public ResponseEntity<List<CalendarTask>> getProjectEmployeeCalendar(
+            @RequestHeader(required = false) UUID employeeId,
+            @RequestHeader(required = false) UUID projectId,
+            @RequestParam @DateTimeFormat(pattern="MM-yyyy") Date date,
+            @PathVariable UUID pid,
+            @PathVariable UUID id) {
+
+        var calendarDTO = projectService.getProjectEmployeeCalendar(id, pid, date);
+        var calendarResponse = calendarMapper.map(calendarDTO);
+
+        return ResponseEntity.ok(calendarResponse.tasks());
+    }
+
+    @GetMapping("/{pid}/employees/{id}/tasks")
+    public ResponseEntity<List<EmployeeTaskTemp>> getProjectEmployeeTasks(
+            @RequestHeader(required = false) UUID employeeId,
+            @RequestHeader(required = false) UUID projectId,
+            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") Date startDate,
+            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm") Date endDate,
+            @RequestParam(value="page", required = false) Integer page,
+            @RequestParam(value="size", required = false) Integer size,
+            @RequestParam(value="direction", required = false) String direction,
+            @RequestParam(value="key", required = false) String key,
+            @PathVariable UUID id,
+            @PathVariable UUID pid,
+            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date date
+    ) {
+        var settings = initPaging(page, size, key, direction);
+
+        date = checkDate(date, Destiny.TASKS_START);
+        endDate = checkDate(date, Destiny.TASKS_END);
+
+        var tasksDto = projectService.getProjectEmployeeTasks(id, pid, date, endDate, settings);
+        var tasksResponse = employeeTasksMapper.mapTemp(tasksDto);
+
+        return ResponseEntity.ok(tasksResponse.tasks());
     }
 }

@@ -318,21 +318,6 @@ public class EmployeesController extends ThesisController {
         return ResponseEntity.ok(calendarResponse.tasks());
     }
 
-
-    //@PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#projectId, 'CAN_MANAGE_TASKS')")
-/*    @GetMapping("/{id}/calendar")
-    public ResponseEntity<EmployeeCalendarResponse> getEmployeeCalendar(
-            @RequestHeader(required = false) UUID employeeId,
-            @RequestHeader(required = false) @NotNull UUID projectId,
-            @RequestParam @DateTimeFormat(pattern="MM-yyyy") Date date,
-            @PathVariable UUID id) {
-
-        var calendarDTO = employeeService.getEmployeeCalendar(id, projectId, date);
-        var calendarResponse = calendarMapper.map(calendarDTO);
-
-        return ResponseEntity.ok(calendarResponse);
-    }*/
-
     //@PreAuthorize("hasAuthority('CAN_CREATE_USERS')")
     @PostMapping
     public ResponseEntity<UUID> addEmployee(

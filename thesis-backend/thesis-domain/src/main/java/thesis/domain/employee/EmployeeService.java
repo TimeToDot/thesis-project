@@ -343,7 +343,6 @@ public class EmployeeService {
     }
 
 
-
     public List<CalendarTaskDTO> getCalendarTaskDTOList(List<Task> tasks) {
         var groupedTasks = tasks.stream()
                 .collect(
