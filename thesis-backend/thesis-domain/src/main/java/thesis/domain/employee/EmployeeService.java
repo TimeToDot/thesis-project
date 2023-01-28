@@ -286,8 +286,15 @@ public class EmployeeService {
         if (!account.getTasks().contains(task)){
             throw new RuntimeException("this task doesn't belong to user");
         }
+        if (!(task.getStatus().compareTo(TaskStatus.LOGGED) == 0 || task.getStatus().compareTo(TaskStatus.REJECTED) == 0)){
+            throw new RuntimeException("this task cannot be deleted!");
+        }
 
-        taskRepository.delete(task);
+        account.getTasks().removeIf(t -> t.getId().compareTo(task.getId()) == 0);
+
+        accountRepository.save(account);
+
+        taskRepository.deleteById(task.getId());
     }
 
     public CalendarDTO getCalendar(UUID employeeId, Date date) {
