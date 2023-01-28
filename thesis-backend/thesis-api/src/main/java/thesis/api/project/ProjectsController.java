@@ -205,7 +205,7 @@ public class ProjectsController extends ThesisController {
     }
 
     @PostMapping("/{pid}/approvals/{id}")
-    public ResponseEntity<String> approveProjectTasks(
+    public ResponseEntity<UUID> approveProjectTasks(
             @RequestHeader(required = false) UUID employeeId,
             @RequestHeader(required = false) UUID projectId,
             @RequestBody(required = false) List<UUID> tasks,
@@ -220,7 +220,7 @@ public class ProjectsController extends ThesisController {
 
         projectService.setProjectApprovalsEmployee(pid, id, tasks, settings);
 
-        return ResponseEntity.ok("approved");
+        return ResponseEntity.ok(id);
     }
 
     //@PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#projectId, 'CAN_MANAGE_TASKS')")
