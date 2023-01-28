@@ -1,7 +1,6 @@
 import { formatDate } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { valueOrDefault } from 'chart.js/dist/helpers/helpers.core';
 import { map, Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { Account } from '../../shared/models/account.model';
@@ -16,11 +15,11 @@ export class EmployeesService {
   constructor(private http: HttpClient) {}
 
   getEmployee(id: string): Observable<Account> {
-    return this.http.get<Account>(`${environment.apiUrl}/employee/${id}`);
+    return this.http.get<Account>(`${environment.apiUrl}/employees/${id}`);
   }
 
   addEmployee(employee: Account): Observable<Account> {
-    return this.http.post<Account>(`${environment.apiUrl}/employee`, employee);
+    return this.http.post<Account>(`${environment.apiUrl}/employees`, employee);
   }
 
   updateEmployee(employee: Account): Observable<Account> {
