@@ -9,7 +9,6 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import * as dayjs from 'dayjs';
 import { Approval } from '../models/approval.model';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { RouterLinkWithHref } from '@angular/router';

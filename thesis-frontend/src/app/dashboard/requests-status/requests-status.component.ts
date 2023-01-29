@@ -30,6 +30,7 @@ export class RequestsStatusComponent implements OnInit {
       .getProjectsToApprove(this.tokenService.getEmployee())
       .pipe(first())
       .subscribe(projectApprovals => {
+        console.log(projectApprovals);
         this.projectApprovals = projectApprovals;
       });
   }
