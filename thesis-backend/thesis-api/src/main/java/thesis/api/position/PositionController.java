@@ -1,5 +1,6 @@
 package thesis.api.position;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -12,6 +13,7 @@ import thesis.domain.position.model.PositionUpdatePayloadDTO;
 
 import java.util.UUID;
 
+@Hidden
 @AllArgsConstructor
 @RestController
 @RequestMapping("/api/position")

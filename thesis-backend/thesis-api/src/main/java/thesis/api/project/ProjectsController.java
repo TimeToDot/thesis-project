@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import thesis.api.ThesisController;
 import thesis.api.employee.mapper.CalendarMapper;
@@ -41,11 +42,10 @@ public class ProjectsController extends ThesisController {
     private final EmployeeService employeeService;
     private final CalendarMapper calendarMapper;
     private final EmployeeTasksMapper employeeTasksMapper;
+
     //@PreAuthorize("hasAuthority('CAN_ADMIN_PROJECTS')")
     @GetMapping
     public ResponseEntity<List<ProjectDTO>> getProjects(
-            @RequestHeader(required = false)  UUID employeeId,
-            @RequestHeader(required = false)  UUID projectId,
             @RequestParam(value="active", required = false, defaultValue = "true") Boolean active
     ){
         var response = projectService.getProjects(active);
@@ -56,8 +56,6 @@ public class ProjectsController extends ThesisController {
     //@PreAuthorize("hasAuthority('CAN_ADMIN_PROJECTS')")
     @GetMapping("/{pid}")
     public ResponseEntity<ProjectDTO> getProject(
-            @RequestHeader(required = false)  UUID employeeId,
-            @RequestHeader(required = false)  UUID projectId,
             @RequestParam(value="active", required = false, defaultValue = "true") Boolean active,
             @PathVariable UUID pid
     ){
@@ -67,14 +65,12 @@ public class ProjectsController extends ThesisController {
     }
 
     //@PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#projectId, 'CAN_READ_PROJECT')")
-    @GetMapping("/{pid}/tasks/{taskId}")
+    @GetMapping("/{projectId}/tasks/{taskId}")
     public ResponseEntity<ProjectTaskDetailsDTO> getProjectTask(
-            @RequestHeader(required = false) UUID employeeId,
-            @RequestHeader(required = false) UUID projectId,
             @PathVariable UUID taskId,
-            @PathVariable UUID pid
+            @PathVariable UUID projectId
     ){
-        var response = projectService.getProjectTask(pid, taskId);
+        var response = projectService.getProjectTask(projectId, taskId);
 
         return ResponseEntity.ok(response);
     }
@@ -82,8 +78,6 @@ public class ProjectsController extends ThesisController {
     //@PreAuthorize("hasAuthority('CAN_READ') && hasPermission(#projectId, 'CAN_MANAGE_TASKS')")
     @PutMapping("/{pid}/tasks/{taskId}")
     public ResponseEntity<UUID> updateProjectTask(
-            @RequestHeader(required = false) UUID employeeId,
-            @RequestHeader(required = false) UUID projectId,
             @RequestBody ProjectTaskUpdatePayloadDTO payload, //change
             @PathVariable UUID pid,
             @PathVariable UUID taskId

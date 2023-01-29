@@ -1,5 +1,6 @@
 package thesis.api.employee;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -32,6 +33,7 @@ import java.text.ParseException;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Hidden
 @Slf4j
 @RestController
 @AllArgsConstructor
@@ -51,14 +53,6 @@ public class EmployeeController extends ThesisController {
     private final AuthService authService;
 
     @Operation(summary = "Gets employee by ID")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "OK"),
-            @ApiResponse(responseCode = "400", description = "Invalid ID supplied"),
-            @ApiResponse(responseCode = "401", description = "Unauthorized"),
-            @ApiResponse(responseCode = "403", description = "Access to the requested resource is forbidden"),
-            @ApiResponse(responseCode = "404", description = "Customer not found"),
-            @ApiResponse(responseCode = "500", description = "Internal server error")
-    })
     @GetMapping
     @PreAuthorize("hasAuthority('CAN_READ')")
     public ResponseEntity<EmployeeResponse> getEmployee(

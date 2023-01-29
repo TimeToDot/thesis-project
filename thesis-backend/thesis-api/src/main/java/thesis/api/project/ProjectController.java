@@ -1,5 +1,6 @@
 package thesis.api.project;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,7 @@ import thesis.domain.project.model.task.*;
 import java.util.List;
 import java.util.UUID;
 
+@Hidden
 @Slf4j
 @AllArgsConstructor
 @RestController
@@ -171,6 +173,7 @@ public class ProjectController extends ThesisController {
         return ResponseEntity.ok(response);
     }
 
+    @Hidden
     @PreAuthorize("hasAuthority('CAN_ADMIN_PROJECTS')")
     @PostMapping
     public ResponseEntity<UUID> addProject(
@@ -183,6 +186,7 @@ public class ProjectController extends ThesisController {
         return ResponseEntity.ok(response);
     }
 
+    @Hidden
     @PreAuthorize("hasPermission(#projectId, 'CAN_READ_PROJECT')")
     @PutMapping
     public ResponseEntity<UUID> updateProject(

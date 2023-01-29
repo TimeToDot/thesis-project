@@ -1,5 +1,7 @@
 package thesis.api;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,23 +15,24 @@ import java.util.UUID;
  * <h1>MainController</h1>
  */
 
+@Slf4j
 @RestController
 @RequestMapping("/api/main")
 public class MainController {
 
 
 
-  @GetMapping(value = "/customers", produces = "application/json")
+  @GetMapping(value = "/info", produces = "application/json")
   @PreAuthorize("hasAuthority('CAN_READ')")
-  public List<CustomerDto> getCustomerList(){
-    var customers = getTempCustomers();
+  public ResponseEntity<String> getCustomerList(){
 
-    return customers;
+    return ResponseEntity.ok(getInfo());
   }
 
-  private List<CustomerDto> getTempCustomers(){
-    var customerDto = CustomerDto.builder().customerId(UUID.randomUUID()).age(10).login("asd").name("dsa")
-            .build();
-    return List.of(customerDto);
+  private String getInfo(){
+    var description = "This is backend Thesis project";
+    log.info(description);
+
+    return description;
   }
 }

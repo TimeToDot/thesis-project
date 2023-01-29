@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.Hibernate;
+import thesis.data.account.model.converter.FieldConverter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -38,6 +39,7 @@ public class AccountDetails {
     @NotBlank(message = "surname is required")
     private String surname;
 
+    @Convert(converter = FieldConverter.class)
     @NotBlank(message = "pesel is required")
     private String pesel;
 
@@ -48,9 +50,11 @@ public class AccountDetails {
     @NotBlank(message = "phonenumber is required")
     private String phoneNumber;
 
+    @Convert(converter = FieldConverter.class)
     @NotBlank(message = "taxNumber is required")
     private String taxNumber;
 
+    @Convert(converter = FieldConverter.class)
     private String idCardNumber;
 
     @NotBlank(message = "street is required")
@@ -81,6 +85,7 @@ public class AccountDetails {
     @Temporal(TemporalType.TIMESTAMP)
     private Date birthDate;
 
+    @Convert(converter = FieldConverter.class)
     private String birthPlace;
 
     private String imagePath;
@@ -88,8 +93,6 @@ public class AccountDetails {
     @ManyToOne
     @JoinColumn(name = "contract_type_id")
     private ContractType contractType;
-
-    //private String billingPeriod;
 
     private Integer workingTime;
 

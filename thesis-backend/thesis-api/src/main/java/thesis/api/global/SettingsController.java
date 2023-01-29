@@ -48,8 +48,8 @@ public class SettingsController extends ThesisController {
 
     }
 
+    @PreAuthorize("hasAuthority('CAN_ADMIN_USERS')")
     @GetMapping("/contract-types")
-    //@PreAuthorize("hasAuthority('CAN_ADMIN_USERS')")
     public ResponseEntity<List<ContractDTO>> getContractTypes(
             @RequestHeader(required = false) UUID employeeId,
             @RequestHeader(required = false) UUID projectId
@@ -59,19 +59,8 @@ public class SettingsController extends ThesisController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("")
-    //@PreAuthorize("hasAuthority('CAN_ADMIN_USERS')")
-    public ResponseEntity<List<ContractDTO>> getContractTypesDummy(
-            @RequestHeader(required = false) UUID employeeId,
-            @RequestHeader(required = false) UUID projectId
-    ) {
-        var response = employeeService.getContractTypes();
-
-        return ResponseEntity.ok(response);
-    }
-
+    @PreAuthorize("hasAuthority('CAN_ADMIN_USERS')")
     @GetMapping("/billing-periods")
-    //@PreAuthorize("hasAuthority('CAN_ADMIN_USERS')")
     public ResponseEntity<List<BillingPeriodDTO>> getBillingPeriods(
             @RequestHeader(required = false) UUID employeeId,
             @RequestHeader(required = false) UUID projectId
