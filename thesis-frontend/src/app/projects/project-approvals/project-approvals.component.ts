@@ -55,7 +55,6 @@ export class ProjectApprovalsComponent implements OnInit {
         .getProjectApprovals(projectId)
         .pipe(first())
         .subscribe(projectApprovals => {
-          console.log(projectApprovals);
           this.dataSource = projectApprovals;
         });
     }

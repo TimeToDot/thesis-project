@@ -52,8 +52,9 @@ export class EmployeeTasksService {
   }
 
   getEmployeeLastTasks(employeeId: string): Observable<EmployeeTask[]> {
+    const date = formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en');
     return this.http.get<EmployeeTask[]>(
-      `${environment.apiUrl}/employees/${employeeId}/tasks`
+      `${environment.apiUrl}/employees/${employeeId}/tasks?date=${date}`
     );
   }
 

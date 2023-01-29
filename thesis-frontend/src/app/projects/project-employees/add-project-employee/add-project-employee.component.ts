@@ -115,7 +115,6 @@ export class AddProjectEmployeeComponent implements OnInit {
         this.employees.filter(employee =>
           projectEmployees.map(pe => pe.employee.id).includes(employee.id)
         );
-        console.log(this.employees);
       });
   }
 

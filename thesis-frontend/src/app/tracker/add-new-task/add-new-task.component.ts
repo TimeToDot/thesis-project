@@ -152,7 +152,6 @@ export class AddNewTaskComponent implements OnInit {
         this.projects = employeeProjects.map(
           employeeProject => employeeProject.project
         );
-        console.log(employeeProjects);
       });
   }
 

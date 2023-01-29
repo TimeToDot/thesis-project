@@ -49,7 +49,6 @@ export class ViewProjectEmployeeComponent implements OnInit {
         .pipe(first())
         .subscribe(projectEmployee => {
           this.projectEmployee = projectEmployee;
-          console.log(this.projectEmployee);
         });
     }
   }

@@ -31,7 +31,6 @@ export class NewRequestsComponent {
         .getProjectApprovals(projectId)
         .pipe(first())
         .subscribe(projectApprovals => {
-          console.log(projectApprovals);
           this.projectApprovals = projectApprovals.slice(0, 6);
         });
     }

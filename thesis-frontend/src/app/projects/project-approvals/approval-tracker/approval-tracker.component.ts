@@ -202,7 +202,6 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
         .sendProjectApproval(projectId, employeeId, this.tasksToReject)
         .pipe(first())
         .subscribe(() => {
-          console.log('??S???');
           this.getProjectApproval();
           this.router.navigate(['..'], { relativeTo: this.route }).then(() => {
             setTimeout(

@@ -11,6 +11,8 @@ export class ContractTypesService {
   constructor(private http: HttpClient) {}
 
   getContractTypes(): Observable<DropdownOption[]> {
-    return this.http.get<DropdownOption[]>(environment.apiUrl);
+    return this.http.get<DropdownOption[]>(
+      `${environment.apiUrl}/contract-types`
+    );
   }
 }

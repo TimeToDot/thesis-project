@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EmployeesService } from '../../../services/employees.service';
-import { AuthService } from '../../../../shared/services/auth.service';
 import { first } from 'rxjs';
 import { FormFieldComponent } from '../../../../shared/components/form-field/form-field.component';
 import { EmployeeProject } from '../../../../shared/models/employee-project.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'bvr-view-projects-info',
@@ -16,8 +16,8 @@ export class ViewProjectsInfoComponent implements OnInit {
   employeeProjects!: EmployeeProject[];
 
   constructor(
-    private authService: AuthService,
-    private employeesService: EmployeesService
+    private employeesService: EmployeesService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -25,14 +25,13 @@ export class ViewProjectsInfoComponent implements OnInit {
   }
 
   getProjects(): void {
-    const employeeId = this.authService.getLoggedEmployeeId();
+    const employeeId = this.route.snapshot.paramMap.get('id');
     if (employeeId) {
       this.employeesService
         .getEmployeeProjects(employeeId)
         .pipe(first())
         .subscribe(employeeProjects => {
           this.employeeProjects = employeeProjects;
-          console.log(employeeProjects);
         });
     }
   }

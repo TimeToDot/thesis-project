@@ -88,7 +88,6 @@ export class ProjectEmployeesComponent implements OnInit {
         .getProjectEmployees(projectId)
         .pipe(first())
         .subscribe(projectEmployees => {
-          console.log(projectEmployees);
           this.dataSource = projectEmployees;
         });
     }
