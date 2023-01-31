@@ -16,11 +16,7 @@
       <artifactId>thesis-data</artifactId>
       <version>${version}</version>
     </dependency>
-    <dependency>
-      <groupId>pl.thesis</groupId>
-      <artifactId>thesis-security</artifactId>
-      <version>${version}</version>
-    </dependency>
+
 
     <dependency>
       <groupId>org.projectlombok</groupId>

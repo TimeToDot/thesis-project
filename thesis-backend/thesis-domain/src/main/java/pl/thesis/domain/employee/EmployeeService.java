@@ -23,8 +23,6 @@ import pl.thesis.domain.paging.PagingHelper;
 import pl.thesis.domain.paging.PagingSettings;
 import pl.thesis.domain.task.mapper.TaskFormDTOMapper;
 import pl.thesis.domain.task.model.TaskStatusDTO;
-import pl.thesis.domain.employee.model.*;
-import pl.thesis.security.services.model.ContractDTO;
 
 import javax.annotation.PostConstruct;
 import java.text.ParseException;
@@ -101,11 +99,11 @@ public class EmployeeService {
         var accountDetails = accountDetailsRepository.findByAccount(account).orElseThrow();
         Sex sex = sexRepository.findByName(payloadDTO.sex().name()).orElseThrow();
         Country country = countryRepository
-                .findByName(payloadDTO.country().getName())
+                .findByName(payloadDTO.country().name())
                 .orElseGet(() -> {
                     var c = Country.builder()
-                            .id(payloadDTO.country().getId())
-                            .name(payloadDTO.country().getName())
+                            .id(payloadDTO.country().id())
+                            .name(payloadDTO.country().name())
                             .build();
 
                     countryRepository.save(c);

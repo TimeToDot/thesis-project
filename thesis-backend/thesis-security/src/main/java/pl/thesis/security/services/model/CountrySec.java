@@ -1,9 +1,6 @@
 package pl.thesis.security.services.model;
 
-import lombok.Builder;
-
-@Builder
-public record ContractDTO(
+public record CountrySec(
         Integer id,
         String name
 ) {

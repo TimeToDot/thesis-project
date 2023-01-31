@@ -10,7 +10,6 @@ import pl.thesis.domain.employee.model.EmployeeDTO;
 import pl.thesis.domain.employee.model.EmployeeUpdatePayloadDTO;
 import pl.thesis.domain.employee.model.SimplePositionDTO;
 import pl.thesis.domain.mapper.MapStructConfig;
-import pl.thesis.security.services.model.ContractTypeDTO;
 
 @Mapper(config = MapStructConfig.class)
 public interface EmployeeDTOMapper {
@@ -75,14 +74,6 @@ public interface EmployeeDTOMapper {
 
     default boolean isActive(StatusType type){
         return type.compareTo(StatusType.ENABLE) == 0;
-    }
-
-    default ContractTypeDTO getContractType(String type){
-        if (type == null){
-            return null;
-        }
-
-        return ContractTypeDTO.fromValue(type);
     }
 
     default SimplePositionDTO getPosition(Position position){

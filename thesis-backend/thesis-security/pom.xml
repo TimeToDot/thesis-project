@@ -18,11 +18,6 @@
       <artifactId>thesis-data</artifactId>
       <version>${thesis.version}</version>
     </dependency>
-<!--    <dependency>
-      <groupId>pl.thesis</groupId>
-      <artifactId>thesis-domain</artifactId>
-      <version>${thesis.version}</version>
-    </dependency>-->
 
     <!-- Necessary Boot starters -->
     <dependency>

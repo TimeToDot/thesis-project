@@ -1,10 +1,7 @@
 package pl.thesis.domain.employee.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import pl.thesis.data.account.model.Country;
 import pl.thesis.domain.position.model.PositionResponseDTO;
-import pl.thesis.security.services.model.ContractDTO;
-import pl.thesis.security.services.model.SexDTO;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -34,7 +31,7 @@ public record EmployeeUpdatePayloadDTO(
         String apartmentNumber,
         String city,
         String postalCode,
-        Country country,
+        CountryDTO country,
         String phoneNumber,
         @Email
         String privateEmail,

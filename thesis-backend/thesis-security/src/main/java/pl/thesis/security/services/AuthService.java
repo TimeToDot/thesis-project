@@ -13,8 +13,8 @@ import pl.thesis.data.position.model.Position;
 import pl.thesis.data.role.RoleRepository;
 import pl.thesis.data.role.model.Role;
 import pl.thesis.data.role.model.RoleType;
-import pl.thesis.security.services.model.AuthenticationDTO;
-import pl.thesis.security.services.model.AuthorizationDTO;
+import pl.thesis.security.services.model.AuthenticationSecurity;
+import pl.thesis.security.services.model.AuthorizationSecurity;
 import pl.thesis.security.config.JwtUtils;
 import pl.thesis.security.services.model.ProjectPrivilege;
 import pl.thesis.security.services.model.UserDetailsDefault;
@@ -40,8 +40,7 @@ public class AuthService {
     private final ContractTypeRepository contractTypeRepository;
     private final AccountRoleRepository accountRoleRepository;
 
-    public AuthenticationDTO authenticateUser(UserDetailsDefault userDetails) {
-
+    public AuthenticationSecurity authenticateUser(UserDetailsDefault userDetails) {
 
         var authorities = userDetails
                 .getAuthorities()
@@ -53,7 +52,7 @@ public class AuthService {
         var globalAuthorities = getGlobalAuthorities(authorities);
         var projectPrivileges = getProjectPrivileges(authorities);
 
-        return AuthenticationDTO.builder()
+        return AuthenticationSecurity.builder()
                 .id(userDetails.getId())
                 .username(userDetails.getUsername())
                 .email(userDetails.getEmail())
@@ -68,7 +67,7 @@ public class AuthService {
     }
 
     @Transactional
-    public UUID addUser(AuthorizationDTO authorizationDTO){
+    public UUID addUser(AuthorizationSecurity authorizationSecurity){
         //vor better times
         /*var strRoles = authorizationDTO.roles();
         List<Role> roles = new ArrayList<>();
@@ -98,13 +97,13 @@ public class AuthService {
                 .findByName(RoleType.ROLE_GLOBAL_USER)
                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
 
-        var position = positionRepository.findById(authorizationDTO.positionId()).orElseThrow();
+        var position = positionRepository.findById(authorizationSecurity.positionId()).orElseThrow();
 
-        var account = getAccount(authorizationDTO, position);
+        var account = getAccount(authorizationSecurity, position);
 
         accountRepository.saveAndFlush(account);
 
-        var accountDetails = getAccountDetails(authorizationDTO, account);
+        var accountDetails = getAccountDetails(authorizationSecurity, account);
 
         accountDetailsRepository.saveAndFlush(accountDetails);
 
@@ -115,14 +114,14 @@ public class AuthService {
         return account.getId();
     }
 
-    private AccountDetails getAccountDetails(AuthorizationDTO authorizationDTO, Account account) {
-        Sex sex = sexRepository.findByName(authorizationDTO.sex().name()).orElseThrow();
+    private AccountDetails getAccountDetails(AuthorizationSecurity authorizationSecurity, Account account) {
+        Sex sex = sexRepository.findByName(authorizationSecurity.sex().name()).orElseThrow();
         Country country = countryRepository
-                .findByName(authorizationDTO.country().name())
+                .findByName(authorizationSecurity.country().name())
                 .orElseGet(() -> {
                     var c = Country.builder()
-                        .id(authorizationDTO.country().id())
-                        .name(authorizationDTO.country().name())
+                        .id(authorizationSecurity.country().id())
+                        .name(authorizationSecurity.country().name())
                         .build();
 
                     countryRepository.save(c);
@@ -130,35 +129,35 @@ public class AuthService {
                     return c;
                 });
 
-        ContractType contractType = contractTypeRepository.findById(authorizationDTO.contractType().id()).orElseThrow();
+        ContractType contractType = contractTypeRepository.findById(authorizationSecurity.contractType().id()).orElseThrow();
 
         return AccountDetails.builder()
                 .account(account)
-                .name(authorizationDTO.firstName())
-                .middleName(authorizationDTO.middleName())
-                .surname(authorizationDTO.lastName())
-                .city(authorizationDTO.city())
-                .postalCode(authorizationDTO.postalCode())
-                .street(authorizationDTO.street())
-                .apartmentNumber(authorizationDTO.apartmentNumber())
-                .houseNumber(authorizationDTO.houseNumber())
+                .name(authorizationSecurity.firstName())
+                .middleName(authorizationSecurity.middleName())
+                .surname(authorizationSecurity.lastName())
+                .city(authorizationSecurity.city())
+                .postalCode(authorizationSecurity.postalCode())
+                .street(authorizationSecurity.street())
+                .apartmentNumber(authorizationSecurity.apartmentNumber())
+                .houseNumber(authorizationSecurity.houseNumber())
                 .createdAt(new Date())
-                .pesel(authorizationDTO.pesel())
+                .pesel(authorizationSecurity.pesel())
                 .sex(sex)
-                .phoneNumber(authorizationDTO.phoneNumber())
-                .taxNumber(authorizationDTO.accountNumber())
+                .phoneNumber(authorizationSecurity.phoneNumber())
+                .taxNumber(authorizationSecurity.accountNumber())
                 .country(country)
-                .birthDate(authorizationDTO.birthDate())
-                .birthPlace(authorizationDTO.birthPlace())
-                .privateEmail(authorizationDTO.privateEmail())
-                .idCardNumber(authorizationDTO.idCardNumber())
-                .employmentDate(authorizationDTO.employmentDate())
+                .birthDate(authorizationSecurity.birthDate())
+                .birthPlace(authorizationSecurity.birthPlace())
+                .privateEmail(authorizationSecurity.privateEmail())
+                .idCardNumber(authorizationSecurity.idCardNumber())
+                .employmentDate(authorizationSecurity.employmentDate())
                 .contractType(contractType)
-                .wage(authorizationDTO.wage())
-                .workingTime(authorizationDTO.workingTime())
-                .payday(authorizationDTO.payday())
-                .phoneNumber(authorizationDTO.phoneNumber())
-                .imagePath(authorizationDTO.imagePath())
+                .wage(authorizationSecurity.wage())
+                .workingTime(authorizationSecurity.workingTime())
+                .payday(authorizationSecurity.payday())
+                .phoneNumber(authorizationSecurity.phoneNumber())
+                .imagePath(authorizationSecurity.imagePath())
                 .build();
     }
 
@@ -170,13 +169,13 @@ public class AuthService {
 
     }
 
-    private Account getAccount(AuthorizationDTO authorizationDTO, Position position) {
+    private Account getAccount(AuthorizationSecurity authorizationSecurity, Position position) {
 
 
         return Account.builder()
                 //.login(authorizationDTO.login())
-                .pass(passwordEncoder.encode(authorizationDTO.password()))
-                .email(authorizationDTO.email())
+                .pass(passwordEncoder.encode(authorizationSecurity.password()))
+                .email(authorizationSecurity.email())
                 .position(position)
                 .status(StatusType.ENABLE)
                 .build();

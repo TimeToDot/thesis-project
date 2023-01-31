@@ -1,16 +1,14 @@
 package pl.thesis.api.employee.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import pl.thesis.api.employee.CountryResponse;
 import pl.thesis.api.position.model.PositionResponse;
-import pl.thesis.data.account.model.Country;
-import pl.thesis.domain.position.model.PositionResponseDTO;
-import pl.thesis.security.services.model.ContractDTO;
-import pl.thesis.security.services.model.SexDTO;
+import pl.thesis.security.services.model.ContractSec;
+import pl.thesis.security.services.model.SexSec;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
-import java.util.UUID;
 
 public record EmployeeUpdatePayload(
 
@@ -21,7 +19,7 @@ public record EmployeeUpdatePayload(
         String firstName,
         String middleName,
         String lastName,
-        SexDTO sex,
+        SexSec sex,
 
         @JsonFormat(pattern = "yyyy-MM-dd")
         Date birthDate,
@@ -33,7 +31,7 @@ public record EmployeeUpdatePayload(
         String apartmentNumber,
         String city,
         String postalCode,
-        Country country,
+        CountryResponse country,
         String phoneNumber,
         @Email
         String privateEmail,
@@ -43,7 +41,7 @@ public record EmployeeUpdatePayload(
         Date employmentDate,
         @JsonFormat(pattern = "yyyy-MM-dd")
         Date exitDate,
-        ContractDTO contractType,
+        ContractSec contractType,
         Integer workingTime,
         Integer wage,
         Integer payday,

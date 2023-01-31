@@ -1,11 +1,10 @@
 package pl.thesis.api.employee.model;
 
+import pl.thesis.api.employee.CountryResponse;
+import pl.thesis.api.employee.SexResponse;
 import pl.thesis.api.global.model.ContractResponse;
-import pl.thesis.security.services.model.CountryDTO;
-import pl.thesis.security.services.model.SexDTO;
 
 import java.util.Date;
-import java.util.UUID;
 
 public record EmployeeResponse(
 
@@ -17,7 +16,7 @@ public record EmployeeResponse(
         String password,
         String idCardNumber,
         String pesel,
-        SexDTO sex,
+        SexResponse sex,
         SimplePositionResponse position,
         Date employmentDate,
         Date exitDate,
@@ -30,7 +29,7 @@ public record EmployeeResponse(
         String houseNumber,
         String apartmentNumber,
         String postalCode,
-        CountryDTO country,
+        CountryResponse country,
         String privateEmail,
         String accountNumber,
         ContractResponse contractType,

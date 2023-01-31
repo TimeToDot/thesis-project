@@ -9,12 +9,9 @@ import pl.thesis.api.ThesisController;
 import pl.thesis.api.global.model.BillingPeriodResponse;
 import pl.thesis.api.global.model.ContractResponse;
 import pl.thesis.domain.employee.EmployeeService;
-import pl.thesis.domain.employee.model.BillingPeriodDTO;
 import pl.thesis.domain.project.ProjectService;
-import pl.thesis.security.services.model.ContractDTO;
 
 import java.util.List;
-import java.util.UUID;
 
 @Slf4j
 @AllArgsConstructor

@@ -1,8 +1,8 @@
 package pl.thesis.domain.employee.model;
 
 import lombok.Builder;
-import pl.thesis.data.task.model.TaskStatus;
 import pl.thesis.domain.task.model.TaskFormDto;
+import pl.thesis.domain.task.model.TaskStatusDTO;
 
 import java.util.Date;
 import java.util.UUID;
@@ -19,6 +19,6 @@ public record EmployeeTaskDTO(
         LocalDateTime endTime,*/
         EmployeeProjectDTO project,
         TaskFormDto task,
-        TaskStatus status
+        TaskStatusDTO status
 ) {
 }

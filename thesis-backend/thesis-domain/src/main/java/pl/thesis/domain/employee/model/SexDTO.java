@@ -1,4 +1,4 @@
-package pl.thesis.security.services.model;
+package pl.thesis.domain.employee.model;
 
 public record SexDTO(
         String id,

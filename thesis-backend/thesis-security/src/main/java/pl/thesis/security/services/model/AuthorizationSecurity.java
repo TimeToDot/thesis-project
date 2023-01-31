@@ -3,14 +3,14 @@ package pl.thesis.security.services.model;
 import java.util.Date;
 import java.util.UUID;
 
-public record AuthorizationDTO(
+public record AuthorizationSecurity(
 
         String email,
         String password,
         String firstName,
         String middleName,
         String lastName,
-        SexDTO sex,
+        SexSec sex,
         Date birthDate,
         String birthPlace,
         String idCardNumber,
@@ -20,12 +20,12 @@ public record AuthorizationDTO(
         String apartmentNumber,
         String city,
         String postalCode,
-        CountryDTO country,
+        CountrySec country,
         String phoneNumber,
         String privateEmail,
         UUID positionId,
         Date employmentDate,
-        ContractDTO contractType,
+        ContractSec contractType,
         Integer workingTime,
         Integer wage,
         Integer payday,

@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @Builder
-public record AuthenticationDTO(
+public record AuthenticationSecurity(
         UUID id,
         String username,
         String email,

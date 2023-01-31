@@ -1,9 +1,6 @@
 package pl.thesis.domain.employee.model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import pl.thesis.security.services.model.ContractDTO;
-import pl.thesis.security.services.model.CountryDTO;
-import pl.thesis.security.services.model.SexDTO;
 
 import java.util.Date;
 import java.util.UUID;
@@ -35,7 +32,6 @@ public record EmployeeDTO(
         String privateEmail,
         String accountNumber,
         ContractDTO contractType,
-        //BillingPeriodDTO billingPeriod,
         Integer workingTime,
         Integer wage,
         Integer payday,

@@ -14,7 +14,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.*;
@@ -22,8 +21,6 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
-
-import static org.aspectj.weaver.tools.cache.SimpleCacheFactory.path;
 
 @Slf4j
 @Component
@@ -100,7 +97,7 @@ public class AsymmetricEncryptor {
         String encryptedString = "";
         try {
             // Creating a Cipher object
-            cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+            cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
 
             // Initializing a Cipher object with public key
             cipher.init(Cipher.ENCRYPT_MODE, publicKey);

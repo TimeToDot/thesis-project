@@ -1,8 +1,8 @@
 package pl.thesis.api.employee.model.temp;
 
-import pl.thesis.security.services.model.ContractDTO;
-import pl.thesis.security.services.model.CountryDTO;
-import pl.thesis.security.services.model.SexDTO;
+import pl.thesis.security.services.model.ContractSec;
+import pl.thesis.security.services.model.CountrySec;
+import pl.thesis.security.services.model.SexSec;
 import pl.thesis.security.services.model.SimplePositionAuth;
 
 import java.util.Date;
@@ -13,7 +13,7 @@ public record AuthorizationTemp(
         String firstName,
         String middleName,
         String lastName,
-        SexDTO sex,
+        SexSec sex,
         Date birthDate,
         String birthPlace,
         String idCardNumber,
@@ -23,12 +23,12 @@ public record AuthorizationTemp(
         String apartmentNumber,
         String city,
         String postalCode,
-        CountryDTO country,
+        CountrySec country,
         String phoneNumber,
         String privateEmail,
         SimplePositionAuth position,
         Date employmentDate,
-        ContractDTO contractType,
+        ContractSec contractType,
         Integer workingTime,
         Integer wage,
         Integer payday,
