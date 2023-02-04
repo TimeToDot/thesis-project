@@ -174,10 +174,11 @@ public class InitDataIntegrationTest {
         var adminRole = roleRepository.findByName(RoleType.ROLE_GLOBAL_ADMIN).orElseThrow(RuntimeException::new);
         var userRole = roleRepository.findByName(RoleType.ROLE_GLOBAL_USER).orElseThrow(RuntimeException::new);
 
-        var positionManager = positionRepository.findByName("MANAGER_II").orElseThrow(AssertionError::new);
-        var positionEmployee = positionRepository.findByName("EMPLOYEE_I").orElseThrow(AssertionError::new);
+        var positionManager = positionRepository.findByName("Project Manager").orElseThrow(AssertionError::new);
+        var positionEmployee = positionRepository.findByName("Developer").orElseThrow(AssertionError::new);
+        var positionAdmin = positionRepository.findByName("Admin").orElseThrow(AssertionError::new);
 
-        var admin = createAccount("admin@email.com", "admin", "admin@email.com", adminRole, null);
+        var admin = createAccount("admin@email.com", "admin", "admin@email.com", adminRole, positionAdmin);
         var mod = createAccount("mod@email.com", "moderator", "mod@email.com", userRole, positionManager);
         var user = createAccount("user@email.com", "user", "user@email.com", userRole, positionEmployee);
 
@@ -195,9 +196,9 @@ public class InitDataIntegrationTest {
         var sex = getSexes().get(0);
         var country = getCountries().get(0);
 
-        var adminDetails = createAccountDetails(admin,"Krakow", "123123123123", contractTypes, sex, country);
-        var modDetails = createAccountDetails(mod, "Limanowa", "456456456456", contractTypes, sex, country);
-        var userDetails = createAccountDetails(user, "Przyszowa", "678678678678", contractTypes, sex, country);
+        var adminDetails = createAccountDetails("Janusz", "Tracz", "Warszawska", "737 953 123", "30-123", admin,"Krakow", "123123123123", contractTypes, sex, country, "assets/icons/icon16.png");
+        var modDetails = createAccountDetails("Krzysztof", "Andrusik", "Sławkowska", "556 781 905", "30-333",mod, "Limanowa", "456456456456", contractTypes, sex, country, "assets/icons/icon14.png");
+        var userDetails = createAccountDetails("Helena", "Gwiazda", "Kopernika", "883 213 904", "30-634",user, "Przyszowa", "678678678678", contractTypes, sex, country, "assets/icons/icon4.png");
 
         accountDetailsRepository.save(adminDetails);
         accountDetailsRepository.save(modDetails);
@@ -215,19 +216,19 @@ public class InitDataIntegrationTest {
     }
     private List<Project> initProjects(List<Account> accounts){
         var project1 = Project.builder()
-                .name("Project1")
+                .name("Volkswagen")
                 .owner(accounts.get(0))
                 .status(ProjectType.ACTIVE)
                 .build();
 
         var project2 = Project.builder()
-                .name("Project2")
+                .name("IKEA")
                 .owner(accounts.get(1))
                 .status(ProjectType.ACTIVE)
                 .build();
 
         var project3 = Project.builder()
-                .name("Project3")
+                .name("Starbucks")
                 .owner(accounts.get(1))
                 .status(ProjectType.ACTIVE)
                 .build();
@@ -246,7 +247,7 @@ public class InitDataIntegrationTest {
                 .bonusModifier(1)
                 .nightModifier(12)
                 .holidayModifier(50)
-                .imagePath("path")
+                .imagePath("assets/companies/company1.png")
                 .overtimeModifier(20)
                 .billingPeriod(billingPeriods.get(0))
                 .build();
@@ -257,7 +258,7 @@ public class InitDataIntegrationTest {
                 .bonusModifier(1)
                 .nightModifier(12)
                 .holidayModifier(50)
-                .imagePath("path")
+                .imagePath("assets/companies/company2.png")
                 .overtimeModifier(20)
                 .build();
         var projectDetails3 = ProjectDetails.builder()
@@ -267,7 +268,7 @@ public class InitDataIntegrationTest {
                 .bonusModifier(1)
                 .nightModifier(12)
                 .holidayModifier(50)
-                .imagePath("path")
+                .imagePath("assets/companies/company3.png")
                 .overtimeModifier(20)
                 .build();;
 
@@ -334,22 +335,23 @@ public class InitDataIntegrationTest {
                 .build();
     }
 
-    private AccountDetails createAccountDetails(Account account, String city, String pesel, ContractType contractType, Sex sex, Country country){
+    private AccountDetails createAccountDetails(String name, String surname, String street, String phoneNumber, String postalCode, Account account, String city, String pesel, ContractType contractType, Sex sex, Country country, String imagePath){
 
         return AccountDetails.builder()
                 .account(account)
                 .city(city)
                 .pesel(pesel)
-                .phoneNumber("123123123")
-                .street("Domyslna")
-                .postalCode("12-123")
-                .taxNumber("123123123123123123")
+                .phoneNumber(phoneNumber)
+                .street(street)
+                .postalCode(postalCode)
+                .taxNumber("22 4253 0000 3433 0642 0034")
                 .sex(sex)
                 .country(country)
-                .surname("Domyśliciel")
-                .name("Domyslaw")
-                .city("Domyslice")
+                .surname(surname)
+                .name(name)
+                .city(city)
                 .contractType(contractType)
+                .imagePath(imagePath)
                 //.billingPeriod(BillingPeriod.SEASON.label)
                 .build();
 
@@ -374,9 +376,9 @@ public class InitDataIntegrationTest {
         List<TaskForm> taskForms = new ArrayList<>();
 
         for (Project project : projects) {
-            taskForms.add(getTaskForm(project, "task pierwszy"));
-            taskForms.add(getTaskForm(project, "task priorytetowy"));
-            taskForms.add(getTaskForm(project, "task odczepany"));
+            taskForms.add(getTaskForm(project, "Programming"));
+            taskForms.add(getTaskForm(project, "Design"));
+            taskForms.add(getTaskForm(project, "Testing"));
         }
 
         taskFormRepository.saveAll(taskForms);
@@ -400,7 +402,7 @@ public class InitDataIntegrationTest {
 
     private TaskForm getTaskForm(Project project, String name) {
         return TaskForm.builder()
-                .name(name + " project: " + project.getName())
+                .name(name)
                 .project(project)
                 .build();
     }
@@ -408,11 +410,11 @@ public class InitDataIntegrationTest {
     private List<Task> initTasks(Account account, List<TaskForm> taskForms){
         List<Task> tasks = new ArrayList<>();
         var mapOfTaskStatusList = Map.of(
-                "2022-12-15", List.of(TaskStatus.LOGGED, TaskStatus.LOGGED, TaskStatus.PENDING),
-                "2023-01-01", List.of(TaskStatus.LOGGED, TaskStatus.LOGGED, TaskStatus.REJECTED),
-                "2023-01-04", List.of(TaskStatus.LOGGED, TaskStatus.LOGGED, TaskStatus.APPROVED),
-                "2023-01-11", List.of(TaskStatus.LOGGED, TaskStatus.LOGGED, TaskStatus.LOGGED),
-                "2023-01-12", List.of(TaskStatus.APPROVED, TaskStatus.APPROVED, TaskStatus.APPROVED)
+                "2022-02-04", List.of(TaskStatus.LOGGED, TaskStatus.LOGGED, TaskStatus.PENDING),
+                "2023-02-03", List.of(TaskStatus.LOGGED, TaskStatus.LOGGED, TaskStatus.REJECTED),
+                "2023-02-02", List.of(TaskStatus.LOGGED, TaskStatus.LOGGED, TaskStatus.APPROVED),
+                "2023-02-01", List.of(TaskStatus.LOGGED, TaskStatus.LOGGED, TaskStatus.LOGGED),
+                "2023-01-31", List.of(TaskStatus.APPROVED, TaskStatus.APPROVED, TaskStatus.APPROVED)
         );
 
         var temp =accountProjectRepository.findAllByAccountId(account.getId(), new PagingSettings().getPageable())
