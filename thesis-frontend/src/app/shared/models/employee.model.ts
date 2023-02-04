@@ -14,4 +14,5 @@ export interface Employee {
   wage: number;
   contractType: DropdownOption;
   active: boolean;
+  imagePath?: string;
 }

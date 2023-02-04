@@ -20,11 +20,11 @@
   <div *ngIf="employee">
     <div class="confirm-employee">
       <img
-        *ngIf="employee.image"
+        *ngIf="employee.imagePath"
         class="picture"
-        [src]="employee.image" />
+        [src]="employee.imagePath" />
       <span
-        *ngIf="!employee.image"
+        *ngIf="!employee.imagePath"
         class="picture">
         {{ employee.firstName[0] }}{{ employee.lastName[0] }}
       </span>
@@ -43,7 +43,7 @@
           <bvr-form-field
             class="disabled field"
             label="Hire Date">
-            <span>{{ employee.employmentDate | date: 'dd/MM/yyyy' }}</span>
+            <span>{{ employee.employmentDate | date : 'dd/MM/yyyy' }}</span>
           </bvr-form-field>
         </div>
         <div class="row">

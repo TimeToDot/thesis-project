@@ -54,6 +54,7 @@ export class CalendarComponent implements OnInit {
   }
 
   generateGrid(): void {
+    this.calendarService.triggerCalendarRefresh();
     this.getGridStartDay();
     this.getGridEndDay();
     this.getMonthGrid();
@@ -112,14 +113,22 @@ export class CalendarComponent implements OnInit {
   }
 
   previousMonth(): void {
-    --this.currentMonth;
-    this.currentYear = dayjs().month(this.currentMonth).year();
+    if (this.currentMonth === 0) {
+      this.currentMonth = 11;
+      --this.currentYear;
+    } else {
+      --this.currentMonth;
+    }
     this.generateGrid();
   }
 
   nextMonth(): void {
-    ++this.currentMonth;
-    this.currentYear = dayjs().month(this.currentMonth).year();
+    if (this.currentMonth === 11) {
+      this.currentMonth = 0;
+      ++this.currentYear;
+    } else {
+      ++this.currentMonth;
+    }
     this.generateGrid();
   }
 

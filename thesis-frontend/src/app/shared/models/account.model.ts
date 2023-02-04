@@ -31,4 +31,5 @@ export interface Account {
   password: string;
   image: string;
   active: boolean;
+  imagePath?: string;
 }

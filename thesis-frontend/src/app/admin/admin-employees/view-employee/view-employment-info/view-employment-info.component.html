@@ -6,18 +6,18 @@
     <bvr-form-field
       class="left-field"
       label="Position">
-      <span>{{ employee.position.name }}</span>
+      <span>{{ employee.position ? employee.position.name : '' }}</span>
     </bvr-form-field>
     <bvr-form-field
       label="Hire Date"
       [ngClass]="employee.active ? 'field' : 'left-field'">
-      <span>{{ employee.employmentDate | date: 'dd/MM/yyyy' }}</span>
+      <span>{{ employee.employmentDate | date : 'dd/MM/yyyy' }}</span>
     </bvr-form-field>
     <bvr-form-field
       *ngIf="!employee.active"
       class="field"
       label="Exit Date">
-      <span>{{ employee.exitDate | date: 'dd/MM/yyyy' }}</span>
+      <span>{{ employee.exitDate | date : 'dd/MM/yyyy' }}</span>
     </bvr-form-field>
   </div>
   <div class="row">

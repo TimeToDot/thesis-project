@@ -13,6 +13,7 @@ import { ButtonComponent } from '../shared/components/button/button.component';
 import { TabsComponent } from '../shared/components/tabs/tabs.component';
 import { LinkOption } from '../shared/models/link-option.model';
 import { AuthService } from '../shared/services/auth.service';
+import { CalendarService } from '../shared/services/calendar.service';
 import { EmployeeTasksService } from '../shared/services/employee-tasks.service';
 
 @Component({
@@ -40,6 +41,7 @@ export class TrackerComponent implements OnInit, OnDestroy {
 
   constructor(
     private authService: AuthService,
+    private calendarService: CalendarService,
     private employeeTasksService: EmployeeTasksService,
     private router: Router
   ) {}
@@ -48,6 +50,7 @@ export class TrackerComponent implements OnInit, OnDestroy {
     this.observeTabNameChange();
     this.getEmployeeCalendar();
     this.handleNavbarNameUpdate(this.router.url);
+    this.observeCalendarRefresh();
   }
 
   ngOnDestroy(): void {
@@ -69,6 +72,7 @@ export class TrackerComponent implements OnInit, OnDestroy {
       .getEmployeeCalendar(employeeId)
       .pipe(first())
       .subscribe(calendar => {
+        console.log(calendar);
         this.$employeeCalendar.next(calendar);
       });
   }
@@ -82,6 +86,12 @@ export class TrackerComponent implements OnInit, OnDestroy {
     } else if (this.isOptionInNavbarOptions('add-new-task')) {
       this.updateNavbarOptions('Edit Task', 'Add New Task', 'add-new-task');
     }
+  }
+
+  observeCalendarRefresh(): void {
+    this.calendarService.refreshCalendar.subscribe(() => {
+      this.getEmployeeCalendar();
+    });
   }
 
   isOptionInNavbarOptions(path: string): boolean {

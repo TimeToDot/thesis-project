@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CommonModule, formatDate, Location } from '@angular/common';
 import {
   AbstractControl,
@@ -32,6 +32,7 @@ import { ErrorComponent } from '../../shared/components/error/error.component';
 import { CustomValidators } from '../../shared/helpers/custom-validators.helper';
 import { Status } from '../../shared/enum/status.enum';
 import { TokenService } from '../../shared/services/token.service';
+import { CalendarService } from '../../shared/services/calendar.service';
 
 @Component({
   selector: 'bvr-add-new-task',
@@ -68,11 +69,12 @@ export class AddNewTaskComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
+    private calendarService: CalendarService,
     private fb: FormBuilder,
-    private projectTasksService: ProjectTasksService,
     private employeesService: EmployeesService,
     private employeeTasksService: EmployeeTasksService,
     private location: Location,
+    private projectTasksService: ProjectTasksService,
     private route: ActivatedRoute,
     private router: Router,
     private toastService: ToastService,
@@ -222,6 +224,7 @@ export class AddNewTaskComponent implements OnInit {
         .addEmployeeTask(employeeId, this.getTaskData(employeeId))
         .pipe(first())
         .subscribe(() => {
+          this.calendarService.triggerCalendarRefresh();
           this.toastService.showToast(ToastState.Success, 'Task added');
           setTimeout(() => this.toastService.dismissToast(), 3000);
         });
@@ -263,6 +266,7 @@ export class AddNewTaskComponent implements OnInit {
         .deleteEmployeeTask(employeeId, taskId)
         .pipe(first())
         .subscribe(() => {
+          this.calendarService.triggerCalendarRefresh();
           this.router
             .navigate(['../../tasks-list'], { relativeTo: this.route })
             .then(() => {
@@ -290,6 +294,7 @@ export class AddNewTaskComponent implements OnInit {
         .updateEmployeeTask(employeeId, this.getTaskData(employeeId))
         .pipe(first())
         .subscribe(() => {
+          this.calendarService.triggerCalendarRefresh();
           this.router
             .navigate(['../../tasks-list'], { relativeTo: this.route })
             .then(() => {

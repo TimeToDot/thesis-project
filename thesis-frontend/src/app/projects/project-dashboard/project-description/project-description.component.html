@@ -27,17 +27,17 @@
   </div>
   <div class="description-details">
     <span class="material-icons-outlined">calendar_month</span>
-    <div>{{ project.creationDate | date: 'dd/MM/yyyy' }}</div>
+    <div>{{ project.creationDate | date : 'dd/MM/yyyy' }}</div>
   </div>
   <div
     *ngIf="project.moderator"
     class="description-details">
     <img
-      *ngIf="project.moderator.image"
+      *ngIf="project.moderator.imagePath"
       class="description-moderator"
-      [src]="project.moderator.image" />
+      [src]="project.moderator.imagePath" />
     <span
-      *ngIf="!project.moderator.image"
+      *ngIf="!project.moderator.imagePath"
       class="description-moderator">
       {{ project.moderator.firstName[0] }}{{ project.moderator.lastName[0] }}
     </span>

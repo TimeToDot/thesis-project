@@ -50,11 +50,11 @@
           *cdkCellDef="let element">
           <div class="table-cell">
             <img
-              *ngIf="element.employee.image"
+              *ngIf="element.employee.imagePath"
               class="picture"
-              [src]="element.employee.image" />
+              [src]="element.employee.imagePath" />
             <span
-              *ngIf="!element.employee.image"
+              *ngIf="!element.employee.imagePath"
               class="picture">
               {{ element.employee.firstName[0]
               }}{{ element.employee.lastName[0] }}
@@ -106,7 +106,7 @@
         <td
           cdk-cell
           *cdkCellDef="let element">
-          {{ element.lastRequest | date: 'dd/MM/yyyy' }}
+          {{ element.lastRequest | date : 'dd/MM/yyyy' }}
         </td>
       </ng-container>
       <tr
@@ -136,11 +136,11 @@
           *cdkCellDef="let element">
           <div class="table-cell">
             <img
-              *ngIf="element.employee.image"
+              *ngIf="element.employee.imagePath"
               class="picture archived"
-              [src]="element.employee.image" />
+              [src]="element.employee.imagePath" />
             <span
-              *ngIf="!element.employee.image"
+              *ngIf="!element.employee.imagePath"
               class="picture archived">
               {{ element.employee.firstName[0]
               }}{{ element.employee.lastName[0] }}
@@ -175,7 +175,7 @@
         <td
           cdk-cell
           *cdkCellDef="let element">
-          {{ element.exitDate | date: 'dd/MM/yyyy' }}
+          {{ element.exitDate | date : 'dd/MM/yyyy' }}
         </td>
       </ng-container>
       <ng-container cdkColumnDef="last_request">
@@ -187,7 +187,7 @@
         <td
           cdk-cell
           *cdkCellDef="let element">
-          {{ element.lastRequest | date: 'dd/MM/yyyy' }}
+          {{ element.lastRequest | date : 'dd/MM/yyyy' }}
         </td>
       </ng-container>
       <tr

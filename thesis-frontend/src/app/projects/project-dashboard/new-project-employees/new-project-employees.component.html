@@ -9,11 +9,11 @@
   *ngFor="let projectEmployee of projectEmployees"
   class="table-row">
   <img
-    *ngIf="projectEmployee.employee.image"
+    *ngIf="projectEmployee.employee.imagePath"
     class="task-image"
-    [src]="projectEmployee.employee.image" />
+    [src]="projectEmployee.employee.imagePath" />
   <span
-    *ngIf="!projectEmployee.employee.image"
+    *ngIf="!projectEmployee.employee.imagePath"
     class="picture">
     {{ projectEmployee.employee.firstName[0]
     }}{{ projectEmployee.employee.lastName[0] }}

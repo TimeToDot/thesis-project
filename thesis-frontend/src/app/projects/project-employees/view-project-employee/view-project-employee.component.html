@@ -4,12 +4,12 @@
   <div class="header">
     <div class="title">
       <img
-        *ngIf="projectEmployee.employee.image"
+        *ngIf="projectEmployee.employee.imagePath"
         class="picture"
         [ngClass]="{ archived: !projectEmployee.active }"
-        [src]="projectEmployee.employee.image" />
+        [src]="projectEmployee.employee.imagePath" />
       <span
-        *ngIf="!projectEmployee.employee.image"
+        *ngIf="!projectEmployee.employee.imagePath"
         class="picture">
         {{ projectEmployee.employee.firstName[0]
         }}{{ projectEmployee.employee.lastName[0] }}
@@ -58,19 +58,19 @@
         class="left-field"
         label="Hire Date">
         <span>{{
-          projectEmployee.employee.employmentDate | date: 'dd/MM/yyyy'
+          projectEmployee.employee.employmentDate | date : 'dd/MM/yyyy'
         }}</span>
       </bvr-form-field>
       <bvr-form-field
         [ngClass]="projectEmployee.active ? 'field' : 'left-field'"
         label="Join Date">
-        <span>{{ projectEmployee.joinDate | date: 'dd/MM/yyyy' }}</span>
+        <span>{{ projectEmployee.joinDate | date : 'dd/MM/yyyy' }}</span>
       </bvr-form-field>
       <bvr-form-field
         *ngIf="!projectEmployee.active"
         class="field"
         label="Exit Date">
-        <span>{{ projectEmployee.exitDate | date: 'dd/MM/yyyy' }}</span>
+        <span>{{ projectEmployee.exitDate | date : 'dd/MM/yyyy' }}</span>
       </bvr-form-field>
     </div>
 
