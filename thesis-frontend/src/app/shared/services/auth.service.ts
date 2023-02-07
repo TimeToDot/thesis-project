@@ -52,7 +52,7 @@ export class AuthService {
       .pipe(
         first(),
         tap(res => {
-          console.log(res.headers.get('Cookie'));
+          console.log(res.headers);
           // this.tokenService.saveToken(res.body?.id);
           // this.isLoggedIn = true;
           // this.permissionsService.setEmployeePermissions(data);
