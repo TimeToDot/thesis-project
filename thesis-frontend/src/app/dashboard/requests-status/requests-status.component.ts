@@ -26,11 +26,14 @@ export class RequestsStatusComponent implements OnInit {
   }
 
   getProjectsApprovals(): void {
-    this.employeesService
-      .getProjectsToApprove(this.authService.getLoggedEmployeeId())
-      .pipe(first())
-      .subscribe(projectApprovals => {
-        this.projectApprovals = projectApprovals;
-      });
+    const employeeId = this.authService.getLoggedEmployeeId();
+    if (employeeId) {
+      this.employeesService
+        .getProjectsToApprove(employeeId)
+        .pipe(first())
+        .subscribe(projectApprovals => {
+          this.projectApprovals = projectApprovals;
+        });
+    }
   }
 }

@@ -2,41 +2,43 @@ import { formatDate } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
-import { environment } from '../../../environments/environment';
 import { Position } from '../models/position.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PositionsService {
+  private url: string = 'http://localhost:8080/thesis/api';
+
   constructor(private http: HttpClient) {}
 
   getPosition(id: string): Observable<Position> {
-    return this.http.get<Position>(`${environment.apiUrl}/position/${id}`);
+    return this.http.get<Position>(`${this.url}/${id}`);
   }
 
   addPosition(position: Position): Observable<Position> {
-    return this.http.post<Position>(`${environment.apiUrl}/position`, position);
+    return this.http.post<Position>(this.url, position);
   }
 
   updatePosition(position: Position): Observable<Position> {
-    return this.http.put<Position>(`${environment.apiUrl}/position`, position);
+    return this.http.put<Position>(`${this.url}/${position.id}`, position);
   }
 
   archivePosition(position: Position): Observable<Position> {
     position.active = false;
-    return this.http.put<Position>(`${environment.apiUrl}/position`, position);
+    position.archiveDate = formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en');
+    return this.http.put<Position>(`${this.url}/${position.id}`, position);
   }
 
   getPositions(): Observable<Position[]> {
     return this.http
-      .get<any>(`${environment.apiUrl}/positions?active=true`)
+      .get<any>(`${this.url}/positions?active=true`)
       .pipe(map(value => value.positions));
   }
 
   getArchivedPositions(): Observable<Position[]> {
     return this.http
-      .get<any>(`${environment.apiUrl}/positions?active=false`)
+      .get<any>(`${this.url}?active=false`)
       .pipe(map(value => value.positions));
   }
 }
