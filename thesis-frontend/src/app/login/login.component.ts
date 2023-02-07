@@ -41,9 +41,10 @@ export class LoginComponent implements OnInit {
   login(): void {
     if (this.loginForm.valid) {
       this.authService.login(this.getLoginData()).subscribe(isLoggedIn => {
-        if (isLoggedIn) {
-          this.router.navigateByUrl('/dashboard');
-        }
+        // console.log(isLoggedIn);
+        // if (isLoggedIn) {
+        //   this.router.navigateByUrl('/dashboard');
+        // }
       });
     } else {
       this.loginForm.markAllAsTouched();
@@ -56,6 +57,18 @@ export class LoginComponent implements OnInit {
       password: this.controls.password?.value,
     };
   }
+
+  // login(): void {
+  //   if (this.loginForm.valid) {
+  //     this.authService.login().subscribe(isLoggedIn => {
+  //       if (isLoggedIn) {
+  //         this.router.navigateByUrl('/dashboard');
+  //       }
+  //     });
+  //   } else {
+  //     this.loginForm.markAllAsTouched();
+  //   }
+  // }
 
   forgotPassword(): void {
     this.isPasswordForgotten = !this.isPasswordForgotten;

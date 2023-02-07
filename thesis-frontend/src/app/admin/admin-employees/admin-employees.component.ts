@@ -99,12 +99,20 @@ export class AdminEmployeesComponent implements OnInit {
         .pipe(first())
         .subscribe(employee => {
           this.employeesService
-            .archiveEmployee(employee)
+            .archiveAccount(employee)
             .pipe(first())
-            .subscribe(() => {
-              this.toastService.showToast(ToastState.Info, 'Employee archived');
-              setTimeout(() => this.toastService.dismissToast(), 3000);
-              this.getEmployees();
+            .subscribe(employee => {
+              this.employeesService
+                .archiveEmployee(employee)
+                .pipe(first())
+                .subscribe(() => {
+                  this.toastService.showToast(
+                    ToastState.Info,
+                    'Employee archived'
+                  );
+                  setTimeout(() => this.toastService.dismissToast(), 3000);
+                  this.getEmployees();
+                });
             });
         });
     }

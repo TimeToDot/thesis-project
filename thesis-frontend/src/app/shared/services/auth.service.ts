@@ -2,7 +2,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { first, map, Observable, tap } from 'rxjs';
 import { LoginData } from '../models/login-data.model';
-import { LoginResponse } from '../models/login-response.model';
 import { PermissionsService } from './permissions.service';
 import { TokenService } from './token.service';
 
@@ -15,7 +14,6 @@ export class AuthService {
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-    observe: 'response',
   };
 
   redirectUrl: string | null = null;
@@ -45,17 +43,13 @@ export class AuthService {
 
   login(loginData: LoginData): Observable<boolean> {
     return this.http
-      .post<LoginResponse>(`${this.url}/login`, loginData, {
-        headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-        observe: 'response',
-      })
+      .post<any>(`${this.url}/login`, loginData, this.httpOptions)
       .pipe(
         first(),
-        tap(res => {
-          console.log(res.headers);
-          // this.tokenService.saveToken(res.body?.id);
-          // this.isLoggedIn = true;
-          // this.permissionsService.setEmployeePermissions(data);
+        tap(data => {
+          this.tokenService.saveToken(data.id);
+          this.isLoggedIn = true;
+          this.permissionsService.setEmployeePermissions(data);
         }),
         map(() => true)
       );

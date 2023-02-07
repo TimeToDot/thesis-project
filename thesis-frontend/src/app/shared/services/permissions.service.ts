@@ -8,7 +8,35 @@ import { LoginResponse } from '../models/login-response.model';
 })
 export class PermissionsService {
   private _permissions: Permissions = {
-    projects: [],
+    projects: [
+      {
+        id: '1',
+        canReadProject: true,
+        canManageTasks: true,
+        canManageProjectEmployees: true,
+        canManageApprovals: true,
+        canAdminProjects: true,
+        canAddProjectEmployee: true,
+      },
+      {
+        id: '2',
+        canReadProject: true,
+        canManageTasks: false,
+        canManageProjectEmployees: true,
+        canManageApprovals: false,
+        canAdminProjects: true,
+        canAddProjectEmployee: true,
+      },
+      {
+        id: '3',
+        canReadProject: true,
+        canManageTasks: true,
+        canManageProjectEmployees: false,
+        canManageApprovals: true,
+        canAdminProjects: true,
+        canAddProjectEmployee: false,
+      },
+    ],
     canAddEmployee: true,
     canAddProject: true,
     canAdminEmployees: true,
@@ -29,41 +57,6 @@ export class PermissionsService {
   }
 
   setEmployeePermissions(loginData: LoginResponse): void {
-    this._permissions = {
-      projects: this.setProjectsPermissions(loginData),
-      canAddEmployee: loginData.globalAuthorities.includes('CAN_CREATE_USERS'),
-      canAddProject: true,
-      canAdminEmployees:
-        loginData.globalAuthorities.includes('CAN_ADMIN_USERS'),
-      canAdminSettings:
-        loginData.globalAuthorities.includes('CAN_ADMIN_SETTINGS'),
-      canAdminPositions: loginData.globalAuthorities.includes(
-        'CAN_ADMIN_POSITIONS'
-      ),
-    };
-  }
-
-  setProjectsPermissions(loginData: LoginResponse): ProjectPermissions[] {
-    const projectsPermissions: ProjectPermissions[] = [];
-    Object.keys(loginData.projectPrivileges).forEach(key => {
-      const projectPermissions = {
-        id: key,
-        canReadProject:
-          loginData.projectPrivileges[key].includes('CAN_READ_PROJECT'),
-        canManageTasks:
-          loginData.projectPrivileges[key].includes('CAN_MANAGE_TASKS'),
-        canManageProjectEmployees: loginData.projectPrivileges[key].includes(
-          'CAN_MANAGE_PROJECT_USERS'
-        ),
-        canManageApprovals:
-          loginData.projectPrivileges[key].includes('CAN_ADMIN_PROJECTS'),
-        canAdminProjects:
-          loginData.projectPrivileges[key].includes('CAN_ADMIN_PROJECTS'),
-        canAddProjectEmployee:
-          loginData.projectPrivileges[key].includes('CAN_ADMIN_PROJECTS'),
-      };
-      projectsPermissions.push(projectPermissions);
-    });
-    return projectsPermissions;
+    console.log(loginData);
   }
 }

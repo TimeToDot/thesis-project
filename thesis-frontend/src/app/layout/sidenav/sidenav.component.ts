@@ -5,10 +5,10 @@ import { ButtonComponent } from '../../shared/components/button/button.component
 import { CommonModule } from '@angular/common';
 import { LinkGroup } from '../../shared/models/link-group.model';
 import { EmployeesService } from '../../admin/services/employees.service';
+import { Employee } from '../../shared/models/employee.model';
 import { first } from 'rxjs';
 import { ModalComponent } from '../../shared/components/modal/modal.component';
 import { Account } from '../../shared/models/account.model';
-import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'bvr-sidenav',
@@ -29,14 +29,13 @@ export class SidenavComponent implements OnInit {
   navMenuGroups: LinkGroup[] = [];
 
   constructor(
-    private authService: AuthService,
     private employeesService: EmployeesService,
     private permissionsService: PermissionsService
   ) {}
 
   ngOnInit(): void {
     this.employeesService
-      .getEmployee(this.authService.getLoggedEmployeeId())
+      .getEmployee('1')
       .pipe(first())
       .subscribe(employee => (this.currentEmployee = employee));
     this.getNavMenuOptions();
