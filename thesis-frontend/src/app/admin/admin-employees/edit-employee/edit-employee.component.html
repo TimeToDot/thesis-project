@@ -16,11 +16,11 @@
     <div class="header">
       <div class="title">
         <img
-          *ngIf="employee.imagePath"
-          [src]="employee.imagePath"
+          *ngIf="employee.image"
+          [src]="employee.image"
           class="picture" />
         <span
-          *ngIf="!employee.imagePath"
+          *ngIf="!employee.image"
           class="picture">
           {{ employee.firstName[0] }}{{ employee.lastName[0] }}
         </span>

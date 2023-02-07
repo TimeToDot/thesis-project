@@ -17,6 +17,7 @@ import { ToastService } from '../../../shared/services/toast.service';
 import { ToastState } from '../../../shared/enum/toast-state';
 import { ToastComponent } from '../../../shared/components/toast/toast.component';
 import { first, Subject } from 'rxjs';
+import { ValidationService } from '../../../shared/services/validation.service';
 import { ErrorComponent } from '../../../shared/components/error/error.component';
 import { Regex } from '../../../shared/helpers/regex.helper';
 
@@ -76,10 +77,11 @@ export class EditTaskComponent {
   }
 
   getTask(): void {
+    const projectId = this.route.parent?.snapshot.paramMap.get('id');
     const taskId = this.route.snapshot.paramMap.get('id');
-    if (taskId) {
+    if (projectId && taskId) {
       this.projectTasksService
-        .getProjectTask(taskId)
+        .getProjectTask(projectId, taskId)
         .pipe(first())
         .subscribe(projectTask => {
           this.task = projectTask;

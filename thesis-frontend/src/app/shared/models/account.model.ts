@@ -19,7 +19,7 @@ export interface Account {
   country: DropdownOption;
   phoneNumber: string;
   privateEmail: string;
-  positionId?: string;
+  position: Position;
   employmentDate: string;
   exitDate?: string;
   contractType: DropdownOption;
@@ -29,8 +29,6 @@ export interface Account {
   accountNumber: string;
   email: string;
   password: string;
-  imagePath: string;
+  image: string;
   active: boolean;
-  role?: string[];
-  position: Position;
 }

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { Permissions } from '../models/permissions.model';
 
 @Injectable({
   providedIn: 'root',
@@ -8,8 +7,6 @@ import { Permissions } from '../models/permissions.model';
 export class TokenService {
   private readonly TOKEN_KEY = 'thesis';
   private readonly EMPLOYEE_KEY = 'employeeId';
-  private readonly PROJECT_KEY = 'projectId';
-  private readonly PERMISSIONS_KEY = 'permissions';
 
   constructor(private cookieService: CookieService) {}
 
@@ -39,28 +36,5 @@ export class TokenService {
   getEmployee(): string | null {
     const employeeId = window.localStorage.getItem(this.EMPLOYEE_KEY);
     return employeeId ? JSON.parse(employeeId) : null;
-  }
-
-  saveProject(projectId: string): void {
-    window.localStorage.removeItem(this.PROJECT_KEY);
-    window.localStorage.setItem(this.PROJECT_KEY, JSON.stringify(projectId));
-  }
-
-  getProject(): string | null {
-    const projectId = window.localStorage.getItem(this.PROJECT_KEY);
-    return projectId ? JSON.parse(projectId) : null;
-  }
-
-  savePermissions(permissions: Permissions): void {
-    window.localStorage.removeItem(this.PERMISSIONS_KEY);
-    window.localStorage.setItem(
-      this.PERMISSIONS_KEY,
-      JSON.stringify(permissions)
-    );
-  }
-
-  getPermissions(): Permissions | null {
-    const permissions = window.localStorage.getItem(this.PERMISSIONS_KEY);
-    return permissions ? JSON.parse(permissions) : null;
   }
 }

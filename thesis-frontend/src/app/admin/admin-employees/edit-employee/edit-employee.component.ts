@@ -143,7 +143,7 @@ export class EditEmployeeComponent {
         ],
       }),
       employmentInfo: this.fb.group({
-        positionId: ['', [Validators.required]],
+        position: ['', [Validators.required]],
         employmentDate: [
           formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en'),
           [Validators.required],
@@ -312,8 +312,7 @@ export class EditEmployeeComponent {
       country: this.controls.country?.value,
       phoneNumber: this.controls.phoneNumber?.value,
       privateEmail: this.controls.privateEmail?.value,
-      position: this.employee.position,
-      positionId: this.controls.positionId?.value,
+      position: this.controls.position?.value,
       employmentDate: this.controls.employmentDate?.value,
       contractType: this.controls.contractType?.value,
       workingTime: this.controls.workingTime?.value,
@@ -322,7 +321,7 @@ export class EditEmployeeComponent {
       accountNumber: this.controls.accountNumber?.value,
       email: this.controls.email?.value,
       password: this.controls.password?.value,
-      imagePath: this.employee.imagePath,
+      image: this.employee.image,
       active: this.employee.active,
     };
   }

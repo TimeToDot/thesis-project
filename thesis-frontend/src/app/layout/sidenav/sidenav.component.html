@@ -23,11 +23,11 @@
       class="profile"
       [routerLink]="['/profile']">
       <img
-        *ngIf="currentEmployee.imagePath"
+        *ngIf="currentEmployee.image"
         class="profile-image"
-        [src]="currentEmployee.imagePath" />
+        [src]="currentEmployee.image" />
       <span
-        *ngIf="!currentEmployee.imagePath"
+        *ngIf="!currentEmployee.image"
         class="profile-image">
         {{ currentEmployee.firstName[0] }}{{ currentEmployee.lastName[0] }}
       </span>

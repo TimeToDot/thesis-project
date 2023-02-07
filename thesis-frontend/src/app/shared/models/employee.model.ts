@@ -1,4 +1,3 @@
-import { Position } from '../../admin/models/position.model';
 import { DropdownOption } from './dropdown-option.model';
 
 export interface Employee {

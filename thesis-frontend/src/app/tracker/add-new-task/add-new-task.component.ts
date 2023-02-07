@@ -32,7 +32,6 @@ import { ErrorComponent } from '../../shared/components/error/error.component';
 import { CustomValidators } from '../../shared/helpers/custom-validators.helper';
 import { Status } from '../../shared/enum/status.enum';
 import { Project } from '../../projects/models/project.model';
-import { TokenService } from '../../shared/services/token.service';
 
 @Component({
   selector: 'bvr-add-new-task',
@@ -77,7 +76,6 @@ export class AddNewTaskComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private toastService: ToastService,
-    private tokenService: TokenService,
     private validationService: ValidationService
   ) {}
 
@@ -136,9 +134,8 @@ export class AddNewTaskComponent implements OnInit {
 
   observeProjectChange(): void {
     this.addTaskForm.get('project')?.valueChanges.subscribe(project => {
-      this.tokenService.saveProject(project);
       this.projectTasksService
-        .getProjectTasks()
+        .getProjectTasks(project.id)
         .pipe(first())
         .subscribe(projectTasks => (this.tasks = projectTasks));
       this.addTaskForm.get('task')?.enable();

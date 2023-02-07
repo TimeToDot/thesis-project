@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Permissions } from '../models/permissions.model';
 import { ProjectPermissions } from '../../projects/models/project-permissions.model';
 import { LoginResponse } from '../models/login-response.model';
-import { TokenService } from './token.service';
 
 @Injectable({
   providedIn: 'root',
@@ -17,16 +16,7 @@ export class PermissionsService {
     canAdminPositions: true,
   };
 
-  constructor(private tokenService: TokenService) {
-    this.readFromLocalStorage();
-  }
-
-  readFromLocalStorage(): void {
-    const permissions = this.tokenService.getPermissions();
-    if (permissions) {
-      this._permissions = permissions;
-    }
-  }
+  constructor() {}
 
   getEmployeePermissions(): Permissions {
     return this._permissions;
@@ -51,7 +41,6 @@ export class PermissionsService {
         'CAN_ADMIN_POSITIONS'
       ),
     };
-    this.tokenService.savePermissions(this._permissions);
   }
 
   setProjectsPermissions(loginData: LoginResponse): ProjectPermissions[] {
@@ -67,15 +56,14 @@ export class PermissionsService {
           'CAN_MANAGE_PROJECT_USERS'
         ),
         canManageApprovals:
-          loginData.projectPrivileges[key].includes('CAN_ADMIN_PROJECT'),
+          loginData.projectPrivileges[key].includes('CAN_ADMIN_PROJECTS'),
         canAdminProjects:
-          loginData.projectPrivileges[key].includes('CAN_ADMIN_PROJECT'),
+          loginData.projectPrivileges[key].includes('CAN_ADMIN_PROJECTS'),
         canAddProjectEmployee:
-          loginData.projectPrivileges[key].includes('CAN_ADMIN_PROJECT'),
+          loginData.projectPrivileges[key].includes('CAN_ADMIN_PROJECTS'),
       };
       projectsPermissions.push(projectPermissions);
     });
-    console.log(projectsPermissions);
     return projectsPermissions;
   }
 }

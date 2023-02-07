@@ -97,8 +97,7 @@ export class AccountInfoComponent {
       country: this.controls.country?.value.name,
       phoneNumber: this.controls.phoneNumber?.value,
       privateEmail: this.controls.privateEmail?.value,
-      positionId: this.controls.position?.value.id,
-      position: this.controls.position?.value,
+      position: this.controls.position?.value.id,
       employmentDate: this.controls.employmentDate?.value,
       contractType: this.controls.contractType?.value.id,
       workingTime: this.controls.workingTime?.value,
@@ -107,9 +106,8 @@ export class AccountInfoComponent {
       accountNumber: this.controls.accountNumber?.value,
       email: this.controls.email?.value,
       password: this.controls.password?.value,
-      imagePath: '',
+      image: '',
       active: true,
-      role: ['GLOBAL_USER'],
     };
   }
 

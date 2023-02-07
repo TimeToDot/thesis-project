@@ -1,16 +1,16 @@
 <ng-container *ngIf="projectPermissions">
   <div class="dashboard-row">
-    <!-- <bvr-project-description class="table main"></bvr-project-description> -->
+    <bvr-project-description class="table main"></bvr-project-description>
     <bvr-top-positions
       *ngIf="projectPermissions.canManageProjectEmployees"
       class="chart"></bvr-top-positions>
     <bvr-top-tasks
       *ngIf="!projectPermissions.canManageProjectEmployees"
       class="chart"></bvr-top-tasks>
-    <!-- <bvr-new-project-employees
+    <bvr-new-project-employees
       *ngIf="projectPermissions.canManageProjectEmployees"
       class="table">
-    </bvr-new-project-employees> -->
+    </bvr-new-project-employees>
     <bvr-last-tasks
       *ngIf="!projectPermissions.canManageProjectEmployees"
       class="table">
@@ -18,9 +18,9 @@
   </div>
   <div class="dashboard-row">
     <bvr-hours-in-projects class="chart"></bvr-hours-in-projects>
-    <!-- <bvr-new-requests
+    <bvr-new-requests
       *ngIf="projectPermissions.canManageApprovals"
-      class="table"></bvr-new-requests> -->
+      class="table"></bvr-new-requests>
     <bvr-requests-status
       *ngIf="!projectPermissions.canManageApprovals"
       class="table"></bvr-requests-status>

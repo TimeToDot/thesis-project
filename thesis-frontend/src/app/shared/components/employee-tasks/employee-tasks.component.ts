@@ -18,7 +18,28 @@ export class EmployeeTasksComponent implements OnInit {
   @Input() employeeTasks: EmployeeTask[] = [];
   @Input() isActive: boolean = true;
   @Input() isApproval: boolean = false;
-  @Input() project!: Project;
+  @Input() project: Project = {
+    id: '',
+    name: '',
+    image: '',
+    moderator: {
+      id: '',
+      firstName: '',
+      lastName: '',
+      email: '',
+      image: '',
+      position: '',
+      employmentDate: '',
+      contractType: { id: '', name: '' },
+      wage: 0,
+      workingTime: 0,
+      active: false,
+    },
+    billingPeriod: { id: '', name: '' },
+    employeesCount: 0,
+    creationDate: '',
+    active: false,
+  };
 
   @Output() delete: EventEmitter<EmployeeTask> = new EventEmitter();
   @Output() edit: EventEmitter<EmployeeTask> = new EventEmitter();

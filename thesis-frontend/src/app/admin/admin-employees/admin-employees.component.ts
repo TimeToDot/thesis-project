@@ -82,10 +82,7 @@ export class AdminEmployeesComponent implements OnInit {
     this.employeesService
       .getEmployees()
       .pipe(first())
-      .subscribe(employees => {
-        console.log(employees);
-        this.dataSource = employees;
-      });
+      .subscribe(employees => (this.dataSource = employees));
   }
 
   getArchivedEmployees(): void {

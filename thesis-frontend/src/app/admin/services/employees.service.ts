@@ -15,12 +15,8 @@ import { Approval } from '../../tracker/models/approval.model';
 export class EmployeesService {
   constructor(private http: HttpClient) {}
 
-  getCurrentEmployee(): Observable<Account> {
-    return this.http.get<Account>(`${environment.apiUrl}/employee`);
-  }
-
   getEmployee(id: string): Observable<Account> {
-    return this.http.get<Account>(`${environment.apiUrl}/employee${id}`);
+    return this.http.get<Account>(`${environment.apiUrl}/employee`);
   }
 
   addEmployee(employee: Account): Observable<Account> {

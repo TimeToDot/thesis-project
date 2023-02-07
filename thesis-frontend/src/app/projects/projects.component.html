@@ -74,7 +74,7 @@
             <bvr-button
               class="form-button"
               label="Open"
-              (click)="openProject(project.id)"></bvr-button>
+              [routerLink]="['/projects', project.id]"></bvr-button>
           </div>
         </div>
       </div>

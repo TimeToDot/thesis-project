@@ -23,11 +23,11 @@
       *ngIf="employee"
       class="confirm-employee">
       <img
-        *ngIf="employee.imagePath"
+        *ngIf="employee.image"
         class="picture"
-        [src]="employee.imagePath" />
+        [src]="employee.image" />
       <span
-        *ngIf="!employee.imagePath"
+        *ngIf="!employee.image"
         class="picture">
         {{ employee.firstName[0] }}{{ employee.lastName[0] }}
       </span>
