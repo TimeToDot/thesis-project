@@ -31,7 +31,6 @@ import { EmployeesService } from '../../admin/services/employees.service';
 import { ErrorComponent } from '../../shared/components/error/error.component';
 import { CustomValidators } from '../../shared/helpers/custom-validators.helper';
 import { Status } from '../../shared/enum/status.enum';
-import { Project } from '../../projects/models/project.model';
 
 @Component({
   selector: 'bvr-add-new-task',
@@ -62,7 +61,7 @@ export class AddNewTaskComponent implements OnInit {
   isResetModalOpen: boolean = false;
   isSaveModalOpen: boolean = false;
   modalDescription: string = '';
-  projects: Project[] = [];
+  projects: DropdownOption[] = [];
   redirectSubject: Subject<boolean> = new Subject<boolean>();
   tasks: DropdownOption[] = [];
 
@@ -144,13 +143,17 @@ export class AddNewTaskComponent implements OnInit {
   }
 
   getEmployeeProjects(): void {
-    this.employeesService
-      .getActiveEmployeeProjects()
-      .pipe(first())
-      .subscribe(employeeProjects => {
-        this.projects = employeeProjects;
-        console.log(this.projects);
-      });
+    const employeeId = this.authService.getLoggedEmployeeId();
+    if (employeeId) {
+      this.employeesService
+        .getActiveEmployeeProjects(employeeId)
+        .pipe(first())
+        .subscribe(employeeProjects => {
+          this.projects = employeeProjects.map(
+            employeeProject => employeeProject.project
+          );
+        });
+    }
   }
 
   getTask(): void {

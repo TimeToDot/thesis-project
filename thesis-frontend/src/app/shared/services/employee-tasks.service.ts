@@ -1,7 +1,7 @@
 import { formatDate } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Day } from '../../calendar/models/day.model';
 import { EmployeeTask } from '../models/employee-task.model';
 
@@ -9,7 +9,7 @@ import { EmployeeTask } from '../models/employee-task.model';
   providedIn: 'root',
 })
 export class EmployeeTasksService {
-  private url: string = 'http://localhost:8080/thesis/api';
+  private url: string = 'http://localhost:3000/employees';
 
   constructor(private http: HttpClient) {}
 
@@ -42,16 +42,11 @@ export class EmployeeTasksService {
   ): Observable<EmployeeTask[]> {
     date = formatDate(date, 'yyyy-MM-dd', 'en');
     return this.http.get<EmployeeTask[]>(
-      `${this.url}/employee/tasks?date=${date}`
+      `${this.url}/${employeeId}/tasks?date=${date}`
     );
   }
 
-  getEmployeeCalendar(): Observable<Day[]> {
-    return this.http.get<Day[]>(`${this.url}/employee/calendar`).pipe(
-      map(value => {
-        console.log(value);
-        return value;
-      })
-    );
+  getEmployeeCalendar(employeeId: string): Observable<Day[]> {
+    return this.http.get<Day[]>(`${this.url}/${employeeId}/calendar`);
   }
 }

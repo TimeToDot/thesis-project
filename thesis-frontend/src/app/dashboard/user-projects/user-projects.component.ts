@@ -5,7 +5,6 @@ import { EmployeeProject } from '../../shared/models/employee-project.model';
 import { AuthService } from '../../shared/services/auth.service';
 import { EmployeesService } from '../../admin/services/employees.service';
 import { first } from 'rxjs';
-import { Project } from '../../projects/models/project.model';
 
 @Component({
   selector: 'bvr-user-projects',
@@ -17,7 +16,7 @@ export class UserProjectsComponent implements OnInit {
   @Input() isCompact: boolean = false;
 
   employee!: Account;
-  employeeProjects: Project[] = [];
+  employeeProjects: EmployeeProject[] = [];
 
   constructor(
     private authService: AuthService,
@@ -42,11 +41,14 @@ export class UserProjectsComponent implements OnInit {
   }
 
   getEmployeeProjects(): void {
-    this.employeesService
-      .getActiveEmployeeProjects()
-      .pipe(first())
-      .subscribe(employeeProjects => {
-        this.employeeProjects = employeeProjects;
-      });
+    const employeeId = this.authService.getLoggedEmployeeId();
+    if (employeeId) {
+      this.employeesService
+        .getActiveEmployeeProjects(employeeId)
+        .pipe(first())
+        .subscribe(employeeProjects => {
+          this.employeeProjects = employeeProjects;
+        });
+    }
   }
 }

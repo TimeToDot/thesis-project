@@ -105,12 +105,12 @@ export class ApprovalTrackerComponent implements OnInit, OnDestroy {
   }
 
   getEmployeeCalendar(employeeId: string): void {
-    // this.employeeTasksService
-    //   .getEmployeeCalendar(employeeId)
-    //   .pipe(first())
-    //   .subscribe(calendar => {
-    //     this.$employeeCalendar.next(calendar);
-    //   });
+    this.employeeTasksService
+      .getEmployeeCalendar(employeeId)
+      .pipe(first())
+      .subscribe(calendar => {
+        this.$employeeCalendar.next(calendar);
+      });
   }
 
   getProjectEmployees(): void {

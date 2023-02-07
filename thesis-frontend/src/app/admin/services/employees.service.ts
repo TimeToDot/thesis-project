@@ -1,7 +1,7 @@
+import { formatDate } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
-import { Project } from '../../projects/models/project.model';
+import { Observable } from 'rxjs';
 import { Account } from '../../shared/models/account.model';
 import { EmployeeProject } from '../../shared/models/employee-project.model';
 import { Employee } from '../../shared/models/employee.model';
@@ -20,7 +20,7 @@ export class EmployeesService {
   }
 
   addEmployee(employee: Account): Observable<Account> {
-    return this.http.post<Account>(`${this.url}/authorization`, employee);
+    return this.http.post<Account>(this.url, employee);
   }
 
   updateEmployee(employee: Account): Observable<Account> {
@@ -32,23 +32,16 @@ export class EmployeesService {
   }
 
   getEmployees(): Observable<Employee[]> {
-    return this.http
-      .get<any>(`${this.url}/employees?active=true`)
-      .pipe(map(value => value.employees));
+    return this.http.get<Employee[]>(`${this.url}?active=true`);
   }
 
   getArchivedEmployees(): Observable<Employee[]> {
-    return this.http
-      .get<any>(`${this.url}/employees?active=false`)
-      .pipe(map(value => value.employees));
+    return this.http.get<Employee[]>(`${this.url}?active=false`);
   }
 
-  getActiveEmployeeProjects(): Observable<Project[]> {
-    return this.http.get<any>(`${this.url}/employee/projects`).pipe(
-      map(value => {
-        console.log(value);
-        return value.projects;
-      })
+  getActiveEmployeeProjects(employeeId: string): Observable<EmployeeProject[]> {
+    return this.http.get<EmployeeProject[]>(
+      `${this.url}/${employeeId}/projects?active=true`
     );
   }
 
