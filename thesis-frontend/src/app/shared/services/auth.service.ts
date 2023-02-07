@@ -33,7 +33,7 @@ export class AuthService {
   }
 
   getLoggedEmployeeId(): string {
-    return this.tokenService.getEmployee() as string;
+    return this.tokenService.getToken() as string;
   }
 
   readFromLocalStorage(): void {
@@ -52,12 +52,10 @@ export class AuthService {
       .pipe(
         first(),
         tap(res => {
-          const cookie = res.headers.get('Cookie') as string;
-          const data = res.body as LoginResponse;
-          this.tokenService.saveToken(cookie);
-          this.tokenService.saveEmployee(data.id);
-          this.isLoggedIn = true;
-          this.permissionsService.setEmployeePermissions(data);
+          console.log(res.headers.get('Cookie'));
+          // this.tokenService.saveToken(res.body?.id);
+          // this.isLoggedIn = true;
+          // this.permissionsService.setEmployeePermissions(data);
         }),
         map(() => true)
       );
