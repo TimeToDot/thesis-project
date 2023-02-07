@@ -59,9 +59,7 @@ export class EditEmploymentInfoComponent implements OnInit {
     this.contractTypesService
       .getContractTypes()
       .pipe(first())
-      .subscribe(contractTypes => {
-        this.contractTypes = contractTypes;
-      });
+      .subscribe(contractTypes => (this.contractTypes = contractTypes));
   }
 
   isRequired(control: AbstractControl): boolean {

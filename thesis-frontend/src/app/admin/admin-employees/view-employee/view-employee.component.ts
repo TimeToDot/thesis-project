@@ -67,7 +67,6 @@ export class ViewEmployeeComponent {
         .pipe(first())
         .subscribe(employee => {
           this.employee = employee;
-          console.log(this.employee);
         });
     }
   }

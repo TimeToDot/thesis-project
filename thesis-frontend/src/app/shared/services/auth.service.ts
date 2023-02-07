@@ -59,7 +59,6 @@ export class AuthService {
           const cookie = res.headers.get('Cookie') as string;
           const data = res.body as LoginResponse;
           this.tokenService.saveToken(cookie);
-          console.log(data);
           this.tokenService.saveEmployee(data.id);
           this.isLoggedIn = true;
           this.permissionsService.setEmployeePermissions(data);

@@ -71,9 +71,7 @@ export class EmploymentInfoComponent implements OnInit {
     this.contractTypesService
       .getContractTypes()
       .pipe(first())
-      .subscribe(contractTypes => {
-        this.contractTypes = contractTypes;
-      });
+      .subscribe(contractTypes => (this.contractTypes = contractTypes));
   }
 
   nextStep(): void {
