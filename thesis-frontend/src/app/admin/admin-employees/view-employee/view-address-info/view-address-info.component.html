@@ -1,21 +1,23 @@
-<div class="form">
+<div
+  *ngIf="employee"
+  class="form">
   <div class="form-header">{{ 'Address Info' | uppercase }}</div>
   <div class="row address-info">
     <bvr-form-field
       class="left-field"
       label="Street">
-      <span>{{ account.street }}</span>
+      <span>{{ employee.street }}</span>
     </bvr-form-field>
     <div class="house-info">
       <bvr-form-field
         class="left-field"
         label="House Number">
-        <span>{{ account.houseNumber }}</span>
+        <span>{{ employee.houseNumber }}</span>
       </bvr-form-field>
       <bvr-form-field
         class="field"
         label="Apartment Number">
-        <span>{{ account.apartmentNumber }}</span>
+        <span>{{ employee.apartmentNumber }}</span>
       </bvr-form-field>
     </div>
   </div>
@@ -23,29 +25,29 @@
     <bvr-form-field
       class="left-field"
       label="City">
-      <span>{{ account.city }}</span>
+      <span>{{ employee.city }}</span>
     </bvr-form-field>
     <bvr-form-field
       class="field"
       label="Postal Code">
-      <span>{{ account.postalCode }}</span>
+      <span>{{ employee.postalCode }}</span>
     </bvr-form-field>
   </div>
   <bvr-form-field
     class="field"
     label="Country">
-    <span>{{ account.country.name }}</span>
+    <span>{{ employee.country.name }}</span>
   </bvr-form-field>
   <div class="row">
     <bvr-form-field
       class="left-field"
       label="Phone number">
-      <span>{{ account.phoneNumber }}</span>
+      <span>{{ employee.phoneNumber }}</span>
     </bvr-form-field>
     <bvr-form-field
       class="field"
       label="Private email">
-      <span>{{ account.privateEmail }}</span>
+      <span>{{ employee.privateEmail }}</span>
     </bvr-form-field>
   </div>
 </div>

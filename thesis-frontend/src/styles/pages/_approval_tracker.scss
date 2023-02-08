@@ -14,4 +14,8 @@
     height: 105 * $grid-base;
     overflow-y: scroll;
   }
+
+  .tracker-right-side {
+    justify-content: space-between;
+  }
 }

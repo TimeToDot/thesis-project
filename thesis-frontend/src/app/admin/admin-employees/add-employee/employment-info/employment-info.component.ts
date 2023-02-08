@@ -1,8 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  AbstractControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { ToastService } from '../../../../shared/services/toast.service';
-import { ValidationService } from '../../../../shared/services/validation.service';
 import { ToastState } from '../../../../shared/enum/toast-state';
 import { FormFieldComponent } from '../../../../shared/components/form-field/form-field.component';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
@@ -14,6 +18,8 @@ import { Position } from '../../../models/position.model';
 import { DatePickerComponent } from '../../../../shared/components/date-picker/date-picker.component';
 import { ContractTypesService } from '../../../services/contract-types.service';
 import { DropdownOption } from '../../../../shared/models/dropdown-option.model';
+import { ErrorComponent } from '../../../../shared/components/error/error.component';
+import { InputNumberComponent } from '../../../../shared/components/input-number/input-number.component';
 
 @Component({
   selector: 'bvr-employment-info',
@@ -23,7 +29,9 @@ import { DropdownOption } from '../../../../shared/models/dropdown-option.model'
     CommonModule,
     DatePickerComponent,
     DropdownListComponent,
+    ErrorComponent,
     FormFieldComponent,
+    InputNumberComponent,
     ReactiveFormsModule,
     ToastComponent,
   ],
@@ -31,6 +39,7 @@ import { DropdownOption } from '../../../../shared/models/dropdown-option.model'
 })
 export class EmploymentInfoComponent implements OnInit {
   @Input() addEmployeeForm!: FormGroup;
+  @Input() controls: any;
   @Input() enableFormButtons: boolean = false;
 
   @Output() nextStepChange: EventEmitter<void> = new EventEmitter();
@@ -43,8 +52,7 @@ export class EmploymentInfoComponent implements OnInit {
   constructor(
     private contractTypesService: ContractTypesService,
     private positionsService: PositionsService,
-    private toastService: ToastService,
-    private validationService: ValidationService
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -67,28 +75,16 @@ export class EmploymentInfoComponent implements OnInit {
   }
 
   nextStep(): void {
-    if (this.addEmployeeForm.get('employmentInfo')?.valid) {
+    if (this.controls.employmentInfo?.valid) {
       this.nextStepChange.emit();
     } else {
-      this.addEmployeeForm.get('employmentInfo')?.markAllAsTouched();
+      this.controls.employmentInfo?.markAllAsTouched();
       this.toastService.showToast(ToastState.Error, 'Form invalid');
       setTimeout(() => this.toastService.dismissToast(), 3000);
     }
   }
 
-  isRequired(name: string): boolean {
-    return this.validationService.isRequired(this.addEmployeeForm, [
-      'employmentInfo',
-      name,
-    ]);
-  }
-
-  showErrors(name?: string): boolean {
-    return name
-      ? this.validationService.showErrors(this.addEmployeeForm, [
-          'employmentInfo',
-          name,
-        ])
-      : this.validationService.showErrors(this.addEmployeeForm, []);
+  isRequired(control: AbstractControl): boolean {
+    return control?.hasValidator(Validators.required) ? true : false;
   }
 }

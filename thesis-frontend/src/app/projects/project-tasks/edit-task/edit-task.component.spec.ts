@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -10,7 +11,12 @@ describe('EditTaskComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule, EditTaskComponent, RouterTestingModule],
+      imports: [
+        EditTaskComponent,
+        HttpClientTestingModule,
+        NoopAnimationsModule,
+        RouterTestingModule,
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(EditTaskComponent);

@@ -1,0 +1,1497 @@
+{
+	"info": {
+		"_postman_id": "106add7b-8965-4314-ac6d-2d09dae5051a",
+		"name": "thesis",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16965105"
+	},
+	"item": [
+		{
+			"name": "employee",
+			"item": [
+				{
+					"name": "get employee",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "{{thesis}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "employeeId",
+								"value": "{{idEmployee}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{thesis}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/thesis/api/employee",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"thesis",
+								"api",
+								"employee"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get employee Copy",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "{{thesis}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "employeeId",
+								"value": "{{idEmployee}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{thesis}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/thesis/api/employees",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"thesis",
+								"api",
+								"employees"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get employee by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "{{thesis}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "employeeId",
+								"value": "{{idEmployee}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{thesis}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/thesis/api/employee/bb92254c-12c9-4196-8130-7554d9b85406",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"thesis",
+								"api",
+								"employee",
+								"bb92254c-12c9-4196-8130-7554d9b85406"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update employee by id",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "{{thesis}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "employeeId",
+								"value": "{{idEmployee}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{thesis}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"bb92254c-12c9-4196-8130-7554d9b85406\",\n    \"firstName\": \"Domyslaw-mod@email.com\",\n    \"lastName\": \"Domyśliciel\",\n    \"middleName\": null,\n    \"email\": \"mod@email.com\",\n    \"password\": \"$2a$10$tmgFGj.RpgW647QBix3rgevTY6FXvsJHn9Pwgk8Va.D//MFYBAzWC\",\n    \"idCardNumber\": null,\n    \"pesel\": \"456456456456\",\n    \"sex\": \"male\",\n    \"position\": {\n        \"id\": \"d7c98cd5-7f64-4d60-aa2b-89dd8f89dbfe\",\n        \"name\": \"MANAGER_II\"\n    },\n    \"employmentDate\": null,\n    \"exitDate\": null,\n    \"imagePath\": \"ble\",\n    \"birthDate\": null,\n    \"birthPlace\": null,\n    \"phoneNumber\": \"123123123\",\n    \"city\": \"Domyslicemod@email.com\",\n    \"street\": \"Domyslnamod@email.com\",\n    \"houseNumber\": \"asdas\",\n    \"apartmentNumber\": \"fqeqw\",\n    \"postalCode\": \"12-123\",\n    \"country\": null,\n    \"privateEmail\": \"siema@email.com\",\n    \"accountNumber\": \"123123123123123123\",\n    \"contractType\": \"Commission contract\",\n    \"workingTime\": null,\n    \"wage\": null,\n    \"payday\": null,\n    \"active\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/thesis/api/employee/bb92254c-12c9-4196-8130-7554d9b85406",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"thesis",
+								"api",
+								"employee",
+								"bb92254c-12c9-4196-8130-7554d9b85406"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get employee projects",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true,
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "{{thesis}}",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "employeeId",
+								"value": "{{idEmployee}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{thesis}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/thesis/api/employee/projects",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"thesis",
+								"api",
+								"employee",
+								"projects"
+							],
+							"query": [
+								{
+									"key": "sorting",
+									"value": "asc",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get projects to approve",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "employeeId",
+								"value": "{{idEmployee}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{thesis}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"startDate\": \"2022-12-01T01:25\",\n  \"endDate\": \"2023-01-25T23:25\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/thesis/api/employee/projects/toApprove?startDate= 2022-12-01T01:25&endDate=2023-01-25T23:25",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"thesis",
+								"api",
+								"employee",
+								"projects",
+								"toApprove"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": " 2022-12-01T01:25"
+								},
+								{
+									"key": "endDate",
+									"value": "2023-01-25T23:25"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "send projects to approve",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{thesis}}",
+								"type": "text"
+							},
+							{
+								"key": "employeeId",
+								"value": "{{idEmployee}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"startDate\": \"2022-12-01T01:25\",\n  \"endDate\": \"2023-01-25T23:25\",\n  \"projectIds\": [\n    \"d99704f1-f8cc-42e6-8137-ba896c0ec86e\"\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/thesis/api/employee/projects/toApprove",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"thesis",
+								"api",
+								"employee",
+								"projects",
+								"toApprove"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get employee Calendar",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{thesis}}",
+								"type": "text"
+							},
+							{
+								"key": "employeeId",
+								"value": "{{idEmployee}}",
+								"type": "text"
+							},
+							{
+								"key": "projectId",
+								"value": "{{projectId}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/thesis/api/employee/{{idEmployee}}/calendar?date=01-2023",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"thesis",
+								"api",
+								"employee",
+								"{{idEmployee}}",
+								"calendar"
+							],
+							"query": [
+								{
+									"key": "date",
+									"value": "01-2023"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get Calendar",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{thesis}}",
+								"type": "text"
+							},
+							{
+								"key": "employeeId",
+								"value": "{{idEmployee}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/thesis/api/employee/calendar?date=01-2023",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"thesis",
+								"api",
+								"employee",
+								"calendar"
+							],
+							"query": [
+								{
+									"key": "date",
+									"value": "01-2023"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get tasks",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "employeeId",
+								"value": "{{idEmployee}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{thesis}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"startDate\": \"2022-12-01T01:13:35.277Z\",\n  \"endDate\": \"2023-01-30T01:13:35.277Z\",\n  \"settings\": {\n    \"page\": 1,\n    \"size\": 10\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/thesis/api/employee/tasks?startDate=2022-12-01T01:13&endDate=2023-01-30T01:13&page=1&size=5",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"thesis",
+								"api",
+								"employee",
+								"tasks"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "2022-12-01T01:13"
+								},
+								{
+									"key": "endDate",
+									"value": "2023-01-30T01:13"
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "size",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get task",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "employeeId",
+								"value": "{{idEmployee}}",
+								"type": "text"
+							},
+							{
+								"key": "Authorization",
+								"value": "{{thesis}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/thesis/api/employee/task/{{taskId}}",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"thesis",
+								"api",
+								"employee",
+								"task",
+								"{{taskId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add task",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Cookie",
+								"value": "{{thesis}}",
+								"type": "text"
+							},
+							{
+								"key": "employeeId",
+								"value": "{{idEmployee}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"startDate\": \"2023-01-13T14:16:58.228Z\",\n  \"endDate\": \"2023-01-13T15:16:58.228Z\",\n  \"projectId\": \"377c6f6b-4137-4146-a983-bb0b042e31a0\",\n  \"taskId\": \"fc2b17a3-3a92-4337-8d48-85d298cd15ea\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/thesis/api/employee/task",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"thesis",
+								"api",
+								"employee",
+								"task"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update task",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "employeeId",
+								"value": "{{idEmployee}}",
+								"type": "text"
+							},
+							{
+								"key": "Cookie",
+								"value": "{{thesis}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"96146aa5-d0b9-4116-87f6-75d411d4a7c7\",\n  \"startDate\": \"2023-01-13T14:16:58.228Z\",\n  \"endDate\": \"2023-01-13T16:16:58.228Z\",\n  \"projectId\": \"377c6f6b-4137-4146-a983-bb0b042e31a0\",\n  \"taskId\": \"fc2b17a3-3a92-4337-8d48-85d298cd15ea\",\n  \"status\": \"PENDING\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/thesis/api/employee/task",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"thesis",
+								"api",
+								"employee",
+								"task"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get employee task",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{thesis}}",
+								"type": "text"
+							},
+							{
+								"key": "employeeId",
+								"value": "{{idEmployee}}",
+								"type": "text"
+							},
+							{
+								"key": "projectId",
+								"value": "{{projectId}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/thesis/api/employee/{{idEmployee}}/task/{{taskId}}",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"thesis",
+								"api",
+								"employee",
+								"{{idEmployee}}",
+								"task",
+								"{{taskId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get employee tasks",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{thesis}}",
+								"type": "text"
+							},
+							{
+								"key": "employeeId",
+								"value": "{{idEmployee}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/thesis/api/employee/tasks?startDate=2023-01-01T23:59&endDate=2023-01-17T23:59\"",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"thesis",
+								"api",
+								"employee",
+								"tasks"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "2023-01-01T23:59"
+								},
+								{
+									"key": "endDate",
+									"value": "2023-01-17T23:59\""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "position",
+			"item": [
+				{
+					"name": "get position",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{thesis}}",
+								"type": "text"
+							},
+							{
+								"key": "employeeId",
+								"value": "{{idEmployee}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/thesis/api/position/{{positionId}}",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"thesis",
+								"api",
+								"position",
+								"{{positionId}}"
+							],
+							"query": [
+								{
+									"key": "positionId",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get positions",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{thesis}}",
+								"type": "text"
+							},
+							{
+								"key": "employeeId",
+								"value": "{{idEmployee}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/thesis/api/positions",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"thesis",
+								"api",
+								"positions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add position",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{thesis}}",
+								"type": "text"
+							},
+							{
+								"key": "employeeId",
+								"value": "{{idEmployee}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"nowy testowy\",\n  \"description\": \"nowy testowy\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/thesis/api/position",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"thesis",
+								"api",
+								"position"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updatePosition",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{thesis}}",
+								"type": "text"
+							},
+							{
+								"key": "employeeId",
+								"value": "{{idEmployee}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"b14f8998-4795-42ad-ad15-e5fe211b35c5\",\n  \"name\": \"jednak inne\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/thesis/api/position",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"thesis",
+								"api",
+								"position"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "project",
+			"item": [
+				{
+					"name": "getProject employees",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{thesis}}",
+								"type": "text"
+							},
+							{
+								"key": "employeeId",
+								"value": "{{idEmployee}}",
+								"type": "text"
+							},
+							{
+								"key": "projectId",
+								"value": "{{projectId}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/thesis/api/project/employees",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"thesis",
+								"api",
+								"project",
+								"employees"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add project employee",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{thesis}}",
+								"type": "text"
+							},
+							{
+								"key": "employeeId",
+								"value": "{{idEmployee}}",
+								"type": "text"
+							},
+							{
+								"key": "projectId",
+								"value": "{{projectId}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "bbdef209-4dab-46cc-9294-3d264413290d\n{\n  \"employeeId\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\n  \"modifier\": 0,\n  \"workingTime\": 0,\n  \"roleDTOStatus\": \"ROLE_PROJECT_USER\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/thesis/api/project/employee",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"thesis",
+								"api",
+								"project",
+								"employee"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get project tasks",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{thesis}}",
+								"type": "text"
+							},
+							{
+								"key": "employeeId",
+								"value": "{{idEmployee}}",
+								"type": "text"
+							},
+							{
+								"key": "projectId",
+								"value": "{{projectId}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/thesis/api/project/tasks",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"thesis",
+								"api",
+								"project",
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get project task",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{thesis}}",
+								"type": "text"
+							},
+							{
+								"key": "employeeId",
+								"value": "{{idEmployee}}",
+								"type": "text"
+							},
+							{
+								"key": "projectId",
+								"value": "{{projectId}}",
+								"type": "text"
+							},
+							{
+								"key": "taskId",
+								"value": "{{taskId}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/thesis/api/project/task/{{taskId}}",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"thesis",
+								"api",
+								"project",
+								"task",
+								"{{taskId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add project task",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{thesis}}",
+								"type": "text"
+							},
+							{
+								"key": "employeeId",
+								"value": "{{idEmployee}}",
+								"type": "text"
+							},
+							{
+								"key": "projectId",
+								"value": "{{projectId}}",
+								"type": "text"
+							},
+							{
+								"key": "taskId",
+								"value": "{{taskId}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"testowy nowy\",\n  \"description\": \"co to bedzie\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/thesis/api/project/task",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"thesis",
+								"api",
+								"project",
+								"task"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update project task",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{thesis}}",
+								"type": "text"
+							},
+							{
+								"key": "employeeId",
+								"value": "{{idEmployee}}",
+								"type": "text"
+							},
+							{
+								"key": "projectId",
+								"value": "{{projectId}}",
+								"type": "text"
+							},
+							{
+								"key": "taskId",
+								"value": "{{taskId}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": \"826e22f8-0b85-4e5d-8e9f-42cb2d0b0faf\",\n  \"name\": \" ja pieprze  teraz bedzie testowy zupdateowany\",\n  \"description\": \"huehuehuehuehue\",\n  \"active\": true\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/thesis/api/project/task",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"thesis",
+								"api",
+								"project",
+								"task"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get project tasks approvals",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{thesis}}",
+								"type": "text"
+							},
+							{
+								"key": "employeeId",
+								"value": "{{idEmployee}}",
+								"type": "text"
+							},
+							{
+								"key": "projectId",
+								"value": "{{projectId}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/thesis/api/project/approvals",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"thesis",
+								"api",
+								"project",
+								"approvals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get projects",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{thesis}}",
+								"type": "text"
+							},
+							{
+								"key": "employeeId",
+								"value": "{{idEmployee}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:8080/thesis/api/projects",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"thesis",
+								"api",
+								"projects"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "dummy Controller",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "thesis=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiaWF0IjoxNjcwOTc0OTk0LCJleHAiOjE2NzEwNTQ5OTR9.fYzvUUKDX3r7lMQX3LG0HJOMibPmck35oelKRyIUVSxMbjMcRap6yueEfencJPl6ZW2RksQ97y71vkGtbmOUFw;",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/thesis/api/main/customers",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"thesis",
+						"api",
+						"main",
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonResponse = pm.response.json()",
+							"//const headers = pm.headers.json();",
+							"pm.environment.set(\"idEmployee\", jsonResponse.id)",
+							"",
+							"var responseHeader = pm.response.headers.get(\"Cookie\");",
+							"var table = responseHeader.split(\" \")",
+							"var text = table.shift();",
+							"let count = text.length - 1",
+							"const thesis = text.substring(0, count)",
+							"",
+							"pm.environment.set(\"thesis\", thesis);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"admin@email.com\",\n    \"password\": \"admin\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/thesis/api/authentication/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"thesis",
+						"api",
+						"authentication",
+						"login"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "admin",
+							"disabled": true
+						},
+						{
+							"key": "password",
+							"value": "admin",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"email\": \"test111@gmail.com\",\n  \"password\": \"test111\",\n  \"firstName\": \"test111\",\n  \"lastName\": \"test111\",\n  \"sex\": \"male\",\n  \"birthDate\": \"2000-01-01\",\n  \"birthPlace\": \"test111\",\n  \"idCardNumber\": \"dupna karta\",\n  \"pesel\": \"123123123123\",\n  \"street\": \"test111\",\n  \"houseNumber\": \"test111\",\n  \"apartmentNumber\": \"test111\",\n  \"city\": \"test111\",\n  \"postalCode\": \"test111\",\n  \"country\": \"tego nie ma w bazie\",\n  \"phoneNumber\": \"123123123\",\n  \"privateEmail\": \"bezsensupole@gmail.com\",\n  \"positionId\": \"{{positionId}}\", \n  \"employmentDate\": \"2023-01-14\",\n  \"contractType\": \"Employment contract\",\n  \"billingPeriod\": \"Week\",\n  \"workingTime\": 8,\n  \"wage\": 15,\n  \"payday\": 51,\n  \"accountNumber\": \"1234-1234-1234-1234\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/thesis/api/authorization",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"thesis",
+						"api",
+						"authorization"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "logout",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "thesis=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyIiwiaWF0IjoxNjcxMDI3NTcyLCJleHAiOjE2NzExMDc1NzJ9.0Mym8j_AAZ3VyLWaaxQDuy8z61JKp4uG-noEJEZ0OpTQBSgp2hbLEqoFZ8elQBaMy20opBZom1Aqlhi4W2S2Uw;",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/thesis/api/authentication/signout",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"thesis",
+						"api",
+						"authentication",
+						"signout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get contractTypes",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{thesis}}",
+						"type": "text"
+					},
+					{
+						"key": "employeeId",
+						"value": "{{idEmployee}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/thesis/api/employee/contractTypes",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"thesis",
+						"api",
+						"employee",
+						"contractTypes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get billingPeriod",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{thesis}}",
+						"type": "text"
+					},
+					{
+						"key": "employeeId",
+						"value": "{{idEmployee}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/thesis/api/employee/bellingPeriod",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"thesis",
+						"api",
+						"employee",
+						"bellingPeriod"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "global settings",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{thesis}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/thesis/api/global/settings",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"thesis",
+						"api",
+						"global",
+						"settings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "global settings Copy",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{thesis}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"requireConfirmationOnTaskSubmission\": false,\n    \"showDashboards\": true,\n    \"showProjects\": false,\n    \"defaultPage\": {\n        \"2\": \"beee\"\n    },\n    \"companyName\": \"Amazement\",\n    \"regon\": \"000000000\",\n    \"nip\": \"adfsdf\",\n    \"krs\": \"0000000000\",\n    \"image\": \"\",\n    \"description\": \"Example dupa description\",\n    \"street\": \"Podchorążych\",\n    \"houseNumber\": \"2\",\n    \"apartmentNumber\": \"1\",\n    \"city\": \"Kraków\",\n    \"postalCode\": \"30-048\",\n    \"country\": {\n        \"175\": \"🇵🇱 Poland\"\n    },\n    \"phoneNumber\": \"000-000-000\",\n    \"email\": \"company.mail@mail.com\",\n    \"website\": \"company.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/thesis/api/global/settings",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"thesis",
+						"api",
+						"global",
+						"settings"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "thesis",
+			"value": "asa"
+		}
+	]
+}

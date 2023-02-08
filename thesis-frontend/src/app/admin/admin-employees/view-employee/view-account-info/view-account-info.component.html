@@ -1,6 +1,8 @@
-<div class="form">
+<div
+  *ngIf="employee"
+  class="form">
   <div class="form-header">{{ 'Account Info' | uppercase }}</div>
   <bvr-form-field label="Email">
-    <span>{{ account.email }}</span>
+    <span>{{ employee.email }}</span>
   </bvr-form-field>
 </div>

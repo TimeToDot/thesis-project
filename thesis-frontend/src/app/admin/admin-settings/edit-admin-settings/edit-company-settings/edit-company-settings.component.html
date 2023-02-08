@@ -1,0 +1,82 @@
+<div
+  *ngIf="editGlobalSettingsForm"
+  [formGroup]="editGlobalSettingsForm">
+  <div
+    class="form"
+    formGroupName="companyInfo">
+    <div class="row">
+      <bvr-form-field
+        class="left-field"
+        label="Company Name"
+        [required]="isRequired(controls.companyName)">
+        <input
+          formControlName="companyName"
+          type="text" />
+        <bvr-error
+          class="error"
+          [control]="controls.companyName"></bvr-error>
+      </bvr-form-field>
+      <bvr-form-field
+        class="field"
+        label="REGON"
+        [required]="isRequired(controls.regon)">
+        <bvr-input-number
+          [decimalPlaces]="0"
+          [digits]="14"
+          formControlName="regon"
+          placeholder="REGON"></bvr-input-number>
+        <bvr-error
+          class="error"
+          [control]="controls.regon"></bvr-error>
+      </bvr-form-field>
+    </div>
+    <div class="row">
+      <bvr-form-field
+        class="left-field"
+        label="NIP"
+        [required]="isRequired(controls.nip)">
+        <bvr-input-number
+          [decimalPlaces]="0"
+          [digits]="10"
+          formControlName="nip"
+          placeholder="NIP"></bvr-input-number>
+        <bvr-error
+          class="error"
+          [control]="controls.nip"></bvr-error>
+      </bvr-form-field>
+      <bvr-form-field
+        class="field"
+        label="KRS"
+        [required]="isRequired(controls.krs)">
+        <bvr-input-number
+          [decimalPlaces]="0"
+          [digits]="10"
+          formControlName="krs"
+          placeholder="KRS"></bvr-input-number>
+        <bvr-error
+          class="error"
+          [control]="controls.krs"></bvr-error>
+      </bvr-form-field>
+    </div>
+    <div class="row">
+      <bvr-form-field
+        class="left-field"
+        label="Logo"
+        [required]="isRequired(controls.logo)">
+        <bvr-file-upload formControlName="logo"></bvr-file-upload>
+        <bvr-error
+          class="error"
+          [control]="controls.logo"></bvr-error>
+      </bvr-form-field>
+      <bvr-form-field
+        class="field"
+        label="Description"
+        [required]="isRequired(controls.description)">
+        <textarea formControlName="description"></textarea>
+        <bvr-error
+          class="error"
+          [control]="controls.description"></bvr-error>
+      </bvr-form-field>
+    </div>
+  </div>
+</div>

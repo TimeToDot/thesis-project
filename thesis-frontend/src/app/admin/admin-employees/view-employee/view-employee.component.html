@@ -2,41 +2,43 @@
   <div class="header">
     <div class="title">
       <span class="material-icons-outlined">groups</span>
-      <h2 class="name">Employee</h2>
+      <h2>Employee</h2>
     </div>
     <bvr-tabs [navbarOptions]="navbarOptions"></bvr-tabs>
   </div>
-  <div class="card-content view-employee">
+  <div
+    *ngIf="employee"
+    class="card-content view-form">
     <div class="header">
-      <div class="name">
+      <div class="title">
         <img
-          *ngIf="account.image"
+          *ngIf="employee.image"
           class="picture"
-          [ngClass]="{ archived: !account.active }"
-          [src]="account.image" />
+          [ngClass]="{ archived: !employee.active }"
+          [src]="employee.image" />
         <span
-          *ngIf="!account.image"
+          *ngIf="!employee.image"
           class="picture">
-          {{ account.firstName[0] }}{{ account.lastName[0] }}
+          {{ employee.firstName[0] }}{{ employee.lastName[0] }}
         </span>
         <h4>
-          {{ account.firstName }}
-          {{ account.lastName }}
+          {{ employee.firstName }}
+          {{ employee.lastName }}
         </h4>
         <h4
-          *ngIf="!account.active"
+          *ngIf="!employee.active"
           class="archived">
           (Archived)
         </h4>
       </div>
       <div>
         <bvr-button
-          *ngIf="account.active"
+          *ngIf="employee.active"
           icon="edit"
           [routerLink]="['edit']"
           styleClass="button-icon"></bvr-button>
         <bvr-button
-          *ngIf="account.active"
+          *ngIf="employee.active"
           (click)="openArchiveModal()"
           icon="archive"
           styleClass="button-icon">
@@ -48,7 +50,7 @@
       [@tabs]="getRouteAnimationData()"
       (@tabs.start)="toggleFormButtons(false)"
       (@tabs.done)="toggleFormButtons(true)"
-      class="view-employee-content">
+      class="view-form-content">
       <router-outlet (activate)="onOutletLoaded($event)"></router-outlet>
     </div>
 
@@ -57,7 +59,7 @@
       class="form-buttons">
       <bvr-button
         class="form-button"
-        (click)="openCancelModal(false)"
+        [routerLink]="['..']"
         label="Cancel"
         styleClass="button-text"></bvr-button>
     </div>
@@ -65,16 +67,10 @@
 </div>
 
 <bvr-modal
-  (confirm)="archive()"
+  (confirm)="archive($event)"
   confirmLabel="archive"
   [description]="modalDescription"
   [title]="'Archive employee'"
   [(visible)]="isArchiveModalOpen"></bvr-modal>
-<bvr-modal
-  (confirm)="cancel($event)"
-  confirmLabel="Leave"
-  [description]="modalDescription"
-  [title]="'Leave'"
-  [(visible)]="isCancelModalOpen"></bvr-modal>
 
 <bvr-toast></bvr-toast>

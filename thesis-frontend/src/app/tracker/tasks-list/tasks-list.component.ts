@@ -10,6 +10,8 @@ import { ModalComponent } from '../../shared/components/modal/modal.component';
 import { ToastService } from '../../shared/services/toast.service';
 import { ToastState } from '../../shared/enum/toast-state';
 import { first } from 'rxjs';
+import { AuthService } from '../../shared/services/auth.service';
+import { CalendarService } from '../../shared/services/calendar.service';
 
 @Component({
   selector: 'bvr-tasks-list',
@@ -27,8 +29,11 @@ export class TasksListComponent implements OnInit {
   employeeProjectTasks: EmployeeProjectTask[] = [];
   isDeleteModalOpen: boolean = false;
   modalDescription: string = '';
+  taskToDelete: string = '';
 
   constructor(
+    private authService: AuthService,
+    private calendarService: CalendarService,
     private employeeTasksService: EmployeeTasksService,
     private route: ActivatedRoute,
     private router: Router,
@@ -37,18 +42,26 @@ export class TasksListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getEmployeeTasks();
-    this.getEmployeeProjectTasks();
     this.sortByProjectName();
   }
 
   getEmployeeTasks(): void {
-    this.employeeTasksService
-      .getEmployeeTasks()
-      .pipe(first())
-      .subscribe(employeeTasks => (this.employeeTasks = employeeTasks));
+    const employeeId = this.authService.getLoggedEmployeeId();
+    if (employeeId) {
+      this.calendarService.currentDay.subscribe(date => {
+        this.employeeTasksService
+          .getEmployeeTasks(employeeId, date)
+          .pipe(first())
+          .subscribe(employeeTasks => {
+            this.employeeTasks = employeeTasks;
+            this.getEmployeeProjectTasks();
+          });
+      });
+    }
   }
 
   getEmployeeProjectTasks(): void {
+    this.employeeProjectTasks = [];
     this.employeeTasks.forEach(employeeTask => {
       const index = this.findProjectIndex(employeeTask.project.id);
       if (index !== -1) {
@@ -76,6 +89,7 @@ export class TasksListComponent implements OnInit {
 
   openDeleteModal(task: EmployeeTask): void {
     this.isDeleteModalOpen = true;
+    this.taskToDelete = task.id;
     this.modalDescription = `Are you sure you want to delete ${task.task.name}? This action cannot be undone.`;
   }
 
@@ -83,8 +97,17 @@ export class TasksListComponent implements OnInit {
     this.router.navigate(['../edit-task', task.id], { relativeTo: this.route });
   }
 
-  delete(): void {
-    this.toastService.showToast(ToastState.Info, 'Task deleted');
-    setTimeout(() => this.toastService.dismissToast(), 3000);
+  delete(value: boolean): void {
+    const employeeId = this.authService.getLoggedEmployeeId();
+    if (value) {
+      this.employeeTasksService
+        .deleteEmployeeTask(employeeId, this.taskToDelete)
+        .pipe(first())
+        .subscribe(() => {
+          this.getEmployeeTasks();
+          this.toastService.showToast(ToastState.Info, 'Task deleted');
+          setTimeout(() => this.toastService.dismissToast(), 3000);
+        });
+    }
   }
 }

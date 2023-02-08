@@ -1,6 +1,9 @@
 postgres:
 	docker run --name postgres14-thesis -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secret -d postgres:14-alpine
 
+startpostgres:
+	docker start postgres14-thesis
+
 createdb:
 	docker exec -it postgres14-thesis createdb --username=root --owner=root thesis
 

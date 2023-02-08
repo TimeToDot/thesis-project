@@ -1,27 +1,3 @@
-.add-new-employee {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-
-.add-project-employee {
-  flex: 1;
-  padding: 8 * $grid-base 31 * $grid-base;
-
-  .row {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-  }
-
-  .disabled {
-    label,
-    input::placeholder {
-      color: $color-disabled;
-    }
-  }
-}
-
 .confirm-employee {
   display: flex;
   flex-direction: row;
@@ -50,10 +26,13 @@
   .picture {
     align-items: center;
     background: $color-disabled;
+    border-radius: 100%;
     display: flex;
     height: 37.5 * $grid-base;
     justify-content: center;
     margin-right: 11 * $grid-base;
+    max-height: 37.5 * $grid-base;
+    min-width: 37.5 * $grid-base;
     width: 37.5 * $grid-base;
   }
 }

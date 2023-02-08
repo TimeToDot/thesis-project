@@ -1,12 +1,12 @@
+import { Account } from '../../shared/models/account.model';
 import { DropdownOption } from '../../shared/models/dropdown-option.model';
-import { Employee } from '../../shared/models/employee.model';
 
 export interface Project {
   id: string;
   name: string;
   image: string;
   description?: string;
-  moderator: Employee;
+  moderator: Account;
   employeesCount: number;
   creationDate: string;
   archiveDate?: string;
@@ -16,4 +16,5 @@ export interface Project {
   nightModifier?: number;
   holidayModifier?: number;
   active: boolean;
+  moderatorId?: string;
 }

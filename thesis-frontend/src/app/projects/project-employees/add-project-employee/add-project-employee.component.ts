@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule, Location } from '@angular/common';
+import { CommonModule, formatDate, Location } from '@angular/common';
 import {
+  AbstractControl,
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
@@ -10,7 +11,6 @@ import { FormFieldComponent } from '../../../shared/components/form-field/form-f
 import { ButtonComponent } from '../../../shared/components/button/button.component';
 import { ModalComponent } from '../../../shared/components/modal/modal.component';
 import { EmployeesService } from '../../../admin/services/employees.service';
-import { ValidationService } from '../../../shared/services/validation.service';
 import { first, Subject } from 'rxjs';
 import { Employee } from '../../../shared/models/employee.model';
 import { ToastState } from '../../../shared/enum/toast-state';
@@ -19,6 +19,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastComponent } from '../../../shared/components/toast/toast.component';
 import { SwitchComponent } from '../../../shared/components/switch/switch.component';
 import { DropdownSearchEmployeeComponent } from '../../../shared/components/dropdown-search-employee/dropdown-search-employee.component';
+import { Account } from '../../../shared/models/account.model';
+import { CustomValidators } from '../../../shared/helpers/custom-validators.helper';
+import { ErrorComponent } from '../../../shared/components/error/error.component';
+import { InputNumberComponent } from '../../../shared/components/input-number/input-number.component';
+import { ProjectEmployee } from '../../models/project-employee.model';
+import { ProjectEmployeesService } from '../../services/project-employees.service';
 
 @Component({
   selector: 'bvr-add-project-employee',
@@ -27,7 +33,9 @@ import { DropdownSearchEmployeeComponent } from '../../../shared/components/drop
     ButtonComponent,
     CommonModule,
     DropdownSearchEmployeeComponent,
+    ErrorComponent,
     FormFieldComponent,
+    InputNumberComponent,
     ModalComponent,
     ReactiveFormsModule,
     SwitchComponent,
@@ -37,7 +45,8 @@ import { DropdownSearchEmployeeComponent } from '../../../shared/components/drop
 })
 export class AddProjectEmployeeComponent implements OnInit {
   addProjectEmployeeForm!: FormGroup;
-  employee!: Employee;
+  controls: any = {};
+  employee!: Account;
   employees: Employee[] = [];
   isAddModalOpen: boolean = false;
   isCancelModalOpen: boolean = false;
@@ -50,22 +59,39 @@ export class AddProjectEmployeeComponent implements OnInit {
     private employeesService: EmployeesService,
     private fb: FormBuilder,
     private location: Location,
+    private projectEmployeesService: ProjectEmployeesService,
     private route: ActivatedRoute,
     private router: Router,
-    private toastService: ToastService,
-    private validationService: ValidationService
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
     this.createForm();
+    this.getFormControls();
     this.getEmployees();
   }
 
   createForm(): void {
     this.addProjectEmployeeForm = this.fb.group({
       id: ['', [Validators.required]],
-      workingTime: ['', [Validators.required]],
-      salaryModifier: [{ value: '', disabled: true }],
+      workingTime: [
+        '',
+        [
+          Validators.required,
+          CustomValidators.minValue(0),
+          CustomValidators.maxValue(168),
+        ],
+      ],
+      salaryModifier: [
+        { value: 100, disabled: true },
+        [CustomValidators.minValue(0), CustomValidators.maxValue(500)],
+      ],
+    });
+  }
+
+  getFormControls(): void {
+    Object.keys(this.addProjectEmployeeForm.controls).forEach(control => {
+      this.controls[control] = this.addProjectEmployeeForm.get([control]);
     });
   }
 
@@ -76,33 +102,42 @@ export class AddProjectEmployeeComponent implements OnInit {
       .subscribe(employees => {
         this.employees = employees.slice(0, 7);
         setTimeout(() => this.observeIdSelection(), 0);
+        this.getProjectEmployees();
+      });
+  }
+
+  getProjectEmployees(): void {
+    const projectId = this.route.parent?.snapshot.paramMap.get('id') as string;
+    this.projectEmployeesService
+      .getProjectEmployees(projectId)
+      .pipe(first())
+      .subscribe(projectEmployees => {
+        this.employees.filter(employee =>
+          projectEmployees.map(pe => pe.employee.id).includes(employee.id)
+        );
       });
   }
 
   observeIdSelection(): void {
-    this.addProjectEmployeeForm.get(['id'])?.valueChanges.subscribe(() => {
+    this.controls.id?.valueChanges.subscribe(() => {
       this.getEmployee();
     });
   }
 
   getEmployee(): void {
-    const employeeId = this.addProjectEmployeeForm.get(['id'])?.value;
+    const employeeId = this.controls.id?.value.id;
     this.employeesService
       .getEmployee(employeeId)
       .pipe(first())
-      .subscribe(employee => (this.employee = employee));
+      .subscribe(employee => {
+        this.employee = employee;
+      });
   }
 
   openAddModal(): void {
     if (this.addProjectEmployeeForm.valid) {
-      const employeeId = this.addProjectEmployeeForm.get(['id'])?.value;
-      this.employeesService
-        .getEmployee(employeeId)
-        .pipe(first())
-        .subscribe(employee => {
-          this.isAddModalOpen = true;
-          this.modalDescription = `Are you sure you want to add ${employee.firstName} ${employee.lastName} to the Project X?`;
-        });
+      this.isAddModalOpen = true;
+      this.modalDescription = `Are you sure you want to add ${this.employee.firstName} ${this.employee.lastName} to the Project X?`;
     } else {
       this.addProjectEmployeeForm.markAllAsTouched();
       this.toastService.showToast(ToastState.Error, 'Form invalid');
@@ -119,15 +154,49 @@ export class AddProjectEmployeeComponent implements OnInit {
   add(value: boolean): void {
     this.disableGuard(true);
     if (value) {
-      this.router.navigate(['..'], { relativeTo: this.route }).then(() => {
-        setTimeout(
-          () =>
-            this.toastService.showToast(ToastState.Success, 'Employee added'),
-          200
-        );
-        setTimeout(() => this.toastService.dismissToast(), 3200);
-      });
+      this.projectEmployeesService
+        .addProjectEmployee(this.getProjectEmployeeData())
+        .pipe(first())
+        .subscribe(() => {
+          this.router.navigate(['..'], { relativeTo: this.route }).then(() => {
+            setTimeout(
+              () =>
+                this.toastService.showToast(
+                  ToastState.Success,
+                  'Employee added'
+                ),
+              200
+            );
+            setTimeout(() => this.toastService.dismissToast(), 3200);
+          });
+        });
     }
+  }
+
+  getProjectEmployeeData(): ProjectEmployee {
+    const projectId = this.route.parent?.snapshot.paramMap.get('id') as string;
+    return {
+      projectEmployeeId: '',
+      projectId: projectId,
+      employee: {
+        id: this.employee.id,
+        firstName: this.employee.firstName,
+        lastName: this.employee.lastName,
+        email: this.employee.email,
+        image: this.employee.image,
+        position: this.employee.position,
+        employmentDate: this.employee.employmentDate,
+        workingTime: this.employee.workingTime,
+        wage: this.employee.wage,
+        contractType: this.employee.contractType,
+        active: this.employee.active,
+      },
+      employeeId: this.employee.id,
+      workingTime: this.controls.workingTime?.value,
+      salaryModifier: this.controls.salaryModifier?.value,
+      joinDate: formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en'),
+      active: true,
+    };
   }
 
   cancel(value: boolean): void {
@@ -146,25 +215,11 @@ export class AddProjectEmployeeComponent implements OnInit {
     this.redirectSubject.next(value);
   }
 
-  enableField(name: string, value: boolean): void {
-    value
-      ? this.addProjectEmployeeForm.get([name])?.enable()
-      : this.addProjectEmployeeForm.get([name])?.disable();
+  enableField(control: AbstractControl | null, value: boolean): void {
+    value ? control?.enable() : control?.disable();
   }
 
-  isDisabled(name: string): boolean {
-    return !!this.addProjectEmployeeForm.get([name])?.disabled;
-  }
-
-  isRequired(name: string): boolean {
-    return this.validationService.isRequired(this.addProjectEmployeeForm, [
-      name,
-    ]);
-  }
-
-  showErrors(name: string): boolean {
-    return this.validationService.showErrors(this.addProjectEmployeeForm, [
-      name,
-    ]);
+  isRequired(control: AbstractControl): boolean {
+    return control?.hasValidator(Validators.required) ? true : false;
   }
 }

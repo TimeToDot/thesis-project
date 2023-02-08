@@ -1,3 +1,4 @@
+import { Position } from '../../admin/models/position.model';
 import { DropdownOption } from './dropdown-option.model';
 
 export interface Employee {
@@ -6,7 +7,7 @@ export interface Employee {
   lastName: string;
   email: string;
   image: string;
-  position: string;
+  position: Position;
   employmentDate: string;
   exitDate?: string;
   workingTime: number;

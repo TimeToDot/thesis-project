@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ButtonComponent } from '../shared/components/button/button.component';
+import { LoginData } from '../shared/models/login-data.model';
 import { AuthService } from '../shared/services/auth.service';
 import { ValidationService } from '../shared/services/validation.service';
 
@@ -13,6 +14,7 @@ import { ValidationService } from '../shared/services/validation.service';
   imports: [ButtonComponent, CommonModule, ReactiveFormsModule],
 })
 export class LoginComponent implements OnInit {
+  controls: any = {};
   isPasswordForgotten: boolean = false;
   loginForm = this.fb.group({
     email: ['', [Validators.required]],
@@ -26,11 +28,19 @@ export class LoginComponent implements OnInit {
     private validationService: ValidationService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getFormControls();
+  }
+
+  getFormControls(): void {
+    Object.keys(this.loginForm.controls).forEach(control => {
+      this.controls[control] = this.loginForm.get([control]);
+    });
+  }
 
   login(): void {
     if (this.loginForm.valid) {
-      this.authService.login().subscribe(isLoggedIn => {
+      this.authService.login(this.getLoginData()).subscribe(isLoggedIn => {
         if (isLoggedIn) {
           this.router.navigateByUrl('/dashboard');
         }
@@ -38,6 +48,13 @@ export class LoginComponent implements OnInit {
     } else {
       this.loginForm.markAllAsTouched();
     }
+  }
+
+  getLoginData(): LoginData {
+    return {
+      username: this.controls.email?.value,
+      password: this.controls.password?.value,
+    };
   }
 
   forgotPassword(): void {

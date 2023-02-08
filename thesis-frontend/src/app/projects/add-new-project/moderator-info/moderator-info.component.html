@@ -1,28 +1,27 @@
 <div
   *ngIf="addProjectForm"
-  class="add-project"
+  class="view-form"
   [formGroup]="addProjectForm">
-  <div class="form">
+  <div
+    class="form"
+    formGroupName="moderatorInfo">
     <div class="form-header">{{ 'Moderator' | uppercase }}</div>
     <bvr-form-field
       label="Moderator"
-      [required]="isRequired('moderator')">
+      [required]="isRequired(controls.moderator)">
       <bvr-dropdown-search-employee
+        *ngIf="employees.length"
         formControlName="moderator"
         name="moderator"
         [options]="employees"></bvr-dropdown-search-employee>
-      <ng-container *ngIf="showErrors('moderator')">
-        <small *ngIf="addProjectForm.get(['moderator'])?.hasError('required')"
-          >This field is required.</small
-        >
-      </ng-container>
+      <bvr-error
+        class="error"
+        [control]="controls.moderator"></bvr-error>
     </bvr-form-field>
-  </div>
 
-  <div
-    *ngIf="employee"
-    class="form">
-    <div class="confirm-employee">
+    <div
+      *ngIf="employee"
+      class="confirm-employee">
       <img
         *ngIf="employee.image"
         class="picture"
@@ -54,7 +53,7 @@
           <bvr-form-field
             class="disabled left-field position"
             label="Position">
-            <span>{{ employee.position }}</span>
+            <span>{{ employee.position ? employee.position.name : '' }}</span>
           </bvr-form-field>
           <bvr-form-field
             class="disabled left-field email"

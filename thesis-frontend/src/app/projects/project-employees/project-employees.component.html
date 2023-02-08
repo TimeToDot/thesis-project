@@ -78,7 +78,7 @@
       <td
         cdk-cell
         *cdkCellDef="let element">
-        {{ element.employee.position }}
+        {{ element.employee.position ? element.employee.position.name : '' }}
       </td>
     </ng-container>
     <ng-container cdkColumnDef="employmentStatus">
@@ -108,7 +108,8 @@
     <ng-container cdkColumnDef="actions">
       <th
         cdk-header-cell
-        *cdkHeaderCellDef>
+        *cdkHeaderCellDef
+        class="actions">
         Actions
       </th>
       <td
@@ -176,7 +177,7 @@
       <td
         cdk-cell
         *cdkCellDef="let element">
-        {{ element.employee.position }}
+        {{ element.employee.position ? element.employee.position.name : '' }}
       </td>
     </ng-container>
     <ng-container cdkColumnDef="joinDate">
@@ -214,7 +215,7 @@
 </div>
 
 <bvr-modal
-  (confirm)="archive()"
+  (confirm)="archive($event)"
   confirmLabel="archive"
   [description]="modalDescription"
   [title]="'Archive employee'"

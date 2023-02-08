@@ -2,12 +2,12 @@
   <div class="header">
     <div class="title">
       <span class="material-icons-outlined">work_outline</span>
-      <h2 class="name">Position</h2>
+      <h2>Position</h2>
     </div>
   </div>
-  <div class="card-content view-position">
+  <div class="card-content view-form">
     <div class="header">
-      <div class="name">
+      <div class="title">
         <h4>Add New Position</h4>
       </div>
     </div>
@@ -16,30 +16,25 @@
       [formGroup]="addPositionForm">
       <bvr-form-field
         label="Name"
-        [required]="isRequired('name')">
+        [required]="isRequired(controls.name)">
         <input
           formControlName="name"
           placeholder="Position Name"
           type="text" />
-        <ng-container *ngIf="showErrors('name')">
-          <small *ngIf="addPositionForm.get('name')?.hasError('required')"
-            >This field is required.</small
-          >
-        </ng-container>
+        <bvr-error
+          class="error"
+          [control]="controls.name"></bvr-error>
       </bvr-form-field>
       <bvr-form-field
         label="Description"
-        [required]="isRequired('description')">
+        [required]="isRequired(controls.description)">
         <input
           formControlName="description"
           placeholder="Example position description"
           type="text" />
-        <ng-container *ngIf="showErrors('description')">
-          <small
-            *ngIf="addPositionForm.get('description')?.hasError('required')"
-            >This field is required.</small
-          >
-        </ng-container>
+        <bvr-error
+          class="error"
+          [control]="controls.description"></bvr-error>
       </bvr-form-field>
     </div>
     <div class="form-buttons">

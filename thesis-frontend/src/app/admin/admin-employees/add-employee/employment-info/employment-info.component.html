@@ -1,6 +1,6 @@
 <div
   *ngIf="addEmployeeForm"
-  class="add-employee"
+  class="view-form"
   [formGroup]="addEmployeeForm">
   <div
     class="form"
@@ -10,126 +10,91 @@
       <bvr-form-field
         class="left-field"
         label="Position"
-        [required]="isRequired('position')">
+        [required]="isRequired(controls.position)">
         <bvr-dropdown-list
           formControlName="position"
           name="position"
           [options]="positions"></bvr-dropdown-list>
-        <ng-container *ngIf="showErrors('position')">
-          <small
-            *ngIf="
-              addEmployeeForm
-                .get(['employmentInfo', 'position'])
-                ?.hasError('required')
-            "
-            >This field is required.</small
-          >
-        </ng-container>
+        <bvr-error
+          class="error"
+          [control]="controls.position"></bvr-error>
       </bvr-form-field>
       <bvr-form-field
         class="field"
         label="Hire Date"
-        [required]="isRequired('employmentDate')">
+        [required]="isRequired(controls.employmentDate)">
         <bvr-date-picker formControlName="employmentDate"></bvr-date-picker>
+        <bvr-error
+          class="error"
+          [control]="controls.employmentDate"></bvr-error>
       </bvr-form-field>
     </div>
     <div class="row">
       <bvr-form-field
         class="left-field"
         label="Contract Type"
-        [required]="isRequired('contractType')">
+        [required]="isRequired(controls.contractType)">
         <bvr-dropdown-list
           formControlName="contractType"
-          name="contract type"
+          name="contractType type"
           [options]="contractTypes"></bvr-dropdown-list>
-        <ng-container *ngIf="showErrors('contractType')">
-          <small
-            *ngIf="
-              addEmployeeForm
-                .get(['employmentInfo', 'contractType'])
-                ?.hasError('required')
-            "
-            >This field is required.</small
-          >
-        </ng-container>
+        <bvr-error
+          class="error"
+          [control]="controls.contractType"></bvr-error>
       </bvr-form-field>
       <bvr-form-field
         class="field"
         label="Working Time"
-        [required]="isRequired('workingTime')">
-        <input
+        [required]="isRequired(controls.workingTime)">
+        <bvr-input-number
+          [decimalPlaces]="0"
+          [digits]="3"
           formControlName="workingTime"
           placeholder="Working Time"
-          type="number" />
-        <ng-container *ngIf="showErrors('workingTime')">
-          <small
-            *ngIf="
-              addEmployeeForm
-                .get(['employmentInfo', 'workingTime'])
-                ?.hasError('required')
-            "
-            >This field is required.</small
-          >
-        </ng-container>
+          suffix="h"></bvr-input-number>
+        <bvr-error
+          class="error"
+          [control]="controls.workingTime"></bvr-error>
       </bvr-form-field>
     </div>
     <div class="row">
       <bvr-form-field
         class="left-field"
         label="Rate"
-        [required]="isRequired('wage')">
-        <input
+        [required]="isRequired(controls.wage)">
+        <bvr-input-number
+          [digits]="4"
           formControlName="wage"
-          placeholder="00.00 PLN"
-          type="number" />
-        <ng-container *ngIf="showErrors('wage')">
-          <small
-            *ngIf="
-              addEmployeeForm
-                .get(['employmentInfo', 'wage'])
-                ?.hasError('required')
-            "
-            >This field is required.</small
-          >
-        </ng-container>
+          placeholder="00.00"
+          suffix="PLN"></bvr-input-number>
+        <bvr-error
+          class="error"
+          [control]="controls.wage"></bvr-error>
       </bvr-form-field>
       <bvr-form-field
         class="field"
         label="Payday"
-        [required]="isRequired('payday')">
-        <input
+        [required]="isRequired(controls.payday)">
+        <bvr-input-number
+          [decimalPlaces]="0"
+          [digits]="2"
           formControlName="payday"
-          placeholder="Day"
-          type="number" />
-        <ng-container *ngIf="showErrors('payday')">
-          <small
-            *ngIf="
-              addEmployeeForm
-                .get(['employmentInfo', 'payday'])
-                ?.hasError('required')
-            "
-            >This field is required.</small
-          >
-        </ng-container>
+          placeholder="Day"></bvr-input-number>
+        <bvr-error
+          class="error"
+          [control]="controls.payday"></bvr-error>
       </bvr-form-field>
     </div>
     <bvr-form-field
       label="Account number"
-      [required]="isRequired('accountNumber')">
+      [required]="isRequired(controls.accountNumber)">
       <input
         formControlName="accountNumber"
         placeholder="00 0000 0000 0000 0000 0000"
         type="text" />
-      <ng-container *ngIf="showErrors('accountNumber')">
-        <small
-          *ngIf="
-            addEmployeeForm
-              .get(['employmentInfo', 'accountNumber'])
-              ?.hasError('required')
-          "
-          >This field is required.</small
-        >
-      </ng-container>
+      <bvr-error
+        class="error"
+        [control]="controls.accountNumber"></bvr-error>
     </bvr-form-field>
   </div>
 </div>

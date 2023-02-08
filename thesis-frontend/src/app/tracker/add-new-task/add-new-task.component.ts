@@ -11,7 +11,6 @@ import {
 } from '@angular/forms';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { FormFieldComponent } from '../../shared/components/form-field/form-field.component';
-import { ProjectsService } from '../../shared/services/projects.service';
 import { ProjectTasksService } from '../../projects/services/project-tasks.service';
 import { DatePickerComponent } from '../../shared/components/date-picker/date-picker.component';
 import { TimePickerComponent } from '../../shared/components/time-picker/time-picker.component';
@@ -27,6 +26,12 @@ import { EmployeeTasksService } from '../../shared/services/employee-tasks.servi
 import { first, Subject } from 'rxjs';
 import { EmployeeTask } from '../../shared/models/employee-task.model';
 import { ValidationService } from '../../shared/services/validation.service';
+import { AuthService } from '../../shared/services/auth.service';
+import { EmployeesService } from '../../admin/services/employees.service';
+import { ErrorComponent } from '../../shared/components/error/error.component';
+import { CustomValidators } from '../../shared/helpers/custom-validators.helper';
+import { Status } from '../../shared/enum/status.enum';
+import { TokenService } from '../../shared/services/token.service';
 
 @Component({
   selector: 'bvr-add-new-task',
@@ -36,6 +41,7 @@ import { ValidationService } from '../../shared/services/validation.service';
     CommonModule,
     DatePickerComponent,
     DropdownListComponent,
+    ErrorComponent,
     FormFieldComponent,
     ModalComponent,
     ReactiveFormsModule,
@@ -46,6 +52,7 @@ import { ValidationService } from '../../shared/services/validation.service';
 })
 export class AddNewTaskComponent implements OnInit {
   addTaskForm!: FormGroup;
+  controls: any = {};
   hasTaskToSave: boolean = false;
   isAddModalOpen: boolean = false;
   isCancelModalOpen: boolean = false;
@@ -60,19 +67,22 @@ export class AddNewTaskComponent implements OnInit {
   tasks: DropdownOption[] = [];
 
   constructor(
+    private authService: AuthService,
     private fb: FormBuilder,
     private projectTasksService: ProjectTasksService,
-    private employeeProjectService: ProjectsService,
+    private employeesService: EmployeesService,
     private employeeTasksService: EmployeeTasksService,
     private location: Location,
     private route: ActivatedRoute,
     private router: Router,
     private toastService: ToastService,
+    private tokenService: TokenService,
     private validationService: ValidationService
   ) {}
 
   ngOnInit(): void {
     this.createForm();
+    this.getFormControls();
     this.getEmployeeProjects();
     this.observeProjectChange();
     this.getTask();
@@ -94,36 +104,24 @@ export class AddNewTaskComponent implements OnInit {
         project: [null, [Validators.required]],
         task: [{ value: null, disabled: true }, [Validators.required]],
       },
-      { validators: [this.dateRangeValidator(), this.timeRangeValidator()] }
+      {
+        validators: [
+          CustomValidators.dateRangeValidator('startDate', 'endDate'),
+          CustomValidators.timeRangeValidator(
+            'startDate',
+            'startTime',
+            'endDate',
+            'endTime'
+          ),
+        ],
+      }
     );
   }
 
-  dateRangeValidator(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      const startDate = control.get('startDate')?.value;
-      const endDate = control.get('endDate')?.value;
-      if (startDate && endDate) {
-        const isRangeValid = dayjs(startDate).isAfter(dayjs(endDate));
-        return !isRangeValid ? null : { dateRange: true };
-      }
-      return null;
-    };
-  }
-
-  timeRangeValidator(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      const startDate = control.get('startDate')?.value;
-      const startTime = control.get('startTime')?.value;
-      const endDate = control.get('endDate')?.value;
-      const endTime = control.get('endTime')?.value;
-      if (startDate && startTime && endDate && endTime) {
-        const isRangeValid = dayjs(`${startDate} ${startTime}`).isAfter(
-          dayjs(`${endDate} ${endTime}`)
-        );
-        return !isRangeValid ? null : { timeRange: true };
-      }
-      return null;
-    };
+  getFormControls(): void {
+    Object.keys(this.addTaskForm.controls).forEach(control => {
+      this.controls[control] = this.addTaskForm.get([control]);
+    });
   }
 
   roundToMinutes(minutes: number): string {
@@ -147,17 +145,21 @@ export class AddNewTaskComponent implements OnInit {
   }
 
   getEmployeeProjects(): void {
-    this.employeeProjectService
-      .getEmployeeProjects()
+    this.employeesService
+      .getActiveEmployeeProjects(this.tokenService.getEmployee())
       .pipe(first())
-      .subscribe(employeeProjects => (this.projects = employeeProjects));
+      .subscribe(employeeProjects => {
+        this.projects = employeeProjects.map(
+          employeeProject => employeeProject.project
+        );
+      });
   }
 
   getTask(): void {
     const taskId = this.route.snapshot.paramMap.get('id');
     if (taskId) {
       this.employeeTasksService
-        .getEmployeeTask(taskId)
+        .getEmployeeTask(this.tokenService.getEmployee(), taskId)
         .pipe(first())
         .subscribe(employeeTask => {
           this.updateFormFields(employeeTask);
@@ -215,9 +217,30 @@ export class AddNewTaskComponent implements OnInit {
 
   add(value: boolean): void {
     if (value) {
-      this.toastService.showToast(ToastState.Success, 'Task added');
-      setTimeout(() => this.toastService.dismissToast(), 3000);
+      const employeeId = this.authService.getLoggedEmployeeId();
+      this.employeeTasksService
+        .addEmployeeTask(employeeId, this.getTaskData(employeeId))
+        .pipe(first())
+        .subscribe(() => {
+          this.toastService.showToast(ToastState.Success, 'Task added');
+          setTimeout(() => this.toastService.dismissToast(), 3000);
+        });
     }
+  }
+
+  getTaskData(employeeId: string): EmployeeTask {
+    const taskId = this.route.snapshot.paramMap.get('id');
+    return {
+      id: taskId ? taskId : '',
+      employeeId: employeeId,
+      startDate: this.controls.startDate?.value,
+      endDate: this.controls.endDate?.value,
+      startTime: this.controls.startTime?.value,
+      endTime: this.controls.endTime?.value,
+      project: this.controls.project?.value,
+      task: this.controls.task?.value,
+      status: Status.Logged,
+    };
   }
 
   cancel(value: boolean): void {
@@ -231,17 +254,27 @@ export class AddNewTaskComponent implements OnInit {
     }
   }
 
-  delete(): void {
+  delete(value: boolean): void {
     this.disableGuard(true);
-    this.router
-      .navigate(['../../tasks-list'], { relativeTo: this.route })
-      .then(() => {
-        setTimeout(
-          () => this.toastService.showToast(ToastState.Info, 'Task deleted'),
-          200
-        );
-        setTimeout(() => this.toastService.dismissToast(), 3200);
-      });
+    const employeeId = this.authService.getLoggedEmployeeId();
+    const taskId = this.route.snapshot.paramMap.get('id');
+    if (taskId && value) {
+      this.employeeTasksService
+        .deleteEmployeeTask(employeeId, taskId)
+        .pipe(first())
+        .subscribe(() => {
+          this.router
+            .navigate(['../../tasks-list'], { relativeTo: this.route })
+            .then(() => {
+              setTimeout(
+                () =>
+                  this.toastService.showToast(ToastState.Info, 'Task deleted'),
+                200
+              );
+              setTimeout(() => this.toastService.dismissToast(), 3200);
+            });
+        });
+    }
   }
 
   reset(): void {
@@ -252,15 +285,24 @@ export class AddNewTaskComponent implements OnInit {
   save(value: boolean): void {
     this.disableGuard(true);
     if (value) {
-      this.router
-        .navigate(['../../tasks-list'], { relativeTo: this.route })
-        .then(() => {
-          setTimeout(
-            () =>
-              this.toastService.showToast(ToastState.Success, 'Task edited'),
-            200
-          );
-          setTimeout(() => this.toastService.dismissToast(), 3200);
+      const employeeId = this.authService.getLoggedEmployeeId();
+      this.employeeTasksService
+        .updateEmployeeTask(employeeId, this.getTaskData(employeeId))
+        .pipe(first())
+        .subscribe(() => {
+          this.router
+            .navigate(['../../tasks-list'], { relativeTo: this.route })
+            .then(() => {
+              setTimeout(
+                () =>
+                  this.toastService.showToast(
+                    ToastState.Success,
+                    'Task edited'
+                  ),
+                200
+              );
+              setTimeout(() => this.toastService.dismissToast(), 3200);
+            });
         });
     }
   }

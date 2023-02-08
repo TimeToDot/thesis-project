@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EditEmploymentInfoComponent } from './edit-employment-info.component';
@@ -8,7 +9,7 @@ describe('EditEmploymentInfoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EditEmploymentInfoComponent],
+      imports: [EditEmploymentInfoComponent, HttpClientTestingModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(EditEmploymentInfoComponent);

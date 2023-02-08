@@ -1,76 +1,54 @@
+import { formatDate } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 import { ProjectTask } from '../models/project-task.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProjectTasksService {
-  private _tasks: ProjectTask[] = [
-    {
-      id: '1',
-      name: 'Task A',
-      projectId: '1',
-      description: 'test',
-      creationDate: '2022-07-22',
-      active: true,
-    },
-    {
-      id: '2',
-      name: 'Task B',
-      projectId: '2',
-      description: 'test',
-      creationDate: '2022-08-15',
-      active: true,
-    },
-    {
-      id: '3',
-      name: 'Task C',
-      projectId: '1',
-      description: 'test',
-      creationDate: '2022-04-31',
-      archiveDate: '2022-06-03',
-      active: false,
-    },
-    {
-      id: '4',
-      name: 'Task D',
-      projectId: '2',
-      description: 'test',
-      creationDate: '2022-02-04',
-      active: true,
-    },
-    {
-      id: '5',
-      name: 'Task E',
-      projectId: '3',
-      description: 'test',
-      creationDate: '2022-01-12',
-      active: true,
-    },
-  ];
+  constructor(private http: HttpClient) {}
 
-  constructor() {}
+  getProjectTask(projectId: string, taskId: string): Observable<ProjectTask> {
+    return this.http.get<ProjectTask>(
+      `${environment.apiUrl}/projects/${projectId}/tasks/${taskId}`
+    );
+  }
 
-  getProjectTask(taskId: string): Observable<ProjectTask> {
-    return of(
-      this._tasks.find(element => element.id === taskId) as ProjectTask
+  addProjectTask(task: ProjectTask): Observable<ProjectTask> {
+    return this.http.post<ProjectTask>(
+      `${environment.apiUrl}/projects/${task.projectId}/tasks`,
+      task
+    );
+  }
+
+  updateProjectTask(task: ProjectTask): Observable<ProjectTask> {
+    return this.http.put<ProjectTask>(
+      `${environment.apiUrl}/projects/${task.projectId}/tasks/${task.id}`,
+      task
+    );
+  }
+
+  archiveProjectTask(task: ProjectTask): Observable<ProjectTask> {
+    task.active = false;
+    task.archiveDate = formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en');
+    return this.http.put<ProjectTask>(
+      `${environment.apiUrl}/projects/${task.projectId}/tasks/${task.id}`,
+      task
     );
   }
 
   getProjectTasks(projectId: string): Observable<ProjectTask[]> {
-    return of(
-      this._tasks
-        .filter(element => element.projectId === projectId)
-        .filter(element => element.active)
+    return this.http.get<ProjectTask[]>(
+      `${environment.apiUrl}/projects/${projectId}/tasks?active=true`
     );
   }
 
   getArchivedProjectTasks(projectId: string): Observable<ProjectTask[]> {
-    return of(
-      this._tasks
-        .filter(element => element.projectId === projectId)
-        .filter(element => !element.active)
+    return this.http.get<ProjectTask[]>(
+      `${environment.apiUrl}/projects/${projectId}/tasks?active=false`
     );
   }
 }

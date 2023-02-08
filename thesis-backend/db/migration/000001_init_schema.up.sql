@@ -1,6 +1,6 @@
 CREATE TABLE "account" (
                            "id" uuid DEFAULT gen_random_uuid() PRIMARY KEY,
-                           "login" varchar NOT NULL,
+                           /*"login" varchar NOT NULL,*/
                            "pass" varchar NOT NULL,
                            "status" varchar NOT NULL,
                            "email" varchar NOT NULL,
@@ -11,28 +11,70 @@ CREATE TABLE "account_details" (
                                    "id" uuid DEFAULT gen_random_uuid() PRIMARY KEY,
                                    "account_id" uuid NOT NULL,
                                    "name" varchar NOT NULL,
+                                   "middle_name" varchar,
                                    "surname" varchar NOT NULL,
                                    "pesel" varchar NOT NULL,
-                                   "sex" varchar NOT NULL,
-                                   "tax_number" varchar NOT NULL,
+                                   "sex_id" INTEGER NOT NULL,
                                    "phone_number" varchar NOT NULL,
-                                   "city" varchar NOT NULL,
-                                   "postal_code" varchar NOT NULL,
+                                   "tax_number" varchar NOT NULL,
+                                   "id_card_number" varchar,
                                    "street" varchar NOT NULL,
+                                   "house_number" varchar,
+                                   "apartment_number" varchar,
+                                   "postal_code" varchar NOT NULL,
+                                   "city" varchar NOT NULL,
+                                   "country_id" INTEGER NOT NULL,
+                                   "private_email" varchar,
+                                   "employment_date" timestamp,
+                                   "exit_date" timestamp,
+                                   "birth_date" timestamp,
+                                   "birth_place" varchar,
+                                   "image_path" varchar,
+                                   "contract_type_id" INTEGER NOT NULL,
+                                   "working_time" INTEGER,
+                                   "wage" INTEGER,
+                                   "payday" INTEGER,
                                    "created_at" timestamp DEFAULT 'now()'
+);
+
+CREATE TABLE "sex" (
+                                   "id" SERIAL PRIMARY KEY NOT NULL,
+                                   "name" varchar NOT NULL
+);
+CREATE TABLE "contract_type" (
+                                   "id" SERIAL PRIMARY KEY NOT NULL,
+                                   "name" varchar NOT NULL
+);
+CREATE TABLE "country" (
+                                   "serial" SERIAL PRIMARY KEY NOT NULL,
+                                   "id" INTEGER NOT NULL,
+                                   "name" varchar NOT NULL
+);
+CREATE TABLE "billing_period" (
+                                   "id" SERIAL PRIMARY KEY NOT NULL,
+                                   "name" varchar NOT NULL
+);
+
+CREATE TABLE "account_project" (
+
+                                   "id" uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+                                   "account_id" uuid NOT NULL,
+                                   "project_id" uuid NOT NULL,
+                                   "role_id" uuid NOT NULL,
+                                   "working_time" INTEGER,
+                                   "modifier" INTEGER,
+                                   "join_date" timestamp NOT NULL,
+                                   "exit_date" timestamp,
+                                   "status" varchar NOT NULL
 );
 
 CREATE TABLE "position" (
                         "id" uuid DEFAULT gen_random_uuid() PRIMARY KEY,
                         "name" varchar,
                         "description" varchar,
+                        "creation_date" timestamp NOT NULL,
+                        "archive_date" timestamp,
                         "status" varchar
-);
-
-CREATE TABLE "position_account" (
-                                "id" uuid DEFAULT gen_random_uuid() PRIMARY KEY,
-                                "position_id" uuid NOT NULL,
-                                "account_id" uuid NOT NULL
 );
 
 CREATE TABLE "account_role" (
@@ -61,21 +103,21 @@ CREATE TABLE "project" (
                            "id" uuid DEFAULT gen_random_uuid() PRIMARY KEY,
                            "name" varchar NOT NULL,
                            "description" varchar,
-                           "owner_id" uuid NOT NULL
+                           "owner_id" uuid NOT NULL,
+                           "status" varchar
 );
 
 CREATE TABLE "project_details" (
                                    "id" uuid DEFAULT gen_random_uuid() PRIMARY KEY,
                                    "project_id" uuid NOT NULL,
-                                   "options" varchar NOT NULL,
+                                   "billing_period_id"  INTEGER NOT NULL,
+                                   "archive_date" timestamp,
+                                   "overtime_modifier" INTEGER,
+                                   "bonus_modifier" INTEGER,
+                                   "night_modifier" INTEGER,
+                                   "holiday_modifier" INTEGER,
+                                   "image_path" varchar,
                                    "created_at" timestamp DEFAULT 'now()'
-);
-
-CREATE TABLE "project_account_role" (
-                                "id" uuid DEFAULT gen_random_uuid() PRIMARY KEY,
-                                "project_id" uuid NOT NULL,
-                                "account_id" uuid NOT NULL,
-                                "role_id" uuid NOT NULL
 );
 
 CREATE TABLE "task_form" (
@@ -83,6 +125,7 @@ CREATE TABLE "task_form" (
                              "name" varchar NOT NULL,
                              "description" varchar,
                              "id_project" uuid NOT NULL,
+                             "archive_date" timestamp,
                              "created_at" timestamp DEFAULT 'now()'
 );
 
@@ -101,7 +144,7 @@ CREATE TABLE "task" (
                         "date_from" timestamp NOT NULL,
                         "date_to" timestamp NOT NULL,
                         "name" varchar,
-                        "event_status" varchar NOT NULL
+                        "status" varchar NOT NULL
 );
 
 CREATE TABLE "account_message" (
@@ -112,7 +155,7 @@ CREATE TABLE "account_message" (
                                    "created_at" timestamp DEFAULT 'now()'
 );
 
-CREATE INDEX ON "account" ("login");
+/*CREATE INDEX ON "account" ("login");*/
 
 CREATE INDEX ON "account" ("email");
 
@@ -134,10 +177,6 @@ ALTER TABLE "account_role" ADD FOREIGN KEY ("account_id") REFERENCES "account" (
 
 ALTER TABLE "account_role" ADD FOREIGN KEY ("role_id") REFERENCES "role" ("id");
 
-ALTER TABLE "position_account" ADD FOREIGN KEY ("account_id") REFERENCES "account" ("id");
-
-ALTER TABLE "position_account" ADD FOREIGN KEY ("position_id") REFERENCES "position" ("id");
-
 ALTER TABLE "role_privilege" ADD FOREIGN KEY ("role_id") REFERENCES "role" ("id");
 
 ALTER TABLE "role_privilege" ADD FOREIGN KEY ("privilege_id") REFERENCES "privilege" ("id");
@@ -146,11 +185,11 @@ ALTER TABLE "project" ADD FOREIGN KEY ("owner_id") REFERENCES "account" ("id");
 
 ALTER TABLE "project_details" ADD FOREIGN KEY ("project_id") REFERENCES "project" ("id");
 
-ALTER TABLE "project_account_role" ADD FOREIGN KEY ("project_id") REFERENCES "project"("id");
+ALTER TABLE "account_project" ADD FOREIGN KEY ("project_id") REFERENCES "project"("id");
 
-ALTER TABLE "project_account_role" ADD FOREIGN KEY ("account_id") REFERENCES "account"("id");
+ALTER TABLE "account_project" ADD FOREIGN KEY ("account_id") REFERENCES "account"("id");
 
-ALTER TABLE "project_account_role" ADD FOREIGN KEY ("role_id") REFERENCES "role"("id");
+ALTER TABLE "account_project" ADD FOREIGN KEY ("role_id") REFERENCES "role"("id");
 
 ALTER TABLE "task_form" ADD FOREIGN KEY ("id_project") REFERENCES "project" ("id");
 
@@ -165,3 +204,11 @@ ALTER TABLE "account_message" ADD FOREIGN KEY ("account_from") REFERENCES "accou
 ALTER TABLE "account_message" ADD FOREIGN KEY ("account_to") REFERENCES "account" ("id");
 
 ALTER TABLE "account" ADD FOREIGN KEY ("position_id") REFERENCES "position" ("id");
+
+ALTER TABLE "account_details" ADD FOREIGN KEY ("sex_id") REFERENCES "sex" ("id");
+
+ALTER TABLE "account_details" ADD FOREIGN KEY ("country_id") REFERENCES "country" ("serial");
+
+ALTER TABLE "account_details" ADD FOREIGN KEY ("contract_type_id") REFERENCES "contract_type" ("id");
+
+ALTER TABLE "project_details" ADD FOREIGN KEY ("billing_period_id") REFERENCES "billing_period" ("id");

@@ -1,0 +1,16 @@
+
+# Compiled class file
+*.class
+
+# Package Files #
+
+# Log file
+*.log
+
+# Package Files #
+
+/thesis-api/target/
+/thesis-data/target/
+/thesis-domain/target/
+/thesis-security/target/
+/thesis-server/target/

@@ -19,7 +19,9 @@
 }
 
 .task-image {
+  height: 8 * $grid-base;
   margin: 0 2 * $grid-base $grid-base;
+  width: 8 * $grid-base;
 }
 
 .task {
@@ -46,6 +48,15 @@
 .task-right-side {
   align-items: center;
   display: flex;
+}
+
+.task-left-side {
+  width: auto;
+}
+
+.task-right-side {
+  min-width: 58 * $grid-base;
+  width: 58 * $grid-base;
 }
 
 .task-time {

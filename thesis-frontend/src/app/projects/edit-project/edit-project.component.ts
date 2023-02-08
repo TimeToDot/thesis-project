@@ -26,6 +26,9 @@ import { ModalComponent } from '../../shared/components/modal/modal.component';
 import { ToastComponent } from '../../shared/components/toast/toast.component';
 import { ToastState } from '../../shared/enum/toast-state';
 import { ToastService } from '../../shared/services/toast.service';
+import { Regex } from '../../shared/helpers/regex.helper';
+import { CustomValidators } from '../../shared/helpers/custom-validators.helper';
+import { EmployeesService } from '../../admin/services/employees.service';
 
 @Component({
   selector: 'bvr-edit-project',
@@ -46,6 +49,7 @@ import { ToastService } from '../../shared/services/toast.service';
   animations: [tabAnimation],
 })
 export class EditProjectComponent implements OnInit {
+  controls: any = {};
   editProjectForm!: FormGroup;
   enableFormButtons: boolean = true;
   isArchiveModalOpen: boolean = false;
@@ -55,33 +59,13 @@ export class EditProjectComponent implements OnInit {
   isSaveModalOpen: boolean = false;
   modalDescription: string = '';
   navbarOptions: LinkOption[] = [];
-  project: Project = {
-    id: '',
-    name: '',
-    image: '',
-    moderator: {
-      id: '',
-      firstName: '',
-      lastName: '',
-      email: '',
-      image: '',
-      position: '',
-      employmentDate: '',
-      contractType: { id: '', name: '' },
-      wage: 0,
-      workingTime: 0,
-      active: false,
-    },
-    billingPeriod: { id: '', name: '' },
-    employeesCount: 0,
-    creationDate: '',
-    active: false,
-  };
+  project!: Project;
   redirectSubject: Subject<boolean> = new Subject<boolean>();
   tabIndex: number = 0;
 
   constructor(
     private contexts: ChildrenOutletContexts,
+    private employeesService: EmployeesService,
     private fb: FormBuilder,
     private location: Location,
     private projectsService: ProjectsService,
@@ -94,6 +78,7 @@ export class EditProjectComponent implements OnInit {
     this.getCurrentTab();
     this.getNavbarOptions();
     this.createForm();
+    this.getFormControls();
     this.getProject();
   }
 
@@ -111,18 +96,46 @@ export class EditProjectComponent implements OnInit {
   createForm(): void {
     this.editProjectForm = this.fb.group({
       generalInfo: this.fb.group({
-        name: ['', [Validators.required]],
+        name: [
+          '',
+          [Validators.required, Validators.pattern(Regex.ALPHANUMERIC)],
+        ],
         image: [null, [Validators.required]],
         description: [''],
       }),
-      moderator: ['', [Validators.required]],
+      moderatorInfo: this.fb.group({
+        moderator: ['', [Validators.required]],
+      }),
       billingInfo: this.fb.group({
         billingPeriod: ['', [Validators.required]],
-        overtimeModifier: [{ value: '', disabled: true }],
-        bonusModifier: [{ value: '', disabled: true }],
-        nightModifier: [{ value: '', disabled: true }],
-        holidayModifier: [{ value: '', disabled: true }],
+        overtimeModifier: [
+          { value: 100, disabled: true },
+          [CustomValidators.minValue(0), CustomValidators.maxValue(500)],
+        ],
+        bonusModifier: [
+          { value: 100, disabled: true },
+          [CustomValidators.minValue(0), CustomValidators.maxValue(500)],
+        ],
+        nightModifier: [
+          { value: 100, disabled: true },
+          [CustomValidators.minValue(0), CustomValidators.maxValue(500)],
+        ],
+        holidayModifier: [
+          { value: 100, disabled: true },
+          [CustomValidators.minValue(0), CustomValidators.maxValue(500)],
+        ],
       }),
+    });
+  }
+
+  getFormControls(): void {
+    Object.keys(this.editProjectForm.controls).forEach(group => {
+      this.controls[group] = this.editProjectForm.get([group]);
+      Object.keys(
+        (this.editProjectForm.get(group) as FormGroup<any>).controls
+      ).forEach(field => {
+        this.controls[field] = this.editProjectForm.get([group, field]);
+      });
     });
   }
 
@@ -134,9 +147,20 @@ export class EditProjectComponent implements OnInit {
         .pipe(first())
         .subscribe(project => {
           this.project = project;
+          this.getProjectModerator(project.moderatorId as string);
           this.updateFormFields();
         });
     }
+  }
+
+  getProjectModerator(employeeId: string): void {
+    this.employeesService
+      .getEmployee(employeeId)
+      .pipe(first())
+      .subscribe(employee => {
+        this.project.moderator = employee;
+        this.controls.moderator.setValue(this.project.moderator);
+      });
   }
 
   updateFormFields(): void {
@@ -151,9 +175,6 @@ export class EditProjectComponent implements OnInit {
         });
       }
     });
-    this.editProjectForm
-      .get(['moderator'])
-      ?.setValue(this.project.moderator.id);
   }
 
   updateTabIndex(index: number): void {
@@ -186,15 +207,26 @@ export class EditProjectComponent implements OnInit {
     }
   }
 
-  archive(): void {
+  archive(value: boolean): void {
     this.disableGuard(true);
-    this.router.navigate(['/projects']).then(() => {
-      setTimeout(
-        () => this.toastService.showToast(ToastState.Info, 'Project archived'),
-        200
-      );
-      setTimeout(() => this.toastService.dismissToast(), 3200);
-    });
+    if (value) {
+      this.projectsService
+        .archiveProject(this.getProjectData())
+        .pipe(first())
+        .subscribe(() => {
+          this.router.navigate(['/projects']).then(() => {
+            setTimeout(
+              () =>
+                this.toastService.showToast(
+                  ToastState.Info,
+                  'Project archived'
+                ),
+              200
+            );
+            setTimeout(() => this.toastService.dismissToast(), 3200);
+          });
+        });
+    }
   }
 
   cancel(value: boolean): void {
@@ -211,18 +243,45 @@ export class EditProjectComponent implements OnInit {
   save(value: boolean): void {
     this.disableGuard(true);
     if (value) {
-      new Promise((resolve, _) => {
-        this.location.back();
-        resolve('done');
-      }).then(() => {
-        setTimeout(
-          () =>
-            this.toastService.showToast(ToastState.Success, 'Project edited'),
-          200
-        );
-        setTimeout(() => this.toastService.dismissToast(), 3200);
-      });
+      this.projectsService
+        .updateProject(this.getProjectData())
+        .pipe(first())
+        .subscribe(() => {
+          this.redirectAfterEdit();
+        });
     }
+  }
+
+  getProjectData(): Project {
+    return {
+      id: this.project.id,
+      name: this.controls.name?.value,
+      image: '',
+      description: this.controls.description?.value,
+      moderator: this.controls.moderator?.value,
+      moderatorId: this.controls.moderator?.value.id,
+      employeesCount: this.controls.employeesCount?.value,
+      creationDate: this.project.creationDate,
+      billingPeriod: this.controls.billingPeriod?.value,
+      overtimeModifier: this.controls.overtimeModifier?.value,
+      bonusModifier: this.controls.bonusModifier?.value,
+      nightModifier: this.controls.nightModifier?.value,
+      holidayModifier: this.controls.holidayModifier?.value,
+      active: true,
+    };
+  }
+
+  redirectAfterEdit(): void {
+    new Promise((resolve, _) => {
+      this.location.back();
+      resolve('done');
+    }).then(() => {
+      setTimeout(
+        () => this.toastService.showToast(ToastState.Success, 'Project edited'),
+        200
+      );
+      setTimeout(() => this.toastService.dismissToast(), 3200);
+    });
   }
 
   disableGuard(value: boolean): void {

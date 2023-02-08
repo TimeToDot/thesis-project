@@ -1,6 +1,8 @@
-<div class="project-task">
+<div
+  *ngIf="task"
+  class="view-form">
   <div class="header">
-    <div class="name">
+    <div class="title">
       <h4>Task: {{ task.name }}</h4>
       <h4
         *ngIf="!task.active"
@@ -20,21 +22,21 @@
     </div>
   </div>
   <div class="form">
-    <div class="dates">
+    <div class="row">
       <bvr-form-field
-        class="disabled left-field"
+        class="left-field"
         label="Creation Date">
-        <span>{{ task.creationDate }}</span>
+        <span>{{ task.creationDate | date: 'dd/MM/yyyy' }}</span>
       </bvr-form-field>
       <bvr-form-field
         *ngIf="!task.active"
-        class="disabled field"
+        class="field"
         label="Archive Date">
-        <span>{{ task.archiveDate }}</span>
+        <span>{{ task.archiveDate | date: 'dd/MM/yyyy' }}</span>
       </bvr-form-field>
     </div>
     <bvr-form-field
-      class="disabled field description"
+      class="field"
       label="Description">
       <span>{{ task.description }}</span>
     </bvr-form-field>
@@ -48,7 +50,7 @@
 </div>
 
 <bvr-modal
-  (confirm)="archive()"
+  (confirm)="archive($event)"
   confirmLabel="archive"
   [description]="modalDescription"
   [title]="'Archive task'"

@@ -6,7 +6,7 @@
   [project]="projectTasks.project"></bvr-employee-tasks>
 
 <bvr-modal
-  (confirm)="delete()"
+  (confirm)="delete($event)"
   confirmLabel="Delete"
   [description]="modalDescription"
   [title]="'Delete task'"

@@ -1,9 +1,10 @@
-import { Status } from '../../shared/enum/status.enum';
-import { ProjectEmployee } from './project-employee.model';
+import { Day } from '../../calendar/models/day.model';
+import { Employee } from '../../shared/models/employee.model';
 
 export interface ProjectApproval {
-  id: string;
-  projectEmployee: ProjectEmployee;
-  status: Status;
-  lastRequest: string;
+  projectEmployeeId: string;
+  employeeId: string;
+  tasks: Day[];
+  employee?: Employee;
+  lastRequest?: string;
 }
