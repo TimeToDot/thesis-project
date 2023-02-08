@@ -15,7 +15,6 @@ import pl.thesis.api.auth.model.AuthorizationPayload;
 import pl.thesis.security.services.AuthService;
 
 import javax.validation.Valid;
-import java.util.UUID;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @AllArgsConstructor

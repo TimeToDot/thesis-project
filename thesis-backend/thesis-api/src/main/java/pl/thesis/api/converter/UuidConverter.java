@@ -1,6 +1,5 @@
 package pl.thesis.api.converter;
 
-import lombok.AllArgsConstructor;
 import org.mapstruct.Named;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

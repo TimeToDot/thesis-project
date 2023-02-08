@@ -3,7 +3,6 @@ package pl.thesis.api.project.model.task;
 import lombok.Builder;
 
 import java.util.Date;
-import java.util.UUID;
 
 @Builder
 public record ProjectTaskDetails(

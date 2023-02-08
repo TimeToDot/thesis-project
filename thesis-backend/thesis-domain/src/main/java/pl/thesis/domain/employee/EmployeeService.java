@@ -21,7 +21,6 @@ import pl.thesis.domain.employee.mapper.*;
 import pl.thesis.domain.employee.model.*;
 import pl.thesis.domain.paging.PagingHelper;
 import pl.thesis.domain.paging.PagingSettings;
-import pl.thesis.domain.task.mapper.TaskFormDTOMapper;
 import pl.thesis.domain.task.model.TaskStatusDTO;
 
 import javax.annotation.PostConstruct;
@@ -46,7 +45,6 @@ public class EmployeeService {
     private final EmployeeDTOMapper employeeDTOMapper;
     private final EmployeeProjectDTOMapper employeeProjectDTOMapper;
     private final EmployeeProjectDetailsDTOMapper employeeProjectDetailsDTOMapper;
-    private final TaskFormDTOMapper taskFormDTOMapper;
     private final EmployeeTasksDTOMapper employeeTasksDTOMapper;
     private final EmployeeTaskDTOMapper employeeTaskDTOMapper;
     private final PositionRepository positionRepository;
@@ -135,7 +133,7 @@ public class EmployeeService {
 
     public EmployeeProjectsDTO getEmployeeProjects(UUID id, PagingSettings pagingSettings) {
         if (!accountRepository.existsById(id)) {
-            throw new UsernameNotFoundException("employee not found"); // TODO: 17/12/2022  exception handling
+            throw new UsernameNotFoundException("employee not found");
         }
 
         var account = accountRepository.findById(id).orElseThrow();
@@ -439,12 +437,6 @@ public class EmployeeService {
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    private LocalDateTime convertToLocalDateTime(Date dateToConvert) {
-        return dateToConvert.toInstant()
-                .atZone(ZoneId.systemDefault())
-                .toLocalDateTime();
     }
 
     private void setAccountDetailsFields(EmployeeUpdatePayloadDTO payloadDTO, AccountDetails accountDetails, Sex sex, Country country, ContractType contractType) throws ParseException {

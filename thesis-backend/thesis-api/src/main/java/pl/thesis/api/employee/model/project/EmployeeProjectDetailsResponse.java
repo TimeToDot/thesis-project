@@ -3,7 +3,6 @@ package pl.thesis.api.employee.model.project;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
-import java.util.UUID;
 
 public record EmployeeProjectDetailsResponse(
         String id,

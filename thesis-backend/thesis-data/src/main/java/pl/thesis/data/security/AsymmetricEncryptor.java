@@ -36,7 +36,7 @@ public class AsymmetricEncryptor {
     private PublicKey publicKey;
 
     @PostConstruct
-    private void init() throws URISyntaxException {
+    private void init() {
         File f = new File(".");
         Path tempPath = null;
 

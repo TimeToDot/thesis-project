@@ -39,7 +39,6 @@ import pl.thesis.domain.project.model.employee.*;
 import pl.thesis.domain.project.model.task.*;
 import pl.thesis.domain.task.model.TaskStatusDTO;
 
-import java.text.ParseException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -427,7 +426,7 @@ public class ProjectService {
                 .build();
     }
 
-    public ProjectCalendarDTO getProjectCalendarDTO(UUID id, UUID projectId, Date date) throws ParseException {
+    public ProjectCalendarDTO getProjectCalendarDTO(UUID id, UUID projectId, Date date) {
         var eId = employeeService.getEmployeeIdByProjectEmployee(id);
         var calendarDTO = employeeService.getEmployeeCalendar(eId, projectId, date);
 

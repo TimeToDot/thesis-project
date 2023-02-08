@@ -37,13 +37,16 @@ public class PagingSettings {
     @JsonIgnore
     public Sort buildSort() {
         switch (direction) {
-            case "dsc":
+            case "dsc" -> {
                 return Sort.by(key).descending();
-            case "asc":
+            }
+            case "asc" -> {
                 return Sort.by(key).ascending();
-            default:
+            }
+            default -> {
                 log.warn("Invalid direction provided in PageSettings, using descending direction as default value");
                 return Sort.by(key).descending();
+            }
         }
     }
 

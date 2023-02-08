@@ -16,8 +16,6 @@ import pl.thesis.domain.position.model.PositionResponseDTO;
 import pl.thesis.domain.position.model.PositionUpdatePayloadDTO;
 import pl.thesis.domain.position.model.PositionsResponseDTO;
 
-import java.util.UUID;
-
 @Mapper(config = MapStructConfig.class, uses = UuidConverter.class)
 public interface PositionMapper {
 

@@ -1,6 +1,5 @@
 package pl.thesis.api.employee.mapper;
 
-import org.mapstruct.Context;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import pl.thesis.api.converter.UuidConverter;
