@@ -61,18 +61,20 @@ export class ProjectEmployeesComponent implements OnInit {
 
   editEmployee(event: Event, row: ProjectEmployee): void {
     event.stopPropagation();
-    this.router.navigate([row.id, 'edit'], { relativeTo: this.route });
+    this.router.navigate([row.projectEmployeeId, 'edit'], {
+      relativeTo: this.route,
+    });
   }
 
   openArchiveModal(event: Event, row: ProjectEmployee): void {
     event.stopPropagation();
     this.isArchiveModalOpen = true;
-    this.idToArchive = row.id;
+    this.idToArchive = row.projectEmployeeId;
     this.modalDescription = `Are you sure you want to archive ${row.employee.firstName} ${row.employee.lastName}? This action cannot be undone.`;
   }
 
-  showEmployeeDetails(row: Employee): void {
-    this.router.navigate([row.id], { relativeTo: this.route });
+  showEmployeeDetails(row: ProjectEmployee): void {
+    this.router.navigate([row.projectEmployeeId], { relativeTo: this.route });
   }
 
   showActiveTable(value: boolean): void {
@@ -110,6 +112,7 @@ export class ProjectEmployeesComponent implements OnInit {
         .getProjectEmployee(projectId, this.idToArchive)
         .pipe(first())
         .subscribe(employee => {
+          employee.projectId = projectId;
           this.projectEmployeesService
             .archiveProjectEmployee(employee)
             .pipe(first())

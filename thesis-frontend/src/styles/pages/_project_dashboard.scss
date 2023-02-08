@@ -18,9 +18,12 @@
     background: $color-disabled;
     border-radius: 100%;
     display: flex;
+    font-size: 2 * $grid-base;
     height: 6 * $grid-base;
     justify-content: center;
     margin-right: 3 * $grid-base;
+    max-height: 6 * $grid-base;
+    min-width: 6 * $grid-base;
     width: 6 * $grid-base;
   }
 

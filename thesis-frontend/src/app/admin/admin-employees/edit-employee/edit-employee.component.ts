@@ -250,26 +250,21 @@ export class EditEmployeeComponent {
     this.disableGuard(true);
     if (value) {
       this.employeesService
-        .archiveAccount(this.getEmployeeData())
+        .archiveEmployee(this.getEmployeeData())
         .pipe(first())
-        .subscribe(employee => {
-          this.employeesService
-            .archiveEmployee(employee)
-            .pipe(first())
-            .subscribe(() => {
-              this.router
-                .navigate(['../..'], { relativeTo: this.route })
-                .then(() => {
-                  setTimeout(
-                    () =>
-                      this.toastService.showToast(
-                        ToastState.Info,
-                        'Employee archived'
-                      ),
-                    200
-                  );
-                  setTimeout(() => this.toastService.dismissToast(), 3200);
-                });
+        .subscribe(() => {
+          this.router
+            .navigate(['../..'], { relativeTo: this.route })
+            .then(() => {
+              setTimeout(
+                () =>
+                  this.toastService.showToast(
+                    ToastState.Info,
+                    'Employee archived'
+                  ),
+                200
+              );
+              setTimeout(() => this.toastService.dismissToast(), 3200);
             });
         });
     }
@@ -290,15 +285,10 @@ export class EditEmployeeComponent {
     this.disableGuard(true);
     if (value) {
       this.employeesService
-        .updateAccount(this.getEmployeeData())
+        .updateEmployee(this.getEmployeeData())
         .pipe(first())
-        .subscribe(employee => {
-          this.employeesService
-            .updateEmployee(employee)
-            .pipe(first())
-            .subscribe(() => {
-              this.redirectAfterSave();
-            });
+        .subscribe(() => {
+          this.redirectAfterSave();
         });
     }
   }
@@ -310,7 +300,7 @@ export class EditEmployeeComponent {
       middleName: this.controls.middleName?.value,
       lastName: this.controls.lastName?.value,
       sex: this.controls.sex?.value,
-      birthDate: this.controls.birthDate?.value,
+      birthDate: formatDate(this.controls.birthDate?.value, 'yyyy-MM-dd', 'en'),
       birthPlace: this.controls.birthPlace?.value,
       idCardNumber: this.controls.idCardNumber?.value,
       pesel: this.controls.pesel?.value,
@@ -323,7 +313,11 @@ export class EditEmployeeComponent {
       phoneNumber: this.controls.phoneNumber?.value,
       privateEmail: this.controls.privateEmail?.value,
       position: this.controls.position?.value,
-      employmentDate: this.controls.employmentDate?.value,
+      employmentDate: formatDate(
+        this.controls.employmentDate?.value,
+        'yyyy-MM-dd',
+        'en'
+      ),
       contractType: this.controls.contractType?.value,
       workingTime: this.controls.workingTime?.value,
       wage: this.controls.wage?.value,

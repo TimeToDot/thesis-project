@@ -50,6 +50,15 @@
   display: flex;
 }
 
+.task-left-side {
+  width: auto;
+}
+
+.task-right-side {
+  min-width: 58 * $grid-base;
+  width: 58 * $grid-base;
+}
+
 .task-time {
   margin: 0 6 * $grid-base;
 

@@ -4,7 +4,7 @@ import { Status } from '../../shared/enum/status.enum';
 export interface Approval {
   approve: boolean;
   project: Project;
-  taskCount: number;
+  count: number;
   status: Status;
   updateDate: string;
 }

@@ -9,23 +9,23 @@
   *ngFor="let projectApproval of projectApprovals"
   class="table-row">
   <img
-    *ngIf="projectApproval.projectEmployee.employee.image"
+    *ngIf="projectApproval.employee?.image"
     class="task-image"
-    [src]="projectApproval.projectEmployee.employee.image" />
+    [src]="projectApproval.employee?.image" />
   <span
-    *ngIf="!projectApproval.projectEmployee.employee.image"
+    *ngIf="!projectApproval.employee?.image"
     class="picture">
-    {{ projectApproval.projectEmployee.employee.firstName[0]
-    }}{{ projectApproval.projectEmployee.employee.lastName[0] }}
+    {{ projectApproval.employee ? projectApproval.employee.firstName[0] : ''
+    }}{{ projectApproval.employee ? projectApproval.employee.lastName[0] : '' }}
   </span>
   <div class="row-data">
     <label>
-      {{ projectApproval.projectEmployee.employee.firstName }}
-      {{ projectApproval.projectEmployee.employee.lastName }}</label
+      {{ projectApproval.employee?.firstName }}
+      {{ projectApproval.employee?.lastName }}</label
     >
     <div class="details">
       <div class="details">
-        <small> {{ projectApproval.projectEmployee.employee.position }}</small>
+        <small> {{ projectApproval.employee?.position?.name }}</small>
       </div>
       <small class="dates">
         {{ projectApproval.lastRequest | date: 'dd/MM/yyyy' }}

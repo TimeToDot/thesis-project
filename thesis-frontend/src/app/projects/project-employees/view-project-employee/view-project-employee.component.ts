@@ -47,7 +47,9 @@ export class ViewProjectEmployeeComponent implements OnInit {
       this.projectEmployeeService
         .getProjectEmployee(projectId, employeeId)
         .pipe(first())
-        .subscribe(projectEmployee => (this.projectEmployee = projectEmployee));
+        .subscribe(projectEmployee => {
+          this.projectEmployee = projectEmployee;
+        });
     }
   }
 
@@ -57,7 +59,9 @@ export class ViewProjectEmployeeComponent implements OnInit {
   }
 
   archive(value: boolean): void {
-    if (value) {
+    const projectId = this.route.parent?.snapshot.paramMap.get('id');
+    if (value && projectId) {
+      this.projectEmployee.projectId = projectId;
       this.projectEmployeeService
         .archiveProjectEmployee(this.projectEmployee)
         .pipe(first())

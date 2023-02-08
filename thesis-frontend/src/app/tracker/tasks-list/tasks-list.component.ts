@@ -29,6 +29,7 @@ export class TasksListComponent implements OnInit {
   employeeProjectTasks: EmployeeProjectTask[] = [];
   isDeleteModalOpen: boolean = false;
   modalDescription: string = '';
+  taskToDelete: string = '';
 
   constructor(
     private authService: AuthService,
@@ -88,6 +89,7 @@ export class TasksListComponent implements OnInit {
 
   openDeleteModal(task: EmployeeTask): void {
     this.isDeleteModalOpen = true;
+    this.taskToDelete = task.id;
     this.modalDescription = `Are you sure you want to delete ${task.task.name}? This action cannot be undone.`;
   }
 
@@ -95,8 +97,17 @@ export class TasksListComponent implements OnInit {
     this.router.navigate(['../edit-task', task.id], { relativeTo: this.route });
   }
 
-  delete(): void {
-    this.toastService.showToast(ToastState.Info, 'Task deleted');
-    setTimeout(() => this.toastService.dismissToast(), 3000);
+  delete(value: boolean): void {
+    const employeeId = this.authService.getLoggedEmployeeId();
+    if (value) {
+      this.employeeTasksService
+        .deleteEmployeeTask(employeeId, this.taskToDelete)
+        .pipe(first())
+        .subscribe(() => {
+          this.getEmployeeTasks();
+          this.toastService.showToast(ToastState.Info, 'Task deleted');
+          setTimeout(() => this.toastService.dismissToast(), 3000);
+        });
+    }
   }
 }

@@ -5,13 +5,13 @@ import { first, Subject } from 'rxjs';
 import { ButtonComponent } from '../../shared/components/button/button.component';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { EmployeesService } from '../../admin/services/employees.service';
-import { AuthService } from '../../shared/services/auth.service';
 import { Account } from '../../shared/models/account.model';
 import { FormFieldComponent } from '../../shared/components/form-field/form-field.component';
 import { FileUploadComponent } from '../../shared/components/file-upload/file-upload.component';
 import { ValidationService } from '../../shared/services/validation.service';
 import { ToastState } from '../../shared/enum/toast-state';
 import { ToastService } from '../../shared/services/toast.service';
+import { TokenService } from '../../shared/services/token.service';
 
 @Component({
   selector: 'bvr-edit-photo',
@@ -37,11 +37,11 @@ export class EditPhotoComponent {
   redirectSubject: Subject<boolean> = new Subject<boolean>();
 
   constructor(
-    private authService: AuthService,
     private employeesService: EmployeesService,
     private fb: FormBuilder,
     private location: Location,
     private toastService: ToastService,
+    private tokenService: TokenService,
     private validationService: ValidationService
   ) {}
 
@@ -57,16 +57,13 @@ export class EditPhotoComponent {
   }
 
   getEmployee(): void {
-    const employeeId = this.authService.getLoggedEmployeeId();
-    if (employeeId) {
-      this.employeesService
-        .getEmployee(employeeId)
-        .pipe(first())
-        .subscribe(employee => {
-          this.employee = employee;
-          this.updateFormFields();
-        });
-    }
+    this.employeesService
+      .getEmployee(this.tokenService.getEmployee())
+      .pipe(first())
+      .subscribe(employee => {
+        this.employee = employee;
+        this.updateFormFields();
+      });
   }
 
   updateFormFields(): void {

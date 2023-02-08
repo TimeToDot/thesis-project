@@ -50,7 +50,7 @@
           <bvr-form-field
             class="disabled left-field position"
             label="Position">
-            <span>{{ employee.position.name }}</span>
+            <span>{{ employee.position ? employee.position.name : '' }}</span>
           </bvr-form-field>
           <bvr-form-field
             class="disabled left-field email"

@@ -13,7 +13,7 @@ import { TabsComponent } from '../shared/components/tabs/tabs.component';
 import { ToastComponent } from '../shared/components/toast/toast.component';
 import { Account } from '../shared/models/account.model';
 import { LinkOption } from '../shared/models/link-option.model';
-import { AuthService } from '../shared/services/auth.service';
+import { TokenService } from '../shared/services/token.service';
 
 @Component({
   selector: 'bvr-profile',
@@ -34,9 +34,9 @@ export class ProfileComponent implements OnInit {
   navbarOptions: LinkOption[] = [];
 
   constructor(
-    private authService: AuthService,
     private contexts: ChildrenOutletContexts,
-    private employeesService: EmployeesService
+    private employeesService: EmployeesService,
+    private tokenService: TokenService
   ) {}
 
   ngOnInit(): void {
@@ -45,15 +45,12 @@ export class ProfileComponent implements OnInit {
   }
 
   getEmployee(): void {
-    const employeeId = this.authService.getLoggedEmployeeId();
-    if (employeeId) {
-      this.employeesService
-        .getEmployee(employeeId)
-        .pipe(first())
-        .subscribe(employee => {
-          this.employee = employee;
-        });
-    }
+    this.employeesService
+      .getEmployee(this.tokenService.getEmployee())
+      .pipe(first())
+      .subscribe(employee => {
+        this.employee = employee;
+      });
   }
 
   getNavbarOptions(): void {

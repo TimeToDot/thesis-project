@@ -21,7 +21,7 @@
     <label> {{ employee.firstName }} {{ employee.lastName }}</label>
     <div class="details">
       <div class="details">
-        <small> {{ employee.position }}</small>
+        <small> {{ employee.position ? employee.position.name : '' }}</small>
       </div>
       <small class="dates">
         {{ employee.employmentDate | date: 'dd/MM/yyyy' }}

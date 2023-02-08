@@ -28,6 +28,7 @@ import { ToastState } from '../../shared/enum/toast-state';
 import { ToastService } from '../../shared/services/toast.service';
 import { Regex } from '../../shared/helpers/regex.helper';
 import { CustomValidators } from '../../shared/helpers/custom-validators.helper';
+import { EmployeesService } from '../../admin/services/employees.service';
 
 @Component({
   selector: 'bvr-edit-project',
@@ -64,6 +65,7 @@ export class EditProjectComponent implements OnInit {
 
   constructor(
     private contexts: ChildrenOutletContexts,
+    private employeesService: EmployeesService,
     private fb: FormBuilder,
     private location: Location,
     private projectsService: ProjectsService,
@@ -145,9 +147,20 @@ export class EditProjectComponent implements OnInit {
         .pipe(first())
         .subscribe(project => {
           this.project = project;
+          this.getProjectModerator(project.moderatorId as string);
           this.updateFormFields();
         });
     }
+  }
+
+  getProjectModerator(employeeId: string): void {
+    this.employeesService
+      .getEmployee(employeeId)
+      .pipe(first())
+      .subscribe(employee => {
+        this.project.moderator = employee;
+        this.controls.moderator.setValue(this.project.moderator);
+      });
   }
 
   updateFormFields(): void {
@@ -243,9 +256,10 @@ export class EditProjectComponent implements OnInit {
     return {
       id: this.project.id,
       name: this.controls.name?.value,
-      image: this.controls.image?.value,
+      image: '',
       description: this.controls.description?.value,
       moderator: this.controls.moderator?.value,
+      moderatorId: this.controls.moderator?.value.id,
       employeesCount: this.controls.employeesCount?.value,
       creationDate: this.project.creationDate,
       billingPeriod: this.controls.billingPeriod?.value,

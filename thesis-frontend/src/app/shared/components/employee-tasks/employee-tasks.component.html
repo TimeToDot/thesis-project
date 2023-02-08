@@ -27,7 +27,8 @@
           medium: isMedium(employeeTask),
           wide: isWide(employeeTask) && !isMedium(employeeTask)
         }">
-        {{ employeeTask.startTime }} - {{ employeeTask.endTime }}
+        {{ employeeTask.startTime | slice: 0:5 }} -
+        {{ employeeTask.endTime | slice: 0:5 }}
       </div>
       <div *ngIf="isActive">
         <bvr-button

@@ -1,7 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { first, map, Observable, tap } from 'rxjs';
+import { environment } from '../../../environments/environment';
 import { LoginData } from '../models/login-data.model';
+import { LoginResponse } from '../models/login-response.model';
 import { PermissionsService } from './permissions.service';
 import { TokenService } from './token.service';
 
@@ -10,10 +12,10 @@ import { TokenService } from './token.service';
 })
 export class AuthService {
   private isLoggedIn: boolean = false;
-  private url: string = 'http://localhost:8080/thesis/api/authentication';
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    observe: 'response',
   };
 
   redirectUrl: string | null = null;
@@ -31,7 +33,7 @@ export class AuthService {
   }
 
   getLoggedEmployeeId(): string {
-    return this.tokenService.getToken() as string;
+    return this.tokenService.getEmployee() as string;
   }
 
   readFromLocalStorage(): void {
@@ -43,11 +45,21 @@ export class AuthService {
 
   login(loginData: LoginData): Observable<boolean> {
     return this.http
-      .post<any>(`${this.url}/login`, loginData, this.httpOptions)
+      .post<LoginResponse>(
+        `${environment.apiUrl}/authentication/login`,
+        loginData,
+        {
+          headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+          observe: 'response',
+        }
+      )
       .pipe(
         first(),
-        tap(data => {
-          this.tokenService.saveToken(data.id);
+        tap(res => {
+          const cookie = res.headers.get('Cookie') as string;
+          const data = res.body as LoginResponse;
+          this.tokenService.saveToken(cookie);
+          this.tokenService.saveEmployee(data.id);
           this.isLoggedIn = true;
           this.permissionsService.setEmployeePermissions(data);
         }),
@@ -60,3 +72,66 @@ export class AuthService {
     this.tokenService.signOut();
   }
 }
+
+// import { Injectable } from '@angular/core';
+// import { first, Observable, of, tap } from 'rxjs';
+// import { EmployeesService } from '../../admin/services/employees.service';
+
+// @Injectable({
+//   providedIn: 'root',
+// })
+// export class AuthService {
+//   private isLoggedIn: boolean = false;
+//   private loggedEmployeeId: string = '';
+
+//   redirectUrl: string | null = null;
+
+//   constructor(private employeesService: EmployeesService) {
+//     this.readFromLocalStorage();
+//   }
+
+//   getLoggedInStatus(): boolean {
+//     return this.isLoggedIn;
+//   }
+
+//   getLoggedEmployeeId(): string {
+//     return this.loggedEmployeeId;
+//   }
+
+//   readFromLocalStorage(): void {
+//     const isLogged = localStorage.getItem('isLoggedIn');
+//     if (isLogged) {
+//       this.isLoggedIn = JSON.parse(isLogged);
+//     }
+//     const employeeId = localStorage.getItem('employeeId');
+//     if (employeeId) {
+//       this.loggedEmployeeId = JSON.parse(employeeId);
+//     }
+//   }
+
+//   login(): Observable<boolean> {
+//     return of(true).pipe(
+//       tap(() => {
+//         this.isLoggedIn = true;
+//         localStorage.setItem('isLoggedIn', JSON.stringify(this.isLoggedIn));
+//         this.employeesService
+//           .getEmployee('1')
+//           .pipe(first())
+//           .subscribe(employee => {
+//             this.loggedEmployeeId = employee.id;
+//             localStorage.setItem(
+//               'employeeId',
+//               JSON.stringify(this.loggedEmployeeId)
+//             );
+//           });
+//       })
+//     );
+//   }
+
+//   logout(): void {
+//     this.isLoggedIn = false;
+//     this.loggedEmployeeId = '';
+//     localStorage.setItem('isLoggedIn', JSON.stringify(this.isLoggedIn));
+//     localStorage.setItem('employeeId', JSON.stringify(this.loggedEmployeeId));
+//   }
+// }

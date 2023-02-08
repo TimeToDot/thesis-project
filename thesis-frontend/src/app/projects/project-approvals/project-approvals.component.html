@@ -50,18 +50,18 @@
           *cdkCellDef="let element">
           <div class="table-cell">
             <img
-              *ngIf="element.projectEmployee.employee.image"
+              *ngIf="element.employee.image"
               class="picture"
-              [src]="element.projectEmployee.employee.image" />
+              [src]="element.employee.image" />
             <span
-              *ngIf="!element.projectEmployee.employee.image"
+              *ngIf="!element.employee.image"
               class="picture">
-              {{ element.projectEmployee.employee.firstName[0]
-              }}{{ element.projectEmployee.employee.lastName[0] }}
+              {{ element.employee.firstName[0]
+              }}{{ element.employee.lastName[0] }}
             </span>
             <span
-              >{{ element.projectEmployee.employee.firstName }}
-              {{ element.projectEmployee.employee.lastName }}</span
+              >{{ element.employee.firstName }}
+              {{ element.employee.lastName }}</span
             >
           </div>
         </td>
@@ -76,7 +76,7 @@
           cdk-cell
           *cdkCellDef="let element">
           <div class="table-cell">
-            <span>{{ element.projectEmployee.employee.position }}</span>
+            <span>{{ element.position ? element.position.name : '' }}</span>
           </div>
         </td>
       </ng-container>
@@ -115,7 +115,7 @@
       <tr
         cdk-row
         *cdkRowDef="let row; columns: displayedActiveColumns"
-        [routerLink]="[row.id]"></tr>
+        [routerLink]="[row.projectEmployeeId]"></tr>
     </table>
   </div>
 
@@ -136,18 +136,18 @@
           *cdkCellDef="let element">
           <div class="table-cell">
             <img
-              *ngIf="element.projectEmployee.employee.image"
+              *ngIf="element.employee.image"
               class="picture archived"
-              [src]="element.projectEmployee.employee.image" />
+              [src]="element.employee.image" />
             <span
-              *ngIf="!element.projectEmployee.employee.image"
+              *ngIf="!element.employee.image"
               class="picture archived">
-              {{ element.projectEmployee.employee.firstName[0]
-              }}{{ element.projectEmployee.employee.lastName[0] }}
+              {{ element.employee.firstName[0]
+              }}{{ element.employee.lastName[0] }}
             </span>
             <span
-              >{{ element.projectEmployee.employee.firstName }}
-              {{ element.projectEmployee.employee.lastName }}</span
+              >{{ element.employee.firstName }}
+              {{ element.employee.lastName }}</span
             >
           </div>
         </td>
@@ -162,7 +162,7 @@
           cdk-cell
           *cdkCellDef="let element">
           <div class="table-cell">
-            <span>{{ element.projectEmployee.employee.position }}</span>
+            <span>{{ element.position ? element.position.name : '' }}</span>
           </div>
         </td>
       </ng-container>
@@ -175,7 +175,7 @@
         <td
           cdk-cell
           *cdkCellDef="let element">
-          {{ element.projectEmployee.exitDate | date: 'dd/MM/yyyy' }}
+          {{ element.exitDate | date: 'dd/MM/yyyy' }}
         </td>
       </ng-container>
       <ng-container cdkColumnDef="last_request">
@@ -196,7 +196,7 @@
       <tr
         cdk-row
         *cdkRowDef="let row; columns: displayedArchivedColumns"
-        [routerLink]="[row.id]"></tr>
+        [routerLink]="[row.projectEmployeeId]"></tr>
     </table>
   </div>
 </div>

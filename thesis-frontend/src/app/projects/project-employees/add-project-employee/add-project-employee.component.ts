@@ -102,6 +102,19 @@ export class AddProjectEmployeeComponent implements OnInit {
       .subscribe(employees => {
         this.employees = employees.slice(0, 7);
         setTimeout(() => this.observeIdSelection(), 0);
+        this.getProjectEmployees();
+      });
+  }
+
+  getProjectEmployees(): void {
+    const projectId = this.route.parent?.snapshot.paramMap.get('id') as string;
+    this.projectEmployeesService
+      .getProjectEmployees(projectId)
+      .pipe(first())
+      .subscribe(projectEmployees => {
+        this.employees.filter(employee =>
+          projectEmployees.map(pe => pe.employee.id).includes(employee.id)
+        );
       });
   }
 
@@ -116,7 +129,9 @@ export class AddProjectEmployeeComponent implements OnInit {
     this.employeesService
       .getEmployee(employeeId)
       .pipe(first())
-      .subscribe(employee => (this.employee = employee));
+      .subscribe(employee => {
+        this.employee = employee;
+      });
   }
 
   openAddModal(): void {
@@ -161,7 +176,7 @@ export class AddProjectEmployeeComponent implements OnInit {
   getProjectEmployeeData(): ProjectEmployee {
     const projectId = this.route.parent?.snapshot.paramMap.get('id') as string;
     return {
-      id: '',
+      projectEmployeeId: '',
       projectId: projectId,
       employee: {
         id: this.employee.id,
@@ -169,13 +184,14 @@ export class AddProjectEmployeeComponent implements OnInit {
         lastName: this.employee.lastName,
         email: this.employee.email,
         image: this.employee.image,
-        position: this.employee.position.name,
+        position: this.employee.position,
         employmentDate: this.employee.employmentDate,
         workingTime: this.employee.workingTime,
         wage: this.employee.wage,
         contractType: this.employee.contractType,
         active: this.employee.active,
       },
+      employeeId: this.employee.id,
       workingTime: this.controls.workingTime?.value,
       salaryModifier: this.controls.salaryModifier?.value,
       joinDate: formatDate(new Date(Date.now()), 'yyyy-MM-dd', 'en'),
