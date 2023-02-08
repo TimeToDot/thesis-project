@@ -1,18 +1,14 @@
 package thesis.api.position.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
-import thesis.domain.paging.Paging;
-import thesis.domain.paging.Sorting;
 
 import java.util.List;
 
 
 
+@AllArgsConstructor
 @Builder
-public record PositionsResponse(
-        List<PositionResponse> positions,
-        Paging paging,
-        Sorting sorting
-){
-
+public class PositionsResponse{
+    private final List<Position> positions;
 }

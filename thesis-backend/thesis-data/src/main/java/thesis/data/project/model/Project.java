@@ -39,7 +39,7 @@ public class Project {
 
   @OneToMany(mappedBy = "project", fetch = FetchType.LAZY)
   @ToString.Exclude
-  private List<AccountProject> accountProjects;
+  private List<ProjectAccountRole> projectAccountRoles;
 
   @Override
   public boolean equals(Object o) {

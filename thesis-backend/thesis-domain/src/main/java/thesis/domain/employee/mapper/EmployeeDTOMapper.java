@@ -26,7 +26,7 @@ public interface EmployeeDTOMapper {
     @Mapping(target = "accountNumber", source = "taxNumber")
     @Mapping(target = "employmentDate", source = "createdAt")
     @Mapping(target = "phoneNumber", source = "phoneNumber")
-    @Mapping(target = "positionId", source = "account.position.id")
+    @Mapping(target = "positionIds", source = "account.positions")
     @Mapping(target = "sex", source = "sex")
     EmployeeDTO map(AccountDetails details);
 

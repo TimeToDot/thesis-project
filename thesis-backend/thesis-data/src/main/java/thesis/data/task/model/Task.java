@@ -2,7 +2,6 @@ package thesis.data.task.model;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import thesis.data.account.model.Account;
@@ -12,7 +11,6 @@ import java.util.Date;
 import java.util.UUID;
 
 @Getter
-@Setter
 @ToString
 @RequiredArgsConstructor
 @SuperBuilder

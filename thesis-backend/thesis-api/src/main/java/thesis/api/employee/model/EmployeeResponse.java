@@ -1,9 +1,7 @@
 package thesis.api.employee.model;
 
 import javax.validation.constraints.NotNull;
-import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 public record EmployeeResponse(
 
@@ -15,9 +13,9 @@ public record EmployeeResponse(
         String email,
         @NotNull
         String password,
-        UUID positionId,
-        Date employmentDate,
-        String imagePath,
+        List<String> positionIds,
+        String employmentDate,
+        String image,
         String sex,
         String birthDate,
         String phoneNumber,

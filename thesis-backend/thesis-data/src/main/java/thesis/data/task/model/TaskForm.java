@@ -22,7 +22,7 @@ public class TaskForm {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private UUID id;
 
-  @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @PrimaryKeyJoinColumn
   @ToString.Exclude
   private TaskFormDetails details;

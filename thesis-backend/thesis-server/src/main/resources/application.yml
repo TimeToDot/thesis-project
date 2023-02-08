@@ -22,10 +22,8 @@ spring:
     url: jdbc:postgresql://localhost:5432/thesis
     username: root
     password: secret
-  jackson:
-    serialization:
-      write-dates-as-timestamps: false
-
+  profiles:
+    active: dev
 
 springdoc:
   api-docs:

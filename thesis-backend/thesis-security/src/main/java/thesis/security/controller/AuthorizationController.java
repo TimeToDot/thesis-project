@@ -10,17 +10,18 @@ import thesis.data.account.model.StatusType;
 import thesis.data.role.RoleRepository;
 import thesis.data.role.model.Role;
 import thesis.data.role.model.RoleType;
+import thesis.security.payload.AuthorizationRequest;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
-/*@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = "*", maxAge = 3600)
 @AllArgsConstructor
 @RequestMapping("/api/authorization")
-@RestController*/
+@RestController
 public class AuthorizationController {
-    /*private final AccountRepository accountRepository;
+    private final AccountRepository accountRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
     @PostMapping
@@ -37,6 +38,8 @@ public class AuthorizationController {
         }
 
         // Create new user's account
+
+
 
         List<String> strRoles = authorizationRequest.getRoles();
         List<Role> roles = new ArrayList<>();
@@ -74,5 +77,5 @@ public class AuthorizationController {
 
 
         return ResponseEntity.ok("User registered successfully!");
-    }*/
+    }
 }

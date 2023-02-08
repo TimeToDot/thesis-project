@@ -15,3 +15,4 @@ DROP TABLE IF EXISTS account;
 
 
 
+select * from account
