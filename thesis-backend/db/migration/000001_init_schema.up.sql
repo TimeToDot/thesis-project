@@ -3,7 +3,7 @@ CREATE TABLE "account" (
                            /*"login" varchar NOT NULL,*/
                            "pass" varchar NOT NULL,
                            "status" varchar NOT NULL,
-                           "email" varchar NOT NULL,
+                           "email" varchar NOT NULL UNIQUE,
                            "position_id" uuid
 );
 
