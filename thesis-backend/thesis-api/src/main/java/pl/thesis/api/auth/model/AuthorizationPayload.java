@@ -72,7 +72,7 @@ public class AuthorizationPayload {
     private String privateEmail;
 
     @NotNull
-    private UUID positionId;
+    private Long positionId;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date employmentDate;

@@ -5,14 +5,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pl.thesis.api.ThesisController;
-import pl.thesis.api.converter.UuidConverter;
+import pl.thesis.api.converter.IdConverter;
+import pl.thesis.api.converter.model.ThesisId;
 import pl.thesis.api.position.model.PositionCreatePayload;
 import pl.thesis.api.position.model.PositionResponse;
 import pl.thesis.api.position.model.PositionUpdatePayload;
 import pl.thesis.domain.position.PositionService;
 
 import java.util.List;
-import java.util.UUID;
 
 @AllArgsConstructor
 @RestController
@@ -21,7 +21,7 @@ public class PositionsController extends ThesisController {
 
     private final PositionService positionService;
     private final PositionMapper positionsMapper;
-    private final UuidConverter converter;
+    private final IdConverter converter;
 
     @PreAuthorize("hasAuthority('CAN_READ')")
     @GetMapping
@@ -43,11 +43,10 @@ public class PositionsController extends ThesisController {
     @PreAuthorize("hasAuthority('CAN_READ')")
     @GetMapping("/{positionId}")
     public ResponseEntity<PositionResponse> getPosition(
-            @PathVariable String positionId
+            @PathVariable ThesisId positionId
 
     ){
-        var posId = converter.mapToId(positionId);
-        var dto = positionService.getPosition(posId);
+        var dto = positionService.getPosition(positionId.id());
         var response = positionsMapper.mapToPositionResponse(dto);
 
         return ResponseEntity.ok(response);
@@ -55,7 +54,7 @@ public class PositionsController extends ThesisController {
 
     @PreAuthorize("hasAuthority('CAN_ADMIN_POSITIONS')")
     @PostMapping
-    public ResponseEntity<UUID> addPosition(
+    public ResponseEntity<Long> addPosition(
             @RequestBody PositionCreatePayload payload
     ){
 
@@ -70,9 +69,9 @@ public class PositionsController extends ThesisController {
     @PutMapping("/{positionId}")
     public ResponseEntity<String> updatePosition(
             @RequestBody PositionUpdatePayload payload,
-            @PathVariable String positionId
+            @PathVariable ThesisId positionId
     ){
-        var dto = positionsMapper.mapToPositionUpdatePayloadDto(payload, positionId);
+        var dto = positionsMapper.mapToPositionUpdatePayloadDto(payload, positionId.id());
         var response = positionService.updatePosition(dto);
 
         return ResponseEntity.ok(converter.mapToText(response));

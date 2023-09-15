@@ -1,6 +1,9 @@
 package pl.thesis.data.position.model;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.Hibernate;
 import pl.thesis.data.account.model.Account;
@@ -9,7 +12,6 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 
 @ToString
 @RequiredArgsConstructor
@@ -20,9 +22,9 @@ import java.util.UUID;
 public class Position {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private UUID id;
+    private Long id;
 
     @OneToMany(mappedBy="position",cascade=CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Account> accounts;

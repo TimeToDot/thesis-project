@@ -162,21 +162,6 @@
       </properties>
     </profile>
 
-    <profile>
-      <id>docker</id>
-      <properties>
-        <spring.profiles.active>dev</spring.profiles.active>
-        <skip.Tests>false</skip.Tests>
-      </properties>
-    </profile>
-
-    <profile>
-      <id>init-data</id>
-      <properties>
-        <!--<spring.profiles.active>init-data</spring.profiles.active>-->
-        <skipTests>true</skipTests>
-      </properties>
-    </profile>
   </profiles>
 
 </project>

@@ -1,6 +1,9 @@
 package pl.thesis.data.permission.model;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.Hibernate;
 import pl.thesis.data.role.model.Role;
@@ -8,7 +11,6 @@ import pl.thesis.data.role.model.Role;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -20,8 +22,8 @@ import java.util.UUID;
 public class Privilege {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private UUID id;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
   @Enumerated(EnumType.STRING)
   private PrivilegeType name;

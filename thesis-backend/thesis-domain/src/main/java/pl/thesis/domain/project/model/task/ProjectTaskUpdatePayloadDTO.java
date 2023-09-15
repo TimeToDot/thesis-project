@@ -1,11 +1,9 @@
 package pl.thesis.domain.project.model.task;
 
-import java.util.UUID;
-
 public record ProjectTaskUpdatePayloadDTO(
-        UUID id,
+        Long id,
 
-        UUID projectId,
+        Long projectId,
 
         String name,
         String description,

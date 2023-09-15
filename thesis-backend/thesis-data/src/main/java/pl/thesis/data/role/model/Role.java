@@ -14,7 +14,6 @@ import pl.thesis.data.permission.model.Privilege;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -26,8 +25,8 @@ import java.util.UUID;
 public class Role {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private UUID id;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
   @Enumerated(EnumType.STRING)
   @Column(length = 20)

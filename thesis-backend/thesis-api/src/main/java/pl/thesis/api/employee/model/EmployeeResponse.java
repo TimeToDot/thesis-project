@@ -1,7 +1,5 @@
 package pl.thesis.api.employee.model;
 
-import pl.thesis.api.employee.CountryResponse;
-import pl.thesis.api.employee.SexResponse;
 import pl.thesis.api.global.model.ContractResponse;
 
 import java.util.Date;

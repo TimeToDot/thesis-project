@@ -1,15 +1,15 @@
 CREATE TABLE "account" (
-                           "id" uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+                           "id" BIGSERIAL PRIMARY KEY,
                            /*"login" varchar NOT NULL,*/
                            "pass" varchar NOT NULL,
                            "status" varchar NOT NULL,
-                           "email" varchar NOT NULL UNIQUE,
-                           "position_id" uuid
+                           "email" varchar NOT NULL,
+                           "position_id" BIGINT
 );
 
 CREATE TABLE "account_details" (
-                                   "id" uuid DEFAULT gen_random_uuid() PRIMARY KEY,
-                                   "account_id" uuid NOT NULL,
+                                   "id" BIGSERIAL PRIMARY KEY,
+                                   "account_id" BIGINT NOT NULL,
                                    "name" varchar NOT NULL,
                                    "middle_name" varchar,
                                    "surname" varchar NOT NULL,
@@ -38,29 +38,29 @@ CREATE TABLE "account_details" (
 );
 
 CREATE TABLE "sex" (
-                                   "id" SERIAL PRIMARY KEY NOT NULL,
+                                   "id" SERIAL PRIMARY KEY,
                                    "name" varchar NOT NULL
 );
 CREATE TABLE "contract_type" (
-                                   "id" SERIAL PRIMARY KEY NOT NULL,
+                                   "id" SERIAL PRIMARY KEY,
                                    "name" varchar NOT NULL
 );
 CREATE TABLE "country" (
-                                   "serial" SERIAL PRIMARY KEY NOT NULL,
+                                   "serial" SERIAL PRIMARY KEY,
                                    "id" INTEGER NOT NULL,
                                    "name" varchar NOT NULL
 );
 CREATE TABLE "billing_period" (
-                                   "id" SERIAL PRIMARY KEY NOT NULL,
+                                   "id" SERIAL PRIMARY KEY,
                                    "name" varchar NOT NULL
 );
 
 CREATE TABLE "account_project" (
 
-                                   "id" uuid DEFAULT gen_random_uuid() PRIMARY KEY,
-                                   "account_id" uuid NOT NULL,
-                                   "project_id" uuid NOT NULL,
-                                   "role_id" uuid NOT NULL,
+                                   "id" BIGSERIAL PRIMARY KEY,
+                                   "account_id" BIGINT NOT NULL,
+                                   "project_id" BIGINT NOT NULL,
+                                   "role_id" BIGINT NOT NULL,
                                    "working_time" INTEGER,
                                    "modifier" INTEGER,
                                    "join_date" timestamp NOT NULL,
@@ -69,7 +69,7 @@ CREATE TABLE "account_project" (
 );
 
 CREATE TABLE "position" (
-                        "id" uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+                        "id" BIGSERIAL PRIMARY KEY,
                         "name" varchar,
                         "description" varchar,
                         "creation_date" timestamp NOT NULL,
@@ -78,39 +78,39 @@ CREATE TABLE "position" (
 );
 
 CREATE TABLE "account_role" (
-                                "id" uuid DEFAULT gen_random_uuid() PRIMARY KEY,
-                                "account_id" uuid NOT NULL,
-                                "role_id" uuid NOT NULL
+                                "id" BIGSERIAL PRIMARY KEY,
+                                "account_id" BIGINT NOT NULL,
+                                "role_id" BIGINT NOT NULL
 );
 
 CREATE TABLE "role" (
-                        "id" uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+                        "id" BIGSERIAL PRIMARY KEY,
                         "name" varchar NOT NULL
 );
 
 CREATE TABLE "privilege" (
-                             "id" uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+                             "id" BIGSERIAL PRIMARY KEY,
                              "name" varchar NOT NULL
 );
 
 CREATE TABLE "role_privilege" (
-                                  "id" uuid DEFAULT gen_random_uuid() PRIMARY KEY,
-                                  "role_id" uuid NOT NULL,
-                                  "privilege_id" uuid NOT NULL
+                                  "id" BIGSERIAL PRIMARY KEY,
+                                  "role_id" BIGINT NOT NULL,
+                                  "privilege_id" BIGINT NOT NULL
 );
 
 CREATE TABLE "project" (
-                           "id" uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+                           "id" BIGSERIAL PRIMARY KEY,
                            "name" varchar NOT NULL,
                            "description" varchar,
-                           "owner_id" uuid NOT NULL,
+                           "owner_id" BIGINT NOT NULL,
                            "status" varchar
 );
 
 CREATE TABLE "project_details" (
-                                   "id" uuid DEFAULT gen_random_uuid() PRIMARY KEY,
-                                   "project_id" uuid NOT NULL,
-                                   "billing_period_id"  INTEGER NOT NULL,
+                                   "id" BIGSERIAL PRIMARY KEY,
+                                   "project_id" BIGINT NOT NULL,
+                                   "billing_period_id" INTEGER NOT NULL,
                                    "archive_date" timestamp,
                                    "overtime_modifier" INTEGER,
                                    "bonus_modifier" INTEGER,
@@ -121,25 +121,25 @@ CREATE TABLE "project_details" (
 );
 
 CREATE TABLE "task_form" (
-                             "id" uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+                             "id" BIGSERIAL PRIMARY KEY,
                              "name" varchar NOT NULL,
                              "description" varchar,
-                             "id_project" uuid NOT NULL,
+                             "id_project" BIGINT NOT NULL,
                              "archive_date" timestamp,
                              "created_at" timestamp DEFAULT 'now()'
 );
 
 CREATE TABLE "task_form_details" (
-                                     "id" uuid DEFAULT gen_random_uuid() PRIMARY KEY,
-                                     "task_form_id" uuid NOT NULL ,
+                                     "id" BIGSERIAL PRIMARY KEY,
+                                     "task_form_id" BIGINT NOT NULL ,
                                      "description" varchar,
                                      "status" varchar NOT NULL
 );
 
 CREATE TABLE "task" (
-                        "id" uuid DEFAULT gen_random_uuid() PRIMARY KEY,
-                        "account_id" uuid NOT NULL ,
-                        "form_id" uuid NOT NULL ,
+                        "id" BIGSERIAL PRIMARY KEY,
+                        "account_id" BIGINT NOT NULL ,
+                        "form_id" BIGINT NOT NULL ,
                         "created_at" timestamp DEFAULT 'now()',
                         "date_from" timestamp NOT NULL,
                         "date_to" timestamp NOT NULL,
@@ -148,10 +148,10 @@ CREATE TABLE "task" (
 );
 
 CREATE TABLE "account_message" (
-                                   "id" uuid DEFAULT gen_random_uuid() PRIMARY KEY,
+                                   "id" BIGSERIAL PRIMARY KEY,
                                    "data" varchar,
-                                   "account_from" uuid,
-                                   "account_to" uuid,
+                                   "account_from" BIGINT,
+                                   "account_to" BIGINT,
                                    "created_at" timestamp DEFAULT 'now()'
 );
 

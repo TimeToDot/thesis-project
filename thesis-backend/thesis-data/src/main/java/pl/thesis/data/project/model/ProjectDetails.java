@@ -10,7 +10,6 @@ import org.hibernate.Hibernate;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -22,8 +21,8 @@ import java.util.UUID;
 public class ProjectDetails {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private UUID id;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
   @OneToOne
   @JoinColumn(name = "project_id")
   private Project project;

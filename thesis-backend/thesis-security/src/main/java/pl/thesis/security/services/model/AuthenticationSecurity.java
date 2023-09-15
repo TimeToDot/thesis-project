@@ -4,14 +4,13 @@ import lombok.Builder;
 
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 @Builder
 public record AuthenticationSecurity(
-        UUID id,
+        Long id,
         String username,
         String email,
         List<String> globalAuthorities,
-        Map<UUID, List<String>> projectPrivileges
+        Map<Long, List<String>> projectPrivileges
 ) {
 }

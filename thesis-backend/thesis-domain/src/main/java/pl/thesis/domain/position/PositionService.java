@@ -6,18 +6,17 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.thesis.data.position.PositionRepository;
 import pl.thesis.data.position.model.Position;
 import pl.thesis.data.position.model.PositionType;
+import pl.thesis.domain.paging.PagingSettings;
 import pl.thesis.domain.position.model.PositionCreatePayloadDTO;
 import pl.thesis.domain.position.model.PositionResponseDTO;
 import pl.thesis.domain.position.model.PositionUpdatePayloadDTO;
 import pl.thesis.domain.position.model.PositionsResponseDTO;
-import pl.thesis.domain.paging.PagingSettings;
 
 import javax.annotation.PostConstruct;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
-import java.util.UUID;
 
 import static pl.thesis.domain.paging.PagingHelper.getPaging;
 import static pl.thesis.domain.paging.PagingHelper.getSorting;
@@ -35,7 +34,7 @@ public class PositionService {
     }
 
     @Transactional
-    public PositionResponseDTO getPosition(UUID positionId) {
+    public PositionResponseDTO getPosition(Long positionId) {
         var position = positionRepository.findById(positionId).orElseThrow();
 
         return buildPositionDTO(position);
@@ -57,7 +56,7 @@ public class PositionService {
     }
 
     @Transactional
-    public UUID updatePosition(PositionUpdatePayloadDTO payloadDTO) {
+    public Long updatePosition(PositionUpdatePayloadDTO payloadDTO) {
         var position = positionRepository.findById(payloadDTO.id()).orElseThrow();
 
         if (Boolean.TRUE.equals(payloadDTO.active())) {
@@ -79,7 +78,7 @@ public class PositionService {
     }
 
     @Transactional
-    public UUID addPosition(PositionCreatePayloadDTO payloadDTO) {
+    public Long addPosition(PositionCreatePayloadDTO payloadDTO) {
         if (positionRepository.existsByName(payloadDTO.name())) {
             throw new RuntimeException("position with name : %s already exist!".formatted(payloadDTO.name()));
         }

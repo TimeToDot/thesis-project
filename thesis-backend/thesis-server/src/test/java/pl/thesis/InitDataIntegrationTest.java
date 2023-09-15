@@ -9,23 +9,22 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit4.SpringRunner;
-import pl.thesis.ThesisApplication;
 import pl.thesis.data.account.*;
 import pl.thesis.data.account.model.*;
-import pl.thesis.data.project.model.*;
-import pl.thesis.data.task.model.*;
 import pl.thesis.data.position.PositionRepository;
 import pl.thesis.data.position.model.Position;
 import pl.thesis.data.project.AccountProjectRepository;
 import pl.thesis.data.project.BillingPeriodRepository;
 import pl.thesis.data.project.ProjectDetailsRepository;
 import pl.thesis.data.project.ProjectRepository;
+import pl.thesis.data.project.model.*;
 import pl.thesis.data.role.RoleRepository;
 import pl.thesis.data.role.model.Role;
 import pl.thesis.data.role.model.RoleType;
 import pl.thesis.data.task.TaskFormDetailsRepository;
 import pl.thesis.data.task.TaskFormRepository;
 import pl.thesis.data.task.TaskRepository;
+import pl.thesis.data.task.model.*;
 import pl.thesis.domain.paging.PagingSettings;
 
 import java.text.ParseException;
@@ -88,7 +87,6 @@ public class InitDataIntegrationTest {
     private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     @Test
-    //@Transactional
     public void contextLoads() {
         initData();
     }
@@ -99,29 +97,19 @@ public class InitDataIntegrationTest {
             log.info("Initialization data skipped. Entities already there");
             return;
         }
-
         sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
 
         var accounts = initAccount();
         var projects = initProjects(accounts);
         var taskForms = initTaskForms(projects);
-        var projectAdminRole = roleRepository.findByName(RoleType.ROLE_PROJECT_ADMIN).orElseThrow();
-        var projectModRole = roleRepository.findByName(RoleType.ROLE_PROJECT_MODERATOR).orElseThrow();
-        var projectUserRole = roleRepository.findByName(RoleType.ROLE_PROJECT_USER).orElseThrow();
-
-        var accountsRoles = Map.of(
-                projectAdminRole, accounts.get(0),
-                projectModRole, accounts.get(1),
-                projectUserRole, accounts.get(2)
-        );
+        var accountsRoles = getAccountRoles(accounts);
 
         for (Account account : accounts) {
             if (accountProjectRepository.findByAccountId(account.getId()).isPresent()) {
                 return;
             }
         }
-        var accountProjects = initAccountProjects(projects,accountsRoles);
-
+        initAccountProjects(projects,accountsRoles);
 
         for (Account account : accounts) {
             var tasks = initTasks(account, taskForms);
@@ -129,10 +117,18 @@ public class InitDataIntegrationTest {
             taskRepository.saveAll(tasks);
         }
         ////tasks
+    }
 
+    private Map<Role, Account> getAccountRoles(List<Account> accounts) {
+        var projectAdminRole = roleRepository.findByName(RoleType.ROLE_PROJECT_ADMIN).orElseThrow();
+        var projectModRole = roleRepository.findByName(RoleType.ROLE_PROJECT_MODERATOR).orElseThrow();
+        var projectUserRole = roleRepository.findByName(RoleType.ROLE_PROJECT_USER).orElseThrow();
 
-
-
+        return Map.of(
+                projectAdminRole, accounts.get(0),
+                projectModRole, accounts.get(1),
+                projectUserRole, accounts.get(2)
+        );
     }
 
     private List<AccountProject> initAccountProjects(List<Project> projects, Map<Role, Account> roleAccountMap) {
@@ -269,7 +265,7 @@ public class InitDataIntegrationTest {
                 .holidayModifier(50)
                 .imagePath("path")
                 .overtimeModifier(20)
-                .build();;
+                .build();
 
         projectDetailsRepository.saveAll(List.of(projectDetails1, projectDetails2, projectDetails3));
 

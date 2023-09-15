@@ -8,19 +8,18 @@ import pl.thesis.data.project.model.AccountProject;
 import pl.thesis.data.project.model.ProjectAccountStatus;
 
 import java.util.Optional;
-import java.util.UUID;
 
-public interface AccountProjectRepository extends JpaRepository<AccountProject, UUID> {
-
-    @Transactional
-    Optional<Page<AccountProject>> findAllByAccountId(UUID id, Pageable pageable);
+public interface AccountProjectRepository extends JpaRepository<AccountProject, Long> {
 
     @Transactional
-    Optional<Page<AccountProject>> findAllByProjectIdAndStatus(UUID id, ProjectAccountStatus status, Pageable pageable);
+    Optional<Page<AccountProject>> findAllByAccountId(Long id, Pageable pageable);
 
     @Transactional
-    Optional<AccountProject> findByAccountId(UUID id);
+    Optional<Page<AccountProject>> findAllByProjectIdAndStatus(Long id, ProjectAccountStatus status, Pageable pageable);
 
     @Transactional
-    Optional<AccountProject> findByAccountIdAndProjectId(UUID accountId, UUID projectId);
+    Optional<AccountProject> findByAccountId(Long id);
+
+    @Transactional
+    Optional<AccountProject> findByAccountIdAndProjectId(Long accountId, Long projectId);
 }

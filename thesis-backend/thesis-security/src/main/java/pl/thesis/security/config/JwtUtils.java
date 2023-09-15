@@ -45,13 +45,6 @@ public class JwtUtils {
                 .build();
     }
 
-    public ResponseCookie getCleanJwtCookie() {
-        return ResponseCookie
-                .from(jwtCookie, "")
-                .path("/api")
-                .build();
-    }
-
     public String getLoginFromJwtToken(String token) {
         return Jwts
                 .parser()

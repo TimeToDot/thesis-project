@@ -9,7 +9,7 @@ import pl.thesis.api.ThesisController;
 import pl.thesis.api.global.model.BillingPeriodResponse;
 import pl.thesis.api.global.model.ContractResponse;
 import pl.thesis.domain.employee.EmployeeService;
-import pl.thesis.domain.project.ProjectService;
+import pl.thesis.domain.project.BillingPeriodService;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ public class SettingsController extends ThesisController {
 
     private final GlobalSettings globalSettings;
     private final EmployeeService employeeService;
-    private final ProjectService projectService;
+    private final BillingPeriodService billingPeriodService;
     private final GlobalMapper globalMapper;
 
     @PreAuthorize("hasAuthority('CAN_ADMIN_SETTINGS')")
@@ -54,7 +54,7 @@ public class SettingsController extends ThesisController {
     @PreAuthorize("hasAuthority('CAN_ADMIN_USERS')")
     @GetMapping("/billing-periods")
     public ResponseEntity<List<BillingPeriodResponse>> getBillingPeriods() {
-        var dto = projectService.getBillingPeriods();
+        var dto = billingPeriodService.getBillingPeriods();
         var response = dto.stream().map(globalMapper::mapToBillingPeriodResponse).toList();
 
         return ResponseEntity.ok(response);

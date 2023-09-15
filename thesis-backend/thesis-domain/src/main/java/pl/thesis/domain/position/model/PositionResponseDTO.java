@@ -4,11 +4,10 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 
 import java.util.Date;
-import java.util.UUID;
 
 @Builder
 public record PositionResponseDTO(
-        UUID id,
+        Long id,
         String name,
         String description,
         @JsonFormat(pattern = "yyyy-MM-dd")

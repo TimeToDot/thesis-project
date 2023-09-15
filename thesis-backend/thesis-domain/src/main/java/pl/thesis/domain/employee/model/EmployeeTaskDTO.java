@@ -5,13 +5,12 @@ import pl.thesis.domain.task.model.TaskFormDto;
 import pl.thesis.domain.task.model.TaskStatusDTO;
 
 import java.util.Date;
-import java.util.UUID;
 
 @Builder
 public record EmployeeTaskDTO(
-        UUID id,
+        Long id,
 
-        UUID employeeId,
+        Long employeeId,
 
         Date startDate,
         Date endDate,

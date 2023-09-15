@@ -1,6 +1,8 @@
 package pl.thesis.data.message.model;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.Hibernate;
 import pl.thesis.data.account.model.Account;
@@ -8,7 +10,6 @@ import pl.thesis.data.account.model.Account;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
-import java.util.UUID;
 
 @Getter
 @ToString
@@ -19,8 +20,8 @@ import java.util.UUID;
 public class AccountMessage {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private UUID id;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
   private String data;
 

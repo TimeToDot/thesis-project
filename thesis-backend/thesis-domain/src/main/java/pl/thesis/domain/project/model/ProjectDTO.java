@@ -5,18 +5,17 @@ import lombok.Builder;
 import pl.thesis.domain.employee.model.BillingPeriodDTO;
 
 import java.util.Date;
-import java.util.UUID;
 
 
 
 @Builder
 public record ProjectDTO(
-        UUID id,
+        Long id,
         String name,
         String description,
         BillingPeriodDTO billingPeriod,
         String image,
-        UUID moderatorId,
+        Long moderatorId,
         Integer employeesCount,
         @JsonFormat(pattern = "yyyy-MM-dd")
         Date creationDate,

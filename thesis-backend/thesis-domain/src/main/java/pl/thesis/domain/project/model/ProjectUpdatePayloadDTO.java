@@ -2,11 +2,9 @@ package pl.thesis.domain.project.model;
 
 import pl.thesis.domain.employee.model.BillingPeriodDTO;
 
-import java.util.UUID;
-
 public record ProjectUpdatePayloadDTO(
-        UUID projectId,
-        UUID moderatorId,
+        Long projectId,
+        Long moderatorId,
         String name,
         String description,
         BillingPeriodDTO billingPeriod,

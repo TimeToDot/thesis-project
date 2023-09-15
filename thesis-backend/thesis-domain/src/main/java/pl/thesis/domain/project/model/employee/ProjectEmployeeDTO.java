@@ -3,11 +3,10 @@ package pl.thesis.domain.project.model.employee;
 import lombok.Builder;
 
 import java.util.Date;
-import java.util.UUID;
 
 @Builder
 public record ProjectEmployeeDTO(
-        UUID projectEmployeeId,
+        Long projectEmployeeId,
         EmployeeDTO employee,
         Integer workingTime,
         Date joinDate,

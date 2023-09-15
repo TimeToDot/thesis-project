@@ -5,11 +5,10 @@ import pl.thesis.domain.employee.model.ContractDTO;
 import pl.thesis.domain.employee.model.SimplePositionDTO;
 
 import java.util.Date;
-import java.util.UUID;
 
 @Builder
 public record EmployeeDTO(
-    UUID employeeId,
+    Long employeeId,
     String firstName,
     String lastName,
     String email,

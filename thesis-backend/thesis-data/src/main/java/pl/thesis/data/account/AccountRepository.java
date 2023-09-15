@@ -10,12 +10,11 @@ import pl.thesis.data.account.model.StatusType;
 import pl.thesis.data.role.model.Role;
 
 import java.util.Optional;
-import java.util.UUID;
 
 @Repository
-public interface AccountRepository extends JpaRepository<Account, UUID> {
+public interface AccountRepository extends JpaRepository<Account, Long> {
 
-  Optional<Account> findById(UUID id);
+  Optional<Account> findById(Long id);
 
   Page<Account> findAllByStatus(StatusType status, Pageable pageable);
 

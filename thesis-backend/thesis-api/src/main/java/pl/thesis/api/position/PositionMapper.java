@@ -3,7 +3,7 @@ package pl.thesis.api.position;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
-import pl.thesis.api.converter.UuidConverter;
+import pl.thesis.api.converter.IdConverter;
 import pl.thesis.api.employee.model.SimplePositionResponse;
 import pl.thesis.api.position.model.PositionCreatePayload;
 import pl.thesis.api.position.model.PositionResponse;
@@ -16,7 +16,7 @@ import pl.thesis.domain.position.model.PositionResponseDTO;
 import pl.thesis.domain.position.model.PositionUpdatePayloadDTO;
 import pl.thesis.domain.position.model.PositionsResponseDTO;
 
-@Mapper(config = MapStructConfig.class, uses = UuidConverter.class)
+@Mapper(config = MapStructConfig.class, uses = IdConverter.class)
 public interface PositionMapper {
 
     PositionMapper INSTANCE = Mappers.getMapper(PositionMapper.class);
@@ -25,8 +25,8 @@ public interface PositionMapper {
     SimplePositionResponse mapToSimplePositionResponse(SimplePositionDTO dto);
 
     PositionCreatePayloadDTO mapToPositionCreatePayloadDto(PositionCreatePayload payload);
-    @Mapping(target = "id", source = "positionId", qualifiedByName = {"mapToId"})
-    PositionUpdatePayloadDTO mapToPositionUpdatePayloadDto(PositionUpdatePayload payload, String positionId);
+    @Mapping(target = "id", source = "positionId")
+    PositionUpdatePayloadDTO mapToPositionUpdatePayloadDto(PositionUpdatePayload payload, Long positionId);
     @Mapping(target = "id", source = "id", qualifiedByName = {"mapToText"})
     PositionResponse mapToPositionResponse(PositionResponseDTO dto);
 

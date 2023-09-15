@@ -3,16 +3,15 @@ package pl.thesis.data.position;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import pl.thesis.data.position.model.PositionType;
 import pl.thesis.data.account.model.Account;
 import pl.thesis.data.position.model.Position;
+import pl.thesis.data.position.model.PositionType;
 
 import java.util.Optional;
-import java.util.UUID;
 
-public interface PositionRepository extends JpaRepository<Position, UUID> {
+public interface PositionRepository extends JpaRepository<Position, Long> {
 
-    Optional<Position> findById(UUID id);
+    Optional<Position> findById(Long id);
 
     Page<Position> findAllByStatus(PositionType positionType, Pageable pageable);
 

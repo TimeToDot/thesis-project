@@ -9,7 +9,6 @@ import pl.thesis.data.project.model.Project;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -21,8 +20,8 @@ import java.util.UUID;
 public class TaskForm {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private UUID id;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
   @OneToOne(mappedBy = "taskForm", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
   @ToString.Exclude

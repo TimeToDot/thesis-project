@@ -8,7 +8,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
-import java.util.UUID;
 
 @Slf4j
 @AllArgsConstructor
@@ -24,7 +23,7 @@ public class CustomPermissionEvaluator implements PermissionEvaluator {
         }
         String encyptedProjectId = ((String) targetDomainObject);
         var decryptedProjectId = symmetricEncryptor.decrypt(encyptedProjectId);
-        var projectId = UUID.fromString(decryptedProjectId);
+        var projectId = Long.parseLong(decryptedProjectId);
 
         return hasPrivilege(authentication, projectId, authority);
     }
@@ -36,14 +35,14 @@ public class CustomPermissionEvaluator implements PermissionEvaluator {
         if (authentication == null
                 || targetType == null
                 || !(permission instanceof String authority)
-                || !(targetId instanceof UUID projectId)) {
+                || !(targetId instanceof Long projectId)) {
             return false;
         }
 
         return hasPrivilege(authentication, projectId, authority);
     }
 
-    private boolean hasPrivilege(Authentication authentication, UUID projectId, String permission) {
+    private boolean hasPrivilege(Authentication authentication, Long projectId, String permission) {
         boolean isGranted = false;
         log.info("hasPrivilege, projectId: {},  permission: {}", projectId.toString(), permission);
         try{

@@ -12,7 +12,6 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Base64;
-import java.util.UUID;
 
 @Slf4j
 @Component
@@ -30,13 +29,12 @@ public class SymmetricEncryptor {
     }
 
 
-    public String encrypt(UUID input) {
+    public String encrypt(Long input) {
         try {
-            log.info("to encrypt: " + input);
             var cipher = Cipher.getInstance(algorithm);
             cipher.init(Cipher.ENCRYPT_MODE, key, ivParameterSpec);
-            var stringUuid = input.toString();
-            byte[] cipherText = cipher.doFinal(stringUuid.getBytes());
+            var stringLong = input.toString();
+            byte[] cipherText = cipher.doFinal(stringLong.getBytes());
             var encrypted = Base64.getUrlEncoder().encodeToString(cipherText) + "encv1";
             log.info("encrypted: " + encrypted);
 
@@ -74,6 +72,7 @@ public class SymmetricEncryptor {
     private IvParameterSpec generateIv() {
         byte[] iv = new byte[16];
         new SecureRandom().nextBytes(iv);
+
         return new IvParameterSpec(iv);
     }
 

@@ -1,9 +1,7 @@
 package pl.thesis.security.services.model;
 
-import java.util.UUID;
-
 public record ProjectPrivilege(
-        UUID id,
+        Long id,
         String privilege
 ) {
 }
