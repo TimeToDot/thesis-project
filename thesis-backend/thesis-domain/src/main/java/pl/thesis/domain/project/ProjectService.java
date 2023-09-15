@@ -7,7 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.thesis.data.account.AccountRepository;
 import pl.thesis.data.account.model.Account;
 import pl.thesis.data.account.model.StatusType;
-import pl.thesis.data.position.PositionRepository;
 import pl.thesis.data.project.AccountProjectRepository;
 import pl.thesis.data.project.BillingPeriodRepository;
 import pl.thesis.data.project.ProjectDetailsRepository;
@@ -16,15 +15,9 @@ import pl.thesis.data.project.model.*;
 import pl.thesis.data.role.RoleRepository;
 import pl.thesis.data.role.model.Role;
 import pl.thesis.data.role.model.RoleType;
-import pl.thesis.data.task.TaskFormDetailsRepository;
-import pl.thesis.data.task.TaskFormRepository;
-import pl.thesis.data.task.TaskRepository;
 import pl.thesis.domain.employee.EmployeeCalendarService;
 import pl.thesis.domain.employee.EmployeeService;
-import pl.thesis.domain.employee.mapper.EmployeeTasksDTOMapper;
 import pl.thesis.domain.paging.PagingSettings;
-import pl.thesis.domain.position.PositionMapperDTO;
-import pl.thesis.domain.project.mapper.BillingPeriodDTOMapper;
 import pl.thesis.domain.project.mapper.ProjectDTOMapper;
 import pl.thesis.domain.project.model.ProjectCreatePayloadDTO;
 import pl.thesis.domain.project.model.ProjectDTO;
@@ -213,7 +206,6 @@ public class ProjectService {
         var projectModRole = roleRepository.findByName(RoleType.ROLE_PROJECT_MODERATOR).orElseThrow();
 
         accountProject.setStatus(ProjectAccountStatus.EXPIRED_MOD);
-        // accountProjectRepository.delete(accountProject); currently not necessary
         accountProjectRepository.save(accountProject);
 
         var newAccountProject = AccountProject.builder()

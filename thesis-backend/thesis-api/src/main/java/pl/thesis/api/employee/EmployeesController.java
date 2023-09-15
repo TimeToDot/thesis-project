@@ -6,14 +6,13 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import pl.thesis.api.ThesisController;
 import pl.thesis.api.auth.mapper.AuthMapper;
-import pl.thesis.api.converter.IdConverter;
 import pl.thesis.api.employee.mapper.*;
 import pl.thesis.api.employee.model.EmployeePasswordPayload;
 import pl.thesis.api.employee.model.EmployeeResponse;
 import pl.thesis.api.employee.model.EmployeeUpdatePayload;
-import pl.thesis.api.converter.model.ThesisId;
 import pl.thesis.api.employee.model.calendar.CalendarTask;
 import pl.thesis.api.employee.model.project.EmployeeProjectsToApproveResponse;
 import pl.thesis.api.employee.model.project.temp.EmployeeProjectTempResponse;
@@ -25,7 +24,9 @@ import pl.thesis.domain.employee.EmployeeCalendarService;
 import pl.thesis.domain.employee.EmployeeProjectsService;
 import pl.thesis.domain.employee.EmployeeService;
 import pl.thesis.domain.employee.EmployeeTasksService;
+import pl.thesis.security.converter.IdConverter;
 import pl.thesis.security.services.AuthService;
+import pl.thesis.security.services.model.ThesisId;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -71,7 +72,7 @@ public class EmployeesController extends ThesisController {
         return ResponseEntity.ok(response.employees());
     }
 
-    @GetMapping("/{employeeId}")
+    @GetMapping(path = "/{employeeId}", consumes = "application/json", produces = "application/json")
     @PreAuthorize("hasAuthority('CAN_READ')")
     public ResponseEntity<EmployeeResponse> getEmployee(
             @PathVariable ThesisId employeeId
@@ -119,7 +120,7 @@ public class EmployeesController extends ThesisController {
 
         log.debug("controller: employeeId: {}, page: {}, size: {}", employeeId.id(), settings.getPage(), settings.getSize());
 
-        var employeeProjectsDTO = employeeProjectsService.getEmployeeProjects(employeeId.id(), settings);
+        var employeeProjectsDTO = employeeProjectsService.getEmployeeProjectToApproveList(employeeId.id(), settings);
         var employeeProjectsResponse = employeeProjectsMapper.mapTemp(employeeProjectsDTO);
 
         return ResponseEntity.ok(employeeProjectsResponse.projects());
@@ -258,7 +259,7 @@ public class EmployeesController extends ThesisController {
     }
 
     @PreAuthorize("hasAuthority('CAN_CREATE_USERS')")
-    @PostMapping
+    @PostMapping(consumes = "application/json", produces = "application/json")
     public ResponseEntity<Long> addEmployee(
             @RequestBody AuthorizationTemp authorizationPayload
     ) {
@@ -268,11 +269,13 @@ public class EmployeesController extends ThesisController {
         }
 
         var dto = authMapper.mapToAuthorizationDTO(authorizationPayload);
-
         var response = authService.addUser(dto);
+        var location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(response)
+                .toUri();
 
-
-        return ResponseEntity.ok(response);
+        return ResponseEntity.created(location).body(response);
     }
 
 }

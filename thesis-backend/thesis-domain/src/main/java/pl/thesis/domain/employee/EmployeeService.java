@@ -77,20 +77,9 @@ public class EmployeeService {
     public Long updateEmployee(EmployeeUpdatePayloadDTO payloadDTO) throws ParseException {
         var account = accountRepository.findById(payloadDTO.id()).orElseThrow();
         var accountDetails = accountDetailsRepository.findByAccount(account).orElseThrow();
-        Sex sex = sexRepository.findByName(payloadDTO.sex().name()).orElseThrow();
-        Country country = countryRepository
-                .findByName(payloadDTO.country().name())
-                .orElseGet(() -> {
-                    var c = Country.builder()
-                            .id(payloadDTO.country().id())
-                            .name(payloadDTO.country().name())
-                            .build();
-
-                    countryRepository.save(c);
-
-                    return c;
-                });
-        ContractType contractType = contractTypeRepository.findByName(payloadDTO.contractType().name()).orElseThrow();
+        var sex = sexRepository.findByName(payloadDTO.sex().name()).orElseThrow();
+        var country = getCountry(payloadDTO);
+        var contractType = contractTypeRepository.findByName(payloadDTO.contractType().name()).orElseThrow();
 
         setAccountFields(payloadDTO, account);
         setAccountDetailsFields(payloadDTO, accountDetails, sex, country, contractType);
@@ -135,6 +124,20 @@ public class EmployeeService {
                 .build();
     }
 
+    private Country getCountry(EmployeeUpdatePayloadDTO payloadDTO) {
+        return countryRepository
+                .findByName(payloadDTO.country().name())
+                .orElseGet(() -> {
+                    var c = Country.builder()
+                            .id(payloadDTO.country().id())
+                            .name(payloadDTO.country().name())
+                            .build();
+
+                    countryRepository.save(c);
+
+                    return c;
+                });
+    }
     private void setAccountDetailsFields(EmployeeUpdatePayloadDTO payloadDTO, AccountDetails accountDetails, Sex sex, Country country, ContractType contractType) throws ParseException {
         accountDetails.setName(payloadDTO.firstName());
         accountDetails.setSurname(payloadDTO.lastName());

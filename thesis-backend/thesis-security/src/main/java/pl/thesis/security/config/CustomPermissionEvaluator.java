@@ -6,6 +6,7 @@ import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
+import pl.thesis.security.services.model.ThesisId;
 
 import java.io.Serializable;
 
@@ -21,8 +22,8 @@ public class CustomPermissionEvaluator implements PermissionEvaluator {
         if ((authentication == null) || (targetDomainObject == null) || !(permission instanceof String authority)){
             return false;
         }
-        String encyptedProjectId = ((String) targetDomainObject);
-        var decryptedProjectId = symmetricEncryptor.decrypt(encyptedProjectId);
+        var encryptedProjectId = ((ThesisId) targetDomainObject).id().toString();
+        var decryptedProjectId = symmetricEncryptor.decrypt(encryptedProjectId);
         var projectId = Long.parseLong(decryptedProjectId);
 
         return hasPrivilege(authentication, projectId, authority);
@@ -45,6 +46,7 @@ public class CustomPermissionEvaluator implements PermissionEvaluator {
     private boolean hasPrivilege(Authentication authentication, Long projectId, String permission) {
         boolean isGranted = false;
         log.info("hasPrivilege, projectId: {},  permission: {}", projectId.toString(), permission);
+
         try{
             var auths = authentication
                     .getAuthorities()

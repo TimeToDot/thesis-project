@@ -3,7 +3,7 @@ package pl.thesis.api.position;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
-import pl.thesis.api.converter.IdConverter;
+import pl.thesis.security.converter.IdConverter;
 import pl.thesis.api.employee.model.SimplePositionResponse;
 import pl.thesis.api.position.model.PositionCreatePayload;
 import pl.thesis.api.position.model.PositionResponse;

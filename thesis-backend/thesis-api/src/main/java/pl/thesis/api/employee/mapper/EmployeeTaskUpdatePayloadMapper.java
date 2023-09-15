@@ -2,8 +2,8 @@ package pl.thesis.api.employee.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import pl.thesis.api.converter.IdConverter;
-import pl.thesis.api.converter.model.ThesisId;
+import pl.thesis.security.converter.IdConverter;
+import pl.thesis.security.services.model.ThesisId;
 import pl.thesis.api.employee.model.task.EmployeeTaskUpdatePayload;
 import pl.thesis.api.employee.model.task.temp.EmployeeTaskTemp;
 import pl.thesis.domain.employee.model.EmployeeTaskUpdatePayloadDTO;

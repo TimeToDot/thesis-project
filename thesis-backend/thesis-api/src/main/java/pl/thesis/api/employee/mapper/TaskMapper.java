@@ -4,7 +4,7 @@ package pl.thesis.api.employee.mapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
-import pl.thesis.api.converter.IdConverter;
+import pl.thesis.security.converter.IdConverter;
 import pl.thesis.api.employee.model.task.TaskResponse;
 import pl.thesis.api.employee.model.task.temp.TaskTemp;
 import pl.thesis.domain.mapper.MapStructConfig;

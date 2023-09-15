@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pl.thesis.api.ThesisController;
-import pl.thesis.api.converter.model.ThesisId;
+import pl.thesis.security.services.model.ThesisId;
 import pl.thesis.api.employee.mapper.CalendarMapper;
 import pl.thesis.api.employee.mapper.EmployeeTasksMapper;
 import pl.thesis.api.employee.model.calendar.CalendarTask;

@@ -2,7 +2,7 @@ package pl.thesis.api.project.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import pl.thesis.api.converter.IdConverter;
+import pl.thesis.security.converter.IdConverter;
 import pl.thesis.api.employee.model.project.temp.ProjectTempResponse;
 import pl.thesis.api.global.GlobalMapper;
 import pl.thesis.api.position.PositionMapper;
