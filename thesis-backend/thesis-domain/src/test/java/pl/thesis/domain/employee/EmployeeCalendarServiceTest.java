@@ -18,15 +18,12 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)
-public class EmployeeServiceTest {
+public class EmployeeCalendarServiceTest {
 
     private List<Task> taskList;
 
     @InjectMocks
-    private EmployeeService employeeService;
-
-    @InjectMocks
-    private EmployeeCalendarService employeeCalendarService;
+    private EmployeeCalendarServiceDefault employeeCalendarService;
 
     @BeforeEach
     public void initData() throws ParseException {

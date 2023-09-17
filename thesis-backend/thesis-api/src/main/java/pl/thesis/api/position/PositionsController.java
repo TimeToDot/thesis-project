@@ -5,12 +5,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pl.thesis.api.ThesisController;
-import pl.thesis.security.converter.IdConverter;
-import pl.thesis.security.services.model.ThesisId;
 import pl.thesis.api.position.model.PositionCreatePayload;
 import pl.thesis.api.position.model.PositionResponse;
 import pl.thesis.api.position.model.PositionUpdatePayload;
 import pl.thesis.domain.position.PositionService;
+import pl.thesis.security.converter.IdConverter;
+import pl.thesis.security.services.model.ThesisId;
 
 import java.util.List;
 

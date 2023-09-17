@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pl.thesis.api.ThesisController;
-import pl.thesis.security.services.model.ThesisId;
 import pl.thesis.api.employee.mapper.CalendarMapper;
 import pl.thesis.api.employee.mapper.EmployeeTasksMapper;
 import pl.thesis.api.employee.model.calendar.CalendarTask;
@@ -25,10 +24,10 @@ import pl.thesis.api.project.model.employee.ProjectEmployeesResponse;
 import pl.thesis.api.project.model.task.ProjectTaskCreatePayload;
 import pl.thesis.api.project.model.task.ProjectTaskDetails;
 import pl.thesis.api.project.model.task.ProjectTaskUpdatePayload;
-import pl.thesis.domain.employee.EmployeeService;
 import pl.thesis.domain.project.ProjectEmployeeService;
 import pl.thesis.domain.project.ProjectService;
 import pl.thesis.domain.project.ProjectTaskService;
+import pl.thesis.security.services.model.ThesisId;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -43,7 +42,6 @@ public class ProjectsController extends ThesisController {
     private final ProjectService projectService;
     private final ProjectEmployeeService projectEmployeeService;
     private final ProjectTaskService projectTaskService;
-    private final EmployeeService employeeService;
     private final CalendarMapper calendarMapper;
     private final EmployeeTasksMapper employeeTasksMapper;
     private final ProjectMapper projectMapper;
