@@ -31,8 +31,9 @@ The [backend-thesis](../README.md) module has the following sub-modules:
 >
 > - set up postgres using command: `make postgres`
 > - create db using command: `make createdb`
-> - run migration using command: `make migrateup`. if you don't have installed make engine, just go to .Makefile file and run command assigned to the one written above.
->
+> - run migration using command: `make migrateup`. For migration golang-migrate project was used. For install: 
+> - - use documentation -> https://github.com/golang-migrate/migrate/tree/master/cmd/migrate 
+> - - or execute `brew install golang-migrate` for MacOS or using Scoop for Windows `scoop install migrate`
 > 4.  compile project using command: `./mvnw clean install`.
 > 5.  go to [thesis-server](/thesis-server) folder
 > 6.  run server using command: `../mvnw spring-boot:run `
@@ -47,7 +48,6 @@ The [backend-thesis](../README.md) module has the following sub-modules:
 
 > ### TO DO
 >
-> - employees endpoints
-> - project endpoints
-> - projects endpoints
-> - position endpoints
+> - JUNIT tests for thesis-domain module
+> - contract test for thesis-api module
+> - dockerization
