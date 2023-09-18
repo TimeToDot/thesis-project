@@ -1,7 +1,6 @@
 package pl.thesis.api.employee.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import pl.thesis.api.employee.CountryResponse;
 import pl.thesis.api.position.model.PositionResponse;
 import pl.thesis.security.services.model.ContractSec;
 import pl.thesis.security.services.model.SexSec;

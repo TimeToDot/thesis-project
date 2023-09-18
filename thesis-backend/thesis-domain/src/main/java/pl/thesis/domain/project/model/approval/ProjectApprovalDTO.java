@@ -5,11 +5,10 @@ import lombok.Builder;
 import pl.thesis.domain.project.model.employee.EmployeeDTO;
 
 import java.util.Date;
-import java.util.UUID;
 
 @Builder
 public record ProjectApprovalDTO(
-        UUID projectEmployeeId,
+        Long projectEmployeeId,
         EmployeeDTO employee,
         ApprovalStatus status,
         @JsonFormat(pattern = "yyyy-MM-dd")

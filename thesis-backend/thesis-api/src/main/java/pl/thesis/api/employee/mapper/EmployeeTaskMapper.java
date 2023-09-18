@@ -3,7 +3,7 @@ package pl.thesis.api.employee.mapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
-import pl.thesis.api.converter.UuidConverter;
+import pl.thesis.security.converter.IdConverter;
 import pl.thesis.api.employee.model.task.EmployeeTaskResponse;
 import pl.thesis.api.employee.model.task.temp.EmployeeTaskTemp;
 import pl.thesis.api.project.mapper.ProjectMapper;
@@ -22,7 +22,7 @@ import java.util.Date;
                 EmployeeProjectMapper.class,
                 ProjectMapper.class,
                 TaskMapper.class,
-                UuidConverter.class
+                IdConverter.class
         }
 )
 public interface EmployeeTaskMapper {

@@ -1,5 +1,6 @@
 package pl.thesis.api.auth;
 
+import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -16,6 +17,11 @@ import pl.thesis.security.services.AuthService;
 
 import javax.validation.Valid;
 
+
+/*
+* for features in future
+* */
+@Hidden
 @CrossOrigin(origins = "*", maxAge = 3600)
 @AllArgsConstructor
 @RequestMapping("/api/authorization")

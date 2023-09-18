@@ -4,7 +4,7 @@ package pl.thesis.api.employee.mapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
-import pl.thesis.api.converter.UuidConverter;
+import pl.thesis.security.converter.IdConverter;
 import pl.thesis.api.employee.model.task.EmployeeTaskCreatePayload;
 import pl.thesis.api.employee.model.task.temp.EmployeeTaskTemp;
 import pl.thesis.domain.employee.model.EmployeeTaskCreatePayloadDTO;
@@ -15,7 +15,7 @@ import java.util.Date;
 
 @Mapper(
         config = MapStructConfig.class,
-        uses = UuidConverter.class
+        uses = IdConverter.class
 )
 public interface EmployeeTaskCreatePayloadMapper {
     EmployeeTaskCreatePayloadMapper INSTANCE = Mappers.getMapper(EmployeeTaskCreatePayloadMapper.class);

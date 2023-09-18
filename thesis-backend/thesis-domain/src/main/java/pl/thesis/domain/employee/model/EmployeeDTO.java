@@ -3,11 +3,10 @@ package pl.thesis.domain.employee.model;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.Date;
-import java.util.UUID;
 
 @Schema(description = "Information about account.")
 public record EmployeeDTO(
-        UUID id,
+        Long id,
         String firstName,
         String lastName,
         String middleName,

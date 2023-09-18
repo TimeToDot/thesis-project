@@ -4,7 +4,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 public record EmployeeProjectsToApprovePayload(
 
@@ -12,6 +11,6 @@ public record EmployeeProjectsToApprovePayload(
         Date startDate,
         @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
         Date endDate,
-        List<UUID> projectIds
+        List<Long> projectIds
 ) {
 }

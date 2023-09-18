@@ -1,9 +1,7 @@
 package pl.thesis.domain.position.model;
 
-import java.util.UUID;
-
 public record PositionUpdatePayloadDTO(
-        UUID id,
+        Long id,
         String name,
         String description,
         Boolean active

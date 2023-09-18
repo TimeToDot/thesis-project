@@ -1,9 +1,7 @@
 package pl.thesis.domain.employee.model;
 
-import java.util.UUID;
-
 public record PasswordUpdatePayloadDTO(
-        UUID id,
+        Long id,
         String password
 ) {
 }

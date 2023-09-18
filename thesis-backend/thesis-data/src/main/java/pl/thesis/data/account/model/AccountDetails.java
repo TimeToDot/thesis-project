@@ -12,7 +12,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
 import java.util.Objects;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -24,8 +23,9 @@ import java.util.UUID;
 public class AccountDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(columnDefinition = "serial")
+    private Long id;
 
     @OneToOne
     @JoinColumn(name = "account_id", referencedColumnName = "id", nullable = false)

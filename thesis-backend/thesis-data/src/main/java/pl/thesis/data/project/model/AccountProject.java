@@ -10,7 +10,6 @@ import pl.thesis.data.role.model.Role;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -22,9 +21,9 @@ import java.util.UUID;
 public class AccountProject {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false, columnDefinition = "serial")
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "project_id")

@@ -2,14 +2,12 @@ package pl.thesis.domain.customer;
 
 import lombok.Builder;
 
-import java.util.UUID;
-
 /**
-
+DTO for tests
  */
 @Builder
 public record CustomerDto (
-        UUID customerId,
+        Long customerId,
         String login,
         String name,
         String surname,

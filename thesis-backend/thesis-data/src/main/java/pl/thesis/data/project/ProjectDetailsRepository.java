@@ -5,9 +5,8 @@ import pl.thesis.data.project.model.Project;
 import pl.thesis.data.project.model.ProjectDetails;
 
 import java.util.Optional;
-import java.util.UUID;
 
-public interface ProjectDetailsRepository extends JpaRepository<ProjectDetails, UUID> {
+public interface ProjectDetailsRepository extends JpaRepository<ProjectDetails, Long> {
 
     Optional<ProjectDetails> findByProject(Project project);
 }

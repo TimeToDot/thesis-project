@@ -6,11 +6,10 @@ import pl.thesis.domain.position.model.PositionResponseDTO;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
-import java.util.UUID;
 
 public record EmployeeUpdatePayloadDTO(
 
-        UUID id,
+        Long id,
 
         @NotBlank
         @Email

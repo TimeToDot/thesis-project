@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.thesis.data.account.AccountRepository;
 import pl.thesis.data.account.model.Account;
-import pl.thesis.data.project.AccountProjectRepository;
 import pl.thesis.security.services.mapper.UserDetailsMapper;
 
 @Slf4j
@@ -18,7 +17,6 @@ import pl.thesis.security.services.mapper.UserDetailsMapper;
 public class UserDetailsServiceDefault implements UserDetailsService {
 
     private final AccountRepository accountRepository;
-    private final AccountProjectRepository accountProjectRepository;
     private final UserDetailsMapper userDetailsMapper;
 
     @Transactional

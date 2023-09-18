@@ -2,7 +2,7 @@ package pl.thesis.api.project.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import pl.thesis.api.converter.UuidConverter;
+import pl.thesis.security.converter.IdConverter;
 import pl.thesis.api.employee.model.project.temp.ProjectTempResponse;
 import pl.thesis.api.global.GlobalMapper;
 import pl.thesis.api.position.PositionMapper;
@@ -35,14 +35,13 @@ import pl.thesis.domain.project.model.task.ProjectTaskUpdatePayloadDTO;
 import pl.thesis.domain.project.model.task.ProjectTasksDetailsDTO;
 
 import java.util.List;
-import java.util.UUID;
 
 @Mapper(
         config = MapStructConfig.class,
         uses = {
                 GlobalMapper.class,
                 PositionMapper.class,
-                UuidConverter.class
+                IdConverter.class
         }
 )
 public interface ProjectMapper {
@@ -50,12 +49,12 @@ public interface ProjectMapper {
     @Mapping(target = "moderatorId", source = "moderatorId", qualifiedByName = {"mapToId"})
     ProjectCreatePayloadDTO mapToCreatePayloadDto(ProjectCreatePayload payload);
 
-    @Mapping(target = "projectId", source = "projectId", qualifiedByName = {"mapToId"})
+    @Mapping(target = "projectId", source = "projectId")
     @Mapping(target = "moderatorId", source = "payload.moderatorId", qualifiedByName = {"mapToId"})
-    ProjectUpdatePayloadDTO mapToUpdatePayloadDto(ProjectUpdatePayload payload, String projectId);
+    ProjectUpdatePayloadDTO mapToUpdatePayloadDto(ProjectUpdatePayload payload, Long projectId);
 
     @Mapping(target = "moderatorId", source = "payload.moderatorId", qualifiedByName = {"mapToId"})
-    ProjectUpdatePayloadDTO mapToDto(ProjectUpdatePayload payload, UUID projectId);
+    ProjectUpdatePayloadDTO mapToDto(ProjectUpdatePayload payload, Long projectId);
 
     @Mapping(target = "id", source = "id", qualifiedByName = {"mapToText"})
     @Mapping(target = "moderatorId", source = "moderatorId", qualifiedByName = {"mapToText"})
@@ -76,10 +75,10 @@ public interface ProjectMapper {
 
     @Mapping(target = "id", source = "payload.id", qualifiedByName = {"mapToId"})
     @Mapping(target = "projectId", source = "projectId", qualifiedByName = {"mapToId"})
-    ProjectTaskUpdatePayloadDTO mapToProjectTaskUpdatePayloadDTO(ProjectTaskUpdatePayload payload, UUID projectId);
+    ProjectTaskUpdatePayloadDTO mapToProjectTaskUpdatePayloadDTO(ProjectTaskUpdatePayload payload, Long projectId);
 
     @Mapping(target = "projectId", source = "projectId", qualifiedByName = {"mapToId"})
-    ProjectTaskCreatePayloadDTO mapToProjectTaskCreatePayloadDTO(ProjectTaskCreatePayload payload, UUID projectId);
+    ProjectTaskCreatePayloadDTO mapToProjectTaskCreatePayloadDTO(ProjectTaskCreatePayload payload, Long projectId);
 
     //employees
     @Mapping(target = "projectEmployeeId", source = "projectEmployeeId", qualifiedByName = {"mapToText"})
@@ -90,11 +89,11 @@ public interface ProjectMapper {
 
     @Mapping(target = "projectId", source = "projectId", qualifiedByName = {"mapToId"})
     @Mapping(target = "employeeId", source = "payload.employeeId", qualifiedByName = {"mapToId"})
-    ProjectEmployeeCreatePayloadDTO mapToProjectEmployeeCreatePayloadDTO(ProjectEmployeeCreatePayload payload, UUID projectId);
+    ProjectEmployeeCreatePayloadDTO mapToProjectEmployeeCreatePayloadDTO(ProjectEmployeeCreatePayload payload, Long projectId);
 
     @Mapping(target = "projectId", source = "projectId", qualifiedByName = {"mapToId"})
     @Mapping(target = "projectEmployeeId", source = "projectEmployeeId", qualifiedByName = {"mapToId"})
-    ProjectEmployeeUpdatePayloadDTO mapToProjectEmployeeUpdatePayloadDTO(ProjectEmployeeUpdatePayload payload, UUID projectId, UUID projectEmployeeId);
+    ProjectEmployeeUpdatePayloadDTO mapToProjectEmployeeUpdatePayloadDTO(ProjectEmployeeUpdatePayload payload, Long projectId, Long projectEmployeeId);
 
     ProjectEmployeesResponse mapToProjectEmployeesResponse(ProjectEmployeesDTO dto);
 
@@ -105,10 +104,10 @@ public interface ProjectMapper {
 
     ProjectApprovalsResponse mapToProjectApprovalsResponse(ProjectApprovalsDTO dto);
 
-    @Mapping(target = "projectId", source = "projectId", qualifiedByName = {"mapToId"})
-    @Mapping(target = "accountProjectId", source = "accountProjectId", qualifiedByName = {"mapToId"})
+    @Mapping(target = "projectId", source = "projectId")
+    @Mapping(target = "accountProjectId", source = "accountProjectId")
     @Mapping(target = "tasks", source = "tasks", qualifiedByName = {"mapToIdList"})
-    ProjectApprovalTasksPayloadDTO mapToProjectApprovalTasksPayloadDTO(List<String> tasks, String projectId, String accountProjectId);
+    ProjectApprovalTasksPayloadDTO mapToProjectApprovalTasksPayloadDTO(List<String> tasks, Long projectId, Long accountProjectId);
 
     @Mapping(target = "projectEmployeeId", source = "projectEmployeeId", qualifiedByName = {"mapToText"})
     @Mapping(target = "employeeId", source = "employeeId", qualifiedByName = {"mapToText"})

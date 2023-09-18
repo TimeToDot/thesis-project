@@ -8,7 +8,6 @@ import lombok.experimental.SuperBuilder;
 import pl.thesis.data.role.model.Role;
 
 import javax.persistence.*;
-import java.util.UUID;
 
 @ToString
 @RequiredArgsConstructor
@@ -19,9 +18,9 @@ import java.util.UUID;
 @Table(name = "account_role")
 public class AccountRole {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false, columnDefinition = "serial")
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "role_id")

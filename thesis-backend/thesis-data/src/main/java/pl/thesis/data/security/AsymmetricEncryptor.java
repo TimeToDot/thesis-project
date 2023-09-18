@@ -13,8 +13,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.*;
 import java.security.spec.InvalidKeySpecException;
@@ -37,28 +35,13 @@ public class AsymmetricEncryptor {
 
     @PostConstruct
     private void init() {
-        File f = new File(".");
-        Path tempPath = null;
-
-        if (f.exists()){
-            tempPath = Paths.get(f.getAbsolutePath());
-
-            if (f.getAbsolutePath().endsWith("thesis-server/.")){
-                log.info(tempPath.toAbsolutePath().toString());
-                tempPath = tempPath.getParent().getParent().getParent();
-            }
-        }
-
-        path = tempPath.toAbsolutePath().toString();
-
-        //path = "thesis-project";
+        path = getPath();
         log.info(path);
 
         if (path == null){
             log.error(path);
             throw new RuntimeException("path does not exist");
         }
-
         if (!isKeysExist()) {
             log.info("Generate keys");
             KeyPair keyPair = generateKeys();
@@ -77,15 +60,17 @@ public class AsymmetricEncryptor {
 
             throw new RuntimeException(message);
         }
-        // Test
-        String plainText = "This is a  secret message";
-        /* Encrypting plain text to ciphertext */
-        String encryptedText = encryptText(plainText);
-        log.info("Encrypted text = " + encryptedText);
+    }
 
-        /* Decrypting encrypted text back to plain text */
-        String decryptedText = decryptText(encryptedText);
-        log.info("Decrypted text = " + decryptedText);
+    private String getPath() {
+        File f = new File(".");
+        var tempPath = Paths.get(f.getAbsolutePath());
+
+        if (f.getAbsolutePath().endsWith("thesis-server/.")){
+            tempPath = tempPath.getParent().getParent().getParent();
+        }
+
+        return tempPath.toAbsolutePath().toString();
     }
 
     public String encryptText(String plainText){
@@ -166,7 +151,6 @@ public class AsymmetricEncryptor {
     }
 
     private void saveKeysToFiles(PublicKey publicKey, PrivateKey privateKey){
-
         FileOutputStream fos = null;
 
         try {

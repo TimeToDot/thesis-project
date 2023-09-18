@@ -13,7 +13,6 @@ import pl.thesis.data.task.model.Task;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 
 
 @ToString
@@ -31,8 +30,8 @@ import java.util.UUID;
 public class  Account {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String email;
 
@@ -51,13 +50,6 @@ public class  Account {
     @ToString.Exclude
     private Position position;
 
-/*    @ManyToMany
-    @LazyCollection(LazyCollectionOption.FALSE)
-    @ToString.Exclude
-    @JoinTable(
-            name = "account_role",
-            joinColumns = @JoinColumn(name = "account_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))*/
     @OneToMany(mappedBy = "account")
     private List<AccountRole> accountRoles;
 

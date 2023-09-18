@@ -1,7 +1,6 @@
 package pl.thesis.security.services.model;
 
 import java.util.Date;
-import java.util.UUID;
 
 public record AuthorizationSecurity(
 
@@ -23,7 +22,7 @@ public record AuthorizationSecurity(
         CountrySec country,
         String phoneNumber,
         String privateEmail,
-        UUID positionId,
+        Long positionId,
         Date employmentDate,
         ContractSec contractType,
         Integer workingTime,

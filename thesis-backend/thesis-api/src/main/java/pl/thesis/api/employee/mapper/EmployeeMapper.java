@@ -3,7 +3,8 @@ package pl.thesis.api.employee.mapper;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
-import pl.thesis.api.converter.UuidConverter;
+import pl.thesis.security.converter.IdConverter;
+import pl.thesis.security.services.model.ThesisId;
 import pl.thesis.api.employee.model.EmployeePasswordPayload;
 import pl.thesis.api.employee.model.EmployeeResponse;
 import pl.thesis.api.employee.model.EmployeeUpdatePayload;
@@ -19,7 +20,7 @@ import pl.thesis.domain.mapper.MapStructConfig;
         uses = {
                 PositionMapper.class,
                 GlobalMapper.class,
-                UuidConverter.class
+                IdConverter.class
         }
 )
 public interface EmployeeMapper {
@@ -29,9 +30,9 @@ public interface EmployeeMapper {
     @Mapping(target = "id", source = "id", qualifiedByName = {"mapToText"})
     EmployeeResponse map(EmployeeDTO employeeDTO);
 
-    @Mapping(target = "id", source = "id", qualifiedByName = {"mapToId"})
-    EmployeeUpdatePayloadDTO mapToEmployeeUpdatePayloadDto(EmployeeUpdatePayload payload, String id);
+    @Mapping(target = "id", source = "employee.id")
+    EmployeeUpdatePayloadDTO mapToEmployeeUpdatePayloadDto(EmployeeUpdatePayload payload, ThesisId employee);
 
-    @Mapping(target = "id", source = "id", qualifiedByName = {"mapToId"})
-    PasswordUpdatePayloadDTO mapToPasswordUpdatePayloadDto(EmployeePasswordPayload payload, String id);
+    @Mapping(target = "id", source = "employee.id")
+    PasswordUpdatePayloadDTO mapToPasswordUpdatePayloadDto(EmployeePasswordPayload payload, ThesisId employee);
 }

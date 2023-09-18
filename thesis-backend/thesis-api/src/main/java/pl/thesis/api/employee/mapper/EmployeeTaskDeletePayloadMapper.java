@@ -2,14 +2,14 @@ package pl.thesis.api.employee.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import pl.thesis.api.converter.UuidConverter;
+import pl.thesis.security.converter.IdConverter;
 import pl.thesis.api.employee.model.task.temp.EmployeeTaskTemp;
 import pl.thesis.domain.employee.model.EmployeeTaskDeletePayloadDTO;
 import pl.thesis.domain.mapper.MapStructConfig;
 
 @Mapper(
         config = MapStructConfig.class,
-        uses = UuidConverter.class
+        uses = IdConverter.class
 )
 public interface EmployeeTaskDeletePayloadMapper {
 

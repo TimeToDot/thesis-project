@@ -6,9 +6,8 @@ import pl.thesis.data.role.model.Role;
 import pl.thesis.data.role.model.RoleType;
 
 import java.util.Optional;
-import java.util.UUID;
 
 @Repository
-public interface RoleRepository extends JpaRepository<Role, UUID> {
+public interface RoleRepository extends JpaRepository<Role, Long> {
   Optional<Role> findByName(RoleType name);
 }

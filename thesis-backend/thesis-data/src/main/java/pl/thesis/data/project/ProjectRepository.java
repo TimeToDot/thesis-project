@@ -8,7 +8,6 @@ import pl.thesis.data.project.model.ProjectType;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 /**
  * <h1>ProjectRepository</h1>
@@ -18,7 +17,7 @@ import java.util.UUID;
  * @since TODO
  */
 @Repository
-public interface ProjectRepository extends JpaRepository<Project, UUID> {
+public interface ProjectRepository extends JpaRepository<Project, Long> {
   Optional<Project> findByName(String name);
 
   Optional<List<Project>> findAllByStatus(ProjectType status);

@@ -2,7 +2,8 @@ package pl.thesis.api.employee.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import pl.thesis.api.converter.UuidConverter;
+import pl.thesis.security.converter.IdConverter;
+import pl.thesis.security.services.model.ThesisId;
 import pl.thesis.api.employee.model.project.EmployeeProjectDetailsResponse;
 import pl.thesis.api.employee.model.project.EmployeeProjectResponse;
 import pl.thesis.api.employee.model.project.EmployeeProjectsToApprovePayload;
@@ -13,11 +14,9 @@ import pl.thesis.domain.employee.model.EmployeeProjectDetailsDTO;
 import pl.thesis.domain.employee.model.EmployeeProjectsApproveTemp;
 import pl.thesis.domain.mapper.MapStructConfig;
 
-import java.util.UUID;
-
 @Mapper(
         config = MapStructConfig.class,
-        uses = UuidConverter.class
+        uses = IdConverter.class
 )
 public interface EmployeeProjectMapper {
 
@@ -41,10 +40,10 @@ public interface EmployeeProjectMapper {
     @Mapping(target = "employeeId", source = "projectEmployeeId", qualifiedByName = {"mapToText"})
     EmployeeProjectTempResponse tempDetailsMap(EmployeeProjectDetailsDTO employeeDTO);
 
-    @Mapping(target = "id", source = "id", qualifiedByName = {"mapToId"})
+    @Mapping(target = "id", source = "employee.id")
     @Mapping(target = "projects", source = "payload.projects", qualifiedByName = {"mapToIdList"})
-    EmployeeProjectsApproveTemp mapToEmployeeProjectsApproveTemp(EmployeeProjectsApproveTempPayload payload, String id);
+    EmployeeProjectsApproveTemp mapToEmployeeProjectsApproveTemp(EmployeeProjectsApproveTempPayload payload, ThesisId employee);
 
-    EmployeeProjectsApproveTemp mapToDTO(EmployeeProjectsToApprovePayload payload, UUID id);
+    EmployeeProjectsApproveTemp mapToDTO(EmployeeProjectsToApprovePayload payload, Long id);
 
 }

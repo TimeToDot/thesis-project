@@ -67,7 +67,7 @@ public class AuthService {
     }
 
     @Transactional
-    public UUID addUser(AuthorizationSecurity authorizationSecurity){
+    public Long addUser(AuthorizationSecurity authorizationSecurity){
         //vor better times
         /*var strRoles = authorizationDTO.roles();
         List<Role> roles = new ArrayList<>();
@@ -188,10 +188,10 @@ public class AuthService {
                 .toList();
     }
 
-    private Map<UUID, List<String>> getProjectPrivileges(List<String> authorities) {
+    private Map<Long, List<String>> getProjectPrivileges(List<String> authorities) {
         FuncProjectPrivilege funcProjectPrivilege = s -> {
             var tab = s.split("#");
-            return new ProjectPrivilege(UUID.fromString(tab[0]), tab[1]);
+            return new ProjectPrivilege(Long.parseLong(tab[0]), tab[1]);
         };
 
         return authorities
@@ -207,7 +207,6 @@ public class AuthService {
                         )
                 );
     }
-
 
     @FunctionalInterface
     interface FuncProjectPrivilege {
